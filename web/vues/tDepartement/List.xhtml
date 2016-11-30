@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTDepartementTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListTDepartementEmpty}" rendered="#{tDepartementController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{tDepartementController.items.rowCount > 0}">
+                    <h:outputText value="#{tDepartementController.pagination.pageFirstItem + 1}..#{tDepartementController.pagination.pageLastItem + 1}/#{tDepartementController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{tDepartementController.previous}" value="#{bundle.Previous} #{tDepartementController.pagination.pageSize}" rendered="#{tDepartementController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{tDepartementController.next}" value="#{bundle.Next} #{tDepartementController.pagination.pageSize}" rendered="#{tDepartementController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{tDepartementController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDepartementTitle_depCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.depCode}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDepartementTitle_depLibelle}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.depLibelle}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{tDepartementController.prepareView}" value="#{bundle.ListTDepartementViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tDepartementController.prepareEdit}" value="#{bundle.ListTDepartementEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tDepartementController.destroy}" value="#{bundle.ListTDepartementDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{tDepartementController.prepareCreate}" value="#{bundle.ListTDepartementCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListTDepartementIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

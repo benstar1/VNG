@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTRepUniqueTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListTRepUniqueEmpty}" rendered="#{tRepUniqueController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{tRepUniqueController.items.rowCount > 0}">
+                    <h:outputText value="#{tRepUniqueController.pagination.pageFirstItem + 1}..#{tRepUniqueController.pagination.pageLastItem + 1}/#{tRepUniqueController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{tRepUniqueController.previous}" value="#{bundle.Previous} #{tRepUniqueController.pagination.pageSize}" rendered="#{tRepUniqueController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{tRepUniqueController.next}" value="#{bundle.Next} #{tRepUniqueController.pagination.pageSize}" rendered="#{tRepUniqueController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{tRepUniqueController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contNum}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contNum}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contDatenreg}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contDatenreg}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contImmatr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contImmatr}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contDateimmatr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contDateimmatr}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contReimmatr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contReimmatr}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contNom}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contNom}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contPren}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contPren}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contNomJf}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contNomJf}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contSexe}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contSexe}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contSitMat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contSitMat}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contDatnais}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contDatnais}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contLieunais}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contLieunais}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contBp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contBp}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contTel}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contTel}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contFax}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contFax}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contMail}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contMail}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contCarre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contCarre}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contLot}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contLot}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contRais}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contRais}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contNomCourt}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contNomCourt}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contNomLong}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contNomLong}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contDatcreat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contDatcreat}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contNompropsieg}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contNompropsieg}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contLoyer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contLoyer}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contCapital}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contCapital}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contNuminsae}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contNuminsae}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contDatenregInsae}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contDatenregInsae}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contNbEnf}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contNbEnf}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contCentrCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contCentrCode}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contProfCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contProfCode}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contFonctCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contFonctCode}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contNbEmpl}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contNbEmpl}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contQuart}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contQuart}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contCatEtabCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contCatEtabCode}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contModExpCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contModExpCode}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contContNum}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contContNum}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contOrdre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contOrdre}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contMemActMere}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contMemActMere}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contDateCessation}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contDateCessation}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contDateDeces}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contDateDeces}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contDateRepriseAct}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contDateRepriseAct}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contEnsCommerce}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contEnsCommerce}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contNationCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contNationCode}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contNeVers}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contNeVers}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contVille}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contVille}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contRue}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contRue}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contPrnompropsieg}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contPrnompropsieg}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contProp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contProp}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contMemBank}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contMemBank}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contNewImmatr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contNewImmatr}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contNuminsae1}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contNuminsae1}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contActif}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contActif}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contMatricule}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contMatricule}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contDateMajMatricule}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contDateMajMatricule}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contStatut}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contStatut}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_TEntDeclaration}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.TEntDeclaration}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_THistorique}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.THistorique}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contTypContCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contTypContCode}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRepUniqueTitle_contCentrImpCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contCentrImpCode}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{tRepUniqueController.prepareView}" value="#{bundle.ListTRepUniqueViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tRepUniqueController.prepareEdit}" value="#{bundle.ListTRepUniqueEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tRepUniqueController.destroy}" value="#{bundle.ListTRepUniqueDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{tRepUniqueController.prepareCreate}" value="#{bundle.ListTRepUniqueCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListTRepUniqueIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

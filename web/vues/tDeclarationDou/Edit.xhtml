@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditTDeclarationDouTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_instanceid}" for="instanceid" />
+                    <h:inputText id="instanceid" value="#{tDeclarationDouController.selected.instanceid}" title="#{bundle.EditTDeclarationDouTitle_instanceid}" required="true" requiredMessage="#{bundle.EditTDeclarationDouRequiredMessage_instanceid}"/>
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_rlsCuoCod}" for="rlsCuoCod" />
+                    <h:inputText id="rlsCuoCod" value="#{tDeclarationDouController.selected.rlsCuoCod}" title="#{bundle.EditTDeclarationDouTitle_rlsCuoCod}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_rlsCuoNam}" for="rlsCuoNam" />
+                    <h:inputText id="rlsCuoNam" value="#{tDeclarationDouController.selected.rlsCuoNam}" title="#{bundle.EditTDeclarationDouTitle_rlsCuoNam}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_rlsRef}" for="rlsRef" />
+                    <h:inputText id="rlsRef" value="#{tDeclarationDouController.selected.rlsRef}" title="#{bundle.EditTDeclarationDouTitle_rlsRef}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_rlsInf}" for="rlsInf" />
+                    <h:inputText id="rlsInf" value="#{tDeclarationDouController.selected.rlsInf}" title="#{bundle.EditTDeclarationDouTitle_rlsInf}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_rlsDat}" for="rlsDat" />
+                    <h:inputText id="rlsDat" value="#{tDeclarationDouController.selected.rlsDat}" title="#{bundle.EditTDeclarationDouTitle_rlsDat}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_rlsTim}" for="rlsTim" />
+                    <h:inputText id="rlsTim" value="#{tDeclarationDouController.selected.rlsTim}" title="#{bundle.EditTDeclarationDouTitle_rlsTim}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_prvDty}" for="prvDty" />
+                    <h:inputText id="prvDty" value="#{tDeclarationDouController.selected.prvDty}" title="#{bundle.EditTDeclarationDouTitle_prvDty}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ptyColDsc}" for="ptyColDsc" />
+                    <h:inputText id="ptyColDsc" value="#{tDeclarationDouController.selected.ptyColDsc}" title="#{bundle.EditTDeclarationDouTitle_ptyColDsc}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ptyColInd}" for="ptyColInd" />
+                    <h:inputText id="ptyColInd" value="#{tDeclarationDouController.selected.ptyColInd}" title="#{bundle.EditTDeclarationDouTitle_ptyColInd}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ptyBlu}" for="ptyBlu" />
+                    <h:inputText id="ptyBlu" value="#{tDeclarationDouController.selected.ptyBlu}" title="#{bundle.EditTDeclarationDouTitle_ptyBlu}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ptyRed}" for="ptyRed" />
+                    <h:inputText id="ptyRed" value="#{tDeclarationDouController.selected.ptyRed}" title="#{bundle.EditTDeclarationDouTitle_ptyRed}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ptyYel}" for="ptyYel" />
+                    <h:inputText id="ptyYel" value="#{tDeclarationDouController.selected.ptyYel}" title="#{bundle.EditTDeclarationDouTitle_ptyYel}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ptyGre}" for="ptyGre" />
+                    <h:inputText id="ptyGre" value="#{tDeclarationDouController.selected.ptyGre}" title="#{bundle.EditTDeclarationDouTitle_ptyGre}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ptyOas}" for="ptyOas" />
+                    <h:inputTextarea rows="4" cols="30" id="ptyOas" value="#{tDeclarationDouController.selected.ptyOas}" title="#{bundle.EditTDeclarationDouTitle_ptyOas}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ptyQue}" for="ptyQue" />
+                    <h:inputText id="ptyQue" value="#{tDeclarationDouController.selected.ptyQue}" title="#{bundle.EditTDeclarationDouTitle_ptyQue}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ptyWde}" for="ptyWde" />
+                    <h:inputText id="ptyWde" value="#{tDeclarationDouController.selected.ptyWde}" title="#{bundle.EditTDeclarationDouTitle_ptyWde}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ptyFrmNbr}" for="ptyFrmNbr" />
+                    <h:inputText id="ptyFrmNbr" value="#{tDeclarationDouController.selected.ptyFrmNbr}" title="#{bundle.EditTDeclarationDouTitle_ptyFrmNbr}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ptyFrmTot}" for="ptyFrmTot" />
+                    <h:inputText id="ptyFrmTot" value="#{tDeclarationDouController.selected.ptyFrmTot}" title="#{bundle.EditTDeclarationDouTitle_ptyFrmTot}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ptyNbrLdl}" for="ptyNbrLdl" />
+                    <h:inputText id="ptyNbrLdl" value="#{tDeclarationDouController.selected.ptyNbrLdl}" title="#{bundle.EditTDeclarationDouTitle_ptyNbrLdl}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ptyNbrItm}" for="ptyNbrItm" />
+                    <h:inputText id="ptyNbrItm" value="#{tDeclarationDouController.selected.ptyNbrItm}" title="#{bundle.EditTDeclarationDouTitle_ptyNbrItm}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ptyNbrPck}" for="ptyNbrPck" />
+                    <h:inputText id="ptyNbrPck" value="#{tDeclarationDouController.selected.ptyNbrPck}" title="#{bundle.EditTDeclarationDouTitle_ptyNbrPck}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ptyPlc}" for="ptyPlc" />
+                    <h:inputText id="ptyPlc" value="#{tDeclarationDouController.selected.ptyPlc}" title="#{bundle.EditTDeclarationDouTitle_ptyPlc}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ptyCde}" for="ptyCde" />
+                    <h:inputText id="ptyCde" value="#{tDeclarationDouController.selected.ptyCde}" title="#{bundle.EditTDeclarationDouTitle_ptyCde}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ideCuoCod}" for="ideCuoCod" />
+                    <h:inputText id="ideCuoCod" value="#{tDeclarationDouController.selected.ideCuoCod}" title="#{bundle.EditTDeclarationDouTitle_ideCuoCod}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ideCuoNam}" for="ideCuoNam" />
+                    <h:inputText id="ideCuoNam" value="#{tDeclarationDouController.selected.ideCuoNam}" title="#{bundle.EditTDeclarationDouTitle_ideCuoNam}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ideTypSad}" for="ideTypSad" />
+                    <h:inputText id="ideTypSad" value="#{tDeclarationDouController.selected.ideTypSad}" title="#{bundle.EditTDeclarationDouTitle_ideTypSad}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ideTypPrc}" for="ideTypPrc" />
+                    <h:inputText id="ideTypPrc" value="#{tDeclarationDouController.selected.ideTypPrc}" title="#{bundle.EditTDeclarationDouTitle_ideTypPrc}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ideTypTyp}" for="ideTypTyp" />
+                    <h:inputText id="ideTypTyp" value="#{tDeclarationDouController.selected.ideTypTyp}" title="#{bundle.EditTDeclarationDouTitle_ideTypTyp}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ideTypTrs}" for="ideTypTrs" />
+                    <h:inputText id="ideTypTrs" value="#{tDeclarationDouController.selected.ideTypTrs}" title="#{bundle.EditTDeclarationDouTitle_ideTypTrs}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ideMan}" for="ideMan" />
+                    <h:inputText id="ideMan" value="#{tDeclarationDouController.selected.ideMan}" title="#{bundle.EditTDeclarationDouTitle_ideMan}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ideBar}" for="ideBar" />
+                    <h:inputText id="ideBar" value="#{tDeclarationDouController.selected.ideBar}" title="#{bundle.EditTDeclarationDouTitle_ideBar}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ideRegSer}" for="ideRegSer" />
+                    <h:inputText id="ideRegSer" value="#{tDeclarationDouController.selected.ideRegSer}" title="#{bundle.EditTDeclarationDouTitle_ideRegSer}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ideRegNbr}" for="ideRegNbr" />
+                    <h:inputText id="ideRegNbr" value="#{tDeclarationDouController.selected.ideRegNbr}" title="#{bundle.EditTDeclarationDouTitle_ideRegNbr}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ideRegDat}" for="ideRegDat" />
+                    <h:inputText id="ideRegDat" value="#{tDeclarationDouController.selected.ideRegDat}" title="#{bundle.EditTDeclarationDouTitle_ideRegDat}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ideAstSer}" for="ideAstSer" />
+                    <h:inputText id="ideAstSer" value="#{tDeclarationDouController.selected.ideAstSer}" title="#{bundle.EditTDeclarationDouTitle_ideAstSer}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ideAstNbr}" for="ideAstNbr" />
+                    <h:inputText id="ideAstNbr" value="#{tDeclarationDouController.selected.ideAstNbr}" title="#{bundle.EditTDeclarationDouTitle_ideAstNbr}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ideAstDat}" for="ideAstDat" />
+                    <h:inputText id="ideAstDat" value="#{tDeclarationDouController.selected.ideAstDat}" title="#{bundle.EditTDeclarationDouTitle_ideAstDat}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ideRcpSer}" for="ideRcpSer" />
+                    <h:inputText id="ideRcpSer" value="#{tDeclarationDouController.selected.ideRcpSer}" title="#{bundle.EditTDeclarationDouTitle_ideRcpSer}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ideRcpNbr}" for="ideRcpNbr" />
+                    <h:inputText id="ideRcpNbr" value="#{tDeclarationDouController.selected.ideRcpNbr}" title="#{bundle.EditTDeclarationDouTitle_ideRcpNbr}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ideRcpDat}" for="ideRcpDat" />
+                    <h:inputText id="ideRcpDat" value="#{tDeclarationDouController.selected.ideRcpDat}" title="#{bundle.EditTDeclarationDouTitle_ideRcpDat}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ideRcpTyp}" for="ideRcpTyp" />
+                    <h:inputText id="ideRcpTyp" value="#{tDeclarationDouController.selected.ideRcpTyp}" title="#{bundle.EditTDeclarationDouTitle_ideRcpTyp}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_ideRcpCuo}" for="ideRcpCuo" />
+                    <h:inputText id="ideRcpCuo" value="#{tDeclarationDouController.selected.ideRcpCuo}" title="#{bundle.EditTDeclarationDouTitle_ideRcpCuo}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_idePstNbr}" for="idePstNbr" />
+                    <h:inputText id="idePstNbr" value="#{tDeclarationDouController.selected.idePstNbr}" title="#{bundle.EditTDeclarationDouTitle_idePstNbr}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_idePstDat}" for="idePstDat" />
+                    <h:inputText id="idePstDat" value="#{tDeclarationDouController.selected.idePstDat}" title="#{bundle.EditTDeclarationDouTitle_idePstDat}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_idePstTmpPre}" for="idePstTmpPre" />
+                    <h:inputText id="idePstTmpPre" value="#{tDeclarationDouController.selected.idePstTmpPre}" title="#{bundle.EditTDeclarationDouTitle_idePstTmpPre}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_idePstTmpTy1}" for="idePstTmpTy1" />
+                    <h:inputText id="idePstTmpTy1" value="#{tDeclarationDouController.selected.idePstTmpTy1}" title="#{bundle.EditTDeclarationDouTitle_idePstTmpTy1}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_idePstTmpTy2}" for="idePstTmpTy2" />
+                    <h:inputText id="idePstTmpTy2" value="#{tDeclarationDouController.selected.idePstTmpTy2}" title="#{bundle.EditTDeclarationDouTitle_idePstTmpTy2}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_cmpExpCod}" for="cmpExpCod" />
+                    <h:inputText id="cmpExpCod" value="#{tDeclarationDouController.selected.cmpExpCod}" title="#{bundle.EditTDeclarationDouTitle_cmpExpCod}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_cmpExpNam}" for="cmpExpNam" />
+                    <h:inputTextarea rows="4" cols="30" id="cmpExpNam" value="#{tDeclarationDouController.selected.cmpExpNam}" title="#{bundle.EditTDeclarationDouTitle_cmpExpNam}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_cmpConCod}" for="cmpConCod" />
+                    <h:inputText id="cmpConCod" value="#{tDeclarationDouController.selected.cmpConCod}" title="#{bundle.EditTDeclarationDouTitle_cmpConCod}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_cmpConNam}" for="cmpConNam" />
+                    <h:inputTextarea rows="4" cols="30" id="cmpConNam" value="#{tDeclarationDouController.selected.cmpConNam}" title="#{bundle.EditTDeclarationDouTitle_cmpConNam}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_cmpFisCod}" for="cmpFisCod" />
+                    <h:inputText id="cmpFisCod" value="#{tDeclarationDouController.selected.cmpFisCod}" title="#{bundle.EditTDeclarationDouTitle_cmpFisCod}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_cmpFisNam}" for="cmpFisNam" />
+                    <h:inputTextarea rows="4" cols="30" id="cmpFisNam" value="#{tDeclarationDouController.selected.cmpFisNam}" title="#{bundle.EditTDeclarationDouTitle_cmpFisNam}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_decFlg}" for="decFlg" />
+                    <h:inputText id="decFlg" value="#{tDeclarationDouController.selected.decFlg}" title="#{bundle.EditTDeclarationDouTitle_decFlg}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_decCod}" for="decCod" />
+                    <h:inputText id="decCod" value="#{tDeclarationDouController.selected.decCod}" title="#{bundle.EditTDeclarationDouTitle_decCod}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_decNam}" for="decNam" />
+                    <h:inputTextarea rows="4" cols="30" id="decNam" value="#{tDeclarationDouController.selected.decNam}" title="#{bundle.EditTDeclarationDouTitle_decNam}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_decRefYer}" for="decRefYer" />
+                    <h:inputText id="decRefYer" value="#{tDeclarationDouController.selected.decRefYer}" title="#{bundle.EditTDeclarationDouTitle_decRefYer}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_decRefNbr}" for="decRefNbr" />
+                    <h:inputText id="decRefNbr" value="#{tDeclarationDouController.selected.decRefNbr}" title="#{bundle.EditTDeclarationDouTitle_decRefNbr}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_decRep}" for="decRep" />
+                    <h:inputText id="decRep" value="#{tDeclarationDouController.selected.decRep}" title="#{bundle.EditTDeclarationDouTitle_decRep}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_genCtyFlt}" for="genCtyFlt" />
+                    <h:inputText id="genCtyFlt" value="#{tDeclarationDouController.selected.genCtyFlt}" title="#{bundle.EditTDeclarationDouTitle_genCtyFlt}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_genCtyTrd}" for="genCtyTrd" />
+                    <h:inputText id="genCtyTrd" value="#{tDeclarationDouController.selected.genCtyTrd}" title="#{bundle.EditTDeclarationDouTitle_genCtyTrd}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_genCtyEptCod}" for="genCtyEptCod" />
+                    <h:inputText id="genCtyEptCod" value="#{tDeclarationDouController.selected.genCtyEptCod}" title="#{bundle.EditTDeclarationDouTitle_genCtyEptCod}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_genCtyEptNam}" for="genCtyEptNam" />
+                    <h:inputText id="genCtyEptNam" value="#{tDeclarationDouController.selected.genCtyEptNam}" title="#{bundle.EditTDeclarationDouTitle_genCtyEptNam}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_genCtyEptCrg}" for="genCtyEptCrg" />
+                    <h:inputText id="genCtyEptCrg" value="#{tDeclarationDouController.selected.genCtyEptCrg}" title="#{bundle.EditTDeclarationDouTitle_genCtyEptCrg}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_genCtyDesCod}" for="genCtyDesCod" />
+                    <h:inputText id="genCtyDesCod" value="#{tDeclarationDouController.selected.genCtyDesCod}" title="#{bundle.EditTDeclarationDouTitle_genCtyDesCod}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_genCtyDesNam}" for="genCtyDesNam" />
+                    <h:inputText id="genCtyDesNam" value="#{tDeclarationDouController.selected.genCtyDesNam}" title="#{bundle.EditTDeclarationDouTitle_genCtyDesNam}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_genCtyDesCrg}" for="genCtyDesCrg" />
+                    <h:inputText id="genCtyDesCrg" value="#{tDeclarationDouController.selected.genCtyDesCrg}" title="#{bundle.EditTDeclarationDouTitle_genCtyDesCrg}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_genCtyOrg}" for="genCtyOrg" />
+                    <h:inputText id="genCtyOrg" value="#{tDeclarationDouController.selected.genCtyOrg}" title="#{bundle.EditTDeclarationDouTitle_genCtyOrg}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_genVdt}" for="genVdt" />
+                    <h:inputText id="genVdt" value="#{tDeclarationDouController.selected.genVdt}" title="#{bundle.EditTDeclarationDouTitle_genVdt}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_genCap}" for="genCap" />
+                    <h:inputText id="genCap" value="#{tDeclarationDouController.selected.genCap}" title="#{bundle.EditTDeclarationDouTitle_genCap}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_genFre}" for="genFre" />
+                    <h:inputTextarea rows="4" cols="30" id="genFre" value="#{tDeclarationDouController.selected.genFre}" title="#{bundle.EditTDeclarationDouTitle_genFre}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_tptMotDpaNam}" for="tptMotDpaNam" />
+                    <h:inputText id="tptMotDpaNam" value="#{tDeclarationDouController.selected.tptMotDpaNam}" title="#{bundle.EditTDeclarationDouTitle_tptMotDpaNam}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_tptMotDpaCty}" for="tptMotDpaCty" />
+                    <h:inputText id="tptMotDpaCty" value="#{tDeclarationDouController.selected.tptMotDpaCty}" title="#{bundle.EditTDeclarationDouTitle_tptMotDpaCty}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_tptMotBrdNam}" for="tptMotBrdNam" />
+                    <h:inputText id="tptMotBrdNam" value="#{tDeclarationDouController.selected.tptMotBrdNam}" title="#{bundle.EditTDeclarationDouTitle_tptMotBrdNam}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_tptMotBrdCty}" for="tptMotBrdCty" />
+                    <h:inputText id="tptMotBrdCty" value="#{tDeclarationDouController.selected.tptMotBrdCty}" title="#{bundle.EditTDeclarationDouTitle_tptMotBrdCty}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_tptMotBrdCod}" for="tptMotBrdCod" />
+                    <h:inputText id="tptMotBrdCod" value="#{tDeclarationDouController.selected.tptMotBrdCod}" title="#{bundle.EditTDeclarationDouTitle_tptMotBrdCod}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_tptMotInl}" for="tptMotInl" />
+                    <h:inputText id="tptMotInl" value="#{tDeclarationDouController.selected.tptMotInl}" title="#{bundle.EditTDeclarationDouTitle_tptMotInl}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_tptCtf}" for="tptCtf" />
+                    <h:inputText id="tptCtf" value="#{tDeclarationDouController.selected.tptCtf}" title="#{bundle.EditTDeclarationDouTitle_tptCtf}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_tptTodCod}" for="tptTodCod" />
+                    <h:inputText id="tptTodCod" value="#{tDeclarationDouController.selected.tptTodCod}" title="#{bundle.EditTDeclarationDouTitle_tptTodCod}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_tptTodPlc}" for="tptTodPlc" />
+                    <h:inputText id="tptTodPlc" value="#{tDeclarationDouController.selected.tptTodPlc}" title="#{bundle.EditTDeclarationDouTitle_tptTodPlc}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_tptTodSit}" for="tptTodSit" />
+                    <h:inputText id="tptTodSit" value="#{tDeclarationDouController.selected.tptTodSit}" title="#{bundle.EditTDeclarationDouTitle_tptTodSit}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_tptCuoCod}" for="tptCuoCod" />
+                    <h:inputText id="tptCuoCod" value="#{tDeclarationDouController.selected.tptCuoCod}" title="#{bundle.EditTDeclarationDouTitle_tptCuoCod}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_tptCuoNam}" for="tptCuoNam" />
+                    <h:inputText id="tptCuoNam" value="#{tDeclarationDouController.selected.tptCuoNam}" title="#{bundle.EditTDeclarationDouTitle_tptCuoNam}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_tptLopCod}" for="tptLopCod" />
+                    <h:inputText id="tptLopCod" value="#{tDeclarationDouController.selected.tptLopCod}" title="#{bundle.EditTDeclarationDouTitle_tptLopCod}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_tptLopNam}" for="tptLopNam" />
+                    <h:inputText id="tptLopNam" value="#{tDeclarationDouController.selected.tptLopNam}" title="#{bundle.EditTDeclarationDouTitle_tptLopNam}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_tptLopCty}" for="tptLopCty" />
+                    <h:inputText id="tptLopCty" value="#{tDeclarationDouController.selected.tptLopCty}" title="#{bundle.EditTDeclarationDouTitle_tptLopCty}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_tptLoc}" for="tptLoc" />
+                    <h:inputText id="tptLoc" value="#{tDeclarationDouController.selected.tptLoc}" title="#{bundle.EditTDeclarationDouTitle_tptLoc}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_tptT1}" for="tptT1" />
+                    <h:inputText id="tptT1" value="#{tDeclarationDouController.selected.tptT1}" title="#{bundle.EditTDeclarationDouTitle_tptT1}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_finTraNa1}" for="finTraNa1" />
+                    <h:inputText id="finTraNa1" value="#{tDeclarationDouController.selected.finTraNa1}" title="#{bundle.EditTDeclarationDouTitle_finTraNa1}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_finTraNa2}" for="finTraNa2" />
+                    <h:inputText id="finTraNa2" value="#{tDeclarationDouController.selected.finTraNa2}" title="#{bundle.EditTDeclarationDouTitle_finTraNa2}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_finBnkCod}" for="finBnkCod" />
+                    <h:inputText id="finBnkCod" value="#{tDeclarationDouController.selected.finBnkCod}" title="#{bundle.EditTDeclarationDouTitle_finBnkCod}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_finBnkNam}" for="finBnkNam" />
+                    <h:inputTextarea rows="4" cols="30" id="finBnkNam" value="#{tDeclarationDouController.selected.finBnkNam}" title="#{bundle.EditTDeclarationDouTitle_finBnkNam}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_finBnkBra}" for="finBnkBra" />
+                    <h:inputText id="finBnkBra" value="#{tDeclarationDouController.selected.finBnkBra}" title="#{bundle.EditTDeclarationDouTitle_finBnkBra}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_finBnkFre}" for="finBnkFre" />
+                    <h:inputText id="finBnkFre" value="#{tDeclarationDouController.selected.finBnkFre}" title="#{bundle.EditTDeclarationDouTitle_finBnkFre}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_finTopCod}" for="finTopCod" />
+                    <h:inputText id="finTopCod" value="#{tDeclarationDouController.selected.finTopCod}" title="#{bundle.EditTDeclarationDouTitle_finTopCod}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_finTopNam}" for="finTopNam" />
+                    <h:inputText id="finTopNam" value="#{tDeclarationDouController.selected.finTopNam}" title="#{bundle.EditTDeclarationDouTitle_finTopNam}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_finAcc}" for="finAcc" />
+                    <h:inputText id="finAcc" value="#{tDeclarationDouController.selected.finAcc}" title="#{bundle.EditTDeclarationDouTitle_finAcc}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_finMpn}" for="finMpn" />
+                    <h:inputText id="finMpn" value="#{tDeclarationDouController.selected.finMpn}" title="#{bundle.EditTDeclarationDouTitle_finMpn}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_finAmtMnl}" for="finAmtMnl" />
+                    <h:inputText id="finAmtMnl" value="#{tDeclarationDouController.selected.finAmtMnl}" title="#{bundle.EditTDeclarationDouTitle_finAmtMnl}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_finAmtFee}" for="finAmtFee" />
+                    <h:inputText id="finAmtFee" value="#{tDeclarationDouController.selected.finAmtFee}" title="#{bundle.EditTDeclarationDouTitle_finAmtFee}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_finAmtDty}" for="finAmtDty" />
+                    <h:inputText id="finAmtDty" value="#{tDeclarationDouController.selected.finAmtDty}" title="#{bundle.EditTDeclarationDouTitle_finAmtDty}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_finAmtTbp}" for="finAmtTbp" />
+                    <h:inputText id="finAmtTbp" value="#{tDeclarationDouController.selected.finAmtTbp}" title="#{bundle.EditTDeclarationDouTitle_finAmtTbp}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_finGtyNam}" for="finGtyNam" />
+                    <h:inputText id="finGtyNam" value="#{tDeclarationDouController.selected.finGtyNam}" title="#{bundle.EditTDeclarationDouTitle_finGtyNam}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_finGtyAmt}" for="finGtyAmt" />
+                    <h:inputText id="finGtyAmt" value="#{tDeclarationDouController.selected.finGtyAmt}" title="#{bundle.EditTDeclarationDouTitle_finGtyAmt}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_finGtyDat}" for="finGtyDat" />
+                    <h:inputText id="finGtyDat" value="#{tDeclarationDouController.selected.finGtyDat}" title="#{bundle.EditTDeclarationDouTitle_finGtyDat}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_finGtyCtyCod}" for="finGtyCtyCod" />
+                    <h:inputText id="finGtyCtyCod" value="#{tDeclarationDouController.selected.finGtyCtyCod}" title="#{bundle.EditTDeclarationDouTitle_finGtyCtyCod}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_finGtyCtyNam}" for="finGtyCtyNam" />
+                    <h:inputText id="finGtyCtyNam" value="#{tDeclarationDouController.selected.finGtyCtyNam}" title="#{bundle.EditTDeclarationDouTitle_finGtyCtyNam}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsWrk}" for="vgsWrk" />
+                    <h:inputText id="vgsWrk" value="#{tDeclarationDouController.selected.vgsWrk}" title="#{bundle.EditTDeclarationDouTitle_vgsWrk}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsWgtGrs}" for="vgsWgtGrs" />
+                    <h:inputText id="vgsWgtGrs" value="#{tDeclarationDouController.selected.vgsWgtGrs}" title="#{bundle.EditTDeclarationDouTitle_vgsWgtGrs}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsCst}" for="vgsCst" />
+                    <h:inputText id="vgsCst" value="#{tDeclarationDouController.selected.vgsCst}" title="#{bundle.EditTDeclarationDouTitle_vgsCst}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsCif}" for="vgsCif" />
+                    <h:inputText id="vgsCif" value="#{tDeclarationDouController.selected.vgsCif}" title="#{bundle.EditTDeclarationDouTitle_vgsCif}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsTotNmu}" for="vgsTotNmu" />
+                    <h:inputText id="vgsTotNmu" value="#{tDeclarationDouController.selected.vgsTotNmu}" title="#{bundle.EditTDeclarationDouTitle_vgsTotNmu}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsTotFcx}" for="vgsTotFcx" />
+                    <h:inputText id="vgsTotFcx" value="#{tDeclarationDouController.selected.vgsTotFcx}" title="#{bundle.EditTDeclarationDouTitle_vgsTotFcx}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsTotGrs}" for="vgsTotGrs" />
+                    <h:inputText id="vgsTotGrs" value="#{tDeclarationDouController.selected.vgsTotGrs}" title="#{bundle.EditTDeclarationDouTitle_vgsTotGrs}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsInvAmtNmu}" for="vgsInvAmtNmu" />
+                    <h:inputText id="vgsInvAmtNmu" value="#{tDeclarationDouController.selected.vgsInvAmtNmu}" title="#{bundle.EditTDeclarationDouTitle_vgsInvAmtNmu}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsInvAmtFcx}" for="vgsInvAmtFcx" />
+                    <h:inputText id="vgsInvAmtFcx" value="#{tDeclarationDouController.selected.vgsInvAmtFcx}" title="#{bundle.EditTDeclarationDouTitle_vgsInvAmtFcx}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsInvCurCod}" for="vgsInvCurCod" />
+                    <h:inputText id="vgsInvCurCod" value="#{tDeclarationDouController.selected.vgsInvCurCod}" title="#{bundle.EditTDeclarationDouTitle_vgsInvCurCod}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsInvCurNam}" for="vgsInvCurNam" />
+                    <h:inputText id="vgsInvCurNam" value="#{tDeclarationDouController.selected.vgsInvCurNam}" title="#{bundle.EditTDeclarationDouTitle_vgsInvCurNam}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsInvCurRat}" for="vgsInvCurRat" />
+                    <h:inputText id="vgsInvCurRat" value="#{tDeclarationDouController.selected.vgsInvCurRat}" title="#{bundle.EditTDeclarationDouTitle_vgsInvCurRat}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsInvCurRef}" for="vgsInvCurRef" />
+                    <h:inputText id="vgsInvCurRef" value="#{tDeclarationDouController.selected.vgsInvCurRef}" title="#{bundle.EditTDeclarationDouTitle_vgsInvCurRef}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsEfrAmtNmu}" for="vgsEfrAmtNmu" />
+                    <h:inputText id="vgsEfrAmtNmu" value="#{tDeclarationDouController.selected.vgsEfrAmtNmu}" title="#{bundle.EditTDeclarationDouTitle_vgsEfrAmtNmu}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsEfrAmtFcx}" for="vgsEfrAmtFcx" />
+                    <h:inputText id="vgsEfrAmtFcx" value="#{tDeclarationDouController.selected.vgsEfrAmtFcx}" title="#{bundle.EditTDeclarationDouTitle_vgsEfrAmtFcx}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsEfrCurCod}" for="vgsEfrCurCod" />
+                    <h:inputText id="vgsEfrCurCod" value="#{tDeclarationDouController.selected.vgsEfrCurCod}" title="#{bundle.EditTDeclarationDouTitle_vgsEfrCurCod}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsEfrCurNam}" for="vgsEfrCurNam" />
+                    <h:inputText id="vgsEfrCurNam" value="#{tDeclarationDouController.selected.vgsEfrCurNam}" title="#{bundle.EditTDeclarationDouTitle_vgsEfrCurNam}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsEfrCurRat}" for="vgsEfrCurRat" />
+                    <h:inputText id="vgsEfrCurRat" value="#{tDeclarationDouController.selected.vgsEfrCurRat}" title="#{bundle.EditTDeclarationDouTitle_vgsEfrCurRat}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsEfrCurRef}" for="vgsEfrCurRef" />
+                    <h:inputText id="vgsEfrCurRef" value="#{tDeclarationDouController.selected.vgsEfrCurRef}" title="#{bundle.EditTDeclarationDouTitle_vgsEfrCurRef}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsIfrAmtNmu}" for="vgsIfrAmtNmu" />
+                    <h:inputText id="vgsIfrAmtNmu" value="#{tDeclarationDouController.selected.vgsIfrAmtNmu}" title="#{bundle.EditTDeclarationDouTitle_vgsIfrAmtNmu}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsIfrAmtFcx}" for="vgsIfrAmtFcx" />
+                    <h:inputText id="vgsIfrAmtFcx" value="#{tDeclarationDouController.selected.vgsIfrAmtFcx}" title="#{bundle.EditTDeclarationDouTitle_vgsIfrAmtFcx}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsIfrCurCod}" for="vgsIfrCurCod" />
+                    <h:inputText id="vgsIfrCurCod" value="#{tDeclarationDouController.selected.vgsIfrCurCod}" title="#{bundle.EditTDeclarationDouTitle_vgsIfrCurCod}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsIfrCurNam}" for="vgsIfrCurNam" />
+                    <h:inputText id="vgsIfrCurNam" value="#{tDeclarationDouController.selected.vgsIfrCurNam}" title="#{bundle.EditTDeclarationDouTitle_vgsIfrCurNam}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsIfrCurRat}" for="vgsIfrCurRat" />
+                    <h:inputText id="vgsIfrCurRat" value="#{tDeclarationDouController.selected.vgsIfrCurRat}" title="#{bundle.EditTDeclarationDouTitle_vgsIfrCurRat}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsIfrCurRef}" for="vgsIfrCurRef" />
+                    <h:inputText id="vgsIfrCurRef" value="#{tDeclarationDouController.selected.vgsIfrCurRef}" title="#{bundle.EditTDeclarationDouTitle_vgsIfrCurRef}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsInsAmtNmu}" for="vgsInsAmtNmu" />
+                    <h:inputText id="vgsInsAmtNmu" value="#{tDeclarationDouController.selected.vgsInsAmtNmu}" title="#{bundle.EditTDeclarationDouTitle_vgsInsAmtNmu}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsInsAmtFcx}" for="vgsInsAmtFcx" />
+                    <h:inputText id="vgsInsAmtFcx" value="#{tDeclarationDouController.selected.vgsInsAmtFcx}" title="#{bundle.EditTDeclarationDouTitle_vgsInsAmtFcx}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsInsCurCod}" for="vgsInsCurCod" />
+                    <h:inputText id="vgsInsCurCod" value="#{tDeclarationDouController.selected.vgsInsCurCod}" title="#{bundle.EditTDeclarationDouTitle_vgsInsCurCod}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsInsCurNam}" for="vgsInsCurNam" />
+                    <h:inputText id="vgsInsCurNam" value="#{tDeclarationDouController.selected.vgsInsCurNam}" title="#{bundle.EditTDeclarationDouTitle_vgsInsCurNam}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsInsCurRat}" for="vgsInsCurRat" />
+                    <h:inputText id="vgsInsCurRat" value="#{tDeclarationDouController.selected.vgsInsCurRat}" title="#{bundle.EditTDeclarationDouTitle_vgsInsCurRat}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsInsCurRef}" for="vgsInsCurRef" />
+                    <h:inputText id="vgsInsCurRef" value="#{tDeclarationDouController.selected.vgsInsCurRef}" title="#{bundle.EditTDeclarationDouTitle_vgsInsCurRef}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsOtcAmtNmu}" for="vgsOtcAmtNmu" />
+                    <h:inputText id="vgsOtcAmtNmu" value="#{tDeclarationDouController.selected.vgsOtcAmtNmu}" title="#{bundle.EditTDeclarationDouTitle_vgsOtcAmtNmu}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsOtcAmtFcx}" for="vgsOtcAmtFcx" />
+                    <h:inputText id="vgsOtcAmtFcx" value="#{tDeclarationDouController.selected.vgsOtcAmtFcx}" title="#{bundle.EditTDeclarationDouTitle_vgsOtcAmtFcx}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsOtcCurCod}" for="vgsOtcCurCod" />
+                    <h:inputText id="vgsOtcCurCod" value="#{tDeclarationDouController.selected.vgsOtcCurCod}" title="#{bundle.EditTDeclarationDouTitle_vgsOtcCurCod}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsOtcCurNam}" for="vgsOtcCurNam" />
+                    <h:inputText id="vgsOtcCurNam" value="#{tDeclarationDouController.selected.vgsOtcCurNam}" title="#{bundle.EditTDeclarationDouTitle_vgsOtcCurNam}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsOtcCurRat}" for="vgsOtcCurRat" />
+                    <h:inputText id="vgsOtcCurRat" value="#{tDeclarationDouController.selected.vgsOtcCurRat}" title="#{bundle.EditTDeclarationDouTitle_vgsOtcCurRat}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsOtcCurRef}" for="vgsOtcCurRef" />
+                    <h:inputText id="vgsOtcCurRef" value="#{tDeclarationDouController.selected.vgsOtcCurRef}" title="#{bundle.EditTDeclarationDouTitle_vgsOtcCurRef}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsDedAmtNmu}" for="vgsDedAmtNmu" />
+                    <h:inputText id="vgsDedAmtNmu" value="#{tDeclarationDouController.selected.vgsDedAmtNmu}" title="#{bundle.EditTDeclarationDouTitle_vgsDedAmtNmu}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsDedAmtFcx}" for="vgsDedAmtFcx" />
+                    <h:inputText id="vgsDedAmtFcx" value="#{tDeclarationDouController.selected.vgsDedAmtFcx}" title="#{bundle.EditTDeclarationDouTitle_vgsDedAmtFcx}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsDedCurCod}" for="vgsDedCurCod" />
+                    <h:inputText id="vgsDedCurCod" value="#{tDeclarationDouController.selected.vgsDedCurCod}" title="#{bundle.EditTDeclarationDouTitle_vgsDedCurCod}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsDedCurNam}" for="vgsDedCurNam" />
+                    <h:inputText id="vgsDedCurNam" value="#{tDeclarationDouController.selected.vgsDedCurNam}" title="#{bundle.EditTDeclarationDouTitle_vgsDedCurNam}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsDedCurRat}" for="vgsDedCurRat" />
+                    <h:inputText id="vgsDedCurRat" value="#{tDeclarationDouController.selected.vgsDedCurRat}" title="#{bundle.EditTDeclarationDouTitle_vgsDedCurRat}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_vgsDedCurRef}" for="vgsDedCurRef" />
+                    <h:inputText id="vgsDedCurRef" value="#{tDeclarationDouController.selected.vgsDedCurRef}" title="#{bundle.EditTDeclarationDouTitle_vgsDedCurRef}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_whsCod}" for="whsCod" />
+                    <h:inputText id="whsCod" value="#{tDeclarationDouController.selected.whsCod}" title="#{bundle.EditTDeclarationDouTitle_whsCod}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_whsTim}" for="whsTim" />
+                    <h:inputText id="whsTim" value="#{tDeclarationDouController.selected.whsTim}" title="#{bundle.EditTDeclarationDouTitle_whsTim}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_trsRspCod}" for="trsRspCod" />
+                    <h:inputText id="trsRspCod" value="#{tDeclarationDouController.selected.trsRspCod}" title="#{bundle.EditTDeclarationDouTitle_trsRspCod}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_trsRspNam}" for="trsRspNam" />
+                    <h:inputTextarea rows="4" cols="30" id="trsRspNam" value="#{tDeclarationDouController.selected.trsRspNam}" title="#{bundle.EditTDeclarationDouTitle_trsRspNam}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_trsRspRep}" for="trsRspRep" />
+                    <h:inputText id="trsRspRep" value="#{tDeclarationDouController.selected.trsRspRep}" title="#{bundle.EditTDeclarationDouTitle_trsRspRep}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_trsSgtPlc}" for="trsSgtPlc" />
+                    <h:inputText id="trsSgtPlc" value="#{tDeclarationDouController.selected.trsSgtPlc}" title="#{bundle.EditTDeclarationDouTitle_trsSgtPlc}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_trsSgtDat}" for="trsSgtDat" />
+                    <h:inputText id="trsSgtDat" value="#{tDeclarationDouController.selected.trsSgtDat}" title="#{bundle.EditTDeclarationDouTitle_trsSgtDat}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_trsDesCuo}" for="trsDesCuo" />
+                    <h:inputText id="trsDesCuo" value="#{tDeclarationDouController.selected.trsDesCuo}" title="#{bundle.EditTDeclarationDouTitle_trsDesCuo}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_trsDesCod}" for="trsDesCod" />
+                    <h:inputText id="trsDesCod" value="#{tDeclarationDouController.selected.trsDesCod}" title="#{bundle.EditTDeclarationDouTitle_trsDesCod}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_trsDesCty}" for="trsDesCty" />
+                    <h:inputText id="trsDesCty" value="#{tDeclarationDouController.selected.trsDesCty}" title="#{bundle.EditTDeclarationDouTitle_trsDesCty}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_trsSlsNbr}" for="trsSlsNbr" />
+                    <h:inputText id="trsSlsNbr" value="#{tDeclarationDouController.selected.trsSlsNbr}" title="#{bundle.EditTDeclarationDouTitle_trsSlsNbr}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_trsSlsIde}" for="trsSlsIde" />
+                    <h:inputText id="trsSlsIde" value="#{tDeclarationDouController.selected.trsSlsIde}" title="#{bundle.EditTDeclarationDouTitle_trsSlsIde}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_trsCtl}" for="trsCtl" />
+                    <h:inputText id="trsCtl" value="#{tDeclarationDouController.selected.trsCtl}" title="#{bundle.EditTDeclarationDouTitle_trsCtl}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_trsLim}" for="trsLim" />
+                    <h:inputText id="trsLim" value="#{tDeclarationDouController.selected.trsLim}" title="#{bundle.EditTDeclarationDouTitle_trsLim}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_trsCof}" for="trsCof" />
+                    <h:inputText id="trsCof" value="#{tDeclarationDouController.selected.trsCof}" title="#{bundle.EditTDeclarationDouTitle_trsCof}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_astRyr}" for="astRyr" />
+                    <h:inputText id="astRyr" value="#{tDeclarationDouController.selected.astRyr}" title="#{bundle.EditTDeclarationDouTitle_astRyr}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_astAyr}" for="astAyr" />
+                    <h:inputText id="astAyr" value="#{tDeclarationDouController.selected.astAyr}" title="#{bundle.EditTDeclarationDouTitle_astAyr}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_astTot}" for="astTot" />
+                    <h:inputText id="astTot" value="#{tDeclarationDouController.selected.astTot}" title="#{bundle.EditTDeclarationDouTitle_astTot}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_astAmt}" for="astAmt" />
+                    <h:inputText id="astAmt" value="#{tDeclarationDouController.selected.astAmt}" title="#{bundle.EditTDeclarationDouTitle_astAmt}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_astStn}" for="astStn" />
+                    <h:inputText id="astStn" value="#{tDeclarationDouController.selected.astStn}" title="#{bundle.EditTDeclarationDouTitle_astStn}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_astStd}" for="astStd" />
+                    <h:inputText id="astStd" value="#{tDeclarationDouController.selected.astStd}" title="#{bundle.EditTDeclarationDouTitle_astStd}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_astSts}" for="astSts" />
+                    <h:inputText id="astSts" value="#{tDeclarationDouController.selected.astSts}" title="#{bundle.EditTDeclarationDouTitle_astSts}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_rloNbr}" for="rloNbr" />
+                    <h:inputText id="rloNbr" value="#{tDeclarationDouController.selected.rloNbr}" title="#{bundle.EditTDeclarationDouTitle_rloNbr}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_exaSec}" for="exaSec" />
+                    <h:inputText id="exaSec" value="#{tDeclarationDouController.selected.exaSec}" title="#{bundle.EditTDeclarationDouTitle_exaSec}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_exaExa}" for="exaExa" />
+                    <h:inputText id="exaExa" value="#{tDeclarationDouController.selected.exaExa}" title="#{bundle.EditTDeclarationDouTitle_exaExa}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_exaCex}" for="exaCex" />
+                    <h:inputText id="exaCex" value="#{tDeclarationDouController.selected.exaCex}" title="#{bundle.EditTDeclarationDouTitle_exaCex}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_exaWgt}" for="exaWgt" />
+                    <h:inputText id="exaWgt" value="#{tDeclarationDouController.selected.exaWgt}" title="#{bundle.EditTDeclarationDouTitle_exaWgt}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_lstRcpAmt}" for="lstRcpAmt" />
+                    <h:inputText id="lstRcpAmt" value="#{tDeclarationDouController.selected.lstRcpAmt}" title="#{bundle.EditTDeclarationDouTitle_lstRcpAmt}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_lstRcpSer}" for="lstRcpSer" />
+                    <h:inputText id="lstRcpSer" value="#{tDeclarationDouController.selected.lstRcpSer}" title="#{bundle.EditTDeclarationDouTitle_lstRcpSer}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_lstRcpNbr}" for="lstRcpNbr" />
+                    <h:inputText id="lstRcpNbr" value="#{tDeclarationDouController.selected.lstRcpNbr}" title="#{bundle.EditTDeclarationDouTitle_lstRcpNbr}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_lstRcpDat}" for="lstRcpDat" />
+                    <h:inputText id="lstRcpDat" value="#{tDeclarationDouController.selected.lstRcpDat}" title="#{bundle.EditTDeclarationDouTitle_lstRcpDat}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_lstRcpTyp}" for="lstRcpTyp" />
+                    <h:inputText id="lstRcpTyp" value="#{tDeclarationDouController.selected.lstRcpTyp}" title="#{bundle.EditTDeclarationDouTitle_lstRcpTyp}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_lstRcpCuo}" for="lstRcpCuo" />
+                    <h:inputText id="lstRcpCuo" value="#{tDeclarationDouController.selected.lstRcpCuo}" title="#{bundle.EditTDeclarationDouTitle_lstRcpCuo}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_brokerStamp}" for="brokerStamp" />
+                    <h:inputTextarea rows="4" cols="30" id="brokerStamp" value="#{tDeclarationDouController.selected.brokerStamp}" title="#{bundle.EditTDeclarationDouTitle_brokerStamp}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationDouLabel_customsStamp}" for="customsStamp" />
+                    <h:inputTextarea rows="4" cols="30" id="customsStamp" value="#{tDeclarationDouController.selected.customsStamp}" title="#{bundle.EditTDeclarationDouTitle_customsStamp}" />
+                </h:panelGrid>
+                <h:commandLink action="#{tDeclarationDouController.update}" value="#{bundle.EditTDeclarationDouSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditTDeclarationDouViewLink}"/>
+                <br />
+                <h:commandLink action="#{tDeclarationDouController.prepareList}" value="#{bundle.EditTDeclarationDouShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditTDeclarationDouIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

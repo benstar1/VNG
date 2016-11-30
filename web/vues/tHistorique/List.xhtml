@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTHistoriqueTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListTHistoriqueEmpty}" rendered="#{tHistoriqueController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{tHistoriqueController.items.rowCount > 0}">
+                    <h:outputText value="#{tHistoriqueController.pagination.pageFirstItem + 1}..#{tHistoriqueController.pagination.pageLastItem + 1}/#{tHistoriqueController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{tHistoriqueController.previous}" value="#{bundle.Previous} #{tHistoriqueController.pagination.pageSize}" rendered="#{tHistoriqueController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{tHistoriqueController.next}" value="#{bundle.Next} #{tHistoriqueController.pagination.pageSize}" rendered="#{tHistoriqueController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{tHistoriqueController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histNum}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histNum}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContNum}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContNum}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContDatenreg}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContDatenreg}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContDateimmatr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContDateimmatr}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContReimmatr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContReimmatr}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContNom}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContNom}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContPren}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContPren}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContNomJf}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContNomJf}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContSexe}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContSexe}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContSitMat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContSitMat}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContDatnais}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContDatnais}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContLieunais}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContLieunais}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContBp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContBp}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContTel}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContTel}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContFax}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContFax}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContMail}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContMail}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContCarre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContCarre}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContLot}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContLot}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContRais}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContRais}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContNomCourt}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContNomCourt}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContNomLong}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContNomLong}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContDatcreat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContDatcreat}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContNompropsieg}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContNompropsieg}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContLoyer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContLoyer}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContCapital}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContCapital}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContNuminsae}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContNuminsae}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContDatenregInsae}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContDatenregInsae}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContNbEnf}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContNbEnf}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContCentrCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContCentrCode}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContTypContCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContTypContCode}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContProfCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContProfCode}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContFonctCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContFonctCode}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContNbEmpl}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContNbEmpl}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContQuart}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContQuart}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContCatEtabCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContCatEtabCode}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContModExpCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContModExpCode}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContContNum}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContContNum}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContOrdre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContOrdre}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContMemActMere}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContMemActMere}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContDateCessation}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContDateCessation}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContDateDeces}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContDateDeces}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContDateRepriseAct}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContDateRepriseAct}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContEnsCommerce}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContEnsCommerce}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContNationCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContNationCode}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContNeVers}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContNeVers}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContVille}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContVille}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContRue}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContRue}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContPrnompropsieg}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContPrnompropsieg}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContProp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContProp}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContMemBank}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContMemBank}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContNewImmatr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContNewImmatr}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContNuminsae1}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContNuminsae1}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContActif}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContActif}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContMatricule}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContMatricule}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContDateMajMatricule}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContDateMajMatricule}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContStatut}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContStatut}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histUtilLogin}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histUtilLogin}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histContImmatr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histContImmatr}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTHistoriqueTitle_histMotifCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.histMotifCode}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{tHistoriqueController.prepareView}" value="#{bundle.ListTHistoriqueViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tHistoriqueController.prepareEdit}" value="#{bundle.ListTHistoriqueEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tHistoriqueController.destroy}" value="#{bundle.ListTHistoriqueDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{tHistoriqueController.prepareCreate}" value="#{bundle.ListTHistoriqueCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListTHistoriqueIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateTCodeAddiTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateTCodeAddiLabel_TCodeAddiPK_validFrom}" for="TCodeAddiPK_validFrom" />
+                    <h:inputText id="TCodeAddiPK_validFrom" value="#{tCodeAddiController.selected.TCodeAddiPK.validFrom}" title="#{bundle.CreateTCodeAddiTitle_TCodeAddiPK_validFrom}" required="true" requiredMessage="#{bundle.CreateTCodeAddiRequiredMessage_TCodeAddiPK_validFrom}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTCodeAddiLabel_TCodeAddiPK_cp3Cod}" for="TCodeAddiPK_cp3Cod" />
+                    <h:inputText id="TCodeAddiPK_cp3Cod" value="#{tCodeAddiController.selected.TCodeAddiPK.cp3Cod}" title="#{bundle.CreateTCodeAddiTitle_TCodeAddiPK_cp3Cod}" required="true" requiredMessage="#{bundle.CreateTCodeAddiRequiredMessage_TCodeAddiPK_cp3Cod}"/>
+                    <h:outputLabel value="#{bundle.CreateTCodeAddiLabel_validTo}" for="validTo" />
+                    <h:inputText id="validTo" value="#{tCodeAddiController.selected.validTo}" title="#{bundle.CreateTCodeAddiTitle_validTo}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTCodeAddiLabel_cp3Dsc}" for="cp3Dsc" />
+                    <h:inputText id="cp3Dsc" value="#{tCodeAddiController.selected.cp3Dsc}" title="#{bundle.CreateTCodeAddiTitle_cp3Dsc}" />
+                    <h:outputLabel value="#{bundle.CreateTCodeAddiLabel_rulCod}" for="rulCod" />
+                    <h:inputText id="rulCod" value="#{tCodeAddiController.selected.rulCod}" title="#{bundle.CreateTCodeAddiTitle_rulCod}" />
+                    <h:outputLabel value="#{bundle.CreateTCodeAddiLabel_cp3Agr}" for="cp3Agr" />
+                    <h:inputText id="cp3Agr" value="#{tCodeAddiController.selected.cp3Agr}" title="#{bundle.CreateTCodeAddiTitle_cp3Agr}" />
+                    <h:outputLabel value="#{bundle.CreateTCodeAddiLabel_cprVe2}" for="cprVe2" />
+                    <h:inputText id="cprVe2" value="#{tCodeAddiController.selected.cprVe2}" title="#{bundle.CreateTCodeAddiTitle_cprVe2}" />
+                    <h:outputLabel value="#{bundle.CreateTCodeAddiLabel_cprDs2}" for="cprDs2" />
+                    <h:inputText id="cprDs2" value="#{tCodeAddiController.selected.cprDs2}" title="#{bundle.CreateTCodeAddiTitle_cprDs2}" />
+                    <h:outputLabel value="#{bundle.CreateTCodeAddiLabel_modifyTime}" for="modifyTime" />
+                    <h:inputText id="modifyTime" value="#{tCodeAddiController.selected.modifyTime}" title="#{bundle.CreateTCodeAddiTitle_modifyTime}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTCodeAddiLabel_flgRem}" for="flgRem" />
+                    <h:inputText id="flgRem" value="#{tCodeAddiController.selected.flgRem}" title="#{bundle.CreateTCodeAddiTitle_flgRem}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tCodeAddiController.create}" value="#{bundle.CreateTCodeAddiSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{tCodeAddiController.prepareList}" value="#{bundle.CreateTCodeAddiShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateTCodeAddiIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

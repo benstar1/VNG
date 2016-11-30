@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTArticleTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListTArticleEmpty}" rendered="#{tArticleController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{tArticleController.items.rowCount > 0}">
+                    <h:outputText value="#{tArticleController.pagination.pageFirstItem + 1}..#{tArticleController.pagination.pageLastItem + 1}/#{tArticleController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{tArticleController.previous}" value="#{bundle.Previous} #{tArticleController.pagination.pageSize}" rendered="#{tArticleController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{tArticleController.next}" value="#{bundle.Next} #{tArticleController.pagination.pageSize}" rendered="#{tArticleController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{tArticleController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_TArticlePK_keyItmNbr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.TArticlePK.keyItmNbr}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_TArticlePK_instanceid}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.TArticlePK.instanceid}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_pckNbr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pckNbr}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_pckMrk1}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pckMrk1}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_pckMrk2}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pckMrk2}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_pckTypCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pckTypCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_pckTypNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pckTypNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_tarHscNb1}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tarHscNb1}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_tarHscNb2}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tarHscNb2}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_tarHscNb3}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tarHscNb3}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_tarHscNb4}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tarHscNb4}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_tarHscNb5}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tarHscNb5}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_tarHscTscDat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tarHscTscDat}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_tarHscTscSta}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tarHscTscSta}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_tarPrf}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tarPrf}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_tarPrcExt}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tarPrcExt}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_tarPrcNat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tarPrcNat}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_tarQuo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tarQuo}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_tarPri}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tarPri}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_tarVmt}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tarVmt}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_tarVdt}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tarVdt}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_tarAtt}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tarAtt}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_tarAic}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tarAic}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_gdsOrgCty}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.gdsOrgCty}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_gdsOrgCrg}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.gdsOrgCrg}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_gdsCtnCt1}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.gdsCtnCt1}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_gdsCtnCt2}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.gdsCtnCt2}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_gdsCtnCt3}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.gdsCtnCt3}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_gdsCtnCt4}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.gdsCtnCt4}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_gdsDsc}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.gdsDsc}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_gdsDs3}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.gdsDs3}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_lnkTpt}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lnkTpt}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_lnkTptSln}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lnkTptSln}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_lnkPrvDoc}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lnkPrvDoc}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_lnkPrvWhs}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lnkPrvWhs}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_licCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.licCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_licAmtVal}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.licAmtVal}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_licAmtQty}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.licAmtQty}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_txtFre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.txtFre}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_txtRsv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.txtRsv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_taxAmt}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.taxAmt}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_taxGty}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.taxGty}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_taxMop}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.taxMop}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_taxCtr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.taxCtr}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_taxDty}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.taxDty}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitWgtGrs}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitWgtGrs}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitWgtNet}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitWgtNet}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitCst}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitCst}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitCif}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitCif}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitAdj}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitAdj}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitStv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitStv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitAlp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitAlp}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitInvAmtNmu}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitInvAmtNmu}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitInvAmtFcx}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitInvAmtFcx}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitInvCurCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitInvCurCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitInvCurNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitInvCurNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitInvCurRat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitInvCurRat}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitInvCurRef}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitInvCurRef}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitEfrAmtNmu}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitEfrAmtNmu}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitEfrAmtFcx}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitEfrAmtFcx}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitEfrCurCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitEfrCurCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitEfrCurNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitEfrCurNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitEfrCurRat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitEfrCurRat}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitEfrCurRef}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitEfrCurRef}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitIfrAmtNmu}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitIfrAmtNmu}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitIfrAmtFcx}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitIfrAmtFcx}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitIfrCurCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitIfrCurCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitIfrCurNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitIfrCurNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitIfrCurRat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitIfrCurRat}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitIfrCurRef}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitIfrCurRef}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitInsAmtNmu}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitInsAmtNmu}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitInsAmtFcx}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitInsAmtFcx}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitInsCurCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitInsCurCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitInsCurNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitInsCurNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitInsCurRat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitInsCurRat}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitInsCurRef}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitInsCurRef}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitOtcAmtNmu}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitOtcAmtNmu}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitOtcAmtFcx}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitOtcAmtFcx}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitOtcCurCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitOtcCurCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitOtcCurNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitOtcCurNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitOtcCurRat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitOtcCurRat}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitOtcCurRef}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitOtcCurRef}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitDedAmtNmu}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitDedAmtNmu}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitDedAmtFcx}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitDedAmtFcx}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitDedCurCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitDedCurCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitDedCurNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitDedCurNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitDedCurRat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitDedCurRat}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitDedCurRef}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitDedCurRef}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitMktRat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitMktRat}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitMktCur}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitMktCur}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitMktAmt}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitMktAmt}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitMktBseDsc}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitMktBseDsc}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_vitMktBseAmt}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vitMktBseAmt}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_blkVin}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.blkVin}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_blkSrp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.blkSrp}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_blkFob}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.blkFob}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_flp1}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.flp1}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_quoId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.quoId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTArticleTitle_quoItmNbr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.quoItmNbr}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{tArticleController.prepareView}" value="#{bundle.ListTArticleViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tArticleController.prepareEdit}" value="#{bundle.ListTArticleEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tArticleController.destroy}" value="#{bundle.ListTArticleDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{tArticleController.prepareCreate}" value="#{bundle.ListTArticleCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListTArticleIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

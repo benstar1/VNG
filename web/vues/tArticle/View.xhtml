@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewTArticleTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewTArticleLabel_TArticlePK_instanceid}"/>
+                    <h:outputText value="#{tArticleController.selected.TArticlePK.instanceid}" title="#{bundle.ViewTArticleTitle_TArticlePK_instanceid}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_TArticlePK_keyItmNbr}"/>
+                    <h:outputText value="#{tArticleController.selected.TArticlePK.keyItmNbr}" title="#{bundle.ViewTArticleTitle_TArticlePK_keyItmNbr}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_pckNbr}"/>
+                    <h:outputText value="#{tArticleController.selected.pckNbr}" title="#{bundle.ViewTArticleTitle_pckNbr}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_pckMrk1}"/>
+                    <h:outputText value="#{tArticleController.selected.pckMrk1}" title="#{bundle.ViewTArticleTitle_pckMrk1}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_pckMrk2}"/>
+                    <h:outputText value="#{tArticleController.selected.pckMrk2}" title="#{bundle.ViewTArticleTitle_pckMrk2}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_pckTypCod}"/>
+                    <h:outputText value="#{tArticleController.selected.pckTypCod}" title="#{bundle.ViewTArticleTitle_pckTypCod}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_pckTypNam}"/>
+                    <h:outputText value="#{tArticleController.selected.pckTypNam}" title="#{bundle.ViewTArticleTitle_pckTypNam}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_tarHscNb1}"/>
+                    <h:outputText value="#{tArticleController.selected.tarHscNb1}" title="#{bundle.ViewTArticleTitle_tarHscNb1}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_tarHscNb2}"/>
+                    <h:outputText value="#{tArticleController.selected.tarHscNb2}" title="#{bundle.ViewTArticleTitle_tarHscNb2}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_tarHscNb3}"/>
+                    <h:outputText value="#{tArticleController.selected.tarHscNb3}" title="#{bundle.ViewTArticleTitle_tarHscNb3}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_tarHscNb4}"/>
+                    <h:outputText value="#{tArticleController.selected.tarHscNb4}" title="#{bundle.ViewTArticleTitle_tarHscNb4}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_tarHscNb5}"/>
+                    <h:outputText value="#{tArticleController.selected.tarHscNb5}" title="#{bundle.ViewTArticleTitle_tarHscNb5}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_tarHscTscDat}"/>
+                    <h:outputText value="#{tArticleController.selected.tarHscTscDat}" title="#{bundle.ViewTArticleTitle_tarHscTscDat}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_tarHscTscSta}"/>
+                    <h:outputText value="#{tArticleController.selected.tarHscTscSta}" title="#{bundle.ViewTArticleTitle_tarHscTscSta}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_tarPrf}"/>
+                    <h:outputText value="#{tArticleController.selected.tarPrf}" title="#{bundle.ViewTArticleTitle_tarPrf}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_tarPrcExt}"/>
+                    <h:outputText value="#{tArticleController.selected.tarPrcExt}" title="#{bundle.ViewTArticleTitle_tarPrcExt}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_tarPrcNat}"/>
+                    <h:outputText value="#{tArticleController.selected.tarPrcNat}" title="#{bundle.ViewTArticleTitle_tarPrcNat}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_tarQuo}"/>
+                    <h:outputText value="#{tArticleController.selected.tarQuo}" title="#{bundle.ViewTArticleTitle_tarQuo}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_tarPri}"/>
+                    <h:outputText value="#{tArticleController.selected.tarPri}" title="#{bundle.ViewTArticleTitle_tarPri}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_tarVmt}"/>
+                    <h:outputText value="#{tArticleController.selected.tarVmt}" title="#{bundle.ViewTArticleTitle_tarVmt}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_tarVdt}"/>
+                    <h:outputText value="#{tArticleController.selected.tarVdt}" title="#{bundle.ViewTArticleTitle_tarVdt}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_tarAtt}"/>
+                    <h:outputText value="#{tArticleController.selected.tarAtt}" title="#{bundle.ViewTArticleTitle_tarAtt}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_tarAic}"/>
+                    <h:outputText value="#{tArticleController.selected.tarAic}" title="#{bundle.ViewTArticleTitle_tarAic}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_gdsOrgCty}"/>
+                    <h:outputText value="#{tArticleController.selected.gdsOrgCty}" title="#{bundle.ViewTArticleTitle_gdsOrgCty}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_gdsOrgCrg}"/>
+                    <h:outputText value="#{tArticleController.selected.gdsOrgCrg}" title="#{bundle.ViewTArticleTitle_gdsOrgCrg}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_gdsCtnCt1}"/>
+                    <h:outputText value="#{tArticleController.selected.gdsCtnCt1}" title="#{bundle.ViewTArticleTitle_gdsCtnCt1}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_gdsCtnCt2}"/>
+                    <h:outputText value="#{tArticleController.selected.gdsCtnCt2}" title="#{bundle.ViewTArticleTitle_gdsCtnCt2}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_gdsCtnCt3}"/>
+                    <h:outputText value="#{tArticleController.selected.gdsCtnCt3}" title="#{bundle.ViewTArticleTitle_gdsCtnCt3}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_gdsCtnCt4}"/>
+                    <h:outputText value="#{tArticleController.selected.gdsCtnCt4}" title="#{bundle.ViewTArticleTitle_gdsCtnCt4}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_gdsDsc}"/>
+                    <h:outputText value="#{tArticleController.selected.gdsDsc}" title="#{bundle.ViewTArticleTitle_gdsDsc}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_gdsDs3}"/>
+                    <h:outputText value="#{tArticleController.selected.gdsDs3}" title="#{bundle.ViewTArticleTitle_gdsDs3}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_lnkTpt}"/>
+                    <h:outputText value="#{tArticleController.selected.lnkTpt}" title="#{bundle.ViewTArticleTitle_lnkTpt}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_lnkTptSln}"/>
+                    <h:outputText value="#{tArticleController.selected.lnkTptSln}" title="#{bundle.ViewTArticleTitle_lnkTptSln}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_lnkPrvDoc}"/>
+                    <h:outputText value="#{tArticleController.selected.lnkPrvDoc}" title="#{bundle.ViewTArticleTitle_lnkPrvDoc}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_lnkPrvWhs}"/>
+                    <h:outputText value="#{tArticleController.selected.lnkPrvWhs}" title="#{bundle.ViewTArticleTitle_lnkPrvWhs}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_licCod}"/>
+                    <h:outputText value="#{tArticleController.selected.licCod}" title="#{bundle.ViewTArticleTitle_licCod}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_licAmtVal}"/>
+                    <h:outputText value="#{tArticleController.selected.licAmtVal}" title="#{bundle.ViewTArticleTitle_licAmtVal}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_licAmtQty}"/>
+                    <h:outputText value="#{tArticleController.selected.licAmtQty}" title="#{bundle.ViewTArticleTitle_licAmtQty}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_txtFre}"/>
+                    <h:outputText value="#{tArticleController.selected.txtFre}" title="#{bundle.ViewTArticleTitle_txtFre}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_txtRsv}"/>
+                    <h:outputText value="#{tArticleController.selected.txtRsv}" title="#{bundle.ViewTArticleTitle_txtRsv}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_taxAmt}"/>
+                    <h:outputText value="#{tArticleController.selected.taxAmt}" title="#{bundle.ViewTArticleTitle_taxAmt}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_taxGty}"/>
+                    <h:outputText value="#{tArticleController.selected.taxGty}" title="#{bundle.ViewTArticleTitle_taxGty}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_taxMop}"/>
+                    <h:outputText value="#{tArticleController.selected.taxMop}" title="#{bundle.ViewTArticleTitle_taxMop}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_taxCtr}"/>
+                    <h:outputText value="#{tArticleController.selected.taxCtr}" title="#{bundle.ViewTArticleTitle_taxCtr}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_taxDty}"/>
+                    <h:outputText value="#{tArticleController.selected.taxDty}" title="#{bundle.ViewTArticleTitle_taxDty}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitWgtGrs}"/>
+                    <h:outputText value="#{tArticleController.selected.vitWgtGrs}" title="#{bundle.ViewTArticleTitle_vitWgtGrs}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitWgtNet}"/>
+                    <h:outputText value="#{tArticleController.selected.vitWgtNet}" title="#{bundle.ViewTArticleTitle_vitWgtNet}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitCst}"/>
+                    <h:outputText value="#{tArticleController.selected.vitCst}" title="#{bundle.ViewTArticleTitle_vitCst}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitCif}"/>
+                    <h:outputText value="#{tArticleController.selected.vitCif}" title="#{bundle.ViewTArticleTitle_vitCif}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitAdj}"/>
+                    <h:outputText value="#{tArticleController.selected.vitAdj}" title="#{bundle.ViewTArticleTitle_vitAdj}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitStv}"/>
+                    <h:outputText value="#{tArticleController.selected.vitStv}" title="#{bundle.ViewTArticleTitle_vitStv}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitAlp}"/>
+                    <h:outputText value="#{tArticleController.selected.vitAlp}" title="#{bundle.ViewTArticleTitle_vitAlp}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitInvAmtNmu}"/>
+                    <h:outputText value="#{tArticleController.selected.vitInvAmtNmu}" title="#{bundle.ViewTArticleTitle_vitInvAmtNmu}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitInvAmtFcx}"/>
+                    <h:outputText value="#{tArticleController.selected.vitInvAmtFcx}" title="#{bundle.ViewTArticleTitle_vitInvAmtFcx}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitInvCurCod}"/>
+                    <h:outputText value="#{tArticleController.selected.vitInvCurCod}" title="#{bundle.ViewTArticleTitle_vitInvCurCod}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitInvCurNam}"/>
+                    <h:outputText value="#{tArticleController.selected.vitInvCurNam}" title="#{bundle.ViewTArticleTitle_vitInvCurNam}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitInvCurRat}"/>
+                    <h:outputText value="#{tArticleController.selected.vitInvCurRat}" title="#{bundle.ViewTArticleTitle_vitInvCurRat}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitInvCurRef}"/>
+                    <h:outputText value="#{tArticleController.selected.vitInvCurRef}" title="#{bundle.ViewTArticleTitle_vitInvCurRef}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitEfrAmtNmu}"/>
+                    <h:outputText value="#{tArticleController.selected.vitEfrAmtNmu}" title="#{bundle.ViewTArticleTitle_vitEfrAmtNmu}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitEfrAmtFcx}"/>
+                    <h:outputText value="#{tArticleController.selected.vitEfrAmtFcx}" title="#{bundle.ViewTArticleTitle_vitEfrAmtFcx}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitEfrCurCod}"/>
+                    <h:outputText value="#{tArticleController.selected.vitEfrCurCod}" title="#{bundle.ViewTArticleTitle_vitEfrCurCod}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitEfrCurNam}"/>
+                    <h:outputText value="#{tArticleController.selected.vitEfrCurNam}" title="#{bundle.ViewTArticleTitle_vitEfrCurNam}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitEfrCurRat}"/>
+                    <h:outputText value="#{tArticleController.selected.vitEfrCurRat}" title="#{bundle.ViewTArticleTitle_vitEfrCurRat}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitEfrCurRef}"/>
+                    <h:outputText value="#{tArticleController.selected.vitEfrCurRef}" title="#{bundle.ViewTArticleTitle_vitEfrCurRef}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitIfrAmtNmu}"/>
+                    <h:outputText value="#{tArticleController.selected.vitIfrAmtNmu}" title="#{bundle.ViewTArticleTitle_vitIfrAmtNmu}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitIfrAmtFcx}"/>
+                    <h:outputText value="#{tArticleController.selected.vitIfrAmtFcx}" title="#{bundle.ViewTArticleTitle_vitIfrAmtFcx}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitIfrCurCod}"/>
+                    <h:outputText value="#{tArticleController.selected.vitIfrCurCod}" title="#{bundle.ViewTArticleTitle_vitIfrCurCod}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitIfrCurNam}"/>
+                    <h:outputText value="#{tArticleController.selected.vitIfrCurNam}" title="#{bundle.ViewTArticleTitle_vitIfrCurNam}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitIfrCurRat}"/>
+                    <h:outputText value="#{tArticleController.selected.vitIfrCurRat}" title="#{bundle.ViewTArticleTitle_vitIfrCurRat}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitIfrCurRef}"/>
+                    <h:outputText value="#{tArticleController.selected.vitIfrCurRef}" title="#{bundle.ViewTArticleTitle_vitIfrCurRef}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitInsAmtNmu}"/>
+                    <h:outputText value="#{tArticleController.selected.vitInsAmtNmu}" title="#{bundle.ViewTArticleTitle_vitInsAmtNmu}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitInsAmtFcx}"/>
+                    <h:outputText value="#{tArticleController.selected.vitInsAmtFcx}" title="#{bundle.ViewTArticleTitle_vitInsAmtFcx}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitInsCurCod}"/>
+                    <h:outputText value="#{tArticleController.selected.vitInsCurCod}" title="#{bundle.ViewTArticleTitle_vitInsCurCod}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitInsCurNam}"/>
+                    <h:outputText value="#{tArticleController.selected.vitInsCurNam}" title="#{bundle.ViewTArticleTitle_vitInsCurNam}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitInsCurRat}"/>
+                    <h:outputText value="#{tArticleController.selected.vitInsCurRat}" title="#{bundle.ViewTArticleTitle_vitInsCurRat}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitInsCurRef}"/>
+                    <h:outputText value="#{tArticleController.selected.vitInsCurRef}" title="#{bundle.ViewTArticleTitle_vitInsCurRef}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitOtcAmtNmu}"/>
+                    <h:outputText value="#{tArticleController.selected.vitOtcAmtNmu}" title="#{bundle.ViewTArticleTitle_vitOtcAmtNmu}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitOtcAmtFcx}"/>
+                    <h:outputText value="#{tArticleController.selected.vitOtcAmtFcx}" title="#{bundle.ViewTArticleTitle_vitOtcAmtFcx}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitOtcCurCod}"/>
+                    <h:outputText value="#{tArticleController.selected.vitOtcCurCod}" title="#{bundle.ViewTArticleTitle_vitOtcCurCod}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitOtcCurNam}"/>
+                    <h:outputText value="#{tArticleController.selected.vitOtcCurNam}" title="#{bundle.ViewTArticleTitle_vitOtcCurNam}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitOtcCurRat}"/>
+                    <h:outputText value="#{tArticleController.selected.vitOtcCurRat}" title="#{bundle.ViewTArticleTitle_vitOtcCurRat}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitOtcCurRef}"/>
+                    <h:outputText value="#{tArticleController.selected.vitOtcCurRef}" title="#{bundle.ViewTArticleTitle_vitOtcCurRef}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitDedAmtNmu}"/>
+                    <h:outputText value="#{tArticleController.selected.vitDedAmtNmu}" title="#{bundle.ViewTArticleTitle_vitDedAmtNmu}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitDedAmtFcx}"/>
+                    <h:outputText value="#{tArticleController.selected.vitDedAmtFcx}" title="#{bundle.ViewTArticleTitle_vitDedAmtFcx}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitDedCurCod}"/>
+                    <h:outputText value="#{tArticleController.selected.vitDedCurCod}" title="#{bundle.ViewTArticleTitle_vitDedCurCod}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitDedCurNam}"/>
+                    <h:outputText value="#{tArticleController.selected.vitDedCurNam}" title="#{bundle.ViewTArticleTitle_vitDedCurNam}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitDedCurRat}"/>
+                    <h:outputText value="#{tArticleController.selected.vitDedCurRat}" title="#{bundle.ViewTArticleTitle_vitDedCurRat}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitDedCurRef}"/>
+                    <h:outputText value="#{tArticleController.selected.vitDedCurRef}" title="#{bundle.ViewTArticleTitle_vitDedCurRef}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitMktRat}"/>
+                    <h:outputText value="#{tArticleController.selected.vitMktRat}" title="#{bundle.ViewTArticleTitle_vitMktRat}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitMktCur}"/>
+                    <h:outputText value="#{tArticleController.selected.vitMktCur}" title="#{bundle.ViewTArticleTitle_vitMktCur}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitMktAmt}"/>
+                    <h:outputText value="#{tArticleController.selected.vitMktAmt}" title="#{bundle.ViewTArticleTitle_vitMktAmt}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitMktBseDsc}"/>
+                    <h:outputText value="#{tArticleController.selected.vitMktBseDsc}" title="#{bundle.ViewTArticleTitle_vitMktBseDsc}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_vitMktBseAmt}"/>
+                    <h:outputText value="#{tArticleController.selected.vitMktBseAmt}" title="#{bundle.ViewTArticleTitle_vitMktBseAmt}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_blkVin}"/>
+                    <h:outputText value="#{tArticleController.selected.blkVin}" title="#{bundle.ViewTArticleTitle_blkVin}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_blkSrp}"/>
+                    <h:outputText value="#{tArticleController.selected.blkSrp}" title="#{bundle.ViewTArticleTitle_blkSrp}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_blkFob}"/>
+                    <h:outputText value="#{tArticleController.selected.blkFob}" title="#{bundle.ViewTArticleTitle_blkFob}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_flp1}"/>
+                    <h:outputText value="#{tArticleController.selected.flp1}" title="#{bundle.ViewTArticleTitle_flp1}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_quoId}"/>
+                    <h:outputText value="#{tArticleController.selected.quoId}" title="#{bundle.ViewTArticleTitle_quoId}"/>
+                    <h:outputText value="#{bundle.ViewTArticleLabel_quoItmNbr}"/>
+                    <h:outputText value="#{tArticleController.selected.quoItmNbr}" title="#{bundle.ViewTArticleTitle_quoItmNbr}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tArticleController.destroyAndView}" value="#{bundle.ViewTArticleDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewTArticleEditLink}"/>
+                <br />
+                <h:commandLink action="#{tArticleController.prepareCreate}" value="#{bundle.ViewTArticleCreateLink}" />
+                <br />
+                <h:commandLink action="#{tArticleController.prepareList}" value="#{bundle.ViewTArticleShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewTArticleIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

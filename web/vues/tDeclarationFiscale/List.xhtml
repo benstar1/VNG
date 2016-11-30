@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTDeclarationFiscaleTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListTDeclarationFiscaleEmpty}" rendered="#{tDeclarationFiscaleController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{tDeclarationFiscaleController.items.rowCount > 0}">
+                    <h:outputText value="#{tDeclarationFiscaleController.pagination.pageFirstItem + 1}..#{tDeclarationFiscaleController.pagination.pageLastItem + 1}/#{tDeclarationFiscaleController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{tDeclarationFiscaleController.previous}" value="#{bundle.Previous} #{tDeclarationFiscaleController.pagination.pageSize}" rendered="#{tDeclarationFiscaleController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{tDeclarationFiscaleController.next}" value="#{bundle.Next} #{tDeclarationFiscaleController.pagination.pageSize}" rendered="#{tDeclarationFiscaleController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{tDeclarationFiscaleController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationFiscaleTitle_declarNum}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.declarNum}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationFiscaleTitle_declarReference}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.declarReference}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationFiscaleTitle_declarDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.declarDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationFiscaleTitle_declarBureau}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.declarBureau}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationFiscaleTitle_declarAnnee}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.declarAnnee}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationFiscaleTitle_declarEntDecNum}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.declarEntDecNum}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{tDeclarationFiscaleController.prepareView}" value="#{bundle.ListTDeclarationFiscaleViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tDeclarationFiscaleController.prepareEdit}" value="#{bundle.ListTDeclarationFiscaleEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tDeclarationFiscaleController.destroy}" value="#{bundle.ListTDeclarationFiscaleDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{tDeclarationFiscaleController.prepareCreate}" value="#{bundle.ListTDeclarationFiscaleCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListTDeclarationFiscaleIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

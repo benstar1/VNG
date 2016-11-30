@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewTRepUniqueTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contNum}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contNum}" title="#{bundle.ViewTRepUniqueTitle_contNum}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contDatenreg}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contDatenreg}" title="#{bundle.ViewTRepUniqueTitle_contDatenreg}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contImmatr}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contImmatr}" title="#{bundle.ViewTRepUniqueTitle_contImmatr}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contDateimmatr}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contDateimmatr}" title="#{bundle.ViewTRepUniqueTitle_contDateimmatr}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contReimmatr}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contReimmatr}" title="#{bundle.ViewTRepUniqueTitle_contReimmatr}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contNom}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contNom}" title="#{bundle.ViewTRepUniqueTitle_contNom}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contPren}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contPren}" title="#{bundle.ViewTRepUniqueTitle_contPren}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contNomJf}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contNomJf}" title="#{bundle.ViewTRepUniqueTitle_contNomJf}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contSexe}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contSexe}" title="#{bundle.ViewTRepUniqueTitle_contSexe}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contSitMat}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contSitMat}" title="#{bundle.ViewTRepUniqueTitle_contSitMat}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contDatnais}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contDatnais}" title="#{bundle.ViewTRepUniqueTitle_contDatnais}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contLieunais}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contLieunais}" title="#{bundle.ViewTRepUniqueTitle_contLieunais}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contBp}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contBp}" title="#{bundle.ViewTRepUniqueTitle_contBp}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contTel}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contTel}" title="#{bundle.ViewTRepUniqueTitle_contTel}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contFax}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contFax}" title="#{bundle.ViewTRepUniqueTitle_contFax}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contMail}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contMail}" title="#{bundle.ViewTRepUniqueTitle_contMail}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contCarre}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contCarre}" title="#{bundle.ViewTRepUniqueTitle_contCarre}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contLot}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contLot}" title="#{bundle.ViewTRepUniqueTitle_contLot}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contRais}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contRais}" title="#{bundle.ViewTRepUniqueTitle_contRais}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contNomCourt}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contNomCourt}" title="#{bundle.ViewTRepUniqueTitle_contNomCourt}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contNomLong}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contNomLong}" title="#{bundle.ViewTRepUniqueTitle_contNomLong}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contDatcreat}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contDatcreat}" title="#{bundle.ViewTRepUniqueTitle_contDatcreat}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contNompropsieg}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contNompropsieg}" title="#{bundle.ViewTRepUniqueTitle_contNompropsieg}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contLoyer}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contLoyer}" title="#{bundle.ViewTRepUniqueTitle_contLoyer}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contCapital}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contCapital}" title="#{bundle.ViewTRepUniqueTitle_contCapital}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contNuminsae}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contNuminsae}" title="#{bundle.ViewTRepUniqueTitle_contNuminsae}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contDatenregInsae}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contDatenregInsae}" title="#{bundle.ViewTRepUniqueTitle_contDatenregInsae}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contNbEnf}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contNbEnf}" title="#{bundle.ViewTRepUniqueTitle_contNbEnf}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contCentrCode}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contCentrCode}" title="#{bundle.ViewTRepUniqueTitle_contCentrCode}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contProfCode}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contProfCode}" title="#{bundle.ViewTRepUniqueTitle_contProfCode}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contFonctCode}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contFonctCode}" title="#{bundle.ViewTRepUniqueTitle_contFonctCode}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contNbEmpl}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contNbEmpl}" title="#{bundle.ViewTRepUniqueTitle_contNbEmpl}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contQuart}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contQuart}" title="#{bundle.ViewTRepUniqueTitle_contQuart}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contCatEtabCode}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contCatEtabCode}" title="#{bundle.ViewTRepUniqueTitle_contCatEtabCode}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contModExpCode}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contModExpCode}" title="#{bundle.ViewTRepUniqueTitle_contModExpCode}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contContNum}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contContNum}" title="#{bundle.ViewTRepUniqueTitle_contContNum}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contOrdre}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contOrdre}" title="#{bundle.ViewTRepUniqueTitle_contOrdre}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contMemActMere}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contMemActMere}" title="#{bundle.ViewTRepUniqueTitle_contMemActMere}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contDateCessation}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contDateCessation}" title="#{bundle.ViewTRepUniqueTitle_contDateCessation}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contDateDeces}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contDateDeces}" title="#{bundle.ViewTRepUniqueTitle_contDateDeces}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contDateRepriseAct}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contDateRepriseAct}" title="#{bundle.ViewTRepUniqueTitle_contDateRepriseAct}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contEnsCommerce}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contEnsCommerce}" title="#{bundle.ViewTRepUniqueTitle_contEnsCommerce}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contNationCode}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contNationCode}" title="#{bundle.ViewTRepUniqueTitle_contNationCode}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contNeVers}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contNeVers}" title="#{bundle.ViewTRepUniqueTitle_contNeVers}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contVille}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contVille}" title="#{bundle.ViewTRepUniqueTitle_contVille}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contRue}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contRue}" title="#{bundle.ViewTRepUniqueTitle_contRue}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contPrnompropsieg}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contPrnompropsieg}" title="#{bundle.ViewTRepUniqueTitle_contPrnompropsieg}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contProp}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contProp}" title="#{bundle.ViewTRepUniqueTitle_contProp}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contMemBank}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contMemBank}" title="#{bundle.ViewTRepUniqueTitle_contMemBank}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contNewImmatr}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contNewImmatr}" title="#{bundle.ViewTRepUniqueTitle_contNewImmatr}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contNuminsae1}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contNuminsae1}" title="#{bundle.ViewTRepUniqueTitle_contNuminsae1}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contActif}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contActif}" title="#{bundle.ViewTRepUniqueTitle_contActif}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contMatricule}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contMatricule}" title="#{bundle.ViewTRepUniqueTitle_contMatricule}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contDateMajMatricule}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contDateMajMatricule}" title="#{bundle.ViewTRepUniqueTitle_contDateMajMatricule}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contStatut}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contStatut}" title="#{bundle.ViewTRepUniqueTitle_contStatut}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_TEntDeclaration}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.TEntDeclaration}" title="#{bundle.ViewTRepUniqueTitle_TEntDeclaration}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_THistorique}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.THistorique}" title="#{bundle.ViewTRepUniqueTitle_THistorique}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contTypContCode}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contTypContCode}" title="#{bundle.ViewTRepUniqueTitle_contTypContCode}"/>
+                    <h:outputText value="#{bundle.ViewTRepUniqueLabel_contCentrImpCode}"/>
+                    <h:outputText value="#{tRepUniqueController.selected.contCentrImpCode}" title="#{bundle.ViewTRepUniqueTitle_contCentrImpCode}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tRepUniqueController.destroyAndView}" value="#{bundle.ViewTRepUniqueDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewTRepUniqueEditLink}"/>
+                <br />
+                <h:commandLink action="#{tRepUniqueController.prepareCreate}" value="#{bundle.ViewTRepUniqueCreateLink}" />
+                <br />
+                <h:commandLink action="#{tRepUniqueController.prepareList}" value="#{bundle.ViewTRepUniqueShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewTRepUniqueIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateTHistoriqueTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histNum}" for="histNum" />
+                    <h:inputText id="histNum" value="#{tHistoriqueController.selected.histNum}" title="#{bundle.CreateTHistoriqueTitle_histNum}" required="true" requiredMessage="#{bundle.CreateTHistoriqueRequiredMessage_histNum}"/>
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContNum}" for="histContNum" />
+                    <h:inputText id="histContNum" value="#{tHistoriqueController.selected.histContNum}" title="#{bundle.CreateTHistoriqueTitle_histContNum}" required="true" requiredMessage="#{bundle.CreateTHistoriqueRequiredMessage_histContNum}"/>
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContDatenreg}" for="histContDatenreg" />
+                    <h:inputText id="histContDatenreg" value="#{tHistoriqueController.selected.histContDatenreg}" title="#{bundle.CreateTHistoriqueTitle_histContDatenreg}" required="true" requiredMessage="#{bundle.CreateTHistoriqueRequiredMessage_histContDatenreg}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContDateimmatr}" for="histContDateimmatr" />
+                    <h:inputText id="histContDateimmatr" value="#{tHistoriqueController.selected.histContDateimmatr}" title="#{bundle.CreateTHistoriqueTitle_histContDateimmatr}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContReimmatr}" for="histContReimmatr" />
+                    <h:inputText id="histContReimmatr" value="#{tHistoriqueController.selected.histContReimmatr}" title="#{bundle.CreateTHistoriqueTitle_histContReimmatr}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContNom}" for="histContNom" />
+                    <h:inputText id="histContNom" value="#{tHistoriqueController.selected.histContNom}" title="#{bundle.CreateTHistoriqueTitle_histContNom}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContPren}" for="histContPren" />
+                    <h:inputText id="histContPren" value="#{tHistoriqueController.selected.histContPren}" title="#{bundle.CreateTHistoriqueTitle_histContPren}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContNomJf}" for="histContNomJf" />
+                    <h:inputText id="histContNomJf" value="#{tHistoriqueController.selected.histContNomJf}" title="#{bundle.CreateTHistoriqueTitle_histContNomJf}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContSexe}" for="histContSexe" />
+                    <h:inputText id="histContSexe" value="#{tHistoriqueController.selected.histContSexe}" title="#{bundle.CreateTHistoriqueTitle_histContSexe}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContSitMat}" for="histContSitMat" />
+                    <h:inputText id="histContSitMat" value="#{tHistoriqueController.selected.histContSitMat}" title="#{bundle.CreateTHistoriqueTitle_histContSitMat}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContDatnais}" for="histContDatnais" />
+                    <h:inputText id="histContDatnais" value="#{tHistoriqueController.selected.histContDatnais}" title="#{bundle.CreateTHistoriqueTitle_histContDatnais}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContLieunais}" for="histContLieunais" />
+                    <h:inputText id="histContLieunais" value="#{tHistoriqueController.selected.histContLieunais}" title="#{bundle.CreateTHistoriqueTitle_histContLieunais}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContBp}" for="histContBp" />
+                    <h:inputText id="histContBp" value="#{tHistoriqueController.selected.histContBp}" title="#{bundle.CreateTHistoriqueTitle_histContBp}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContTel}" for="histContTel" />
+                    <h:inputText id="histContTel" value="#{tHistoriqueController.selected.histContTel}" title="#{bundle.CreateTHistoriqueTitle_histContTel}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContFax}" for="histContFax" />
+                    <h:inputText id="histContFax" value="#{tHistoriqueController.selected.histContFax}" title="#{bundle.CreateTHistoriqueTitle_histContFax}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContMail}" for="histContMail" />
+                    <h:inputText id="histContMail" value="#{tHistoriqueController.selected.histContMail}" title="#{bundle.CreateTHistoriqueTitle_histContMail}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContCarre}" for="histContCarre" />
+                    <h:inputText id="histContCarre" value="#{tHistoriqueController.selected.histContCarre}" title="#{bundle.CreateTHistoriqueTitle_histContCarre}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContLot}" for="histContLot" />
+                    <h:inputText id="histContLot" value="#{tHistoriqueController.selected.histContLot}" title="#{bundle.CreateTHistoriqueTitle_histContLot}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContRais}" for="histContRais" />
+                    <h:inputText id="histContRais" value="#{tHistoriqueController.selected.histContRais}" title="#{bundle.CreateTHistoriqueTitle_histContRais}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContNomCourt}" for="histContNomCourt" />
+                    <h:inputText id="histContNomCourt" value="#{tHistoriqueController.selected.histContNomCourt}" title="#{bundle.CreateTHistoriqueTitle_histContNomCourt}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContNomLong}" for="histContNomLong" />
+                    <h:inputText id="histContNomLong" value="#{tHistoriqueController.selected.histContNomLong}" title="#{bundle.CreateTHistoriqueTitle_histContNomLong}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContDatcreat}" for="histContDatcreat" />
+                    <h:inputText id="histContDatcreat" value="#{tHistoriqueController.selected.histContDatcreat}" title="#{bundle.CreateTHistoriqueTitle_histContDatcreat}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContNompropsieg}" for="histContNompropsieg" />
+                    <h:inputText id="histContNompropsieg" value="#{tHistoriqueController.selected.histContNompropsieg}" title="#{bundle.CreateTHistoriqueTitle_histContNompropsieg}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContLoyer}" for="histContLoyer" />
+                    <h:inputText id="histContLoyer" value="#{tHistoriqueController.selected.histContLoyer}" title="#{bundle.CreateTHistoriqueTitle_histContLoyer}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContCapital}" for="histContCapital" />
+                    <h:inputText id="histContCapital" value="#{tHistoriqueController.selected.histContCapital}" title="#{bundle.CreateTHistoriqueTitle_histContCapital}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContNuminsae}" for="histContNuminsae" />
+                    <h:inputText id="histContNuminsae" value="#{tHistoriqueController.selected.histContNuminsae}" title="#{bundle.CreateTHistoriqueTitle_histContNuminsae}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContDatenregInsae}" for="histContDatenregInsae" />
+                    <h:inputText id="histContDatenregInsae" value="#{tHistoriqueController.selected.histContDatenregInsae}" title="#{bundle.CreateTHistoriqueTitle_histContDatenregInsae}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContNbEnf}" for="histContNbEnf" />
+                    <h:inputText id="histContNbEnf" value="#{tHistoriqueController.selected.histContNbEnf}" title="#{bundle.CreateTHistoriqueTitle_histContNbEnf}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContCentrCode}" for="histContCentrCode" />
+                    <h:inputText id="histContCentrCode" value="#{tHistoriqueController.selected.histContCentrCode}" title="#{bundle.CreateTHistoriqueTitle_histContCentrCode}" required="true" requiredMessage="#{bundle.CreateTHistoriqueRequiredMessage_histContCentrCode}"/>
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContTypContCode}" for="histContTypContCode" />
+                    <h:inputText id="histContTypContCode" value="#{tHistoriqueController.selected.histContTypContCode}" title="#{bundle.CreateTHistoriqueTitle_histContTypContCode}" required="true" requiredMessage="#{bundle.CreateTHistoriqueRequiredMessage_histContTypContCode}"/>
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContProfCode}" for="histContProfCode" />
+                    <h:inputText id="histContProfCode" value="#{tHistoriqueController.selected.histContProfCode}" title="#{bundle.CreateTHistoriqueTitle_histContProfCode}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContFonctCode}" for="histContFonctCode" />
+                    <h:inputText id="histContFonctCode" value="#{tHistoriqueController.selected.histContFonctCode}" title="#{bundle.CreateTHistoriqueTitle_histContFonctCode}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContNbEmpl}" for="histContNbEmpl" />
+                    <h:inputText id="histContNbEmpl" value="#{tHistoriqueController.selected.histContNbEmpl}" title="#{bundle.CreateTHistoriqueTitle_histContNbEmpl}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContQuart}" for="histContQuart" />
+                    <h:inputText id="histContQuart" value="#{tHistoriqueController.selected.histContQuart}" title="#{bundle.CreateTHistoriqueTitle_histContQuart}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContCatEtabCode}" for="histContCatEtabCode" />
+                    <h:inputText id="histContCatEtabCode" value="#{tHistoriqueController.selected.histContCatEtabCode}" title="#{bundle.CreateTHistoriqueTitle_histContCatEtabCode}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContModExpCode}" for="histContModExpCode" />
+                    <h:inputText id="histContModExpCode" value="#{tHistoriqueController.selected.histContModExpCode}" title="#{bundle.CreateTHistoriqueTitle_histContModExpCode}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContContNum}" for="histContContNum" />
+                    <h:inputText id="histContContNum" value="#{tHistoriqueController.selected.histContContNum}" title="#{bundle.CreateTHistoriqueTitle_histContContNum}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContOrdre}" for="histContOrdre" />
+                    <h:inputText id="histContOrdre" value="#{tHistoriqueController.selected.histContOrdre}" title="#{bundle.CreateTHistoriqueTitle_histContOrdre}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContMemActMere}" for="histContMemActMere" />
+                    <h:inputText id="histContMemActMere" value="#{tHistoriqueController.selected.histContMemActMere}" title="#{bundle.CreateTHistoriqueTitle_histContMemActMere}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContDateCessation}" for="histContDateCessation" />
+                    <h:inputText id="histContDateCessation" value="#{tHistoriqueController.selected.histContDateCessation}" title="#{bundle.CreateTHistoriqueTitle_histContDateCessation}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContDateDeces}" for="histContDateDeces" />
+                    <h:inputText id="histContDateDeces" value="#{tHistoriqueController.selected.histContDateDeces}" title="#{bundle.CreateTHistoriqueTitle_histContDateDeces}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContDateRepriseAct}" for="histContDateRepriseAct" />
+                    <h:inputText id="histContDateRepriseAct" value="#{tHistoriqueController.selected.histContDateRepriseAct}" title="#{bundle.CreateTHistoriqueTitle_histContDateRepriseAct}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContEnsCommerce}" for="histContEnsCommerce" />
+                    <h:inputText id="histContEnsCommerce" value="#{tHistoriqueController.selected.histContEnsCommerce}" title="#{bundle.CreateTHistoriqueTitle_histContEnsCommerce}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContNationCode}" for="histContNationCode" />
+                    <h:inputText id="histContNationCode" value="#{tHistoriqueController.selected.histContNationCode}" title="#{bundle.CreateTHistoriqueTitle_histContNationCode}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContNeVers}" for="histContNeVers" />
+                    <h:inputText id="histContNeVers" value="#{tHistoriqueController.selected.histContNeVers}" title="#{bundle.CreateTHistoriqueTitle_histContNeVers}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContVille}" for="histContVille" />
+                    <h:inputText id="histContVille" value="#{tHistoriqueController.selected.histContVille}" title="#{bundle.CreateTHistoriqueTitle_histContVille}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContRue}" for="histContRue" />
+                    <h:inputText id="histContRue" value="#{tHistoriqueController.selected.histContRue}" title="#{bundle.CreateTHistoriqueTitle_histContRue}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContPrnompropsieg}" for="histContPrnompropsieg" />
+                    <h:inputText id="histContPrnompropsieg" value="#{tHistoriqueController.selected.histContPrnompropsieg}" title="#{bundle.CreateTHistoriqueTitle_histContPrnompropsieg}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContProp}" for="histContProp" />
+                    <h:inputText id="histContProp" value="#{tHistoriqueController.selected.histContProp}" title="#{bundle.CreateTHistoriqueTitle_histContProp}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContMemBank}" for="histContMemBank" />
+                    <h:inputText id="histContMemBank" value="#{tHistoriqueController.selected.histContMemBank}" title="#{bundle.CreateTHistoriqueTitle_histContMemBank}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContNewImmatr}" for="histContNewImmatr" />
+                    <h:inputText id="histContNewImmatr" value="#{tHistoriqueController.selected.histContNewImmatr}" title="#{bundle.CreateTHistoriqueTitle_histContNewImmatr}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContNuminsae1}" for="histContNuminsae1" />
+                    <h:inputText id="histContNuminsae1" value="#{tHistoriqueController.selected.histContNuminsae1}" title="#{bundle.CreateTHistoriqueTitle_histContNuminsae1}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContActif}" for="histContActif" />
+                    <h:inputText id="histContActif" value="#{tHistoriqueController.selected.histContActif}" title="#{bundle.CreateTHistoriqueTitle_histContActif}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContMatricule}" for="histContMatricule" />
+                    <h:inputText id="histContMatricule" value="#{tHistoriqueController.selected.histContMatricule}" title="#{bundle.CreateTHistoriqueTitle_histContMatricule}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContDateMajMatricule}" for="histContDateMajMatricule" />
+                    <h:inputText id="histContDateMajMatricule" value="#{tHistoriqueController.selected.histContDateMajMatricule}" title="#{bundle.CreateTHistoriqueTitle_histContDateMajMatricule}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContStatut}" for="histContStatut" />
+                    <h:inputText id="histContStatut" value="#{tHistoriqueController.selected.histContStatut}" title="#{bundle.CreateTHistoriqueTitle_histContStatut}" />
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histUtilLogin}" for="histUtilLogin" />
+                    <h:selectOneMenu id="histUtilLogin" value="#{tHistoriqueController.selected.histUtilLogin}" title="#{bundle.CreateTHistoriqueTitle_histUtilLogin}" >
+                        <f:selectItems value="#{tUtilisateurController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histContImmatr}" for="histContImmatr" />
+                    <h:selectOneMenu id="histContImmatr" value="#{tHistoriqueController.selected.histContImmatr}" title="#{bundle.CreateTHistoriqueTitle_histContImmatr}" >
+                        <f:selectItems value="#{tRepUniqueController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateTHistoriqueLabel_histMotifCode}" for="histMotifCode" />
+                    <h:selectOneMenu id="histMotifCode" value="#{tHistoriqueController.selected.histMotifCode}" title="#{bundle.CreateTHistoriqueTitle_histMotifCode}" >
+                        <f:selectItems value="#{tMotifController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tHistoriqueController.create}" value="#{bundle.CreateTHistoriqueSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{tHistoriqueController.prepareList}" value="#{bundle.CreateTHistoriqueShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateTHistoriqueIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

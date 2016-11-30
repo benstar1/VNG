@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateTHistStatutTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateTHistStatutLabel_histStatutCode}" for="histStatutCode" />
+                    <h:inputText id="histStatutCode" value="#{tHistStatutController.selected.histStatutCode}" title="#{bundle.CreateTHistStatutTitle_histStatutCode}" required="true" requiredMessage="#{bundle.CreateTHistStatutRequiredMessage_histStatutCode}"/>
+                    <h:outputLabel value="#{bundle.CreateTHistStatutLabel_histStatutDatedebut}" for="histStatutDatedebut" />
+                    <h:inputText id="histStatutDatedebut" value="#{tHistStatutController.selected.histStatutDatedebut}" title="#{bundle.CreateTHistStatutTitle_histStatutDatedebut}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTHistStatutLabel_histStatutDatefin}" for="histStatutDatefin" />
+                    <h:inputText id="histStatutDatefin" value="#{tHistStatutController.selected.histStatutDatefin}" title="#{bundle.CreateTHistStatutTitle_histStatutDatefin}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTHistStatutLabel_histStatutStatut}" for="histStatutStatut" />
+                    <h:inputText id="histStatutStatut" value="#{tHistStatutController.selected.histStatutStatut}" title="#{bundle.CreateTHistStatutTitle_histStatutStatut}" />
+                    <h:outputLabel value="#{bundle.CreateTHistStatutLabel_histStatutUtilLogin}" for="histStatutUtilLogin" />
+                    <h:selectOneMenu id="histStatutUtilLogin" value="#{tHistStatutController.selected.histStatutUtilLogin}" title="#{bundle.CreateTHistStatutTitle_histStatutUtilLogin}" required="true" requiredMessage="#{bundle.CreateTHistStatutRequiredMessage_histStatutUtilLogin}">
+                        <f:selectItems value="#{tUtilisateurController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateTHistStatutLabel_histStatutContImmatr}" for="histStatutContImmatr" />
+                    <h:selectOneMenu id="histStatutContImmatr" value="#{tHistStatutController.selected.histStatutContImmatr}" title="#{bundle.CreateTHistStatutTitle_histStatutContImmatr}" >
+                        <f:selectItems value="#{tRepUniqueController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tHistStatutController.create}" value="#{bundle.CreateTHistStatutSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{tHistStatutController.prepareList}" value="#{bundle.CreateTHistStatutShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateTHistStatutIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

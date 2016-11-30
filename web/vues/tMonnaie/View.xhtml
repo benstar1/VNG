@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewTMonnaieTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewTMonnaieLabel_TMonnaiePK_curCod}"/>
+                    <h:outputText value="#{tMonnaieController.selected.TMonnaiePK.curCod}" title="#{bundle.ViewTMonnaieTitle_TMonnaiePK_curCod}"/>
+                    <h:outputText value="#{bundle.ViewTMonnaieLabel_TMonnaiePK_validFrom}"/>
+                    <h:outputText value="#{tMonnaieController.selected.TMonnaiePK.validFrom}" title="#{bundle.ViewTMonnaieTitle_TMonnaiePK_validFrom}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTMonnaieLabel_curRat}"/>
+                    <h:outputText value="#{tMonnaieController.selected.curRat}" title="#{bundle.ViewTMonnaieTitle_curRat}"/>
+                    <h:outputText value="#{bundle.ViewTMonnaieLabel_validTo}"/>
+                    <h:outputText value="#{tMonnaieController.selected.validTo}" title="#{bundle.ViewTMonnaieTitle_validTo}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTMonnaieLabel_curDsc}"/>
+                    <h:outputText value="#{tMonnaieController.selected.curDsc}" title="#{bundle.ViewTMonnaieTitle_curDsc}"/>
+                    <h:outputText value="#{bundle.ViewTMonnaieLabel_curDsc2}"/>
+                    <h:outputText value="#{tMonnaieController.selected.curDsc2}" title="#{bundle.ViewTMonnaieTitle_curDsc2}"/>
+                    <h:outputText value="#{bundle.ViewTMonnaieLabel_curDsc3}"/>
+                    <h:outputText value="#{tMonnaieController.selected.curDsc3}" title="#{bundle.ViewTMonnaieTitle_curDsc3}"/>
+                    <h:outputText value="#{bundle.ViewTMonnaieLabel_modifyTime}"/>
+                    <h:outputText value="#{tMonnaieController.selected.modifyTime}" title="#{bundle.ViewTMonnaieTitle_modifyTime}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTMonnaieLabel_flgRem}"/>
+                    <h:outputText value="#{tMonnaieController.selected.flgRem}" title="#{bundle.ViewTMonnaieTitle_flgRem}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tMonnaieController.destroyAndView}" value="#{bundle.ViewTMonnaieDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewTMonnaieEditLink}"/>
+                <br />
+                <h:commandLink action="#{tMonnaieController.prepareCreate}" value="#{bundle.ViewTMonnaieCreateLink}" />
+                <br />
+                <h:commandLink action="#{tMonnaieController.prepareList}" value="#{bundle.ViewTMonnaieShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewTMonnaieIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

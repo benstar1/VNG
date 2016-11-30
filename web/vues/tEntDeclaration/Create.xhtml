@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateTEntDeclarationTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateTEntDeclarationLabel_entDecNum}" for="entDecNum" />
+                    <h:inputText id="entDecNum" value="#{tEntDeclarationController.selected.entDecNum}" title="#{bundle.CreateTEntDeclarationTitle_entDecNum}" required="true" requiredMessage="#{bundle.CreateTEntDeclarationRequiredMessage_entDecNum}"/>
+                    <h:outputLabel value="#{bundle.CreateTEntDeclarationLabel_entDecValidation}" for="entDecValidation" />
+                    <h:inputText id="entDecValidation" value="#{tEntDeclarationController.selected.entDecValidation}" title="#{bundle.CreateTEntDeclarationTitle_entDecValidation}" />
+                    <h:outputLabel value="#{bundle.CreateTEntDeclarationLabel_entDecDate}" for="entDecDate" />
+                    <h:inputText id="entDecDate" value="#{tEntDeclarationController.selected.entDecDate}" title="#{bundle.CreateTEntDeclarationTitle_entDecDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTEntDeclarationLabel_entDecDatefin}" for="entDecDatefin" />
+                    <h:inputText id="entDecDatefin" value="#{tEntDeclarationController.selected.entDecDatefin}" title="#{bundle.CreateTEntDeclarationTitle_entDecDatefin}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTEntDeclarationLabel_entDecDatedebut}" for="entDecDatedebut" />
+                    <h:inputText id="entDecDatedebut" value="#{tEntDeclarationController.selected.entDecDatedebut}" title="#{bundle.CreateTEntDeclarationTitle_entDecDatedebut}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTEntDeclarationLabel_entDecContImmatr}" for="entDecContImmatr" />
+                    <h:selectOneMenu id="entDecContImmatr" value="#{tEntDeclarationController.selected.entDecContImmatr}" title="#{bundle.CreateTEntDeclarationTitle_entDecContImmatr}" >
+                        <f:selectItems value="#{tRepUniqueController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tEntDeclarationController.create}" value="#{bundle.CreateTEntDeclarationSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{tEntDeclarationController.prepareList}" value="#{bundle.CreateTEntDeclarationShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateTEntDeclarationIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

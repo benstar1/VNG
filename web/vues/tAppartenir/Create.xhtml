@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateTAppartenirTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateTAppartenirLabel_TAppartenirPK_appartenirDatedebut}" for="TAppartenirPK_appartenirDatedebut" />
+                    <h:inputText id="TAppartenirPK_appartenirDatedebut" value="#{tAppartenirController.selected.TAppartenirPK.appartenirDatedebut}" title="#{bundle.CreateTAppartenirTitle_TAppartenirPK_appartenirDatedebut}" required="true" requiredMessage="#{bundle.CreateTAppartenirRequiredMessage_TAppartenirPK_appartenirDatedebut}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTAppartenirLabel_datefin}" for="datefin" />
+                    <h:inputText id="datefin" value="#{tAppartenirController.selected.datefin}" title="#{bundle.CreateTAppartenirTitle_datefin}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTAppartenirLabel_TUtilisateur}" for="TUtilisateur" />
+                    <h:selectOneMenu id="TUtilisateur" value="#{tAppartenirController.selected.TUtilisateur}" title="#{bundle.CreateTAppartenirTitle_TUtilisateur}" required="true" requiredMessage="#{bundle.CreateTAppartenirRequiredMessage_TUtilisateur}">
+                        <f:selectItems value="#{tUtilisateurController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateTAppartenirLabel_TCentreImpot}" for="TCentreImpot" />
+                    <h:selectOneMenu id="TCentreImpot" value="#{tAppartenirController.selected.TCentreImpot}" title="#{bundle.CreateTAppartenirTitle_TCentreImpot}" required="true" requiredMessage="#{bundle.CreateTAppartenirRequiredMessage_TCentreImpot}">
+                        <f:selectItems value="#{tCentreImpotController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tAppartenirController.create}" value="#{bundle.CreateTAppartenirSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{tAppartenirController.prepareList}" value="#{bundle.CreateTAppartenirShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateTAppartenirIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

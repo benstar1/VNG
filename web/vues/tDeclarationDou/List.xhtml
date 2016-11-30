@@ -1,0 +1,1186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTDeclarationDouTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListTDeclarationDouEmpty}" rendered="#{tDeclarationDouController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{tDeclarationDouController.items.rowCount > 0}">
+                    <h:outputText value="#{tDeclarationDouController.pagination.pageFirstItem + 1}..#{tDeclarationDouController.pagination.pageLastItem + 1}/#{tDeclarationDouController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{tDeclarationDouController.previous}" value="#{bundle.Previous} #{tDeclarationDouController.pagination.pageSize}" rendered="#{tDeclarationDouController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{tDeclarationDouController.next}" value="#{bundle.Next} #{tDeclarationDouController.pagination.pageSize}" rendered="#{tDeclarationDouController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{tDeclarationDouController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_instanceid}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.instanceid}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_rlsCuoCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rlsCuoCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_rlsCuoNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rlsCuoNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_rlsRef}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rlsRef}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_rlsInf}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rlsInf}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_rlsDat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rlsDat}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_rlsTim}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rlsTim}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_prvDty}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prvDty}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ptyColDsc}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ptyColDsc}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ptyColInd}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ptyColInd}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ptyBlu}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ptyBlu}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ptyRed}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ptyRed}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ptyYel}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ptyYel}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ptyGre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ptyGre}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ptyOas}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ptyOas}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ptyQue}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ptyQue}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ptyWde}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ptyWde}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ptyFrmNbr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ptyFrmNbr}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ptyFrmTot}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ptyFrmTot}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ptyNbrLdl}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ptyNbrLdl}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ptyNbrItm}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ptyNbrItm}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ptyNbrPck}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ptyNbrPck}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ptyPlc}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ptyPlc}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ptyCde}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ptyCde}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ideCuoCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ideCuoCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ideCuoNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ideCuoNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ideTypSad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ideTypSad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ideTypPrc}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ideTypPrc}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ideTypTyp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ideTypTyp}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ideTypTrs}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ideTypTrs}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ideMan}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ideMan}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ideBar}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ideBar}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ideRegSer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ideRegSer}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ideRegNbr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ideRegNbr}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ideRegDat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ideRegDat}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ideAstSer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ideAstSer}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ideAstNbr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ideAstNbr}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ideAstDat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ideAstDat}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ideRcpSer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ideRcpSer}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ideRcpNbr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ideRcpNbr}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ideRcpDat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ideRcpDat}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ideRcpTyp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ideRcpTyp}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_ideRcpCuo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ideRcpCuo}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_idePstNbr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idePstNbr}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_idePstDat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idePstDat}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_idePstTmpPre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idePstTmpPre}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_idePstTmpTy1}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idePstTmpTy1}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_idePstTmpTy2}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idePstTmpTy2}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_cmpExpCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cmpExpCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_cmpExpNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cmpExpNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_cmpConCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cmpConCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_cmpConNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cmpConNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_cmpFisCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cmpFisCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_cmpFisNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cmpFisNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_decFlg}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.decFlg}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_decCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.decCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_decNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.decNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_decRefYer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.decRefYer}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_decRefNbr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.decRefNbr}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_decRep}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.decRep}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_genCtyFlt}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.genCtyFlt}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_genCtyTrd}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.genCtyTrd}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_genCtyEptCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.genCtyEptCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_genCtyEptNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.genCtyEptNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_genCtyEptCrg}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.genCtyEptCrg}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_genCtyDesCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.genCtyDesCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_genCtyDesNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.genCtyDesNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_genCtyDesCrg}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.genCtyDesCrg}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_genCtyOrg}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.genCtyOrg}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_genVdt}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.genVdt}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_genCap}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.genCap}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_genFre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.genFre}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_tptMotDpaNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tptMotDpaNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_tptMotDpaCty}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tptMotDpaCty}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_tptMotBrdNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tptMotBrdNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_tptMotBrdCty}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tptMotBrdCty}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_tptMotBrdCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tptMotBrdCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_tptMotInl}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tptMotInl}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_tptCtf}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tptCtf}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_tptTodCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tptTodCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_tptTodPlc}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tptTodPlc}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_tptTodSit}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tptTodSit}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_tptCuoCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tptCuoCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_tptCuoNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tptCuoNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_tptLopCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tptLopCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_tptLopNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tptLopNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_tptLopCty}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tptLopCty}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_tptLoc}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tptLoc}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_tptT1}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tptT1}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_finTraNa1}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.finTraNa1}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_finTraNa2}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.finTraNa2}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_finBnkCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.finBnkCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_finBnkNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.finBnkNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_finBnkBra}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.finBnkBra}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_finBnkFre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.finBnkFre}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_finTopCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.finTopCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_finTopNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.finTopNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_finAcc}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.finAcc}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_finMpn}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.finMpn}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_finAmtMnl}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.finAmtMnl}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_finAmtFee}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.finAmtFee}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_finAmtDty}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.finAmtDty}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_finAmtTbp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.finAmtTbp}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_finGtyNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.finGtyNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_finGtyAmt}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.finGtyAmt}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_finGtyDat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.finGtyDat}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_finGtyCtyCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.finGtyCtyCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_finGtyCtyNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.finGtyCtyNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsWrk}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsWrk}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsWgtGrs}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsWgtGrs}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsCst}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsCst}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsCif}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsCif}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsTotNmu}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsTotNmu}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsTotFcx}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsTotFcx}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsTotGrs}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsTotGrs}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsInvAmtNmu}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsInvAmtNmu}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsInvAmtFcx}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsInvAmtFcx}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsInvCurCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsInvCurCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsInvCurNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsInvCurNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsInvCurRat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsInvCurRat}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsInvCurRef}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsInvCurRef}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsEfrAmtNmu}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsEfrAmtNmu}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsEfrAmtFcx}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsEfrAmtFcx}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsEfrCurCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsEfrCurCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsEfrCurNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsEfrCurNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsEfrCurRat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsEfrCurRat}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsEfrCurRef}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsEfrCurRef}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsIfrAmtNmu}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsIfrAmtNmu}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsIfrAmtFcx}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsIfrAmtFcx}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsIfrCurCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsIfrCurCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsIfrCurNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsIfrCurNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsIfrCurRat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsIfrCurRat}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsIfrCurRef}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsIfrCurRef}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsInsAmtNmu}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsInsAmtNmu}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsInsAmtFcx}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsInsAmtFcx}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsInsCurCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsInsCurCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsInsCurNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsInsCurNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsInsCurRat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsInsCurRat}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsInsCurRef}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsInsCurRef}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsOtcAmtNmu}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsOtcAmtNmu}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsOtcAmtFcx}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsOtcAmtFcx}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsOtcCurCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsOtcCurCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsOtcCurNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsOtcCurNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsOtcCurRat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsOtcCurRat}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsOtcCurRef}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsOtcCurRef}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsDedAmtNmu}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsDedAmtNmu}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsDedAmtFcx}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsDedAmtFcx}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsDedCurCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsDedCurCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsDedCurNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsDedCurNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsDedCurRat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsDedCurRat}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_vgsDedCurRef}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vgsDedCurRef}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_whsCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.whsCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_whsTim}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.whsTim}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_trsRspCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trsRspCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_trsRspNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trsRspNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_trsRspRep}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trsRspRep}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_trsSgtPlc}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trsSgtPlc}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_trsSgtDat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trsSgtDat}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_trsDesCuo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trsDesCuo}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_trsDesCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trsDesCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_trsDesCty}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trsDesCty}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_trsSlsNbr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trsSlsNbr}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_trsSlsIde}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trsSlsIde}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_trsCtl}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trsCtl}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_trsLim}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trsLim}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_trsCof}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trsCof}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_astRyr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.astRyr}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_astAyr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.astAyr}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_astTot}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.astTot}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_astAmt}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.astAmt}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_astStn}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.astStn}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_astStd}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.astStd}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_astSts}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.astSts}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_rloNbr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rloNbr}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_exaSec}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.exaSec}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_exaExa}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.exaExa}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_exaCex}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.exaCex}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_exaWgt}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.exaWgt}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_lstRcpAmt}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lstRcpAmt}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_lstRcpSer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lstRcpSer}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_lstRcpNbr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lstRcpNbr}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_lstRcpDat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lstRcpDat}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_lstRcpTyp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lstRcpTyp}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_lstRcpCuo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lstRcpCuo}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_brokerStamp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.brokerStamp}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDeclarationDouTitle_customsStamp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.customsStamp}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{tDeclarationDouController.prepareView}" value="#{bundle.ListTDeclarationDouViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tDeclarationDouController.prepareEdit}" value="#{bundle.ListTDeclarationDouEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tDeclarationDouController.destroy}" value="#{bundle.ListTDeclarationDouDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{tDeclarationDouController.prepareCreate}" value="#{bundle.ListTDeclarationDouCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListTDeclarationDouIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

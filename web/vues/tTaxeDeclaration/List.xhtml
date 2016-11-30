@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTTaxeDeclarationTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListTTaxeDeclarationEmpty}" rendered="#{tTaxeDeclarationController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{tTaxeDeclarationController.items.rowCount > 0}">
+                    <h:outputText value="#{tTaxeDeclarationController.pagination.pageFirstItem + 1}..#{tTaxeDeclarationController.pagination.pageLastItem + 1}/#{tTaxeDeclarationController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{tTaxeDeclarationController.previous}" value="#{bundle.Previous} #{tTaxeDeclarationController.pagination.pageSize}" rendered="#{tTaxeDeclarationController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{tTaxeDeclarationController.next}" value="#{bundle.Next} #{tTaxeDeclarationController.pagination.pageSize}" rendered="#{tTaxeDeclarationController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{tTaxeDeclarationController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTTaxeDeclarationTitle_taxDecNum}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.taxDecNum}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTTaxeDeclarationTitle_taxDecTarifCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.taxDecTarifCode}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTTaxeDeclarationTitle_taxDecValCaf}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.taxDecValCaf}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTTaxeDeclarationTitle_taxDecBaseTaxable}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.taxDecBaseTaxable}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTTaxeDeclarationTitle_taxDecPrixTaxable}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.taxDecPrixTaxable}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTTaxeDeclarationTitle_taxDecDd}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.taxDecDd}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTTaxeDeclarationTitle_taxDecPc}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.taxDecPc}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTTaxeDeclarationTitle_taxDecPcs}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.taxDecPcs}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTTaxeDeclarationTitle_taxDecRs}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.taxDecRs}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTTaxeDeclarationTitle_taxDecAib}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.taxDecAib}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTTaxeDeclarationTitle_taxDecTva}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.taxDecTva}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTTaxeDeclarationTitle_taxDecTotal}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.taxDecTotal}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTTaxeDeclarationTitle_taxDeclarNum}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.taxDeclarNum}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{tTaxeDeclarationController.prepareView}" value="#{bundle.ListTTaxeDeclarationViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tTaxeDeclarationController.prepareEdit}" value="#{bundle.ListTTaxeDeclarationEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tTaxeDeclarationController.destroy}" value="#{bundle.ListTTaxeDeclarationDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{tTaxeDeclarationController.prepareCreate}" value="#{bundle.ListTTaxeDeclarationCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListTTaxeDeclarationIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

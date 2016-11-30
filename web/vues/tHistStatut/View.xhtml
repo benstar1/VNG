@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewTHistStatutTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewTHistStatutLabel_histStatutCode}"/>
+                    <h:outputText value="#{tHistStatutController.selected.histStatutCode}" title="#{bundle.ViewTHistStatutTitle_histStatutCode}"/>
+                    <h:outputText value="#{bundle.ViewTHistStatutLabel_histStatutDatedebut}"/>
+                    <h:outputText value="#{tHistStatutController.selected.histStatutDatedebut}" title="#{bundle.ViewTHistStatutTitle_histStatutDatedebut}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTHistStatutLabel_histStatutDatefin}"/>
+                    <h:outputText value="#{tHistStatutController.selected.histStatutDatefin}" title="#{bundle.ViewTHistStatutTitle_histStatutDatefin}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTHistStatutLabel_histStatutStatut}"/>
+                    <h:outputText value="#{tHistStatutController.selected.histStatutStatut}" title="#{bundle.ViewTHistStatutTitle_histStatutStatut}"/>
+                    <h:outputText value="#{bundle.ViewTHistStatutLabel_histStatutUtilLogin}"/>
+                    <h:outputText value="#{tHistStatutController.selected.histStatutUtilLogin}" title="#{bundle.ViewTHistStatutTitle_histStatutUtilLogin}"/>
+                    <h:outputText value="#{bundle.ViewTHistStatutLabel_histStatutContImmatr}"/>
+                    <h:outputText value="#{tHistStatutController.selected.histStatutContImmatr}" title="#{bundle.ViewTHistStatutTitle_histStatutContImmatr}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tHistStatutController.destroyAndView}" value="#{bundle.ViewTHistStatutDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewTHistStatutEditLink}"/>
+                <br />
+                <h:commandLink action="#{tHistStatutController.prepareCreate}" value="#{bundle.ViewTHistStatutCreateLink}" />
+                <br />
+                <h:commandLink action="#{tHistStatutController.prepareList}" value="#{bundle.ViewTHistStatutShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewTHistStatutIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditTArticleTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_TArticlePK_instanceid}" for="TArticlePK_instanceid" />
+                    <h:inputText id="TArticlePK_instanceid" value="#{tArticleController.selected.TArticlePK.instanceid}" title="#{bundle.EditTArticleTitle_TArticlePK_instanceid}" required="true" requiredMessage="#{bundle.EditTArticleRequiredMessage_TArticlePK_instanceid}"/>
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_TArticlePK_keyItmNbr}" for="TArticlePK_keyItmNbr" />
+                    <h:inputText id="TArticlePK_keyItmNbr" value="#{tArticleController.selected.TArticlePK.keyItmNbr}" title="#{bundle.EditTArticleTitle_TArticlePK_keyItmNbr}" required="true" requiredMessage="#{bundle.EditTArticleRequiredMessage_TArticlePK_keyItmNbr}"/>
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_pckNbr}" for="pckNbr" />
+                    <h:inputText id="pckNbr" value="#{tArticleController.selected.pckNbr}" title="#{bundle.EditTArticleTitle_pckNbr}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_pckMrk1}" for="pckMrk1" />
+                    <h:inputText id="pckMrk1" value="#{tArticleController.selected.pckMrk1}" title="#{bundle.EditTArticleTitle_pckMrk1}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_pckMrk2}" for="pckMrk2" />
+                    <h:inputText id="pckMrk2" value="#{tArticleController.selected.pckMrk2}" title="#{bundle.EditTArticleTitle_pckMrk2}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_pckTypCod}" for="pckTypCod" />
+                    <h:inputText id="pckTypCod" value="#{tArticleController.selected.pckTypCod}" title="#{bundle.EditTArticleTitle_pckTypCod}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_pckTypNam}" for="pckTypNam" />
+                    <h:inputText id="pckTypNam" value="#{tArticleController.selected.pckTypNam}" title="#{bundle.EditTArticleTitle_pckTypNam}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_tarHscNb1}" for="tarHscNb1" />
+                    <h:inputText id="tarHscNb1" value="#{tArticleController.selected.tarHscNb1}" title="#{bundle.EditTArticleTitle_tarHscNb1}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_tarHscNb2}" for="tarHscNb2" />
+                    <h:inputText id="tarHscNb2" value="#{tArticleController.selected.tarHscNb2}" title="#{bundle.EditTArticleTitle_tarHscNb2}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_tarHscNb3}" for="tarHscNb3" />
+                    <h:inputText id="tarHscNb3" value="#{tArticleController.selected.tarHscNb3}" title="#{bundle.EditTArticleTitle_tarHscNb3}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_tarHscNb4}" for="tarHscNb4" />
+                    <h:inputText id="tarHscNb4" value="#{tArticleController.selected.tarHscNb4}" title="#{bundle.EditTArticleTitle_tarHscNb4}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_tarHscNb5}" for="tarHscNb5" />
+                    <h:inputText id="tarHscNb5" value="#{tArticleController.selected.tarHscNb5}" title="#{bundle.EditTArticleTitle_tarHscNb5}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_tarHscTscDat}" for="tarHscTscDat" />
+                    <h:inputText id="tarHscTscDat" value="#{tArticleController.selected.tarHscTscDat}" title="#{bundle.EditTArticleTitle_tarHscTscDat}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_tarHscTscSta}" for="tarHscTscSta" />
+                    <h:inputText id="tarHscTscSta" value="#{tArticleController.selected.tarHscTscSta}" title="#{bundle.EditTArticleTitle_tarHscTscSta}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_tarPrf}" for="tarPrf" />
+                    <h:inputText id="tarPrf" value="#{tArticleController.selected.tarPrf}" title="#{bundle.EditTArticleTitle_tarPrf}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_tarPrcExt}" for="tarPrcExt" />
+                    <h:inputText id="tarPrcExt" value="#{tArticleController.selected.tarPrcExt}" title="#{bundle.EditTArticleTitle_tarPrcExt}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_tarPrcNat}" for="tarPrcNat" />
+                    <h:inputText id="tarPrcNat" value="#{tArticleController.selected.tarPrcNat}" title="#{bundle.EditTArticleTitle_tarPrcNat}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_tarQuo}" for="tarQuo" />
+                    <h:inputText id="tarQuo" value="#{tArticleController.selected.tarQuo}" title="#{bundle.EditTArticleTitle_tarQuo}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_tarPri}" for="tarPri" />
+                    <h:inputText id="tarPri" value="#{tArticleController.selected.tarPri}" title="#{bundle.EditTArticleTitle_tarPri}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_tarVmt}" for="tarVmt" />
+                    <h:inputText id="tarVmt" value="#{tArticleController.selected.tarVmt}" title="#{bundle.EditTArticleTitle_tarVmt}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_tarVdt}" for="tarVdt" />
+                    <h:inputText id="tarVdt" value="#{tArticleController.selected.tarVdt}" title="#{bundle.EditTArticleTitle_tarVdt}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_tarAtt}" for="tarAtt" />
+                    <h:inputText id="tarAtt" value="#{tArticleController.selected.tarAtt}" title="#{bundle.EditTArticleTitle_tarAtt}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_tarAic}" for="tarAic" />
+                    <h:inputText id="tarAic" value="#{tArticleController.selected.tarAic}" title="#{bundle.EditTArticleTitle_tarAic}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_gdsOrgCty}" for="gdsOrgCty" />
+                    <h:inputText id="gdsOrgCty" value="#{tArticleController.selected.gdsOrgCty}" title="#{bundle.EditTArticleTitle_gdsOrgCty}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_gdsOrgCrg}" for="gdsOrgCrg" />
+                    <h:inputText id="gdsOrgCrg" value="#{tArticleController.selected.gdsOrgCrg}" title="#{bundle.EditTArticleTitle_gdsOrgCrg}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_gdsCtnCt1}" for="gdsCtnCt1" />
+                    <h:inputText id="gdsCtnCt1" value="#{tArticleController.selected.gdsCtnCt1}" title="#{bundle.EditTArticleTitle_gdsCtnCt1}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_gdsCtnCt2}" for="gdsCtnCt2" />
+                    <h:inputText id="gdsCtnCt2" value="#{tArticleController.selected.gdsCtnCt2}" title="#{bundle.EditTArticleTitle_gdsCtnCt2}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_gdsCtnCt3}" for="gdsCtnCt3" />
+                    <h:inputText id="gdsCtnCt3" value="#{tArticleController.selected.gdsCtnCt3}" title="#{bundle.EditTArticleTitle_gdsCtnCt3}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_gdsCtnCt4}" for="gdsCtnCt4" />
+                    <h:inputText id="gdsCtnCt4" value="#{tArticleController.selected.gdsCtnCt4}" title="#{bundle.EditTArticleTitle_gdsCtnCt4}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_gdsDsc}" for="gdsDsc" />
+                    <h:inputTextarea rows="4" cols="30" id="gdsDsc" value="#{tArticleController.selected.gdsDsc}" title="#{bundle.EditTArticleTitle_gdsDsc}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_gdsDs3}" for="gdsDs3" />
+                    <h:inputText id="gdsDs3" value="#{tArticleController.selected.gdsDs3}" title="#{bundle.EditTArticleTitle_gdsDs3}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_lnkTpt}" for="lnkTpt" />
+                    <h:inputText id="lnkTpt" value="#{tArticleController.selected.lnkTpt}" title="#{bundle.EditTArticleTitle_lnkTpt}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_lnkTptSln}" for="lnkTptSln" />
+                    <h:inputText id="lnkTptSln" value="#{tArticleController.selected.lnkTptSln}" title="#{bundle.EditTArticleTitle_lnkTptSln}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_lnkPrvDoc}" for="lnkPrvDoc" />
+                    <h:inputText id="lnkPrvDoc" value="#{tArticleController.selected.lnkPrvDoc}" title="#{bundle.EditTArticleTitle_lnkPrvDoc}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_lnkPrvWhs}" for="lnkPrvWhs" />
+                    <h:inputText id="lnkPrvWhs" value="#{tArticleController.selected.lnkPrvWhs}" title="#{bundle.EditTArticleTitle_lnkPrvWhs}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_licCod}" for="licCod" />
+                    <h:inputText id="licCod" value="#{tArticleController.selected.licCod}" title="#{bundle.EditTArticleTitle_licCod}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_licAmtVal}" for="licAmtVal" />
+                    <h:inputText id="licAmtVal" value="#{tArticleController.selected.licAmtVal}" title="#{bundle.EditTArticleTitle_licAmtVal}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_licAmtQty}" for="licAmtQty" />
+                    <h:inputText id="licAmtQty" value="#{tArticleController.selected.licAmtQty}" title="#{bundle.EditTArticleTitle_licAmtQty}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_txtFre}" for="txtFre" />
+                    <h:inputText id="txtFre" value="#{tArticleController.selected.txtFre}" title="#{bundle.EditTArticleTitle_txtFre}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_txtRsv}" for="txtRsv" />
+                    <h:inputTextarea rows="4" cols="30" id="txtRsv" value="#{tArticleController.selected.txtRsv}" title="#{bundle.EditTArticleTitle_txtRsv}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_taxAmt}" for="taxAmt" />
+                    <h:inputText id="taxAmt" value="#{tArticleController.selected.taxAmt}" title="#{bundle.EditTArticleTitle_taxAmt}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_taxGty}" for="taxGty" />
+                    <h:inputText id="taxGty" value="#{tArticleController.selected.taxGty}" title="#{bundle.EditTArticleTitle_taxGty}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_taxMop}" for="taxMop" />
+                    <h:inputText id="taxMop" value="#{tArticleController.selected.taxMop}" title="#{bundle.EditTArticleTitle_taxMop}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_taxCtr}" for="taxCtr" />
+                    <h:inputText id="taxCtr" value="#{tArticleController.selected.taxCtr}" title="#{bundle.EditTArticleTitle_taxCtr}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_taxDty}" for="taxDty" />
+                    <h:inputText id="taxDty" value="#{tArticleController.selected.taxDty}" title="#{bundle.EditTArticleTitle_taxDty}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitWgtGrs}" for="vitWgtGrs" />
+                    <h:inputText id="vitWgtGrs" value="#{tArticleController.selected.vitWgtGrs}" title="#{bundle.EditTArticleTitle_vitWgtGrs}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitWgtNet}" for="vitWgtNet" />
+                    <h:inputText id="vitWgtNet" value="#{tArticleController.selected.vitWgtNet}" title="#{bundle.EditTArticleTitle_vitWgtNet}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitCst}" for="vitCst" />
+                    <h:inputText id="vitCst" value="#{tArticleController.selected.vitCst}" title="#{bundle.EditTArticleTitle_vitCst}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitCif}" for="vitCif" />
+                    <h:inputText id="vitCif" value="#{tArticleController.selected.vitCif}" title="#{bundle.EditTArticleTitle_vitCif}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitAdj}" for="vitAdj" />
+                    <h:inputText id="vitAdj" value="#{tArticleController.selected.vitAdj}" title="#{bundle.EditTArticleTitle_vitAdj}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitStv}" for="vitStv" />
+                    <h:inputText id="vitStv" value="#{tArticleController.selected.vitStv}" title="#{bundle.EditTArticleTitle_vitStv}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitAlp}" for="vitAlp" />
+                    <h:inputText id="vitAlp" value="#{tArticleController.selected.vitAlp}" title="#{bundle.EditTArticleTitle_vitAlp}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitInvAmtNmu}" for="vitInvAmtNmu" />
+                    <h:inputText id="vitInvAmtNmu" value="#{tArticleController.selected.vitInvAmtNmu}" title="#{bundle.EditTArticleTitle_vitInvAmtNmu}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitInvAmtFcx}" for="vitInvAmtFcx" />
+                    <h:inputText id="vitInvAmtFcx" value="#{tArticleController.selected.vitInvAmtFcx}" title="#{bundle.EditTArticleTitle_vitInvAmtFcx}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitInvCurCod}" for="vitInvCurCod" />
+                    <h:inputText id="vitInvCurCod" value="#{tArticleController.selected.vitInvCurCod}" title="#{bundle.EditTArticleTitle_vitInvCurCod}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitInvCurNam}" for="vitInvCurNam" />
+                    <h:inputText id="vitInvCurNam" value="#{tArticleController.selected.vitInvCurNam}" title="#{bundle.EditTArticleTitle_vitInvCurNam}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitInvCurRat}" for="vitInvCurRat" />
+                    <h:inputText id="vitInvCurRat" value="#{tArticleController.selected.vitInvCurRat}" title="#{bundle.EditTArticleTitle_vitInvCurRat}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitInvCurRef}" for="vitInvCurRef" />
+                    <h:inputText id="vitInvCurRef" value="#{tArticleController.selected.vitInvCurRef}" title="#{bundle.EditTArticleTitle_vitInvCurRef}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitEfrAmtNmu}" for="vitEfrAmtNmu" />
+                    <h:inputText id="vitEfrAmtNmu" value="#{tArticleController.selected.vitEfrAmtNmu}" title="#{bundle.EditTArticleTitle_vitEfrAmtNmu}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitEfrAmtFcx}" for="vitEfrAmtFcx" />
+                    <h:inputText id="vitEfrAmtFcx" value="#{tArticleController.selected.vitEfrAmtFcx}" title="#{bundle.EditTArticleTitle_vitEfrAmtFcx}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitEfrCurCod}" for="vitEfrCurCod" />
+                    <h:inputText id="vitEfrCurCod" value="#{tArticleController.selected.vitEfrCurCod}" title="#{bundle.EditTArticleTitle_vitEfrCurCod}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitEfrCurNam}" for="vitEfrCurNam" />
+                    <h:inputText id="vitEfrCurNam" value="#{tArticleController.selected.vitEfrCurNam}" title="#{bundle.EditTArticleTitle_vitEfrCurNam}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitEfrCurRat}" for="vitEfrCurRat" />
+                    <h:inputText id="vitEfrCurRat" value="#{tArticleController.selected.vitEfrCurRat}" title="#{bundle.EditTArticleTitle_vitEfrCurRat}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitEfrCurRef}" for="vitEfrCurRef" />
+                    <h:inputText id="vitEfrCurRef" value="#{tArticleController.selected.vitEfrCurRef}" title="#{bundle.EditTArticleTitle_vitEfrCurRef}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitIfrAmtNmu}" for="vitIfrAmtNmu" />
+                    <h:inputText id="vitIfrAmtNmu" value="#{tArticleController.selected.vitIfrAmtNmu}" title="#{bundle.EditTArticleTitle_vitIfrAmtNmu}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitIfrAmtFcx}" for="vitIfrAmtFcx" />
+                    <h:inputText id="vitIfrAmtFcx" value="#{tArticleController.selected.vitIfrAmtFcx}" title="#{bundle.EditTArticleTitle_vitIfrAmtFcx}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitIfrCurCod}" for="vitIfrCurCod" />
+                    <h:inputText id="vitIfrCurCod" value="#{tArticleController.selected.vitIfrCurCod}" title="#{bundle.EditTArticleTitle_vitIfrCurCod}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitIfrCurNam}" for="vitIfrCurNam" />
+                    <h:inputText id="vitIfrCurNam" value="#{tArticleController.selected.vitIfrCurNam}" title="#{bundle.EditTArticleTitle_vitIfrCurNam}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitIfrCurRat}" for="vitIfrCurRat" />
+                    <h:inputText id="vitIfrCurRat" value="#{tArticleController.selected.vitIfrCurRat}" title="#{bundle.EditTArticleTitle_vitIfrCurRat}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitIfrCurRef}" for="vitIfrCurRef" />
+                    <h:inputText id="vitIfrCurRef" value="#{tArticleController.selected.vitIfrCurRef}" title="#{bundle.EditTArticleTitle_vitIfrCurRef}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitInsAmtNmu}" for="vitInsAmtNmu" />
+                    <h:inputText id="vitInsAmtNmu" value="#{tArticleController.selected.vitInsAmtNmu}" title="#{bundle.EditTArticleTitle_vitInsAmtNmu}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitInsAmtFcx}" for="vitInsAmtFcx" />
+                    <h:inputText id="vitInsAmtFcx" value="#{tArticleController.selected.vitInsAmtFcx}" title="#{bundle.EditTArticleTitle_vitInsAmtFcx}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitInsCurCod}" for="vitInsCurCod" />
+                    <h:inputText id="vitInsCurCod" value="#{tArticleController.selected.vitInsCurCod}" title="#{bundle.EditTArticleTitle_vitInsCurCod}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitInsCurNam}" for="vitInsCurNam" />
+                    <h:inputText id="vitInsCurNam" value="#{tArticleController.selected.vitInsCurNam}" title="#{bundle.EditTArticleTitle_vitInsCurNam}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitInsCurRat}" for="vitInsCurRat" />
+                    <h:inputText id="vitInsCurRat" value="#{tArticleController.selected.vitInsCurRat}" title="#{bundle.EditTArticleTitle_vitInsCurRat}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitInsCurRef}" for="vitInsCurRef" />
+                    <h:inputText id="vitInsCurRef" value="#{tArticleController.selected.vitInsCurRef}" title="#{bundle.EditTArticleTitle_vitInsCurRef}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitOtcAmtNmu}" for="vitOtcAmtNmu" />
+                    <h:inputText id="vitOtcAmtNmu" value="#{tArticleController.selected.vitOtcAmtNmu}" title="#{bundle.EditTArticleTitle_vitOtcAmtNmu}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitOtcAmtFcx}" for="vitOtcAmtFcx" />
+                    <h:inputText id="vitOtcAmtFcx" value="#{tArticleController.selected.vitOtcAmtFcx}" title="#{bundle.EditTArticleTitle_vitOtcAmtFcx}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitOtcCurCod}" for="vitOtcCurCod" />
+                    <h:inputText id="vitOtcCurCod" value="#{tArticleController.selected.vitOtcCurCod}" title="#{bundle.EditTArticleTitle_vitOtcCurCod}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitOtcCurNam}" for="vitOtcCurNam" />
+                    <h:inputText id="vitOtcCurNam" value="#{tArticleController.selected.vitOtcCurNam}" title="#{bundle.EditTArticleTitle_vitOtcCurNam}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitOtcCurRat}" for="vitOtcCurRat" />
+                    <h:inputText id="vitOtcCurRat" value="#{tArticleController.selected.vitOtcCurRat}" title="#{bundle.EditTArticleTitle_vitOtcCurRat}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitOtcCurRef}" for="vitOtcCurRef" />
+                    <h:inputText id="vitOtcCurRef" value="#{tArticleController.selected.vitOtcCurRef}" title="#{bundle.EditTArticleTitle_vitOtcCurRef}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitDedAmtNmu}" for="vitDedAmtNmu" />
+                    <h:inputText id="vitDedAmtNmu" value="#{tArticleController.selected.vitDedAmtNmu}" title="#{bundle.EditTArticleTitle_vitDedAmtNmu}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitDedAmtFcx}" for="vitDedAmtFcx" />
+                    <h:inputText id="vitDedAmtFcx" value="#{tArticleController.selected.vitDedAmtFcx}" title="#{bundle.EditTArticleTitle_vitDedAmtFcx}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitDedCurCod}" for="vitDedCurCod" />
+                    <h:inputText id="vitDedCurCod" value="#{tArticleController.selected.vitDedCurCod}" title="#{bundle.EditTArticleTitle_vitDedCurCod}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitDedCurNam}" for="vitDedCurNam" />
+                    <h:inputText id="vitDedCurNam" value="#{tArticleController.selected.vitDedCurNam}" title="#{bundle.EditTArticleTitle_vitDedCurNam}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitDedCurRat}" for="vitDedCurRat" />
+                    <h:inputText id="vitDedCurRat" value="#{tArticleController.selected.vitDedCurRat}" title="#{bundle.EditTArticleTitle_vitDedCurRat}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitDedCurRef}" for="vitDedCurRef" />
+                    <h:inputText id="vitDedCurRef" value="#{tArticleController.selected.vitDedCurRef}" title="#{bundle.EditTArticleTitle_vitDedCurRef}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitMktRat}" for="vitMktRat" />
+                    <h:inputText id="vitMktRat" value="#{tArticleController.selected.vitMktRat}" title="#{bundle.EditTArticleTitle_vitMktRat}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitMktCur}" for="vitMktCur" />
+                    <h:inputText id="vitMktCur" value="#{tArticleController.selected.vitMktCur}" title="#{bundle.EditTArticleTitle_vitMktCur}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitMktAmt}" for="vitMktAmt" />
+                    <h:inputText id="vitMktAmt" value="#{tArticleController.selected.vitMktAmt}" title="#{bundle.EditTArticleTitle_vitMktAmt}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitMktBseDsc}" for="vitMktBseDsc" />
+                    <h:inputText id="vitMktBseDsc" value="#{tArticleController.selected.vitMktBseDsc}" title="#{bundle.EditTArticleTitle_vitMktBseDsc}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_vitMktBseAmt}" for="vitMktBseAmt" />
+                    <h:inputText id="vitMktBseAmt" value="#{tArticleController.selected.vitMktBseAmt}" title="#{bundle.EditTArticleTitle_vitMktBseAmt}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_blkVin}" for="blkVin" />
+                    <h:inputText id="blkVin" value="#{tArticleController.selected.blkVin}" title="#{bundle.EditTArticleTitle_blkVin}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_blkSrp}" for="blkSrp" />
+                    <h:inputText id="blkSrp" value="#{tArticleController.selected.blkSrp}" title="#{bundle.EditTArticleTitle_blkSrp}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_blkFob}" for="blkFob" />
+                    <h:inputText id="blkFob" value="#{tArticleController.selected.blkFob}" title="#{bundle.EditTArticleTitle_blkFob}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_flp1}" for="flp1" />
+                    <h:inputTextarea rows="4" cols="30" id="flp1" value="#{tArticleController.selected.flp1}" title="#{bundle.EditTArticleTitle_flp1}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_quoId}" for="quoId" />
+                    <h:inputText id="quoId" value="#{tArticleController.selected.quoId}" title="#{bundle.EditTArticleTitle_quoId}" />
+                    <h:outputLabel value="#{bundle.EditTArticleLabel_quoItmNbr}" for="quoItmNbr" />
+                    <h:inputText id="quoItmNbr" value="#{tArticleController.selected.quoItmNbr}" title="#{bundle.EditTArticleTitle_quoItmNbr}" />
+                </h:panelGrid>
+                <h:commandLink action="#{tArticleController.update}" value="#{bundle.EditTArticleSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditTArticleViewLink}"/>
+                <br />
+                <h:commandLink action="#{tArticleController.prepareList}" value="#{bundle.EditTArticleShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditTArticleIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewTTaxeDeclarationTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewTTaxeDeclarationLabel_taxDecNum}"/>
+                    <h:outputText value="#{tTaxeDeclarationController.selected.taxDecNum}" title="#{bundle.ViewTTaxeDeclarationTitle_taxDecNum}"/>
+                    <h:outputText value="#{bundle.ViewTTaxeDeclarationLabel_taxDecTarifCode}"/>
+                    <h:outputText value="#{tTaxeDeclarationController.selected.taxDecTarifCode}" title="#{bundle.ViewTTaxeDeclarationTitle_taxDecTarifCode}"/>
+                    <h:outputText value="#{bundle.ViewTTaxeDeclarationLabel_taxDecValCaf}"/>
+                    <h:outputText value="#{tTaxeDeclarationController.selected.taxDecValCaf}" title="#{bundle.ViewTTaxeDeclarationTitle_taxDecValCaf}"/>
+                    <h:outputText value="#{bundle.ViewTTaxeDeclarationLabel_taxDecBaseTaxable}"/>
+                    <h:outputText value="#{tTaxeDeclarationController.selected.taxDecBaseTaxable}" title="#{bundle.ViewTTaxeDeclarationTitle_taxDecBaseTaxable}"/>
+                    <h:outputText value="#{bundle.ViewTTaxeDeclarationLabel_taxDecPrixTaxable}"/>
+                    <h:outputText value="#{tTaxeDeclarationController.selected.taxDecPrixTaxable}" title="#{bundle.ViewTTaxeDeclarationTitle_taxDecPrixTaxable}"/>
+                    <h:outputText value="#{bundle.ViewTTaxeDeclarationLabel_taxDecDd}"/>
+                    <h:outputText value="#{tTaxeDeclarationController.selected.taxDecDd}" title="#{bundle.ViewTTaxeDeclarationTitle_taxDecDd}"/>
+                    <h:outputText value="#{bundle.ViewTTaxeDeclarationLabel_taxDecPc}"/>
+                    <h:outputText value="#{tTaxeDeclarationController.selected.taxDecPc}" title="#{bundle.ViewTTaxeDeclarationTitle_taxDecPc}"/>
+                    <h:outputText value="#{bundle.ViewTTaxeDeclarationLabel_taxDecPcs}"/>
+                    <h:outputText value="#{tTaxeDeclarationController.selected.taxDecPcs}" title="#{bundle.ViewTTaxeDeclarationTitle_taxDecPcs}"/>
+                    <h:outputText value="#{bundle.ViewTTaxeDeclarationLabel_taxDecRs}"/>
+                    <h:outputText value="#{tTaxeDeclarationController.selected.taxDecRs}" title="#{bundle.ViewTTaxeDeclarationTitle_taxDecRs}"/>
+                    <h:outputText value="#{bundle.ViewTTaxeDeclarationLabel_taxDecAib}"/>
+                    <h:outputText value="#{tTaxeDeclarationController.selected.taxDecAib}" title="#{bundle.ViewTTaxeDeclarationTitle_taxDecAib}"/>
+                    <h:outputText value="#{bundle.ViewTTaxeDeclarationLabel_taxDecTva}"/>
+                    <h:outputText value="#{tTaxeDeclarationController.selected.taxDecTva}" title="#{bundle.ViewTTaxeDeclarationTitle_taxDecTva}"/>
+                    <h:outputText value="#{bundle.ViewTTaxeDeclarationLabel_taxDecTotal}"/>
+                    <h:outputText value="#{tTaxeDeclarationController.selected.taxDecTotal}" title="#{bundle.ViewTTaxeDeclarationTitle_taxDecTotal}"/>
+                    <h:outputText value="#{bundle.ViewTTaxeDeclarationLabel_taxDeclarNum}"/>
+                    <h:outputText value="#{tTaxeDeclarationController.selected.taxDeclarNum}" title="#{bundle.ViewTTaxeDeclarationTitle_taxDeclarNum}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tTaxeDeclarationController.destroyAndView}" value="#{bundle.ViewTTaxeDeclarationDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewTTaxeDeclarationEditLink}"/>
+                <br />
+                <h:commandLink action="#{tTaxeDeclarationController.prepareCreate}" value="#{bundle.ViewTTaxeDeclarationCreateLink}" />
+                <br />
+                <h:commandLink action="#{tTaxeDeclarationController.prepareList}" value="#{bundle.ViewTTaxeDeclarationShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewTTaxeDeclarationIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditTParticiperTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditTParticiperLabel_partNum}" for="partNum" />
+                    <h:inputText id="partNum" value="#{tParticiperController.selected.partNum}" title="#{bundle.EditTParticiperTitle_partNum}" required="true" requiredMessage="#{bundle.EditTParticiperRequiredMessage_partNum}"/>
+                    <h:outputLabel value="#{bundle.EditTParticiperLabel_partContImmatr}" for="partContImmatr" />
+                    <h:inputText id="partContImmatr" value="#{tParticiperController.selected.partContImmatr}" title="#{bundle.EditTParticiperTitle_partContImmatr}" required="true" requiredMessage="#{bundle.EditTParticiperRequiredMessage_partContImmatr}"/>
+                    <h:outputLabel value="#{bundle.EditTParticiperLabel_partContImmatrCont}" for="partContImmatrCont" />
+                    <h:inputText id="partContImmatrCont" value="#{tParticiperController.selected.partContImmatrCont}" title="#{bundle.EditTParticiperTitle_partContImmatrCont}" required="true" requiredMessage="#{bundle.EditTParticiperRequiredMessage_partContImmatrCont}"/>
+                    <h:outputLabel value="#{bundle.EditTParticiperLabel_partPourcentage}" for="partPourcentage" />
+                    <h:inputText id="partPourcentage" value="#{tParticiperController.selected.partPourcentage}" title="#{bundle.EditTParticiperTitle_partPourcentage}" />
+                    <h:outputLabel value="#{bundle.EditTParticiperLabel_partMontant}" for="partMontant" />
+                    <h:inputText id="partMontant" value="#{tParticiperController.selected.partMontant}" title="#{bundle.EditTParticiperTitle_partMontant}" />
+                    <h:outputLabel value="#{bundle.EditTParticiperLabel_partTypPartCode}" for="partTypPartCode" />
+                    <h:selectOneMenu id="partTypPartCode" value="#{tParticiperController.selected.partTypPartCode}" title="#{bundle.EditTParticiperTitle_partTypPartCode}" required="true" requiredMessage="#{bundle.EditTParticiperRequiredMessage_partTypPartCode}">
+                        <f:selectItems value="#{tTypeParticipationController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{tParticiperController.update}" value="#{bundle.EditTParticiperSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditTParticiperViewLink}"/>
+                <br />
+                <h:commandLink action="#{tParticiperController.prepareList}" value="#{bundle.EditTParticiperShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditTParticiperIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewTBureauTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewTBureauLabel_TBureauPK_cuoCod}"/>
+                    <h:outputText value="#{tBureauController.selected.TBureauPK.cuoCod}" title="#{bundle.ViewTBureauTitle_TBureauPK_cuoCod}"/>
+                    <h:outputText value="#{bundle.ViewTBureauLabel_TBureauPK_validFrom}"/>
+                    <h:outputText value="#{tBureauController.selected.TBureauPK.validFrom}" title="#{bundle.ViewTBureauTitle_TBureauPK_validFrom}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTBureauLabel_validTo}"/>
+                    <h:outputText value="#{tBureauController.selected.validTo}" title="#{bundle.ViewTBureauTitle_validTo}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTBureauLabel_cuoNam}"/>
+                    <h:outputText value="#{tBureauController.selected.cuoNam}" title="#{bundle.ViewTBureauTitle_cuoNam}"/>
+                    <h:outputText value="#{bundle.ViewTBureauLabel_cuoNam2}"/>
+                    <h:outputText value="#{tBureauController.selected.cuoNam2}" title="#{bundle.ViewTBureauTitle_cuoNam2}"/>
+                    <h:outputText value="#{bundle.ViewTBureauLabel_cuoNam3}"/>
+                    <h:outputText value="#{tBureauController.selected.cuoNam3}" title="#{bundle.ViewTBureauTitle_cuoNam3}"/>
+                    <h:outputText value="#{bundle.ViewTBureauLabel_cuoAdr}"/>
+                    <h:outputText value="#{tBureauController.selected.cuoAdr}" title="#{bundle.ViewTBureauTitle_cuoAdr}"/>
+                    <h:outputText value="#{bundle.ViewTBureauLabel_cuoAd2}"/>
+                    <h:outputText value="#{tBureauController.selected.cuoAd2}" title="#{bundle.ViewTBureauTitle_cuoAd2}"/>
+                    <h:outputText value="#{bundle.ViewTBureauLabel_cuoAd3}"/>
+                    <h:outputText value="#{tBureauController.selected.cuoAd3}" title="#{bundle.ViewTBureauTitle_cuoAd3}"/>
+                    <h:outputText value="#{bundle.ViewTBureauLabel_cuoAd4}"/>
+                    <h:outputText value="#{tBureauController.selected.cuoAd4}" title="#{bundle.ViewTBureauTitle_cuoAd4}"/>
+                    <h:outputText value="#{bundle.ViewTBureauLabel_cuoTel}"/>
+                    <h:outputText value="#{tBureauController.selected.cuoTel}" title="#{bundle.ViewTBureauTitle_cuoTel}"/>
+                    <h:outputText value="#{bundle.ViewTBureauLabel_cuoFax}"/>
+                    <h:outputText value="#{tBureauController.selected.cuoFax}" title="#{bundle.ViewTBureauTitle_cuoFax}"/>
+                    <h:outputText value="#{bundle.ViewTBureauLabel_cuoTlx}"/>
+                    <h:outputText value="#{tBureauController.selected.cuoTlx}" title="#{bundle.ViewTBureauTitle_cuoTlx}"/>
+                    <h:outputText value="#{bundle.ViewTBureauLabel_cuoClr}"/>
+                    <h:outputText value="#{tBureauController.selected.cuoClr}" title="#{bundle.ViewTBureauTitle_cuoClr}"/>
+                    <h:outputText value="#{bundle.ViewTBureauLabel_cuoBrd}"/>
+                    <h:outputText value="#{tBureauController.selected.cuoBrd}" title="#{bundle.ViewTBureauTitle_cuoBrd}"/>
+                    <h:outputText value="#{bundle.ViewTBureauLabel_cuoAcc}"/>
+                    <h:outputText value="#{tBureauController.selected.cuoAcc}" title="#{bundle.ViewTBureauTitle_cuoAcc}"/>
+                    <h:outputText value="#{bundle.ViewTBureauLabel_bnkCod}"/>
+                    <h:outputText value="#{tBureauController.selected.bnkCod}" title="#{bundle.ViewTBureauTitle_bnkCod}"/>
+                    <h:outputText value="#{bundle.ViewTBureauLabel_braCod}"/>
+                    <h:outputText value="#{tBureauController.selected.braCod}" title="#{bundle.ViewTBureauTitle_braCod}"/>
+                    <h:outputText value="#{bundle.ViewTBureauLabel_cuoCap}"/>
+                    <h:outputText value="#{tBureauController.selected.cuoCap}" title="#{bundle.ViewTBureauTitle_cuoCap}"/>
+                    <h:outputText value="#{bundle.ViewTBureauLabel_modifyTime}"/>
+                    <h:outputText value="#{tBureauController.selected.modifyTime}" title="#{bundle.ViewTBureauTitle_modifyTime}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTBureauLabel_flgRem}"/>
+                    <h:outputText value="#{tBureauController.selected.flgRem}" title="#{bundle.ViewTBureauTitle_flgRem}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tBureauController.destroyAndView}" value="#{bundle.ViewTBureauDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewTBureauEditLink}"/>
+                <br />
+                <h:commandLink action="#{tBureauController.prepareCreate}" value="#{bundle.ViewTBureauCreateLink}" />
+                <br />
+                <h:commandLink action="#{tBureauController.prepareList}" value="#{bundle.ViewTBureauShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewTBureauIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

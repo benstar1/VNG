@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewTAppartenirTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewTAppartenirLabel_TAppartenirPK_appartenirDatedebut}"/>
+                    <h:outputText value="#{tAppartenirController.selected.TAppartenirPK.appartenirDatedebut}" title="#{bundle.ViewTAppartenirTitle_TAppartenirPK_appartenirDatedebut}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTAppartenirLabel_datefin}"/>
+                    <h:outputText value="#{tAppartenirController.selected.datefin}" title="#{bundle.ViewTAppartenirTitle_datefin}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTAppartenirLabel_TUtilisateur}"/>
+                    <h:outputText value="#{tAppartenirController.selected.TUtilisateur}" title="#{bundle.ViewTAppartenirTitle_TUtilisateur}"/>
+                    <h:outputText value="#{bundle.ViewTAppartenirLabel_TCentreImpot}"/>
+                    <h:outputText value="#{tAppartenirController.selected.TCentreImpot}" title="#{bundle.ViewTAppartenirTitle_TCentreImpot}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tAppartenirController.destroyAndView}" value="#{bundle.ViewTAppartenirDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewTAppartenirEditLink}"/>
+                <br />
+                <h:commandLink action="#{tAppartenirController.prepareCreate}" value="#{bundle.ViewTAppartenirCreateLink}" />
+                <br />
+                <h:commandLink action="#{tAppartenirController.prepareList}" value="#{bundle.ViewTAppartenirShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewTAppartenirIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

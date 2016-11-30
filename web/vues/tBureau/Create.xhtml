@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateTBureauTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateTBureauLabel_TBureauPK_cuoCod}" for="TBureauPK_cuoCod" />
+                    <h:inputText id="TBureauPK_cuoCod" value="#{tBureauController.selected.TBureauPK.cuoCod}" title="#{bundle.CreateTBureauTitle_TBureauPK_cuoCod}" required="true" requiredMessage="#{bundle.CreateTBureauRequiredMessage_TBureauPK_cuoCod}"/>
+                    <h:outputLabel value="#{bundle.CreateTBureauLabel_TBureauPK_validFrom}" for="TBureauPK_validFrom" />
+                    <h:inputText id="TBureauPK_validFrom" value="#{tBureauController.selected.TBureauPK.validFrom}" title="#{bundle.CreateTBureauTitle_TBureauPK_validFrom}" required="true" requiredMessage="#{bundle.CreateTBureauRequiredMessage_TBureauPK_validFrom}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTBureauLabel_validTo}" for="validTo" />
+                    <h:inputText id="validTo" value="#{tBureauController.selected.validTo}" title="#{bundle.CreateTBureauTitle_validTo}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTBureauLabel_cuoNam}" for="cuoNam" />
+                    <h:inputText id="cuoNam" value="#{tBureauController.selected.cuoNam}" title="#{bundle.CreateTBureauTitle_cuoNam}" />
+                    <h:outputLabel value="#{bundle.CreateTBureauLabel_cuoNam2}" for="cuoNam2" />
+                    <h:inputText id="cuoNam2" value="#{tBureauController.selected.cuoNam2}" title="#{bundle.CreateTBureauTitle_cuoNam2}" />
+                    <h:outputLabel value="#{bundle.CreateTBureauLabel_cuoNam3}" for="cuoNam3" />
+                    <h:inputText id="cuoNam3" value="#{tBureauController.selected.cuoNam3}" title="#{bundle.CreateTBureauTitle_cuoNam3}" />
+                    <h:outputLabel value="#{bundle.CreateTBureauLabel_cuoAdr}" for="cuoAdr" />
+                    <h:inputText id="cuoAdr" value="#{tBureauController.selected.cuoAdr}" title="#{bundle.CreateTBureauTitle_cuoAdr}" />
+                    <h:outputLabel value="#{bundle.CreateTBureauLabel_cuoAd2}" for="cuoAd2" />
+                    <h:inputText id="cuoAd2" value="#{tBureauController.selected.cuoAd2}" title="#{bundle.CreateTBureauTitle_cuoAd2}" />
+                    <h:outputLabel value="#{bundle.CreateTBureauLabel_cuoAd3}" for="cuoAd3" />
+                    <h:inputText id="cuoAd3" value="#{tBureauController.selected.cuoAd3}" title="#{bundle.CreateTBureauTitle_cuoAd3}" />
+                    <h:outputLabel value="#{bundle.CreateTBureauLabel_cuoAd4}" for="cuoAd4" />
+                    <h:inputText id="cuoAd4" value="#{tBureauController.selected.cuoAd4}" title="#{bundle.CreateTBureauTitle_cuoAd4}" />
+                    <h:outputLabel value="#{bundle.CreateTBureauLabel_cuoTel}" for="cuoTel" />
+                    <h:inputText id="cuoTel" value="#{tBureauController.selected.cuoTel}" title="#{bundle.CreateTBureauTitle_cuoTel}" />
+                    <h:outputLabel value="#{bundle.CreateTBureauLabel_cuoFax}" for="cuoFax" />
+                    <h:inputText id="cuoFax" value="#{tBureauController.selected.cuoFax}" title="#{bundle.CreateTBureauTitle_cuoFax}" />
+                    <h:outputLabel value="#{bundle.CreateTBureauLabel_cuoTlx}" for="cuoTlx" />
+                    <h:inputText id="cuoTlx" value="#{tBureauController.selected.cuoTlx}" title="#{bundle.CreateTBureauTitle_cuoTlx}" />
+                    <h:outputLabel value="#{bundle.CreateTBureauLabel_cuoClr}" for="cuoClr" />
+                    <h:inputText id="cuoClr" value="#{tBureauController.selected.cuoClr}" title="#{bundle.CreateTBureauTitle_cuoClr}" />
+                    <h:outputLabel value="#{bundle.CreateTBureauLabel_cuoBrd}" for="cuoBrd" />
+                    <h:inputText id="cuoBrd" value="#{tBureauController.selected.cuoBrd}" title="#{bundle.CreateTBureauTitle_cuoBrd}" />
+                    <h:outputLabel value="#{bundle.CreateTBureauLabel_cuoAcc}" for="cuoAcc" />
+                    <h:inputText id="cuoAcc" value="#{tBureauController.selected.cuoAcc}" title="#{bundle.CreateTBureauTitle_cuoAcc}" />
+                    <h:outputLabel value="#{bundle.CreateTBureauLabel_bnkCod}" for="bnkCod" />
+                    <h:inputText id="bnkCod" value="#{tBureauController.selected.bnkCod}" title="#{bundle.CreateTBureauTitle_bnkCod}" />
+                    <h:outputLabel value="#{bundle.CreateTBureauLabel_braCod}" for="braCod" />
+                    <h:inputText id="braCod" value="#{tBureauController.selected.braCod}" title="#{bundle.CreateTBureauTitle_braCod}" />
+                    <h:outputLabel value="#{bundle.CreateTBureauLabel_cuoCap}" for="cuoCap" />
+                    <h:inputText id="cuoCap" value="#{tBureauController.selected.cuoCap}" title="#{bundle.CreateTBureauTitle_cuoCap}" />
+                    <h:outputLabel value="#{bundle.CreateTBureauLabel_modifyTime}" for="modifyTime" />
+                    <h:inputText id="modifyTime" value="#{tBureauController.selected.modifyTime}" title="#{bundle.CreateTBureauTitle_modifyTime}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTBureauLabel_flgRem}" for="flgRem" />
+                    <h:inputText id="flgRem" value="#{tBureauController.selected.flgRem}" title="#{bundle.CreateTBureauTitle_flgRem}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tBureauController.create}" value="#{bundle.CreateTBureauSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{tBureauController.prepareList}" value="#{bundle.CreateTBureauShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateTBureauIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateTTaxeDeclarationTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateTTaxeDeclarationLabel_taxDecNum}" for="taxDecNum" />
+                    <h:inputText id="taxDecNum" value="#{tTaxeDeclarationController.selected.taxDecNum}" title="#{bundle.CreateTTaxeDeclarationTitle_taxDecNum}" required="true" requiredMessage="#{bundle.CreateTTaxeDeclarationRequiredMessage_taxDecNum}"/>
+                    <h:outputLabel value="#{bundle.CreateTTaxeDeclarationLabel_taxDecTarifCode}" for="taxDecTarifCode" />
+                    <h:inputText id="taxDecTarifCode" value="#{tTaxeDeclarationController.selected.taxDecTarifCode}" title="#{bundle.CreateTTaxeDeclarationTitle_taxDecTarifCode}" />
+                    <h:outputLabel value="#{bundle.CreateTTaxeDeclarationLabel_taxDecValCaf}" for="taxDecValCaf" />
+                    <h:inputText id="taxDecValCaf" value="#{tTaxeDeclarationController.selected.taxDecValCaf}" title="#{bundle.CreateTTaxeDeclarationTitle_taxDecValCaf}" />
+                    <h:outputLabel value="#{bundle.CreateTTaxeDeclarationLabel_taxDecBaseTaxable}" for="taxDecBaseTaxable" />
+                    <h:inputText id="taxDecBaseTaxable" value="#{tTaxeDeclarationController.selected.taxDecBaseTaxable}" title="#{bundle.CreateTTaxeDeclarationTitle_taxDecBaseTaxable}" />
+                    <h:outputLabel value="#{bundle.CreateTTaxeDeclarationLabel_taxDecPrixTaxable}" for="taxDecPrixTaxable" />
+                    <h:inputText id="taxDecPrixTaxable" value="#{tTaxeDeclarationController.selected.taxDecPrixTaxable}" title="#{bundle.CreateTTaxeDeclarationTitle_taxDecPrixTaxable}" />
+                    <h:outputLabel value="#{bundle.CreateTTaxeDeclarationLabel_taxDecDd}" for="taxDecDd" />
+                    <h:inputText id="taxDecDd" value="#{tTaxeDeclarationController.selected.taxDecDd}" title="#{bundle.CreateTTaxeDeclarationTitle_taxDecDd}" />
+                    <h:outputLabel value="#{bundle.CreateTTaxeDeclarationLabel_taxDecPc}" for="taxDecPc" />
+                    <h:inputText id="taxDecPc" value="#{tTaxeDeclarationController.selected.taxDecPc}" title="#{bundle.CreateTTaxeDeclarationTitle_taxDecPc}" />
+                    <h:outputLabel value="#{bundle.CreateTTaxeDeclarationLabel_taxDecPcs}" for="taxDecPcs" />
+                    <h:inputText id="taxDecPcs" value="#{tTaxeDeclarationController.selected.taxDecPcs}" title="#{bundle.CreateTTaxeDeclarationTitle_taxDecPcs}" />
+                    <h:outputLabel value="#{bundle.CreateTTaxeDeclarationLabel_taxDecRs}" for="taxDecRs" />
+                    <h:inputText id="taxDecRs" value="#{tTaxeDeclarationController.selected.taxDecRs}" title="#{bundle.CreateTTaxeDeclarationTitle_taxDecRs}" />
+                    <h:outputLabel value="#{bundle.CreateTTaxeDeclarationLabel_taxDecAib}" for="taxDecAib" />
+                    <h:inputText id="taxDecAib" value="#{tTaxeDeclarationController.selected.taxDecAib}" title="#{bundle.CreateTTaxeDeclarationTitle_taxDecAib}" />
+                    <h:outputLabel value="#{bundle.CreateTTaxeDeclarationLabel_taxDecTva}" for="taxDecTva" />
+                    <h:inputText id="taxDecTva" value="#{tTaxeDeclarationController.selected.taxDecTva}" title="#{bundle.CreateTTaxeDeclarationTitle_taxDecTva}" />
+                    <h:outputLabel value="#{bundle.CreateTTaxeDeclarationLabel_taxDecTotal}" for="taxDecTotal" />
+                    <h:inputText id="taxDecTotal" value="#{tTaxeDeclarationController.selected.taxDecTotal}" title="#{bundle.CreateTTaxeDeclarationTitle_taxDecTotal}" />
+                    <h:outputLabel value="#{bundle.CreateTTaxeDeclarationLabel_taxDeclarNum}" for="taxDeclarNum" />
+                    <h:selectOneMenu id="taxDeclarNum" value="#{tTaxeDeclarationController.selected.taxDeclarNum}" title="#{bundle.CreateTTaxeDeclarationTitle_taxDeclarNum}" >
+                        <f:selectItems value="#{tDeclarationFiscaleController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tTaxeDeclarationController.create}" value="#{bundle.CreateTTaxeDeclarationSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{tTaxeDeclarationController.prepareList}" value="#{bundle.CreateTTaxeDeclarationShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateTTaxeDeclarationIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

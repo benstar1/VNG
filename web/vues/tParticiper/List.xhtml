@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTParticiperTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListTParticiperEmpty}" rendered="#{tParticiperController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{tParticiperController.items.rowCount > 0}">
+                    <h:outputText value="#{tParticiperController.pagination.pageFirstItem + 1}..#{tParticiperController.pagination.pageLastItem + 1}/#{tParticiperController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{tParticiperController.previous}" value="#{bundle.Previous} #{tParticiperController.pagination.pageSize}" rendered="#{tParticiperController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{tParticiperController.next}" value="#{bundle.Next} #{tParticiperController.pagination.pageSize}" rendered="#{tParticiperController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{tParticiperController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParticiperTitle_partNum}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.partNum}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParticiperTitle_partContImmatr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.partContImmatr}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParticiperTitle_partContImmatrCont}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.partContImmatrCont}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParticiperTitle_partPourcentage}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.partPourcentage}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParticiperTitle_partMontant}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.partMontant}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParticiperTitle_partTypPartCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.partTypPartCode}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{tParticiperController.prepareView}" value="#{bundle.ListTParticiperViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tParticiperController.prepareEdit}" value="#{bundle.ListTParticiperEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tParticiperController.destroy}" value="#{bundle.ListTParticiperDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{tParticiperController.prepareCreate}" value="#{bundle.ListTParticiperCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListTParticiperIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

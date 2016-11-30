@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTCodeAddiTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListTCodeAddiEmpty}" rendered="#{tCodeAddiController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{tCodeAddiController.items.rowCount > 0}">
+                    <h:outputText value="#{tCodeAddiController.pagination.pageFirstItem + 1}..#{tCodeAddiController.pagination.pageLastItem + 1}/#{tCodeAddiController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{tCodeAddiController.previous}" value="#{bundle.Previous} #{tCodeAddiController.pagination.pageSize}" rendered="#{tCodeAddiController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{tCodeAddiController.next}" value="#{bundle.Next} #{tCodeAddiController.pagination.pageSize}" rendered="#{tCodeAddiController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{tCodeAddiController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTCodeAddiTitle_TCodeAddiPK_cp3Cod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.TCodeAddiPK.cp3Cod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTCodeAddiTitle_TCodeAddiPK_validFrom}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.TCodeAddiPK.validFrom}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTCodeAddiTitle_validTo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.validTo}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTCodeAddiTitle_cp3Dsc}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cp3Dsc}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTCodeAddiTitle_rulCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rulCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTCodeAddiTitle_cp3Agr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cp3Agr}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTCodeAddiTitle_cprVe2}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cprVe2}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTCodeAddiTitle_cprDs2}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cprDs2}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTCodeAddiTitle_modifyTime}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.modifyTime}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTCodeAddiTitle_flgRem}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.flgRem}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{tCodeAddiController.prepareView}" value="#{bundle.ListTCodeAddiViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tCodeAddiController.prepareEdit}" value="#{bundle.ListTCodeAddiEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tCodeAddiController.destroy}" value="#{bundle.ListTCodeAddiDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{tCodeAddiController.prepareCreate}" value="#{bundle.ListTCodeAddiCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListTCodeAddiIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewTDeclarationDouTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_instanceid}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.instanceid}" title="#{bundle.ViewTDeclarationDouTitle_instanceid}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_rlsCuoCod}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.rlsCuoCod}" title="#{bundle.ViewTDeclarationDouTitle_rlsCuoCod}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_rlsCuoNam}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.rlsCuoNam}" title="#{bundle.ViewTDeclarationDouTitle_rlsCuoNam}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_rlsRef}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.rlsRef}" title="#{bundle.ViewTDeclarationDouTitle_rlsRef}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_rlsInf}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.rlsInf}" title="#{bundle.ViewTDeclarationDouTitle_rlsInf}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_rlsDat}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.rlsDat}" title="#{bundle.ViewTDeclarationDouTitle_rlsDat}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_rlsTim}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.rlsTim}" title="#{bundle.ViewTDeclarationDouTitle_rlsTim}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_prvDty}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.prvDty}" title="#{bundle.ViewTDeclarationDouTitle_prvDty}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ptyColDsc}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ptyColDsc}" title="#{bundle.ViewTDeclarationDouTitle_ptyColDsc}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ptyColInd}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ptyColInd}" title="#{bundle.ViewTDeclarationDouTitle_ptyColInd}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ptyBlu}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ptyBlu}" title="#{bundle.ViewTDeclarationDouTitle_ptyBlu}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ptyRed}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ptyRed}" title="#{bundle.ViewTDeclarationDouTitle_ptyRed}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ptyYel}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ptyYel}" title="#{bundle.ViewTDeclarationDouTitle_ptyYel}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ptyGre}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ptyGre}" title="#{bundle.ViewTDeclarationDouTitle_ptyGre}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ptyOas}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ptyOas}" title="#{bundle.ViewTDeclarationDouTitle_ptyOas}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ptyQue}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ptyQue}" title="#{bundle.ViewTDeclarationDouTitle_ptyQue}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ptyWde}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ptyWde}" title="#{bundle.ViewTDeclarationDouTitle_ptyWde}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ptyFrmNbr}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ptyFrmNbr}" title="#{bundle.ViewTDeclarationDouTitle_ptyFrmNbr}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ptyFrmTot}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ptyFrmTot}" title="#{bundle.ViewTDeclarationDouTitle_ptyFrmTot}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ptyNbrLdl}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ptyNbrLdl}" title="#{bundle.ViewTDeclarationDouTitle_ptyNbrLdl}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ptyNbrItm}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ptyNbrItm}" title="#{bundle.ViewTDeclarationDouTitle_ptyNbrItm}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ptyNbrPck}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ptyNbrPck}" title="#{bundle.ViewTDeclarationDouTitle_ptyNbrPck}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ptyPlc}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ptyPlc}" title="#{bundle.ViewTDeclarationDouTitle_ptyPlc}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ptyCde}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ptyCde}" title="#{bundle.ViewTDeclarationDouTitle_ptyCde}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideCuoCod}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ideCuoCod}" title="#{bundle.ViewTDeclarationDouTitle_ideCuoCod}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideCuoNam}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ideCuoNam}" title="#{bundle.ViewTDeclarationDouTitle_ideCuoNam}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideTypSad}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ideTypSad}" title="#{bundle.ViewTDeclarationDouTitle_ideTypSad}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideTypPrc}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ideTypPrc}" title="#{bundle.ViewTDeclarationDouTitle_ideTypPrc}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideTypTyp}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ideTypTyp}" title="#{bundle.ViewTDeclarationDouTitle_ideTypTyp}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideTypTrs}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ideTypTrs}" title="#{bundle.ViewTDeclarationDouTitle_ideTypTrs}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideMan}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ideMan}" title="#{bundle.ViewTDeclarationDouTitle_ideMan}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideBar}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ideBar}" title="#{bundle.ViewTDeclarationDouTitle_ideBar}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideRegSer}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ideRegSer}" title="#{bundle.ViewTDeclarationDouTitle_ideRegSer}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideRegNbr}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ideRegNbr}" title="#{bundle.ViewTDeclarationDouTitle_ideRegNbr}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideRegDat}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ideRegDat}" title="#{bundle.ViewTDeclarationDouTitle_ideRegDat}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideAstSer}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ideAstSer}" title="#{bundle.ViewTDeclarationDouTitle_ideAstSer}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideAstNbr}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ideAstNbr}" title="#{bundle.ViewTDeclarationDouTitle_ideAstNbr}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideAstDat}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ideAstDat}" title="#{bundle.ViewTDeclarationDouTitle_ideAstDat}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideRcpSer}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ideRcpSer}" title="#{bundle.ViewTDeclarationDouTitle_ideRcpSer}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideRcpNbr}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ideRcpNbr}" title="#{bundle.ViewTDeclarationDouTitle_ideRcpNbr}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideRcpDat}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ideRcpDat}" title="#{bundle.ViewTDeclarationDouTitle_ideRcpDat}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideRcpTyp}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ideRcpTyp}" title="#{bundle.ViewTDeclarationDouTitle_ideRcpTyp}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideRcpCuo}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.ideRcpCuo}" title="#{bundle.ViewTDeclarationDouTitle_ideRcpCuo}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_idePstNbr}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.idePstNbr}" title="#{bundle.ViewTDeclarationDouTitle_idePstNbr}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_idePstDat}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.idePstDat}" title="#{bundle.ViewTDeclarationDouTitle_idePstDat}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_idePstTmpPre}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.idePstTmpPre}" title="#{bundle.ViewTDeclarationDouTitle_idePstTmpPre}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_idePstTmpTy1}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.idePstTmpTy1}" title="#{bundle.ViewTDeclarationDouTitle_idePstTmpTy1}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_idePstTmpTy2}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.idePstTmpTy2}" title="#{bundle.ViewTDeclarationDouTitle_idePstTmpTy2}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_cmpExpCod}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.cmpExpCod}" title="#{bundle.ViewTDeclarationDouTitle_cmpExpCod}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_cmpExpNam}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.cmpExpNam}" title="#{bundle.ViewTDeclarationDouTitle_cmpExpNam}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_cmpConCod}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.cmpConCod}" title="#{bundle.ViewTDeclarationDouTitle_cmpConCod}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_cmpConNam}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.cmpConNam}" title="#{bundle.ViewTDeclarationDouTitle_cmpConNam}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_cmpFisCod}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.cmpFisCod}" title="#{bundle.ViewTDeclarationDouTitle_cmpFisCod}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_cmpFisNam}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.cmpFisNam}" title="#{bundle.ViewTDeclarationDouTitle_cmpFisNam}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_decFlg}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.decFlg}" title="#{bundle.ViewTDeclarationDouTitle_decFlg}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_decCod}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.decCod}" title="#{bundle.ViewTDeclarationDouTitle_decCod}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_decNam}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.decNam}" title="#{bundle.ViewTDeclarationDouTitle_decNam}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_decRefYer}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.decRefYer}" title="#{bundle.ViewTDeclarationDouTitle_decRefYer}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_decRefNbr}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.decRefNbr}" title="#{bundle.ViewTDeclarationDouTitle_decRefNbr}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_decRep}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.decRep}" title="#{bundle.ViewTDeclarationDouTitle_decRep}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_genCtyFlt}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.genCtyFlt}" title="#{bundle.ViewTDeclarationDouTitle_genCtyFlt}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_genCtyTrd}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.genCtyTrd}" title="#{bundle.ViewTDeclarationDouTitle_genCtyTrd}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_genCtyEptCod}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.genCtyEptCod}" title="#{bundle.ViewTDeclarationDouTitle_genCtyEptCod}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_genCtyEptNam}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.genCtyEptNam}" title="#{bundle.ViewTDeclarationDouTitle_genCtyEptNam}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_genCtyEptCrg}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.genCtyEptCrg}" title="#{bundle.ViewTDeclarationDouTitle_genCtyEptCrg}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_genCtyDesCod}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.genCtyDesCod}" title="#{bundle.ViewTDeclarationDouTitle_genCtyDesCod}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_genCtyDesNam}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.genCtyDesNam}" title="#{bundle.ViewTDeclarationDouTitle_genCtyDesNam}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_genCtyDesCrg}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.genCtyDesCrg}" title="#{bundle.ViewTDeclarationDouTitle_genCtyDesCrg}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_genCtyOrg}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.genCtyOrg}" title="#{bundle.ViewTDeclarationDouTitle_genCtyOrg}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_genVdt}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.genVdt}" title="#{bundle.ViewTDeclarationDouTitle_genVdt}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_genCap}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.genCap}" title="#{bundle.ViewTDeclarationDouTitle_genCap}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_genFre}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.genFre}" title="#{bundle.ViewTDeclarationDouTitle_genFre}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_tptMotDpaNam}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.tptMotDpaNam}" title="#{bundle.ViewTDeclarationDouTitle_tptMotDpaNam}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_tptMotDpaCty}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.tptMotDpaCty}" title="#{bundle.ViewTDeclarationDouTitle_tptMotDpaCty}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_tptMotBrdNam}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.tptMotBrdNam}" title="#{bundle.ViewTDeclarationDouTitle_tptMotBrdNam}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_tptMotBrdCty}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.tptMotBrdCty}" title="#{bundle.ViewTDeclarationDouTitle_tptMotBrdCty}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_tptMotBrdCod}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.tptMotBrdCod}" title="#{bundle.ViewTDeclarationDouTitle_tptMotBrdCod}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_tptMotInl}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.tptMotInl}" title="#{bundle.ViewTDeclarationDouTitle_tptMotInl}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_tptCtf}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.tptCtf}" title="#{bundle.ViewTDeclarationDouTitle_tptCtf}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_tptTodCod}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.tptTodCod}" title="#{bundle.ViewTDeclarationDouTitle_tptTodCod}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_tptTodPlc}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.tptTodPlc}" title="#{bundle.ViewTDeclarationDouTitle_tptTodPlc}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_tptTodSit}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.tptTodSit}" title="#{bundle.ViewTDeclarationDouTitle_tptTodSit}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_tptCuoCod}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.tptCuoCod}" title="#{bundle.ViewTDeclarationDouTitle_tptCuoCod}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_tptCuoNam}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.tptCuoNam}" title="#{bundle.ViewTDeclarationDouTitle_tptCuoNam}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_tptLopCod}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.tptLopCod}" title="#{bundle.ViewTDeclarationDouTitle_tptLopCod}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_tptLopNam}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.tptLopNam}" title="#{bundle.ViewTDeclarationDouTitle_tptLopNam}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_tptLopCty}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.tptLopCty}" title="#{bundle.ViewTDeclarationDouTitle_tptLopCty}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_tptLoc}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.tptLoc}" title="#{bundle.ViewTDeclarationDouTitle_tptLoc}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_tptT1}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.tptT1}" title="#{bundle.ViewTDeclarationDouTitle_tptT1}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_finTraNa1}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.finTraNa1}" title="#{bundle.ViewTDeclarationDouTitle_finTraNa1}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_finTraNa2}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.finTraNa2}" title="#{bundle.ViewTDeclarationDouTitle_finTraNa2}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_finBnkCod}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.finBnkCod}" title="#{bundle.ViewTDeclarationDouTitle_finBnkCod}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_finBnkNam}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.finBnkNam}" title="#{bundle.ViewTDeclarationDouTitle_finBnkNam}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_finBnkBra}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.finBnkBra}" title="#{bundle.ViewTDeclarationDouTitle_finBnkBra}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_finBnkFre}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.finBnkFre}" title="#{bundle.ViewTDeclarationDouTitle_finBnkFre}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_finTopCod}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.finTopCod}" title="#{bundle.ViewTDeclarationDouTitle_finTopCod}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_finTopNam}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.finTopNam}" title="#{bundle.ViewTDeclarationDouTitle_finTopNam}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_finAcc}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.finAcc}" title="#{bundle.ViewTDeclarationDouTitle_finAcc}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_finMpn}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.finMpn}" title="#{bundle.ViewTDeclarationDouTitle_finMpn}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_finAmtMnl}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.finAmtMnl}" title="#{bundle.ViewTDeclarationDouTitle_finAmtMnl}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_finAmtFee}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.finAmtFee}" title="#{bundle.ViewTDeclarationDouTitle_finAmtFee}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_finAmtDty}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.finAmtDty}" title="#{bundle.ViewTDeclarationDouTitle_finAmtDty}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_finAmtTbp}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.finAmtTbp}" title="#{bundle.ViewTDeclarationDouTitle_finAmtTbp}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_finGtyNam}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.finGtyNam}" title="#{bundle.ViewTDeclarationDouTitle_finGtyNam}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_finGtyAmt}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.finGtyAmt}" title="#{bundle.ViewTDeclarationDouTitle_finGtyAmt}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_finGtyDat}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.finGtyDat}" title="#{bundle.ViewTDeclarationDouTitle_finGtyDat}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_finGtyCtyCod}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.finGtyCtyCod}" title="#{bundle.ViewTDeclarationDouTitle_finGtyCtyCod}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_finGtyCtyNam}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.finGtyCtyNam}" title="#{bundle.ViewTDeclarationDouTitle_finGtyCtyNam}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsWrk}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsWrk}" title="#{bundle.ViewTDeclarationDouTitle_vgsWrk}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsWgtGrs}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsWgtGrs}" title="#{bundle.ViewTDeclarationDouTitle_vgsWgtGrs}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsCst}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsCst}" title="#{bundle.ViewTDeclarationDouTitle_vgsCst}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsCif}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsCif}" title="#{bundle.ViewTDeclarationDouTitle_vgsCif}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsTotNmu}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsTotNmu}" title="#{bundle.ViewTDeclarationDouTitle_vgsTotNmu}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsTotFcx}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsTotFcx}" title="#{bundle.ViewTDeclarationDouTitle_vgsTotFcx}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsTotGrs}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsTotGrs}" title="#{bundle.ViewTDeclarationDouTitle_vgsTotGrs}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsInvAmtNmu}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsInvAmtNmu}" title="#{bundle.ViewTDeclarationDouTitle_vgsInvAmtNmu}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsInvAmtFcx}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsInvAmtFcx}" title="#{bundle.ViewTDeclarationDouTitle_vgsInvAmtFcx}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsInvCurCod}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsInvCurCod}" title="#{bundle.ViewTDeclarationDouTitle_vgsInvCurCod}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsInvCurNam}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsInvCurNam}" title="#{bundle.ViewTDeclarationDouTitle_vgsInvCurNam}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsInvCurRat}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsInvCurRat}" title="#{bundle.ViewTDeclarationDouTitle_vgsInvCurRat}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsInvCurRef}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsInvCurRef}" title="#{bundle.ViewTDeclarationDouTitle_vgsInvCurRef}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsEfrAmtNmu}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsEfrAmtNmu}" title="#{bundle.ViewTDeclarationDouTitle_vgsEfrAmtNmu}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsEfrAmtFcx}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsEfrAmtFcx}" title="#{bundle.ViewTDeclarationDouTitle_vgsEfrAmtFcx}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsEfrCurCod}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsEfrCurCod}" title="#{bundle.ViewTDeclarationDouTitle_vgsEfrCurCod}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsEfrCurNam}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsEfrCurNam}" title="#{bundle.ViewTDeclarationDouTitle_vgsEfrCurNam}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsEfrCurRat}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsEfrCurRat}" title="#{bundle.ViewTDeclarationDouTitle_vgsEfrCurRat}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsEfrCurRef}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsEfrCurRef}" title="#{bundle.ViewTDeclarationDouTitle_vgsEfrCurRef}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsIfrAmtNmu}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsIfrAmtNmu}" title="#{bundle.ViewTDeclarationDouTitle_vgsIfrAmtNmu}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsIfrAmtFcx}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsIfrAmtFcx}" title="#{bundle.ViewTDeclarationDouTitle_vgsIfrAmtFcx}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsIfrCurCod}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsIfrCurCod}" title="#{bundle.ViewTDeclarationDouTitle_vgsIfrCurCod}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsIfrCurNam}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsIfrCurNam}" title="#{bundle.ViewTDeclarationDouTitle_vgsIfrCurNam}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsIfrCurRat}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsIfrCurRat}" title="#{bundle.ViewTDeclarationDouTitle_vgsIfrCurRat}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsIfrCurRef}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsIfrCurRef}" title="#{bundle.ViewTDeclarationDouTitle_vgsIfrCurRef}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsInsAmtNmu}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsInsAmtNmu}" title="#{bundle.ViewTDeclarationDouTitle_vgsInsAmtNmu}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsInsAmtFcx}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsInsAmtFcx}" title="#{bundle.ViewTDeclarationDouTitle_vgsInsAmtFcx}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsInsCurCod}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsInsCurCod}" title="#{bundle.ViewTDeclarationDouTitle_vgsInsCurCod}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsInsCurNam}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsInsCurNam}" title="#{bundle.ViewTDeclarationDouTitle_vgsInsCurNam}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsInsCurRat}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsInsCurRat}" title="#{bundle.ViewTDeclarationDouTitle_vgsInsCurRat}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsInsCurRef}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsInsCurRef}" title="#{bundle.ViewTDeclarationDouTitle_vgsInsCurRef}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsOtcAmtNmu}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsOtcAmtNmu}" title="#{bundle.ViewTDeclarationDouTitle_vgsOtcAmtNmu}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsOtcAmtFcx}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsOtcAmtFcx}" title="#{bundle.ViewTDeclarationDouTitle_vgsOtcAmtFcx}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsOtcCurCod}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsOtcCurCod}" title="#{bundle.ViewTDeclarationDouTitle_vgsOtcCurCod}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsOtcCurNam}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsOtcCurNam}" title="#{bundle.ViewTDeclarationDouTitle_vgsOtcCurNam}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsOtcCurRat}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsOtcCurRat}" title="#{bundle.ViewTDeclarationDouTitle_vgsOtcCurRat}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsOtcCurRef}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsOtcCurRef}" title="#{bundle.ViewTDeclarationDouTitle_vgsOtcCurRef}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsDedAmtNmu}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsDedAmtNmu}" title="#{bundle.ViewTDeclarationDouTitle_vgsDedAmtNmu}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsDedAmtFcx}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsDedAmtFcx}" title="#{bundle.ViewTDeclarationDouTitle_vgsDedAmtFcx}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsDedCurCod}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsDedCurCod}" title="#{bundle.ViewTDeclarationDouTitle_vgsDedCurCod}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsDedCurNam}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsDedCurNam}" title="#{bundle.ViewTDeclarationDouTitle_vgsDedCurNam}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsDedCurRat}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsDedCurRat}" title="#{bundle.ViewTDeclarationDouTitle_vgsDedCurRat}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_vgsDedCurRef}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.vgsDedCurRef}" title="#{bundle.ViewTDeclarationDouTitle_vgsDedCurRef}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_whsCod}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.whsCod}" title="#{bundle.ViewTDeclarationDouTitle_whsCod}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_whsTim}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.whsTim}" title="#{bundle.ViewTDeclarationDouTitle_whsTim}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_trsRspCod}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.trsRspCod}" title="#{bundle.ViewTDeclarationDouTitle_trsRspCod}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_trsRspNam}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.trsRspNam}" title="#{bundle.ViewTDeclarationDouTitle_trsRspNam}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_trsRspRep}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.trsRspRep}" title="#{bundle.ViewTDeclarationDouTitle_trsRspRep}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_trsSgtPlc}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.trsSgtPlc}" title="#{bundle.ViewTDeclarationDouTitle_trsSgtPlc}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_trsSgtDat}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.trsSgtDat}" title="#{bundle.ViewTDeclarationDouTitle_trsSgtDat}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_trsDesCuo}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.trsDesCuo}" title="#{bundle.ViewTDeclarationDouTitle_trsDesCuo}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_trsDesCod}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.trsDesCod}" title="#{bundle.ViewTDeclarationDouTitle_trsDesCod}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_trsDesCty}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.trsDesCty}" title="#{bundle.ViewTDeclarationDouTitle_trsDesCty}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_trsSlsNbr}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.trsSlsNbr}" title="#{bundle.ViewTDeclarationDouTitle_trsSlsNbr}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_trsSlsIde}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.trsSlsIde}" title="#{bundle.ViewTDeclarationDouTitle_trsSlsIde}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_trsCtl}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.trsCtl}" title="#{bundle.ViewTDeclarationDouTitle_trsCtl}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_trsLim}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.trsLim}" title="#{bundle.ViewTDeclarationDouTitle_trsLim}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_trsCof}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.trsCof}" title="#{bundle.ViewTDeclarationDouTitle_trsCof}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_astRyr}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.astRyr}" title="#{bundle.ViewTDeclarationDouTitle_astRyr}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_astAyr}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.astAyr}" title="#{bundle.ViewTDeclarationDouTitle_astAyr}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_astTot}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.astTot}" title="#{bundle.ViewTDeclarationDouTitle_astTot}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_astAmt}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.astAmt}" title="#{bundle.ViewTDeclarationDouTitle_astAmt}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_astStn}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.astStn}" title="#{bundle.ViewTDeclarationDouTitle_astStn}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_astStd}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.astStd}" title="#{bundle.ViewTDeclarationDouTitle_astStd}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_astSts}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.astSts}" title="#{bundle.ViewTDeclarationDouTitle_astSts}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_rloNbr}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.rloNbr}" title="#{bundle.ViewTDeclarationDouTitle_rloNbr}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_exaSec}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.exaSec}" title="#{bundle.ViewTDeclarationDouTitle_exaSec}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_exaExa}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.exaExa}" title="#{bundle.ViewTDeclarationDouTitle_exaExa}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_exaCex}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.exaCex}" title="#{bundle.ViewTDeclarationDouTitle_exaCex}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_exaWgt}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.exaWgt}" title="#{bundle.ViewTDeclarationDouTitle_exaWgt}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_lstRcpAmt}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.lstRcpAmt}" title="#{bundle.ViewTDeclarationDouTitle_lstRcpAmt}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_lstRcpSer}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.lstRcpSer}" title="#{bundle.ViewTDeclarationDouTitle_lstRcpSer}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_lstRcpNbr}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.lstRcpNbr}" title="#{bundle.ViewTDeclarationDouTitle_lstRcpNbr}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_lstRcpDat}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.lstRcpDat}" title="#{bundle.ViewTDeclarationDouTitle_lstRcpDat}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_lstRcpTyp}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.lstRcpTyp}" title="#{bundle.ViewTDeclarationDouTitle_lstRcpTyp}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_lstRcpCuo}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.lstRcpCuo}" title="#{bundle.ViewTDeclarationDouTitle_lstRcpCuo}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_brokerStamp}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.brokerStamp}" title="#{bundle.ViewTDeclarationDouTitle_brokerStamp}"/>
+                    <h:outputText value="#{bundle.ViewTDeclarationDouLabel_customsStamp}"/>
+                    <h:outputText value="#{tDeclarationDouController.selected.customsStamp}" title="#{bundle.ViewTDeclarationDouTitle_customsStamp}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tDeclarationDouController.destroyAndView}" value="#{bundle.ViewTDeclarationDouDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewTDeclarationDouEditLink}"/>
+                <br />
+                <h:commandLink action="#{tDeclarationDouController.prepareCreate}" value="#{bundle.ViewTDeclarationDouCreateLink}" />
+                <br />
+                <h:commandLink action="#{tDeclarationDouController.prepareList}" value="#{bundle.ViewTDeclarationDouShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewTDeclarationDouIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

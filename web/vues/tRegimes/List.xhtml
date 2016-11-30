@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTRegimesTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListTRegimesEmpty}" rendered="#{tRegimesController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{tRegimesController.items.rowCount > 0}">
+                    <h:outputText value="#{tRegimesController.pagination.pageFirstItem + 1}..#{tRegimesController.pagination.pageLastItem + 1}/#{tRegimesController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{tRegimesController.previous}" value="#{bundle.Previous} #{tRegimesController.pagination.pageSize}" rendered="#{tRegimesController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{tRegimesController.next}" value="#{bundle.Next} #{tRegimesController.pagination.pageSize}" rendered="#{tRegimesController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{tRegimesController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRegimesTitle_TRegimesPK_validFrom}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.TRegimesPK.validFrom}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRegimesTitle_TRegimesPK_cp4Cod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.TRegimesPK.cp4Cod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRegimesTitle_validTo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.validTo}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRegimesTitle_cp4Dsc}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cp4Dsc}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRegimesTitle_cp4Dsc2}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cp4Dsc2}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRegimesTitle_cp4Dsc3}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cp4Dsc3}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRegimesTitle_cprCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cprCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRegimesTitle_cppCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cppCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRegimesTitle_speTra}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.speTra}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRegimesTitle_genTra}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.genTra}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRegimesTitle_modifyTime}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.modifyTime}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTRegimesTitle_flgRem}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.flgRem}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{tRegimesController.prepareView}" value="#{bundle.ListTRegimesViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tRegimesController.prepareEdit}" value="#{bundle.ListTRegimesEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tRegimesController.destroy}" value="#{bundle.ListTRegimesDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{tRegimesController.prepareCreate}" value="#{bundle.ListTRegimesCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListTRegimesIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

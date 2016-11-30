@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditTTarifDouTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditTTarifDouLabel_TTarifDouPK_validFrom}" for="TTarifDouPK_validFrom" />
+                    <h:inputText id="TTarifDouPK_validFrom" value="#{tTarifDouController.selected.TTarifDouPK.validFrom}" title="#{bundle.EditTTarifDouTitle_TTarifDouPK_validFrom}" required="true" requiredMessage="#{bundle.EditTTarifDouRequiredMessage_TTarifDouPK_validFrom}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditTTarifDouLabel_TTarifDouPK_hs6Cod}" for="TTarifDouPK_hs6Cod" />
+                    <h:inputText id="TTarifDouPK_hs6Cod" value="#{tTarifDouController.selected.TTarifDouPK.hs6Cod}" title="#{bundle.EditTTarifDouTitle_TTarifDouPK_hs6Cod}" required="true" requiredMessage="#{bundle.EditTTarifDouRequiredMessage_TTarifDouPK_hs6Cod}"/>
+                    <h:outputLabel value="#{bundle.EditTTarifDouLabel_validTo}" for="validTo" />
+                    <h:inputText id="validTo" value="#{tTarifDouController.selected.validTo}" title="#{bundle.EditTTarifDouTitle_validTo}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditTTarifDouLabel_hs6Dsc}" for="hs6Dsc" />
+                    <h:inputText id="hs6Dsc" value="#{tTarifDouController.selected.hs6Dsc}" title="#{bundle.EditTTarifDouTitle_hs6Dsc}" />
+                    <h:outputLabel value="#{bundle.EditTTarifDouLabel_hs4Cod}" for="hs4Cod" />
+                    <h:inputText id="hs4Cod" value="#{tTarifDouController.selected.hs4Cod}" title="#{bundle.EditTTarifDouTitle_hs4Cod}" />
+                    <h:outputLabel value="#{bundle.EditTTarifDouLabel_hs5Cod}" for="hs5Cod" />
+                    <h:inputText id="hs5Cod" value="#{tTarifDouController.selected.hs5Cod}" title="#{bundle.EditTTarifDouTitle_hs5Cod}" />
+                    <h:outputLabel value="#{bundle.EditTTarifDouLabel_modifyTime}" for="modifyTime" />
+                    <h:inputText id="modifyTime" value="#{tTarifDouController.selected.modifyTime}" title="#{bundle.EditTTarifDouTitle_modifyTime}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditTTarifDouLabel_flgRem}" for="flgRem" />
+                    <h:inputText id="flgRem" value="#{tTarifDouController.selected.flgRem}" title="#{bundle.EditTTarifDouTitle_flgRem}" />
+                </h:panelGrid>
+                <h:commandLink action="#{tTarifDouController.update}" value="#{bundle.EditTTarifDouSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditTTarifDouViewLink}"/>
+                <br />
+                <h:commandLink action="#{tTarifDouController.prepareList}" value="#{bundle.EditTTarifDouShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditTTarifDouIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

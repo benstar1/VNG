@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTBureauTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListTBureauEmpty}" rendered="#{tBureauController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{tBureauController.items.rowCount > 0}">
+                    <h:outputText value="#{tBureauController.pagination.pageFirstItem + 1}..#{tBureauController.pagination.pageLastItem + 1}/#{tBureauController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{tBureauController.previous}" value="#{bundle.Previous} #{tBureauController.pagination.pageSize}" rendered="#{tBureauController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{tBureauController.next}" value="#{bundle.Next} #{tBureauController.pagination.pageSize}" rendered="#{tBureauController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{tBureauController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTBureauTitle_TBureauPK_validFrom}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.TBureauPK.validFrom}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTBureauTitle_TBureauPK_cuoCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.TBureauPK.cuoCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTBureauTitle_validTo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.validTo}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTBureauTitle_cuoNam}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cuoNam}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTBureauTitle_cuoNam2}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cuoNam2}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTBureauTitle_cuoNam3}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cuoNam3}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTBureauTitle_cuoAdr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cuoAdr}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTBureauTitle_cuoAd2}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cuoAd2}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTBureauTitle_cuoAd3}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cuoAd3}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTBureauTitle_cuoAd4}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cuoAd4}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTBureauTitle_cuoTel}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cuoTel}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTBureauTitle_cuoFax}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cuoFax}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTBureauTitle_cuoTlx}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cuoTlx}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTBureauTitle_cuoClr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cuoClr}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTBureauTitle_cuoBrd}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cuoBrd}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTBureauTitle_cuoAcc}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cuoAcc}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTBureauTitle_bnkCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.bnkCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTBureauTitle_braCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.braCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTBureauTitle_cuoCap}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cuoCap}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTBureauTitle_modifyTime}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.modifyTime}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTBureauTitle_flgRem}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.flgRem}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{tBureauController.prepareView}" value="#{bundle.ListTBureauViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tBureauController.prepareEdit}" value="#{bundle.ListTBureauEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tBureauController.destroy}" value="#{bundle.ListTBureauDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{tBureauController.prepareCreate}" value="#{bundle.ListTBureauCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListTBureauIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

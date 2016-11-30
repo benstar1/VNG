@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditTTaxesDouTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditTTaxesDouLabel_TTaxesDouPK_instanceId}" for="TTaxesDouPK_instanceId" />
+                    <h:inputText id="TTaxesDouPK_instanceId" value="#{tTaxesDouController.selected.TTaxesDouPK.instanceId}" title="#{bundle.EditTTaxesDouTitle_TTaxesDouPK_instanceId}" required="true" requiredMessage="#{bundle.EditTTaxesDouRequiredMessage_TTaxesDouPK_instanceId}"/>
+                    <h:outputLabel value="#{bundle.EditTTaxesDouLabel_TTaxesDouPK_rnk}" for="TTaxesDouPK_rnk" />
+                    <h:inputText id="TTaxesDouPK_rnk" value="#{tTaxesDouController.selected.TTaxesDouPK.rnk}" title="#{bundle.EditTTaxesDouTitle_TTaxesDouPK_rnk}" required="true" requiredMessage="#{bundle.EditTTaxesDouRequiredMessage_TTaxesDouPK_rnk}"/>
+                    <h:outputLabel value="#{bundle.EditTTaxesDouLabel_taxCod}" for="taxCod" />
+                    <h:inputText id="taxCod" value="#{tTaxesDouController.selected.taxCod}" title="#{bundle.EditTTaxesDouTitle_taxCod}" />
+                    <h:outputLabel value="#{bundle.EditTTaxesDouLabel_taxAmt}" for="taxAmt" />
+                    <h:inputText id="taxAmt" value="#{tTaxesDouController.selected.taxAmt}" title="#{bundle.EditTTaxesDouTitle_taxAmt}" />
+                </h:panelGrid>
+                <h:commandLink action="#{tTaxesDouController.update}" value="#{bundle.EditTTaxesDouSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditTTaxesDouViewLink}"/>
+                <br />
+                <h:commandLink action="#{tTaxesDouController.prepareList}" value="#{bundle.EditTTaxesDouShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditTTaxesDouIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditTRegimesTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditTRegimesLabel_TRegimesPK_cp4Cod}" for="TRegimesPK_cp4Cod" />
+                    <h:inputText id="TRegimesPK_cp4Cod" value="#{tRegimesController.selected.TRegimesPK.cp4Cod}" title="#{bundle.EditTRegimesTitle_TRegimesPK_cp4Cod}" required="true" requiredMessage="#{bundle.EditTRegimesRequiredMessage_TRegimesPK_cp4Cod}"/>
+                    <h:outputLabel value="#{bundle.EditTRegimesLabel_TRegimesPK_validFrom}" for="TRegimesPK_validFrom" />
+                    <h:inputText id="TRegimesPK_validFrom" value="#{tRegimesController.selected.TRegimesPK.validFrom}" title="#{bundle.EditTRegimesTitle_TRegimesPK_validFrom}" required="true" requiredMessage="#{bundle.EditTRegimesRequiredMessage_TRegimesPK_validFrom}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditTRegimesLabel_validTo}" for="validTo" />
+                    <h:inputText id="validTo" value="#{tRegimesController.selected.validTo}" title="#{bundle.EditTRegimesTitle_validTo}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditTRegimesLabel_cp4Dsc}" for="cp4Dsc" />
+                    <h:inputText id="cp4Dsc" value="#{tRegimesController.selected.cp4Dsc}" title="#{bundle.EditTRegimesTitle_cp4Dsc}" />
+                    <h:outputLabel value="#{bundle.EditTRegimesLabel_cp4Dsc2}" for="cp4Dsc2" />
+                    <h:inputText id="cp4Dsc2" value="#{tRegimesController.selected.cp4Dsc2}" title="#{bundle.EditTRegimesTitle_cp4Dsc2}" />
+                    <h:outputLabel value="#{bundle.EditTRegimesLabel_cp4Dsc3}" for="cp4Dsc3" />
+                    <h:inputText id="cp4Dsc3" value="#{tRegimesController.selected.cp4Dsc3}" title="#{bundle.EditTRegimesTitle_cp4Dsc3}" />
+                    <h:outputLabel value="#{bundle.EditTRegimesLabel_cprCod}" for="cprCod" />
+                    <h:inputText id="cprCod" value="#{tRegimesController.selected.cprCod}" title="#{bundle.EditTRegimesTitle_cprCod}" />
+                    <h:outputLabel value="#{bundle.EditTRegimesLabel_cppCod}" for="cppCod" />
+                    <h:inputText id="cppCod" value="#{tRegimesController.selected.cppCod}" title="#{bundle.EditTRegimesTitle_cppCod}" />
+                    <h:outputLabel value="#{bundle.EditTRegimesLabel_speTra}" for="speTra" />
+                    <h:inputText id="speTra" value="#{tRegimesController.selected.speTra}" title="#{bundle.EditTRegimesTitle_speTra}" />
+                    <h:outputLabel value="#{bundle.EditTRegimesLabel_genTra}" for="genTra" />
+                    <h:inputText id="genTra" value="#{tRegimesController.selected.genTra}" title="#{bundle.EditTRegimesTitle_genTra}" />
+                    <h:outputLabel value="#{bundle.EditTRegimesLabel_modifyTime}" for="modifyTime" />
+                    <h:inputText id="modifyTime" value="#{tRegimesController.selected.modifyTime}" title="#{bundle.EditTRegimesTitle_modifyTime}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditTRegimesLabel_flgRem}" for="flgRem" />
+                    <h:inputText id="flgRem" value="#{tRegimesController.selected.flgRem}" title="#{bundle.EditTRegimesTitle_flgRem}" />
+                </h:panelGrid>
+                <h:commandLink action="#{tRegimesController.update}" value="#{bundle.EditTRegimesSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditTRegimesViewLink}"/>
+                <br />
+                <h:commandLink action="#{tRegimesController.prepareList}" value="#{bundle.EditTRegimesShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditTRegimesIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

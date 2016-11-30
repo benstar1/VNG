@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewTEntDeclarationTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewTEntDeclarationLabel_entDecNum}"/>
+                    <h:outputText value="#{tEntDeclarationController.selected.entDecNum}" title="#{bundle.ViewTEntDeclarationTitle_entDecNum}"/>
+                    <h:outputText value="#{bundle.ViewTEntDeclarationLabel_entDecValidation}"/>
+                    <h:outputText value="#{tEntDeclarationController.selected.entDecValidation}" title="#{bundle.ViewTEntDeclarationTitle_entDecValidation}"/>
+                    <h:outputText value="#{bundle.ViewTEntDeclarationLabel_entDecDate}"/>
+                    <h:outputText value="#{tEntDeclarationController.selected.entDecDate}" title="#{bundle.ViewTEntDeclarationTitle_entDecDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTEntDeclarationLabel_entDecDatefin}"/>
+                    <h:outputText value="#{tEntDeclarationController.selected.entDecDatefin}" title="#{bundle.ViewTEntDeclarationTitle_entDecDatefin}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTEntDeclarationLabel_entDecDatedebut}"/>
+                    <h:outputText value="#{tEntDeclarationController.selected.entDecDatedebut}" title="#{bundle.ViewTEntDeclarationTitle_entDecDatedebut}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTEntDeclarationLabel_entDecContImmatr}"/>
+                    <h:outputText value="#{tEntDeclarationController.selected.entDecContImmatr}" title="#{bundle.ViewTEntDeclarationTitle_entDecContImmatr}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tEntDeclarationController.destroyAndView}" value="#{bundle.ViewTEntDeclarationDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewTEntDeclarationEditLink}"/>
+                <br />
+                <h:commandLink action="#{tEntDeclarationController.prepareCreate}" value="#{bundle.ViewTEntDeclarationCreateLink}" />
+                <br />
+                <h:commandLink action="#{tEntDeclarationController.prepareList}" value="#{bundle.ViewTEntDeclarationShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewTEntDeclarationIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

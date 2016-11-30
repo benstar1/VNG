@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditTDeclarationFiscaleTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditTDeclarationFiscaleLabel_declarNum}" for="declarNum" />
+                    <h:inputText id="declarNum" value="#{tDeclarationFiscaleController.selected.declarNum}" title="#{bundle.EditTDeclarationFiscaleTitle_declarNum}" required="true" requiredMessage="#{bundle.EditTDeclarationFiscaleRequiredMessage_declarNum}"/>
+                    <h:outputLabel value="#{bundle.EditTDeclarationFiscaleLabel_declarReference}" for="declarReference" />
+                    <h:inputText id="declarReference" value="#{tDeclarationFiscaleController.selected.declarReference}" title="#{bundle.EditTDeclarationFiscaleTitle_declarReference}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationFiscaleLabel_declarDate}" for="declarDate" />
+                    <h:inputText id="declarDate" value="#{tDeclarationFiscaleController.selected.declarDate}" title="#{bundle.EditTDeclarationFiscaleTitle_declarDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditTDeclarationFiscaleLabel_declarBureau}" for="declarBureau" />
+                    <h:inputText id="declarBureau" value="#{tDeclarationFiscaleController.selected.declarBureau}" title="#{bundle.EditTDeclarationFiscaleTitle_declarBureau}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationFiscaleLabel_declarAnnee}" for="declarAnnee" />
+                    <h:inputText id="declarAnnee" value="#{tDeclarationFiscaleController.selected.declarAnnee}" title="#{bundle.EditTDeclarationFiscaleTitle_declarAnnee}" />
+                    <h:outputLabel value="#{bundle.EditTDeclarationFiscaleLabel_declarEntDecNum}" for="declarEntDecNum" />
+                    <h:selectOneMenu id="declarEntDecNum" value="#{tDeclarationFiscaleController.selected.declarEntDecNum}" title="#{bundle.EditTDeclarationFiscaleTitle_declarEntDecNum}" >
+                        <f:selectItems value="#{tEntDeclarationController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{tDeclarationFiscaleController.update}" value="#{bundle.EditTDeclarationFiscaleSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditTDeclarationFiscaleViewLink}"/>
+                <br />
+                <h:commandLink action="#{tDeclarationFiscaleController.prepareList}" value="#{bundle.EditTDeclarationFiscaleShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditTDeclarationFiscaleIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

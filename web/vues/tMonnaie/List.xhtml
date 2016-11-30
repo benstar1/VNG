@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTMonnaieTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListTMonnaieEmpty}" rendered="#{tMonnaieController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{tMonnaieController.items.rowCount > 0}">
+                    <h:outputText value="#{tMonnaieController.pagination.pageFirstItem + 1}..#{tMonnaieController.pagination.pageLastItem + 1}/#{tMonnaieController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{tMonnaieController.previous}" value="#{bundle.Previous} #{tMonnaieController.pagination.pageSize}" rendered="#{tMonnaieController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{tMonnaieController.next}" value="#{bundle.Next} #{tMonnaieController.pagination.pageSize}" rendered="#{tMonnaieController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{tMonnaieController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTMonnaieTitle_TMonnaiePK_validFrom}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.TMonnaiePK.validFrom}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTMonnaieTitle_TMonnaiePK_curCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.TMonnaiePK.curCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTMonnaieTitle_curRat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.curRat}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTMonnaieTitle_validTo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.validTo}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTMonnaieTitle_curDsc}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.curDsc}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTMonnaieTitle_curDsc2}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.curDsc2}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTMonnaieTitle_curDsc3}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.curDsc3}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTMonnaieTitle_modifyTime}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.modifyTime}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTMonnaieTitle_flgRem}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.flgRem}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{tMonnaieController.prepareView}" value="#{bundle.ListTMonnaieViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tMonnaieController.prepareEdit}" value="#{bundle.ListTMonnaieEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tMonnaieController.destroy}" value="#{bundle.ListTMonnaieDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{tMonnaieController.prepareCreate}" value="#{bundle.ListTMonnaieCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListTMonnaieIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

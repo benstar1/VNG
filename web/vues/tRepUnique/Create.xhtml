@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateTRepUniqueTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contNum}" for="contNum" />
+                    <h:inputText id="contNum" value="#{tRepUniqueController.selected.contNum}" title="#{bundle.CreateTRepUniqueTitle_contNum}" required="true" requiredMessage="#{bundle.CreateTRepUniqueRequiredMessage_contNum}"/>
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contDatenreg}" for="contDatenreg" />
+                    <h:inputText id="contDatenreg" value="#{tRepUniqueController.selected.contDatenreg}" title="#{bundle.CreateTRepUniqueTitle_contDatenreg}" required="true" requiredMessage="#{bundle.CreateTRepUniqueRequiredMessage_contDatenreg}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contImmatr}" for="contImmatr" />
+                    <h:inputText id="contImmatr" value="#{tRepUniqueController.selected.contImmatr}" title="#{bundle.CreateTRepUniqueTitle_contImmatr}" required="true" requiredMessage="#{bundle.CreateTRepUniqueRequiredMessage_contImmatr}"/>
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contDateimmatr}" for="contDateimmatr" />
+                    <h:inputText id="contDateimmatr" value="#{tRepUniqueController.selected.contDateimmatr}" title="#{bundle.CreateTRepUniqueTitle_contDateimmatr}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contReimmatr}" for="contReimmatr" />
+                    <h:inputText id="contReimmatr" value="#{tRepUniqueController.selected.contReimmatr}" title="#{bundle.CreateTRepUniqueTitle_contReimmatr}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contNom}" for="contNom" />
+                    <h:inputText id="contNom" value="#{tRepUniqueController.selected.contNom}" title="#{bundle.CreateTRepUniqueTitle_contNom}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contPren}" for="contPren" />
+                    <h:inputText id="contPren" value="#{tRepUniqueController.selected.contPren}" title="#{bundle.CreateTRepUniqueTitle_contPren}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contNomJf}" for="contNomJf" />
+                    <h:inputText id="contNomJf" value="#{tRepUniqueController.selected.contNomJf}" title="#{bundle.CreateTRepUniqueTitle_contNomJf}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contSexe}" for="contSexe" />
+                    <h:inputText id="contSexe" value="#{tRepUniqueController.selected.contSexe}" title="#{bundle.CreateTRepUniqueTitle_contSexe}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contSitMat}" for="contSitMat" />
+                    <h:inputText id="contSitMat" value="#{tRepUniqueController.selected.contSitMat}" title="#{bundle.CreateTRepUniqueTitle_contSitMat}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contDatnais}" for="contDatnais" />
+                    <h:inputText id="contDatnais" value="#{tRepUniqueController.selected.contDatnais}" title="#{bundle.CreateTRepUniqueTitle_contDatnais}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contLieunais}" for="contLieunais" />
+                    <h:inputText id="contLieunais" value="#{tRepUniqueController.selected.contLieunais}" title="#{bundle.CreateTRepUniqueTitle_contLieunais}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contBp}" for="contBp" />
+                    <h:inputText id="contBp" value="#{tRepUniqueController.selected.contBp}" title="#{bundle.CreateTRepUniqueTitle_contBp}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contTel}" for="contTel" />
+                    <h:inputText id="contTel" value="#{tRepUniqueController.selected.contTel}" title="#{bundle.CreateTRepUniqueTitle_contTel}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contFax}" for="contFax" />
+                    <h:inputText id="contFax" value="#{tRepUniqueController.selected.contFax}" title="#{bundle.CreateTRepUniqueTitle_contFax}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contMail}" for="contMail" />
+                    <h:inputText id="contMail" value="#{tRepUniqueController.selected.contMail}" title="#{bundle.CreateTRepUniqueTitle_contMail}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contCarre}" for="contCarre" />
+                    <h:inputText id="contCarre" value="#{tRepUniqueController.selected.contCarre}" title="#{bundle.CreateTRepUniqueTitle_contCarre}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contLot}" for="contLot" />
+                    <h:inputText id="contLot" value="#{tRepUniqueController.selected.contLot}" title="#{bundle.CreateTRepUniqueTitle_contLot}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contRais}" for="contRais" />
+                    <h:inputText id="contRais" value="#{tRepUniqueController.selected.contRais}" title="#{bundle.CreateTRepUniqueTitle_contRais}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contNomCourt}" for="contNomCourt" />
+                    <h:inputText id="contNomCourt" value="#{tRepUniqueController.selected.contNomCourt}" title="#{bundle.CreateTRepUniqueTitle_contNomCourt}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contNomLong}" for="contNomLong" />
+                    <h:inputText id="contNomLong" value="#{tRepUniqueController.selected.contNomLong}" title="#{bundle.CreateTRepUniqueTitle_contNomLong}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contDatcreat}" for="contDatcreat" />
+                    <h:inputText id="contDatcreat" value="#{tRepUniqueController.selected.contDatcreat}" title="#{bundle.CreateTRepUniqueTitle_contDatcreat}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contNompropsieg}" for="contNompropsieg" />
+                    <h:inputText id="contNompropsieg" value="#{tRepUniqueController.selected.contNompropsieg}" title="#{bundle.CreateTRepUniqueTitle_contNompropsieg}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contLoyer}" for="contLoyer" />
+                    <h:inputText id="contLoyer" value="#{tRepUniqueController.selected.contLoyer}" title="#{bundle.CreateTRepUniqueTitle_contLoyer}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contCapital}" for="contCapital" />
+                    <h:inputText id="contCapital" value="#{tRepUniqueController.selected.contCapital}" title="#{bundle.CreateTRepUniqueTitle_contCapital}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contNuminsae}" for="contNuminsae" />
+                    <h:inputText id="contNuminsae" value="#{tRepUniqueController.selected.contNuminsae}" title="#{bundle.CreateTRepUniqueTitle_contNuminsae}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contDatenregInsae}" for="contDatenregInsae" />
+                    <h:inputText id="contDatenregInsae" value="#{tRepUniqueController.selected.contDatenregInsae}" title="#{bundle.CreateTRepUniqueTitle_contDatenregInsae}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contNbEnf}" for="contNbEnf" />
+                    <h:inputText id="contNbEnf" value="#{tRepUniqueController.selected.contNbEnf}" title="#{bundle.CreateTRepUniqueTitle_contNbEnf}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contCentrCode}" for="contCentrCode" />
+                    <h:inputText id="contCentrCode" value="#{tRepUniqueController.selected.contCentrCode}" title="#{bundle.CreateTRepUniqueTitle_contCentrCode}" required="true" requiredMessage="#{bundle.CreateTRepUniqueRequiredMessage_contCentrCode}"/>
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contProfCode}" for="contProfCode" />
+                    <h:inputText id="contProfCode" value="#{tRepUniqueController.selected.contProfCode}" title="#{bundle.CreateTRepUniqueTitle_contProfCode}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contFonctCode}" for="contFonctCode" />
+                    <h:inputText id="contFonctCode" value="#{tRepUniqueController.selected.contFonctCode}" title="#{bundle.CreateTRepUniqueTitle_contFonctCode}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contNbEmpl}" for="contNbEmpl" />
+                    <h:inputText id="contNbEmpl" value="#{tRepUniqueController.selected.contNbEmpl}" title="#{bundle.CreateTRepUniqueTitle_contNbEmpl}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contQuart}" for="contQuart" />
+                    <h:inputText id="contQuart" value="#{tRepUniqueController.selected.contQuart}" title="#{bundle.CreateTRepUniqueTitle_contQuart}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contCatEtabCode}" for="contCatEtabCode" />
+                    <h:inputText id="contCatEtabCode" value="#{tRepUniqueController.selected.contCatEtabCode}" title="#{bundle.CreateTRepUniqueTitle_contCatEtabCode}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contModExpCode}" for="contModExpCode" />
+                    <h:inputText id="contModExpCode" value="#{tRepUniqueController.selected.contModExpCode}" title="#{bundle.CreateTRepUniqueTitle_contModExpCode}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contContNum}" for="contContNum" />
+                    <h:inputText id="contContNum" value="#{tRepUniqueController.selected.contContNum}" title="#{bundle.CreateTRepUniqueTitle_contContNum}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contOrdre}" for="contOrdre" />
+                    <h:inputText id="contOrdre" value="#{tRepUniqueController.selected.contOrdre}" title="#{bundle.CreateTRepUniqueTitle_contOrdre}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contMemActMere}" for="contMemActMere" />
+                    <h:inputText id="contMemActMere" value="#{tRepUniqueController.selected.contMemActMere}" title="#{bundle.CreateTRepUniqueTitle_contMemActMere}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contDateCessation}" for="contDateCessation" />
+                    <h:inputText id="contDateCessation" value="#{tRepUniqueController.selected.contDateCessation}" title="#{bundle.CreateTRepUniqueTitle_contDateCessation}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contDateDeces}" for="contDateDeces" />
+                    <h:inputText id="contDateDeces" value="#{tRepUniqueController.selected.contDateDeces}" title="#{bundle.CreateTRepUniqueTitle_contDateDeces}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contDateRepriseAct}" for="contDateRepriseAct" />
+                    <h:inputText id="contDateRepriseAct" value="#{tRepUniqueController.selected.contDateRepriseAct}" title="#{bundle.CreateTRepUniqueTitle_contDateRepriseAct}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contEnsCommerce}" for="contEnsCommerce" />
+                    <h:inputText id="contEnsCommerce" value="#{tRepUniqueController.selected.contEnsCommerce}" title="#{bundle.CreateTRepUniqueTitle_contEnsCommerce}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contNationCode}" for="contNationCode" />
+                    <h:inputText id="contNationCode" value="#{tRepUniqueController.selected.contNationCode}" title="#{bundle.CreateTRepUniqueTitle_contNationCode}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contNeVers}" for="contNeVers" />
+                    <h:inputText id="contNeVers" value="#{tRepUniqueController.selected.contNeVers}" title="#{bundle.CreateTRepUniqueTitle_contNeVers}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contVille}" for="contVille" />
+                    <h:inputText id="contVille" value="#{tRepUniqueController.selected.contVille}" title="#{bundle.CreateTRepUniqueTitle_contVille}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contRue}" for="contRue" />
+                    <h:inputText id="contRue" value="#{tRepUniqueController.selected.contRue}" title="#{bundle.CreateTRepUniqueTitle_contRue}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contPrnompropsieg}" for="contPrnompropsieg" />
+                    <h:inputText id="contPrnompropsieg" value="#{tRepUniqueController.selected.contPrnompropsieg}" title="#{bundle.CreateTRepUniqueTitle_contPrnompropsieg}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contProp}" for="contProp" />
+                    <h:inputText id="contProp" value="#{tRepUniqueController.selected.contProp}" title="#{bundle.CreateTRepUniqueTitle_contProp}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contMemBank}" for="contMemBank" />
+                    <h:inputText id="contMemBank" value="#{tRepUniqueController.selected.contMemBank}" title="#{bundle.CreateTRepUniqueTitle_contMemBank}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contNewImmatr}" for="contNewImmatr" />
+                    <h:inputText id="contNewImmatr" value="#{tRepUniqueController.selected.contNewImmatr}" title="#{bundle.CreateTRepUniqueTitle_contNewImmatr}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contNuminsae1}" for="contNuminsae1" />
+                    <h:inputText id="contNuminsae1" value="#{tRepUniqueController.selected.contNuminsae1}" title="#{bundle.CreateTRepUniqueTitle_contNuminsae1}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contActif}" for="contActif" />
+                    <h:inputText id="contActif" value="#{tRepUniqueController.selected.contActif}" title="#{bundle.CreateTRepUniqueTitle_contActif}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contMatricule}" for="contMatricule" />
+                    <h:inputText id="contMatricule" value="#{tRepUniqueController.selected.contMatricule}" title="#{bundle.CreateTRepUniqueTitle_contMatricule}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contDateMajMatricule}" for="contDateMajMatricule" />
+                    <h:inputText id="contDateMajMatricule" value="#{tRepUniqueController.selected.contDateMajMatricule}" title="#{bundle.CreateTRepUniqueTitle_contDateMajMatricule}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contStatut}" for="contStatut" />
+                    <h:inputText id="contStatut" value="#{tRepUniqueController.selected.contStatut}" title="#{bundle.CreateTRepUniqueTitle_contStatut}" />
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_TEntDeclaration}" for="TEntDeclaration" />
+                    <h:selectOneMenu id="TEntDeclaration" value="#{tRepUniqueController.selected.TEntDeclaration}" title="#{bundle.CreateTRepUniqueTitle_TEntDeclaration}" >
+                        <f:selectItems value="#{tEntDeclarationController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_THistorique}" for="THistorique" />
+                    <h:selectOneMenu id="THistorique" value="#{tRepUniqueController.selected.THistorique}" title="#{bundle.CreateTRepUniqueTitle_THistorique}" >
+                        <f:selectItems value="#{tHistoriqueController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contTypContCode}" for="contTypContCode" />
+                    <h:selectOneMenu id="contTypContCode" value="#{tRepUniqueController.selected.contTypContCode}" title="#{bundle.CreateTRepUniqueTitle_contTypContCode}" required="true" requiredMessage="#{bundle.CreateTRepUniqueRequiredMessage_contTypContCode}">
+                        <f:selectItems value="#{tTypeContribController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateTRepUniqueLabel_contCentrImpCode}" for="contCentrImpCode" />
+                    <h:selectOneMenu id="contCentrImpCode" value="#{tRepUniqueController.selected.contCentrImpCode}" title="#{bundle.CreateTRepUniqueTitle_contCentrImpCode}" >
+                        <f:selectItems value="#{tCentreImpotController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tRepUniqueController.create}" value="#{bundle.CreateTRepUniqueSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{tRepUniqueController.prepareList}" value="#{bundle.CreateTRepUniqueShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateTRepUniqueIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewTHistoriqueTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histNum}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histNum}" title="#{bundle.ViewTHistoriqueTitle_histNum}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContNum}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContNum}" title="#{bundle.ViewTHistoriqueTitle_histContNum}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContDatenreg}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContDatenreg}" title="#{bundle.ViewTHistoriqueTitle_histContDatenreg}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContDateimmatr}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContDateimmatr}" title="#{bundle.ViewTHistoriqueTitle_histContDateimmatr}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContReimmatr}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContReimmatr}" title="#{bundle.ViewTHistoriqueTitle_histContReimmatr}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContNom}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContNom}" title="#{bundle.ViewTHistoriqueTitle_histContNom}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContPren}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContPren}" title="#{bundle.ViewTHistoriqueTitle_histContPren}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContNomJf}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContNomJf}" title="#{bundle.ViewTHistoriqueTitle_histContNomJf}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContSexe}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContSexe}" title="#{bundle.ViewTHistoriqueTitle_histContSexe}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContSitMat}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContSitMat}" title="#{bundle.ViewTHistoriqueTitle_histContSitMat}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContDatnais}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContDatnais}" title="#{bundle.ViewTHistoriqueTitle_histContDatnais}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContLieunais}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContLieunais}" title="#{bundle.ViewTHistoriqueTitle_histContLieunais}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContBp}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContBp}" title="#{bundle.ViewTHistoriqueTitle_histContBp}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContTel}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContTel}" title="#{bundle.ViewTHistoriqueTitle_histContTel}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContFax}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContFax}" title="#{bundle.ViewTHistoriqueTitle_histContFax}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContMail}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContMail}" title="#{bundle.ViewTHistoriqueTitle_histContMail}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContCarre}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContCarre}" title="#{bundle.ViewTHistoriqueTitle_histContCarre}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContLot}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContLot}" title="#{bundle.ViewTHistoriqueTitle_histContLot}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContRais}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContRais}" title="#{bundle.ViewTHistoriqueTitle_histContRais}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContNomCourt}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContNomCourt}" title="#{bundle.ViewTHistoriqueTitle_histContNomCourt}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContNomLong}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContNomLong}" title="#{bundle.ViewTHistoriqueTitle_histContNomLong}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContDatcreat}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContDatcreat}" title="#{bundle.ViewTHistoriqueTitle_histContDatcreat}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContNompropsieg}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContNompropsieg}" title="#{bundle.ViewTHistoriqueTitle_histContNompropsieg}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContLoyer}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContLoyer}" title="#{bundle.ViewTHistoriqueTitle_histContLoyer}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContCapital}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContCapital}" title="#{bundle.ViewTHistoriqueTitle_histContCapital}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContNuminsae}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContNuminsae}" title="#{bundle.ViewTHistoriqueTitle_histContNuminsae}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContDatenregInsae}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContDatenregInsae}" title="#{bundle.ViewTHistoriqueTitle_histContDatenregInsae}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContNbEnf}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContNbEnf}" title="#{bundle.ViewTHistoriqueTitle_histContNbEnf}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContCentrCode}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContCentrCode}" title="#{bundle.ViewTHistoriqueTitle_histContCentrCode}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContTypContCode}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContTypContCode}" title="#{bundle.ViewTHistoriqueTitle_histContTypContCode}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContProfCode}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContProfCode}" title="#{bundle.ViewTHistoriqueTitle_histContProfCode}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContFonctCode}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContFonctCode}" title="#{bundle.ViewTHistoriqueTitle_histContFonctCode}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContNbEmpl}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContNbEmpl}" title="#{bundle.ViewTHistoriqueTitle_histContNbEmpl}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContQuart}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContQuart}" title="#{bundle.ViewTHistoriqueTitle_histContQuart}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContCatEtabCode}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContCatEtabCode}" title="#{bundle.ViewTHistoriqueTitle_histContCatEtabCode}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContModExpCode}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContModExpCode}" title="#{bundle.ViewTHistoriqueTitle_histContModExpCode}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContContNum}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContContNum}" title="#{bundle.ViewTHistoriqueTitle_histContContNum}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContOrdre}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContOrdre}" title="#{bundle.ViewTHistoriqueTitle_histContOrdre}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContMemActMere}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContMemActMere}" title="#{bundle.ViewTHistoriqueTitle_histContMemActMere}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContDateCessation}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContDateCessation}" title="#{bundle.ViewTHistoriqueTitle_histContDateCessation}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContDateDeces}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContDateDeces}" title="#{bundle.ViewTHistoriqueTitle_histContDateDeces}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContDateRepriseAct}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContDateRepriseAct}" title="#{bundle.ViewTHistoriqueTitle_histContDateRepriseAct}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContEnsCommerce}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContEnsCommerce}" title="#{bundle.ViewTHistoriqueTitle_histContEnsCommerce}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContNationCode}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContNationCode}" title="#{bundle.ViewTHistoriqueTitle_histContNationCode}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContNeVers}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContNeVers}" title="#{bundle.ViewTHistoriqueTitle_histContNeVers}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContVille}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContVille}" title="#{bundle.ViewTHistoriqueTitle_histContVille}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContRue}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContRue}" title="#{bundle.ViewTHistoriqueTitle_histContRue}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContPrnompropsieg}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContPrnompropsieg}" title="#{bundle.ViewTHistoriqueTitle_histContPrnompropsieg}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContProp}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContProp}" title="#{bundle.ViewTHistoriqueTitle_histContProp}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContMemBank}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContMemBank}" title="#{bundle.ViewTHistoriqueTitle_histContMemBank}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContNewImmatr}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContNewImmatr}" title="#{bundle.ViewTHistoriqueTitle_histContNewImmatr}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContNuminsae1}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContNuminsae1}" title="#{bundle.ViewTHistoriqueTitle_histContNuminsae1}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContActif}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContActif}" title="#{bundle.ViewTHistoriqueTitle_histContActif}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContMatricule}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContMatricule}" title="#{bundle.ViewTHistoriqueTitle_histContMatricule}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContDateMajMatricule}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContDateMajMatricule}" title="#{bundle.ViewTHistoriqueTitle_histContDateMajMatricule}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContStatut}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContStatut}" title="#{bundle.ViewTHistoriqueTitle_histContStatut}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histUtilLogin}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histUtilLogin}" title="#{bundle.ViewTHistoriqueTitle_histUtilLogin}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histContImmatr}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histContImmatr}" title="#{bundle.ViewTHistoriqueTitle_histContImmatr}"/>
+                    <h:outputText value="#{bundle.ViewTHistoriqueLabel_histMotifCode}"/>
+                    <h:outputText value="#{tHistoriqueController.selected.histMotifCode}" title="#{bundle.ViewTHistoriqueTitle_histMotifCode}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tHistoriqueController.destroyAndView}" value="#{bundle.ViewTHistoriqueDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewTHistoriqueEditLink}"/>
+                <br />
+                <h:commandLink action="#{tHistoriqueController.prepareCreate}" value="#{bundle.ViewTHistoriqueCreateLink}" />
+                <br />
+                <h:commandLink action="#{tHistoriqueController.prepareList}" value="#{bundle.ViewTHistoriqueShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewTHistoriqueIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
