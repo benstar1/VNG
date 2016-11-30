@@ -24,6 +24,16 @@ public class TCentreImpotFacade extends AbstractFacade<TCentreImpot> {
         return em;
     }
 
+    
+    public TCentreImpot find(String id) {
+
+        TCentreImpot tCentreImpot = (TCentreImpot) em.createNamedQuery("TCentreImpot.findByCentrImpCode").setParameter("centrImpCode", id).getSingleResult();
+
+        if( tCentreImpot == null ) return null;
+        return tCentreImpot;
+    }
+        
+        
     public TCentreImpotFacade() {
         super(TCentreImpot.class);
     }
