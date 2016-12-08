@@ -6,9 +6,12 @@
 package bj.finances.cfisc.sessions;
 
 import bj.finances.cfisc.entities.TDeclarationFiscale;
+import bj.finances.cfisc.entities.TEntDeclaration;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,5 +30,12 @@ public class TDeclarationFiscaleFacade extends AbstractFacade<TDeclarationFiscal
     public TDeclarationFiscaleFacade() {
         super(TDeclarationFiscale.class);
     }
+    
+     public List<TDeclarationFiscale> findListdeclar(TEntDeclaration entdeclar) {
+        Query query;
+        query = em.createNamedQuery("TDeclarationFiscale.findByNumEntDecl").setParameter("entdeclar", entdeclar);
+        return query.getResultList();
+    }
+
     
 }

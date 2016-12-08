@@ -1,0 +1,358 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../template.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="top">
+        top
+    </ui:define>
+
+    <ui:define name="body">
+       
+            <h:form id="entdeclaration">
+                <h1><h:outputText value="Déclaration des importations et des exportations"/></h1>
+                <h:panelGrid columns="6">
+                    <h:outputLabel value="EntDecNum:" for="entDecNum" />
+                      <h:panelGrid columns="2" width="100%" style="vertical-align: top;">                    
+                          <h:inputText  id="entDecNum" value="#{tEntDeclarationController.selected.entDecNum}" title="EntDecNum" required="true" requiredMessage="The EntDecNum field is required."/>
+                        <p:commandButton value="..." type="button" onclick="PF('dldecarationfiscale').show();" /> 
+                      </h:panelGrid>
+                    
+                    <h:outputLabel value="EntDecDatedebut:" for="entDecDatedebut" />
+                    <p:calendar  mask="true" pattern="dd-MM-yyyy" id="entDecDatedebut" value="#{tEntDeclarationController.selected.entDecDatedebut}" title="EntDecDatedebut" />
+                       
+                     
+                    <h:outputLabel value="EntDecDatefin:" for="entDecDatefin" />
+                    <p:calendar mask="true" pattern="dd-MM-yyyy"  id="entDecDatefin" value="#{tEntDeclarationController.selected.entDecDatefin}" title="EntDecDatefin" />
+                    
+                    
+                </h:panelGrid>
+            </h:form>
+<!--///////////////////////////////////Liste des déclaration douanières//////////////////-->
+
+<h:panelGrid columns="1">
+<!--    ///////formulaire déclaration douanière/////////////////////////-->
+<f:view >
+
+
+    <h:form id="formdeclar"> 
+        <h1><h:outputText value="Formulaire de déclaration douanière"/></h1>
+        <p:panelGrid columns="4" style="width:100%; ">
+            <p:outputLabel value="DeclarNum:" for="declarNum" />
+            <p:inputText id="declarNum" value="#{tDeclarationFiscaleController.selected.declarNum}" title="DeclarNum" required="true" requiredMessage="The DeclarNum field is required."/>
+            <p:outputLabel value="DeclarReference:" for="declarReference" />
+            <p:inputText id="declarReference" value="#{tDeclarationFiscaleController.selected.declarReference}" title="DeclarReference" />
+            <p:outputLabel value="DeclarDate:" for="declarDate" />
+            <p:calendar mask="true" pattern="dd-MM-yyyy" id="declarDate" value="#{tDeclarationFiscaleController.selected.declarDate}" title="DeclarDate" />
+                
+            
+            <p:outputLabel value="DeclarBureau:" for="declarBureau" />
+            <p:inputText id="declarBureau" value="#{tDeclarationFiscaleController.selected.declarBureau}" title="DeclarBureau" />
+            <p:outputLabel value="DeclarAnnee:" for="declarAnnee" />
+            <p:inputText id="declarAnnee" value="#{tDeclarationFiscaleController.selected.declarAnnee}" title="DeclarAnnee" />
+            
+            <f:facet name="footer">
+        
+            <p:commandButton   update=":formdeclar" process="@this"  action="#{tDeclarationFiscaleController.prepareCreate()}"  value= "Nouveau"  style="width: 120px;" ajax="true" />
+            <p:commandButton  value= "Enregistrer" actionListener="#{tDeclarationFiscaleController.selected.setDeclarEntDecNum(tEntDeclarationController.selected)}" action="#{tDeclarationFiscaleController.create()}" update=":listdeclardou" style="width: 120px;" ajax="true" />
+            <p:commandButton  value= "Modifier" actionListener="#{tDeclarationFiscaleController.selected.setDeclarEntDecNum(tEntDeclarationController.selected)}" action="#{tDeclarationFiscaleController.update()}" update=":listdeclardou" style="width: 120px;" ajax="true" />
+            <p:commandButton  value= "Supprimer" action="#{tDeclarationFiscaleController.destroybis(tDeclarationFiscaleController.selected)}" update=":listdeclardou"  style="width: 120px;" ajax="true" />
+            </f:facet>
+        </p:panelGrid>
+       
+    </h:form>
+</f:view> 
+<!--    //////////////////////////// fin formulaire déclaration douanière///////-->
+    
+    <h:form id='listdeclardou'>
+        <h1><h:outputText value="Liste des déclrations douanière de la période"/></h1>
+        <p:dataTable    value="#{tDeclarationFiscaleController.getFindListEnt(tEntDeclarationController.selected)}" var="item" selectionMode="single" selection="#{tDeclarationFiscaleController.decl}" rowKey="#{item.declarNum}">
+        <p:ajax event="rowSelect"  update=":formdeclar" />
+       
+            
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="DeclarAnnee"/>
+                </f:facet>
+                <h:outputText value="#{item.declarAnnee}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="DeclarReference"/>
+                </f:facet>
+                <h:outputText value="#{item.declarReference}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="DeclarDate"/>
+                </f:facet>
+                <h:outputText value="#{item.declarDate}"  >
+                    <f:convertDateTime pattern="dd/MM/yyyy" locale="true" />
+                </h:outputText>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="DeclarBureau"/>
+                </f:facet>
+                <h:outputText value="#{item.declarBureau}"/>
+            </p:column>
+            
+        <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Total Valeur CAF"/>
+                </f:facet>
+            <h:outputText value="#{item.totalVcaf}"/>
+            </p:column>
+        
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Total TVA"/>
+                </f:facet>
+                <h:outputText value="#{item.totalTva}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Total DD"/>
+                </f:facet>
+                <h:outputText value="#{item.totalDd}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Total PC"/>
+                </f:facet>
+                <h:outputText value="#{item.totalPc}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Total PCS"/>
+                </f:facet>
+                <h:outputText value="#{item.totalPcs}"/>
+            </p:column>
+           <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Total RS"/>
+                </f:facet>
+               <h:outputText value="#{item.totalRs}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Total AIB"/>
+                </f:facet>
+                <h:outputText value="#{item.totalAib}"/>
+            </p:column>
+            
+         <f:facet name="footer">
+             <p:commandButton  value= "Détail" actionListener="#{tTaxeDeclarationController.prepareCreate()}"  onclick="PF('dldetaidecarationfiscale').show();" update=":listtaxdeclar :formtaxedeclaration" style="width: 120px;" ajax="true" />
+        
+           <p:commandButton   value= "Validation"   update=":formentdeclar" process="@this"  action="#{tEntDeclarationController.prepareCreate()}" style="width: 120px;" ajax="true" />
+                     </f:facet> 
+        </p:dataTable>
+        
+    </h:form>
+</h:panelGrid>
+
+
+<!--///////////////////////////////////Liste des déclaration douanières//////////////////-->
+
+        
+        
+        
+<!--        ///////////////////////////////dialog entete déclaration fiscale////////////-->
+        <p:dialog id="dldecarationfiscale" header="Liste des déclarations"  dynamic="true" widgetVar="dldecarationfiscale" modal="true" showEffect="explose"  width="800" >
+            <f:view>
+
+
+                <h:form id="formentdeclar">
+                    <h1><h:outputText value="Entête déclaration"/></h1>
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="EntDecNum:" for="entDecNum" />
+                        <p:inputText id="entDecNum" value="#{tEntDeclarationController.selected.entDecNum}" title="EntDecNum" required="true" requiredMessage="The EntDecNum field is required."/>
+                                      
+                        <p:outputLabel value="EntDecDatedebut:" for="entDecDatedebut" />
+                        <p:calendar  pattern="dd-MM-yyyy" mask="true" id="entDecDatedebut" value="#{tEntDeclarationController.selected.entDecDatedebut}" title="EntDecDatedebut" />
+                           
+                        <p:outputLabel value="EntDecDatefin:" for="entDecDatefin" />
+                        <p:calendar  pattern="dd-MM-yyyy" mask="true" id="entDecDatefin" value="#{tEntDeclarationController.selected.entDecDatefin}" title="EntDecDatefin" />
+                          <f:facet name="footer">
+        
+                    <p:commandButton   update=":formentdeclar" process="@this"  action="#{tEntDeclarationController.prepareCreate()}"  value= "Nouveau"  style="width: 120px;" ajax="true" />
+                    <p:commandButton  value= "Enregistrer"  action="#{tEntDeclarationController.create()}" update=":listentdeclar" style="width: 120px;" ajax="true" />
+                    <p:commandButton  value= "Modifier"  action="#{tEntDeclarationController.update()}" update=":listentdeclar" style="width: 120px;" ajax="true" />
+                    <p:commandButton  value= "Supprimer" action="#{tEntDeclarationController.destroybis(tEntDeclarationController.selected)}" update=":listentdeclar"  style="width: 120px;" ajax="true" />
+            </f:facet> 
+                        
+                        
+                    </p:panelGrid>
+                </h:form>
+            </f:view>
+
+            
+            
+            <h:form id="listentdeclar">    
+                <p:dataTable  value="#{tEntDeclarationController.findListEntdeclfisc}" var="itementdeclar" paginator="true" rows="20" emptyMessage="Aucun enregistrement trouvé pour l'instant !" selectionMode="single" selection="#{tEntDeclarationController.entdecl}" rowKey="#{itementdeclar.entDecNum}">
+                      <p:ajax event="rowSelect"  update=":formentdeclar" />
+      
+                        <p:column filterBy="#{itementdeclar.entDecNum}" filterMatchMode="startsWith">
+                            <f:facet name="header">
+                                <h:outputText value="Numéro"/>
+                            </f:facet>                        
+                            <p:commandLink value="#{itementdeclar.entDecNum}"  action="#{tEntDeclarationController.entetedeclarselectionne(itementdeclar)}"  update=":entdeclaration :listdeclardou :formdeclar" oncomplete="PF('dldecarationfiscale').hide();"  process="@this" title="Selectionnez" style="color: blue;"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Date début"/>
+                            </f:facet>
+                            <h:outputText value="#{itementdeclar.entDecDatedebut}">
+                                <f:convertDateTime  pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+                          <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Date fin"/>
+                            </f:facet>
+                              <h:outputText value="#{itementdeclar.entDecDatefin}">
+                               <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                          </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Validation"/>
+                            </f:facet>
+                            <h:outputText value="#{itementdeclar.entDecValidation}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:dialog>
+<!--        //////////////////////////////////////fin dialog déclaration fiscale//////////
+        -->
+        
+<!--        ///////////////////////Detail d'une déclaration douanière//////////////////////////-->
+<p:dialog id="dldetaidecarationfiscale"   header="Taxes de la déclaration encours"  dynamic="true" widgetVar="dldetaidecarationfiscale" modal="true" showEffect="explose"  width="800" >
+    <p:ajax event="close" listener="#{tDeclarationFiscaleController.calcultotaux}" update=":listdeclardou" />
+      
+      
+            <f:view>
+
+
+                <h:form id='formtaxedeclaration'>
+                    <h1><h:outputText value="Taxes déclarations Ref : #{tDeclarationFiscaleController.selected.declarReference}"/></h1>
+                    <p:panelGrid columns="4">
+                        <p:outputLabel value="TaxDecNum:" for="taxDecNum" />
+                        <p:inputText id="taxDecNum" value="#{tTaxeDeclarationController.selected.taxDecNum}" title="TaxDecNum" required="true" requiredMessage="The TaxDecNum field is required."/>
+                        <p:outputLabel value="TaxDecTarifCode:" for="taxDecTarifCode" />
+                        <p:inputText id="taxDecTarifCode" value="#{tTaxeDeclarationController.selected.taxDecTarifCode}" title="TaxDecTarifCode" />
+                        <p:outputLabel value="TaxDecValCaf:" for="taxDecValCaf" />
+                        <p:inputText id="taxDecValCaf" value="#{tTaxeDeclarationController.selected.taxDecValCaf}" title="TaxDecValCaf" />
+                        <p:outputLabel value="TaxDecBaseTaxable:" for="taxDecBaseTaxable" />
+                        <p:inputText id="taxDecBaseTaxable" value="#{tTaxeDeclarationController.selected.taxDecBaseTaxable}" title="TaxDecBaseTaxable" />
+                        <p:outputLabel value="TaxDecPrixTaxable:" for="taxDecPrixTaxable" />
+                        <p:inputText id="taxDecPrixTaxable" value="#{tTaxeDeclarationController.selected.taxDecPrixTaxable}" title="TaxDecPrixTaxable" />
+                        <p:outputLabel value="TaxDecDd:" for="taxDecDd" />
+                        <p:inputText id="taxDecDd" value="#{tTaxeDeclarationController.selected.taxDecDd}" title="TaxDecDd" />
+                        <p:outputLabel value="TaxDecPc:" for="taxDecPc" />
+                        <p:inputText id="taxDecPc" value="#{tTaxeDeclarationController.selected.taxDecPc}" title="TaxDecPc" />
+                        <p:outputLabel value="TaxDecPcs:" for="taxDecPcs" />
+                        <p:inputText id="taxDecPcs" value="#{tTaxeDeclarationController.selected.taxDecPcs}" title="TaxDecPcs" />
+                        <p:outputLabel value="TaxDecRs:" for="taxDecRs" />
+                        <p:inputText id="taxDecRs" value="#{tTaxeDeclarationController.selected.taxDecRs}" title="TaxDecRs" />
+                        <p:outputLabel value="TaxDecAib:" for="taxDecAib" />
+                        <p:inputText id="taxDecAib" value="#{tTaxeDeclarationController.selected.taxDecAib}" title="TaxDecAib" />
+                        <p:outputLabel value="TaxDecTva:" for="taxDecTva" />
+                        <p:inputText id="taxDecTva" value="#{tTaxeDeclarationController.selected.taxDecTva}" title="TaxDecTva" />
+                        
+                        
+                   <f:facet name="footer">
+<!--         (tEntDeclarationController.selected)-->
+                    <p:commandButton   update=":formtaxedeclaration" process="@this"  action="#{tTaxeDeclarationController.prepareCreate()}"  value= "Nouveau"  style="width: 120px;" ajax="true" />
+                    <p:commandButton  value= "Enregistrer" actionListener="#{tTaxeDeclarationController.selected.setTaxDeclarNum(tDeclarationFiscaleController.selected)  }"  action="#{tTaxeDeclarationController.create()}" update=":listtaxdeclar" style="width: 120px;" ajax="true" />
+                    <p:commandButton  value= "Modifier"  action="#{tTaxeDeclarationController.update()}" update=":listtaxdeclar" style="width: 120px;" ajax="true" />
+                    <p:commandButton  value= "Supprimer" action="#{tTaxeDeclarationController.destroybis(tTaxeDeclarationController.selected)}" update=":listtaxdeclar"  style="width: 120px;" ajax="true" />
+           
+                
+                   </f:facet> 
+                    </p:panelGrid>
+                </h:form>
+            </f:view>
+
+            
+            
+            
+            
+            
+            <h:form id="listtaxdeclar">    
+                <p:dataTable  value="#{tTaxeDeclarationController.getFindListTaxe(tDeclarationFiscaleController.selected)}" var="itemtaxedeclar" paginator="true" rows="20" emptyMessage="Aucun enregistrement trouvé pour l'instant !" selectionMode="single" selection="#{tTaxeDeclarationController.taxedeclar}" rowKey="#{itemtaxedeclar.taxDecNum}">
+                      <p:ajax event="rowSelect"  update=":formtaxedeclaration" />
+      
+                      
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Code Tarif"/>
+                            </f:facet>
+                            <h:outputText value="#{itemtaxedeclar.taxDecTarifCode}"/>
+                                
+                        </p:column>
+                      <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Valeur CAF"/>
+                            </f:facet>
+                          <h:outputText value="#{itemtaxedeclar.taxDecValCaf}"/>
+                      </p:column>
+                       <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Base Taxable"/>
+                            </f:facet>
+                           <h:outputText value="#{itemtaxedeclar.taxDecBaseTaxable}"/>
+                      </p:column>
+                      
+                       <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="TVA"/>
+                            </f:facet>
+                           <h:outputText value="#{itemtaxedeclar.taxDecTva}"/>
+                      </p:column>
+                       <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="DD"/>
+                            </f:facet>
+                           <h:outputText value="#{itemtaxedeclar.taxDecDd}"/>
+                      </p:column>
+                       <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="PC"/>
+                            </f:facet>
+                           <h:outputText value="#{itemtaxedeclar.taxDecPc}"/>
+                      </p:column>
+                       <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="PCS"/>
+                            </f:facet>
+                           <h:outputText value="#{itemtaxedeclar.taxDecPcs}"/>
+                      </p:column>
+                       <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="RS"/>
+                            </f:facet>
+                           <h:outputText value="#{itemtaxedeclar.taxDecRs}"/>
+                      </p:column>
+                       <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="AIB"/>
+                            </f:facet>
+                           <h:outputText value="#{itemtaxedeclar.taxDecAib}"/>
+                      </p:column>
+                         
+                    </p:dataTable>
+                </h:form>
+            </p:dialog>
+        
+<!--///////////////////////////////////////////-->
+    </ui:define>
+
+    <ui:define name="bottom">
+        bottom
+    </ui:define>
+
+</ui:composition>

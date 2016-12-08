@@ -33,10 +33,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "T_ENT_DECLARATION")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "TEntDeclaration.findAll", query = "SELECT t FROM TEntDeclaration t"),
+     @NamedQuery(name = "TEntDeclaration.findAll", query = "SELECT t FROM TEntDeclaration t"),
     @NamedQuery(name = "TEntDeclaration.findByEntDecNum", query = "SELECT t FROM TEntDeclaration t WHERE t.entDecNum = :entDecNum"),
     @NamedQuery(name = "TEntDeclaration.findByEntDecValidation", query = "SELECT t FROM TEntDeclaration t WHERE t.entDecValidation = :entDecValidation"),
     @NamedQuery(name = "TEntDeclaration.findByEntDecDate", query = "SELECT t FROM TEntDeclaration t WHERE t.entDecDate = :entDecDate"),
+    @NamedQuery(name = "TEntDeclaration.findByContrib", query = "SELECT t FROM TEntDeclaration t WHERE t.entDecContImmatr.contImmatr = :contrib"), 
     @NamedQuery(name = "TEntDeclaration.findByEntDecDatefin", query = "SELECT t FROM TEntDeclaration t WHERE t.entDecDatefin = :entDecDatefin"),
     @NamedQuery(name = "TEntDeclaration.findByEntDecDatedebut", query = "SELECT t FROM TEntDeclaration t WHERE t.entDecDatedebut = :entDecDatedebut")})
 public class TEntDeclaration implements Serializable {

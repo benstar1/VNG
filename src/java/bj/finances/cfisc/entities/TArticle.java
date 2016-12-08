@@ -8,12 +8,16 @@ package bj.finances.cfisc.entities;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -126,6 +130,17 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TArticle.findByQuoId", query = "SELECT t FROM TArticle t WHERE t.quoId = :quoId"),
     @NamedQuery(name = "TArticle.findByQuoItmNbr", query = "SELECT t FROM TArticle t WHERE t.quoItmNbr = :quoItmNbr")})
 public class TArticle implements Serializable {
+    @JoinColumn(name = "NUMDECLARATION", referencedColumnName = "INSTANCEID")
+    @ManyToOne
+    private TDeclarationDou numdeclaration;
+  
+    @OneToMany(mappedBy = "ID_ARTICLE")
+    private List<TTaxesDou> tTaxesDouList;
+    
+    @Size(max = 30)
+    @Column(name = "ID_ARTICLE")
+    private String idArticle;
+    
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected TArticlePK tArticlePK;
@@ -1193,6 +1208,22 @@ public class TArticle implements Serializable {
     @Override
     public String toString() {
         return "bj.finances.cfisc.entities.TArticle[ tArticlePK=" + tArticlePK + " ]";
+    }
+
+    public String getIdArticle() {
+        return idArticle;
+    }
+
+    public void setIdArticle(String idArticle) {
+        this.idArticle = idArticle;
+    }
+
+    public TDeclarationDou getNumdeclaration() {
+        return numdeclaration;
+    }
+
+    public void setNumdeclaration(TDeclarationDou numdeclaration) {
+        this.numdeclaration = numdeclaration;
     }
     
 }

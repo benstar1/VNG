@@ -3,11 +3,20 @@ package bj.finances.cfisc.controllers;
 import bj.finances.cfisc.entities.TDeclarationFiscale;
 import bj.finances.cfisc.controllers.util.JsfUtil;
 import bj.finances.cfisc.controllers.util.PaginationHelper;
+import bj.finances.cfisc.entities.TEntDeclaration;
+import bj.finances.cfisc.entities.TTaxeDeclaration;
 import bj.finances.cfisc.sessions.TDeclarationFiscaleFacade;
+import bj.finances.cfisc.sessions.TEntDeclarationFacade;
+import bj.finances.cfisc.sessions.TTaxeDeclarationFacade;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
+import javax.inject.Named;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
@@ -17,15 +26,28 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import org.primefaces.event.CloseEvent;
+import org.primefaces.event.SelectEvent;
+
 
 @ManagedBean(name = "tDeclarationFiscaleController")
+//@Named("tDeclarationFiscaleController")
 @SessionScoped
 public class TDeclarationFiscaleController implements Serializable {
-
+    @EJB
+    private TTaxeDeclarationFacade tTaxeDeclarationFacade;
+    private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private Date datejour = new Date();
     private TDeclarationFiscale current;
+    private TDeclarationFiscale decl;
+    List<TTaxeDeclaration> listtaxe;
     private DataModel items = null;
     @EJB
     private bj.finances.cfisc.sessions.TDeclarationFiscaleFacade ejbFacade;
+    
+    //@javax.inject.Inject
+    //bj.finances.cfisc.controllers.TEntDeclarationController tentdeclarationcontrol;
+    
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
@@ -39,7 +61,99 @@ public class TDeclarationFiscaleController implements Serializable {
         }
         return current;
     }
+    
+    
+//    public void calcultotaux(TDeclarationFiscale Decl){
+//        System.out.println("Nous somme là");
+//         Long  totaltav=0l;
+//         Long  totaldd=0l;
+//         Long  totalpc=0l;
+//         Long  totalpcs=0l;
+//         Long  totalrs=0l;
+//         Long  totalaib=0l;
+//          Long  totalbt=0l;
+//         if (Decl.getTTaxeDeclarationList()!=null){
+//        for (TTaxeDeclaration tt : Decl.getTTaxeDeclarationList()){
+//            if (tt.getTaxDecTva()!=null)
+//             totaltav+=tt.getTaxDecTva();
+//            if (tt.getTaxDecPc()!=null)
+//             totalpc+=tt.getTaxDecPc();
+//            if (tt.getTaxDecPcs()!=null)
+//             totalpcs+=tt.getTaxDecPcs();
+//            if (tt.getTaxDecDd()!=null)
+//             totaldd+=tt.getTaxDecDd();
+//            if (tt.getTaxDecRs()!=null)
+//             totalrs+=tt.getTaxDecRs();
+//            if (tt.getTaxDecAib()!=null)
+//             totalaib+=tt.getTaxDecAib();
+//            if (tt.getTaxDecBaseTaxable()!=null)
+//             totalbt+=tt.getTaxDecBaseTaxable();    
+//        }
+//        current.setTotalTva(totaltav);
+//        current.setTotalAib(totalaib);
+//        current.setTotalDd(totaldd);
+//        current.setTotalPc(totalpc);
+//        current.setTotalPcs(totalpcs);
+//        current.setTotalRs(totalrs);
+//        current.setTotalBase(totalbt);
+//         }
+//    }
 
+    
+    public void calcultotaux(CloseEvent event){
+        System.out.println("Nous somme là dans listner");
+         Long  totaltav=0l;
+         Long  totaldd=0l;
+         Long  totalpc=0l;
+         Long  totalpcs=0l;
+         Long  totalrs=0l;
+         Long  totalaib=0l;
+          Long  totalbt=0l;
+         Long  totalvcaf=0l;
+        listtaxe=  tTaxeDeclarationFacade.findListTaxeDeclar(current);
+         if (listtaxe!=null){
+        for (TTaxeDeclaration tt : listtaxe){
+            if (tt.getTaxDecTva()!=null)
+             totaltav+=tt.getTaxDecTva();
+            if (tt.getTaxDecPc()!=null)
+             totalpc+=tt.getTaxDecPc();
+            if (tt.getTaxDecPcs()!=null)
+             totalpcs+=tt.getTaxDecPcs();
+            if (tt.getTaxDecDd()!=null)
+             totaldd+=tt.getTaxDecDd();
+            if (tt.getTaxDecRs()!=null)
+             totalrs+=tt.getTaxDecRs();
+            if (tt.getTaxDecAib()!=null)
+             totalaib+=tt.getTaxDecAib();
+            if (tt.getTaxDecBaseTaxable()!=null)
+             totalbt+=tt.getTaxDecBaseTaxable();  
+            if (tt.getTaxDecBaseTaxable()!=null)
+             totalvcaf+=tt.getTaxDecValCaf();
+        }
+        current.setTotalTva(totaltav);
+        current.setTotalAib(totalaib);
+        current.setTotalDd(totaldd);
+        current.setTotalPc(totalpc);
+        current.setTotalPcs(totalpcs);
+        current.setTotalRs(totalrs);
+        current.setTotalBase(totalbt);
+        current.setTotalVcaf(totalvcaf);
+        ejbFacade.edit(current);
+         }
+    }
+
+    
+    public TDeclarationFiscale getDecl() {
+        return decl;
+    }
+
+    public void setDecl(TDeclarationFiscale decl) {
+        this.decl = decl;
+        current=decl;
+    }
+    
+  
+    
     private TDeclarationFiscaleFacade getFacade() {
         return ejbFacade;
     }
@@ -72,18 +186,38 @@ public class TDeclarationFiscaleController implements Serializable {
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
-
-    public String prepareCreate() {
+//      public String setEntdeclare(TEntDeclaration entdeclar){
+//      current.setDeclarEntDecNum(entdeclar);
+//      return "";
+//              }
+    public void prepareCreate() {
         current = new TDeclarationFiscale();
         selectedItemIndex = -1;
-        return "Create";
+        //return "Create";
+    }
+    public void onRowSelect(SelectEvent event) {
+       // FacesMessage msg = new FacesMessage("Car Selected", ((Car) event.getObject()).getId());
+       // FacesContext.getCurrentInstance().addMessage(null, msg);
+       // current=getSelected();
+    }
+    
+    public List<TDeclarationFiscale> getFindAll(){        
+    return ejbFacade.findAll();    
     }
 
+    
+    public List<TDeclarationFiscale> getFindListEnt(TEntDeclaration entdeclar){        
+    return ejbFacade.findListdeclar(entdeclar);    
+    }
+     
     public String create() {
         try {
+            //current.setDeclarEntDecNum(tentdeclarationcontrol.getSelected());
+            //current.set
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TDeclarationFiscaleCreated"));
-            return prepareCreate();
+           // return prepareCreate();
+            return null;
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
@@ -100,20 +234,27 @@ public class TDeclarationFiscaleController implements Serializable {
         try {
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TDeclarationFiscaleUpdated"));
-            return "View";
+          //  return "View";
+              return null;
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }
-
+    public String destroybis(TDeclarationFiscale declfisc) {
+        ejbFacade.remove(declfisc);
+        
+        return null;
+    }
+ 
     public String destroy() {
         current = (TDeclarationFiscale) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
         recreateModel();
-        return "List";
+        //return "List";
+        return null;
     }
 
     public String destroyAndView() {

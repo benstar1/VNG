@@ -18,15 +18,15 @@ import javax.persistence.PersistenceContext;
 public class TCentreImpotFacade extends AbstractFacade<TCentreImpot> {
     @PersistenceContext(unitName = "CFiscPU")
     private EntityManager em;
-
+      
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-
+         
     
-    public TCentreImpot find(String id) {
-
+    public TCentreImpot find1(String id) {
+         
         TCentreImpot tCentreImpot = (TCentreImpot) em.createNamedQuery("TCentreImpot.findByCentrImpCode").setParameter("centrImpCode", id).getSingleResult();
 
         if( tCentreImpot == null ) return null;

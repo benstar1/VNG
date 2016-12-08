@@ -5,10 +5,13 @@
  */
 package bj.finances.cfisc.sessions;
 
+import bj.finances.cfisc.entities.TDeclarationFiscale;
 import bj.finances.cfisc.entities.TTaxeDeclaration;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,6 +29,12 @@ public class TTaxeDeclarationFacade extends AbstractFacade<TTaxeDeclaration> {
 
     public TTaxeDeclarationFacade() {
         super(TTaxeDeclaration.class);
+    }
+    
+      public List<TTaxeDeclaration> findListTaxeDeclar(TDeclarationFiscale declar) {
+        Query query;
+        query = em.createNamedQuery("TTaxeDeclaration.findBydeclaration").setParameter("declaration", declar);
+        return query.getResultList();
     }
     
 }

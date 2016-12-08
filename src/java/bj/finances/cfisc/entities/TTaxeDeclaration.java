@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "T_TAXE_DECLARATION")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "TTaxeDeclaration.findAll", query = "SELECT t FROM TTaxeDeclaration t"),
+     @NamedQuery(name = "TTaxeDeclaration.findAll", query = "SELECT t FROM TTaxeDeclaration t"),
     @NamedQuery(name = "TTaxeDeclaration.findByTaxDecNum", query = "SELECT t FROM TTaxeDeclaration t WHERE t.taxDecNum = :taxDecNum"),
     @NamedQuery(name = "TTaxeDeclaration.findByTaxDecTarifCode", query = "SELECT t FROM TTaxeDeclaration t WHERE t.taxDecTarifCode = :taxDecTarifCode"),
     @NamedQuery(name = "TTaxeDeclaration.findByTaxDecValCaf", query = "SELECT t FROM TTaxeDeclaration t WHERE t.taxDecValCaf = :taxDecValCaf"),
@@ -39,6 +39,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TTaxeDeclaration.findByTaxDecRs", query = "SELECT t FROM TTaxeDeclaration t WHERE t.taxDecRs = :taxDecRs"),
     @NamedQuery(name = "TTaxeDeclaration.findByTaxDecAib", query = "SELECT t FROM TTaxeDeclaration t WHERE t.taxDecAib = :taxDecAib"),
     @NamedQuery(name = "TTaxeDeclaration.findByTaxDecTva", query = "SELECT t FROM TTaxeDeclaration t WHERE t.taxDecTva = :taxDecTva"),
+    @NamedQuery(name = "TTaxeDeclaration.findBydeclaration", query = "SELECT t FROM TTaxeDeclaration t WHERE t.taxDeclarNum = :declaration"),
     @NamedQuery(name = "TTaxeDeclaration.findByTaxDecTotal", query = "SELECT t FROM TTaxeDeclaration t WHERE t.taxDecTotal = :taxDecTotal")})
 public class TTaxeDeclaration implements Serializable {
     private static final long serialVersionUID = 1L;

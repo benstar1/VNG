@@ -6,9 +6,11 @@
 package bj.finances.cfisc.sessions;
 
 import bj.finances.cfisc.entities.TRepUnique;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,5 +29,15 @@ public class TRepUniqueFacade extends AbstractFacade<TRepUnique> {
     public TRepUniqueFacade() {
         super(TRepUnique.class);
     }
-    
+    public TRepUnique findByContImmatr(Long ifu) {
+        Query query;
+        query = em.createNamedQuery("TRepUnique.findByContImmatr").setParameter("contImmatr", ifu);
+        return (TRepUnique) query.getSingleResult();
+
+    }
+
+    public List<TRepUnique> findContribByImmatLike(String immat) {
+        return em.createNamedQuery("TRepUnique.findByContImmatlike").setParameter("contImmatr", immat + "%").getResultList();
+
+    }
 }

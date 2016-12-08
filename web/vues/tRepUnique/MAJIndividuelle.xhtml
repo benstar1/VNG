@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:composition template="/template.xhtml">
+
+     
+        <ui:define name="body">
+            <h1 align="center">Mise à Jour Individuelle</h1>
+           
+            <center>
+                <h:form id="MAJICreateForm">
+                    <h:panelGroup id="display">
+
+                        <h:panelGrid columns="3" >
+                            <br />
+                            
+                            
+                            <h:panelGrid columns="3" border="0">
+                                <p:outputLabel value="Numéro IFU : " for="ifu" />
+                                <h:inputText id="ifu" value="#{tRepUniqueController.selected.contImmatr}" required="true" requiredMessage="Le numéro IFU est obligatoire" valueChangeListener="#{tRepUniqueController.ifuValueChangeListener}">
+                                <f:ajax execute="ifu" render="ItemsIfu" />
+                                </h:inputText>
+                                
+                                <p:commandButton value="Sélectionner l'IFU"  onclick="PF('dlgIFU').show();" type="button">       
+                                </p:commandButton>
+                                <br />
+                                <h:commandButton value="Rechercher" action="#{tRepUniqueController.UpdateTableContrib}" ></h:commandButton>
+                                <br />
+                                <br />
+                                
+                                
+                                <h:outputLabel value="Centre d'impôt  :  " for= "centreImpot" />
+                                
+                                <h:selectOneMenu id="centreImpot" value="#{tRepUniqueController.selected.contCentrImpCode}" title="" >
+                                <f:selectItems value="#{tRepUniqueController.cimpotItem}"/>
+                                </h:selectOneMenu>
+                                
+                            </h:panelGrid>
+                            
+                            <br />
+                            
+                              
+                             <br />
+                           
+                              
+                            <br />
+                           
+                        </h:panelGrid>
+
+                        <center>
+
+                            <h1><h:outputText value="Informations du Contribuable"/></h1>
+                            <h:dataTable id="ItemsIfu" value="#{tRepUniqueController.itemsIfu}" var="item" border="1" style="text-align: center"> 
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="IFU"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.contImmatr}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Nom"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.contNom}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Prénoms"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.contPren}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Raison Sociale"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.contRais}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Centre Impôt"/>
+                                    </f:facet>
+                                    <h:outputText value="#{tRepUniqueController.selected.contCentrImpCode.centrImpLibelle}"/>
+                                </h:column> 
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Statut"/>
+                                    </f:facet>
+                                    <c:if test="#{tRepUniqueController.itemsIfu.contStatut eq 'A'}" >
+                                        <h:outputText value="ACTIVE"/>
+                                    </c:if>
+                                    
+                                    <c:if test="#{tRepUniqueController.itemsIfu.contStatut eq 'D'}" >
+                                        <h:outputText value="DESACTIVE"/>
+                                    </c:if>
+                                    
+                                </h:column>
+                                
+   
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="ACTION"/>
+                                    </f:facet>
+                                    <c:if test="#{tRepUniqueController.itemsIfu.contStatut eq 'A'}" >
+                                        <h:commandButton  value="Désactiver" action="#{tRepUniqueController.MAJDesactive}"/>
+                                           
+                                        
+                                    </c:if>
+                                    
+                                    <c:if test="#{tRepUniqueController.itemsIfu.contStatut eq 'D'}">
+                                        <h:commandButton  value="Activer" action="#{tRepUniqueController.MAJActive}"/>
+                                    </c:if>
+                                    
+                                </h:column>
+                                
+
+                            </h:dataTable>
+
+
+                        </center>
+                        <br />
+
+                    </h:panelGroup>
+                </h:form>
+           </center>
+
+            <p:dialog id="dlgIFU" header="Contribuables"  dynamic="true" widgetVar="dlgIFU" modal="true" showEffect="explose"  width="800" height="400">
+                <h:form>    
+                    <p:dataTable  value="#{tRepUniqueController.contrib}" var="contrib" paginator="true" rows="20" emptyMessage="Aucun enregistrement trouvé pour l'instant !">
+
+                        <p:column filterBy="#{contrib.contImmatr}" filterMatchMode="startsWith">
+                            <f:facet name="header">
+                                <h:outputText value="Immatriculation"/>
+                            </f:facet>                        
+                            <p:commandLink value="#{contrib.contImmatr}"  action="#{tRepUniqueController.contribSelectionne(contrib)}" update=":MAJICreateForm:ifu" oncomplete="PF('dlgIFU').hide();"  process="@this" title="Selectionnez" style="color: blue;"/>
+
+
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Raison sociale"/>
+                            </f:facet>
+                            <h:outputText value="#{contrib.contRais}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:dialog> 
+            
+            </ui:define>
+        
+    </ui:composition>
+</html>
+

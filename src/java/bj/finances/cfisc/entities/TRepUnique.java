@@ -39,6 +39,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TRepUnique.findByContNum", query = "SELECT t FROM TRepUnique t WHERE t.contNum = :contNum"),
     @NamedQuery(name = "TRepUnique.findByContDatenreg", query = "SELECT t FROM TRepUnique t WHERE t.contDatenreg = :contDatenreg"),
     @NamedQuery(name = "TRepUnique.findByContImmatr", query = "SELECT t FROM TRepUnique t WHERE t.contImmatr = :contImmatr"),
+      
+    @NamedQuery(name = "TRepUnique.findByContImmatlike", query = "SELECT t FROM TRepUnique t WHERE t.contImmatr like :contImmatr"),
+ 
     @NamedQuery(name = "TRepUnique.findByContDateimmatr", query = "SELECT t FROM TRepUnique t WHERE t.contDateimmatr = :contDateimmatr"),
     @NamedQuery(name = "TRepUnique.findByContReimmatr", query = "SELECT t FROM TRepUnique t WHERE t.contReimmatr = :contReimmatr"),
     @NamedQuery(name = "TRepUnique.findByContNom", query = "SELECT t FROM TRepUnique t WHERE t.contNom = :contNom"),
@@ -92,6 +95,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TRepUnique.findByContDateMajMatricule", query = "SELECT t FROM TRepUnique t WHERE t.contDateMajMatricule = :contDateMajMatricule"),
     @NamedQuery(name = "TRepUnique.findByContStatut", query = "SELECT t FROM TRepUnique t WHERE t.contStatut = :contStatut")})
 public class TRepUnique implements Serializable {
+    @OneToMany(mappedBy = "entDecContImmatr")
+    private List<TEntDeclaration> tEntDeclarationList;
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
@@ -258,10 +263,10 @@ public class TRepUnique implements Serializable {
     @Size(max = 10)
     @Column(name = "CONT_STATUT")
     private String contStatut;
-    @OneToOne(mappedBy = "entDecContImmatr")
-    private TEntDeclaration tEntDeclaration;
-    @OneToOne(mappedBy = "histContImmatr")
-    private THistorique tHistorique;
+//    @OneToOne(mappedBy = "entDecContImmatr")
+//    private TEntDeclaration tEntDeclaration;
+//    @OneToOne(mappedBy = "histContImmatr")
+//    private THistorique tHistorique;
     @JoinColumn(name = "CONT_TYP_CONT_CODE", referencedColumnName = "TYP_CONT_CODE")
     @ManyToOne(optional = false)
     private TTypeContrib contTypContCode;
@@ -725,21 +730,21 @@ public class TRepUnique implements Serializable {
         this.contStatut = contStatut;
     }
 
-    public TEntDeclaration getTEntDeclaration() {
-        return tEntDeclaration;
-    }
+//    public TEntDeclaration getTEntDeclaration() {
+//        return tEntDeclaration;
+//    }
+//
+//    public void setTEntDeclaration(TEntDeclaration tEntDeclaration) {
+//        this.tEntDeclaration = tEntDeclaration;
+//    }
+//
+//    public THistorique getTHistorique() {
+//        return tHistorique;
+//    }
 
-    public void setTEntDeclaration(TEntDeclaration tEntDeclaration) {
-        this.tEntDeclaration = tEntDeclaration;
-    }
-
-    public THistorique getTHistorique() {
-        return tHistorique;
-    }
-
-    public void setTHistorique(THistorique tHistorique) {
-        this.tHistorique = tHistorique;
-    }
+//    public void setTHistorique(THistorique tHistorique) {
+//        this.tHistorique = tHistorique;
+//    }
 
     public TTypeContrib getContTypContCode() {
         return contTypContCode;
@@ -789,6 +794,15 @@ public class TRepUnique implements Serializable {
     @Override
     public String toString() {
         return "bj.finances.cfisc.entities.TRepUnique[ contImmatr=" + contImmatr + " ]";
+    }
+
+    @XmlTransient
+    public List<TEntDeclaration> getTEntDeclarationList() {
+        return tEntDeclarationList;
+    }
+
+    public void setTEntDeclarationList(List<TEntDeclaration> tEntDeclarationList) {
+        this.tEntDeclarationList = tEntDeclarationList;
     }
     
 }

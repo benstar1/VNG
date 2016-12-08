@@ -38,8 +38,27 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TDeclarationFiscale.findByDeclarReference", query = "SELECT t FROM TDeclarationFiscale t WHERE t.declarReference = :declarReference"),
     @NamedQuery(name = "TDeclarationFiscale.findByDeclarDate", query = "SELECT t FROM TDeclarationFiscale t WHERE t.declarDate = :declarDate"),
     @NamedQuery(name = "TDeclarationFiscale.findByDeclarBureau", query = "SELECT t FROM TDeclarationFiscale t WHERE t.declarBureau = :declarBureau"),
+    @NamedQuery(name = "TDeclarationFiscale.findByNumEntDecl", query = "SELECT t FROM TDeclarationFiscale t WHERE t.declarEntDecNum = :entdeclar"),
     @NamedQuery(name = "TDeclarationFiscale.findByDeclarAnnee", query = "SELECT t FROM TDeclarationFiscale t WHERE t.declarAnnee = :declarAnnee")})
 public class TDeclarationFiscale implements Serializable {
+    @Column(name = "TOTAL_DD")
+    private Long totalDd;
+    @Column(name = "TOTAL_TVA")
+    private Long totalTva;
+    @Column(name = "TOTAL_PC")
+    private Long totalPc;
+    @Column(name = "TOTAL_PCS")
+    private Long totalPcs;
+    @Column(name = "TOTAL_RS")
+    private Long totalRs;
+    @Column(name = "TOTAL_AIB")
+    private Long totalAib;
+    @Column(name = "TOTAL_BASE")
+    private Long totalBase;
+    @Column(name = "TOTAL_VCAF")
+    private Long totalVcaf;
+    @Column(name = "TOTAL_PRIXTAXABLE")
+    private Long totalPrixtaxable;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -151,6 +170,78 @@ public class TDeclarationFiscale implements Serializable {
     @Override
     public String toString() {
         return "bj.finances.cfisc.entities.TDeclarationFiscale[ declarNum=" + declarNum + " ]";
+    }
+
+    public Long getTotalDd() {
+        return totalDd;
+    }
+
+    public void setTotalDd(Long totalDd) {
+        this.totalDd = totalDd;
+    }
+
+    public Long getTotalTva() {
+        return totalTva;
+    }
+
+    public void setTotalTva(Long totalTva) {
+        this.totalTva = totalTva;
+    }
+
+    public Long getTotalPc() {
+        return totalPc;
+    }
+
+    public void setTotalPc(Long totalPc) {
+        this.totalPc = totalPc;
+    }
+
+    public Long getTotalPcs() {
+        return totalPcs;
+    }
+
+    public void setTotalPcs(Long totalPcs) {
+        this.totalPcs = totalPcs;
+    }
+
+    public Long getTotalRs() {
+        return totalRs;
+    }
+
+    public void setTotalRs(Long totalRs) {
+        this.totalRs = totalRs;
+    }
+
+    public Long getTotalAib() {
+        return totalAib;
+    }
+
+    public void setTotalAib(Long totalAib) {
+        this.totalAib = totalAib;
+    }
+
+    public Long getTotalBase() {
+        return totalBase;
+    }
+
+    public void setTotalBase(Long totalBase) {
+        this.totalBase = totalBase;
+    }
+
+    public Long getTotalVcaf() {
+        return totalVcaf;
+    }
+
+    public void setTotalVcaf(Long totalVcaf) {
+        this.totalVcaf = totalVcaf;
+    }
+
+    public Long getTotalPrixtaxable() {
+        return totalPrixtaxable;
+    }
+
+    public void setTotalPrixtaxable(Long totalPrixtaxable) {
+        this.totalPrixtaxable = totalPrixtaxable;
     }
     
 }

@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TTypeContrib.findAll", query = "SELECT t FROM TTypeContrib t"),
-    @NamedQuery(name = "TTypeContrib.findByTypContCode", query = "SELECT t FROM TTypeContrib t WHERE t.typContCode = :typContCode"),
+    @NamedQuery(name = "TTypeContrib.findByTypContCode", query = "SELECT t FROM TTypeContrib t WHERE t.typContCode = 'PME'"),
     @NamedQuery(name = "TTypeContrib.findByTypContLib", query = "SELECT t FROM TTypeContrib t WHERE t.typContLib = :typContLib")})
 public class TTypeContrib implements Serializable {
     private static final long serialVersionUID = 1L;

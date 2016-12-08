@@ -3,9 +3,11 @@ package bj.finances.cfisc.controllers;
 import bj.finances.cfisc.entities.TEntDeclaration;
 import bj.finances.cfisc.controllers.util.JsfUtil;
 import bj.finances.cfisc.controllers.util.PaginationHelper;
+import bj.finances.cfisc.entities.TDeclarationFiscale;
 import bj.finances.cfisc.sessions.TEntDeclarationFacade;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -17,11 +19,13 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.inject.Named;
 
 @ManagedBean(name = "tEntDeclarationController")
+//@Named("tEntDeclarationController")
 @SessionScoped
 public class TEntDeclarationController implements Serializable {
-
+    private TEntDeclaration entdecl;
     private TEntDeclaration current;
     private DataModel items = null;
     @EJB
@@ -44,6 +48,16 @@ public class TEntDeclarationController implements Serializable {
         return ejbFacade;
     }
 
+    public TEntDeclaration getEntdecl() {
+        return entdecl;
+    }
+
+    public void setEntdecl(TEntDeclaration entdecl) {
+        this.entdecl = entdecl;
+        current=entdecl;
+    }
+
+    
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -76,14 +90,16 @@ public class TEntDeclarationController implements Serializable {
     public String prepareCreate() {
         current = new TEntDeclaration();
         selectedItemIndex = -1;
-        return "Create";
+        //return "Create";
+        return null;
     }
 
     public String create() {
         try {
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TEntDeclarationCreated"));
-            return prepareCreate();
+            //return prepareCreate();
+            return null;
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
@@ -100,12 +116,18 @@ public class TEntDeclarationController implements Serializable {
         try {
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TEntDeclarationUpdated"));
-            return "View";
+           // return "View";
+            return null;
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }
+    
+     public String destroybis(TEntDeclaration entdecl) {
+         ejbFacade.remove(entdecl);
+         return null;
+     }
 
     public String destroy() {
         current = (TEntDeclaration) getItems().getRowData();
@@ -113,7 +135,8 @@ public class TEntDeclarationController implements Serializable {
         performDestroy();
         recreatePagination();
         recreateModel();
-        return "List";
+        //return "List";
+        return null;
     }
 
     public String destroyAndView() {
@@ -151,6 +174,20 @@ public class TEntDeclarationController implements Serializable {
         if (selectedItemIndex >= 0) {
             current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
         }
+    }
+     
+        public List<TEntDeclaration> getFindListEntdeclfisc(){        
+            return ejbFacade.findListentdeclarcontrib(1201300000201l); 
+            //return ejbFacade.findListentdeclarcontrib(1200801257709l);  
+        }
+        
+    public List<TEntDeclaration> getFindAll(){        
+          return ejbFacade.findAll();    
+    }
+    
+      public String entetedeclarselectionne(TEntDeclaration entdecl) {
+         current=entdecl;   
+        return "";
     }
 
     public DataModel getItems() {

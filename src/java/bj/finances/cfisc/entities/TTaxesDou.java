@@ -10,6 +10,8 @@ import java.math.BigInteger;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -30,6 +32,18 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TTaxesDou.findByTaxCod", query = "SELECT t FROM TTaxesDou t WHERE t.taxCod = :taxCod"),
     @NamedQuery(name = "TTaxesDou.findByTaxAmt", query = "SELECT t FROM TTaxesDou t WHERE t.taxAmt = :taxAmt")})
 public class TTaxesDou implements Serializable {
+//    @Size(max = 30)
+//    @Column(name = "ID_ARTICLE")
+//    @ManyToOne(Mapp)dfsdf
+//    private String idArticle;
+    
+    @Size(max = 30)
+    @JoinColumn(name = "ID_ARTICLE", referencedColumnName = "ID_ARTICLE")
+    @ManyToOne
+    private TArticle idArticle;
+    
+    
+    
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected TTaxesDouPK tTaxesDouPK;
@@ -97,6 +111,14 @@ public class TTaxesDou implements Serializable {
     @Override
     public String toString() {
         return "bj.finances.cfisc.entities.TTaxesDou[ tTaxesDouPK=" + tTaxesDouPK + " ]";
+    }
+
+    public TArticle getIdArticle() {
+        return idArticle;
+    }
+
+    public void setIdArticle(TArticle idArticle) {
+        this.idArticle = idArticle;
     }
     
 }

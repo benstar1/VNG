@@ -3,9 +3,11 @@ package bj.finances.cfisc.controllers;
 import bj.finances.cfisc.entities.TTaxeDeclaration;
 import bj.finances.cfisc.controllers.util.JsfUtil;
 import bj.finances.cfisc.controllers.util.PaginationHelper;
+import bj.finances.cfisc.entities.TDeclarationFiscale;
 import bj.finances.cfisc.sessions.TTaxeDeclarationFacade;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -22,6 +24,7 @@ import javax.faces.model.SelectItem;
 @SessionScoped
 public class TTaxeDeclarationController implements Serializable {
 
+    private TTaxeDeclaration taxedeclar ;
     private TTaxeDeclaration current;
     private DataModel items = null;
     @EJB
@@ -42,6 +45,15 @@ public class TTaxeDeclarationController implements Serializable {
 
     private TTaxeDeclarationFacade getFacade() {
         return ejbFacade;
+    }
+
+    public TTaxeDeclaration getTaxedeclar() {
+        return taxedeclar;
+    }
+
+    public void setTaxedeclar(TTaxeDeclaration taxedeclar) {
+        this.taxedeclar = taxedeclar;
+        current=taxedeclar;
     }
 
     public PaginationHelper getPagination() {
@@ -76,14 +88,16 @@ public class TTaxeDeclarationController implements Serializable {
     public String prepareCreate() {
         current = new TTaxeDeclaration();
         selectedItemIndex = -1;
-        return "Create";
+        //return "Create";
+        return null;
     }
 
     public String create() {
         try {
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TTaxeDeclarationCreated"));
-            return prepareCreate();
+            //return prepareCreate();
+             return null;
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
@@ -100,7 +114,8 @@ public class TTaxeDeclarationController implements Serializable {
         try {
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TTaxeDeclarationUpdated"));
-            return "View";
+            //return "View";
+            return null;
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
@@ -113,7 +128,12 @@ public class TTaxeDeclarationController implements Serializable {
         performDestroy();
         recreatePagination();
         recreateModel();
-        return "List";
+        //return "List";
+        return null;
+    }
+    public String destroybis(TTaxeDeclaration ttdec) {
+      ejbFacade.remove(ttdec);
+    return null;
     }
 
     public String destroyAndView() {
@@ -158,6 +178,10 @@ public class TTaxeDeclarationController implements Serializable {
             items = getPagination().createPageDataModel();
         }
         return items;
+    }
+    
+    public List<TTaxeDeclaration> getFindListTaxe(TDeclarationFiscale declar){        
+    return ejbFacade.findListTaxeDeclar(declar);    
     }
 
     private void recreateModel() {

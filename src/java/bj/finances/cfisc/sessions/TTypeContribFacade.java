@@ -25,7 +25,7 @@ public class TTypeContribFacade extends AbstractFacade<TTypeContrib> {
         return em;
     }
     
-    public TTypeContrib find(String id) {
+    public TTypeContrib find1(String id) {
         TTypeContrib tTypeContrib = (TTypeContrib) em.createNamedQuery("TTypeContrib.findByTypContCode").setParameter("typContCode", id).getSingleResult();
         
         if( tTypeContrib == null ) return null;

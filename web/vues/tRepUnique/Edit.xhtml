@@ -143,14 +143,6 @@
                     </h:inputText>
                     <h:outputLabel value="#{bundle.EditTRepUniqueLabel_contStatut}" for="contStatut" />
                     <h:inputText id="contStatut" value="#{tRepUniqueController.selected.contStatut}" title="#{bundle.EditTRepUniqueTitle_contStatut}" />
-                    <h:outputLabel value="#{bundle.EditTRepUniqueLabel_TEntDeclaration}" for="TEntDeclaration" />
-                    <h:selectOneMenu id="TEntDeclaration" value="#{tRepUniqueController.selected.TEntDeclaration}" title="#{bundle.EditTRepUniqueTitle_TEntDeclaration}" >
-                        <f:selectItems value="#{tEntDeclarationController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditTRepUniqueLabel_THistorique}" for="THistorique" />
-                    <h:selectOneMenu id="THistorique" value="#{tRepUniqueController.selected.THistorique}" title="#{bundle.EditTRepUniqueTitle_THistorique}" >
-                        <f:selectItems value="#{tHistoriqueController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.EditTRepUniqueLabel_contTypContCode}" for="contTypContCode" />
                     <h:selectOneMenu id="contTypContCode" value="#{tRepUniqueController.selected.contTypContCode}" title="#{bundle.EditTRepUniqueTitle_contTypContCode}" required="true" requiredMessage="#{bundle.EditTRepUniqueRequiredMessage_contTypContCode}">
                         <f:selectItems value="#{tTypeContribController.itemsAvailableSelectOne}"/>
