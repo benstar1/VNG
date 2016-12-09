@@ -30,9 +30,12 @@ public class TEntDeclarationController implements Serializable {
     private DataModel items = null;
     @EJB
     private bj.finances.cfisc.sessions.TEntDeclarationFacade ejbFacade;
+    @EJB
+    private bj.finances.cfisc.sessions.TRepUniqueFacade ejbFacaderepuniq;
+    
     private PaginationHelper pagination;
     private int selectedItemIndex;
-    private boolean valider =true;
+    private boolean valider =false;
     
     public TEntDeclarationController() {
     }
@@ -119,6 +122,9 @@ public class TEntDeclarationController implements Serializable {
 
     public String create() {
         try {
+           // =1200801257709
+            current.setEntDecContImmatr(ejbFacaderepuniq.find(1200801257709l));
+            current.setEntDecValidation("N");
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TEntDeclarationCreated"));
             //return prepareCreate();

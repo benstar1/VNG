@@ -11,12 +11,15 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -40,13 +43,17 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TEntDeclaration.findByContrib", query = "SELECT t FROM TEntDeclaration t WHERE t.entDecContImmatr.contImmatr = :contrib"), 
     @NamedQuery(name = "TEntDeclaration.findByEntDecDatefin", query = "SELECT t FROM TEntDeclaration t WHERE t.entDecDatefin = :entDecDatefin"),
     @NamedQuery(name = "TEntDeclaration.findByEntDecDatedebut", query = "SELECT t FROM TEntDeclaration t WHERE t.entDecDatedebut = :entDecDatedebut")})
+
+@SequenceGenerator(name = "generateur_ent_declfisc",sequenceName = "SEQUENCE1", allocationSize=1 )
 public class TEntDeclaration implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "generateur_ent_declfisc")
     @Basic(optional = false)
     @NotNull
     @Column(name = "ENT_DEC_NUM")
     private Long entDecNum;
+    
     @Size(max = 10)
     @Column(name = "ENT_DEC_VALIDATION")
     private String entDecValidation;

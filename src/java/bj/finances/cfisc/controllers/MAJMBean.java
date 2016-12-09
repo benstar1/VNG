@@ -33,8 +33,8 @@ import org.apache.poi.ss.usermodel.DataFormatter;
  *
  * @author user
  */
-@Named(value = "mAJMBean")
-//@ManagedBean
+//@Named(value = "mAJMBean")
+@ManagedBean
 @SessionScoped
 public class MAJMBean extends java.lang.Object {
 
@@ -43,7 +43,7 @@ public class MAJMBean extends java.lang.Object {
      @EJB
     private bj.finances.cfisc.sessions.TRepUniqueFacade tRepUniqueFacade;
     
-        @Inject
+       // @Inject
     TRepUniqueController tRepUniqueController;
     
         

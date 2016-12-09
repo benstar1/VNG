@@ -11,12 +11,15 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -40,6 +43,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TDeclarationFiscale.findByDeclarBureau", query = "SELECT t FROM TDeclarationFiscale t WHERE t.declarBureau = :declarBureau"),
     @NamedQuery(name = "TDeclarationFiscale.findByNumEntDecl", query = "SELECT t FROM TDeclarationFiscale t WHERE t.declarEntDecNum = :entdeclar"),
     @NamedQuery(name = "TDeclarationFiscale.findByDeclarAnnee", query = "SELECT t FROM TDeclarationFiscale t WHERE t.declarAnnee = :declarAnnee")})
+
+@SequenceGenerator(name = "generateur_declfisc",sequenceName = "SEQ_DECLFISC", allocationSize=1)
 public class TDeclarationFiscale implements Serializable {
     @Column(name = "TOTAL_DD")
     private Long totalDd;
@@ -61,6 +66,7 @@ public class TDeclarationFiscale implements Serializable {
     private Long totalPrixtaxable;
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "generateur_declfisc")
     @Basic(optional = false)
     @NotNull
     @Column(name = "DECLAR_NUM")

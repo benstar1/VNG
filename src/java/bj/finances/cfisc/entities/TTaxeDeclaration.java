@@ -9,11 +9,14 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -41,10 +44,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TTaxeDeclaration.findByTaxDecTva", query = "SELECT t FROM TTaxeDeclaration t WHERE t.taxDecTva = :taxDecTva"),
     @NamedQuery(name = "TTaxeDeclaration.findBydeclaration", query = "SELECT t FROM TTaxeDeclaration t WHERE t.taxDeclarNum = :declaration"),
     @NamedQuery(name = "TTaxeDeclaration.findByTaxDecTotal", query = "SELECT t FROM TTaxeDeclaration t WHERE t.taxDecTotal = :taxDecTotal")})
+
+@SequenceGenerator(name = "generateur_tax_declfisc",sequenceName = "SEQ_TAX_DECLFISC", allocationSize=1)
 public class TTaxeDeclaration implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "generateur_tax_declfisc")
+    @Basic(optional = false)    
     @NotNull
     @Column(name = "TAX_DEC_NUM")
     private Long taxDecNum;
