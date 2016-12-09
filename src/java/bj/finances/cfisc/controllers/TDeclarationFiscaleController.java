@@ -110,6 +110,7 @@ public class TDeclarationFiscaleController implements Serializable {
          Long  totalaib=0l;
           Long  totalbt=0l;
          Long  totalvcaf=0l;
+         if (current!=null){
         listtaxe=  tTaxeDeclarationFacade.findListTaxeDeclar(current);
          if (listtaxe!=null){
         for (TTaxeDeclaration tt : listtaxe){
@@ -139,6 +140,7 @@ public class TDeclarationFiscaleController implements Serializable {
         current.setTotalBase(totalbt);
         current.setTotalVcaf(totalvcaf);
         ejbFacade.edit(current);
+         }
          }
     }
 

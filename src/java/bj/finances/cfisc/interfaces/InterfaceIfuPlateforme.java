@@ -12,14 +12,19 @@ import bj.finances.cfisc.entities.TTypeContrib;
 import bj.finances.cfisc.entities.TDeclarationDou;
 import bj.finances.cfisc.entities.TArticle;
 import bj.finances.cfisc.entities.TArticlePK;
+import bj.finances.cfisc.entities.TMotif;
 import bj.finances.cfisc.entities.TTaxeDeclaration;
 import bj.finances.cfisc.entities.TTaxesDou;
-import bj.finances.cfisc.entities.TTaxesDouPK;
+//////////////////////import bj.finances.cfisc.entities.TTaxesDouPK;
+import bj.finances.cfisc.entities.TUtilisateur;
 import bj.finances.cfisc.sessions.TCentreImpotFacade;
 import bj.finances.cfisc.sessions.TDeclarationDouFacade;
+import bj.finances.cfisc.sessions.THistoriqueFacade;
+import bj.finances.cfisc.sessions.TMotifFacade;
 import bj.finances.cfisc.sessions.TParticiperFacade;
 import bj.finances.cfisc.sessions.TRepUniqueFacade;
 import bj.finances.cfisc.sessions.TTypeContribFacade;
+import bj.finances.cfisc.sessions.TUtilisateurFacade;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -67,7 +72,14 @@ public class InterfaceIfuPlateforme {
     @Inject
     private TDeclarationDouFacade tDeclarationDouane; 
 
+    @Inject
+    private TUtilisateurFacade tUtilisateurFacade; 
     
+    @Inject
+    private TMotifFacade tMotifFacade; 
+    
+    @Inject
+    private THistoriqueFacade tHistoriqueFacade; 
 
      //private Path path = Paths.get("C:\\Users\\SANNI Emmanuel\\Documents\\cfiscal_local");
     private String cheminDepotLocal = "C:/cfiscal_local";
@@ -104,6 +116,7 @@ public class InterfaceIfuPlateforme {
             
             try {
                 System.out.println(f.getName().substring(0,4));
+                //////////////////////////traitement des xml de t_contribuables/////////////
                 if (f.getName().substring(0,4).equals("CONT")){
                 SchemaFactory schemafac = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
                 schema = schemafac.newSchema(new File(cheminFichierXsd));
@@ -113,13 +126,17 @@ public class InterfaceIfuPlateforme {
                 document = (Document) builder.build(in);
                 traitementDeDonnesCont(document,f, in);
                 }
+                
+                //////////////////////////traitement des xml de t_participer/////////////
                 else if (f.getName().substring(0,4).equals("PART")){
                     
                     in = new FileInputStream(f);
                     SAXBuilder builder = new SAXBuilder();
                     document = (Document) builder.build(in);
                     traitementDeDonnesPart(document,f, in);
-                }    else if (f.getName().substring(0,4).equals("DECL")){
+                }    
+                //////////////////////////traitement des xml de declaration douanières/////////////
+                else if (f.getName().substring(0,4).equals("DECL")){
                     in = new FileInputStream(f);
                     SAXBuilder builder = new SAXBuilder();
                     document = (Document) builder.build(in);
@@ -153,96 +170,6 @@ public class InterfaceIfuPlateforme {
         }
     }
 
-    public void traitementDeDonnesCont(Document document, File fichier, InputStream in) throws JDOMException, SAXException, IOException  {
-        Element racine = document.getRootElement();
-        //System.err.println("CA DONNE = " + racine.getName());
-        Element operation = racine.getChild("OPERATION");
-
-        Element typeOperation = operation.getChild("TYPEOP");
-        System.out.println("sanni 1");
-        Element contribuable = racine.getChild("CONT");
-        System.out.println("sanni 2");
-        Element centreImpot = racine.getChild("CENTRE_IMPOT");
-        System.out.println("sanni 3");
-        Element contCode = racine.getChild("CONT_CODE");
-        System.out.println("sanni 4");
-        TCentreImpot tCentreImpot = tCentreImpotFacade.find(centreImpot.getChild("CENTR_IMP_CODE").getValue());
-        
-        if(tCentreImpot == null){
-            tCentreImpot = new TCentreImpot();           
-            tCentreImpot.setCentrImpCode(centreImpot.getChild("CENTR_IMP_CODE").getValue());
-            tCentreImpot.setCentrImpLibelle(centreImpot.getChild("CENTR_IMP_LIBELLE").getValue());           
-            tCentreImpotFacade.create(tCentreImpot);
-        }
-        
-        TTypeContrib ttrContrib = tTypeContribFacade.find(contCode.getChild("TYP_CONT_CODE").getValue());
-        if(ttrContrib == null){
-            ttrContrib = new TTypeContrib(contCode.getChild("TYP_CONT_CODE").getValue(), contCode.getChild("TYP_CONT_LIB").getValue());
-            tTypeContribFacade.create(ttrContrib);
-        }
-        
-        TRepUnique tRepUnique = tRepUniqueFacade.find(contribuable.getChild("CONT_IMMATR").getValue());
-        if( tRepUnique ==  null ){
-            if( "A".equals(typeOperation.getValue())){
-                System.out.println("c'est un ajout");
-                tRepUnique = new TRepUnique();
-                try {tRepUnique.setContDatenreg(dateFormat.parse(contribuable.getChild("CONT_DATENREG").getValue()));} catch (Exception e) {};
-                try {tRepUnique.setContImmatr(Long.parseLong(contribuable.getChild("CONT_IMMATR").getValue()));} catch (Exception e) {};
-                tRepUnique.setContNum(contribuable.getChild("CONT_NUM").getValue());
-                tRepUnique.setContCentrCode(contribuable.getChild("CONT_CENTR_CODE").getValue());
-               // TTypeContrib tTypeContrib = tTypeContribFacade.find(contribuable.getChild("CONT_TYP_CONT_CODE").getValue());
-                tRepUnique.setContTypContCode(ttrContrib);
-                tRepUniqueFacade.create(tRepUnique);
-                in.close();
-                fichier.renameTo(new File(cheminDossierSucces, fichier.getName()));
-            }
-            else{  
-                /////// code ajouter par aurince ce 06/12/2016///////////////
-                /////////////////////Contribuable inexistant dans t_rep_unique mais opération M, on ajoute alors///////
-                if( "M".equals(typeOperation.getValue())){
-                System.out.println("c'est un ajout");
-                tRepUnique = new TRepUnique();
-                try {tRepUnique.setContDatenreg(dateFormat.parse(contribuable.getChild("CONT_DATENREG").getValue()));} catch (Exception e) {};
-                try {tRepUnique.setContImmatr(Long.parseLong(contribuable.getChild("CONT_IMMATR").getValue()));} catch (Exception e) {};
-                tRepUnique.setContNum(contribuable.getChild("CONT_NUM").getValue());
-                tRepUnique.setContCentrCode(contribuable.getChild("CONT_CENTR_CODE").getValue());
-               // TTypeContrib tTypeContrib = tTypeContribFacade.find(contribuable.getChild("CONT_TYP_CONT_CODE").getValue());
-                tRepUnique.setContTypContCode(ttrContrib);
-                tRepUniqueFacade.create(tRepUnique);
-                in.close();
-                fichier.renameTo(new File(cheminDossierSucces, fichier.getName()));
-                }
-                //////////////////////
-               // in.close();
-                //fichier.renameTo(new File(cheminDossierEchecs, fichier.getName()));
-            }          
-            return;
-        }
-        else{
-            if( "M".equals(typeOperation.getValue())){
-                System.out.println("Je suis dans lA MODIF");
-                try {tRepUnique.setContDatenreg(dateFormat.parse(contribuable.getChild("CONT_DATENREG").getValue()));} catch (Exception e) {};
-                try {tRepUnique.setContImmatr(Long.parseLong(contribuable.getChild("CONT_IMMATR").getValue()));} catch (Exception e) {};
-                tRepUnique.setContNum(contribuable.getChild("CONT_NUM").getValue());
-
-                tRepUnique.setContCentrCode(contribuable.getChild("CONT_CENTR_CODE").getValue());
-                TTypeContrib tTypeContrib = tTypeContribFacade.find(contribuable.getChild("CONT_TYP_CONT_CODE").getValue());
-                tRepUnique.setContTypContCode(tTypeContrib);
-                tRepUniqueFacade.edit(tRepUnique);
-                in.close();
-                fichier.renameTo(new File(cheminDossierSucces, fichier.getName()));            
-            }
-            else{
-                ////////////////////////////////////
-                
-                
-                in.close();
-                fichier.renameTo(new File(cheminDossierEchecs, fichier.getName()));
-            }
-            return;
-        }
-    }
-    
     public void traitementDeDonnesPart(Document document, File fichier, InputStream in) throws JDOMException, SAXException, IOException  {
         
         Element racine = document.getRootElement();
@@ -433,7 +360,7 @@ public class InterfaceIfuPlateforme {
         
             
             
-        try {tarcticle.setTArticlePK(new TArticlePK(instance_id,itm_nbr));} catch (Exception e) {};        
+        //try {tarcticle.setTArticlePK(new TArticlePK(instance_id,itm_nbr));} catch (Exception e) {};        
         try {tarcticle.setLnkTpt(declaration.getChild("segment_general").getChild("article").getAttribute("LNK_TPT").getValue());} catch (Exception e) {};
         try {tarcticle.setTarPrcExt(declaration.getChild("segment_general").getChild("article").getAttribute("TAR_PRC_EXT").getValue());} catch (Exception e) {};
         try {tarcticle.setTarPrcNat(declaration.getChild("segment_general").getChild("article").getAttribute("TAR_PRC_NAT").getValue());} catch (Exception e) {};
@@ -455,7 +382,7 @@ public class InterfaceIfuPlateforme {
              
             //fin
         
-        try {taxes_mtant.setTTaxesDouPK(new TTaxesDouPK(instance_id, tax_rnk));} catch (Exception e) {};
+    //    try {taxes_mtant.setTTaxesDouPK(new TTaxesDouPK(instance_id, tax_rnk));} catch (Exception e) {};
         try {taxes_mtant.setTaxCod(declaration.getChild("segment_general").getChild("article").getChild("taxe").getAttribute("TAX_LIN_COD").getValue());} catch (Exception e) {};
         try {taxes_mtant.setTaxAmt(BigInteger.valueOf(Long.parseLong(declaration.getChild("segment_general").getChild("article").getChild("taxe").getAttribute("TAX_LIN_COD").getValue())));} catch (Exception e) {};
         //FIN PARTIE TAXE
@@ -535,7 +462,7 @@ public class InterfaceIfuPlateforme {
         
         for (int i = 0; i <= nbre_articles; i++) {
             
-        try {tarcticle.setTArticlePK(new TArticlePK(instance_id,itm_nbr));} catch (Exception e) {};        
+//        try {tarcticle.setTArticlePK(new TArticlePK(instance_id,itm_nbr));} catch (Exception e) {};        
         try {tarcticle.setLnkTpt(declaration.getChild("segment_general").getChild("article").getAttribute("LNK_TPT").getValue());} catch (Exception e) {};
         try {tarcticle.setTarPrcExt(declaration.getChild("segment_general").getChild("article").getAttribute("TAR_PRC_EXT").getValue());} catch (Exception e) {};
         try {tarcticle.setTarPrcNat(declaration.getChild("segment_general").getChild("article").getAttribute("TAR_PRC_NAT").getValue());} catch (Exception e) {};
@@ -550,7 +477,8 @@ public class InterfaceIfuPlateforme {
         try {tarcticle.setVitWgtNet(BigInteger.valueOf(Long.parseLong(declaration.getChild("segment_general").getChild("article").getAttribute("VIT_WGT_NET").getValue())));} catch (Exception e) {};
         try {tarcticle.setTaxAmt(BigInteger.valueOf(Long.parseLong(declaration.getChild("segment_general").getChild("article").getAttribute("TAX_AMT").getValue())));} catch (Exception e) {};
         
-        //ICI AJOUT LISTE ARTICLES
+        //ICI AJOUT ARTICLES A LISTE 
+        listeArticles.add(tarcticle);
         
         //FIN PARTIE ARTICLE
         
@@ -560,7 +488,7 @@ public class InterfaceIfuPlateforme {
              
             //fin
         
-        try {taxes_mtant.setTTaxesDouPK(new TTaxesDouPK(instance_id, tax_rnk));} catch (Exception e) {};
+//        try {taxes_mtant.setTTaxesDouPK(new TTaxesDouPK(instance_id, tax_rnk));} catch (Exception e) {};
         try {taxes_mtant.setTaxCod(declaration.getChild("segment_general").getChild("article").getChild("taxe").getAttribute("TAX_LIN_COD").getValue());} catch (Exception e) {};
         try {taxes_mtant.setTaxAmt(BigInteger.valueOf(Long.parseLong(declaration.getChild("segment_general").getChild("article").getChild("taxe").getAttribute("TAX_LIN_COD").getValue())));} catch (Exception e) {};
         //FIN PARTIE TAXE
@@ -603,5 +531,100 @@ public class InterfaceIfuPlateforme {
    
    ////////////////////////// FIN INSERTION DECLARATION ARTICLE TAXE
    
+   //traitement table contribuable 
+   public void traitementDeDonnesCont(Document document, File fichier, InputStream in) throws JDOMException, SAXException, IOException, UserOrMotifUndefined  {
+        
+
+        
+        Element racine = document.getRootElement();
+        //System.err.println("CA DONNE = " + racine.getName());
+        Element operation = racine.getChild("OPERATION");
+
+        Element typeOperation = operation.getChild("TYPEOP");
+        Element contribuable = racine.getChild("CONT");
+        Element centreImpot = racine.getChild("CENTRE_IMPOT");
+        Element contCode = racine.getChild("CONT_CODE");
+        TCentreImpot tCentreImpot = tCentreImpotFacade.find(centreImpot.getChild("CENTR_IMP_CODE").getValue());
+        if(tCentreImpot == null){
+            tCentreImpot = new TCentreImpot();           
+            tCentreImpot.setCentrImpCode(centreImpot.getChild("CENTR_IMP_CODE").getValue());
+            tCentreImpot.setCentrImpLibelle(centreImpot.getChild("CENTR_IMP_LIBELLE").getValue());           
+            tCentreImpotFacade.create(tCentreImpot);
+        }
+        TTypeContrib ttrContrib = tTypeContribFacade.find(contCode.getChild("TYP_CONT_CODE").getValue());
+        if(ttrContrib == null){
+            ttrContrib = new TTypeContrib(contCode.getChild("TYP_CONT_CODE").getValue(), contCode.getChild("TYP_CONT_LIB").getValue());
+            tTypeContribFacade.create(ttrContrib);
+        }
+        TRepUnique tRepUnique = tRepUniqueFacade.find(Long.valueOf(contribuable.getChild("CONT_IMMATR").getValue()));
+        if( tRepUnique ==  null ){
+            if( "A".equals(typeOperation.getValue())){
+                tRepUnique = new TRepUnique();
+                try {tRepUnique.setContDatenreg(dateFormat.parse(contribuable.getChild("CONT_DATENREG").getValue()));} catch (Exception e) {};
+                try {tRepUnique.setContImmatr(Long.parseLong(contribuable.getChild("CONT_IMMATR").getValue()));} catch (Exception e) {};
+                tRepUnique.setContNum(contribuable.getChild("CONT_NUM").getValue());
+                tRepUnique.setContCentrCode(contribuable.getChild("CONT_CENTR_CODE").getValue());
+               // TTypeContrib tTypeContrib = tTypeContribFacade.find(contribuable.getChild("CONT_TYP_CONT_CODE").getValue());
+                tRepUnique.setContTypContCode(ttrContrib);
+                TMotif tMotif = tMotifFacade.find("1");
+                TUtilisateur tUtilisateur = tUtilisateurFacade.find("admin");
+                if( tMotif == null || tUtilisateur == null) {
+                    throw new UserOrMotifUndefined("");
+                }
+                tRepUniqueFacade.create(tRepUnique);
+                tHistoriqueFacade.historiser(tRepUnique, tMotif, tUtilisateur);
+                //THistorique tHistorique = new THistorique(tRepUnique,tMotif, tUtilisateur);
+               // tHistoriqueFacade.create(tHistorique);
+                in.close();
+                fichier.renameTo(new File(cheminDossierSucces, fichier.getName()));
+            }
+            else{ 
+                System.out.println("Ajout impossible pour cause de fichier existant " + fichier.getName());
+                in.close();
+                fichier.renameTo(new File(cheminDossierEchecs, fichier.getName()));
+            }          
+            return;
+        }
+        else{
+            if( "M".equals(typeOperation.getValue())){
+                try {tRepUnique.setContDatenreg(dateFormat.parse(contribuable.getChild("CONT_DATENREG").getValue()));} catch (Exception e) {};
+                try {tRepUnique.setContImmatr(Long.parseLong(contribuable.getChild("CONT_IMMATR").getValue()));} catch (Exception e) {};
+                tRepUnique.setContNum(contribuable.getChild("CONT_NUM").getValue());
+
+                tRepUnique.setContCentrCode(contribuable.getChild("CONT_CENTR_CODE").getValue());
+                TTypeContrib tTypeContrib = tTypeContribFacade.find(contribuable.getChild("CONT_TYP_CONT_CODE").getValue());
+                tRepUnique.setContTypContCode(tTypeContrib);
+                TMotif tMotif = tMotifFacade.find("1");
+                TUtilisateur tUtilisateur = tUtilisateurFacade.find("admin");
+                if( tMotif == null || tUtilisateur == null) {
+                    throw new UserOrMotifUndefined("");
+                }                
+                tRepUniqueFacade.edit(tRepUnique);
+                //THistorique tHistorique = new THistorique(tRepUnique,tMotif, tUtilisateur);
+                tHistoriqueFacade.historiser(tRepUnique, tMotif, tUtilisateur);
+                //tHistoriqueFacade.create(tHistorique);
+                System.out.println("cest ici");
+                in.close();
+                System.out.println("passe");
+                fichier.renameTo(new File(cheminDossierSucces, fichier.getName()));            
+            }
+            else{
+                System.out.println("inpossible de modifier un contribuable inexistant " + fichier.getName());
+                in.close();
+                fichier.renameTo(new File(cheminDossierEchecs, fichier.getName()));
+            }
+            return;
+        }
+    }
    
+       private class UserOrMotifUndefined extends Exception{
+        UserOrMotifUndefined(String s) {
+            super(s);
+        }
+        
+        public String toString(){
+            return ("Exception Number ") ;
+        }
+    };
+   //fin traitement table contribuable
 }

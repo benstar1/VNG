@@ -230,8 +230,8 @@ public class TRepUniqueController implements Serializable {
     public void MAJActive() {
 
         try {
-            System.out.println(centreImpot + " Centre impot choisi " + current.getContCentrImpCode().getCentrImpCode());
-            System.out.println(" Centre impot ancien " + ifu.getContCentrImpCode().getCentrImpCode());
+            System.out.println(centreImpot + " Centre impot choisi -- Test " + current.getContCentrImpCode().getCentrImpCode());
+         //   System.out.println(" Centre impot ancien " + ifu.getContCentrImpCode().getCentrImpCode());
 
             TCentreImpot centre = current.getContCentrImpCode();
             
@@ -253,8 +253,8 @@ public class TRepUniqueController implements Serializable {
 
     public void MAJDesactive() {
         try {
-            System.out.println(centreImpot + " Centre impot choisi " + current.getContCentrImpCode().getCentrImpCode());
-            System.out.println(" Centre impot ancien " + ifu.getContCentrImpCode().getCentrImpCode());
+            System.out.println(centreImpot + " Centre impot choisi -- Test " + current.getContCentrImpCode().getCentrImpCode());
+          //  System.out.println(" Centre impot ancien " + ifu.getContCentrImpCode().getCentrImpCode());
 
             TCentreImpot centre = current.getContCentrImpCode();
             

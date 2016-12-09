@@ -83,6 +83,7 @@ public class TArticleController implements Serializable {
 
     public String create() {
         try {
+            current.getTArticlePK().setInstanceid(current.getTDeclarationDou().getInstanceid());
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TArticleCreated"));
             return prepareCreate();
@@ -100,6 +101,7 @@ public class TArticleController implements Serializable {
 
     public String update() {
         try {
+            current.getTArticlePK().setInstanceid(current.getTDeclarationDou().getInstanceid());
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TArticleUpdated"));
             return "View";

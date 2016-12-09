@@ -32,9 +32,20 @@ public class TEntDeclarationController implements Serializable {
     private bj.finances.cfisc.sessions.TEntDeclarationFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-
+    private boolean valider =true;
+    
     public TEntDeclarationController() {
     }
+
+    public boolean isValider() {
+        return valider;
+    }
+
+    public void setValider(boolean valider) {
+        this.valider = valider;
+    }
+
+
 
     public TEntDeclaration getSelected() {
         if (current == null) {
@@ -42,6 +53,12 @@ public class TEntDeclarationController implements Serializable {
             selectedItemIndex = -1;
         }
         return current;
+    }
+    
+    public void validation(){
+      current.setEntDecValidation("O");
+      ejbFacade.edit(current);
+        setValider(true);
     }
 
     private TEntDeclarationFacade getFacade() {
@@ -55,6 +72,12 @@ public class TEntDeclarationController implements Serializable {
     public void setEntdecl(TEntDeclaration entdecl) {
         this.entdecl = entdecl;
         current=entdecl;
+        if (current.getEntDecValidation().equals("O")){
+             setValider(true);
+         }
+          if (current.getEntDecValidation().equals("N")){
+             setValider(false);
+         }
     }
 
     
@@ -177,8 +200,8 @@ public class TEntDeclarationController implements Serializable {
     }
      
         public List<TEntDeclaration> getFindListEntdeclfisc(){        
-            return ejbFacade.findListentdeclarcontrib(1201300000201l); 
-            //return ejbFacade.findListentdeclarcontrib(1200801257709l);  
+            //return ejbFacade.findListentdeclarcontrib(1201300000201l); 
+            return ejbFacade.findListentdeclarcontrib(1200801257709l);  
         }
         
     public List<TEntDeclaration> getFindAll(){        
@@ -186,7 +209,13 @@ public class TEntDeclarationController implements Serializable {
     }
     
       public String entetedeclarselectionne(TEntDeclaration entdecl) {
-         current=entdecl;   
+         current=entdecl; 
+         if (current.getEntDecValidation().equals("O")){
+             setValider(true);
+         }
+          if (current.getEntDecValidation().equals("N")){
+             setValider(false);
+         }
         return "";
     }
 

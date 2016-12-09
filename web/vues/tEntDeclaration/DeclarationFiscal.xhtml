@@ -14,22 +14,26 @@
        
             <h:form id="entdeclaration">
                 <h1><h:outputText value="Déclaration des importations et des exportations"/></h1>
-                <h:panelGrid columns="6">
+                <p:panel style="width: 100%">
+                <h:panelGrid columns="1">
+                    <h:panelGrid columns="2"  style="vertical-align: top; "> 
                     <h:outputLabel value="EntDecNum:" for="entDecNum" />
-                      <h:panelGrid columns="2" width="100%" style="vertical-align: top;">                    
+                      <h:panelGrid  columns="2" width="100%" style="vertical-align: top;  ">                    
                           <h:inputText  id="entDecNum" value="#{tEntDeclarationController.selected.entDecNum}" title="EntDecNum" required="true" requiredMessage="The EntDecNum field is required."/>
                         <p:commandButton value="..." type="button" onclick="PF('dldecarationfiscale').show();" /> 
                       </h:panelGrid>
-                    
+                     </h:panelGrid>
+                  <h:panelGrid columns="4" width="100%" style="vertical-align: top;">                    
+                        
                     <h:outputLabel value="EntDecDatedebut:" for="entDecDatedebut" />
                     <p:calendar  mask="true" pattern="dd-MM-yyyy" id="entDecDatedebut" value="#{tEntDeclarationController.selected.entDecDatedebut}" title="EntDecDatedebut" />
-                       
-                     
+   
                     <h:outputLabel value="EntDecDatefin:" for="entDecDatefin" />
                     <p:calendar mask="true" pattern="dd-MM-yyyy"  id="entDecDatefin" value="#{tEntDeclarationController.selected.entDecDatefin}" title="EntDecDatefin" />
-                    
+                    </h:panelGrid>
                     
                 </h:panelGrid>
+                   </p:panel>
             </h:form>
 <!--///////////////////////////////////Liste des déclaration douanières//////////////////-->
 
@@ -56,10 +60,10 @@
             
             <f:facet name="footer">
         
-            <p:commandButton   update=":formdeclar" process="@this"  action="#{tDeclarationFiscaleController.prepareCreate()}"  value= "Nouveau"  style="width: 120px;" ajax="true" />
-            <p:commandButton  value= "Enregistrer" actionListener="#{tDeclarationFiscaleController.selected.setDeclarEntDecNum(tEntDeclarationController.selected)}" action="#{tDeclarationFiscaleController.create()}" update=":listdeclardou" style="width: 120px;" ajax="true" />
-            <p:commandButton  value= "Modifier" actionListener="#{tDeclarationFiscaleController.selected.setDeclarEntDecNum(tEntDeclarationController.selected)}" action="#{tDeclarationFiscaleController.update()}" update=":listdeclardou" style="width: 120px;" ajax="true" />
-            <p:commandButton  value= "Supprimer" action="#{tDeclarationFiscaleController.destroybis(tDeclarationFiscaleController.selected)}" update=":listdeclardou"  style="width: 120px;" ajax="true" />
+            <p:commandButton id="nouveaudecl" disabled="#{tEntDeclarationController.valider}" value= "Nouveau"   update=":formdeclar" process="@this"  action="#{tDeclarationFiscaleController.prepareCreate()}"    style="width: 120px;" ajax="true" />
+            <p:commandButton id="enregistrerdecl" disabled="#{tEntDeclarationController.valider}"  value= "Enregistrer" actionListener="#{tDeclarationFiscaleController.selected.setDeclarEntDecNum(tEntDeclarationController.selected)}" action="#{tDeclarationFiscaleController.create()}" update=":listdeclardou" style="width: 120px;" ajax="true" />
+            <p:commandButton id="modifierdecl" disabled="#{tEntDeclarationController.valider}"  value= "Modifier" actionListener="#{tDeclarationFiscaleController.selected.setDeclarEntDecNum(tEntDeclarationController.selected)}" action="#{tDeclarationFiscaleController.update()}" update=":listdeclardou" style="width: 120px;" ajax="true" />
+            <p:commandButton id="supprimerdecl" disabled="#{tEntDeclarationController.valider}" value= "Supprimer" action="#{tDeclarationFiscaleController.destroybis(tDeclarationFiscaleController.selected)}" update=":listdeclardou"  style="width: 120px;" ajax="true" />
             </f:facet>
         </p:panelGrid>
        
@@ -145,9 +149,9 @@
             </p:column>
             
          <f:facet name="footer">
-             <p:commandButton  value= "Détail" actionListener="#{tTaxeDeclarationController.prepareCreate()}"  onclick="PF('dldetaidecarationfiscale').show();" update=":listtaxdeclar :formtaxedeclaration" style="width: 120px;" ajax="true" />
+             <p:commandButton id="detaildecl"  value= "Détail" actionListener="#{tTaxeDeclarationController.prepareCreate()}"  onclick="PF('dldetaidecarationfiscale').show();" update=":listtaxdeclar :formtaxedeclaration" style="width: 120px;" ajax="true" />
         
-           <p:commandButton   value= "Validation"   update=":formentdeclar" process="@this"  action="#{tEntDeclarationController.prepareCreate()}" style="width: 120px;" ajax="true" />
+             <p:commandButton onclick="PF(confirm('Êtes-vous sûr de vouloir valider les déclarations de la période ?'))" id="validationdecl" disabled="#{tEntDeclarationController.valider}"   value= "Validation"   update=":entdeclaration :listdeclardou :formdeclar :dldetaidecarationfiscale" process="@this"  action="#{tEntDeclarationController.validation()}" style="width: 120px;" ajax="true" />
                      </f:facet> 
         </p:dataTable>
         
@@ -178,10 +182,10 @@
                         <p:calendar  pattern="dd-MM-yyyy" mask="true" id="entDecDatefin" value="#{tEntDeclarationController.selected.entDecDatefin}" title="EntDecDatefin" />
                           <f:facet name="footer">
         
-                    <p:commandButton   update=":formentdeclar" process="@this"  action="#{tEntDeclarationController.prepareCreate()}"  value= "Nouveau"  style="width: 120px;" ajax="true" />
-                    <p:commandButton  value= "Enregistrer"  action="#{tEntDeclarationController.create()}" update=":listentdeclar" style="width: 120px;" ajax="true" />
-                    <p:commandButton  value= "Modifier"  action="#{tEntDeclarationController.update()}" update=":listentdeclar" style="width: 120px;" ajax="true" />
-                    <p:commandButton  value= "Supprimer" action="#{tEntDeclarationController.destroybis(tEntDeclarationController.selected)}" update=":listentdeclar"  style="width: 120px;" ajax="true" />
+                    <p:commandButton disabled="#{tEntDeclarationController.valider}"  update=":formentdeclar" process="@this"  action="#{tEntDeclarationController.prepareCreate()}"  value= "Nouveau"  style="width: 120px;" ajax="true" />
+                    <p:commandButton disabled="#{tEntDeclarationController.valider}" value= "Enregistrer"  action="#{tEntDeclarationController.create()}" update=":listentdeclar" style="width: 120px;" ajax="true" />
+                    <p:commandButton disabled="#{tEntDeclarationController.valider}" value= "Modifier"  action="#{tEntDeclarationController.update()}" update=":listentdeclar" style="width: 120px;" ajax="true" />
+                    <p:commandButton disabled="#{tEntDeclarationController.valider}" value= "Supprimer" action="#{tEntDeclarationController.destroybis(tEntDeclarationController.selected)}" update=":listentdeclar"  style="width: 120px;" ajax="true" />
             </f:facet> 
                         
                         
@@ -199,7 +203,7 @@
                             <f:facet name="header">
                                 <h:outputText value="Numéro"/>
                             </f:facet>                        
-                            <p:commandLink value="#{itementdeclar.entDecNum}"  action="#{tEntDeclarationController.entetedeclarselectionne(itementdeclar)}"  update=":entdeclaration :listdeclardou :formdeclar" oncomplete="PF('dldecarationfiscale').hide();"  process="@this" title="Selectionnez" style="color: blue;"/>
+                            <p:commandLink value="#{itementdeclar.entDecNum}"  action="#{tEntDeclarationController.entetedeclarselectionne(itementdeclar)}"  update=":entdeclaration :listdeclardou :formdeclar :dldetaidecarationfiscale" oncomplete="PF('dldecarationfiscale').hide();"  process="@this" title="Selectionnez" style="color: blue;"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -266,10 +270,10 @@
                         
                    <f:facet name="footer">
 <!--         (tEntDeclarationController.selected)-->
-                    <p:commandButton   update=":formtaxedeclaration" process="@this"  action="#{tTaxeDeclarationController.prepareCreate()}"  value= "Nouveau"  style="width: 120px;" ajax="true" />
-                    <p:commandButton  value= "Enregistrer" actionListener="#{tTaxeDeclarationController.selected.setTaxDeclarNum(tDeclarationFiscaleController.selected)  }"  action="#{tTaxeDeclarationController.create()}" update=":listtaxdeclar" style="width: 120px;" ajax="true" />
-                    <p:commandButton  value= "Modifier"  action="#{tTaxeDeclarationController.update()}" update=":listtaxdeclar" style="width: 120px;" ajax="true" />
-                    <p:commandButton  value= "Supprimer" action="#{tTaxeDeclarationController.destroybis(tTaxeDeclarationController.selected)}" update=":listtaxdeclar"  style="width: 120px;" ajax="true" />
+                    <p:commandButton disabled="#{tEntDeclarationController.valider}"  update=":formtaxedeclaration" process="@this"  action="#{tTaxeDeclarationController.prepareCreate()}"  value= "Nouveau"  style="width: 120px;" ajax="true" />
+                    <p:commandButton disabled="#{tEntDeclarationController.valider}"  value= "Enregistrer" actionListener="#{tTaxeDeclarationController.selected.setTaxDeclarNum(tDeclarationFiscaleController.selected)  }"  action="#{tTaxeDeclarationController.create()}" update=":listtaxdeclar" style="width: 120px;" ajax="true" />
+                    <p:commandButton  disabled="#{tEntDeclarationController.valider}" value= "Modifier"  action="#{tTaxeDeclarationController.update()}" update=":listtaxdeclar" style="width: 120px;" ajax="true" />
+                    <p:commandButton disabled="#{tEntDeclarationController.valider}" value= "Supprimer" action="#{tTaxeDeclarationController.destroybis(tTaxeDeclarationController.selected)}" update=":listtaxdeclar"  style="width: 120px;" ajax="true" />
            
                 
                    </f:facet> 

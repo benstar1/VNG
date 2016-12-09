@@ -10,26 +10,26 @@
 
      
         <ui:define name="body">
-            <h1 align="center">Mise à Jour Individuelle</h1>
+            <h1 align="left">Mise à Jour Individuelle</h1>
            
             <center>
                 <h:form id="MAJICreateForm">
                     <h:panelGroup id="display">
 
-                        <h:panelGrid columns="3" >
+                        <p:panelGrid columns="3" style="width: 100%"  >
                             <br />
                             
                             
-                            <h:panelGrid columns="3" border="0">
+                            <p:panelGrid columns="3"  >
                                 <p:outputLabel value="Numéro IFU : " for="ifu" />
-                                <h:inputText id="ifu" value="#{tRepUniqueController.selected.contImmatr}" required="true" requiredMessage="Le numéro IFU est obligatoire" valueChangeListener="#{tRepUniqueController.ifuValueChangeListener}">
-                                <f:ajax execute="ifu" render="ItemsIfu" />
+                                <h:inputText readonly="true" id="ifu" value="#{tRepUniqueController.selected.contImmatr}" required="true" requiredMessage="Le numéro IFU est obligatoire">
+                                
                                 </h:inputText>
                                 
                                 <p:commandButton value="Sélectionner l'IFU"  onclick="PF('dlgIFU').show();" type="button">       
                                 </p:commandButton>
                                 <br />
-                                <h:commandButton value="Rechercher" action="#{tRepUniqueController.UpdateTableContrib}" ></h:commandButton>
+                                <h:commandButton id="rech" value="Rechercher" action="#{tRepUniqueController.UpdateTableContrib}" ></h:commandButton>
                                 <br />
                                 <br />
                                 
@@ -40,7 +40,7 @@
                                 <f:selectItems value="#{tRepUniqueController.cimpotItem}"/>
                                 </h:selectOneMenu>
                                 
-                            </h:panelGrid>
+                            </p:panelGrid>
                             
                             <br />
                             
@@ -50,12 +50,12 @@
                               
                             <br />
                            
-                        </h:panelGrid>
+                        </p:panelGrid>
 
                         <center>
 
-                            <h1><h:outputText value="Informations du Contribuable"/></h1>
-                            <h:dataTable id="ItemsIfu" value="#{tRepUniqueController.itemsIfu}" var="item" border="1" style="text-align: center"> 
+                            <h1 align="left"><h:outputText value="Informations du Contribuable"/></h1>
+                            <h:dataTable  width="100%" id="ItemsIfu" value="#{tRepUniqueController.itemsIfu}" var="item" border="1" style="text-align: center"> 
 
                                 <h:column>
                                     <f:facet name="header">
@@ -111,13 +111,14 @@
                                         <h:outputText value="ACTION"/>
                                     </f:facet>
                                     <c:if test="#{tRepUniqueController.itemsIfu.contStatut eq 'A'}" >
-                                        <h:commandButton  value="Désactiver" action="#{tRepUniqueController.MAJDesactive}"/>
+                                        <p:commandButton  value="Désactiver" action="#{tRepUniqueController.MAJDesactive}" process="@this">
                                            
+                                        
                                         
                                     </c:if>
                                     
                                     <c:if test="#{tRepUniqueController.itemsIfu.contStatut eq 'D'}">
-                                        <h:commandButton  value="Activer" action="#{tRepUniqueController.MAJActive}"/>
+                                        <p:commandButton  value="Activer" action="#{tRepUniqueController.MAJActive}" process="@this"/>
                                     </c:if>
                                     
                                 </h:column>

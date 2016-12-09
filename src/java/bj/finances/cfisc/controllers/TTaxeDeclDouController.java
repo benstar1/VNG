@@ -1,9 +1,9 @@
 package bj.finances.cfisc.controllers;
 
-import bj.finances.cfisc.entities.TTaxesDou;
+import bj.finances.cfisc.entities.TTaxeDeclDou;
 import bj.finances.cfisc.controllers.util.JsfUtil;
 import bj.finances.cfisc.controllers.util.PaginationHelper;
-import bj.finances.cfisc.sessions.TTaxesDouFacade;
+import bj.finances.cfisc.sessions.TTaxeDeclDouFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -18,29 +18,30 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean(name = "tTaxesDouController")
+@ManagedBean(name = "tTaxeDeclDouController")
 @SessionScoped
-public class TTaxesDouController implements Serializable {
+public class TTaxeDeclDouController implements Serializable {
 
-    private TTaxesDou current;
+    private TTaxeDeclDou current;
     private DataModel items = null;
     @EJB
-    private bj.finances.cfisc.sessions.TTaxesDouFacade ejbFacade;
+    private bj.finances.cfisc.sessions.TTaxeDeclDouFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public TTaxesDouController() {
+    public TTaxeDeclDouController() {
     }
 
-    public TTaxesDou getSelected() {
+    public TTaxeDeclDou getSelected() {
         if (current == null) {
-            current = new TTaxesDou();
+            current = new TTaxeDeclDou();
+            current.setTTaxeDeclDouPK(new bj.finances.cfisc.entities.TTaxeDeclDouPK());
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private TTaxesDouFacade getFacade() {
+    private TTaxeDeclDouFacade getFacade() {
         return ejbFacade;
     }
 
@@ -68,21 +69,24 @@ public class TTaxesDouController implements Serializable {
     }
 
     public String prepareView() {
-        current = (TTaxesDou) getItems().getRowData();
+        current = (TTaxeDeclDou) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new TTaxesDou();
+        current = new TTaxeDeclDou();
+        current.setTTaxeDeclDouPK(new bj.finances.cfisc.entities.TTaxeDeclDouPK());
         selectedItemIndex = -1;
         return "Create";
     }
 
     public String create() {
         try {
+            current.getTTaxeDeclDouPK().setInstanceid(current.getTArticle().getTArticlePK().getInstanceid());
+            current.getTTaxeDeclDouPK().setKeyItmNbr(current.getTArticle().getTArticlePK().getKeyItmNbr());
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TTaxesDouCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TTaxeDeclDouCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -91,15 +95,17 @@ public class TTaxesDouController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (TTaxesDou) getItems().getRowData();
+        current = (TTaxeDeclDou) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
     public String update() {
         try {
+            current.getTTaxeDeclDouPK().setInstanceid(current.getTArticle().getTArticlePK().getInstanceid());
+            current.getTTaxeDeclDouPK().setKeyItmNbr(current.getTArticle().getTArticlePK().getKeyItmNbr());
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TTaxesDouUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TTaxeDeclDouUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -108,7 +114,7 @@ public class TTaxesDouController implements Serializable {
     }
 
     public String destroy() {
-        current = (TTaxesDou) getItems().getRowData();
+        current = (TTaxeDeclDou) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -132,7 +138,7 @@ public class TTaxesDouController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TTaxesDouDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TTaxeDeclDouDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -188,28 +194,39 @@ public class TTaxesDouController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    @FacesConverter(forClass = TTaxesDou.class)
-    public static class TTaxesDouControllerConverter implements Converter {
+    @FacesConverter(forClass = TTaxeDeclDou.class)
+    public static class TTaxeDeclDouControllerConverter implements Converter {
+
+        private static final String SEPARATOR = "#";
+        private static final String SEPARATOR_ESCAPED = "\\#";
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            TTaxesDouController controller = (TTaxesDouController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "tTaxesDouController");
+            TTaxeDeclDouController controller = (TTaxeDeclDouController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "tTaxeDeclDouController");
             return controller.ejbFacade.find(getKey(value));
         }
 
-        java.lang.Long getKey(String value) {
-            java.lang.Long key;
-            key = Long.valueOf(value);
+        bj.finances.cfisc.entities.TTaxeDeclDouPK getKey(String value) {
+            bj.finances.cfisc.entities.TTaxeDeclDouPK key;
+            String values[] = value.split(SEPARATOR_ESCAPED);
+            key = new bj.finances.cfisc.entities.TTaxeDeclDouPK();
+            key.setInstanceid(Long.parseLong(values[0]));
+            key.setKeyItmNbr(Long.parseLong(values[1]));
+            key.setKeyTaxRnk(Long.parseLong(values[2]));
             return key;
         }
 
-        String getStringKey(java.lang.Long value) {
+        String getStringKey(bj.finances.cfisc.entities.TTaxeDeclDouPK value) {
             StringBuilder sb = new StringBuilder();
-            sb.append(value);
+            sb.append(value.getInstanceid());
+            sb.append(SEPARATOR);
+            sb.append(value.getKeyItmNbr());
+            sb.append(SEPARATOR);
+            sb.append(value.getKeyTaxRnk());
             return sb.toString();
         }
 
@@ -218,11 +235,11 @@ public class TTaxesDouController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof TTaxesDou) {
-                TTaxesDou o = (TTaxesDou) object;
-                return getStringKey(o.getRnk());
+            if (object instanceof TTaxeDeclDou) {
+                TTaxeDeclDou o = (TTaxeDeclDou) object;
+                return getStringKey(o.getTTaxeDeclDouPK());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + TTaxesDou.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + TTaxeDeclDou.class.getName());
             }
         }
 

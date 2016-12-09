@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -23,6 +24,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -130,17 +132,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TArticle.findByQuoId", query = "SELECT t FROM TArticle t WHERE t.quoId = :quoId"),
     @NamedQuery(name = "TArticle.findByQuoItmNbr", query = "SELECT t FROM TArticle t WHERE t.quoItmNbr = :quoItmNbr")})
 public class TArticle implements Serializable {
-    @JoinColumn(name = "NUMDECLARATION", referencedColumnName = "INSTANCEID")
-    @ManyToOne
-    private TDeclarationDou numdeclaration;
-  
-    @OneToMany(mappedBy = "ID_ARTICLE")
-    private List<TTaxesDou> tTaxesDouList;
-    
-    @Size(max = 30)
-    @Column(name = "ID_ARTICLE")
-    private String idArticle;
-    
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected TArticlePK tArticlePK;
@@ -389,6 +380,11 @@ public class TArticle implements Serializable {
     private Long quoId;
     @Column(name = "QUO_ITM_NBR")
     private Long quoItmNbr;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tArticle")
+    private List<TTaxeDeclDou> tTaxeDeclDouList;
+    @JoinColumn(name = "INSTANCEID", referencedColumnName = "INSTANCEID", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private TDeclarationDou tDeclarationDou;
 
     public TArticle() {
     }
@@ -1185,6 +1181,23 @@ public class TArticle implements Serializable {
         this.quoItmNbr = quoItmNbr;
     }
 
+    @XmlTransient
+    public List<TTaxeDeclDou> getTTaxeDeclDouList() {
+        return tTaxeDeclDouList;
+    }
+
+    public void setTTaxeDeclDouList(List<TTaxeDeclDou> tTaxeDeclDouList) {
+        this.tTaxeDeclDouList = tTaxeDeclDouList;
+    }
+
+    public TDeclarationDou getTDeclarationDou() {
+        return tDeclarationDou;
+    }
+
+    public void setTDeclarationDou(TDeclarationDou tDeclarationDou) {
+        this.tDeclarationDou = tDeclarationDou;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -1208,22 +1221,6 @@ public class TArticle implements Serializable {
     @Override
     public String toString() {
         return "bj.finances.cfisc.entities.TArticle[ tArticlePK=" + tArticlePK + " ]";
-    }
-
-    public String getIdArticle() {
-        return idArticle;
-    }
-
-    public void setIdArticle(String idArticle) {
-        this.idArticle = idArticle;
-    }
-
-    public TDeclarationDou getNumdeclaration() {
-        return numdeclaration;
-    }
-
-    public void setNumdeclaration(TDeclarationDou numdeclaration) {
-        this.numdeclaration = numdeclaration;
     }
     
 }

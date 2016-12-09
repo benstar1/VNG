@@ -7,14 +7,14 @@ package bj.finances.cfisc.entities;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -27,26 +27,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TTaxesDou.findAll", query = "SELECT t FROM TTaxesDou t"),
-    @NamedQuery(name = "TTaxesDou.findByInstanceId", query = "SELECT t FROM TTaxesDou t WHERE t.tTaxesDouPK.instanceId = :instanceId"),
-    @NamedQuery(name = "TTaxesDou.findByRnk", query = "SELECT t FROM TTaxesDou t WHERE t.tTaxesDouPK.rnk = :rnk"),
+    @NamedQuery(name = "TTaxesDou.findByRnk", query = "SELECT t FROM TTaxesDou t WHERE t.rnk = :rnk"),
     @NamedQuery(name = "TTaxesDou.findByTaxCod", query = "SELECT t FROM TTaxesDou t WHERE t.taxCod = :taxCod"),
     @NamedQuery(name = "TTaxesDou.findByTaxAmt", query = "SELECT t FROM TTaxesDou t WHERE t.taxAmt = :taxAmt")})
 public class TTaxesDou implements Serializable {
-//    @Size(max = 30)
-//    @Column(name = "ID_ARTICLE")
-//    @ManyToOne(Mapp)dfsdf
-//    private String idArticle;
-    
-    @Size(max = 30)
-    @JoinColumn(name = "ID_ARTICLE", referencedColumnName = "ID_ARTICLE")
-    @ManyToOne
-    private TArticle idArticle;
-    
-    
-    
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected TTaxesDouPK tTaxesDouPK;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "RNK")
+    private Long rnk;
     @Size(max = 3)
     @Column(name = "TAX_COD")
     private String taxCod;
@@ -56,20 +46,16 @@ public class TTaxesDou implements Serializable {
     public TTaxesDou() {
     }
 
-    public TTaxesDou(TTaxesDouPK tTaxesDouPK) {
-        this.tTaxesDouPK = tTaxesDouPK;
+    public TTaxesDou(Long rnk) {
+        this.rnk = rnk;
     }
 
-    public TTaxesDou(long instanceId, long rnk) {
-        this.tTaxesDouPK = new TTaxesDouPK(instanceId, rnk);
+    public Long getRnk() {
+        return rnk;
     }
 
-    public TTaxesDouPK getTTaxesDouPK() {
-        return tTaxesDouPK;
-    }
-
-    public void setTTaxesDouPK(TTaxesDouPK tTaxesDouPK) {
-        this.tTaxesDouPK = tTaxesDouPK;
+    public void setRnk(Long rnk) {
+        this.rnk = rnk;
     }
 
     public String getTaxCod() {
@@ -91,7 +77,7 @@ public class TTaxesDou implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (tTaxesDouPK != null ? tTaxesDouPK.hashCode() : 0);
+        hash += (rnk != null ? rnk.hashCode() : 0);
         return hash;
     }
 
@@ -102,7 +88,7 @@ public class TTaxesDou implements Serializable {
             return false;
         }
         TTaxesDou other = (TTaxesDou) object;
-        if ((this.tTaxesDouPK == null && other.tTaxesDouPK != null) || (this.tTaxesDouPK != null && !this.tTaxesDouPK.equals(other.tTaxesDouPK))) {
+        if ((this.rnk == null && other.rnk != null) || (this.rnk != null && !this.rnk.equals(other.rnk))) {
             return false;
         }
         return true;
@@ -110,15 +96,7 @@ public class TTaxesDou implements Serializable {
 
     @Override
     public String toString() {
-        return "bj.finances.cfisc.entities.TTaxesDou[ tTaxesDouPK=" + tTaxesDouPK + " ]";
-    }
-
-    public TArticle getIdArticle() {
-        return idArticle;
-    }
-
-    public void setIdArticle(TArticle idArticle) {
-        this.idArticle = idArticle;
+        return "bj.finances.cfisc.entities.TTaxesDou[ rnk=" + rnk + " ]";
     }
     
 }

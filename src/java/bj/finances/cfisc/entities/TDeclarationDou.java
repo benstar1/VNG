@@ -10,6 +10,7 @@ import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -211,9 +212,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TDeclarationDou.findByLstRcpTyp", query = "SELECT t FROM TDeclarationDou t WHERE t.lstRcpTyp = :lstRcpTyp"),
     @NamedQuery(name = "TDeclarationDou.findByLstRcpCuo", query = "SELECT t FROM TDeclarationDou t WHERE t.lstRcpCuo = :lstRcpCuo")})
 public class TDeclarationDou implements Serializable {
-    @OneToMany(mappedBy = "numdeclaration")
-    private List<TArticle> tArticleList;
-    
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -718,6 +716,8 @@ public class TDeclarationDou implements Serializable {
     @Lob
     @Column(name = "CUSTOMS_STAMP")
     private Serializable customsStamp;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tDeclarationDou")
+    private List<TArticle> tArticleList;
 
     public TDeclarationDou() {
     }
@@ -2214,6 +2214,15 @@ public class TDeclarationDou implements Serializable {
         this.customsStamp = customsStamp;
     }
 
+    @XmlTransient
+    public List<TArticle> getTArticleList() {
+        return tArticleList;
+    }
+
+    public void setTArticleList(List<TArticle> tArticleList) {
+        this.tArticleList = tArticleList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -2237,15 +2246,6 @@ public class TDeclarationDou implements Serializable {
     @Override
     public String toString() {
         return "bj.finances.cfisc.entities.TDeclarationDou[ instanceid=" + instanceid + " ]";
-    }
-
-    @XmlTransient
-    public List<TArticle> getTArticleList() {
-        return tArticleList;
-    }
-
-    public void setTArticleList(List<TArticle> tArticleList) {
-        this.tArticleList = tArticleList;
     }
     
 }

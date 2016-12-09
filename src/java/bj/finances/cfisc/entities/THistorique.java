@@ -270,6 +270,16 @@ public class THistorique implements Serializable {
     @JoinColumn(name = "HIST_MOTIF_CODE", referencedColumnName = "MOTIF_CODE")
     @ManyToOne
     private TMotif histMotifCode;
+    
+    @Column(name = "HIST_DATE_DEBUT")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date histDateDebut;
+    
+    @Column(name = "HIST_DATE_FIN")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date histDateFin;
+    
+    
 
     public THistorique() {
     }
@@ -284,6 +294,69 @@ public class THistorique implements Serializable {
         this.histContDatenreg = histContDatenreg;
         this.histContCentrCode = histContCentrCode;
         this.histContTypContCode = histContTypContCode;
+    }
+    
+    public THistorique(TRepUnique tRepUnique, TMotif tMotif, TUtilisateur tUtilisateur){        
+       this.setHistContCapital(tRepUnique.getContCapital());
+       this.setHistContFax(tRepUnique.getContFax());
+       this.setHistContOrdre(tRepUnique.getContOrdre());
+       this.setHistContTel(tRepUnique.getContTel());
+       this.setHistContDatcreat(tRepUnique.getContDatcreat());
+       this.setHistContDateCessation(tRepUnique.getContDateCessation());
+       this.setHistContDateDeces(tRepUnique.getContDateDeces());
+       this.setHistContDateimmatr(tRepUnique.getContDateimmatr());
+       this.setHistContDateMajMatricule(tRepUnique.getContDateMajMatricule());
+       this.setHistContDatenreg(tRepUnique.getContDatenreg());
+       this.setHistContDatenregInsae(tRepUnique.getContDatenregInsae());
+       this.setHistContDateRepriseAct(tRepUnique.getContDateRepriseAct());
+       this.setHistContDatnais(tRepUnique.getContDatnais());
+       this.setHistContLoyer(tRepUnique.getContLoyer());
+       this.setHistContNewImmatr(tRepUnique.getContNewImmatr());
+      // this.setHistNum(longId);  // a revoir
+       this.setHistContNbEmpl(tRepUnique.getContNbEmpl());
+       this.setHistContNbEnf(tRepUnique.getContNbEnf());
+       this.setHistContActif(tRepUnique.getContActif());
+       this.setHistContBp(tRepUnique.getContBp());
+       this.setHistContCarre(tRepUnique.getContCarre());
+       this.setHistContCatEtabCode(tRepUnique.getContCatEtabCode());
+       this.setHistContCentrCode(tRepUnique.getContCentrCode());
+       this.setHistContContNum(tRepUnique.getContContNum());
+       this.setHistContEnsCommerce(tRepUnique.getContEnsCommerce());
+       this.setHistContFonctCode(tRepUnique.getContFonctCode());
+       this.setHistContLieunais(tRepUnique.getContLieunais());
+       this.setHistContLot(tRepUnique.getContLot());
+       this.setHistContMail(tRepUnique.getContMail());
+       this.setHistContMatricule(tRepUnique.getContMatricule());
+       this.setHistContMemActMere(tRepUnique.getContMemActMere());
+       this.setHistContMemBank(tRepUnique.getContMemBank());
+       this.setHistContModExpCode(tRepUnique.getContModExpCode());
+       this.setHistContNationCode(tRepUnique.getContNationCode());
+       this.setHistContNeVers(tRepUnique.getContNeVers());
+       this.setHistContNom(tRepUnique.getContNom());
+       this.setHistContNomCourt(tRepUnique.getContNomCourt());
+       this.setHistContNomJf(tRepUnique.getContNomJf());
+       this.setHistContNomLong(tRepUnique.getContNomLong());
+       this.setHistContNompropsieg(tRepUnique.getContNompropsieg());
+       this.setHistContNum(tRepUnique.getContNum());
+       this.setHistContNuminsae(tRepUnique.getContNuminsae());
+       this.setHistContNuminsae1(tRepUnique.getContNuminsae1());
+       this.setHistContPren(tRepUnique.getContPren());
+       this.setHistContPrnompropsieg(tRepUnique.getContPrnompropsieg());
+       this.setHistContProfCode(tRepUnique.getContProfCode());
+       this.setHistContProp(tRepUnique.getContProp());
+       this.setHistContQuart(tRepUnique.getContQuart());
+       this.setHistContRais(tRepUnique.getContRais());
+       this.setHistContReimmatr(tRepUnique.getContReimmatr());
+       this.setHistContRue(tRepUnique.getContRue());
+       this.setHistContSexe(tRepUnique.getContSexe());
+       this.setHistContSitMat(tRepUnique.getContSitMat());
+       this.setHistContStatut(tRepUnique.getContStatut());
+       this.setHistContTypContCode(tRepUnique.getContTypContCode().getTypContCode());
+       this.setHistContVille(tRepUnique.getContVille());
+       this.setHistMotifCode(tMotif);   // a revoir
+       this.setHistContImmatr( tRepUnique);  // a revoir
+       this.setHistUtilLogin(tUtilisateur); // a revoir
+
     }
 
     public Long getHistNum() {
@@ -758,6 +831,23 @@ public class THistorique implements Serializable {
         this.histMotifCode = histMotifCode;
     }
 
+    public Date getHistDateDebut() {
+        return histDateDebut;
+    }
+
+    public void setHistDateDebut(Date histDateDebut) {
+        this.histDateDebut = histDateDebut;
+    }
+
+    public Date getHistDateFin() {
+        return histDateFin;
+    }
+
+    public void setHistDateFin(Date histDateFin) {
+        this.histDateFin = histDateFin;
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 0;
