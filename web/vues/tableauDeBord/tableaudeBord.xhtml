@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../template.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="top">
+
+    </ui:define>
+
+    <ui:define name="body">
+        <h:form id="formulairePrincipal"> 
+            <p:layout style="min-width:400px;min-height:200px;">
+                <p:layoutUnit position="west" resizable="true" size="100" minSize="40" maxSize="200">
+                    <p:tree value="#{tableauDeBordController.treeRoot}" var="node" animate="true" selectionMode="single" selection="#{tableauDeBordController.selectedNode}">
+                        <p:ajax event="select" update="@form:listePanel @form:ficheDetail" listener="#{tableauDeBordController.onNodeSelect}" />
+                        <p:treeNode  expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed">
+                            <h:outputText value="#{node}" />
+                        </p:treeNode>
+                    </p:tree>
+                </p:layoutUnit>
+
+                <p:layoutUnit id="dataPanel" position="center" resizable="true">
+                    
+                    <p:outputPanel id="listePanel">
+                        <ui:include src="ListContribuable.xhtml"/>
+                    </p:outputPanel>
+
+                    <p:panel  id="ficheDetail">
+                        
+                        <ui:include src="FicheContribuable.xhtml"/>
+                    </p:panel>
+                </p:layoutUnit>
+            </p:layout>
+        </h:form>
+    </ui:define>
+
+    <ui:define name="bottom">
+
+    </ui:define>
+
+</ui:composition>

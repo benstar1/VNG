@@ -52,6 +52,7 @@ public class TDeclarationFiscaleController implements Serializable {
     private int selectedItemIndex;
 
     public TDeclarationFiscaleController() {
+        System.out.println("dans le constructeur de declaration fiscal ............................");
     }
 
     public TDeclarationFiscale getSelected() {

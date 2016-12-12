@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <p:dataTable id="madatatable" value="#{tableauDeBordController.listeTRepUnique}" var="item" rowKey="#{item.contNum}" selection="#{tableauDeBordController.selectedTRepUnique}" selectionMode="single" rendered="#{tableauDeBordController.ficheContribuable == false}">
+            <p:ajax event="rowSelect" listener="#{tableauDeBordController.onRowSelect}" update="@form:ficheDetail @form:listePanel"/>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.ListTRepUniqueTitle_contNum}"/>
+                </f:facet>
+                <h:outputText value="#{item.contNum}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.ListTRepUniqueTitle_contDatenreg}"/>
+                </f:facet>
+                <h:outputText value="#{item.contDatenreg}">
+                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                </h:outputText>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.ListTRepUniqueTitle_contImmatr}"/>
+                </f:facet>
+                <h:outputText value="#{item.contImmatr}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.ListTRepUniqueTitle_contDateimmatr}"/>
+                </f:facet>
+                <h:outputText value="#{item.contDateimmatr}">
+                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                </h:outputText>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.ListTRepUniqueTitle_contReimmatr}"/>
+                </f:facet>
+                <h:outputText value="#{item.contReimmatr}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.ListTRepUniqueTitle_contNom}"/>
+                </f:facet>
+                <h:outputText value="#{item.contNom}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.ListTRepUniqueTitle_contPren}"/>
+                </f:facet>
+                <h:outputText value="#{item.contPren}"/>
+            </p:column>
+        </p:dataTable>
+
+    </body>
+</html>

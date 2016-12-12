@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -44,7 +45,7 @@ public class TDepartement implements Serializable {
     @Size(min = 1, max = 10)
     @Column(name = "DEP_LIBELLE")
     private String depLibelle;
-    @OneToMany(mappedBy = "centrDepCode")
+    @OneToMany(mappedBy = "centrDepCode", fetch = FetchType.EAGER)
     private List<TCentreImpot> tCentreImpotList;
 
     public TDepartement() {

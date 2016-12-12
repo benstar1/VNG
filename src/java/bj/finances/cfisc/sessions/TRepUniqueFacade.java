@@ -5,6 +5,7 @@
  */
 package bj.finances.cfisc.sessions;
 
+import bj.finances.cfisc.entities.TCentreImpot;
 import bj.finances.cfisc.entities.TRepUnique;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -40,4 +41,9 @@ public class TRepUniqueFacade extends AbstractFacade<TRepUnique> {
         return em.createNamedQuery("TRepUnique.findByContImmatlike").setParameter("contImmatr", immat + "%").getResultList();
 
     }
+    
+    public List<TRepUnique> findAllByCentreImpot(TCentreImpot tCentreImpot) {
+        List<TRepUnique> listeContribuables = em.createNamedQuery("TRepUnique.findAllByContCentrImpCode").setParameter("contCentrImpCode", tCentreImpot).getResultList();
+        return listeContribuables;
+    }    
 }
