@@ -20,7 +20,7 @@
                             <br />
                             
                             
-                            <p:panelGrid columns="3"  >
+                            <p:panelGrid id="pd" columns="3"  >
                                 <p:outputLabel value="Numéro IFU : " for="ifu" />
                                 <h:inputText readonly="true" id="ifu" value="#{tRepUniqueController.selected.contImmatr}" required="true" requiredMessage="Le numéro IFU est obligatoire">
                                 
@@ -95,13 +95,9 @@
                                     <f:facet name="header">
                                         <h:outputText value="Statut"/>
                                     </f:facet>
-                                    <c:if test="#{tRepUniqueController.itemsIfu.contStatut eq 'A'}" >
-                                        <h:outputText value="ACTIVE"/>
-                                    </c:if>
                                     
-                                    <c:if test="#{tRepUniqueController.itemsIfu.contStatut eq 'D'}" >
-                                        <h:outputText value="DESACTIVE"/>
-                                    </c:if>
+                                    <h:outputText value="#{tRepUniqueController.afficheStatut}"/>
+                                    
                                     
                                 </h:column>
                                 
@@ -110,17 +106,7 @@
                                     <f:facet name="header">
                                         <h:outputText value="ACTION"/>
                                     </f:facet>
-                                    <c:if test="#{tRepUniqueController.itemsIfu.contStatut eq 'A'}" >
-                                        <p:commandButton  value="Désactiver" action="#{tRepUniqueController.MAJDesactive}" process="@this"/>
-                                           
-                                        
-                                        
-                                    </c:if>
-                                    
-                                    <c:if test="#{tRepUniqueController.itemsIfu.contStatut eq 'D'}">
-                                        <p:commandButton  value="Activer" action="#{tRepUniqueController.MAJActive}" process="@this"/>
-                                    </c:if>
-                                    
+                                    <p:commandButton  value="#{tRepUniqueController.statut}" action="#{tRepUniqueController.MAJStatut()}" update=":MAJICreateForm:rech @form" ajax="true" />
                                 </h:column>
                                 
 
