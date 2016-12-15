@@ -14,6 +14,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
@@ -36,6 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TArticle.findAll", query = "SELECT t FROM TArticle t"),
+    @NamedQuery(name = "TArticle.findAllByDeclaration", query = "SELECT t FROM TArticle t WHERE t.tDeclarationDou =:tDeclarationDou"),
     @NamedQuery(name = "TArticle.findByInstanceid", query = "SELECT t FROM TArticle t WHERE t.tArticlePK.instanceid = :instanceid"),
     @NamedQuery(name = "TArticle.findByKeyItmNbr", query = "SELECT t FROM TArticle t WHERE t.tArticlePK.keyItmNbr = :keyItmNbr"),
     @NamedQuery(name = "TArticle.findByPckNbr", query = "SELECT t FROM TArticle t WHERE t.pckNbr = :pckNbr"),
@@ -387,7 +389,7 @@ public class TArticle implements Serializable {
     private Long quoId;
     @Column(name = "QUO_ITM_NBR")
     private Long quoItmNbr;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tArticle")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tArticle", fetch = FetchType.EAGER)
     private List<TTaxeDeclDou> tTaxeDeclDouList;
     @JoinColumn(name = "INSTANCEID", referencedColumnName = "INSTANCEID", insertable = false, updatable = false)
     @ManyToOne(optional = false)
@@ -459,7 +461,7 @@ public class TArticle implements Serializable {
     public void setTarHscNb1(String tarHscNb1) {
         this.tarHscNb1 = tarHscNb1;
     }
-
+//
 //    public String getTarHscNb2() {
 //        return tarHscNb2;
 //    }

@@ -8,8 +8,7 @@ import bj.finances.cfisc.sessions.THistStatutFacade;
 import java.io.Serializable;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -17,8 +16,9 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.inject.Named;
 
-@ManagedBean(name = "tHistStatutController")
+@Named(value = "tHistStatutController")
 @SessionScoped
 public class THistStatutController implements Serializable {
 
@@ -30,6 +30,10 @@ public class THistStatutController implements Serializable {
     private int selectedItemIndex;
 
     public THistStatutController() {
+    }
+
+    public THistStatutController(THistStatut current) {
+        this.current = current;
     }
 
     public THistStatut getSelected() {
@@ -89,7 +93,17 @@ public class THistStatutController implements Serializable {
             return null;
         }
     }
-
+    
+  public String archiverStatut(THistStatut tHistStatut) {
+        try {
+            getFacade().create(tHistStatut);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("THistStatutCreated"));
+            return prepareCreate();
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            return null;
+        }
+    }
     public String prepareEdit() {
         current = (THistStatut) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();

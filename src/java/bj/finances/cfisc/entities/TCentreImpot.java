@@ -33,7 +33,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "TCentreImpot.findAll", query = "SELECT t FROM TCentreImpot t"),
     @NamedQuery(name = "TCentreImpot.findByCentrImpCode", query = "SELECT t FROM TCentreImpot t WHERE t.centrImpCode = :centrImpCode"),
-    @NamedQuery(name = "TCentreImpot.findByCentrImpLibelle", query = "SELECT t FROM TCentreImpot t WHERE t.centrImpLibelle = :centrImpLibelle")})
+    @NamedQuery(name = "TCentreImpot.findByCentrImpLibelle", query = "SELECT t FROM TCentreImpot t WHERE t.centrImpLibelle = :centrImpLibelle"),
+    @NamedQuery(name = "TCentreImpot.findByCentrDepCode", query = "SELECT t FROM TCentreImpot t WHERE t.centrDepCode = :centrDepCode")})
 public class TCentreImpot implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

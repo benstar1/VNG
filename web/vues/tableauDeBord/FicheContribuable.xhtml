@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <body>
+        <h:panelGrid  columns="2">
+            <p:commandButton value="Retour" actionListener="#{tableauDeBordController.retour()}"  update="@form:ficheDetail @form:listePanel"/>
+            <h:outputLabel value=""/>
+            <h:outputLabel value="#{bundle.EditTRepUniqueLabel_contNum}" for="contNum" />
+            <h:inputText id="contNum" value="#{tableauDeBordController.selectedTRepUnique.contNum}" title="#{bundle.EditTRepUniqueTitle_contNum}" required="true" requiredMessage="#{bundle.EditTRepUniqueRequiredMessage_contNum}"/>
+            <h:outputLabel value="#{bundle.EditTRepUniqueLabel_contDatenreg}" for="contDatenreg" />
+            <h:inputText id="contDatenreg" value="#{tableauDeBordController.selectedTRepUnique.contDatenreg}" title="#{bundle.EditTRepUniqueTitle_contDatenreg}" required="true" requiredMessage="#{bundle.EditTRepUniqueRequiredMessage_contDatenreg}">
+                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+            </h:inputText>
+            <h:outputLabel value="#{bundle.EditTRepUniqueLabel_contImmatr}" for="contImmatr" />
+            <h:inputText id="contImmatr" value="#{tableauDeBordController.selectedTRepUnique.contImmatr}" title="#{bundle.EditTRepUniqueTitle_contImmatr}" required="true" requiredMessage="#{bundle.EditTRepUniqueRequiredMessage_contImmatr}"/>
+            <h:outputLabel value="#{bundle.EditTRepUniqueLabel_contDateimmatr}" for="contDateimmatr" />
+            <h:inputText id="contDateimmatr" value="#{tableauDeBordController.selectedTRepUnique.contDateimmatr}" title="#{bundle.EditTRepUniqueTitle_contDateimmatr}" >
+                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+            </h:inputText>
+            <h:outputLabel value="#{bundle.EditTRepUniqueLabel_contReimmatr}" for="contReimmatr" />
+            <h:inputText id="contReimmatr" value="#{tableauDeBordController.selectedTRepUnique.contReimmatr}" title="#{bundle.EditTRepUniqueTitle_contReimmatr}" />
+            <h:outputLabel value="#{bundle.EditTRepUniqueLabel_contNom}" for="contNom" />
+            <h:inputText id="contNom" value="#{tableauDeBordController.selectedTRepUnique.contNom}" title="#{bundle.EditTRepUniqueTitle_contNom}" />
+            <h:outputLabel value="#{bundle.EditTRepUniqueLabel_contPren}" for="contPren" />
+            <h:inputText id="contPren" value="#{tableauDeBordController.selectedTRepUnique.contPren}" title="#{bundle.EditTRepUniqueTitle_contPren}" />
+            <h:outputLabel value="#{bundle.EditTRepUniqueLabel_contContNum}" for="contContNum" />
+            <h:inputText id="contContNum" value="#{tableauDeBordController.selectedTRepUnique.contContNum}" title="#{bundle.EditTRepUniqueTitle_contContNum}" />
+            <h:outputLabel value="#{bundle.EditTRepUniqueLabel_contDateRepriseAct}" for="contDateRepriseAct" />
+            <h:inputText id="contDateRepriseAct" value="#{tableauDeBordController.selectedTRepUnique.contDateRepriseAct}" title="#{bundle.EditTRepUniqueTitle_contDateRepriseAct}" >
+                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+            </h:inputText>
+            <h:outputLabel value="#{bundle.EditTRepUniqueLabel_contStatut}" for="contStatut" />
+            <h:inputText id="contStatut" value="#{tableauDeBordController.selectedTRepUnique.contStatut}" title="#{bundle.EditTRepUniqueTitle_contStatut}" />
+            <h:outputLabel value="#{bundle.EditTRepUniqueLabel_contTypContCode}" for="contTypContCode" />
+            <h:selectOneMenu id="contTypContCode" value="#{tableauDeBordController.selectedTRepUnique.contTypContCode}" title="#{bundle.EditTRepUniqueTitle_contTypContCode}" required="true" requiredMessage="#{bundle.EditTRepUniqueRequiredMessage_contTypContCode}">
+                <f:selectItems value="#{tTypeContribController.itemsAvailableSelectOne}"/>
+            </h:selectOneMenu>
+            <h:outputLabel value="#{bundle.EditTRepUniqueLabel_contCentrImpCode}" for="contCentrImpCode" />
+            <h:selectOneMenu id="contCentrImpCode" value="#{tableauDeBordController.selectedTRepUnique.contCentrImpCode}" title="#{bundle.EditTRepUniqueTitle_contCentrImpCode}" >
+                <f:selectItems value="#{tCentreImpotController.itemsAvailableSelectOne}"/>
+            </h:selectOneMenu>
+        </h:panelGrid>
+    </body>
+</html>

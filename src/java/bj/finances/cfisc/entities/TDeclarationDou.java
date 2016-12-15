@@ -35,6 +35,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({    
     @NamedQuery(name = "TDeclarationDou.findAll", query = "SELECT t FROM TDeclarationDou t"),
+    @NamedQuery(name = "TDeclarationDou.findByContribuableAndIdeRegDat", query = "SELECT t FROM TDeclarationDou t WHERE t.ideRegDat = :ideRegDat AND (t.cmpConCod =:cmpCod OR t.cmpExpCod =:cmpCod)"),
+    @NamedQuery(name = "TDeclarationDou.findByContribuableAndIdeRcpDat", query = "SELECT t FROM TDeclarationDou t WHERE t.ideRcpDat = :ideRcpDat AND (t.cmpConCod =:cmpCod OR t.cmpExpCod =:cmpCod)" ),
+    @NamedQuery(name = "TDeclarationDou.findByContribuableAndIdeAstDat", query = "SELECT t FROM TDeclarationDou t WHERE t.ideAstDat = :ideAstDat AND (t.cmpConCod =:cmpCod OR t.cmpExpCod =:cmpCod)" ),
+    @NamedQuery(name = "TDeclarationDou.findAllByContribuable", query = "SELECT t FROM TDeclarationDou t WHERE (t.cmpConCod =:cmpCod OR t.cmpExpCod =:cmpCod)"),
+    @NamedQuery(name = "TDeclarationDou.findByInstanceid", query = "SELECT t FROM TDeclarationDou t WHERE t.instanceid = :instanceid"),
     @NamedQuery(name = "TDeclarationDou.findByInstanceId", query = "SELECT t FROM TDeclarationDou t WHERE t.instanceid = :instanceid"),
     @NamedQuery(name = "TDeclarationDou.findByRlsCuoCod", query = "SELECT t FROM TDeclarationDou t WHERE t.rlsCuoCod = :rlsCuoCod"),
     @NamedQuery(name = "TDeclarationDou.findByRlsCuoNam", query = "SELECT t FROM TDeclarationDou t WHERE t.rlsCuoNam = :rlsCuoNam"),

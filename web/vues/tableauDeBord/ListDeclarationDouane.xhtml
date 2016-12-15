@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+        <ui:include src="FicheDeclarationDou.xhtml"  />
+        <p:dataTable value="#{tableauDeBordController.listeTDeclarationDou}" var="item" rowKey="#{item.instanceid}" selection="#{tableauDeBordController.selectedTDeclarationDou}" selectionMode="single" scrollable="true" scrollHeight="150">
+            <p:ajax event="rowSelect" oncomplete="PF('dlg2').show();" listener="#{tableauDeBordController.onDeclarationDouaneRowSelect}" update="@form:ficheDetail @form:listePanel"/>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.ListTDeclarationDouTitle_instanceid}"/>
+                </f:facet>
+                <h:outputText value="#{item.instanceid}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.ListTDeclarationDouTitle_rlsCuoCod}"/>
+                </f:facet>
+                <h:outputText value="#{item.rlsCuoCod}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.ListTDeclarationDouTitle_rlsCuoNam}"/>
+                </f:facet>
+                <h:outputText value="#{item.rlsCuoNam}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.ListTDeclarationDouTitle_decCod}"/>
+                </f:facet>
+                <h:outputText value="#{item.decCod}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.ListTDeclarationDouTitle_decNam}"/>
+                </f:facet>
+                <h:outputText value="#{item.decNam}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.ListTDeclarationDouTitle_decRefYer}"/>
+                </f:facet>
+                <h:outputText value="#{item.decRefYer}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.ListTDeclarationDouTitle_decRefNbr}"/>
+                </f:facet>
+                <h:outputText value="#{item.decRefNbr}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.ListTDeclarationDouTitle_decRep}"/>
+                </f:facet>
+                <h:outputText value="#{item.decRep}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.ListTDeclarationDouTitle_genCtyFlt}"/>
+                </f:facet>
+                <h:outputText value="#{item.genCtyFlt}"/>
+            </p:column>
+
+        </p:dataTable>
+    </body>
+</html>

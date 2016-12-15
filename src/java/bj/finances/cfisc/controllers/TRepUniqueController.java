@@ -4,6 +4,7 @@ import bj.finances.cfisc.entities.TRepUnique;
 import bj.finances.cfisc.controllers.util.JsfUtil;
 import bj.finances.cfisc.controllers.util.PaginationHelper;
 import bj.finances.cfisc.entities.TCentreImpot;
+import bj.finances.cfisc.entities.THistStatut;
 import bj.finances.cfisc.sessions.TCentreImpotFacade;
 import bj.finances.cfisc.sessions.TRepUniqueFacade;
 
@@ -12,8 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
+//import javax.faces.bean.ManagedBean;
+//import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -22,8 +24,11 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
+import javax.inject.Named;
 
-@ManagedBean(name = "tRepUniqueController")
+//@ManagedBean(name = "tRepUniqueController")
+@Named (value ="tRepUniqueController")
 @SessionScoped
 public class TRepUniqueController implements Serializable {
 
@@ -56,6 +61,8 @@ public class TRepUniqueController implements Serializable {
         this.statut = statut;
     }
 // fin 
+    @Inject
+    private THistStatutController tHistStatutController;
     
     private TRepUnique current;
     private DataModel items = null;
@@ -65,6 +72,8 @@ public class TRepUniqueController implements Serializable {
 
     private TRepUnique ItemsIfu;
 
+    THistStatut THistStatut ;
+    
     @EJB
     private bj.finances.cfisc.sessions.TRepUniqueFacade ejbFacade;
     private PaginationHelper pagination;
@@ -152,8 +161,11 @@ public class TRepUniqueController implements Serializable {
             return null;
         }
     }
+// Instanciation d'un objet tHistStatut
+    THistStatut tHistStatut = new THistStatut();
 
     public String prepareEdit() {
+       
         current = (TRepUnique) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";

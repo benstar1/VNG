@@ -38,6 +38,7 @@ public class TEntDeclarationController implements Serializable {
     private boolean valider =false;
     
     public TEntDeclarationController() {
+        System.out.println("PAPA MAMAN MIMI JORDI DIVINIA.......................");
     }
 
     public boolean isValider() {

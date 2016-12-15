@@ -36,12 +36,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TRepUnique.findAll", query = "SELECT t FROM TRepUnique t"),
+    @NamedQuery(name = "TRepUnique.findAllByContCentrImpCode", query = "SELECT t FROM TRepUnique t WHERE t.contCentrImpCode =:contCentrImpCode"),
     @NamedQuery(name = "TRepUnique.findByContNum", query = "SELECT t FROM TRepUnique t WHERE t.contNum = :contNum"),
     @NamedQuery(name = "TRepUnique.findByContDatenreg", query = "SELECT t FROM TRepUnique t WHERE t.contDatenreg = :contDatenreg"),
     @NamedQuery(name = "TRepUnique.findByContImmatr", query = "SELECT t FROM TRepUnique t WHERE t.contImmatr = :contImmatr"),
-      
     @NamedQuery(name = "TRepUnique.findByContImmatlike", query = "SELECT t FROM TRepUnique t WHERE t.contImmatr like :contImmatr"),
- 
     @NamedQuery(name = "TRepUnique.findByContDateimmatr", query = "SELECT t FROM TRepUnique t WHERE t.contDateimmatr = :contDateimmatr"),
     @NamedQuery(name = "TRepUnique.findByContReimmatr", query = "SELECT t FROM TRepUnique t WHERE t.contReimmatr = :contReimmatr"),
     @NamedQuery(name = "TRepUnique.findByContNom", query = "SELECT t FROM TRepUnique t WHERE t.contNom = :contNom"),
