@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <body>
+        <h:panelGrid columns="2" >
+        <h:outputLabel value="N° IFU :" for="numIfu" />
+        <h:inputText id="ifu" value="#{tableauDeBordController.ifu}"/>
+
+        <p:outputLabel for="console" value="Console:" />
+        <p:selectOneRadio id="console" value="#{tableauDeBordController.dateAchoisir}">
+            <f:selectItem itemLabel="Date d'enregistrement" itemValue="1" />
+            <f:selectItem itemLabel="Date de liquidation" itemValue="2" />
+            <f:selectItem itemLabel="Date de paiement" itemValue="3" />
+        </p:selectOneRadio>
+
+        <p:outputLabel for="dateDebut" value="Date début" />
+        <p:calendar id="dateDebut" value="#{tableauDeBordController.dateDebut}" showOn="button" />
+
+        <p:outputLabel for="dateFin" value="Date de fin" />
+        <p:calendar id="dateFin" value="#{tableauDeBordController.dateFin}" showOn="button"/>
+        
+        <h:commandButton value="Rechercher" actionListener="#{tableauDeBordController.recherche()}"  />
+        </h:panelGrid>
+    </body>
+</html>

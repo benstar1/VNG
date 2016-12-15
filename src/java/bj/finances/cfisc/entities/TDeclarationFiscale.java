@@ -38,6 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "TDeclarationFiscale.findAll", query = "SELECT t FROM TDeclarationFiscale t"),
     @NamedQuery(name = "TDeclarationFiscale.findByDeclarNum", query = "SELECT t FROM TDeclarationFiscale t WHERE t.declarNum = :declarNum"),
+    @NamedQuery(name = "TDeclarationFiscale.findAllByContribuable", query = "SELECT t FROM TDeclarationFiscale t WHERE t.declarNum = :cmpCod"),
     @NamedQuery(name = "TDeclarationFiscale.findByDeclarReference", query = "SELECT t FROM TDeclarationFiscale t WHERE t.declarReference = :declarReference"),
     @NamedQuery(name = "TDeclarationFiscale.findByDeclarDate", query = "SELECT t FROM TDeclarationFiscale t WHERE t.declarDate = :declarDate"),
     @NamedQuery(name = "TDeclarationFiscale.findByDeclarBureau", query = "SELECT t FROM TDeclarationFiscale t WHERE t.declarBureau = :declarBureau"),

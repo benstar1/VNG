@@ -12,7 +12,7 @@
 
     <ui:define name="body">
         <h:form id="formulairePrincipal"> 
-            <p:layout style="min-width:400px;min-height:200px;">
+            <p:layout style="min-width:100%;min-height:100%;">
                 <p:layoutUnit position="west" resizable="true" size="100" minSize="40" maxSize="200">
                     <p:tree value="#{tableauDeBordController.treeRoot}" var="node" animate="true" selectionMode="single" selection="#{tableauDeBordController.selectedNode}">
                         <p:ajax event="select" update="@form:listePanel @form:ficheDetail" listener="#{tableauDeBordController.onNodeSelect}" />
@@ -23,14 +23,25 @@
                 </p:layoutUnit>
 
                 <p:layoutUnit id="dataPanel" position="center" resizable="true">
-                    
+                    <p:outputPanel id="formulaire">
+                        <ui:include src="FormualaireRecherche.xhtml"/>
+                    </p:outputPanel>
                     <p:outputPanel id="listePanel">
                         <ui:include src="ListContribuable.xhtml"/>
                     </p:outputPanel>
 
                     <p:panel  id="ficheDetail">
-                        
-                        <ui:include src="FicheContribuable.xhtml"/>
+                        <p:panel  rendered="#{tableauDeBordController.ficheContribuable == true}">
+                            
+                            <div>
+                                <div><ui:include src="FicheContribuable.xhtml"/></div>
+                                <div><ui:include src="ListDeclarationDouane.xhtml"/></div>
+                            </div>
+                            <div>
+                                <div>historique (activation/desactivation) du contribuable</div>
+                                <div><ui:include src="ListDeclarationFiscales.xhtml"/></div>
+                            </div>                      
+                        </p:panel>
                     </p:panel>
                 </p:layoutUnit>
             </p:layout>

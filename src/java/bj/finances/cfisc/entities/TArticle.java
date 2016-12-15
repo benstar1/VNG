@@ -13,6 +13,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
@@ -35,6 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TArticle.findAll", query = "SELECT t FROM TArticle t"),
+    @NamedQuery(name = "TArticle.findAllByDeclaration", query = "SELECT t FROM TArticle t WHERE t.tDeclarationDou =:tDeclarationDou"),
     @NamedQuery(name = "TArticle.findByInstanceid", query = "SELECT t FROM TArticle t WHERE t.tArticlePK.instanceid = :instanceid"),
     @NamedQuery(name = "TArticle.findByKeyItmNbr", query = "SELECT t FROM TArticle t WHERE t.tArticlePK.keyItmNbr = :keyItmNbr"),
     @NamedQuery(name = "TArticle.findByPckNbr", query = "SELECT t FROM TArticle t WHERE t.pckNbr = :pckNbr"),
@@ -43,10 +45,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TArticle.findByPckTypCod", query = "SELECT t FROM TArticle t WHERE t.pckTypCod = :pckTypCod"),
     @NamedQuery(name = "TArticle.findByPckTypNam", query = "SELECT t FROM TArticle t WHERE t.pckTypNam = :pckTypNam"),
     @NamedQuery(name = "TArticle.findByTarHscNb1", query = "SELECT t FROM TArticle t WHERE t.tarHscNb1 = :tarHscNb1"),
-    @NamedQuery(name = "TArticle.findByTarHscNb2", query = "SELECT t FROM TArticle t WHERE t.tarHscNb2 = :tarHscNb2"),
-    @NamedQuery(name = "TArticle.findByTarHscNb3", query = "SELECT t FROM TArticle t WHERE t.tarHscNb3 = :tarHscNb3"),
-    @NamedQuery(name = "TArticle.findByTarHscNb4", query = "SELECT t FROM TArticle t WHERE t.tarHscNb4 = :tarHscNb4"),
-    @NamedQuery(name = "TArticle.findByTarHscNb5", query = "SELECT t FROM TArticle t WHERE t.tarHscNb5 = :tarHscNb5"),
+//    @NamedQuery(name = "TArticle.findByTarHscNb2", query = "SELECT t FROM TArticle t WHERE t.tarHscNb2 = :tarHscNb2"),
+//    @NamedQuery(name = "TArticle.findByTarHscNb3", query = "SELECT t FROM TArticle t WHERE t.tarHscNb3 = :tarHscNb3"),
+//    @NamedQuery(name = "TArticle.findByTarHscNb4", query = "SELECT t FROM TArticle t WHERE t.tarHscNb4 = :tarHscNb4"),
+//    @NamedQuery(name = "TArticle.findByTarHscNb5", query = "SELECT t FROM TArticle t WHERE t.tarHscNb5 = :tarHscNb5"),
     @NamedQuery(name = "TArticle.findByTarHscTscDat", query = "SELECT t FROM TArticle t WHERE t.tarHscTscDat = :tarHscTscDat"),
     @NamedQuery(name = "TArticle.findByTarHscTscSta", query = "SELECT t FROM TArticle t WHERE t.tarHscTscSta = :tarHscTscSta"),
     @NamedQuery(name = "TArticle.findByTarPrf", query = "SELECT t FROM TArticle t WHERE t.tarPrf = :tarPrf"),
@@ -149,21 +151,21 @@ public class TArticle implements Serializable {
     @Size(max = 35)
     @Column(name = "PCK_TYP_NAM")
     private String pckTypNam;
-    @Size(max = 8)
+    @Size(max = 10)
     @Column(name = "TAR_HSC_NB1")
     private String tarHscNb1;
-    @Size(max = 3)
-    @Column(name = "TAR_HSC_NB2")
-    private String tarHscNb2;
-    @Size(max = 4)
-    @Column(name = "TAR_HSC_NB3")
-    private String tarHscNb3;
-    @Size(max = 4)
-    @Column(name = "TAR_HSC_NB4")
-    private String tarHscNb4;
-    @Size(max = 4)
-    @Column(name = "TAR_HSC_NB5")
-    private String tarHscNb5;
+//    @Size(max = 3)
+//    @Column(name = "TAR_HSC_NB2")
+//    private String tarHscNb2;
+//    @Size(max = 4)
+//    @Column(name = "TAR_HSC_NB3")
+//    private String tarHscNb3;
+//    @Size(max = 4)
+//    @Column(name = "TAR_HSC_NB4")
+//    private String tarHscNb4;
+//    @Size(max = 4)
+//    @Column(name = "TAR_HSC_NB5")
+//    private String tarHscNb5;
     @Column(name = "TAR_HSC_TSC_DAT")
     @Temporal(TemporalType.TIMESTAMP)
     private Date tarHscTscDat;
@@ -380,7 +382,7 @@ public class TArticle implements Serializable {
     private Long quoId;
     @Column(name = "QUO_ITM_NBR")
     private Long quoItmNbr;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tArticle")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tArticle", fetch = FetchType.EAGER)
     private List<TTaxeDeclDou> tTaxeDeclDouList;
     @JoinColumn(name = "INSTANCEID", referencedColumnName = "INSTANCEID", insertable = false, updatable = false)
     @ManyToOne(optional = false)
@@ -452,38 +454,38 @@ public class TArticle implements Serializable {
     public void setTarHscNb1(String tarHscNb1) {
         this.tarHscNb1 = tarHscNb1;
     }
-
-    public String getTarHscNb2() {
-        return tarHscNb2;
-    }
-
-    public void setTarHscNb2(String tarHscNb2) {
-        this.tarHscNb2 = tarHscNb2;
-    }
-
-    public String getTarHscNb3() {
-        return tarHscNb3;
-    }
-
-    public void setTarHscNb3(String tarHscNb3) {
-        this.tarHscNb3 = tarHscNb3;
-    }
-
-    public String getTarHscNb4() {
-        return tarHscNb4;
-    }
-
-    public void setTarHscNb4(String tarHscNb4) {
-        this.tarHscNb4 = tarHscNb4;
-    }
-
-    public String getTarHscNb5() {
-        return tarHscNb5;
-    }
-
-    public void setTarHscNb5(String tarHscNb5) {
-        this.tarHscNb5 = tarHscNb5;
-    }
+//
+//    public String getTarHscNb2() {
+//        return tarHscNb2;
+//    }
+//
+//    public void setTarHscNb2(String tarHscNb2) {
+//        this.tarHscNb2 = tarHscNb2;
+//    }
+//
+//    public String getTarHscNb3() {
+//        return tarHscNb3;
+//    }
+//
+//    public void setTarHscNb3(String tarHscNb3) {
+//        this.tarHscNb3 = tarHscNb3;
+//    }
+//
+//    public String getTarHscNb4() {
+//        return tarHscNb4;
+//    }
+//
+//    public void setTarHscNb4(String tarHscNb4) {
+//        this.tarHscNb4 = tarHscNb4;
+//    }
+//
+//    public String getTarHscNb5() {
+//        return tarHscNb5;
+//    }
+//
+//    public void setTarHscNb5(String tarHscNb5) {
+//        this.tarHscNb5 = tarHscNb5;
+//    }
 
     public Date getTarHscTscDat() {
         return tarHscTscDat;

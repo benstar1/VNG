@@ -6,6 +6,8 @@
 package bj.finances.cfisc.sessions;
 
 import bj.finances.cfisc.entities.TArticle;
+import bj.finances.cfisc.entities.TDeclarationDou;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,4 +30,10 @@ public class TArticleFacade extends AbstractFacade<TArticle> {
         super(TArticle.class);
     }
     
+    public List<TArticle> findAllByDeclaration(TDeclarationDou tDeclarationDou){
+        List<TArticle> listTArticles = em.createNamedQuery("TArticle.findAllByDeclaration")
+                                        .setParameter("tDeclarationDou", tDeclarationDou)
+                                        .getResultList();
+        return listTArticles;
+    }
 }

@@ -44,6 +44,7 @@ public class TRepUniqueFacade extends AbstractFacade<TRepUnique> {
     
     public List<TRepUnique> findAllByCentreImpot(TCentreImpot tCentreImpot) {
         List<TRepUnique> listeContribuables = em.createNamedQuery("TRepUnique.findAllByContCentrImpCode").setParameter("contCentrImpCode", tCentreImpot).getResultList();
+        System.out.println("recensement " + listeContribuables.size());
         return listeContribuables;
     }    
 }
