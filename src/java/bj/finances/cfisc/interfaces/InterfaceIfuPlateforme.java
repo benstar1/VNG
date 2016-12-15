@@ -5,6 +5,7 @@
  */
 package bj.finances.cfisc.interfaces;
 
+import bj.finances.cfisc.controllers.util.JsfUtil;
 import bj.finances.cfisc.entities.TCentreImpot;
 import bj.finances.cfisc.entities.TParticiper;
 import bj.finances.cfisc.entities.TRepUnique;
@@ -28,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -79,10 +81,9 @@ public class InterfaceIfuPlateforme {
     @Inject
     private THistoriqueFacade tHistoriqueFacade; 
 
-     //private Path path = Paths.get("C:\\Users\\SANNI Emmanuel\\Documents\\cfiscal_local");
-    private String cheminDepotLocal = "C:/cfiscal_local";
-    private String cheminDossierEchecs = "C:/cfiscal_local/echecs";
-    private String cheminDossierSucces = "C:/cfiscal_local/succes";
+    private String cheminDepotLocal = ResourceBundle.getBundle("/parametres").getString("cheminDepotLocal");
+    private String cheminDossierEchecs = ResourceBundle.getBundle("/parametres").getString("cheminDossierEchecs");
+    private String cheminDossierSucces = ResourceBundle.getBundle("/parametres").getString("cheminDossierSucces");
     private String cheminFichierXsd = "C:\\CONTRIBUABLE.xsd";
     private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     
