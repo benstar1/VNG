@@ -10,6 +10,7 @@ import bj.finances.cfisc.entities.TCentreImpot;
 import bj.finances.cfisc.entities.TRepUnique;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -17,14 +18,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Vector;
 import javax.ejb.EJB;
 //import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
 import javax.servlet.http.Part;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -99,78 +97,29 @@ public class MAJMBean extends java.lang.Object {
 
     }
 
-    public void MAJCollective() {
-
-        String fileName = "C:\\contrib_actif.xls";
-        Vector dataHolder = ReadCSV(filename);
-
-        //String file = event.getFile().getFilename();
-        for (int i = 0; i < dataHolder.size(); i++) {
-            Vector cellStoreVector = (Vector) dataHolder.elementAt(i);
-            for (int j = 0; j < cellStoreVector.size(); j++) {
-                HSSFCell myCell = (HSSFCell) cellStoreVector.elementAt(j);
-                String stringCellValue = myCell.toString();
-                System.out.print(stringCellValue + "\t");
-
-                // System.out.println(active + " "+cimpot.getCentrImpCode());
-                // tRepUnique.setContCentrImpCode(cimpot);
-                //tRepUnique.setContStatut(active);
-                // System.out.println(cimpot + " "+active + " " +   filename);
-                // tRepUniqueController.updateRunique(tRepUnique);
-            }
-            // System.out.println();
-        }
-    }
-
-    public Vector ReadCSV(String fileName) {
-        Vector cellVectorHolder = new Vector();
-
-        try {
-            //new FileInputStream
-            FileInputStream myInput = (FileInputStream) file.getInputStream();
-
-            POIFSFileSystem myFileSystem = new POIFSFileSystem(myInput);
-
-            HSSFWorkbook myWorkBook = new HSSFWorkbook(myFileSystem);
-
-            HSSFSheet mySheet = myWorkBook.getSheetAt(0);
-
-            Iterator rowIter = mySheet.rowIterator();
-
-            while (rowIter.hasNext()) {
-                HSSFRow myRow = (HSSFRow) rowIter.next();
-                Iterator cellIter = myRow.cellIterator();
-                Vector cellStoreVector = new Vector();
-                while (cellIter.hasNext()) {
-                    HSSFCell myCell = (HSSFCell) cellIter.next();
-                    cellStoreVector.addElement(myCell);
-                }
-                cellVectorHolder.addElement(cellStoreVector);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return cellVectorHolder;
-    }
-
     private Part file;
-    private String fileContent;
+//    private String fileContent;
 
     public void upload() {
         chargement = new ArrayList<>();
+        chargeAbsent = new ArrayList<>();
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-YYYY_HH-mm-ss");
-        File echecs = new File("c:\\echecs_" + cimpot.getCentrImpLibelle() + "_" + sdf.format(new Date()) + ".txt");
+        String tstamp = sdf.format(new Date());
+        File echecs = new File("c:\\cfisc\\echecs_" + cimpot.getCentrImpLibelle() + "_" + tstamp + ".txt");
+        File succes = new File("c:\\cfisc\\succes_" + cimpot.getCentrImpLibelle() + "_" + tstamp + ".txt");
+        File upload = new File("c:\\cfisc\\chargement_" + cimpot.getCentrImpLibelle() + "_" + tstamp + ".xls");
+
+        WriteCSV(file, tstamp, upload);
 
         try {
-            fileContent = new Scanner(file.getInputStream())
-                    .useDelimiter("\\A").next();
+//            fileContent = new Scanner(file.getInputStream())
+//                    .useDelimiter("\\A").next();
 
-            FileWriter out = new FileWriter(echecs);
+            FileWriter outechec = new FileWriter(echecs);
+            FileWriter outsucces = new FileWriter(succes);
 
-            //System.out.println("content " + fileContent);
-            //String fileName = "C:\\contrib_actif.xls";
-            Vector dataHolder = ReadCSV(fileContent);
+            Vector dataHolder = ReadCSV(file);
 
             //String file = event.getFile().getFilename();
             System.out.print("size " + dataHolder.size());
@@ -193,8 +142,6 @@ public class MAJMBean extends java.lang.Object {
 
                 String ifuAsSeenInExcel = fmt.formatCellValue((Cell) cellStoreVector.elementAt(0));
                 ifu = new Long(ifuAsSeenInExcel);
-
-                // ifu = new Long(cellStoreVector.elementAt(0).toString());//.toString()  );
                 centre = cellStoreVector.elementAt(4).toString();
                 String nom = cellStoreVector.elementAt(1).toString();
                 String pnom = cellStoreVector.elementAt(2).toString();
@@ -228,22 +175,25 @@ public class MAJMBean extends java.lang.Object {
                     } else {
                         tRepUnique.setContStatut(statut);
                         tRepUniqueFacade.edit(tRepUnique);
-                        
+
                         chargement.add(tRepUnique);
                         charge = chargement;
 //                        if(cimpot.equals(tRepUnique.getCont)){
 //                            
 //                        }
                     }
+                    outsucces.write(ifu.toString() + " " + nom + " " + pnom + " \n");
                 } else {
 
-                    out.write(ifu.toString() + " " + nom + " " + pnom + " \n");
+                    outechec.write(ifu.toString() + " " + nom + " " + pnom + " \n");
+                    chargeAbsent.add(ifu.toString() + "\t           " + nom + " \t " + pnom);
 
                 }
             }
 
-            out.close();
-
+            outechec.close();
+            outsucces.close();
+            
         } catch (NumberFormatException e) {
             System.err.println("Erreur sur le format de nombre " + e.getMessage());
         } catch (IOException ex) {
@@ -251,7 +201,67 @@ public class MAJMBean extends java.lang.Object {
         }
     }
 
+    public Vector ReadCSV(Part fichier) {
+        Vector cellVectorHolder = new Vector();
+
+        fichier = file;
+        try {
+            //new FileInputStream
+            FileInputStream myInput = (FileInputStream) fichier.getInputStream();
+
+            POIFSFileSystem myFileSystem = new POIFSFileSystem(myInput);
+
+            HSSFWorkbook myWorkBook = new HSSFWorkbook(myFileSystem);
+
+            HSSFSheet mySheet = myWorkBook.getSheetAt(0);
+
+            Iterator rowIter = mySheet.rowIterator();
+
+            while (rowIter.hasNext()) {
+                HSSFRow myRow = (HSSFRow) rowIter.next();
+                Iterator cellIter = myRow.cellIterator();
+                Vector cellStoreVector = new Vector();
+                while (cellIter.hasNext()) {
+                    HSSFCell myCell = (HSSFCell) cellIter.next();
+                    cellStoreVector.addElement(myCell);
+                }
+                cellVectorHolder.addElement(cellStoreVector);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cellVectorHolder;
+    }
+
+    public void WriteCSV(Part fichier, String timestamp, File upload) {
+        fichier = file;
+        try {
+            //new FileInputStream
+            FileInputStream myInput = (FileInputStream) fichier.getInputStream();
+
+            POIFSFileSystem myFileSystem = new POIFSFileSystem(myInput);
+
+            HSSFWorkbook myWorkBook = new HSSFWorkbook(myFileSystem);
+
+            FileOutputStream out = new FileOutputStream(upload);
+            myWorkBook.write(out);
+            out.close();
+
+        } catch (IOException e) {
+            System.out.println("Erreur I/O" + e.getMessage());
+        }
+    }
+
     private List<TRepUnique> charge = null;
+    private List<String> chargeAbsent = null;
+
+    public List<String> getChargeAbsent() {
+        return chargeAbsent;
+    }
+
+    public void setChargeAbsent(List<String> chargeAbsent) {
+        this.chargeAbsent = chargeAbsent;
+    }
 
     public List<TRepUnique> getCharge() {
         return charge;
@@ -263,7 +273,7 @@ public class MAJMBean extends java.lang.Object {
 
     public void chargement() {
 
-        System.out.println(" Cargement " + charge);
+        System.out.println(" Chargement " + charge);
 
     }
 
