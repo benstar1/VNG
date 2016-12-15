@@ -34,7 +34,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "THistStatut.findByHistStatutCode", query = "SELECT t FROM THistStatut t WHERE t.histStatutCode = :histStatutCode"),
     @NamedQuery(name = "THistStatut.findByHistStatutDatedebut", query = "SELECT t FROM THistStatut t WHERE t.histStatutDatedebut = :histStatutDatedebut"),
     @NamedQuery(name = "THistStatut.findByHistStatutDatefin", query = "SELECT t FROM THistStatut t WHERE t.histStatutDatefin = :histStatutDatefin"),
-    @NamedQuery(name = "THistStatut.findByHistStatutStatut", query = "SELECT t FROM THistStatut t WHERE t.histStatutStatut = :histStatutStatut")})
+    @NamedQuery(name = "THistStatut.findByHistStatutLast", query = "SELECT t FROM THistStatut t WHERE t.histStatutDatefin = :histStatutDatefin AND t.histStatutContImmatr = :histStatutContImmatr"),
+    @NamedQuery(name = "THistStatut.findByHistStatutStatut", query = "SELECT t FROM THistStatut t WHERE t.histStatutStatut = :histStatutStatut"),
+//    @NamedQuery(name = "THistStatut.updateTHistStatu", query = "UPDATE  THistStatut t SET t.histStatutCode= :histStatutCode, t.histStatutContImmatr =:histStatutContImmatr, t.histStatutDatedebut= :histStatutDatedebut, t.histStatutDatefin= :histStatutDatefin, t.histStatutStatut= :histStatutStatut, t.histStatutUtilLogin = :histStatutUtilLogin WHERE t.histStatutContImmatr= :histStatutContImmatr"),
+    @NamedQuery(name = "THistStatut.findByHistStatutContImmatr", query = "SELECT t FROM THistStatut t WHERE t.histStatutContImmatr = :histStatutContImmatr")})
 public class THistStatut implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -61,7 +64,13 @@ public class THistStatut implements Serializable {
 
     public THistStatut() {
     }
-
+    public THistStatut( TRepUnique tRepUnique,TUtilisateur tUtilisateur) {
+        this.histStatutCode = tRepUnique.getContStatut();
+        this.histStatutContImmatr = tRepUnique;
+        this.histStatutDatedebut = new Date();
+        this.histStatutStatut = tRepUnique.getContStatut();
+        this.histStatutUtilLogin = tUtilisateur;
+    }
     public THistStatut(String histStatutCode) {
         this.histStatutCode = histStatutCode;
     }

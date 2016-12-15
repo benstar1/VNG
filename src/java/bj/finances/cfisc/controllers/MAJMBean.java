@@ -8,18 +8,21 @@ package bj.finances.cfisc.controllers;
 //import bj.finances.cfisc.controllers.TRepUniqueController;
 import bj.finances.cfisc.entities.TCentreImpot;
 import bj.finances.cfisc.entities.TRepUnique;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Vector;
 import javax.ejb.EJB;
 //import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
 import javax.servlet.http.Part;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -40,16 +43,14 @@ public class MAJMBean extends java.lang.Object {
 
 //    @EJB
 //    private TRepUniqueFacade tRepUniqueFacade;
-     @EJB
+    @EJB
     private bj.finances.cfisc.sessions.TRepUniqueFacade tRepUniqueFacade;
-    
-       // @Inject
+
+    // @Inject
     TRepUniqueController tRepUniqueController;
-    
-        
-    
+
     private TRepUnique tRepUnique;
-    private List<TRepUnique> chargement=null;
+    private List<TRepUnique> chargement = null;
 
     public List<TRepUnique> getChargement() {
         return chargement;
@@ -87,8 +88,6 @@ public class MAJMBean extends java.lang.Object {
         this.statut = statut;
     }
 
-
-
     public TRepUniqueController gettRepUniqueController() {
         return tRepUniqueController;
     }
@@ -98,35 +97,117 @@ public class MAJMBean extends java.lang.Object {
 
     }
 
-    public void MAJCollective() {
+    private Part file;
+//    private String fileContent;
 
-        String fileName = "C:\\contrib_actif.xls";
-        Vector dataHolder = ReadCSV(filename);
+    public void upload() {
+        chargement = new ArrayList<>();
+        chargeAbsent = new ArrayList<>();
 
-        //String file = event.getFile().getFilename();
-        for (int i = 0; i < dataHolder.size(); i++) {
-            Vector cellStoreVector = (Vector) dataHolder.elementAt(i);
-            for (int j = 0; j < cellStoreVector.size(); j++) {
-                HSSFCell myCell = (HSSFCell) cellStoreVector.elementAt(j);
-                String stringCellValue = myCell.toString();
-                System.out.print(stringCellValue + "\t");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-YYYY_HH-mm-ss");
+        String tstamp = sdf.format(new Date());
+        File echecs = new File("c:\\cfisc\\echecs_" + cimpot.getCentrImpLibelle() + "_" + tstamp + ".txt");
+        File succes = new File("c:\\cfisc\\succes_" + cimpot.getCentrImpLibelle() + "_" + tstamp + ".txt");
+        File upload = new File("c:\\cfisc\\chargement_" + cimpot.getCentrImpLibelle() + "_" + tstamp + ".xls");
 
-                // System.out.println(active + " "+cimpot.getCentrImpCode());
+        WriteCSV(file, tstamp, upload);
+
+        try {
+//            fileContent = new Scanner(file.getInputStream())
+//                    .useDelimiter("\\A").next();
+
+            FileWriter outechec = new FileWriter(echecs);
+            FileWriter outsucces = new FileWriter(succes);
+
+            Vector dataHolder = ReadCSV(file);
+
+            //String file = event.getFile().getFilename();
+            System.out.print("size " + dataHolder.size());
+
+            for (int i = 1; i < dataHolder.size(); i++) {
+                Vector cellStoreVector = (Vector) dataHolder.elementAt(i);
+                System.out.print("size " + cellStoreVector.size());
+//            for (int j = 0; j < cellStoreVector.size(); j++) {
+//                HSSFCell myCell = (HSSFCell) cellStoreVector.elementAt(j);
+//                String stringCellValue = myCell.toString();
+
+                //System.out.print(stringCellValue + "\t");
+                //   System.out.println(active + " "+cimpot.getCentrImpCode());
                 // tRepUnique.setContCentrImpCode(cimpot);
                 //tRepUnique.setContStatut(active);
                 // System.out.println(cimpot + " "+active + " " +   filename);
                 // tRepUniqueController.updateRunique(tRepUnique);
+//            }
+                DataFormatter fmt = new DataFormatter();
+
+                String ifuAsSeenInExcel = fmt.formatCellValue((Cell) cellStoreVector.elementAt(0));
+                ifu = new Long(ifuAsSeenInExcel);
+                centre = cellStoreVector.elementAt(4).toString();
+                String nom = cellStoreVector.elementAt(1).toString();
+                String pnom = cellStoreVector.elementAt(2).toString();
+                statut = active;
+
+                System.out.println("IFU centre statut " + ifu + " " + centre + " " + statut + "\n");
+
+                tRepUnique = tRepUniqueFacade.findByContImmatr(ifu);
+
+                if (tRepUnique != null) {
+
+                    if ("A".equals(active)) {
+
+                        System.out.println(tRepUnique.getContStatut());
+                        System.out.println("Ancien centre " + tRepUnique.getContCentrImpCode());
+
+                        tRepUnique.setContStatut(statut);
+                        tRepUnique.setContCentrImpCode(cimpot);
+                        tRepUniqueFacade.edit(tRepUnique);
+
+                        System.out.println("Nouveau statut " + tRepUnique.getContStatut());
+                        System.out.println("Nouveau centre " + tRepUnique.getContCentrImpCode());
+//                
+                        System.out.println("centre selectionné" + cimpot);
+                        System.out.println("Action " + active);
+
+                        System.out.println("Objet a charger " + tRepUnique);
+
+                        chargement.add(tRepUnique);
+                        charge = chargement;
+                    } else {
+                        tRepUnique.setContStatut(statut);
+                        tRepUniqueFacade.edit(tRepUnique);
+
+                        chargement.add(tRepUnique);
+                        charge = chargement;
+//                        if(cimpot.equals(tRepUnique.getCont)){
+//                            
+//                        }
+                    }
+                    outsucces.write(ifu.toString() + " " + nom + " " + pnom + " \n");
+                } else {
+
+                    outechec.write(ifu.toString() + " " + nom + " " + pnom + " \n");
+                    chargeAbsent.add(ifu.toString() + "\t           " + nom + " \t " + pnom);
+
+                }
             }
-            // System.out.println();
+
+            outechec.close();
+            outsucces.close();
+            
+        } catch (NumberFormatException e) {
+            System.err.println("Erreur sur le format de nombre " + e.getMessage());
+        } catch (IOException ex) {
+            System.err.println("Erreur d'entrée/sortie " + ex.getMessage());
         }
     }
 
-    public Vector ReadCSV(String fileName) {
+    public Vector ReadCSV(Part fichier) {
         Vector cellVectorHolder = new Vector();
 
+        fichier = file;
         try {
             //new FileInputStream
-            FileInputStream myInput = (FileInputStream) file.getInputStream();
+            FileInputStream myInput = (FileInputStream) fichier.getInputStream();
 
             POIFSFileSystem myFileSystem = new POIFSFileSystem(myInput);
 
@@ -152,76 +233,35 @@ public class MAJMBean extends java.lang.Object {
         return cellVectorHolder;
     }
 
-    private Part file;
-    private String fileContent;
-
-    public void upload() {
-        chargement = new ArrayList<>();
-        
+    public void WriteCSV(Part fichier, String timestamp, File upload) {
+        fichier = file;
         try {
-            fileContent = new Scanner(file.getInputStream())
-                    .useDelimiter("\\A").next();
+            //new FileInputStream
+            FileInputStream myInput = (FileInputStream) fichier.getInputStream();
 
-            //System.out.println("content " + fileContent);
-            //String fileName = "C:\\contrib_actif.xls";
-            Vector dataHolder = ReadCSV(fileContent);
+            POIFSFileSystem myFileSystem = new POIFSFileSystem(myInput);
 
-            //String file = event.getFile().getFilename();
-            System.out.print("size " + dataHolder.size());
+            HSSFWorkbook myWorkBook = new HSSFWorkbook(myFileSystem);
 
-            for (int i = 1; i < dataHolder.size(); i++) {
-                Vector cellStoreVector = (Vector) dataHolder.elementAt(i);
-                System.out.print("size " + cellStoreVector.size());
-//            for (int j = 0; j < cellStoreVector.size(); j++) {
-//                HSSFCell myCell = (HSSFCell) cellStoreVector.elementAt(j);
-//                String stringCellValue = myCell.toString();
+            FileOutputStream out = new FileOutputStream(upload);
+            myWorkBook.write(out);
+            out.close();
 
-                //System.out.print(stringCellValue + "\t");
-                //   System.out.println(active + " "+cimpot.getCentrImpCode());
-                // tRepUnique.setContCentrImpCode(cimpot);
-                //tRepUnique.setContStatut(active);
-                // System.out.println(cimpot + " "+active + " " +   filename);
-                // tRepUniqueController.updateRunique(tRepUnique);
-//            }
-                DataFormatter fmt = new DataFormatter();
-
-                String ifuAsSeenInExcel = fmt.formatCellValue((Cell) cellStoreVector.elementAt(0));
-                ifu = new Long(ifuAsSeenInExcel);
-
-                // ifu = new Long(cellStoreVector.elementAt(0).toString());//.toString()  );
-                centre = cellStoreVector.elementAt(4).toString();
-              //  statut = cellStoreVector.elementAt(5).toString();
-                statut = active;
-
-                System.out.println("IFU centre statut " + ifu + " " + centre + " " + statut + "\n");
-
-                tRepUnique = tRepUniqueFacade.findByContImmatr(ifu);
-                
-                System.out.println(tRepUnique.getContStatut());
-                System.out.println("Ancien centre " + tRepUnique.getContCentrImpCode());
-                
-                tRepUnique.setContStatut(statut);
-                tRepUnique.setContCentrImpCode(cimpot);
-                tRepUniqueFacade.edit(tRepUnique);
-
-                System.out.println("Nouveau statut "+tRepUnique.getContStatut());                
-                System.out.println("Nouveau centre " +tRepUnique.getContCentrImpCode());
-//                
-                System.out.println("centre selectionné" + cimpot);
-                System.out.println("Action " + active);
-                
-                System.out.println("Objet a charger " + tRepUnique);
-                
-                chargement.add(tRepUnique);
-                charge = chargement;
-            }
-
-        } catch (Exception e) {
-            System.err.println("Erreur " + e);
+        } catch (IOException e) {
+            System.out.println("Erreur I/O" + e.getMessage());
         }
     }
-    
+
     private List<TRepUnique> charge = null;
+    private List<String> chargeAbsent = null;
+
+    public List<String> getChargeAbsent() {
+        return chargeAbsent;
+    }
+
+    public void setChargeAbsent(List<String> chargeAbsent) {
+        this.chargeAbsent = chargeAbsent;
+    }
 
     public List<TRepUnique> getCharge() {
         return charge;
@@ -230,11 +270,11 @@ public class MAJMBean extends java.lang.Object {
     public void setCharge(List<TRepUnique> charge) {
         this.charge = charge;
     }
-   
-    public void chargement(){
-        
-         System.out.println(" Cargement " + charge); 
-         
+
+    public void chargement() {
+
+        System.out.println(" Chargement " + charge);
+
     }
 
     public Part getFile() {

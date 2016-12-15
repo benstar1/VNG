@@ -10,6 +10,7 @@ import bj.finances.cfisc.entities.TRepUnique;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -19,6 +20,7 @@ import javax.persistence.Query;
  */
 @Stateless
 public class TRepUniqueFacade extends AbstractFacade<TRepUnique> {
+
     @PersistenceContext(unitName = "CFiscPU")
     private EntityManager em;
 
@@ -30,11 +32,17 @@ public class TRepUniqueFacade extends AbstractFacade<TRepUnique> {
     public TRepUniqueFacade() {
         super(TRepUnique.class);
     }
+
     public TRepUnique findByContImmatr(Long ifu) {
         Query query;
+        TRepUnique res = null;
         query = em.createNamedQuery("TRepUnique.findByContImmatr").setParameter("contImmatr", ifu);
-        return (TRepUnique) query.getSingleResult();
-
+        try {
+            res = (TRepUnique) query.getSingleResult();
+        } catch (NoResultException e) {
+            System.out.println("Aucun objet trouvé " + e.getMessage());
+        }
+        return res;
     }
 
     public List<TRepUnique> findContribByImmatLike(String immat) {

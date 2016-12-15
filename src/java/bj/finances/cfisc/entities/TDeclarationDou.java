@@ -6,7 +6,7 @@
 package bj.finances.cfisc.entities;
 
 import java.io.Serializable;
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -33,13 +33,14 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "T_DECLARATION_DOU")
 @XmlRootElement
-@NamedQueries({
+@NamedQueries({    
     @NamedQuery(name = "TDeclarationDou.findAll", query = "SELECT t FROM TDeclarationDou t"),
     @NamedQuery(name = "TDeclarationDou.findByContribuableAndIdeRegDat", query = "SELECT t FROM TDeclarationDou t WHERE t.ideRegDat = :ideRegDat AND (t.cmpConCod =:cmpCod OR t.cmpExpCod =:cmpCod)"),
     @NamedQuery(name = "TDeclarationDou.findByContribuableAndIdeRcpDat", query = "SELECT t FROM TDeclarationDou t WHERE t.ideRcpDat = :ideRcpDat AND (t.cmpConCod =:cmpCod OR t.cmpExpCod =:cmpCod)" ),
     @NamedQuery(name = "TDeclarationDou.findByContribuableAndIdeAstDat", query = "SELECT t FROM TDeclarationDou t WHERE t.ideAstDat = :ideAstDat AND (t.cmpConCod =:cmpCod OR t.cmpExpCod =:cmpCod)" ),
     @NamedQuery(name = "TDeclarationDou.findAllByContribuable", query = "SELECT t FROM TDeclarationDou t WHERE (t.cmpConCod =:cmpCod OR t.cmpExpCod =:cmpCod)"),
     @NamedQuery(name = "TDeclarationDou.findByInstanceid", query = "SELECT t FROM TDeclarationDou t WHERE t.instanceid = :instanceid"),
+    @NamedQuery(name = "TDeclarationDou.findByInstanceId", query = "SELECT t FROM TDeclarationDou t WHERE t.instanceid = :instanceid"),
     @NamedQuery(name = "TDeclarationDou.findByRlsCuoCod", query = "SELECT t FROM TDeclarationDou t WHERE t.rlsCuoCod = :rlsCuoCod"),
     @NamedQuery(name = "TDeclarationDou.findByRlsCuoNam", query = "SELECT t FROM TDeclarationDou t WHERE t.rlsCuoNam = :rlsCuoNam"),
     @NamedQuery(name = "TDeclarationDou.findByRlsRef", query = "SELECT t FROM TDeclarationDou t WHERE t.rlsRef = :rlsRef"),
@@ -241,7 +242,7 @@ public class TDeclarationDou implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date rlsTim;
     @Column(name = "PRV_DTY")
-    private BigInteger prvDty;
+    private BigDecimal prvDty;
     @Size(max = 35)
     @Column(name = "PTY_COL_DSC")
     private String ptyColDsc;
@@ -415,7 +416,7 @@ public class TDeclarationDou implements Serializable {
     @Column(name = "GEN_CTY_ORG")
     private String genCtyOrg;
     @Column(name = "GEN_VDT")
-    private BigInteger genVdt;
+    private BigDecimal genVdt;
     @Size(max = 20)
     @Column(name = "GEN_CAP")
     private String genCap;
@@ -502,18 +503,18 @@ public class TDeclarationDou implements Serializable {
     @Column(name = "FIN_MPN")
     private String finMpn;
     @Column(name = "FIN_AMT_MNL")
-    private BigInteger finAmtMnl;
+    private BigDecimal finAmtMnl;
     @Column(name = "FIN_AMT_FEE")
-    private BigInteger finAmtFee;
+    private BigDecimal finAmtFee;
     @Column(name = "FIN_AMT_DTY")
-    private BigInteger finAmtDty;
+    private BigDecimal finAmtDty;
     @Column(name = "FIN_AMT_TBP")
-    private BigInteger finAmtTbp;
+    private BigDecimal finAmtTbp;
     @Size(max = 35)
     @Column(name = "FIN_GTY_NAM")
     private String finGtyNam;
     @Column(name = "FIN_GTY_AMT")
-    private BigInteger finGtyAmt;
+    private BigDecimal finGtyAmt;
     @Column(name = "FIN_GTY_DAT")
     @Temporal(TemporalType.TIMESTAMP)
     private Date finGtyDat;
@@ -527,21 +528,21 @@ public class TDeclarationDou implements Serializable {
     @Column(name = "VGS_WRK")
     private String vgsWrk;
     @Column(name = "VGS_WGT_GRS")
-    private BigInteger vgsWgtGrs;
+    private BigDecimal vgsWgtGrs;
     @Column(name = "VGS_CST")
-    private BigInteger vgsCst;
+    private BigDecimal vgsCst;
     @Column(name = "VGS_CIF")
-    private BigInteger vgsCif;
+    private BigDecimal vgsCif;
     @Column(name = "VGS_TOT_NMU")
-    private BigInteger vgsTotNmu;
+    private BigDecimal vgsTotNmu;
     @Column(name = "VGS_TOT_FCX")
-    private BigInteger vgsTotFcx;
+    private BigDecimal vgsTotFcx;
     @Column(name = "VGS_TOT_GRS")
-    private BigInteger vgsTotGrs;
+    private BigDecimal vgsTotGrs;
     @Column(name = "VGS_INV_AMT_NMU")
-    private BigInteger vgsInvAmtNmu;
+    private BigDecimal vgsInvAmtNmu;
     @Column(name = "VGS_INV_AMT_FCX")
-    private BigInteger vgsInvAmtFcx;
+    private BigDecimal vgsInvAmtFcx;
     @Size(max = 3)
     @Column(name = "VGS_INV_CUR_COD")
     private String vgsInvCurCod;
@@ -549,13 +550,13 @@ public class TDeclarationDou implements Serializable {
     @Column(name = "VGS_INV_CUR_NAM")
     private String vgsInvCurNam;
     @Column(name = "VGS_INV_CUR_RAT")
-    private BigInteger vgsInvCurRat;
+    private BigDecimal vgsInvCurRat;
     @Column(name = "VGS_INV_CUR_REF")
-    private BigInteger vgsInvCurRef;
+    private BigDecimal vgsInvCurRef;
     @Column(name = "VGS_EFR_AMT_NMU")
-    private BigInteger vgsEfrAmtNmu;
+    private BigDecimal vgsEfrAmtNmu;
     @Column(name = "VGS_EFR_AMT_FCX")
-    private BigInteger vgsEfrAmtFcx;
+    private BigDecimal vgsEfrAmtFcx;
     @Size(max = 3)
     @Column(name = "VGS_EFR_CUR_COD")
     private String vgsEfrCurCod;
@@ -563,13 +564,13 @@ public class TDeclarationDou implements Serializable {
     @Column(name = "VGS_EFR_CUR_NAM")
     private String vgsEfrCurNam;
     @Column(name = "VGS_EFR_CUR_RAT")
-    private BigInteger vgsEfrCurRat;
+    private BigDecimal vgsEfrCurRat;
     @Column(name = "VGS_EFR_CUR_REF")
-    private BigInteger vgsEfrCurRef;
+    private BigDecimal vgsEfrCurRef;
     @Column(name = "VGS_IFR_AMT_NMU")
-    private BigInteger vgsIfrAmtNmu;
+    private BigDecimal vgsIfrAmtNmu;
     @Column(name = "VGS_IFR_AMT_FCX")
-    private BigInteger vgsIfrAmtFcx;
+    private BigDecimal vgsIfrAmtFcx;
     @Size(max = 3)
     @Column(name = "VGS_IFR_CUR_COD")
     private String vgsIfrCurCod;
@@ -577,13 +578,13 @@ public class TDeclarationDou implements Serializable {
     @Column(name = "VGS_IFR_CUR_NAM")
     private String vgsIfrCurNam;
     @Column(name = "VGS_IFR_CUR_RAT")
-    private BigInteger vgsIfrCurRat;
+    private BigDecimal vgsIfrCurRat;
     @Column(name = "VGS_IFR_CUR_REF")
-    private BigInteger vgsIfrCurRef;
+    private BigDecimal vgsIfrCurRef;
     @Column(name = "VGS_INS_AMT_NMU")
-    private BigInteger vgsInsAmtNmu;
+    private BigDecimal vgsInsAmtNmu;
     @Column(name = "VGS_INS_AMT_FCX")
-    private BigInteger vgsInsAmtFcx;
+    private BigDecimal vgsInsAmtFcx;
     @Size(max = 3)
     @Column(name = "VGS_INS_CUR_COD")
     private String vgsInsCurCod;
@@ -591,13 +592,13 @@ public class TDeclarationDou implements Serializable {
     @Column(name = "VGS_INS_CUR_NAM")
     private String vgsInsCurNam;
     @Column(name = "VGS_INS_CUR_RAT")
-    private BigInteger vgsInsCurRat;
+    private BigDecimal vgsInsCurRat;
     @Column(name = "VGS_INS_CUR_REF")
-    private BigInteger vgsInsCurRef;
+    private BigDecimal vgsInsCurRef;
     @Column(name = "VGS_OTC_AMT_NMU")
-    private BigInteger vgsOtcAmtNmu;
+    private BigDecimal vgsOtcAmtNmu;
     @Column(name = "VGS_OTC_AMT_FCX")
-    private BigInteger vgsOtcAmtFcx;
+    private BigDecimal vgsOtcAmtFcx;
     @Size(max = 3)
     @Column(name = "VGS_OTC_CUR_COD")
     private String vgsOtcCurCod;
@@ -605,13 +606,13 @@ public class TDeclarationDou implements Serializable {
     @Column(name = "VGS_OTC_CUR_NAM")
     private String vgsOtcCurNam;
     @Column(name = "VGS_OTC_CUR_RAT")
-    private BigInteger vgsOtcCurRat;
+    private BigDecimal vgsOtcCurRat;
     @Column(name = "VGS_OTC_CUR_REF")
-    private BigInteger vgsOtcCurRef;
+    private BigDecimal vgsOtcCurRef;
     @Column(name = "VGS_DED_AMT_NMU")
-    private BigInteger vgsDedAmtNmu;
+    private BigDecimal vgsDedAmtNmu;
     @Column(name = "VGS_DED_AMT_FCX")
-    private BigInteger vgsDedAmtFcx;
+    private BigDecimal vgsDedAmtFcx;
     @Size(max = 3)
     @Column(name = "VGS_DED_CUR_COD")
     private String vgsDedCurCod;
@@ -619,9 +620,9 @@ public class TDeclarationDou implements Serializable {
     @Column(name = "VGS_DED_CUR_NAM")
     private String vgsDedCurNam;
     @Column(name = "VGS_DED_CUR_RAT")
-    private BigInteger vgsDedCurRat;
+    private BigDecimal vgsDedCurRat;
     @Column(name = "VGS_DED_CUR_REF")
-    private BigInteger vgsDedCurRef;
+    private BigDecimal vgsDedCurRef;
     @Size(max = 17)
     @Column(name = "WHS_COD")
     private String whsCod;
@@ -672,9 +673,9 @@ public class TDeclarationDou implements Serializable {
     @Column(name = "AST_AYR")
     private String astAyr;
     @Column(name = "AST_TOT")
-    private BigInteger astTot;
+    private BigDecimal astTot;
     @Column(name = "AST_AMT")
-    private BigInteger astAmt;
+    private BigDecimal astAmt;
     @Size(max = 11)
     @Column(name = "AST_STN")
     private String astStn;
@@ -698,7 +699,7 @@ public class TDeclarationDou implements Serializable {
     @Column(name = "EXA_WGT")
     private Long exaWgt;
     @Column(name = "LST_RCP_AMT")
-    private BigInteger lstRcpAmt;
+    private BigDecimal lstRcpAmt;
     @Size(max = 1)
     @Column(name = "LST_RCP_SER")
     private String lstRcpSer;
@@ -786,11 +787,11 @@ public class TDeclarationDou implements Serializable {
         this.rlsTim = rlsTim;
     }
 
-    public BigInteger getPrvDty() {
+    public BigDecimal getPrvDty() {
         return prvDty;
     }
 
-    public void setPrvDty(BigInteger prvDty) {
+    public void setPrvDty(BigDecimal prvDty) {
         this.prvDty = prvDty;
     }
 
@@ -1282,11 +1283,11 @@ public class TDeclarationDou implements Serializable {
         this.genCtyOrg = genCtyOrg;
     }
 
-    public BigInteger getGenVdt() {
+    public BigDecimal getGenVdt() {
         return genVdt;
     }
 
-    public void setGenVdt(BigInteger genVdt) {
+    public void setGenVdt(BigDecimal genVdt) {
         this.genVdt = genVdt;
     }
 
@@ -1522,35 +1523,35 @@ public class TDeclarationDou implements Serializable {
         this.finMpn = finMpn;
     }
 
-    public BigInteger getFinAmtMnl() {
+    public BigDecimal getFinAmtMnl() {
         return finAmtMnl;
     }
 
-    public void setFinAmtMnl(BigInteger finAmtMnl) {
+    public void setFinAmtMnl(BigDecimal finAmtMnl) {
         this.finAmtMnl = finAmtMnl;
     }
 
-    public BigInteger getFinAmtFee() {
+    public BigDecimal getFinAmtFee() {
         return finAmtFee;
     }
 
-    public void setFinAmtFee(BigInteger finAmtFee) {
+    public void setFinAmtFee(BigDecimal finAmtFee) {
         this.finAmtFee = finAmtFee;
     }
 
-    public BigInteger getFinAmtDty() {
+    public BigDecimal getFinAmtDty() {
         return finAmtDty;
     }
 
-    public void setFinAmtDty(BigInteger finAmtDty) {
+    public void setFinAmtDty(BigDecimal finAmtDty) {
         this.finAmtDty = finAmtDty;
     }
 
-    public BigInteger getFinAmtTbp() {
+    public BigDecimal getFinAmtTbp() {
         return finAmtTbp;
     }
 
-    public void setFinAmtTbp(BigInteger finAmtTbp) {
+    public void setFinAmtTbp(BigDecimal finAmtTbp) {
         this.finAmtTbp = finAmtTbp;
     }
 
@@ -1562,11 +1563,11 @@ public class TDeclarationDou implements Serializable {
         this.finGtyNam = finGtyNam;
     }
 
-    public BigInteger getFinGtyAmt() {
+    public BigDecimal getFinGtyAmt() {
         return finGtyAmt;
     }
 
-    public void setFinGtyAmt(BigInteger finGtyAmt) {
+    public void setFinGtyAmt(BigDecimal finGtyAmt) {
         this.finGtyAmt = finGtyAmt;
     }
 
@@ -1602,67 +1603,67 @@ public class TDeclarationDou implements Serializable {
         this.vgsWrk = vgsWrk;
     }
 
-    public BigInteger getVgsWgtGrs() {
+    public BigDecimal getVgsWgtGrs() {
         return vgsWgtGrs;
     }
 
-    public void setVgsWgtGrs(BigInteger vgsWgtGrs) {
+    public void setVgsWgtGrs(BigDecimal vgsWgtGrs) {
         this.vgsWgtGrs = vgsWgtGrs;
     }
 
-    public BigInteger getVgsCst() {
+    public BigDecimal getVgsCst() {
         return vgsCst;
     }
 
-    public void setVgsCst(BigInteger vgsCst) {
+    public void setVgsCst(BigDecimal vgsCst) {
         this.vgsCst = vgsCst;
     }
 
-    public BigInteger getVgsCif() {
+    public BigDecimal getVgsCif() {
         return vgsCif;
     }
 
-    public void setVgsCif(BigInteger vgsCif) {
+    public void setVgsCif(BigDecimal vgsCif) {
         this.vgsCif = vgsCif;
     }
 
-    public BigInteger getVgsTotNmu() {
+    public BigDecimal getVgsTotNmu() {
         return vgsTotNmu;
     }
 
-    public void setVgsTotNmu(BigInteger vgsTotNmu) {
+    public void setVgsTotNmu(BigDecimal vgsTotNmu) {
         this.vgsTotNmu = vgsTotNmu;
     }
 
-    public BigInteger getVgsTotFcx() {
+    public BigDecimal getVgsTotFcx() {
         return vgsTotFcx;
     }
 
-    public void setVgsTotFcx(BigInteger vgsTotFcx) {
+    public void setVgsTotFcx(BigDecimal vgsTotFcx) {
         this.vgsTotFcx = vgsTotFcx;
     }
 
-    public BigInteger getVgsTotGrs() {
+    public BigDecimal getVgsTotGrs() {
         return vgsTotGrs;
     }
 
-    public void setVgsTotGrs(BigInteger vgsTotGrs) {
+    public void setVgsTotGrs(BigDecimal vgsTotGrs) {
         this.vgsTotGrs = vgsTotGrs;
     }
 
-    public BigInteger getVgsInvAmtNmu() {
+    public BigDecimal getVgsInvAmtNmu() {
         return vgsInvAmtNmu;
     }
 
-    public void setVgsInvAmtNmu(BigInteger vgsInvAmtNmu) {
+    public void setVgsInvAmtNmu(BigDecimal vgsInvAmtNmu) {
         this.vgsInvAmtNmu = vgsInvAmtNmu;
     }
 
-    public BigInteger getVgsInvAmtFcx() {
+    public BigDecimal getVgsInvAmtFcx() {
         return vgsInvAmtFcx;
     }
 
-    public void setVgsInvAmtFcx(BigInteger vgsInvAmtFcx) {
+    public void setVgsInvAmtFcx(BigDecimal vgsInvAmtFcx) {
         this.vgsInvAmtFcx = vgsInvAmtFcx;
     }
 
@@ -1682,35 +1683,35 @@ public class TDeclarationDou implements Serializable {
         this.vgsInvCurNam = vgsInvCurNam;
     }
 
-    public BigInteger getVgsInvCurRat() {
+    public BigDecimal getVgsInvCurRat() {
         return vgsInvCurRat;
     }
 
-    public void setVgsInvCurRat(BigInteger vgsInvCurRat) {
+    public void setVgsInvCurRat(BigDecimal vgsInvCurRat) {
         this.vgsInvCurRat = vgsInvCurRat;
     }
 
-    public BigInteger getVgsInvCurRef() {
+    public BigDecimal getVgsInvCurRef() {
         return vgsInvCurRef;
     }
 
-    public void setVgsInvCurRef(BigInteger vgsInvCurRef) {
+    public void setVgsInvCurRef(BigDecimal vgsInvCurRef) {
         this.vgsInvCurRef = vgsInvCurRef;
     }
 
-    public BigInteger getVgsEfrAmtNmu() {
+    public BigDecimal getVgsEfrAmtNmu() {
         return vgsEfrAmtNmu;
     }
 
-    public void setVgsEfrAmtNmu(BigInteger vgsEfrAmtNmu) {
+    public void setVgsEfrAmtNmu(BigDecimal vgsEfrAmtNmu) {
         this.vgsEfrAmtNmu = vgsEfrAmtNmu;
     }
 
-    public BigInteger getVgsEfrAmtFcx() {
+    public BigDecimal getVgsEfrAmtFcx() {
         return vgsEfrAmtFcx;
     }
 
-    public void setVgsEfrAmtFcx(BigInteger vgsEfrAmtFcx) {
+    public void setVgsEfrAmtFcx(BigDecimal vgsEfrAmtFcx) {
         this.vgsEfrAmtFcx = vgsEfrAmtFcx;
     }
 
@@ -1730,35 +1731,35 @@ public class TDeclarationDou implements Serializable {
         this.vgsEfrCurNam = vgsEfrCurNam;
     }
 
-    public BigInteger getVgsEfrCurRat() {
+    public BigDecimal getVgsEfrCurRat() {
         return vgsEfrCurRat;
     }
 
-    public void setVgsEfrCurRat(BigInteger vgsEfrCurRat) {
+    public void setVgsEfrCurRat(BigDecimal vgsEfrCurRat) {
         this.vgsEfrCurRat = vgsEfrCurRat;
     }
 
-    public BigInteger getVgsEfrCurRef() {
+    public BigDecimal getVgsEfrCurRef() {
         return vgsEfrCurRef;
     }
 
-    public void setVgsEfrCurRef(BigInteger vgsEfrCurRef) {
+    public void setVgsEfrCurRef(BigDecimal vgsEfrCurRef) {
         this.vgsEfrCurRef = vgsEfrCurRef;
     }
 
-    public BigInteger getVgsIfrAmtNmu() {
+    public BigDecimal getVgsIfrAmtNmu() {
         return vgsIfrAmtNmu;
     }
 
-    public void setVgsIfrAmtNmu(BigInteger vgsIfrAmtNmu) {
+    public void setVgsIfrAmtNmu(BigDecimal vgsIfrAmtNmu) {
         this.vgsIfrAmtNmu = vgsIfrAmtNmu;
     }
 
-    public BigInteger getVgsIfrAmtFcx() {
+    public BigDecimal getVgsIfrAmtFcx() {
         return vgsIfrAmtFcx;
     }
 
-    public void setVgsIfrAmtFcx(BigInteger vgsIfrAmtFcx) {
+    public void setVgsIfrAmtFcx(BigDecimal vgsIfrAmtFcx) {
         this.vgsIfrAmtFcx = vgsIfrAmtFcx;
     }
 
@@ -1778,35 +1779,35 @@ public class TDeclarationDou implements Serializable {
         this.vgsIfrCurNam = vgsIfrCurNam;
     }
 
-    public BigInteger getVgsIfrCurRat() {
+    public BigDecimal getVgsIfrCurRat() {
         return vgsIfrCurRat;
     }
 
-    public void setVgsIfrCurRat(BigInteger vgsIfrCurRat) {
+    public void setVgsIfrCurRat(BigDecimal vgsIfrCurRat) {
         this.vgsIfrCurRat = vgsIfrCurRat;
     }
 
-    public BigInteger getVgsIfrCurRef() {
+    public BigDecimal getVgsIfrCurRef() {
         return vgsIfrCurRef;
     }
 
-    public void setVgsIfrCurRef(BigInteger vgsIfrCurRef) {
+    public void setVgsIfrCurRef(BigDecimal vgsIfrCurRef) {
         this.vgsIfrCurRef = vgsIfrCurRef;
     }
 
-    public BigInteger getVgsInsAmtNmu() {
+    public BigDecimal getVgsInsAmtNmu() {
         return vgsInsAmtNmu;
     }
 
-    public void setVgsInsAmtNmu(BigInteger vgsInsAmtNmu) {
+    public void setVgsInsAmtNmu(BigDecimal vgsInsAmtNmu) {
         this.vgsInsAmtNmu = vgsInsAmtNmu;
     }
 
-    public BigInteger getVgsInsAmtFcx() {
+    public BigDecimal getVgsInsAmtFcx() {
         return vgsInsAmtFcx;
     }
 
-    public void setVgsInsAmtFcx(BigInteger vgsInsAmtFcx) {
+    public void setVgsInsAmtFcx(BigDecimal vgsInsAmtFcx) {
         this.vgsInsAmtFcx = vgsInsAmtFcx;
     }
 
@@ -1826,35 +1827,35 @@ public class TDeclarationDou implements Serializable {
         this.vgsInsCurNam = vgsInsCurNam;
     }
 
-    public BigInteger getVgsInsCurRat() {
+    public BigDecimal getVgsInsCurRat() {
         return vgsInsCurRat;
     }
 
-    public void setVgsInsCurRat(BigInteger vgsInsCurRat) {
+    public void setVgsInsCurRat(BigDecimal vgsInsCurRat) {
         this.vgsInsCurRat = vgsInsCurRat;
     }
 
-    public BigInteger getVgsInsCurRef() {
+    public BigDecimal getVgsInsCurRef() {
         return vgsInsCurRef;
     }
 
-    public void setVgsInsCurRef(BigInteger vgsInsCurRef) {
+    public void setVgsInsCurRef(BigDecimal vgsInsCurRef) {
         this.vgsInsCurRef = vgsInsCurRef;
     }
 
-    public BigInteger getVgsOtcAmtNmu() {
+    public BigDecimal getVgsOtcAmtNmu() {
         return vgsOtcAmtNmu;
     }
 
-    public void setVgsOtcAmtNmu(BigInteger vgsOtcAmtNmu) {
+    public void setVgsOtcAmtNmu(BigDecimal vgsOtcAmtNmu) {
         this.vgsOtcAmtNmu = vgsOtcAmtNmu;
     }
 
-    public BigInteger getVgsOtcAmtFcx() {
+    public BigDecimal getVgsOtcAmtFcx() {
         return vgsOtcAmtFcx;
     }
 
-    public void setVgsOtcAmtFcx(BigInteger vgsOtcAmtFcx) {
+    public void setVgsOtcAmtFcx(BigDecimal vgsOtcAmtFcx) {
         this.vgsOtcAmtFcx = vgsOtcAmtFcx;
     }
 
@@ -1874,35 +1875,35 @@ public class TDeclarationDou implements Serializable {
         this.vgsOtcCurNam = vgsOtcCurNam;
     }
 
-    public BigInteger getVgsOtcCurRat() {
+    public BigDecimal getVgsOtcCurRat() {
         return vgsOtcCurRat;
     }
 
-    public void setVgsOtcCurRat(BigInteger vgsOtcCurRat) {
+    public void setVgsOtcCurRat(BigDecimal vgsOtcCurRat) {
         this.vgsOtcCurRat = vgsOtcCurRat;
     }
 
-    public BigInteger getVgsOtcCurRef() {
+    public BigDecimal getVgsOtcCurRef() {
         return vgsOtcCurRef;
     }
 
-    public void setVgsOtcCurRef(BigInteger vgsOtcCurRef) {
+    public void setVgsOtcCurRef(BigDecimal vgsOtcCurRef) {
         this.vgsOtcCurRef = vgsOtcCurRef;
     }
 
-    public BigInteger getVgsDedAmtNmu() {
+    public BigDecimal getVgsDedAmtNmu() {
         return vgsDedAmtNmu;
     }
 
-    public void setVgsDedAmtNmu(BigInteger vgsDedAmtNmu) {
+    public void setVgsDedAmtNmu(BigDecimal vgsDedAmtNmu) {
         this.vgsDedAmtNmu = vgsDedAmtNmu;
     }
 
-    public BigInteger getVgsDedAmtFcx() {
+    public BigDecimal getVgsDedAmtFcx() {
         return vgsDedAmtFcx;
     }
 
-    public void setVgsDedAmtFcx(BigInteger vgsDedAmtFcx) {
+    public void setVgsDedAmtFcx(BigDecimal vgsDedAmtFcx) {
         this.vgsDedAmtFcx = vgsDedAmtFcx;
     }
 
@@ -1922,19 +1923,19 @@ public class TDeclarationDou implements Serializable {
         this.vgsDedCurNam = vgsDedCurNam;
     }
 
-    public BigInteger getVgsDedCurRat() {
+    public BigDecimal getVgsDedCurRat() {
         return vgsDedCurRat;
     }
 
-    public void setVgsDedCurRat(BigInteger vgsDedCurRat) {
+    public void setVgsDedCurRat(BigDecimal vgsDedCurRat) {
         this.vgsDedCurRat = vgsDedCurRat;
     }
 
-    public BigInteger getVgsDedCurRef() {
+    public BigDecimal getVgsDedCurRef() {
         return vgsDedCurRef;
     }
 
-    public void setVgsDedCurRef(BigInteger vgsDedCurRef) {
+    public void setVgsDedCurRef(BigDecimal vgsDedCurRef) {
         this.vgsDedCurRef = vgsDedCurRef;
     }
 
@@ -2074,19 +2075,19 @@ public class TDeclarationDou implements Serializable {
         this.astAyr = astAyr;
     }
 
-    public BigInteger getAstTot() {
+    public BigDecimal getAstTot() {
         return astTot;
     }
 
-    public void setAstTot(BigInteger astTot) {
+    public void setAstTot(BigDecimal astTot) {
         this.astTot = astTot;
     }
 
-    public BigInteger getAstAmt() {
+    public BigDecimal getAstAmt() {
         return astAmt;
     }
 
-    public void setAstAmt(BigInteger astAmt) {
+    public void setAstAmt(BigDecimal astAmt) {
         this.astAmt = astAmt;
     }
 
@@ -2154,11 +2155,11 @@ public class TDeclarationDou implements Serializable {
         this.exaWgt = exaWgt;
     }
 
-    public BigInteger getLstRcpAmt() {
+    public BigDecimal getLstRcpAmt() {
         return lstRcpAmt;
     }
 
-    public void setLstRcpAmt(BigInteger lstRcpAmt) {
+    public void setLstRcpAmt(BigDecimal lstRcpAmt) {
         this.lstRcpAmt = lstRcpAmt;
     }
 

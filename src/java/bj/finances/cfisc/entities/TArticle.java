@@ -6,7 +6,8 @@
 package bj.finances.cfisc.entities;
 
 import java.io.Serializable;
-import java.math.BigInteger;
+import java.math.BigDecimal;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -138,7 +139,8 @@ public class TArticle implements Serializable {
     @EmbeddedId
     protected TArticlePK tArticlePK;
     @Column(name = "PCK_NBR")
-    private BigInteger pckNbr;
+    //private BigDecimal pckNbr;
+    private BigDecimal pckNbr;
     @Size(max = 50)
     @Column(name = "PCK_MRK1")
     private String pckMrk1;
@@ -185,7 +187,8 @@ public class TArticle implements Serializable {
     @Column(name = "TAR_QUO")
     private String tarQuo;
     @Column(name = "TAR_PRI")
-    private BigInteger tarPri;
+    //private BigDecimal tarPri;
+    private BigDecimal tarPri;
     @Size(max = 1)
     @Column(name = "TAR_VMT")
     private String tarVmt;
@@ -238,9 +241,11 @@ public class TArticle implements Serializable {
     @Column(name = "LIC_COD")
     private String licCod;
     @Column(name = "LIC_AMT_VAL")
-    private BigInteger licAmtVal;
+    //private BigDecimal licAmtVal;
+    private BigDecimal licAmtVal;
     @Column(name = "LIC_AMT_QTY")
-    private BigInteger licAmtQty;
+    //private BigDecimal licAmtQty;
+    private BigDecimal licAmtQty;
     @Size(max = 35)
     @Column(name = "TXT_FRE")
     private String txtFre;
@@ -248,34 +253,36 @@ public class TArticle implements Serializable {
     @Column(name = "TXT_RSV")
     private String txtRsv;
     @Column(name = "TAX_AMT")
-    private BigInteger taxAmt;
+    //private BigDecimal taxAmt;
+    private BigDecimal taxAmt;
     @Column(name = "TAX_GTY")
-    private BigInteger taxGty;
+    //private BigDecimal taxGty;
+    private BigDecimal taxGty;
     @Size(max = 1)
     @Column(name = "TAX_MOP")
     private String taxMop;
     @Column(name = "TAX_CTR")
     private Long taxCtr;
     @Column(name = "TAX_DTY")
-    private BigInteger taxDty;
+    private BigDecimal taxDty;
     @Column(name = "VIT_WGT_GRS")
-    private BigInteger vitWgtGrs;
+    private BigDecimal vitWgtGrs;
     @Column(name = "VIT_WGT_NET")
-    private BigInteger vitWgtNet;
+    private BigDecimal vitWgtNet;
     @Column(name = "VIT_CST")
-    private BigInteger vitCst;
+    private BigDecimal vitCst;
     @Column(name = "VIT_CIF")
-    private BigInteger vitCif;
+    private BigDecimal vitCif;
     @Column(name = "VIT_ADJ")
-    private BigInteger vitAdj;
+    private BigDecimal vitAdj;
     @Column(name = "VIT_STV")
-    private BigInteger vitStv;
+    private BigDecimal vitStv;
     @Column(name = "VIT_ALP")
-    private BigInteger vitAlp;
+    private BigDecimal vitAlp;
     @Column(name = "VIT_INV_AMT_NMU")
-    private BigInteger vitInvAmtNmu;
+    private BigDecimal vitInvAmtNmu;
     @Column(name = "VIT_INV_AMT_FCX")
-    private BigInteger vitInvAmtFcx;
+    private BigDecimal vitInvAmtFcx;
     @Size(max = 3)
     @Column(name = "VIT_INV_CUR_COD")
     private String vitInvCurCod;
@@ -283,13 +290,13 @@ public class TArticle implements Serializable {
     @Column(name = "VIT_INV_CUR_NAM")
     private String vitInvCurNam;
     @Column(name = "VIT_INV_CUR_RAT")
-    private BigInteger vitInvCurRat;
+    private BigDecimal vitInvCurRat;
     @Column(name = "VIT_INV_CUR_REF")
-    private BigInteger vitInvCurRef;
+    private BigDecimal vitInvCurRef;
     @Column(name = "VIT_EFR_AMT_NMU")
-    private BigInteger vitEfrAmtNmu;
+    private BigDecimal vitEfrAmtNmu;
     @Column(name = "VIT_EFR_AMT_FCX")
-    private BigInteger vitEfrAmtFcx;
+    private BigDecimal vitEfrAmtFcx;
     @Size(max = 3)
     @Column(name = "VIT_EFR_CUR_COD")
     private String vitEfrCurCod;
@@ -297,13 +304,13 @@ public class TArticle implements Serializable {
     @Column(name = "VIT_EFR_CUR_NAM")
     private String vitEfrCurNam;
     @Column(name = "VIT_EFR_CUR_RAT")
-    private BigInteger vitEfrCurRat;
+    private BigDecimal vitEfrCurRat;
     @Column(name = "VIT_EFR_CUR_REF")
-    private BigInteger vitEfrCurRef;
+    private BigDecimal vitEfrCurRef;
     @Column(name = "VIT_IFR_AMT_NMU")
-    private BigInteger vitIfrAmtNmu;
+    private BigDecimal vitIfrAmtNmu;
     @Column(name = "VIT_IFR_AMT_FCX")
-    private BigInteger vitIfrAmtFcx;
+    private BigDecimal vitIfrAmtFcx;
     @Size(max = 3)
     @Column(name = "VIT_IFR_CUR_COD")
     private String vitIfrCurCod;
@@ -311,13 +318,13 @@ public class TArticle implements Serializable {
     @Column(name = "VIT_IFR_CUR_NAM")
     private String vitIfrCurNam;
     @Column(name = "VIT_IFR_CUR_RAT")
-    private BigInteger vitIfrCurRat;
+    private BigDecimal vitIfrCurRat;
     @Column(name = "VIT_IFR_CUR_REF")
-    private BigInteger vitIfrCurRef;
+    private BigDecimal vitIfrCurRef;
     @Column(name = "VIT_INS_AMT_NMU")
-    private BigInteger vitInsAmtNmu;
+    private BigDecimal vitInsAmtNmu;
     @Column(name = "VIT_INS_AMT_FCX")
-    private BigInteger vitInsAmtFcx;
+    private BigDecimal vitInsAmtFcx;
     @Size(max = 3)
     @Column(name = "VIT_INS_CUR_COD")
     private String vitInsCurCod;
@@ -325,13 +332,13 @@ public class TArticle implements Serializable {
     @Column(name = "VIT_INS_CUR_NAM")
     private String vitInsCurNam;
     @Column(name = "VIT_INS_CUR_RAT")
-    private BigInteger vitInsCurRat;
+    private BigDecimal vitInsCurRat;
     @Column(name = "VIT_INS_CUR_REF")
-    private BigInteger vitInsCurRef;
+    private BigDecimal vitInsCurRef;
     @Column(name = "VIT_OTC_AMT_NMU")
-    private BigInteger vitOtcAmtNmu;
+    private BigDecimal vitOtcAmtNmu;
     @Column(name = "VIT_OTC_AMT_FCX")
-    private BigInteger vitOtcAmtFcx;
+    private BigDecimal vitOtcAmtFcx;
     @Size(max = 3)
     @Column(name = "VIT_OTC_CUR_COD")
     private String vitOtcCurCod;
@@ -339,13 +346,13 @@ public class TArticle implements Serializable {
     @Column(name = "VIT_OTC_CUR_NAM")
     private String vitOtcCurNam;
     @Column(name = "VIT_OTC_CUR_RAT")
-    private BigInteger vitOtcCurRat;
+    private BigDecimal vitOtcCurRat;
     @Column(name = "VIT_OTC_CUR_REF")
-    private BigInteger vitOtcCurRef;
+    private BigDecimal vitOtcCurRef;
     @Column(name = "VIT_DED_AMT_NMU")
-    private BigInteger vitDedAmtNmu;
+    private BigDecimal vitDedAmtNmu;
     @Column(name = "VIT_DED_AMT_FCX")
-    private BigInteger vitDedAmtFcx;
+    private BigDecimal vitDedAmtFcx;
     @Size(max = 3)
     @Column(name = "VIT_DED_CUR_COD")
     private String vitDedCurCod;
@@ -353,28 +360,28 @@ public class TArticle implements Serializable {
     @Column(name = "VIT_DED_CUR_NAM")
     private String vitDedCurNam;
     @Column(name = "VIT_DED_CUR_RAT")
-    private BigInteger vitDedCurRat;
+    private BigDecimal vitDedCurRat;
     @Column(name = "VIT_DED_CUR_REF")
-    private BigInteger vitDedCurRef;
+    private BigDecimal vitDedCurRef;
     @Column(name = "VIT_MKT_RAT")
-    private BigInteger vitMktRat;
+    private BigDecimal vitMktRat;
     @Size(max = 3)
     @Column(name = "VIT_MKT_CUR")
     private String vitMktCur;
     @Column(name = "VIT_MKT_AMT")
-    private BigInteger vitMktAmt;
+    private BigDecimal vitMktAmt;
     @Size(max = 35)
     @Column(name = "VIT_MKT_BSE_DSC")
     private String vitMktBseDsc;
     @Column(name = "VIT_MKT_BSE_AMT")
-    private BigInteger vitMktBseAmt;
+    private BigDecimal vitMktBseAmt;
     @Size(max = 17)
     @Column(name = "BLK_VIN")
     private String blkVin;
     @Column(name = "BLK_SRP")
-    private BigInteger blkSrp;
+    private BigDecimal blkSrp;
     @Column(name = "BLK_FOB")
-    private BigInteger blkFob;
+    private BigDecimal blkFob;
     @Lob
     @Column(name = "FLP1")
     private Serializable flp1;
@@ -407,11 +414,11 @@ public class TArticle implements Serializable {
         this.tArticlePK = tArticlePK;
     }
 
-    public BigInteger getPckNbr() {
+    public BigDecimal getPckNbr() {
         return pckNbr;
     }
 
-    public void setPckNbr(BigInteger pckNbr) {
+    public void setPckNbr(BigDecimal pckNbr) {
         this.pckNbr = pckNbr;
     }
 
@@ -535,11 +542,11 @@ public class TArticle implements Serializable {
         this.tarQuo = tarQuo;
     }
 
-    public BigInteger getTarPri() {
+    public BigDecimal getTarPri() {
         return tarPri;
     }
 
-    public void setTarPri(BigInteger tarPri) {
+    public void setTarPri(BigDecimal tarPri) {
         this.tarPri = tarPri;
     }
 
@@ -679,19 +686,19 @@ public class TArticle implements Serializable {
         this.licCod = licCod;
     }
 
-    public BigInteger getLicAmtVal() {
+    public BigDecimal getLicAmtVal() {
         return licAmtVal;
     }
 
-    public void setLicAmtVal(BigInteger licAmtVal) {
+    public void setLicAmtVal(BigDecimal licAmtVal) {
         this.licAmtVal = licAmtVal;
     }
 
-    public BigInteger getLicAmtQty() {
+    public BigDecimal getLicAmtQty() {
         return licAmtQty;
     }
 
-    public void setLicAmtQty(BigInteger licAmtQty) {
+    public void setLicAmtQty(BigDecimal licAmtQty) {
         this.licAmtQty = licAmtQty;
     }
 
@@ -711,19 +718,19 @@ public class TArticle implements Serializable {
         this.txtRsv = txtRsv;
     }
 
-    public BigInteger getTaxAmt() {
+    public BigDecimal getTaxAmt() {
         return taxAmt;
     }
 
-    public void setTaxAmt(BigInteger taxAmt) {
+    public void setTaxAmt(BigDecimal taxAmt) {
         this.taxAmt = taxAmt;
     }
 
-    public BigInteger getTaxGty() {
+    public BigDecimal getTaxGty() {
         return taxGty;
     }
 
-    public void setTaxGty(BigInteger taxGty) {
+    public void setTaxGty(BigDecimal taxGty) {
         this.taxGty = taxGty;
     }
 
@@ -743,83 +750,83 @@ public class TArticle implements Serializable {
         this.taxCtr = taxCtr;
     }
 
-    public BigInteger getTaxDty() {
+    public BigDecimal getTaxDty() {
         return taxDty;
     }
 
-    public void setTaxDty(BigInteger taxDty) {
+    public void setTaxDty(BigDecimal taxDty) {
         this.taxDty = taxDty;
     }
 
-    public BigInteger getVitWgtGrs() {
+    public BigDecimal getVitWgtGrs() {
         return vitWgtGrs;
     }
 
-    public void setVitWgtGrs(BigInteger vitWgtGrs) {
+    public void setVitWgtGrs(BigDecimal vitWgtGrs) {
         this.vitWgtGrs = vitWgtGrs;
     }
 
-    public BigInteger getVitWgtNet() {
+    public BigDecimal getVitWgtNet() {
         return vitWgtNet;
     }
 
-    public void setVitWgtNet(BigInteger vitWgtNet) {
+    public void setVitWgtNet(BigDecimal vitWgtNet) {
         this.vitWgtNet = vitWgtNet;
     }
 
-    public BigInteger getVitCst() {
+    public BigDecimal getVitCst() {
         return vitCst;
     }
 
-    public void setVitCst(BigInteger vitCst) {
+    public void setVitCst(BigDecimal vitCst) {
         this.vitCst = vitCst;
     }
 
-    public BigInteger getVitCif() {
+    public BigDecimal getVitCif() {
         return vitCif;
     }
 
-    public void setVitCif(BigInteger vitCif) {
+    public void setVitCif(BigDecimal vitCif) {
         this.vitCif = vitCif;
     }
 
-    public BigInteger getVitAdj() {
+    public BigDecimal getVitAdj() {
         return vitAdj;
     }
 
-    public void setVitAdj(BigInteger vitAdj) {
+    public void setVitAdj(BigDecimal vitAdj) {
         this.vitAdj = vitAdj;
     }
 
-    public BigInteger getVitStv() {
+    public BigDecimal getVitStv() {
         return vitStv;
     }
 
-    public void setVitStv(BigInteger vitStv) {
+    public void setVitStv(BigDecimal vitStv) {
         this.vitStv = vitStv;
     }
 
-    public BigInteger getVitAlp() {
+    public BigDecimal getVitAlp() {
         return vitAlp;
     }
 
-    public void setVitAlp(BigInteger vitAlp) {
+    public void setVitAlp(BigDecimal vitAlp) {
         this.vitAlp = vitAlp;
     }
 
-    public BigInteger getVitInvAmtNmu() {
+    public BigDecimal getVitInvAmtNmu() {
         return vitInvAmtNmu;
     }
 
-    public void setVitInvAmtNmu(BigInteger vitInvAmtNmu) {
+    public void setVitInvAmtNmu(BigDecimal vitInvAmtNmu) {
         this.vitInvAmtNmu = vitInvAmtNmu;
     }
 
-    public BigInteger getVitInvAmtFcx() {
+    public BigDecimal getVitInvAmtFcx() {
         return vitInvAmtFcx;
     }
 
-    public void setVitInvAmtFcx(BigInteger vitInvAmtFcx) {
+    public void setVitInvAmtFcx(BigDecimal vitInvAmtFcx) {
         this.vitInvAmtFcx = vitInvAmtFcx;
     }
 
@@ -839,35 +846,35 @@ public class TArticle implements Serializable {
         this.vitInvCurNam = vitInvCurNam;
     }
 
-    public BigInteger getVitInvCurRat() {
+    public BigDecimal getVitInvCurRat() {
         return vitInvCurRat;
     }
 
-    public void setVitInvCurRat(BigInteger vitInvCurRat) {
+    public void setVitInvCurRat(BigDecimal vitInvCurRat) {
         this.vitInvCurRat = vitInvCurRat;
     }
 
-    public BigInteger getVitInvCurRef() {
+    public BigDecimal getVitInvCurRef() {
         return vitInvCurRef;
     }
 
-    public void setVitInvCurRef(BigInteger vitInvCurRef) {
+    public void setVitInvCurRef(BigDecimal vitInvCurRef) {
         this.vitInvCurRef = vitInvCurRef;
     }
 
-    public BigInteger getVitEfrAmtNmu() {
+    public BigDecimal getVitEfrAmtNmu() {
         return vitEfrAmtNmu;
     }
 
-    public void setVitEfrAmtNmu(BigInteger vitEfrAmtNmu) {
+    public void setVitEfrAmtNmu(BigDecimal vitEfrAmtNmu) {
         this.vitEfrAmtNmu = vitEfrAmtNmu;
     }
 
-    public BigInteger getVitEfrAmtFcx() {
+    public BigDecimal getVitEfrAmtFcx() {
         return vitEfrAmtFcx;
     }
 
-    public void setVitEfrAmtFcx(BigInteger vitEfrAmtFcx) {
+    public void setVitEfrAmtFcx(BigDecimal vitEfrAmtFcx) {
         this.vitEfrAmtFcx = vitEfrAmtFcx;
     }
 
@@ -887,35 +894,35 @@ public class TArticle implements Serializable {
         this.vitEfrCurNam = vitEfrCurNam;
     }
 
-    public BigInteger getVitEfrCurRat() {
+    public BigDecimal getVitEfrCurRat() {
         return vitEfrCurRat;
     }
 
-    public void setVitEfrCurRat(BigInteger vitEfrCurRat) {
+    public void setVitEfrCurRat(BigDecimal vitEfrCurRat) {
         this.vitEfrCurRat = vitEfrCurRat;
     }
 
-    public BigInteger getVitEfrCurRef() {
+    public BigDecimal getVitEfrCurRef() {
         return vitEfrCurRef;
     }
 
-    public void setVitEfrCurRef(BigInteger vitEfrCurRef) {
+    public void setVitEfrCurRef(BigDecimal vitEfrCurRef) {
         this.vitEfrCurRef = vitEfrCurRef;
     }
 
-    public BigInteger getVitIfrAmtNmu() {
+    public BigDecimal getVitIfrAmtNmu() {
         return vitIfrAmtNmu;
     }
 
-    public void setVitIfrAmtNmu(BigInteger vitIfrAmtNmu) {
+    public void setVitIfrAmtNmu(BigDecimal vitIfrAmtNmu) {
         this.vitIfrAmtNmu = vitIfrAmtNmu;
     }
 
-    public BigInteger getVitIfrAmtFcx() {
+    public BigDecimal getVitIfrAmtFcx() {
         return vitIfrAmtFcx;
     }
 
-    public void setVitIfrAmtFcx(BigInteger vitIfrAmtFcx) {
+    public void setVitIfrAmtFcx(BigDecimal vitIfrAmtFcx) {
         this.vitIfrAmtFcx = vitIfrAmtFcx;
     }
 
@@ -935,35 +942,35 @@ public class TArticle implements Serializable {
         this.vitIfrCurNam = vitIfrCurNam;
     }
 
-    public BigInteger getVitIfrCurRat() {
+    public BigDecimal getVitIfrCurRat() {
         return vitIfrCurRat;
     }
 
-    public void setVitIfrCurRat(BigInteger vitIfrCurRat) {
+    public void setVitIfrCurRat(BigDecimal vitIfrCurRat) {
         this.vitIfrCurRat = vitIfrCurRat;
     }
 
-    public BigInteger getVitIfrCurRef() {
+    public BigDecimal getVitIfrCurRef() {
         return vitIfrCurRef;
     }
 
-    public void setVitIfrCurRef(BigInteger vitIfrCurRef) {
+    public void setVitIfrCurRef(BigDecimal vitIfrCurRef) {
         this.vitIfrCurRef = vitIfrCurRef;
     }
 
-    public BigInteger getVitInsAmtNmu() {
+    public BigDecimal getVitInsAmtNmu() {
         return vitInsAmtNmu;
     }
 
-    public void setVitInsAmtNmu(BigInteger vitInsAmtNmu) {
+    public void setVitInsAmtNmu(BigDecimal vitInsAmtNmu) {
         this.vitInsAmtNmu = vitInsAmtNmu;
     }
 
-    public BigInteger getVitInsAmtFcx() {
+    public BigDecimal getVitInsAmtFcx() {
         return vitInsAmtFcx;
     }
 
-    public void setVitInsAmtFcx(BigInteger vitInsAmtFcx) {
+    public void setVitInsAmtFcx(BigDecimal vitInsAmtFcx) {
         this.vitInsAmtFcx = vitInsAmtFcx;
     }
 
@@ -983,35 +990,35 @@ public class TArticle implements Serializable {
         this.vitInsCurNam = vitInsCurNam;
     }
 
-    public BigInteger getVitInsCurRat() {
+    public BigDecimal getVitInsCurRat() {
         return vitInsCurRat;
     }
 
-    public void setVitInsCurRat(BigInteger vitInsCurRat) {
+    public void setVitInsCurRat(BigDecimal vitInsCurRat) {
         this.vitInsCurRat = vitInsCurRat;
     }
 
-    public BigInteger getVitInsCurRef() {
+    public BigDecimal getVitInsCurRef() {
         return vitInsCurRef;
     }
 
-    public void setVitInsCurRef(BigInteger vitInsCurRef) {
+    public void setVitInsCurRef(BigDecimal vitInsCurRef) {
         this.vitInsCurRef = vitInsCurRef;
     }
 
-    public BigInteger getVitOtcAmtNmu() {
+    public BigDecimal getVitOtcAmtNmu() {
         return vitOtcAmtNmu;
     }
 
-    public void setVitOtcAmtNmu(BigInteger vitOtcAmtNmu) {
+    public void setVitOtcAmtNmu(BigDecimal vitOtcAmtNmu) {
         this.vitOtcAmtNmu = vitOtcAmtNmu;
     }
 
-    public BigInteger getVitOtcAmtFcx() {
+    public BigDecimal getVitOtcAmtFcx() {
         return vitOtcAmtFcx;
     }
 
-    public void setVitOtcAmtFcx(BigInteger vitOtcAmtFcx) {
+    public void setVitOtcAmtFcx(BigDecimal vitOtcAmtFcx) {
         this.vitOtcAmtFcx = vitOtcAmtFcx;
     }
 
@@ -1031,35 +1038,35 @@ public class TArticle implements Serializable {
         this.vitOtcCurNam = vitOtcCurNam;
     }
 
-    public BigInteger getVitOtcCurRat() {
+    public BigDecimal getVitOtcCurRat() {
         return vitOtcCurRat;
     }
 
-    public void setVitOtcCurRat(BigInteger vitOtcCurRat) {
+    public void setVitOtcCurRat(BigDecimal vitOtcCurRat) {
         this.vitOtcCurRat = vitOtcCurRat;
     }
 
-    public BigInteger getVitOtcCurRef() {
+    public BigDecimal getVitOtcCurRef() {
         return vitOtcCurRef;
     }
 
-    public void setVitOtcCurRef(BigInteger vitOtcCurRef) {
+    public void setVitOtcCurRef(BigDecimal vitOtcCurRef) {
         this.vitOtcCurRef = vitOtcCurRef;
     }
 
-    public BigInteger getVitDedAmtNmu() {
+    public BigDecimal getVitDedAmtNmu() {
         return vitDedAmtNmu;
     }
 
-    public void setVitDedAmtNmu(BigInteger vitDedAmtNmu) {
+    public void setVitDedAmtNmu(BigDecimal vitDedAmtNmu) {
         this.vitDedAmtNmu = vitDedAmtNmu;
     }
 
-    public BigInteger getVitDedAmtFcx() {
+    public BigDecimal getVitDedAmtFcx() {
         return vitDedAmtFcx;
     }
 
-    public void setVitDedAmtFcx(BigInteger vitDedAmtFcx) {
+    public void setVitDedAmtFcx(BigDecimal vitDedAmtFcx) {
         this.vitDedAmtFcx = vitDedAmtFcx;
     }
 
@@ -1079,27 +1086,27 @@ public class TArticle implements Serializable {
         this.vitDedCurNam = vitDedCurNam;
     }
 
-    public BigInteger getVitDedCurRat() {
+    public BigDecimal getVitDedCurRat() {
         return vitDedCurRat;
     }
 
-    public void setVitDedCurRat(BigInteger vitDedCurRat) {
+    public void setVitDedCurRat(BigDecimal vitDedCurRat) {
         this.vitDedCurRat = vitDedCurRat;
     }
 
-    public BigInteger getVitDedCurRef() {
+    public BigDecimal getVitDedCurRef() {
         return vitDedCurRef;
     }
 
-    public void setVitDedCurRef(BigInteger vitDedCurRef) {
+    public void setVitDedCurRef(BigDecimal vitDedCurRef) {
         this.vitDedCurRef = vitDedCurRef;
     }
 
-    public BigInteger getVitMktRat() {
+    public BigDecimal getVitMktRat() {
         return vitMktRat;
     }
 
-    public void setVitMktRat(BigInteger vitMktRat) {
+    public void setVitMktRat(BigDecimal vitMktRat) {
         this.vitMktRat = vitMktRat;
     }
 
@@ -1111,11 +1118,11 @@ public class TArticle implements Serializable {
         this.vitMktCur = vitMktCur;
     }
 
-    public BigInteger getVitMktAmt() {
+    public BigDecimal getVitMktAmt() {
         return vitMktAmt;
     }
 
-    public void setVitMktAmt(BigInteger vitMktAmt) {
+    public void setVitMktAmt(BigDecimal vitMktAmt) {
         this.vitMktAmt = vitMktAmt;
     }
 
@@ -1127,11 +1134,11 @@ public class TArticle implements Serializable {
         this.vitMktBseDsc = vitMktBseDsc;
     }
 
-    public BigInteger getVitMktBseAmt() {
+    public BigDecimal getVitMktBseAmt() {
         return vitMktBseAmt;
     }
 
-    public void setVitMktBseAmt(BigInteger vitMktBseAmt) {
+    public void setVitMktBseAmt(BigDecimal vitMktBseAmt) {
         this.vitMktBseAmt = vitMktBseAmt;
     }
 
@@ -1143,19 +1150,19 @@ public class TArticle implements Serializable {
         this.blkVin = blkVin;
     }
 
-    public BigInteger getBlkSrp() {
+    public BigDecimal getBlkSrp() {
         return blkSrp;
     }
 
-    public void setBlkSrp(BigInteger blkSrp) {
+    public void setBlkSrp(BigDecimal blkSrp) {
         this.blkSrp = blkSrp;
     }
 
-    public BigInteger getBlkFob() {
+    public BigDecimal getBlkFob() {
         return blkFob;
     }
 
-    public void setBlkFob(BigInteger blkFob) {
+    public void setBlkFob(BigDecimal blkFob) {
         this.blkFob = blkFob;
     }
 
