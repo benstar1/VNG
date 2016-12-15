@@ -6,6 +6,7 @@
 package bj.finances.cfisc.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -45,11 +46,15 @@ public class TTaxeDeclDou implements Serializable {
     @Column(name = "TAX_LIN_COD")
     private String taxLinCod;
     @Column(name = "TAX_LIN_BSE")
-    private BigInteger taxLinBse;
+    //private BigInteger taxLinBse;
+    private BigDecimal taxLinBse;
     @Column(name = "TAX_LIN_RAT")
-    private BigInteger taxLinRat;
+    //private BigInteger taxLinRat;
+    private BigDecimal taxLinRat;
+    
     @Column(name = "TAX_LIN_AMT")
-    private BigInteger taxLinAmt;
+    //private BigInteger taxLinAmt;
+    private BigDecimal taxLinAmt;
     @Size(max = 1)
     @Column(name = "TAX_LIN_MOP")
     private String taxLinMop;
@@ -89,27 +94,27 @@ public class TTaxeDeclDou implements Serializable {
         this.taxLinCod = taxLinCod;
     }
 
-    public BigInteger getTaxLinBse() {
+    public BigDecimal getTaxLinBse() {
         return taxLinBse;
     }
 
-    public void setTaxLinBse(BigInteger taxLinBse) {
+    public void setTaxLinBse(BigDecimal taxLinBse) {
         this.taxLinBse = taxLinBse;
     }
 
-    public BigInteger getTaxLinRat() {
+    public BigDecimal getTaxLinRat() {
         return taxLinRat;
     }
 
-    public void setTaxLinRat(BigInteger taxLinRat) {
+    public void setTaxLinRat(BigDecimal taxLinRat) {
         this.taxLinRat = taxLinRat;
     }
 
-    public BigInteger getTaxLinAmt() {
+    public BigDecimal getTaxLinAmt() {
         return taxLinAmt;
     }
 
-    public void setTaxLinAmt(BigInteger taxLinAmt) {
+    public void setTaxLinAmt(BigDecimal taxLinAmt) {
         this.taxLinAmt = taxLinAmt;
     }
 
