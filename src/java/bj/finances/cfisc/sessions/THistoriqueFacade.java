@@ -10,6 +10,7 @@ import bj.finances.cfisc.entities.TMotif;
 import bj.finances.cfisc.entities.TRepUnique;
 import bj.finances.cfisc.entities.TUtilisateur;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -59,5 +60,6 @@ public class THistoriqueFacade extends AbstractFacade<THistorique> {
         System.out.println( );
        
     }
+    
     
 }

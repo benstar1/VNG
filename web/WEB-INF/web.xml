@@ -11,14 +11,69 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>/faces/*</url-pattern>
+        <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
     <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
+        <session-timeout>3</session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/index.xhtml</welcome-file>
+        <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/loginerror_1.xhtml</location>
+    </error-page>
+    <security-constraint>
+        <display-name>AccesContribuable</display-name>
+        <web-resource-collection>
+            <web-resource-name>declaration</web-resource-name>
+            <description>déclaration fiscale</description>
+            <url-pattern>/vues/tEntDeclaration/DeclarationFiscal.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>CONTRIBUABLE</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>AccesStatutContrib</display-name>
+        <web-resource-collection>
+            <web-resource-name>MAJStatutindividuel</web-resource-name>
+            <description/>
+            <url-pattern>/vues/tRepUnique/MAJIndividuelle.xhtml</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>MAJStatutCollective</web-resource-name>
+            <description/>
+            <url-pattern>/vues/tRepUnique/MAJCollective.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>INSPECTMAJ</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>jdbcrealm</realm-name>
+        <form-login-config>
+            <form-login-page>/login.xhtml</form-login-page>
+            <form-error-page>/loginerror.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-role>
+        <description>Profil des contribuables pour déclaration</description>
+        <role-name>CONTRIBUABLE</role-name>
+    </security-role>
+    <security-role>
+        <description>Profil des inspecteurs pour contrôler</description>
+        <role-name>INSPECTEUR</role-name>
+    </security-role>
+    <security-role>
+        <description>Administrateur</description>
+        <role-name>ADMIN</role-name>
+    </security-role>
+    <security-role>
+        <description>Inspecteur chargé de mettre à jour l'état activé ou désactivé d'un contribuable</description>
+        <role-name>INSPECTMAJ</role-name>
+    </security-role>
 </web-app>
