@@ -13,30 +13,25 @@ import bj.finances.cfisc.entities.TDeclarationDou;
 import bj.finances.cfisc.entities.TArticle;
 import bj.finances.cfisc.entities.TArticlePK;
 import bj.finances.cfisc.entities.TMotif;
-import bj.finances.cfisc.entities.TTaxeDeclaration;
-import bj.finances.cfisc.entities.TTaxesDou;
-//////////////////////import bj.finances.cfisc.entities.TTaxesDouPK;
+import bj.finances.cfisc.entities.TTaxeDeclDou;
+import bj.finances.cfisc.entities.TTaxeDeclDouPK;
 import bj.finances.cfisc.entities.TUtilisateur;
-import bj.finances.cfisc.sessions.TCentreImpotFacade;
-import bj.finances.cfisc.sessions.TDeclarationDouFacade;
-import bj.finances.cfisc.sessions.THistoriqueFacade;
-import bj.finances.cfisc.sessions.TMotifFacade;
-import bj.finances.cfisc.sessions.TParticiperFacade;
-import bj.finances.cfisc.sessions.TRepUniqueFacade;
-import bj.finances.cfisc.sessions.TTypeContribFacade;
-import bj.finances.cfisc.sessions.TUtilisateurFacade;
+import bj.finances.cfisc.sessions.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.xml.XMLConstants;
@@ -69,8 +64,11 @@ public class InterfaceIfuPlateforme {
     @Inject
     private TParticiperFacade tParticiperFacade; 
     
+    @Inject 
+    private TTaxeDeclDouFacade tTaxeDecDouFacade;
+
     @Inject
-    private TDeclarationDouFacade tDeclarationDouane; 
+    private TArticleFacade tArticleFacade;
 
     @Inject
     private TUtilisateurFacade tUtilisateurFacade; 
@@ -88,7 +86,7 @@ public class InterfaceIfuPlateforme {
     private String cheminFichierXsd = "C:\\CONTRIBUABLE.xsd";
     private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     
-    //@Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "0", persistent = false)
+    @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/20", persistent = false)
     public void consommerFichierEntreprise() {
         try {
                 System.out.println(" Début mise à jour de la table ifu : " + new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(new Date()) );
@@ -164,7 +162,7 @@ public class InterfaceIfuPlateforme {
                 f.renameTo(new File(dossierEchecs, f.getName()));
             }
             finally{
-                
+                System.out.println("FINALEMENT ------------------");
             }
 
         }
@@ -299,26 +297,26 @@ public class InterfaceIfuPlateforme {
    
         System.out.println("Je suis dans l'insertion de déclaration article taxe");
         
-        Element declaration = document.getRootElement();
-        
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        
+        Element declaration = document.getRootElement();        
         TDeclarationDou Tdeclaration = new TDeclarationDou();
-        TArticle tarcticle = new TArticle();   
-        TTaxesDou taxes_mtant = new TTaxesDou();
-        List<TArticle> listeArticles = null;
-        List<TTaxesDou> listeTaxesArticles = null;
+          
+        
         
          Long instance_id = Long.parseLong(declaration.getChild("segment_general").getAttribute("INSTANCE_ID").getValue());
          
-         Tdeclaration = tDeclarationDouaneFacade.find(instance_id);
-         String tyope = declaration.getChild("typeope").getAttribute("type").getValue();
+         Tdeclaration = tDeclarationDouaneFacade.findByInstanceId(instance_id);        
+         
+         String typeope = declaration.getChild("typeope").getAttribute("type").getValue();
          
          if (Tdeclaration == null) {
-             if ("A".equals(tyope) || "M".equals(tyope)){
+         Tdeclaration = new TDeclarationDou(instance_id);
+             if ("A".equals(typeope) || "M".equals(typeope)){
          
         //PARTIE DECLARATION
         try {Tdeclaration.setInstanceid(Long.parseLong(declaration.getChild("segment_general").getAttribute("INSTANCE_ID").getValue()));} catch (Exception e) {};
+        
+        System.out.println(declaration.getChild("segment_general").getAttribute("bureau_dec").getValue());
+        
         try {Tdeclaration.setDecRefYer(Long.parseLong(declaration.getChild("segment_general").getAttribute("annee_dec").getValue()));} catch (Exception e) {};
         try {Tdeclaration.setIdeCuoCod(declaration.getChild("segment_general").getAttribute("bureau_dec").getValue());} catch (Exception e) {};
         try {Tdeclaration.setDecCod(declaration.getChild("segment_general").getAttribute("dec_code").getValue());} catch (Exception e) {};
@@ -338,8 +336,8 @@ public class InterfaceIfuPlateforme {
         try {Tdeclaration.setCmpConCod(declaration.getChild("segment_general").getAttribute("ifu_importateur").getValue());} catch (Exception e) {};
         try {Tdeclaration.setDecCod(declaration.getChild("segment_general").getAttribute("dec_code").getValue());} catch (Exception e) {};
         try {Tdeclaration.setDecNam(declaration.getChild("segment_general").getAttribute("nom_declarant").getValue());} catch (Exception e) {};
-        try {Tdeclaration.setFinAmtDty(BigInteger.valueOf(Long.parseLong(declaration.getChild("segment_general").getAttribute("total_liq").getValue())));} catch (Exception e) {};
-        try {Tdeclaration.setFinAmtTbp(BigInteger.valueOf(Long.parseLong(declaration.getChild("segment_general").getAttribute("total_a_payer").getValue())));} catch (Exception e) {};
+        try {Tdeclaration.setFinAmtDty(new BigDecimal(declaration.getChild("segment_general").getAttribute("total_liq").getValue()));} catch (Exception e) {};
+        try {Tdeclaration.setFinAmtTbp(new BigDecimal(declaration.getChild("segment_general").getAttribute("total_a_payer").getValue()));} catch (Exception e) {};
         try {Tdeclaration.setIdeRcpSer(declaration.getChild("segment_general").getAttribute("ser_quittance").getValue());} catch (Exception e) {};
         try {Tdeclaration.setIdeRcpNbr(declaration.getChild("segment_general").getAttribute("num_quittance").getValue());} catch (Exception e) {};
         try {Tdeclaration.setIdePstNbr(declaration.getChild("segment_general").getAttribute("num_version").getValue());} catch (Exception e) {};
@@ -348,62 +346,68 @@ public class InterfaceIfuPlateforme {
         try {Tdeclaration.setTptMotBrdCod(declaration.getChild("segment_general").getAttribute("mot_bord").getValue());} catch (Exception e) {};
         try {Tdeclaration.setTptMotInl(declaration.getChild("segment_general").getAttribute("mot_inland").getValue());} catch (Exception e) {};
         try {Tdeclaration.setIdeCuoCod(declaration.getChild("segment_general").getAttribute("cuo_bord").getValue());} catch (Exception e) {};
-        try {Tdeclaration.setFinAmtDty(BigInteger.valueOf(Long.parseLong(declaration.getChild("segment_general").getAttribute("Valeur_en_douane").getValue())));} catch (Exception e) {};
+        try {Tdeclaration.setFinAmtDty(new BigDecimal(declaration.getChild("segment_general").getAttribute("Valeur_en_douane").getValue()));} catch (Exception e) {};
         try {Tdeclaration.setTptCtf(Short.parseShort(declaration.getChild("segment_general").getAttribute("Indicateur_Conteneur").getValue()));} catch (Exception e) {};
-        //FIN PARTIE DECLARATION
+        tDeclarationDouaneFacade.create(Tdeclaration);                        
+//FIN PARTIE DECLARATION        
+        //PARTIE ARTICLE        
         
-        //PARTIE ARTICLE
-            //construction cle primaire TaxeDeclaration
-            
-            Long itm_nbr = Long.parseLong(declaration.getChild("segment_general").getChild("article").getAttribute("KEY_ITM_NBR").getValue());
-            //fin
+        List<Element> malistedArticles = declaration.getChildren("article");
         
-            
-            
-        //try {tarcticle.setTArticlePK(new TArticlePK(instance_id,itm_nbr));} catch (Exception e) {};        
-        try {tarcticle.setLnkTpt(declaration.getChild("segment_general").getChild("article").getAttribute("LNK_TPT").getValue());} catch (Exception e) {};
-        try {tarcticle.setTarPrcExt(declaration.getChild("segment_general").getChild("article").getAttribute("TAR_PRC_EXT").getValue());} catch (Exception e) {};
-        try {tarcticle.setTarPrcNat(declaration.getChild("segment_general").getChild("article").getAttribute("TAR_PRC_NAT").getValue());} catch (Exception e) {};
-        try {tarcticle.setTarHscNb1(declaration.getChild("segment_general").getChild("article").getAttribute("nomenclature").getValue());} catch (Exception e) {};
-        try {tarcticle.setGdsDsc(declaration.getChild("segment_general").getChild("article").getAttribute("GDS_DSC").getValue());} catch (Exception e) {};
-        try {tarcticle.setPckMrk1(declaration.getChild("segment_general").getChild("article").getAttribute("PCK_MRK1").getValue());} catch (Exception e) {};
-        try {tarcticle.setPckMrk2(declaration.getChild("segment_general").getChild("article").getAttribute("PCK_MRK2").getValue());} catch (Exception e) {};
-        try {tarcticle.setPckTypCod(declaration.getChild("segment_general").getChild("article").getAttribute("PCK_TYP_COD").getValue());} catch (Exception e) {};
-        try {tarcticle.setVitStv(BigInteger.valueOf(Long.parseLong(declaration.getChild("segment_general").getChild("article").getAttribute("PCK_MRK2").getValue())));} catch (Exception e) {};
-        try {tarcticle.setGdsOrgCty(declaration.getChild("segment_general").getChild("article").getAttribute("GDS_ORG_CTY").getValue());} catch (Exception e) {};
-        try {tarcticle.setVitWgtGrs(BigInteger.valueOf(Long.parseLong(declaration.getChild("segment_general").getChild("article").getAttribute("VIT_WGT_GRS").getValue())));} catch (Exception e) {};
-        try {tarcticle.setVitWgtNet(BigInteger.valueOf(Long.parseLong(declaration.getChild("segment_general").getChild("article").getAttribute("VIT_WGT_NET").getValue())));} catch (Exception e) {};
-        try {tarcticle.setTaxAmt(BigInteger.valueOf(Long.parseLong(declaration.getChild("segment_general").getChild("article").getAttribute("TAX_AMT").getValue())));} catch (Exception e) {};
-        //FIN PARTIE ARTICLE
+        //fin
+        for (Element ArtElt : malistedArticles){       
+        //construction cle primaire TaxeDeclaration
+        TArticle tarcticle = new TArticle(); 
+        Long itm_nbr = Long.parseLong(ArtElt.getAttribute("KEY_ITM_NBR").getValue());
+        System.out.println("numero art " + itm_nbr);
+        TArticlePK articlePK = new TArticlePK(instance_id, itm_nbr);
+        tarcticle.setTArticlePK(articlePK);
+        //fin construction cle primaire Article       
         
-        //PARTIE TAXE
-            //construction cle primaire TaxeDeclaration        
-             Long tax_rnk = Long.parseLong(declaration.getChild("segment_general").getChild("article").getChild("taxe").getAttribute("KEY_TAX_RNK").getValue());
-             
-            //fin
+        try {tarcticle.setLnkTpt(ArtElt.getAttribute("LNK_TPT").getValue());} catch (Exception e) {};
+        try {tarcticle.setTarPrcExt(ArtElt.getAttribute("TAR_PRC_EXT").getValue());} catch (Exception e) {};
+        try {tarcticle.setTarPrcNat(ArtElt.getAttribute("TAR_PRC_NAT").getValue());} catch (Exception e) {};
+        try {tarcticle.setTarHscNb1(ArtElt.getAttribute("nomenclature").getValue());} catch (Exception e) {};
+        try {tarcticle.setGdsDsc(ArtElt.getAttribute("GDS_DSC").getValue());} catch (Exception e) {};
+        try {tarcticle.setPckMrk1(ArtElt.getAttribute("PCK_MRK1").getValue());} catch (Exception e) {};
+        try {tarcticle.setPckMrk2(ArtElt.getAttribute("PCK_MRK2").getValue());} catch (Exception e) {};
+        try {tarcticle.setPckTypCod(ArtElt.getAttribute("PCK_TYP_COD").getValue());} catch (Exception e) {};
+        try {tarcticle.setVitStv((new BigDecimal(ArtElt.getAttribute("PCK_MRK2").getValue())));} catch (Exception e) {};
+        try {tarcticle.setGdsOrgCty(ArtElt.getAttribute("GDS_ORG_CTY").getValue());} catch (Exception e) {};
+        try {tarcticle.setVitWgtGrs((new BigDecimal(ArtElt.getAttribute("VIT_WGT_GRS").getValue())));} catch (Exception e) {};
+        try {tarcticle.setVitWgtNet((new BigDecimal(ArtElt.getAttribute("VIT_WGT_NET").getValue())));} catch (Exception e) {};
+        try {tarcticle.setTaxAmt((new BigDecimal(ArtElt.getAttribute("TAX_AMT").getValue())));} catch (Exception e) {};
+        tarcticle.setTDeclarationDou(Tdeclaration);
+        tArticleFacade.create(tarcticle);
+//PARTIE TAXE
         
-    //    try {taxes_mtant.setTTaxesDouPK(new TTaxesDouPK(instance_id, tax_rnk));} catch (Exception e) {};
-        try {taxes_mtant.setTaxCod(declaration.getChild("segment_general").getChild("article").getChild("taxe").getAttribute("TAX_LIN_COD").getValue());} catch (Exception e) {};
-        try {taxes_mtant.setTaxAmt(BigInteger.valueOf(Long.parseLong(declaration.getChild("segment_general").getChild("article").getChild("taxe").getAttribute("TAX_LIN_COD").getValue())));} catch (Exception e) {};
-        //FIN PARTIE TAXE
+        List<Element> malistedeTaxes = ArtElt.getChildren("taxe");
+        //System.out.println(nbre_taxes + " nbre taxes ----------------");
         
+        for (Element TaxeElt : malistedeTaxes){
+        //construction cle primaire TaxeDeclaration  
+        TTaxeDeclDou taxe = new TTaxeDeclDou();
+        Long tax_rnk = Long.parseLong(TaxeElt.getAttribute("KEY_TAX_RNK").getValue());
+        TTaxeDeclDouPK cleTaxe = new TTaxeDeclDouPK(instance_id, itm_nbr, tax_rnk);
+        taxe.setTTaxeDeclDouPK(cleTaxe);
+            System.out.println("cle ----- : " + instance_id + " " + itm_nbr + " "+ tax_rnk);
+        //fin construction cle primaire taxe
         
-//        //DEBUT TRANSACTION
-//        
-//        EntityTransaction myTransaction = tParticiperFacade.em.getTransaction();
-//        
-//        try{
-//        myTransaction.begin();
-//        
-//        tDeclarationDouaneFacade.create(Tdeclaration);
-//        tArticleFacade.create(tarcticle);
-//        tTaxesdouaneFacade.create(taxes_mtant);
-//        
-//        myTransaction.commit();     
-//        
-//        }catch(IllegalStateException ex){System.out.println("Insert - Une transaction est déjà active ou aucune transaction active." + ex.getMessage());}
-//     //FIN TRANSACTION
-        
+        try {taxe.setTaxLinAmt((new BigDecimal(TaxeElt.getAttribute("TAX_LIN_AMT").getValue())));} catch (Exception e) {};
+        try {taxe.setTaxLinBse((new BigDecimal((TaxeElt.getAttribute("TAX_LIN_BSE").getValue()))));} catch (Exception e) {};
+        try {taxe.setTaxLinCod(TaxeElt.getAttribute("TAX_LIN_COD").getValue());} catch (Exception e) {};
+        try {taxe.setTaxLinMop(TaxeElt.getAttribute("TAX_LIN_MOP").getValue());} catch (Exception e) {};
+        try {taxe.setTaxLinRat((new BigDecimal(TaxeElt.getAttribute("TAX_LIN_RAT").getValue())));} catch (Exception e) {};
+        try {taxe.setTaxLinTyp(TaxeElt.getAttribute("TAX_LIN_TYP").getValue());} catch (Exception e) {};
+        taxe.setTArticle(tarcticle);
+        tTaxeDecDouFacade.create(taxe);
+        System.out.println("taxe " + TaxeElt.getAttribute("TAX_LIN_AMT").getValue());
+            System.out.println("code de la taxe" + taxe.getTaxLinCod());
+
+        }
+                 System.out.println("yes man !!!!!!!!!!!");
+      
+        System.out.println("creation decla effectuee");
         //ARCHIVAGE FICHIER
         in.close();
         fichier.renameTo(new File(cheminDossierSucces, fichier.getName()));
@@ -414,11 +418,12 @@ public class InterfaceIfuPlateforme {
      
        }
          else{
-             if("M".equals(tyope)){
-                 //CAS DE MODIF NORMAL
-                 
+             if("M".equals(typeope)){
                  //PARTIE DECLARATION
         try {Tdeclaration.setInstanceid(Long.parseLong(declaration.getChild("segment_general").getAttribute("INSTANCE_ID").getValue()));} catch (Exception e) {};
+        
+        System.out.println(declaration.getChild("segment_general").getAttribute("bureau_dec").getValue());
+        
         try {Tdeclaration.setDecRefYer(Long.parseLong(declaration.getChild("segment_general").getAttribute("annee_dec").getValue()));} catch (Exception e) {};
         try {Tdeclaration.setIdeCuoCod(declaration.getChild("segment_general").getAttribute("bureau_dec").getValue());} catch (Exception e) {};
         try {Tdeclaration.setDecCod(declaration.getChild("segment_general").getAttribute("dec_code").getValue());} catch (Exception e) {};
@@ -438,8 +443,8 @@ public class InterfaceIfuPlateforme {
         try {Tdeclaration.setCmpConCod(declaration.getChild("segment_general").getAttribute("ifu_importateur").getValue());} catch (Exception e) {};
         try {Tdeclaration.setDecCod(declaration.getChild("segment_general").getAttribute("dec_code").getValue());} catch (Exception e) {};
         try {Tdeclaration.setDecNam(declaration.getChild("segment_general").getAttribute("nom_declarant").getValue());} catch (Exception e) {};
-        try {Tdeclaration.setFinAmtDty(BigInteger.valueOf(Long.parseLong(declaration.getChild("segment_general").getAttribute("total_liq").getValue())));} catch (Exception e) {};
-        try {Tdeclaration.setFinAmtTbp(BigInteger.valueOf(Long.parseLong(declaration.getChild("segment_general").getAttribute("total_a_payer").getValue())));} catch (Exception e) {};
+        try {Tdeclaration.setFinAmtDty(new BigDecimal(declaration.getChild("segment_general").getAttribute("total_liq").getValue()));} catch (Exception e) {};
+        try {Tdeclaration.setFinAmtTbp(new BigDecimal(declaration.getChild("segment_general").getAttribute("total_a_payer").getValue()));} catch (Exception e) {};
         try {Tdeclaration.setIdeRcpSer(declaration.getChild("segment_general").getAttribute("ser_quittance").getValue());} catch (Exception e) {};
         try {Tdeclaration.setIdeRcpNbr(declaration.getChild("segment_general").getAttribute("num_quittance").getValue());} catch (Exception e) {};
         try {Tdeclaration.setIdePstNbr(declaration.getChild("segment_general").getAttribute("num_version").getValue());} catch (Exception e) {};
@@ -448,86 +453,87 @@ public class InterfaceIfuPlateforme {
         try {Tdeclaration.setTptMotBrdCod(declaration.getChild("segment_general").getAttribute("mot_bord").getValue());} catch (Exception e) {};
         try {Tdeclaration.setTptMotInl(declaration.getChild("segment_general").getAttribute("mot_inland").getValue());} catch (Exception e) {};
         try {Tdeclaration.setIdeCuoCod(declaration.getChild("segment_general").getAttribute("cuo_bord").getValue());} catch (Exception e) {};
-        try {Tdeclaration.setFinAmtDty(BigInteger.valueOf(Long.parseLong(declaration.getChild("segment_general").getAttribute("Valeur_en_douane").getValue())));} catch (Exception e) {};
+        try {Tdeclaration.setFinAmtDty(new BigDecimal(declaration.getChild("segment_general").getAttribute("Valeur_en_douane").getValue()));} catch (Exception e) {};
         try {Tdeclaration.setTptCtf(Short.parseShort(declaration.getChild("segment_general").getAttribute("Indicateur_Conteneur").getValue()));} catch (Exception e) {};
-        //FIN PARTIE DECLARATION
+        tDeclarationDouaneFacade.edit(Tdeclaration);                        
+//FIN PARTIE DECLARATION        
+        //PARTIE ARTICLE        
         
-        //PARTIE ARTICLE
-            //construction cle primaire TaxeDeclaration
-            
-            Long itm_nbr = Long.parseLong(declaration.getChild("segment_general").getChild("article").getAttribute("KEY_ITM_NBR").getValue());
-            //fin
-        int nbre_articles = declaration.getContentSize();        
+        List<Element> malistedArticles = declaration.getChildren("article");
         
+        //fin
+        for (Element ArtElt : malistedArticles){       
+        //construction cle primaire TaxeDeclaration
+        TArticle tarcticle = new TArticle(); 
+        Long itm_nbr = Long.parseLong(ArtElt.getAttribute("KEY_ITM_NBR").getValue());
+        System.out.println("numero art " + itm_nbr);
+        TArticlePK articlePK = new TArticlePK(instance_id, itm_nbr);
+        tarcticle.setTArticlePK(articlePK);
+        //fin construction cle primaire Article       
         
-        for (int i = 0; i <= nbre_articles; i++) {
-            
-//        try {tarcticle.setTArticlePK(new TArticlePK(instance_id,itm_nbr));} catch (Exception e) {};        
-        try {tarcticle.setLnkTpt(declaration.getChild("segment_general").getChild("article").getAttribute("LNK_TPT").getValue());} catch (Exception e) {};
-        try {tarcticle.setTarPrcExt(declaration.getChild("segment_general").getChild("article").getAttribute("TAR_PRC_EXT").getValue());} catch (Exception e) {};
-        try {tarcticle.setTarPrcNat(declaration.getChild("segment_general").getChild("article").getAttribute("TAR_PRC_NAT").getValue());} catch (Exception e) {};
-        try {tarcticle.setTarHscNb1(declaration.getChild("segment_general").getChild("article").getAttribute("nomenclature").getValue());} catch (Exception e) {};
-        try {tarcticle.setGdsDsc(declaration.getChild("segment_general").getChild("article").getAttribute("GDS_DSC").getValue());} catch (Exception e) {};
-        try {tarcticle.setPckMrk1(declaration.getChild("segment_general").getChild("article").getAttribute("PCK_MRK1").getValue());} catch (Exception e) {};
-        try {tarcticle.setPckMrk2(declaration.getChild("segment_general").getChild("article").getAttribute("PCK_MRK2").getValue());} catch (Exception e) {};
-        try {tarcticle.setPckTypCod(declaration.getChild("segment_general").getChild("article").getAttribute("PCK_TYP_COD").getValue());} catch (Exception e) {};
-        try {tarcticle.setVitStv(BigInteger.valueOf(Long.parseLong(declaration.getChild("segment_general").getChild("article").getAttribute("PCK_MRK2").getValue())));} catch (Exception e) {};
-        try {tarcticle.setGdsOrgCty(declaration.getChild("segment_general").getChild("article").getAttribute("GDS_ORG_CTY").getValue());} catch (Exception e) {};
-        try {tarcticle.setVitWgtGrs(BigInteger.valueOf(Long.parseLong(declaration.getChild("segment_general").getChild("article").getAttribute("VIT_WGT_GRS").getValue())));} catch (Exception e) {};
-        try {tarcticle.setVitWgtNet(BigInteger.valueOf(Long.parseLong(declaration.getChild("segment_general").getChild("article").getAttribute("VIT_WGT_NET").getValue())));} catch (Exception e) {};
-        try {tarcticle.setTaxAmt(BigInteger.valueOf(Long.parseLong(declaration.getChild("segment_general").getChild("article").getAttribute("TAX_AMT").getValue())));} catch (Exception e) {};
+        try {tarcticle.setLnkTpt(ArtElt.getAttribute("LNK_TPT").getValue());} catch (Exception e) {};
+        try {tarcticle.setTarPrcExt(ArtElt.getAttribute("TAR_PRC_EXT").getValue());} catch (Exception e) {};
+        try {tarcticle.setTarPrcNat(ArtElt.getAttribute("TAR_PRC_NAT").getValue());} catch (Exception e) {};
+        try {tarcticle.setTarHscNb1(ArtElt.getAttribute("nomenclature").getValue());} catch (Exception e) {};
+        try {tarcticle.setGdsDsc(ArtElt.getAttribute("GDS_DSC").getValue());} catch (Exception e) {};
+        try {tarcticle.setPckMrk1(ArtElt.getAttribute("PCK_MRK1").getValue());} catch (Exception e) {};
+        try {tarcticle.setPckMrk2(ArtElt.getAttribute("PCK_MRK2").getValue());} catch (Exception e) {};
+        try {tarcticle.setPckTypCod(ArtElt.getAttribute("PCK_TYP_COD").getValue());} catch (Exception e) {};
+        try {tarcticle.setVitStv((new BigDecimal(ArtElt.getAttribute("PCK_MRK2").getValue())));} catch (Exception e) {};
+        try {tarcticle.setGdsOrgCty(ArtElt.getAttribute("GDS_ORG_CTY").getValue());} catch (Exception e) {};
+        try {tarcticle.setVitWgtGrs((new BigDecimal(ArtElt.getAttribute("VIT_WGT_GRS").getValue())));} catch (Exception e) {};
+        try {tarcticle.setVitWgtNet((new BigDecimal(ArtElt.getAttribute("VIT_WGT_NET").getValue())));} catch (Exception e) {};
+        try {tarcticle.setTaxAmt((new BigDecimal(ArtElt.getAttribute("TAX_AMT").getValue())));} catch (Exception e) {};
+        tarcticle.setTDeclarationDou(Tdeclaration);
+        tArticleFacade.edit(tarcticle);
+//PARTIE TAXE
         
-        //ICI AJOUT ARTICLES A LISTE 
-        listeArticles.add(tarcticle);
+        List<Element> malistedeTaxes = ArtElt.getChildren("taxe");
+        //System.out.println(nbre_taxes + " nbre taxes ----------------");
         
-        //FIN PARTIE ARTICLE
+        for (Element TaxeElt : malistedeTaxes){
+        //construction cle primaire TaxeDeclaration 
+        TTaxeDeclDou taxe = new TTaxeDeclDou();
+        Long tax_rnk = Long.parseLong(TaxeElt.getAttribute("KEY_TAX_RNK").getValue());
+        TTaxeDeclDouPK cleTaxe = new TTaxeDeclDouPK(instance_id, itm_nbr, tax_rnk);
+        taxe.setTTaxeDeclDouPK(cleTaxe);
+        //fin construction cle primaire taxe
         
-        //PARTIE TAXE
-            //construction cle primaire TaxeDeclaration        
-             Long tax_rnk = Long.parseLong(declaration.getChild("segment_general").getChild("article").getChild("taxe").getAttribute("KEY_TAX_RNK").getValue());
-             
-            //fin
-        
-//        try {taxes_mtant.setTTaxesDouPK(new TTaxesDouPK(instance_id, tax_rnk));} catch (Exception e) {};
-        try {taxes_mtant.setTaxCod(declaration.getChild("segment_general").getChild("article").getChild("taxe").getAttribute("TAX_LIN_COD").getValue());} catch (Exception e) {};
-        try {taxes_mtant.setTaxAmt(BigInteger.valueOf(Long.parseLong(declaration.getChild("segment_general").getChild("article").getChild("taxe").getAttribute("TAX_LIN_COD").getValue())));} catch (Exception e) {};
-        //FIN PARTIE TAXE
-        
+        try {taxe.setTaxLinAmt((new BigDecimal(TaxeElt.getAttribute("TAX_LIN_AMT").getValue())));} catch (Exception e) {};
+        try {taxe.setTaxLinBse((new BigDecimal((TaxeElt.getAttribute("TAX_LIN_BSE").getValue()))));} catch (Exception e) {};
+        try {taxe.setTaxLinCod(TaxeElt.getAttribute("TAX_LIN_COD").getValue());} catch (Exception e) {};
+        try {taxe.setTaxLinMop(TaxeElt.getAttribute("TAX_LIN_MOP").getValue());} catch (Exception e) {};
+        try {taxe.setTaxLinRat((new BigDecimal(TaxeElt.getAttribute("TAX_LIN_RAT").getValue())));} catch (Exception e) {};
+        try {taxe.setTaxLinTyp(TaxeElt.getAttribute("TAX_LIN_TYP").getValue());} catch (Exception e) {};
+        taxe.setTArticle(tarcticle);
+        tTaxeDecDouFacade.edit(taxe);
+        System.out.println("taxe " + TaxeElt.getAttribute("TAX_LIN_AMT").getValue());
+            System.out.println("code de la taxe" + taxe.getTaxLinCod());
+
         }
-        
-//        //DEBUT TRANSACTION
-//        
-//        EntityTransaction myTransaction = tParticiperFacade.em.getTransaction();
-//        
-//        try{
-//        myTransaction.begin();
-//        
-//        tDeclarationDouaneFacade.edit(Tdeclaration);
-//        tArticleFacade.edit(tarcticle);
-//        tTaxesdouaneFacade.edit(taxes_mtant);
-//        
-//        myTransaction.commit();     
-//        
-//        }catch(IllegalStateException ex){System.out.println("Modif - Une transaction est déjà active ou aucune transaction active." + ex.getMessage());}
-//     //FIN TRANSACTION
-        
-        // ARCHIVAGE FICHIER
+                 System.out.println("yes man !!!!!!!!!!!");
+      
+        System.out.println("creation decla effectuee");
+        //ARCHIVAGE FICHIER
         in.close();
         fichier.renameTo(new File(cheminDossierSucces, fichier.getName()));
-        // ARCHIVAGE FICHIER
-
+        //FIN ARCHIVAGE FICHIER
          System.out.println("------------ FIN AJOUT----------");
+     
         }
-             else if ("A".equals(tyope)){
-                 //DEMANDE D'AJOUTER UN ENREGISTREMENT DEJA EXISTANT
-                 //ON NE FAIT RIEN                 
-                 in.close();
-                fichier.renameTo(new File(cheminDossierEchecs, fichier.getName()));
-             }
-             
-    }
-         
-   } 
+         }
+        //FIN PARTIE ARTICLE 
+        
+        }
+        //ARCHIVAGE FICHIER
+                in.close();
+                fichier.renameTo(new File(cheminDossierSucces, fichier.getName()));
+        //FIN ARCHIVAGE FICHIER
+         System.out.println("------------ FIN AJOUT----------");
+             }       
+        } 
+    
+ 
    
    ////////////////////////// FIN INSERTION DECLARATION ARTICLE TAXE
    
