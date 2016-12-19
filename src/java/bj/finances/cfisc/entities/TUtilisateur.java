@@ -6,6 +6,7 @@
 package bj.finances.cfisc.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -16,6 +17,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -33,11 +36,38 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TUtilisateur.findByUtilLogin", query = "SELECT t FROM TUtilisateur t WHERE t.utilLogin = :utilLogin"),
     @NamedQuery(name = "TUtilisateur.findByUtilActif", query = "SELECT t FROM TUtilisateur t WHERE t.utilActif = :utilActif")})
 public class TUtilisateur implements Serializable {
+    @Size(max = 30)
+    @Column(name = "UTIL_COD")
+    private String utilCod;
+    @Size(max = 30)
+    @Column(name = "FONCT_COD")
+    private String fonctCod;
+    @Size(max = 50)
+    @Column(name = "UTIL_NOM")
+    private String utilNom;
+    @Size(max = 50)
+    @Column(name = "UTIL_PRENOMS")
+    private String utilPrenoms;
+    @Column(name = "UTIL_DATE_CREAT")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date utilDateCreat;
+    @Column(name = "UTIL_DATE_SUSPENS")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date utilDateSuspens;
+    @Size(max = 1)
+    @Column(name = "SUPPR_UTILI")
+    private String supprUtili;
+    @Size(max = 1000)
+    @Column(name = "UTIL_PASSWORD")
+    private String utilPassword;
+    @Size(max = 20)
+    @Column(name = "UTIL_ADMINISTRATION")
+    private String utilAdministration;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 10)
+    @Size(min = 1, max = 30)
     @Column(name = "UTIL_LOGIN")
     private String utilLogin;
     @Basic(optional = false)
@@ -130,6 +160,78 @@ public class TUtilisateur implements Serializable {
     @Override
     public String toString() {
         return "bj.finances.cfisc.entities.TUtilisateur[ utilLogin=" + utilLogin + " ]";
+    }
+
+    public String getUtilCod() {
+        return utilCod;
+    }
+
+    public void setUtilCod(String utilCod) {
+        this.utilCod = utilCod;
+    }
+
+    public String getFonctCod() {
+        return fonctCod;
+    }
+
+    public void setFonctCod(String fonctCod) {
+        this.fonctCod = fonctCod;
+    }
+
+    public String getUtilNom() {
+        return utilNom;
+    }
+
+    public void setUtilNom(String utilNom) {
+        this.utilNom = utilNom;
+    }
+
+    public String getUtilPrenoms() {
+        return utilPrenoms;
+    }
+
+    public void setUtilPrenoms(String utilPrenoms) {
+        this.utilPrenoms = utilPrenoms;
+    }
+
+    public Date getUtilDateCreat() {
+        return utilDateCreat;
+    }
+
+    public void setUtilDateCreat(Date utilDateCreat) {
+        this.utilDateCreat = utilDateCreat;
+    }
+
+    public Date getUtilDateSuspens() {
+        return utilDateSuspens;
+    }
+
+    public void setUtilDateSuspens(Date utilDateSuspens) {
+        this.utilDateSuspens = utilDateSuspens;
+    }
+
+    public String getSupprUtili() {
+        return supprUtili;
+    }
+
+    public void setSupprUtili(String supprUtili) {
+        this.supprUtili = supprUtili;
+    }
+
+    public String getUtilPassword() {
+        return utilPassword;
+    }
+
+    public void setUtilPassword(String utilPassword) {
+        this.utilPassword = utilPassword;
+    }
+
+    public String getUtilAdministration() {
+        return utilAdministration;
+    }
+
+    public void setUtilAdministration(String utilAdministration) {
+        this.utilAdministration = utilAdministration;
     }
     
 }

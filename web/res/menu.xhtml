@@ -14,6 +14,8 @@
         -->
         <c:if test="#{loginMBean.contribuable}">
             <h:link outcome="/vues/tEntDeclaration/DeclarationFiscal.xhtml" value="Déclaration fiscale" /><br/><br/>
+                    <h:link outcome="/vues/tDeclarationDou/ConsulterDeclarationEnDouane.xhtml" value="Consultation Déclaration en Douane" /><br/><br/>
+
         </c:if>
 
         <c:if test="#{loginMBean.inspecteur}">

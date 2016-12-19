@@ -38,7 +38,7 @@ public class TEntDeclarationController implements Serializable {
     private boolean valider =false;
     
     public TEntDeclarationController() {
-        System.out.println("PAPA MAMAN MIMI JORDI DIVINIA.......................");
+        //System.out.println("PAPA MAMAN MIMI JORDI DIVINIA.......................");
     }
 
     public boolean isValider() {
@@ -123,9 +123,10 @@ public class TEntDeclarationController implements Serializable {
 
     public String create() {
         try {
-           // =1200801257709
-            current.setEntDecContImmatr(ejbFacaderepuniq.find(1200801257709l));
+           // =1200801257709   2201500008501
+            current.setEntDecContImmatr(ejbFacaderepuniq.find(2201500008501l));
             current.setEntDecValidation("N");
+            //current.setEntDecNum(2l);
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TEntDeclarationCreated"));
             //return prepareCreate();
@@ -208,7 +209,7 @@ public class TEntDeclarationController implements Serializable {
      
         public List<TEntDeclaration> getFindListEntdeclfisc(){        
             //return ejbFacade.findListentdeclarcontrib(1201300000201l); 
-            return ejbFacade.findListentdeclarcontrib(1200801257709l);  
+            return ejbFacade.findListentdeclarcontrib(2201500008501l);  
         }
         
     public List<TEntDeclaration> getFindAll(){        

@@ -39,6 +39,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 //    @NamedQuery(name = "THistStatut.updateTHistStatu", query = "UPDATE  THistStatut t SET t.histStatutCode= :histStatutCode, t.histStatutContImmatr =:histStatutContImmatr, t.histStatutDatedebut= :histStatutDatedebut, t.histStatutDatefin= :histStatutDatefin, t.histStatutStatut= :histStatutStatut, t.histStatutUtilLogin = :histStatutUtilLogin WHERE t.histStatutContImmatr= :histStatutContImmatr"),
     @NamedQuery(name = "THistStatut.findByHistStatutContImmatr", query = "SELECT t FROM THistStatut t WHERE t.histStatutContImmatr = :histStatutContImmatr")})
 public class THistStatut implements Serializable {
+    @JoinColumn(name = "HIST_CENTR_IMP_CODE", referencedColumnName = "CENTR_IMP_CODE")
+    @ManyToOne(optional = false)
+    private TCentreImpot histCentrImpCode;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -146,6 +149,14 @@ public class THistStatut implements Serializable {
     @Override
     public String toString() {
         return "bj.finances.cfisc.entities.THistStatut[ histStatutCode=" + histStatutCode + " ]";
+    }
+
+    public TCentreImpot getHistCentrImpCode() {
+        return histCentrImpCode;
+    }
+
+    public void setHistCentrImpCode(TCentreImpot histCentrImpCode) {
+        this.histCentrImpCode = histCentrImpCode;
     }
     
 }

@@ -123,13 +123,10 @@ private Boolean connecte;
       // ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
         if (request.getUserPrincipal()==null)
-     { System.out.println("non");
-         return false;
-     }
+     { return false;     }
      
      else
-     {System.out.println("oui");
-             return true;}
+     {return true;}
 }
     public String login() {
        

@@ -4,6 +4,11 @@ body {
     font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
     color: #000000;  
     margin: 10px;
+    
+}
+
+#bottom{
+    clear: both
 }
 
 h1 {

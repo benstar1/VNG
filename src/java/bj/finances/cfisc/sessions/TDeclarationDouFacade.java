@@ -43,6 +43,14 @@ public class TDeclarationDouFacade extends AbstractFacade<TDeclarationDou> {
         return res;
     }
     
+    public void supprimer(Long instanceid){
+        
+       Query query = em.createNamedQuery("TDeclarationDou.deleteDeclaration");
+       query.setParameter("instanceid", instanceid);
+       query.executeUpdate();
+       
+    }
+        
     public TDeclarationDouFacade() {
         super(TDeclarationDou.class);
     }

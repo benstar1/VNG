@@ -52,6 +52,9 @@
                 </library>
                 <library dirs="200">
                     <file>${file.reference.itext-2.1.7.jar}</file>
+                </library>
+                <library dirs="200">
+                    <file>${file.reference.log4j-1.2.12.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>

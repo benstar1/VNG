@@ -44,7 +44,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TEntDeclaration.findByEntDecDatefin", query = "SELECT t FROM TEntDeclaration t WHERE t.entDecDatefin = :entDecDatefin"),
     @NamedQuery(name = "TEntDeclaration.findByEntDecDatedebut", query = "SELECT t FROM TEntDeclaration t WHERE t.entDecDatedebut = :entDecDatedebut")})
 
-@SequenceGenerator(name = "generateur_ent_declfisc",sequenceName = "SEQUENCE1", allocationSize=1 )
+@SequenceGenerator(name = "generateur_ent_declfisc",sequenceName = "SEQ1", allocationSize=1 )
 public class TEntDeclaration implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

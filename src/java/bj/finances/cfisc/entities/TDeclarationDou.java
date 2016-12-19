@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "T_DECLARATION_DOU")
 @XmlRootElement
 @NamedQueries({    
+    @NamedQuery(name = "TDeclarationDou.deleteDeclaration", query = "DELETE FROM TDeclarationDou t WHERE t.instanceid = :instanceid "),
     @NamedQuery(name = "TDeclarationDou.findAll", query = "SELECT t FROM TDeclarationDou t"),
     @NamedQuery(name = "TDeclarationDou.findByContribuableAndIdeRegDat", query = "SELECT t FROM TDeclarationDou t WHERE t.ideRegDat = :ideRegDat AND (t.cmpConCod =:cmpCod OR t.cmpExpCod =:cmpCod)"),
     @NamedQuery(name = "TDeclarationDou.findByContribuableAndIdeRcpDat", query = "SELECT t FROM TDeclarationDou t WHERE t.ideRcpDat = :ideRcpDat AND (t.cmpConCod =:cmpCod OR t.cmpExpCod =:cmpCod)" ),

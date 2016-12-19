@@ -8,6 +8,7 @@ package bj.finances.cfisc.entities;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -65,7 +66,7 @@ public class TTaxeDeclDou implements Serializable {
     @JoinColumns({
         @JoinColumn(name = "INSTANCEID", referencedColumnName = "INSTANCEID", insertable = false, updatable = false),
         @JoinColumn(name = "KEY_ITM_NBR", referencedColumnName = "KEY_ITM_NBR", insertable = false, updatable = false)})
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private TArticle tArticle;
 
     public TTaxeDeclDou() {

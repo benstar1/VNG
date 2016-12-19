@@ -36,6 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TCentreImpot.findByCentrImpLibelle", query = "SELECT t FROM TCentreImpot t WHERE t.centrImpLibelle = :centrImpLibelle"),
     @NamedQuery(name = "TCentreImpot.findByCentrDepCode", query = "SELECT t FROM TCentreImpot t WHERE t.centrDepCode = :centrDepCode")})
 public class TCentreImpot implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "histCentrImpCode")
+    private List<THistStatut> tHistStatutList;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -133,6 +135,15 @@ public class TCentreImpot implements Serializable {
     @Override
     public String toString() {
         return "bj.finances.cfisc.entities.TCentreImpot[ centrImpCode=" + centrImpCode + " ]";
+    }
+
+    @XmlTransient
+    public List<THistStatut> getTHistStatutList() {
+        return tHistStatutList;
+    }
+
+    public void setTHistStatutList(List<THistStatut> tHistStatutList) {
+        this.tHistStatutList = tHistStatutList;
     }
     
 }

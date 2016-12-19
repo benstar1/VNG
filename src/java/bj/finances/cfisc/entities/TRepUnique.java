@@ -6,6 +6,7 @@
 package bj.finances.cfisc.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
@@ -94,6 +95,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TRepUnique.findByContDateMajMatricule", query = "SELECT t FROM TRepUnique t WHERE t.contDateMajMatricule = :contDateMajMatricule"),
     @NamedQuery(name = "TRepUnique.findByContStatut", query = "SELECT t FROM TRepUnique t WHERE t.contStatut = :contStatut")})
 public class TRepUnique implements Serializable {
+    @OneToMany(mappedBy = "histContImmatr")
+    private List<THistorique> tHistoriqueList;
     @OneToMany(mappedBy = "entDecContImmatr")
     private List<TEntDeclaration> tEntDeclarationList;
     private static final long serialVersionUID = 1L;
@@ -802,6 +805,15 @@ public class TRepUnique implements Serializable {
 
     public void setTEntDeclarationList(List<TEntDeclaration> tEntDeclarationList) {
         this.tEntDeclarationList = tEntDeclarationList;
+    }
+
+    @XmlTransient
+    public List<THistorique> getTHistoriqueList() {
+        return tHistoriqueList;
+    }
+
+    public void setTHistoriqueList(List<THistorique> tHistoriqueList) {
+        this.tHistoriqueList = tHistoriqueList;
     }
     
 }

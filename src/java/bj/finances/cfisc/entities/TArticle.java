@@ -27,6 +27,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.hibernate.annotations.Cascade;
 
 /**
  *
@@ -392,7 +393,7 @@ public class TArticle implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tArticle", fetch = FetchType.EAGER)
     private List<TTaxeDeclDou> tTaxeDeclDouList;
     @JoinColumn(name = "INSTANCEID", referencedColumnName = "INSTANCEID", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private TDeclarationDou tDeclarationDou;
 
     public TArticle() {

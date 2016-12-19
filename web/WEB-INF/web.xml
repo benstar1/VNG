@@ -30,6 +30,11 @@
             <description>déclaration fiscale</description>
             <url-pattern>/vues/tEntDeclaration/DeclarationFiscal.xhtml</url-pattern>
         </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>DeclarationEnDouane</web-resource-name>
+            <description/>
+            <url-pattern>/vues/tDeclarationDou/ConsulterDeclarationEnDouane.xhtml</url-pattern>
+        </web-resource-collection>
         <auth-constraint>
             <description/>
             <role-name>CONTRIBUABLE</role-name>
