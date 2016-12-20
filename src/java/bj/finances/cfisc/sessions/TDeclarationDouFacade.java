@@ -7,8 +7,9 @@ package bj.finances.cfisc.sessions;
 
 import bj.finances.cfisc.entities.TDeclarationDou;
 import bj.finances.cfisc.entities.TRepUnique;
-import java.sql.Date;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -62,6 +63,44 @@ public class TDeclarationDouFacade extends AbstractFacade<TDeclarationDou> {
         return listTDeclarationDous;
     }
 
+    public BigDecimal sumTax( String codeTax, Long instanceId){
+        
+        Query query = em.createNamedQuery("TTaxeDeclDou.findSumTax");
+        query.setParameter("codTaxe", codeTax)
+             .setParameter("instanceId", instanceId);
+        BigDecimal sum = (BigDecimal)query.getSingleResult();
+        return sum;
+    }
+    public List<TDeclarationDou> findAll(int rechercherPar, String bureau, String serie, String numero, Date date){
+
+        String queryString = "SELECT t FROM TDeclarationDou t WHERE t.ideCuoCod =:ideCuoCod ";
+        switch(rechercherPar){
+            case 2 : // recherche par numero d'enregistrement
+                queryString += " AND t.ideRegSer=:ideSer AND t.ideRegNbr=:ideNbr AND t.ideRegDat=:ideDat ";
+                break;
+            case 3 :
+                queryString += " AND t.ideAstSer=:ideSer AND t.ideAstNbr=:ideNbr AND t.ideAstDat=:ideDat ";
+                break;
+            case 4 :
+                queryString += " AND t.ideRcpSer=:ideSer AND t.ideRcpNbr=:ideNbr AND t.ideRcpDat=:ideDat ";
+                break;
+        }
+        
+        System.out.println(queryString);
+
+        Query query = em.createQuery(queryString);
+        
+        query.setParameter("ideCuoCod", bureau)
+             .setParameter("ideSer", serie)
+             .setParameter("ideNbr", numero)
+             .setParameter("ideDat", date);
+        
+        List<TDeclarationDou> listeDeclaration = query.getResultList();
+        System.out.println("AZERTYUIOP  " + listeDeclaration.size());
+        if( listeDeclaration != null ) System.out.println(listeDeclaration.size());else System.out.println("il est null");
+        return listeDeclaration;
+    }
+    
     public List<TDeclarationDou> findAll(TRepUnique tRepUnique, String typeDeclaration, String typeDate, java.sql.Date dateDebut, java.sql.Date dateFin) {
         if( tRepUnique == null ) return new ArrayList<>();
         String queryString = "SELECT t FROM TDeclarationDou t WHERE (t.cmpConCod =:cmpCod OR t.cmpExpCod =:cmpCod) ";

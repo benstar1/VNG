@@ -30,6 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TTaxeDeclDou.findAll", query = "SELECT t FROM TTaxeDeclDou t"),
+    @NamedQuery(name = "TTaxeDeclDou.findSumTax2", query = "SELECT SUM(t.taxLinAmt) FROM TTaxeDeclDou t WHERE t.taxLinCod =:codTaxe AND t.tTaxeDeclDouPK.instanceid=:instanceId "),
+        @NamedQuery(name = "TTaxeDeclDou.findSumTax", query = "SELECT t.tTaxeDeclDouPK.instanceid as instanceId, t.taxLinCod as taxLinCod, SUM(t.taxLinAmt) FROM TTaxeDeclDou t WHERE t.tTaxeDeclDouPK.instanceid IN :listeInstanceId GROUP BY instanceId,taxLinCod  "),
     @NamedQuery(name = "TTaxeDeclDou.findAllByArticle", query = "SELECT t FROM TTaxeDeclDou t WHERE t.tArticle =:tArticle"),
     @NamedQuery(name = "TTaxeDeclDou.findByInstanceid", query = "SELECT t FROM TTaxeDeclDou t WHERE t.tTaxeDeclDouPK.instanceid = :instanceid"),
     @NamedQuery(name = "TTaxeDeclDou.findByKeyItmNbr", query = "SELECT t FROM TTaxeDeclDou t WHERE t.tTaxeDeclDouPK.keyItmNbr = :keyItmNbr"),

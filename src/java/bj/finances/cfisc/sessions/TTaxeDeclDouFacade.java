@@ -11,6 +11,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -34,8 +35,17 @@ public class TTaxeDeclDouFacade extends AbstractFacade<TTaxeDeclDou> {
         List<TTaxeDeclDou> listTTaxeDou = em.createNamedQuery("TTaxeDeclDou.findAllByArticle")
                                                 .setParameter("tArticle", tArticle)
                                                 .getResultList();
-        System.out.println("PARDON MAMAN " + listTTaxeDou.size());
         return listTTaxeDou;
     }
     
+    
+    public List findSyntheseTaxes(List<Long> listeInstanceId){
+        
+        Query query = em.createNamedQuery("TTaxeDeclDou.findSumTax")
+                        .setParameter("listeInstanceId", listeInstanceId);
+        
+        List resultat = query.getResultList();
+        
+        return resultat;
+    }
 }

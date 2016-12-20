@@ -13,6 +13,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
@@ -722,7 +723,7 @@ public class TDeclarationDou implements Serializable {
     @Lob
     @Column(name = "CUSTOMS_STAMP")
     private Serializable customsStamp;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tDeclarationDou")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tDeclarationDou",fetch = FetchType.EAGER)
     private List<TArticle> tArticleList;
 
     public TDeclarationDou() {
