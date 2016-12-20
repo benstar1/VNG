@@ -8,15 +8,19 @@ package bj.finances.cfisc.entities;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.Random;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -32,8 +36,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "T_HISTORIQUE")
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name="THistorique.findLastVersion", query = "SELECT t FROM THistorique t WHERE t.histNum = SELECT max(th.histNum) FROM THistorique th where th.histContImmatr.contImmatr = :histContImmatr"),
     @NamedQuery(name = "THistorique.findAll", query = "SELECT t FROM THistorique t"),
-    @NamedQuery(name = "THistorique.findByHistContImmatr", query = "SELECT t FROM THistorique t WHERE t.histContImmatr = :histContImmatr"),
     @NamedQuery(name = "THistorique.findByHistNum", query = "SELECT t FROM THistorique t WHERE t.histNum = :histNum"),
     @NamedQuery(name = "THistorique.findByHistContNum", query = "SELECT t FROM THistorique t WHERE t.histContNum = :histContNum"),
     @NamedQuery(name = "THistorique.findByHistContDatenreg", query = "SELECT t FROM THistorique t WHERE t.histContDatenreg = :histContDatenreg"),
@@ -90,12 +94,14 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "THistorique.findByHistContMatricule", query = "SELECT t FROM THistorique t WHERE t.histContMatricule = :histContMatricule"),
     @NamedQuery(name = "THistorique.findByHistContDateMajMatricule", query = "SELECT t FROM THistorique t WHERE t.histContDateMajMatricule = :histContDateMajMatricule"),
     @NamedQuery(name = "THistorique.findByHistContStatut", query = "SELECT t FROM THistorique t WHERE t.histContStatut = :histContStatut")})
+@SequenceGenerator(name="thistoriqueSequence", initialValue=1, allocationSize=1)
 public class THistorique implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "HIST_NUM")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="thistoriqueSequence")
     private Long histNum;
     @Basic(optional = false)
     @NotNull
@@ -265,13 +271,17 @@ public class THistorique implements Serializable {
     @JoinColumn(name = "HIST_UTIL_LOGIN", referencedColumnName = "UTIL_LOGIN")
     @ManyToOne
     private TUtilisateur histUtilLogin;
+    
     @JoinColumn(name = "HIST_CONT_IMMATR", referencedColumnName = "CONT_IMMATR")
-    @OneToOne
+    @ManyToOne
     private TRepUnique histContImmatr;
+    
+    
     @JoinColumn(name = "HIST_MOTIF_CODE", referencedColumnName = "MOTIF_CODE")
     @ManyToOne
     private TMotif histMotifCode;
     
+    @NotNull
     @Column(name = "HIST_DATE_DEBUT")
     @Temporal(TemporalType.TIMESTAMP)
     private Date histDateDebut;
@@ -279,8 +289,6 @@ public class THistorique implements Serializable {
     @Column(name = "HIST_DATE_FIN")
     @Temporal(TemporalType.TIMESTAMP)
     private Date histDateFin;
-    
-    
 
     public THistorique() {
     }
@@ -296,7 +304,7 @@ public class THistorique implements Serializable {
         this.histContCentrCode = histContCentrCode;
         this.histContTypContCode = histContTypContCode;
     }
-    
+
     public THistorique(TRepUnique tRepUnique, TMotif tMotif, TUtilisateur tUtilisateur){        
        this.setHistContCapital(tRepUnique.getContCapital());
        this.setHistContFax(tRepUnique.getContFax());
@@ -359,7 +367,6 @@ public class THistorique implements Serializable {
        this.setHistUtilLogin(tUtilisateur); // a revoir
 
     }
-
     public Long getHistNum() {
         return histNum;
     }
@@ -848,7 +855,6 @@ public class THistorique implements Serializable {
         this.histDateFin = histDateFin;
     }
 
-    
     @Override
     public int hashCode() {
         int hash = 0;
