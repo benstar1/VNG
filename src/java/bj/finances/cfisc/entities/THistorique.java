@@ -94,7 +94,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "THistorique.findByHistContMatricule", query = "SELECT t FROM THistorique t WHERE t.histContMatricule = :histContMatricule"),
     @NamedQuery(name = "THistorique.findByHistContDateMajMatricule", query = "SELECT t FROM THistorique t WHERE t.histContDateMajMatricule = :histContDateMajMatricule"),
     @NamedQuery(name = "THistorique.findByHistContStatut", query = "SELECT t FROM THistorique t WHERE t.histContStatut = :histContStatut")})
-@SequenceGenerator(name="thistoriqueSequence", initialValue=1, allocationSize=100)
+@SequenceGenerator(name="thistoriqueSequence", initialValue=1, allocationSize=1)
 public class THistorique implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
