@@ -20,6 +20,7 @@ import java.util.Vector;
 import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import org.apache.log4j.Logger;
 
 
 /**
@@ -45,6 +46,7 @@ public class AgentSftp {
     @Inject
     private InterfaceIfuPlateforme iifu;
     
+    final static org.apache.log4j.Logger logger = Logger.getLogger(AgentSftp.class.getName());
     
     public void telechargerDeclarationEndouane(){
         JSch jsch = new JSch();
@@ -57,10 +59,19 @@ public class AgentSftp {
             java.util.Properties config = new java.util.Properties();
             config.put("StrictHostKeyChecking", "no");
             session.setConfig(config);
+            try{
             session.connect();
+            }
+            catch(Exception ex){
+                logger.error("Problème de connexion de session" + ex.getMessage());
+            }
 
             channel = session.openChannel("sftp");
+            try{
             channel.connect();
+            }catch(Exception ex){
+                logger.error("Problème de connexion au canal "+ ex.getMessage());
+            }
             ChannelSftp channelSftp = (ChannelSftp) channel;
             channelSftp.lcd(cheminDepotLocal);
 
@@ -69,10 +80,9 @@ public class AgentSftp {
             for (ChannelSftp.LsEntry entry : list) {
                 channelSftp.get(entry.getFilename(), entry.getFilename());
                 channelSftp.rename(entry.getFilename(), "/fichier_traite/" + entry.getFilename());
-                System.out.println(entry.getFilename());
-            }     
+                logger.info("Fichier traité .... " + entry.getFilename());            }     
         } catch (Exception e) {
-           System.out.println("Erreur lors du téléchargement d'un fichier entreprise par sftp ( " + e.getMessage() + ")");
+           logger.error("Erreur lors du téléchargement d'un fichier entreprise par sftp ( " + e.getMessage() + ")");
         }finally{
             channel.disconnect();
             session.disconnect();
@@ -93,9 +103,20 @@ public class AgentSftp {
             java.util.Properties config = new java.util.Properties();
             config.put("StrictHostKeyChecking", "no");            
             session.setConfig(config);            
-            session.connect();            
+            try{
+            session.connect();
+            }
+            catch(Exception ex){
+                logger.error("Problème de connexion de session" + ex.getMessage());
+            }
+            
             channel = session.openChannel("sftp");            
+            try{
             channel.connect();
+            }catch(Exception ex){
+                logger.error("Problème de connexion au canal "+ ex.getMessage());
+            }
+            
             ChannelSftp channelSftp = (ChannelSftp) channel;
             channelSftp.lcd(cheminDepotLocal);
 
@@ -106,11 +127,10 @@ public class AgentSftp {
                 channelSftp.get(entry.getFilename(), entry.getFilename());
                 System.out.println("nom fichier : " + entry.getFilename());
                 channelSftp.rename(entry.getFilename(), "fichier_traite/" + entry.getFilename());
-                
-                System.out.println("Fichier déplacé : ................." + entry.getFilename());
+                logger.info("Fichier traité .... " + entry.getFilename());
             }     
         } catch (Exception e) {
-           System.out.println("Erreur lors du téléchargement d'un fichier entreprise par sftp ( " + e.getMessage() + ")");
+           logger.error("Erreur lors du téléchargement d'un fichier entreprise par sftp ( " + e.getMessage() + ")");
         }finally{
             channel.disconnect();
             session.disconnect();

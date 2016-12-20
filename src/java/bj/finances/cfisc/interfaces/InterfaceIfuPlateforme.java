@@ -899,65 +899,265 @@ public class InterfaceIfuPlateforme {
 
    ////////////////////////// FIN INSERTION DECLARATION ARTICLE TAXE
     //traitement table contribuable 
-    public void traitementDeDonnesCont(Document document, File fichier, InputStream in) throws JDOMException, SAXException, IOException, UserOrMotifUndefined {
+   
+     public void traitementDeDonnesCont(Document document, File fichier, InputStream in) throws JDOMException, SAXException, IOException, UserOrMotifUndefined {
         Element racine = document.getRootElement();
-        
+        System.err.println("CA DONNE = " + racine.getName());
         Element operation = racine.getChild("OPERATION");
-
+        TTypeContrib ttrContrib = new TTypeContrib();
+        TRepUnique tRepUnique = new TRepUnique();
         Element typeOperation = operation.getChild("TYPEOP");
         System.out.println(typeOperation.getValue());
         Element contribuable = racine.getChild("CONT");
         Element centreImpot = racine.getChild("CENTRE_IMPOT");
         Element contCode = racine.getChild("CONT_CODE");
-//        TCentreImpot tCentreImpot = tCentreImpotFacade.find(centreImpot.getChild("CENTR_IMP_CODE").getValue());
-//        if(tCentreImpot == null){
-//            tCentreImpot = new TCentreImpot();           
-//            tCentreImpot.setCentrImpCode(centreImpot.getChild("CENTR_IMP_CODE").getValue());
-//            tCentreImpot.setCentrImpLibelle(centreImpot.getChild("CENTR_IMP_LIBELLE").getValue());           
-//            tCentreImpotFacade.create(tCentreImpot);
-//        }
-        TTypeContrib ttrContrib = tTypeContribFacade.find(contCode.getChild("TYP_CONT_CODE").getValue());
+        
+        ttrContrib = tTypeContribFacade.find(contCode.getChild("TYP_CONT_CODE").getValue());
         if (ttrContrib == null) {
             ttrContrib = new TTypeContrib(contCode.getChild("TYP_CONT_CODE").getValue(), contCode.getChild("TYP_CONT_LIB").getValue());
             tTypeContribFacade.create(ttrContrib);
         }
-        TRepUnique tRepUnique = tRepUniqueFacade.find(Long.valueOf(contribuable.getChild("CONT_IMMATR").getValue()));
+
+        tRepUnique = tRepUniqueFacade.find(Long.valueOf(contribuable.getChild("CONT_IMMATR").getValue()));
         System.out.println("-----***********----------------");
         if (tRepUnique == null) {
             if ("A".equals(typeOperation.getValue())) {
-                System.out.println("ESSAIIIIIIIIIIIIIIII");
+                System.out.println("ESSAIIIII     IIIIIIIIIII");
                 tRepUnique = new TRepUnique();
                 try {
                     tRepUnique.setContDatenreg(dateFormat.parse(contribuable.getChild("CONT_DATENREG").getValue()));
                 } catch (Exception e) {
+                    System.out.println("Erreur date enreg" + e);
                 };
                 try {
                     tRepUnique.setContImmatr(Long.parseLong(contribuable.getChild("CONT_IMMATR").getValue()));
                 } catch (Exception e) {
+                    System.out.println("Erreur immatr" + e);
                 };
                 try {
                     tRepUnique.setContNum(contribuable.getChild("CONT_NUM").getValue());
                 } catch (Exception e) {
+                    System.out.println("Erreur cont_num" + e);
                 }
-//                try {tRepUnique.setContNom(contribuable.getChild("CONT_NOM").getValue());} catch (Exception e) {}
-//                try {tRepUnique.setContPren(contribuable.getChild("CONT_PREN").getValue());} catch (Exception e) {}
-//                try {tRepUnique.setContDatnais(dateFormat.parse(contribuable.getChild("CONT_NOM").getValue()));} catch (Exception e) {}
-//                try {tRepUnique.setContActif(contribuable.getChild("CONT_ACTIF").getValue());} catch (Exception e) {}
-//                try {tRepUnique.setContBp(contribuable.getChild("CONT_BP").getValue());} catch (Exception e) {}
-//                try {tRepUnique.setContCapital(BigDecimal.valueOf(Long.parseLong(contribuable.getChild("CONT_PREN").getValue())));} catch (Exception e) {}
-//                try {tRepUnique.setContCarre(contribuable.getChild("CONT_CARRE").getValue());} catch (Exception e) {}
-//               
+                try {
+                    tRepUnique.setContNom(contribuable.getChild("CONT_NOM").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContPren(contribuable.getChild("CONT_PREN").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContDatnais(dateFormat.parse(contribuable.getChild("CONT_DATNAIS").getValue()));
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContActif(contribuable.getChild("CONT_ACTIF").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContBp(contribuable.getChild("CONT_BP").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContCapital(BigDecimal.valueOf(Long.parseLong(contribuable.getChild("CONT_CAPITAL").getValue())).toBigInteger());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContCatEtabCode(contribuable.getChild("CONT_CAT_ETAB_CODE").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContCentrCode(contribuable.getChild("CONT_CENTR_CODE").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContDatcreat(dateFormat.parse(contribuable.getChild("CONT_DATCREAT").getValue()));
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContDateCessation(dateFormat.parse(contribuable.getChild("CONT_DATE_CESSATION").getValue()));
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContDateDeces(dateFormat.parse(contribuable.getChild("CONT_DATE_DECES").getValue()));
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContDateMajMatricule(dateFormat.parse(contribuable.getChild("CONT_DATE_MAJ_MATRICULE").getValue()));
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContDateRepriseAct(dateFormat.parse(contribuable.getChild("CONT_DATE_REPRISE_ACT").getValue()));
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContDateimmatr(dateFormat.parse(contribuable.getChild("CONT_DATE_IMMATR").getValue()));
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContDatenregInsae(dateFormat.parse(contribuable.getChild("CONT_DATENREG_INSAE").getValue()));
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContEnsCommerce(contribuable.getChild("CONT_ENS_COMMERCE").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContFax(BigDecimal.valueOf(Long.parseLong(contribuable.getChild("CONT_FAX").getValue())).toBigInteger());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContFonctCode(contribuable.getChild("CONT_FONCT_CODE").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContLieunais(contribuable.getChild("CONT_LIEUNAIS").getValue());
+                } catch (Exception e) {
+                }
+
+                try {
+                    tRepUnique.setContLot(contribuable.getChild("CONT_LOT").getValue());
+                } catch (Exception e) {
+                }
+
+                try {
+                    tRepUnique.setContLoyer(Long.parseLong(contribuable.getChild("CONT_LOYER").getValue()));
+                } catch (Exception e) {
+                }
+
+                try {
+                    tRepUnique.setContMail(contribuable.getChild("CONT_MAIL").getValue());
+                } catch (Exception e) {
+                }
+
+                try {
+                    tRepUnique.setContMatricule(contribuable.getChild("CONT_MATRICULE").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContMemActMere(contribuable.getChild("CONT_MEM_ACT_MERE").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContMemBank(contribuable.getChild("CONT_MEM_BANK").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContModExpCode(contribuable.getChild("CONT_MOD_EXP_CODE").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContNationCode(contribuable.getChild("CONT_NATION_CODE").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContNbEmpl(Short.parseShort(contribuable.getChild("CONT_NB_EMPL").getValue()));
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContNbEnf(Short.parseShort(contribuable.getChild("CONT_NB_ENF").getValue()));
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContNeVers(contribuable.getChild("CONT_NE_VERS").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContNewImmatr(Long.parseLong(contribuable.getChild("CONT_NEW_IMMATR").getValue()));
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContNomCourt(contribuable.getChild("CONT_NOM_COURT").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContNomJf(contribuable.getChild("CONT_Nom_JF").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContNomLong(contribuable.getChild("CONT_Nom_LONG").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContNompropsieg(contribuable.getChild("CONT_NOMPROPSIEG").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContNuminsae(contribuable.getChild("CONT_NUMINSAE").getValue());
+                } catch (Exception e) {
+                }
+                 try {
+                    tRepUnique.setContNuminsae1(contribuable.getChild("CONT_NUMINSAE1").getValue());
+                } catch (Exception e) {
+                }
+                  try {
+                    tRepUnique.setContOrdre(BigDecimal.valueOf(Long.parseLong(contribuable.getChild("CONT_NUMINSAE").getValue())).toBigInteger());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContPrnompropsieg(contribuable.getChild("CONT_PRNOMPROPSIEG").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContProfCode(contribuable.getChild("CONT_PROF_CODE").getValue());
+                } catch (Exception e) {
+                }
+                 try {
+                    tRepUnique.setContProp(contribuable.getChild("CONT_PROP").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContQuart(contribuable.getChild("CONT_QUART").getValue());
+                } catch (Exception e) {
+                }
+                 try { 
+                    tRepUnique.setContRais(contribuable.getChild("CONT_RAIS").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContReimmatr(contribuable.getChild("CONT_REIMMATR").getValue());
+                } catch (Exception e) {
+                }
+                
+                try {
+                    tRepUnique.setContRue(contribuable.getChild("CONT_RUE").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContSexe(contribuable.getChild("CONT_SEXE").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContSitMat(contribuable.getChild("CONT_SIT_MAT").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContStatut(contribuable.getChild("CONT_STATUT").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContTel(BigDecimal.valueOf(Long.parseLong(contribuable.getChild("CONT_TEL").getValue())).toBigInteger());
+                } catch (Exception e) {
+                }
+                
+                try {
+                    tRepUnique.setContVille(contribuable.getChild("CONT_VILLE").getValue());
+                } catch (Exception e) {
+                }  
+
                 tRepUnique.setContCentrCode(contribuable.getChild("CONT_CENTR_CODE").getValue());
                 tRepUnique.setContTypContCode(ttrContrib);
+
                 TMotif tMotif = tMotifFacade.find("A");
                 TUtilisateur tUtilisateur = tUtilisateurFacade.find("deamon");
                 if (tMotif == null || tUtilisateur == null) {
                     throw new UserOrMotifUndefined("");
                 }
+                
                 tRepUniqueFacade.create(tRepUnique);
                 tHistoriqueFacade.historiser(tRepUnique, tMotif, tUtilisateur);
-//                //THistorique tHistorique = new THistorique(tRepUnique,tMotif, tUtilisateur);
-                // tHistoriqueFacade.create(tHistorique);
+                
                 in.close();
                 fichier.renameTo(new File(cheminDossierSucces, fichier.getName()));
             } else {
@@ -972,25 +1172,238 @@ public class InterfaceIfuPlateforme {
                 try {
                     tRepUnique.setContDatenreg(dateFormat.parse(contribuable.getChild("CONT_DATENREG").getValue()));
                 } catch (Exception e) {
+                    System.out.println("Erreur date enreg" + e);
                 };
                 try {
                     tRepUnique.setContImmatr(Long.parseLong(contribuable.getChild("CONT_IMMATR").getValue()));
                 } catch (Exception e) {
+                    System.out.println("Erreur immatr" + e);
                 };
-                tRepUnique.setContNum(contribuable.getChild("CONT_NUM").getValue());
+                try {
+                    tRepUnique.setContNum(contribuable.getChild("CONT_NUM").getValue());
+                } catch (Exception e) {
+                    System.out.println("Erreur cont_num" + e);
+                }
+                try {
+                    tRepUnique.setContNom(contribuable.getChild("CONT_NOM").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContPren(contribuable.getChild("CONT_PREN").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContDatnais(dateFormat.parse(contribuable.getChild("CONT_DATNAIS").getValue()));
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContActif(contribuable.getChild("CONT_ACTIF").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContBp(contribuable.getChild("CONT_BP").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContCapital(BigDecimal.valueOf(Long.parseLong(contribuable.getChild("CONT_CAPITAL").getValue())).toBigInteger());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContCatEtabCode(contribuable.getChild("CONT_CAT_ETAB_CODE").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContCentrCode(contribuable.getChild("CONT_CENTR_CODE").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContDatcreat(dateFormat.parse(contribuable.getChild("CONT_DATCREAT").getValue()));
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContDateCessation(dateFormat.parse(contribuable.getChild("CONT_DATE_CESSATION").getValue()));
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContDateDeces(dateFormat.parse(contribuable.getChild("CONT_DATE_DECES").getValue()));
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContDateMajMatricule(dateFormat.parse(contribuable.getChild("CONT_DATE_MAJ_MATRICULE").getValue()));
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContDateRepriseAct(dateFormat.parse(contribuable.getChild("CONT_DATE_REPRISE_ACT").getValue()));
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContDateimmatr(dateFormat.parse(contribuable.getChild("CONT_DATE_IMMATR").getValue()));
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContDatenregInsae(dateFormat.parse(contribuable.getChild("CONT_DATENREG_INSAE").getValue()));
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContEnsCommerce(contribuable.getChild("CONT_ENS_COMMERCE").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContFax(BigDecimal.valueOf(Long.parseLong(contribuable.getChild("CONT_FAX").getValue())).toBigInteger());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContFonctCode(contribuable.getChild("CONT_FONCT_CODE").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContLieunais(contribuable.getChild("CONT_LIEUNAIS").getValue());
+                } catch (Exception e) {
+                }
 
+                try {
+                    tRepUnique.setContLot(contribuable.getChild("CONT_LOT").getValue());
+                } catch (Exception e) {
+                }
+
+                try {
+                    tRepUnique.setContLoyer(Long.parseLong(contribuable.getChild("CONT_LOYER").getValue()));
+                } catch (Exception e) {
+                }
+
+                try {
+                    tRepUnique.setContMail(contribuable.getChild("CONT_MAIL").getValue());
+                } catch (Exception e) {
+                }
+
+                try {
+                    tRepUnique.setContMatricule(contribuable.getChild("CONT_MATRICULE").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContMemActMere(contribuable.getChild("CONT_MEM_ACT_MERE").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContMemBank(contribuable.getChild("CONT_MEM_BANK").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContModExpCode(contribuable.getChild("CONT_MOD_EXP_CODE").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContNationCode(contribuable.getChild("CONT_NATION_CODE").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContNbEmpl(Short.parseShort(contribuable.getChild("CONT_NB_EMPL").getValue()));
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContNbEnf(Short.parseShort(contribuable.getChild("CONT_NB_ENF").getValue()));
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContNeVers(contribuable.getChild("CONT_NE_VERS").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContNewImmatr(Long.parseLong(contribuable.getChild("CONT_NEW_IMMATR").getValue()));
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContNomCourt(contribuable.getChild("CONT_NOM_COURT").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContNomJf(contribuable.getChild("CONT_Nom_JF").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContNomLong(contribuable.getChild("CONT_Nom_LONG").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContNompropsieg(contribuable.getChild("CONT_NOMPROPSIEG").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContNuminsae(contribuable.getChild("CONT_NUMINSAE").getValue());
+                } catch (Exception e) {
+                }
+                 try {
+                    tRepUnique.setContNuminsae1(contribuable.getChild("CONT_NUMINSAE1").getValue());
+                } catch (Exception e) {
+                }
+                  try {
+                    tRepUnique.setContOrdre(BigDecimal.valueOf(Long.parseLong(contribuable.getChild("CONT_NUMINSAE").getValue())).toBigInteger());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContPrnompropsieg(contribuable.getChild("CONT_PRNOMPROPSIEG").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContProfCode(contribuable.getChild("CONT_PROF_CODE").getValue());
+                } catch (Exception e) {
+                }
+                 try {
+                    tRepUnique.setContProp(contribuable.getChild("CONT_PROP").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContQuart(contribuable.getChild("CONT_QUART").getValue());
+                } catch (Exception e) {
+                }
+                 try { 
+                    tRepUnique.setContRais(contribuable.getChild("CONT_RAIS").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContReimmatr(contribuable.getChild("CONT_REIMMATR").getValue());
+                } catch (Exception e) {
+                }
+                
+                try {
+                    tRepUnique.setContRue(contribuable.getChild("CONT_RUE").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContSexe(contribuable.getChild("CONT_SEXE").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContSitMat(contribuable.getChild("CONT_SIT_MAT").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContStatut(contribuable.getChild("CONT_STATUT").getValue());
+                } catch (Exception e) {
+                }
+                try {
+                    tRepUnique.setContTel(BigDecimal.valueOf(Long.parseLong(contribuable.getChild("CONT_TEL").getValue())).toBigInteger());
+                } catch (Exception e) {
+                }
+                
+                try {
+                    tRepUnique.setContVille(contribuable.getChild("CONT_VILLE").getValue());
+                } catch (Exception e) {
+                }
+                
                 tRepUnique.setContCentrCode(contribuable.getChild("CONT_CENTR_CODE").getValue());
-                TTypeContrib tTypeContrib = tTypeContribFacade.find(contribuable.getChild("CONT_TYP_CONT_CODE").getValue());
-                tRepUnique.setContTypContCode(tTypeContrib);
+
+                tRepUnique.setContTypContCode(ttrContrib);
+                
                 TMotif tMotif = tMotifFacade.find("M");
                 TUtilisateur tUtilisateur = tUtilisateurFacade.find("deamon");
                 if (tMotif == null || tUtilisateur == null) {
                     throw new UserOrMotifUndefined("");
                 }
+                
                 tRepUniqueFacade.edit(tRepUnique);
-                //THistorique tHistorique = new THistorique(tRepUnique,tMotif, tUtilisateur);
                 tHistoriqueFacade.historiser(tRepUnique, tMotif, tUtilisateur);
-                //tHistoriqueFacade.create(tHistorique);
+
                 System.out.println("cest ici");
                 in.close();
                 System.out.println("passe");
@@ -1003,6 +1416,7 @@ public class InterfaceIfuPlateforme {
             return;
         }
     }
+
 
     private class UserOrMotifUndefined extends Exception {
 
