@@ -1225,14 +1225,14 @@ public class InterfaceIfuPlateforme {
                 in.close();
                 fichier.renameTo(new File(cheminDossierSuccesSydo, fichier.getName()));
             } else {
-                System.out.println("Ajout impossible pour cause de fichier existant " + fichier.getName());
+                System.out.println("IMPOSSIBLE DE MODIFIER UN CONTRIBUABLE INEXISTANT " + fichier.getName());
                 in.close();
                 fichier.renameTo(new File(cheminDossierEchecsSydo, fichier.getName()));
             }
             return;
         } else {
             if ("M".equals(typeOperation.getValue())) {
-                System.out.println("Je suis dans la modification");
+                
                 try {
                     tRepUnique.setContDatenreg(dateFormat.parse(contribuable.getChild("CONT_DATENREG").getValue()));
                 } catch (Exception e) {
@@ -1472,7 +1472,7 @@ public class InterfaceIfuPlateforme {
 
                 fichier.renameTo(new File(cheminDossierSuccesIfu, fichier.getName()));
             } else {
-                System.out.println("inpossible de modifier un contribuable inexistant " + fichier.getName());
+                logger.info("IMPOSSIBLE D'AJOUTER UN CONTRIBUABLE EXISTANT " + fichier.getName());
                 in.close();
                 fichier.renameTo(new File(cheminDossierEchecsIfu, fichier.getName()));
             }

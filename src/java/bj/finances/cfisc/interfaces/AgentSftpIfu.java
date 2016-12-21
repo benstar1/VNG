@@ -90,7 +90,7 @@ public class AgentSftpIfu {
 //    }
     
     
-    //@Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/20", persistent = false)
+    @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/20", persistent = false)
     public void telechargerEntrepriseIfu() {
         JSch jsch = new JSch();
         Session session = null;
