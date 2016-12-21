@@ -7,7 +7,11 @@ package bj.finances.cfisc.controllers;
 
 //import bj.finances.cfisc.controllers.TRepUniqueController;
 import bj.finances.cfisc.entities.TCentreImpot;
+import bj.finances.cfisc.entities.THistStatut;
 import bj.finances.cfisc.entities.TRepUnique;
+import bj.finances.cfisc.entities.TUtilisateur;
+import bj.finances.cfisc.sessions.THistStatutFacade;
+import bj.finances.cfisc.sessions.TUtilisateurFacade;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -23,6 +27,8 @@ import javax.ejb.EJB;
 //import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -45,6 +51,32 @@ public class MAJMBean extends java.lang.Object {
 //    private TRepUniqueFacade tRepUniqueFacade;
     @EJB
     private bj.finances.cfisc.sessions.TRepUniqueFacade tRepUniqueFacade;
+
+    @EJB
+    private TUtilisateurFacade tUtilisateurFacade;
+
+    private TUtilisateur user;
+
+    private THistStatut tHistStatut;
+
+    public TUtilisateurFacade gettUtilisateurFacade() {
+        return tUtilisateurFacade;
+    }
+
+    public void settUtilisateurFacade(TUtilisateurFacade tUtilisateurFacade) {
+        this.tUtilisateurFacade = tUtilisateurFacade;
+    }
+
+    public TUtilisateur getUser() {
+        return user;
+    }
+
+    public void setUser(TUtilisateur user) {
+        this.user = user;
+    }
+
+    @EJB
+    private THistStatutFacade tHistStatutFacade;
 
     // @Inject
     TRepUniqueController tRepUniqueController;
@@ -124,6 +156,17 @@ public class MAJMBean extends java.lang.Object {
             //String file = event.getFile().getFilename();
             System.out.print("size " + dataHolder.size());
 
+            HttpServletResponse response
+                    = (HttpServletResponse) FacesContext.getCurrentInstance()
+                            .getExternalContext().getResponse();
+
+            //byte[] buf = new byte[1024];
+//            response.setContentType("application/text");
+//            response.setHeader("Content-Disposition", "attachment;filename=test.txt");
+//            PrintWriter pout = response.getWriter();//.getOutputStream().write(buf);
+//            response.getOutputStream().flush();
+//            response.getOutputStream().close();
+//            FacesContext.getCurrentInstance().responseComplete();
             for (int i = 1; i < dataHolder.size(); i++) {
                 Vector cellStoreVector = (Vector) dataHolder.elementAt(i);
                 System.out.print("size " + cellStoreVector.size());
@@ -170,14 +213,47 @@ public class MAJMBean extends java.lang.Object {
 
                         System.out.println("Objet a charger " + tRepUnique);
 
+                        // constitution de la liste des contribuables modifiés
                         chargement.add(tRepUnique);
                         charge = chargement;
+
+                        System.out.println("Début historisation -- Activation");
+
+                        user = tUtilisateurFacade.findAll().get(0);
+                        System.out.println("User " + user);
+
+                        tHistStatut = new THistStatut(tRepUnique, user);
+                        try {
+                            tHistStatutFacade.historiserStatut(tHistStatut);
+                        } catch (Exception e) {
+                            System.out.println("Erreur appel historiser" + e);
+                        }
+
+                        System.out.println("Fin historisation -- Activation");
+
                     } else {
                         tRepUnique.setContStatut(statut);
                         tRepUniqueFacade.edit(tRepUnique);
 
+                        // constitution de la liste des contribuables modifiés
                         chargement.add(tRepUnique);
                         charge = chargement;
+
+                        //historisation
+                        System.out.println("Début historisation -- Désactivation");
+
+                        user = tUtilisateurFacade.findAll().get(0);
+                        System.out.println("User " + user);
+
+                        tHistStatut = new THistStatut(tRepUnique, user);
+                        try {
+                            tHistStatutFacade.historiserStatut(tHistStatut);
+                        } catch (Exception e) {
+                            System.out.println("Erreur appel historiser" + e);
+                        }
+
+                        System.out.println("Fin historisation -- Désactivation");
+
 //                        if(cimpot.equals(tRepUnique.getCont)){
 //                            
 //                        }
@@ -186,14 +262,16 @@ public class MAJMBean extends java.lang.Object {
                 } else {
 
                     outechec.write(ifu.toString() + " " + nom + " " + pnom + " \n");
+//                    pout.write(ifu.toString() + " " + nom + " " + pnom + " \n");
+
                     chargeAbsent.add(ifu.toString() + "\t           " + nom + " \t " + pnom);
 
                 }
             }
-
+// pout.close();
             outechec.close();
             outsucces.close();
-            
+
         } catch (NumberFormatException e) {
             System.err.println("Erreur sur le format de nombre " + e.getMessage());
         } catch (IOException ex) {
@@ -245,6 +323,8 @@ public class MAJMBean extends java.lang.Object {
 
             FileOutputStream out = new FileOutputStream(upload);
             myWorkBook.write(out);
+            out.close();
+
             out.close();
 
         } catch (IOException e) {

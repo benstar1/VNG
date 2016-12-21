@@ -34,29 +34,49 @@ public class THistStatutFacade extends AbstractFacade<THistStatut> {
         return em;
     }
 
-    public void historiserStatut(THistStatut statutNouveau)
-    {
-        THistStatut statutEnCours = null; 
+    public THistStatut findByHistStatutLast(TRepUnique ifu) {
+        Query query;
+        THistStatut res = null;
+        //query = em.createNamedQuery("TRepUnique.findByContImmatr").setParameter("contImmatr", ifu);
+        query = em.createNamedQuery("THistStatut.findByHistStatutLast")
+                //                .setParameter("histStatutDatefin", null)
+                .setParameter("histStatutContImmatr", ifu);
+        try {
+            res = (THistStatut) query.getSingleResult();
+        } catch (NoResultException e) {
+            System.out.println("Aucun objet trouvé " + e.getMessage());
+        }
+        return res;
+    }
+
+    public void historiserStatut(THistStatut statutNouveau) {
+        THistStatut statutEnCours = null;
         // Si le contribuable est actif dans le même centre d'impôt
 //        THistStatut tHistStatut;
+        System.out.println("Je suis dans historiser");
         Query query = null;
-        
-        try{
-       
-        query = em.createNamedQuery("THistStatut.findByHistStatutLast")
-                .setParameter("histStatutContImmatr", statutNouveau.getHistStatutContImmatr())
-                .setParameter("histStatutDatefin", null);
-          statutNouveau=(THistStatut)query.getSingleResult();
-        }catch(NonUniqueResultException nue){}
+
+        try {
+
+            statutEnCours = findByHistStatutLast(statutNouveau.getHistStatutContImmatr());
+        } catch (Exception nue) {
+            System.out.println("Rien trouvé" + nue);
+        }
         // Contrôler l'action à faire
-        if(statutEnCours != null){
+
+        if (statutEnCours != null) {
+            System.out.println("existait");
             statutEnCours.setHistStatutDatefin(new Date()); // Mise à jour de la date de fin
             edit(statutEnCours);
+            create(statutNouveau);
+        } else {
+            System.out.println("n'existait pas");
             create(statutNouveau);
         }
 
     }
-/*
+
+    /*
         if ((tHistStatut.getHistStatutContImmatr().getContCentrImpCode().getCentrImpCode().equalsIgnoreCase(tRepUnique.getContCentrCode()))) // Même centre d'impôt
         {
             if (tHistStatut.getHistStatutContImmatr().getContStatut().equalsIgnoreCase("A"))// Contribuable précédemment actif
@@ -83,7 +103,7 @@ public class THistStatutFacade extends AbstractFacade<THistStatut> {
 //         }catch(NoResultException nre){
 //            System.out.println("C EST PAS BON " + nre.getMessage());
 //        }
-        */
+     */
     public THistStatutFacade() {
         super(THistStatut.class);
     }

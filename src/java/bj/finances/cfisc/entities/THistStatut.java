@@ -7,6 +7,7 @@ package bj.finances.cfisc.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Random;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,18 +31,22 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "T_HIST_STATUT")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "THistStatut.findAll", query = "SELECT t FROM THistStatut t"),
-    @NamedQuery(name = "THistStatut.findByHistStatutCode", query = "SELECT t FROM THistStatut t WHERE t.histStatutCode = :histStatutCode"),
-    @NamedQuery(name = "THistStatut.findByHistStatutDatedebut", query = "SELECT t FROM THistStatut t WHERE t.histStatutDatedebut = :histStatutDatedebut"),
-    @NamedQuery(name = "THistStatut.findByHistStatutDatefin", query = "SELECT t FROM THistStatut t WHERE t.histStatutDatefin = :histStatutDatefin"),
-    @NamedQuery(name = "THistStatut.findByHistStatutLast", query = "SELECT t FROM THistStatut t WHERE t.histStatutDatefin = :histStatutDatefin AND t.histStatutContImmatr = :histStatutContImmatr"),
-    @NamedQuery(name = "THistStatut.findByHistStatutStatut", query = "SELECT t FROM THistStatut t WHERE t.histStatutStatut = :histStatutStatut"),
+    @NamedQuery(name = "THistStatut.findAll", query = "SELECT t FROM THistStatut t")
+    ,
+    @NamedQuery(name = "THistStatut.findByHistStatutCode", query = "SELECT t FROM THistStatut t WHERE t.histStatutCode = :histStatutCode")
+    ,
+    @NamedQuery(name = "THistStatut.findByHistStatutDatedebut", query = "SELECT t FROM THistStatut t WHERE t.histStatutDatedebut = :histStatutDatedebut")
+    ,
+    @NamedQuery(name = "THistStatut.findByHistStatutDatefin", query = "SELECT t FROM THistStatut t WHERE t.histStatutDatefin = :histStatutDatefin")
+    ,
+    @NamedQuery(name = "THistStatut.findByHistStatutLast", query = "SELECT t FROM THistStatut t WHERE t.histStatutDatefin IS NULL AND t.histStatutContImmatr = :histStatutContImmatr")
+    ,
+    @NamedQuery(name = "THistStatut.findByHistStatutStatut", query = "SELECT t FROM THistStatut t WHERE t.histStatutStatut = :histStatutStatut")
+    ,
 //    @NamedQuery(name = "THistStatut.updateTHistStatu", query = "UPDATE  THistStatut t SET t.histStatutCode= :histStatutCode, t.histStatutContImmatr =:histStatutContImmatr, t.histStatutDatedebut= :histStatutDatedebut, t.histStatutDatefin= :histStatutDatefin, t.histStatutStatut= :histStatutStatut, t.histStatutUtilLogin = :histStatutUtilLogin WHERE t.histStatutContImmatr= :histStatutContImmatr"),
     @NamedQuery(name = "THistStatut.findByHistStatutContImmatr", query = "SELECT t FROM THistStatut t WHERE t.histStatutContImmatr = :histStatutContImmatr")})
 public class THistStatut implements Serializable {
-    @JoinColumn(name = "HIST_CENTR_IMP_CODE", referencedColumnName = "CENTR_IMP_CODE")
-    @ManyToOne(optional = false)
-    private TCentreImpot histCentrImpCode;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -58,6 +63,9 @@ public class THistStatut implements Serializable {
     @Size(max = 1)
     @Column(name = "HIST_STATUT_STATUT")
     private String histStatutStatut;
+    @JoinColumn(name = "HIST_CENTR_IMP_CODE", referencedColumnName = "CENTR_IMP_CODE")
+    @ManyToOne(optional = false)
+    private TCentreImpot histCentrImpCode;
     @JoinColumn(name = "HIST_STATUT_UTIL_LOGIN", referencedColumnName = "UTIL_LOGIN")
     @ManyToOne(optional = false)
     private TUtilisateur histStatutUtilLogin;
@@ -67,13 +75,27 @@ public class THistStatut implements Serializable {
 
     public THistStatut() {
     }
-    public THistStatut( TRepUnique tRepUnique,TUtilisateur tUtilisateur) {
-        this.histStatutCode = tRepUnique.getContStatut();
+
+    Long aleatoire() {
+        Random randnum = new Random();
+
+        long LOWER_RANGE = 0; //assign lower range value
+        long UPPER_RANGE = 1000000; //assign upper range value
+
+        return LOWER_RANGE + (long) (randnum.nextDouble() * (UPPER_RANGE - LOWER_RANGE));
+
+    }
+
+    public THistStatut(TRepUnique tRepUnique, TUtilisateur tUtilisateur) {
+//        long randValue = randnum.nextLong();
+        this.histStatutCode = tRepUnique.getContStatut() + aleatoire();
         this.histStatutContImmatr = tRepUnique;
         this.histStatutDatedebut = new Date();
+        this.histCentrImpCode = tRepUnique.getContCentrImpCode();
         this.histStatutStatut = tRepUnique.getContStatut();
         this.histStatutUtilLogin = tUtilisateur;
     }
+  
     public THistStatut(String histStatutCode) {
         this.histStatutCode = histStatutCode;
     }
@@ -108,6 +130,14 @@ public class THistStatut implements Serializable {
 
     public void setHistStatutStatut(String histStatutStatut) {
         this.histStatutStatut = histStatutStatut;
+    }
+
+        public TCentreImpot getHistCentrImpCode() {
+        return histCentrImpCode;
+    }
+
+    public void setHistCentrImpCode(TCentreImpot histCentrImpCode) {
+        this.histCentrImpCode = histCentrImpCode;
     }
 
     public TUtilisateur getHistStatutUtilLogin() {
@@ -151,12 +181,4 @@ public class THistStatut implements Serializable {
         return "bj.finances.cfisc.entities.THistStatut[ histStatutCode=" + histStatutCode + " ]";
     }
 
-    public TCentreImpot getHistCentrImpCode() {
-        return histCentrImpCode;
-    }
-
-    public void setHistCentrImpCode(TCentreImpot histCentrImpCode) {
-        this.histCentrImpCode = histCentrImpCode;
-    }
-    
 }
