@@ -86,14 +86,19 @@ public class InterfaceIfuPlateforme {
 
     final static org.apache.log4j.Logger logger = Logger.getLogger(InterfaceIfuPlateforme.class.getName());
 
-    private String cheminDepotLocal = ResourceBundle.getBundle("/parametres").getString("cheminDepotLocal");
-    private String cheminDossierEchecs = ResourceBundle.getBundle("/parametres").getString("cheminDossierEchecs");
-    private String cheminDossierSucces = ResourceBundle.getBundle("/parametres").getString("cheminDossierSucces");
+    private String cheminDepotLocalIfu = ResourceBundle.getBundle("/parametres").getString("cheminDepotLocalIfu");
+    private String cheminDossierEchecsIfu = ResourceBundle.getBundle("/parametres").getString("cheminDossierEchecsIfu");
+    private String cheminDossierSuccesIfu = ResourceBundle.getBundle("/parametres").getString("cheminDossierSuccesIfu");
+    
+    private String cheminDepotLocalSydo = ResourceBundle.getBundle("/parametres").getString("cheminDepotLocalSydo");
+    private String cheminDossierEchecsSydo = ResourceBundle.getBundle("/parametres").getString("cheminDossierEchecsSydo");
+    private String cheminDossierSuccesSydo = ResourceBundle.getBundle("/parametres").getString("cheminDossierSuccesSydo");
+    
     private String cheminFichierXsdCont = ResourceBundle.getBundle("/parametres").getString("cheminFichierXsdCont");
     private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     //@Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/20", persistent = false)
-    public void consommerFichierEntreprise() {
+    /* public void consommerFichierEntreprise() {
         try {
             scrutelocal();
 
@@ -103,12 +108,71 @@ public class InterfaceIfuPlateforme {
         }
 
     }
+*/
 
-    public void scrutelocal() {
+    public void scrutelocalSydo() {
+        System.out.println(" Scan du dossier source Sydo ........ " + new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(new Date()));            
+         
+        File depotLocal = new File(cheminDepotLocalSydo);
+        File dossierEchecs = new File(cheminDossierEchecsSydo);
+        File[] listeFichier = depotLocal.listFiles();
+        List<File> liste = Arrays.asList(listeFichier);
+        Collections.sort(liste);
+
+        for (File f : liste) {
+
+            if (f.isDirectory()) {
+                continue;
+            }
+            Document document = null;
+            InputStream in = null;
+            Schema schema = null;
+
+            try {
+                System.out.println(f.getName().substring(0, 4));
+                //////////////////////////traitement des xml de declarations /////////////
+                if (f.getName().substring(0, 4).equals("DECL")) {
+                    in = new FileInputStream(f);
+                    SAXBuilder builder = new SAXBuilder();
+                    document = (Document) builder.build(in);
+                    TraitementDonneesDouane(document, f, in, f.getName());
+                }
+
+            } catch (JDOMException | SAXException j) {
+                logger.error("Echec de validation du fichier : (" + j.getMessage() + ")");
+                //j.printStackTrace();
+                try {
+                    in.close();
+                } catch (IOException ex) {
+                }
+                f.renameTo(new File(dossierEchecs, f.getName()));
+            } catch (IOException i) {
+                logger.error("Problème de lecture du fichier : (" + i.getMessage() + ")");
+                //i.printStackTrace(); 
+                try {
+                    in.close();
+                } catch (IOException ex) {
+                }
+                f.renameTo(new File(dossierEchecs, f.getName()));
+            } catch (Exception ex) {
+                logger.error("Une exception inconnue a ete generee (Sydo): (" + ex.getMessage() + ")");
+                //ex.printStackTrace();      
+                try {
+                    in.close();
+                } catch (IOException ioe) {
+                }
+                f.renameTo(new File(dossierEchecs, f.getName()));
+            } 
+
+        }
+    }
+    
+    
+    public void scrutelocalIfu() {
         System.out.println(" Scan du dossier source ........ " + new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(new Date()));            
          
-        File depotLocal = new File(cheminDepotLocal);
-        File dossierEchecs = new File(cheminDossierEchecs);
+        File depotLocal = new File(cheminDepotLocalIfu);
+        File dossierEchecs = new File(cheminDossierEchecsIfu);
         File[] listeFichier = depotLocal.listFiles();
         List<File> liste = Arrays.asList(listeFichier);
         Collections.sort(liste);
@@ -145,14 +209,10 @@ public class InterfaceIfuPlateforme {
                     SAXBuilder builder = new SAXBuilder();
                     document = (Document) builder.build(in);
                     traitementDeDonnesPart(document, f, in);
-                } //////////////////////////traitement des xml de declaration douanières/////////////
-                else if (f.getName().substring(0, 4).equals("DECL")) {
-                    in = new FileInputStream(f);
-                    SAXBuilder builder = new SAXBuilder();
-                    document = (Document) builder.build(in);
-                    TraitementDonneesDouane(document, f, in, f.getName().toString());
-                }
-
+                } 
+                
+                //////////////////////////traitement des xml de declaration douanières/////////////
+               
             } catch (JDOMException | SAXException j) {
                 logger.error("Echec de validation du fichier : (" + j.getMessage() + ")");
                 //j.printStackTrace();
@@ -170,7 +230,7 @@ public class InterfaceIfuPlateforme {
                 }
                 f.renameTo(new File(dossierEchecs, f.getName()));
             } catch (Exception ex) {
-                logger.error("Une exception inconnue a été générée : (" + ex.getMessage() + ")");
+                logger.error("Une exception inconnue a ete generee : (" + ex.getMessage() + ")");
                 //ex.printStackTrace();      
                 try {
                     in.close();
@@ -236,13 +296,13 @@ public class InterfaceIfuPlateforme {
 
                 tRepUniqueFacade.edit(tRepUnique);
             } else {
-                fichier.renameTo(new File(cheminDossierEchecs, fichier.getName()));
+                fichier.renameTo(new File(cheminDossierEchecsIfu, fichier.getName()));
             }
 
         }
 
         tParticiperFacade.create(tParticiper);
-        fichier.renameTo(new File(cheminDossierSucces, fichier.getName()));
+        fichier.renameTo(new File(cheminDossierSuccesIfu, fichier.getName()));
         fichier.delete();
     }
 
@@ -302,7 +362,7 @@ public class InterfaceIfuPlateforme {
         //fin gestion Etablissement
             tParticiperFacade.edit(tParticiper);
 
-            fichier.renameTo(new File(cheminDossierSucces, fichier.getName()));
+            fichier.renameTo(new File(cheminDossierSuccesIfu, fichier.getName()));
             fichier.delete();
            logger.info("Mise à jour Partciper effectuée ");
         }
@@ -312,22 +372,20 @@ public class InterfaceIfuPlateforme {
     /////////////////////// METHODE INSERTION DECLARATION SYDONIA /////////////////////////
     public void TraitementDonneesDouane(Document document, File fichier, InputStream in, String decl) throws JDOMException, SAXException, IOException {
 
-        logger.info("Traitement de la déclaration ..... " + decl);
-
         Element declaration = document.getRootElement();
-        TDeclarationDou Tdeclaration = new TDeclarationDou();
+        TDeclarationDou Tdeclaration = null;
 
         Long instance_id = Long.parseLong(declaration.getChild("segment_general").getAttribute("INSTANCE_ID").getValue());
-
+        
         Tdeclaration = tDeclarationDouaneFacade.find(instance_id);
-
+        
         String typeope = declaration.getChild("typeope").getAttribute("type").getValue();
-
+        
         if (Tdeclaration == null) {
-            Tdeclaration = new TDeclarationDou(instance_id);
-            if ("A".equals(typeope) || "M".equals(typeope)) {
+            Tdeclaration = new TDeclarationDou();
 
-                //PARTIE DECLARATION
+            if ("A".equals(typeope) || "M".equals(typeope)) {                
+                //PARTIE DECLARATION                
                 try {
                     Tdeclaration.setInstanceid(Long.parseLong(declaration.getChild("segment_general").getAttribute("INSTANCE_ID").getValue()));
                 } catch (Exception e) {
@@ -459,17 +517,18 @@ public class InterfaceIfuPlateforme {
                     Tdeclaration.setTptCtf(Short.parseShort(declaration.getChild("segment_general").getAttribute("Indicateur_Conteneur").getValue()));
                 } catch (Exception e) {
                 };
-
+               
                 try {
                     tDeclarationDouaneFacade.create(Tdeclaration);
                 } catch (Exception ex) {
                     logger.error("Probleme lors de la création de la declaration - " + ex.getMessage());
                     //ARCHIVAGE FICHIER
                     in.close();
-                    fichier.renameTo(new File(cheminDossierEchecs, fichier.getName()));
+                    fichier.renameTo(new File(cheminDossierEchecsSydo, fichier.getName()));
                     return;
                     //FIN ARCHIVAGE FICHIER
                 }
+                
 //FIN PARTIE DECLARATION        
                 //PARTIE ARTICLE        
 
@@ -546,11 +605,11 @@ public class InterfaceIfuPlateforme {
                         logger.error("Probleme lors de la création d article - " + ex.getMessage());
                         //ARCHIVAGE FICHIER
                         in.close();
-                        fichier.renameTo(new File(cheminDossierEchecs, fichier.getName()));
+                        fichier.renameTo(new File(cheminDossierEchecsSydo, fichier.getName()));
                         return;
                         //FIN ARCHIVAGE FICHIER
                     }
-
+                logger.info("avt creation taxe");
 //PARTIE TAXE
                     List<Element> malistedeTaxes = ArtElt.getChildren("taxe");
                     for (Element TaxeElt : malistedeTaxes) {
@@ -594,7 +653,7 @@ public class InterfaceIfuPlateforme {
                             logger.error("Probleme lors de la création de taxe - " + ex.getMessage());
                             //ARCHIVAGE FICHIER
                             in.close();
-                            fichier.renameTo(new File(cheminDossierEchecs, fichier.getName()));
+                            fichier.renameTo(new File(cheminDossierEchecsSydo, fichier.getName()));
                             return;
                             //FIN ARCHIVAGE FICHIER
                         }
@@ -604,7 +663,7 @@ public class InterfaceIfuPlateforme {
                 logger.info("Declaration créée ...... " + decl);
                     //ARCHIVAGE FICHIER
                     in.close();
-                    fichier.renameTo(new File(cheminDossierSucces, fichier.getName()));
+                    fichier.renameTo(new File(cheminDossierSuccesSydo, fichier.getName()));
                     //FIN ARCHIVAGE FICHIER
             }
         } else {
@@ -749,7 +808,7 @@ public class InterfaceIfuPlateforme {
                     logger.error("Probleme lors de la création de la declaration - " + ex.getMessage());
                     //ARCHIVAGE FICHIER
                     in.close();
-                    fichier.renameTo(new File(cheminDossierEchecs, fichier.getName()));
+                    fichier.renameTo(new File(cheminDossierEchecsSydo, fichier.getName()));
                     return;
                     //FIN ARCHIVAGE FICHIER
                 }
@@ -828,7 +887,7 @@ public class InterfaceIfuPlateforme {
                         logger.error("Probleme lors de la création d article - " + ex.getMessage());
                         //ARCHIVAGE FICHIER
                         in.close();
-                        fichier.renameTo(new File(cheminDossierEchecs, fichier.getName()));
+                        fichier.renameTo(new File(cheminDossierEchecsSydo, fichier.getName()));
                         return;
                         //FIN ARCHIVAGE FICHIER
                     }
@@ -879,7 +938,7 @@ public class InterfaceIfuPlateforme {
                             logger.error("Probleme lors de la création de taxe - " + ex.getMessage());
                             //ARCHIVAGE FICHIER
                             in.close();
-                            fichier.renameTo(new File(cheminDossierEchecs, fichier.getName()));
+                            fichier.renameTo(new File(cheminDossierEchecsSydo, fichier.getName()));
                             return;
                             //FIN ARCHIVAGE FICHIER
                         }
@@ -893,20 +952,21 @@ public class InterfaceIfuPlateforme {
                     
 
                 }
-}        logger.info("Declaration Modifiée ..... " + decl);
+                logger.info("Declaration Modifiée ..... " + decl);
+}       
+            
         //ARCHIVAGE FICHIER
         in.close();
-        fichier.renameTo(new File(cheminDossierSucces, fichier.getName()));
+        fichier.renameTo(new File(cheminDossierSuccesSydo, fichier.getName()));
         //FIN ARCHIVAGE FICHIER
         }
     }
 
    ////////////////////////// FIN INSERTION DECLARATION ARTICLE TAXE
-    //traitement table contribuable 
-   
+       
      public void traitementDeDonnesCont(Document document, File fichier, InputStream in) throws JDOMException, SAXException, IOException, UserOrMotifUndefined {
         Element racine = document.getRootElement();
-        System.err.println("CA DONNE = " + racine.getName());
+    
         Element operation = racine.getChild("OPERATION");
         TTypeContrib ttrContrib = new TTypeContrib();
         TRepUnique tRepUnique = new TRepUnique();
@@ -923,10 +983,10 @@ public class InterfaceIfuPlateforme {
         }
 
         tRepUnique = tRepUniqueFacade.find(Long.valueOf(contribuable.getChild("CONT_IMMATR").getValue()));
-        System.out.println("-----***********----------------");
+        
         if (tRepUnique == null) {
             if ("A".equals(typeOperation.getValue())) {
-                System.out.println("ESSAIIIII     IIIIIIIIIII");
+        
                 tRepUnique = new TRepUnique();
                 try {
                     tRepUnique.setContDatenreg(dateFormat.parse(contribuable.getChild("CONT_DATENREG").getValue()));
@@ -1163,11 +1223,11 @@ public class InterfaceIfuPlateforme {
                 tHistoriqueFacade.historiser(tRepUnique, tMotif, tUtilisateur);
                 
                 in.close();
-                fichier.renameTo(new File(cheminDossierSucces, fichier.getName()));
+                fichier.renameTo(new File(cheminDossierSuccesSydo, fichier.getName()));
             } else {
                 System.out.println("Ajout impossible pour cause de fichier existant " + fichier.getName());
                 in.close();
-                fichier.renameTo(new File(cheminDossierEchecs, fichier.getName()));
+                fichier.renameTo(new File(cheminDossierEchecsSydo, fichier.getName()));
             }
             return;
         } else {
@@ -1408,14 +1468,13 @@ public class InterfaceIfuPlateforme {
                 tRepUniqueFacade.edit(tRepUnique);
                 tHistoriqueFacade.historiser(tRepUnique, tMotif, tUtilisateur);
 
-                System.out.println("cest ici");
                 in.close();
-                System.out.println("passe");
-                fichier.renameTo(new File(cheminDossierSucces, fichier.getName()));
+
+                fichier.renameTo(new File(cheminDossierSuccesIfu, fichier.getName()));
             } else {
                 System.out.println("inpossible de modifier un contribuable inexistant " + fichier.getName());
                 in.close();
-                fichier.renameTo(new File(cheminDossierEchecs, fichier.getName()));
+                fichier.renameTo(new File(cheminDossierEchecsIfu, fichier.getName()));
             }
             return;
         }

@@ -36,7 +36,7 @@ public class AgentSftpIfu {
     @Inject
     private TRepUniqueFacade tRepUniqueFacade;  
  
-    private String cheminDepotLocal = ResourceBundle.getBundle("/parametres").getString("cheminDepotLocal");
+    private String cheminDepotLocal = ResourceBundle.getBundle("/parametres").getString("cheminDepotLocalIfu");
     private String SFTPUSER = ResourceBundle.getBundle("/parametres").getString("SFTPUSER");
    
     private String SFTPHOST = ResourceBundle.getBundle("/parametres").getString("SFTPHOST");
@@ -90,12 +90,12 @@ public class AgentSftpIfu {
 //    }
     
     
-    @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/20", persistent = false)
-    public void telechargerEntreprise() {
+    //@Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/20", persistent = false)
+    public void telechargerEntrepriseIfu() {
         JSch jsch = new JSch();
         Session session = null;
         Channel channel = null;
-        
+        logger.info("Scan du dossier Ifu");
         try {
             session = jsch.getSession(SFTPUSER, SFTPHOST, SFTPPORT);
             session.setPassword(SFTPPASS);
@@ -136,7 +136,7 @@ public class AgentSftpIfu {
             session.disconnect();
         }
         
-        iifu.scrutelocal(); 
+        iifu.scrutelocalIfu(); 
 
     }
 }

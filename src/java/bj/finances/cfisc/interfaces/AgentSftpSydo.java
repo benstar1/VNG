@@ -7,6 +7,7 @@
 package bj.finances.cfisc.interfaces;
 
 
+
 import bj.finances.cfisc.sessions.TCentreImpotFacade;
 import bj.finances.cfisc.sessions.TRepUniqueFacade;
 import bj.finances.cfisc.sessions.TTypeContribFacade;
@@ -36,7 +37,7 @@ public class AgentSftpSydo {
     @Inject
     private TRepUniqueFacade tRepUniqueFacade;  
  
-    private String cheminDepotLocal = ResourceBundle.getBundle("/parametres").getString("cheminDepotLocal");
+    private String cheminDepotLocal = ResourceBundle.getBundle("/parametres").getString("cheminDepotLocalSydo");
     
     private String SYDO_SFTPUSER = ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPUSER");
     private String SYDO_SFTPHOST = ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPHOST");
@@ -46,7 +47,7 @@ public class AgentSftpSydo {
     @Inject
     private InterfaceIfuPlateforme iifu;
     
-    final static org.apache.log4j.Logger logger = Logger.getLogger(AgentSftpIfu.class.getName());
+    final static org.apache.log4j.Logger logger = Logger.getLogger(AgentSftpSydo.class.getName());
 //    
 //    public void telechargerDeclarationEndouane(){
 //        JSch jsch = new JSch();
@@ -95,7 +96,7 @@ public class AgentSftpSydo {
         JSch jsch = new JSch();
         Session session = null;
         Channel channel = null;
-        
+        logger.info("Scan du dossier Sydo");
         try {
             session = jsch.getSession(SYDO_SFTPUSER, SYDO_SFTPHOST, SYDO_SFTPPORT);
             session.setPassword(SYDO_SFTPPASS);
@@ -121,7 +122,7 @@ public class AgentSftpSydo {
             channelSftp.lcd(cheminDepotLocal);
 
             Vector<ChannelSftp.LsEntry> list = channelSftp.ls("*.xml");
-            
+            logger.info("connexion a sydo reussi .................. ");
             for (ChannelSftp.LsEntry entry : list) {
                 
                 channelSftp.get(entry.getFilename(), entry.getFilename());
@@ -130,13 +131,13 @@ public class AgentSftpSydo {
                 logger.info("Fichier traité .... " + entry.getFilename());
             }     
         } catch (Exception e) {
-           logger.error("Erreur lors du téléchargement d'un fichier entreprise par sftp ( " + e.getMessage() + ")");
+           logger.error("Erreur lors du telechargement d'un fichier entreprise par sftp (Sydo)( " + e.getMessage() + ")");
         }finally{
             channel.disconnect();
             session.disconnect();
         }
         
-        iifu.scrutelocal(); 
+        iifu.scrutelocalSydo(); 
 
     }
 }
