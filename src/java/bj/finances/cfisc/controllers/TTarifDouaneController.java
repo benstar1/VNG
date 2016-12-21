@@ -1,18 +1,16 @@
 package bj.finances.cfisc.controllers;
 
-import bj.finances.cfisc.entities.TTaxeDeclaration;
+import bj.finances.cfisc.entities.TTarifDouane;
 import bj.finances.cfisc.controllers.util.JsfUtil;
 import bj.finances.cfisc.controllers.util.PaginationHelper;
-import bj.finances.cfisc.entities.TDeclarationFiscale;
-import bj.finances.cfisc.entities.TTarifDouane;
-import bj.finances.cfisc.sessions.TTaxeDeclarationFacade;
+import bj.finances.cfisc.sessions.TTarifDouaneFacade;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -21,40 +19,30 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean(name = "tTaxeDeclarationController")
+@Named("tTarifDouaneController")
 @SessionScoped
-public class TTaxeDeclarationController implements Serializable {
+public class TTarifDouaneController implements Serializable {
 
-    private TTaxeDeclaration taxedeclar ;
-    private TTaxeDeclaration current;
+    private TTarifDouane current;
     private DataModel items = null;
     @EJB
-    private bj.finances.cfisc.sessions.TTaxeDeclarationFacade ejbFacade;
+    private bj.finances.cfisc.sessions.TTarifDouaneFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public TTaxeDeclarationController() {
+    public TTarifDouaneController() {
     }
 
-    public TTaxeDeclaration getSelected() {
+    public TTarifDouane getSelected() {
         if (current == null) {
-            current = new TTaxeDeclaration();
+            current = new TTarifDouane();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private TTaxeDeclarationFacade getFacade() {
+    private TTarifDouaneFacade getFacade() {
         return ejbFacade;
-    }
-
-    public TTaxeDeclaration getTaxedeclar() {
-        return taxedeclar;
-    }
-
-    public void setTaxedeclar(TTaxeDeclaration taxedeclar) {
-        this.taxedeclar = taxedeclar;
-        current=taxedeclar;
     }
 
     public PaginationHelper getPagination() {
@@ -81,38 +69,30 @@ public class TTaxeDeclarationController implements Serializable {
     }
 
     public String prepareView() {
-        current = (TTaxeDeclaration) getItems().getRowData();
+        current = (TTarifDouane) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
-    public String tarifdouaneselectionne(TTarifDouane tarif) {
-         current.setTaxDecTarifCode(tarif); 
-         System.out.println("--------------------Tarif bien choisi");
-        return "";
-    }
-    
     public String prepareCreate() {
-        current = new TTaxeDeclaration();
+        current = new TTarifDouane();
         selectedItemIndex = -1;
-        //return "Create";
-        return null;
+        return "Create";
     }
 
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TTaxeDeclarationCreated"));
-            //return prepareCreate();
-             return null;
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle_tarifdouane").getString("TTarifDouaneCreated"));
+            return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle_tarifdouane").getString("PersistenceErrorOccured"));
             return null;
         }
     }
 
     public String prepareEdit() {
-        current = (TTaxeDeclaration) getItems().getRowData();
+        current = (TTarifDouane) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -120,27 +100,21 @@ public class TTaxeDeclarationController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TTaxeDeclarationUpdated"));
-            //return "View";
-            return null;
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle_tarifdouane").getString("TTarifDouaneUpdated"));
+            return "View";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle_tarifdouane").getString("PersistenceErrorOccured"));
             return null;
         }
     }
 
     public String destroy() {
-        current = (TTaxeDeclaration) getItems().getRowData();
+        current = (TTarifDouane) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
         recreateModel();
-        //return "List";
-        return null;
-    }
-    public String destroybis(TTaxeDeclaration ttdec) {
-      ejbFacade.remove(ttdec);
-    return null;
+        return "List";
     }
 
     public String destroyAndView() {
@@ -159,9 +133,9 @@ public class TTaxeDeclarationController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TTaxeDeclarationDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle_tarifdouane").getString("TTarifDouaneDeleted"));
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle_tarifdouane").getString("PersistenceErrorOccured"));
         }
     }
 
@@ -179,16 +153,16 @@ public class TTaxeDeclarationController implements Serializable {
             current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
         }
     }
+    
+       public List<TTarifDouane> getFindAll(){        
+          return ejbFacade.findAll();    
+    }
 
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
         }
         return items;
-    }
-    
-    public List<TTaxeDeclaration> getFindListTaxe(TDeclarationFiscale declar){        
-    return ejbFacade.findListTaxeDeclar(declar);    
     }
 
     private void recreateModel() {
@@ -219,26 +193,30 @@ public class TTaxeDeclarationController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    @FacesConverter(forClass = TTaxeDeclaration.class)
-    public static class TTaxeDeclarationControllerConverter implements Converter {
+    public TTarifDouane getTTarifDouane(java.lang.String id) {
+        return ejbFacade.find(id);
+    }
+
+    @FacesConverter(forClass = TTarifDouane.class)
+    public static class TTarifDouaneControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            TTaxeDeclarationController controller = (TTaxeDeclarationController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "tTaxeDeclarationController");
-            return controller.ejbFacade.find(getKey(value));
+            TTarifDouaneController controller = (TTarifDouaneController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "tTarifDouaneController");
+            return controller.getTTarifDouane(getKey(value));
         }
 
-        java.lang.Long getKey(String value) {
-            java.lang.Long key;
-            key = Long.valueOf(value);
+        java.lang.String getKey(String value) {
+            java.lang.String key;
+            key = value;
             return key;
         }
 
-        String getStringKey(java.lang.Long value) {
+        String getStringKey(java.lang.String value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();
@@ -249,11 +227,11 @@ public class TTaxeDeclarationController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof TTaxeDeclaration) {
-                TTaxeDeclaration o = (TTaxeDeclaration) object;
-                return getStringKey(o.getTaxDecNum());
+            if (object instanceof TTarifDouane) {
+                TTarifDouane o = (TTarifDouane) object;
+                return getStringKey(o.getCodeTarif());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + TTaxeDeclaration.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + TTarifDouane.class.getName());
             }
         }
 

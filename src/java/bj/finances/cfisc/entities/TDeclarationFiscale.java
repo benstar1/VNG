@@ -45,7 +45,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TDeclarationFiscale.findByNumEntDecl", query = "SELECT t FROM TDeclarationFiscale t WHERE t.declarEntDecNum = :entdeclar"),
     @NamedQuery(name = "TDeclarationFiscale.findByDeclarAnnee", query = "SELECT t FROM TDeclarationFiscale t WHERE t.declarAnnee = :declarAnnee")})
 
-@SequenceGenerator(name = "generateur_declfisc",sequenceName = "SEQ_DECLFISC", allocationSize=1)
+@SequenceGenerator(name = "generateur_declfisc",sequenceName = "SEQ_DECLFISCAL", allocationSize=1)
 public class TDeclarationFiscale implements Serializable {
     @Column(name = "TOTAL_DD")
     private Long totalDd;

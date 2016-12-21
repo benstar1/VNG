@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.Vector;
 import javax.ejb.EJB;
 //import javax.enterprise.context.Dependent;
@@ -55,6 +56,10 @@ public class MAJMBean extends java.lang.Object {
     @EJB
     private TUtilisateurFacade tUtilisateurFacade;
 
+    private String cheminActivationSucces = ResourceBundle.getBundle("/parametres").getString("cheminActiveSucces");
+ private String cheminActivationEchecs = ResourceBundle.getBundle("/parametres").getString("cheminActiveEchecs");
+ private String cheminActivationFichier = ResourceBundle.getBundle("/parametres").getString("cheminActiveFichier");
+ 
     private TUtilisateur user;
 
     private THistStatut tHistStatut;
@@ -138,10 +143,11 @@ public class MAJMBean extends java.lang.Object {
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-YYYY_HH-mm-ss");
         String tstamp = sdf.format(new Date());
-        File echecs = new File("c:\\cfisc\\echecs_" + cimpot.getCentrImpLibelle() + "_" + tstamp + ".txt");
-        File succes = new File("c:\\cfisc\\succes_" + cimpot.getCentrImpLibelle() + "_" + tstamp + ".txt");
-        File upload = new File("c:\\cfisc\\chargement_" + cimpot.getCentrImpLibelle() + "_" + tstamp + ".xls");
+        File echecs = new File(cheminActivationEchecs + "/echecs_" + cimpot.getCentrImpLibelle() + "_" + tstamp + ".txt");
+        File succes = new File(cheminActivationSucces + "/succes_" + cimpot.getCentrImpLibelle() + "_" + tstamp + ".txt");
+        File upload = new File(cheminActivationFichier +"/chargement_" + cimpot.getCentrImpLibelle() + "_" + tstamp + ".xls");
 
+        // Sauvegarde du fichier Excel soumis
         WriteCSV(file, tstamp, upload);
 
         try {
@@ -151,10 +157,13 @@ public class MAJMBean extends java.lang.Object {
             FileWriter outechec = new FileWriter(echecs);
             FileWriter outsucces = new FileWriter(succes);
 
+            
+            System.out.println("---- Lecture et Chargement des contribuables ----");
+            
             Vector dataHolder = ReadCSV(file);
 
-            //String file = event.getFile().getFilename();
-            System.out.print("size " + dataHolder.size());
+//            //String file = event.getFile().getFilename();
+//            System.out.print("size " + dataHolder.size());
 
             HttpServletResponse response
                     = (HttpServletResponse) FacesContext.getCurrentInstance()
@@ -167,6 +176,7 @@ public class MAJMBean extends java.lang.Object {
 //            response.getOutputStream().flush();
 //            response.getOutputStream().close();
 //            FacesContext.getCurrentInstance().responseComplete();
+            
             for (int i = 1; i < dataHolder.size(); i++) {
                 Vector cellStoreVector = (Vector) dataHolder.elementAt(i);
                 System.out.print("size " + cellStoreVector.size());
@@ -190,7 +200,7 @@ public class MAJMBean extends java.lang.Object {
                 String pnom = cellStoreVector.elementAt(2).toString();
                 statut = active;
 
-                System.out.println("IFU centre statut " + ifu + " " + centre + " " + statut + "\n");
+                System.out.println("Recherche de l'IFU qui est lu " + ifu );
 
                 tRepUnique = tRepUniqueFacade.findByContImmatr(ifu);
 
@@ -205,22 +215,15 @@ public class MAJMBean extends java.lang.Object {
                         tRepUnique.setContCentrImpCode(cimpot);
                         tRepUniqueFacade.edit(tRepUnique);
 
-                        System.out.println("Nouveau statut " + tRepUnique.getContStatut());
-                        System.out.println("Nouveau centre " + tRepUnique.getContCentrImpCode());
-//                
-                        System.out.println("centre selectionné" + cimpot);
-                        System.out.println("Action " + active);
-
-                        System.out.println("Objet a charger " + tRepUnique);
-
                         // constitution de la liste des contribuables modifiés
                         chargement.add(tRepUnique);
                         charge = chargement;
 
                         System.out.println("Début historisation -- Activation");
 
+                        // Récupération provisoire du premier utilisateur dans la base
                         user = tUtilisateurFacade.findAll().get(0);
-                        System.out.println("User " + user);
+                        
 
                         tHistStatut = new THistStatut(tRepUnique, user);
                         try {
@@ -258,9 +261,11 @@ public class MAJMBean extends java.lang.Object {
 //                            
 //                        }
                     }
+                    System.out.println("---- Ecriture dans le fichier succès  ----");
                     outsucces.write(ifu.toString() + " " + nom + " " + pnom + " \n");
                 } else {
 
+                    System.out.println("---- Ecriture dans le fichier échec  ----");
                     outechec.write(ifu.toString() + " " + nom + " " + pnom + " \n");
 //                    pout.write(ifu.toString() + " " + nom + " " + pnom + " \n");
 
@@ -268,6 +273,8 @@ public class MAJMBean extends java.lang.Object {
 
                 }
             }
+            
+            System.out.println("---- Fin de Lecture et Chargement des contribuables ----");
 // pout.close();
             outechec.close();
             outsucces.close();
@@ -322,6 +329,7 @@ public class MAJMBean extends java.lang.Object {
             HSSFWorkbook myWorkBook = new HSSFWorkbook(myFileSystem);
 
             FileOutputStream out = new FileOutputStream(upload);
+            System.out.println("Sauvegarde du fichier Excel soumis pour chargement ");
             myWorkBook.write(out);
             out.close();
 

@@ -5,8 +5,11 @@ import bj.finances.cfisc.controllers.util.JsfUtil;
 import bj.finances.cfisc.controllers.util.PaginationHelper;
 import bj.finances.cfisc.entities.TCentreImpot;
 import bj.finances.cfisc.entities.THistStatut;
+import bj.finances.cfisc.entities.TUtilisateur;
 import bj.finances.cfisc.sessions.TCentreImpotFacade;
+import bj.finances.cfisc.sessions.THistStatutFacade;
 import bj.finances.cfisc.sessions.TRepUniqueFacade;
+import bj.finances.cfisc.sessions.TUtilisateurFacade;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,7 +31,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 //@ManagedBean(name = "tRepUniqueController")
-@Named (value ="tRepUniqueController")
+@Named(value = "tRepUniqueController")
 @SessionScoped
 public class TRepUniqueController implements Serializable {
 
@@ -36,11 +39,34 @@ public class TRepUniqueController implements Serializable {
     private TCentreImpotFacade tCentreImpotFacade;
 
     private TCentreImpot centreImpot;
-    
+
+    @EJB
+    private TUtilisateurFacade tUtilisateurFacade;
+
+    private TUtilisateur user;
+
+    public TUtilisateurFacade gettUtilisateurFacade() {
+        return tUtilisateurFacade;
+    }
+
+    public void settUtilisateurFacade(TUtilisateurFacade tUtilisateurFacade) {
+        this.tUtilisateurFacade = tUtilisateurFacade;
+    }
+
+    public TUtilisateur getUser() {
+        return user;
+    }
+
+    public void setUser(TUtilisateur user) {
+        this.user = user;
+    }
+
+    @EJB
+    private THistStatutFacade tHistStatutFacade;
+
     // ajout
-    
     String statut = "";
-    
+
     String afficheStatut = "";
 
     public String getAfficheStatut() {
@@ -50,8 +76,6 @@ public class TRepUniqueController implements Serializable {
     public void setAfficheStatut(String afficheStatut) {
         this.afficheStatut = afficheStatut;
     }
-    
-    
 
     public String getStatut() {
         return statut;
@@ -63,7 +87,7 @@ public class TRepUniqueController implements Serializable {
 // fin 
     @Inject
     private THistStatutController tHistStatutController;
-    
+
     private TRepUnique current;
     private DataModel items = null;
     private List<TRepUnique> contrib = null;
@@ -72,8 +96,8 @@ public class TRepUniqueController implements Serializable {
 
     private TRepUnique ItemsIfu;
 
-    THistStatut THistStatut ;
-    
+    THistStatut THistStatut;
+
     @EJB
     private bj.finances.cfisc.sessions.TRepUniqueFacade ejbFacade;
     private PaginationHelper pagination;
@@ -125,18 +149,16 @@ public class TRepUniqueController implements Serializable {
         recreateModel();
         return "List";
     }
-    
+
     public void prepareAfficheMAJIndividuelle(TRepUnique trepunique) {
 //        recreateModel();
 //        return "MAJIndividuelle";
-        if ("A".equals(trepunique.getContStatut())){
-        setStatut("Désactiver");
+        if ("A".equals(trepunique.getContStatut())) {
+            setStatut("Désactiver");
+        } else {
+            setStatut("Activer");
         }
-        else
-        {
-         setStatut("Activer");
-        }      
-        
+
     }
 
     public String prepareView() {
@@ -165,7 +187,7 @@ public class TRepUniqueController implements Serializable {
     THistStatut tHistStatut = new THistStatut();
 
     public String prepareEdit() {
-       
+
         current = (TRepUnique) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
@@ -264,11 +286,6 @@ public class TRepUniqueController implements Serializable {
     }
 
     public TRepUnique getItemsIfu() {
-
-        //System.out.println(" "+current.getContImmatr());
-        //ejbFacade.find(current.getContImmatr());
-        // ejbFacade.find();
-        //ItemsIfu = contrib.get(0);
         return ItemsIfu;
     }
 
@@ -276,16 +293,12 @@ public class TRepUniqueController implements Serializable {
         this.ItemsIfu = ItemsIfu;
     }
 
-    
-    
     public void MAJActive() {
 
         try {
-            System.out.println(centreImpot + " Centre impot choisi -- Test " + current.getContCentrImpCode().getCentrImpCode());
-         //   System.out.println(" Centre impot ancien " + ifu.getContCentrImpCode().getCentrImpCode());
 
             TCentreImpot centre = current.getContCentrImpCode();
-            
+
             current = ifu;
             System.out.println(" Ancien " + ifu.getContStatut());
             current.setContStatut("A");
@@ -304,44 +317,83 @@ public class TRepUniqueController implements Serializable {
     }
 
     public void MAJStatut() {
+        current = ifu;
         try {
             System.out.println(centreImpot + " Centre impot choisi -- Test " + current.getContCentrImpCode().getCentrImpCode());
-          //  System.out.println(" Centre impot ancien " + ifu.getContCentrImpCode().getCentrImpCode());
+            System.out.println(" Centre impot ancien " + ifu.getContCentrImpCode().getCentrImpCode());
 
-            TCentreImpot centre = current.getContCentrImpCode();            
-            current = ifu;
-            if ("A".equals(current.getContStatut())){
-            
-            //System.out.println(current.getContStatut() + " Ancien " + ifu.getContStatut());
+            TCentreImpot centre = ifu.getContCentrImpCode();
+
+            if ("A".equals(current.getContStatut())) {
+
+                //System.out.println(current.getContStatut() + " Ancien " + ifu.getContStatut());
 //         current.setContCentrImpCode(centreImpot);
-            current.setContStatut("D");
-            System.out.println(" Statut " + current.getContStatut());
-            
-           // current.setContCentrImpCode(centre);
-            getFacade().edit(current);
-            setItemsIfu(current);
+                current.setContStatut("D");
+                System.out.println(" Statut " + current.getContStatut());
+
+                // current.setContCentrImpCode(centre);
+//            getFacade().edit(current);
+                try {
+                    getFacade().edit(current);
+                } catch (Exception e) {
+                    System.out.println("Erreur d'édition " + e.getMessage());
+                }
+
+                setItemsIfu(current);
                 setAfficheStatut("DESACTIVE");
                 System.out.println(afficheStatut + "-------------");
-            //ajout
-            setStatut("Activer");
+                //ajout
+                setStatut("Activer");
             //fin
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TRepUniqueUpdated"));
-            //return "View";
-            }
-            else 
-            {
+                //historisation
+                System.out.println("Début historisation -- Désactivation");
+
+                user = tUtilisateurFacade.findAll().get(0);
+                System.out.println("User " + user);
+
+                tHistStatut = new THistStatut(current, user);
+                try {
+                    tHistStatutFacade.historiserStatut(tHistStatut);
+                } catch (Exception e) {
+                    System.out.println("Erreur appel historiser" + e);
+                }
+
+                System.out.println("Fin historisation -- Désactivation");
+
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TRepUniqueUpdated"));
+                //return "View";
+            } else {
                 current.setContStatut("A");
-            System.out.println(" Statut " + current.getContStatut());
-            // current.setContCentrImpCode(centre);
-            getFacade().edit(current);
-            setItemsIfu(current);
-            setAfficheStatut("ACTIVE");
+                System.out.println(" Statut " + current.getContStatut());
+                // current.setContCentrImpCode(centre);
+                try {
+                    getFacade().edit(current);
+                } catch (Exception e) {
+                    System.out.println("Erreur d'édition " + e.getMessage());
+                }
+
+                setItemsIfu(current);
+                setAfficheStatut("ACTIVE");
                 System.out.println(afficheStatut + "-------------");
-            
-            //ajout
-            setStatut("Désactiver");
+
+                //ajout
+                setStatut("Désactiver");
             //fin
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TRepUniqueUpdated"));
+                //historisation
+                System.out.println("Début historisation -- Activation");
+
+                user = tUtilisateurFacade.findAll().get(0);
+                System.out.println("User " + user);
+
+                tHistStatut = new THistStatut(current, user);
+                try {
+                    tHistStatutFacade.historiserStatut(tHistStatut);
+                } catch (Exception e) {
+                    System.out.println("Erreur appel historiser" + e);
+                }
+
+                System.out.println("Fin historisation -- Activation");
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TRepUniqueUpdated"));
             }
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -421,26 +473,26 @@ public class TRepUniqueController implements Serializable {
 
     public String contribSelectionne(TRepUnique contrib) {
         System.out.println(current + "pris " + items);
+        System.out.println("je suis l'ifu sélectionné " + contrib);
         current.setContImmatr(contrib.getContImmatr());
-        System.out.println("pris par ici " + contrib.getContImmatr());
+
         ifu = contrib;
         return "";
     }
 
     public String UpdateTableContrib() {
-        //System.out.println(" num voy " + " " + ev.getNewValue());
+
         TRepUnique trepunique = ejbFacade.findByContImmatr(ifu.getContImmatr());
-        System.out.println(" num voy " + " ------------------ " + trepunique.getContImmatr().toString().toUpperCase());
+
         ItemsIfu = trepunique;
         prepareAfficheMAJIndividuelle(trepunique);
-        
-        if ("A".equals(ItemsIfu.getContStatut())){
+
+        if ("A".equals(ItemsIfu.getContStatut())) {
             setAfficheStatut("ACTIVE");
-        }
-        else{
+        } else {
             setAfficheStatut("DESACTIVE");
         }
-        
+
         return "";
     }
 

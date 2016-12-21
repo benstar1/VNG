@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle_tarifdouane.ViewTTarifDouaneTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle_tarifdouane.ViewTTarifDouaneLabel_codeTarif}"/>
+                    <h:outputText value="#{tTarifDouaneController.selected.codeTarif}" title="#{bundle_tarifdouane.ViewTTarifDouaneTitle_codeTarif}"/>
+                    <h:outputText value="#{bundle_tarifdouane.ViewTTarifDouaneLabel_description}"/>
+                    <h:outputText value="#{tTarifDouaneController.selected.description}" title="#{bundle_tarifdouane.ViewTTarifDouaneTitle_description}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tTarifDouaneController.destroyAndView}" value="#{bundle_tarifdouane.ViewTTarifDouaneDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle_tarifdouane.ViewTTarifDouaneEditLink}"/>
+                <br />
+                <h:commandLink action="#{tTarifDouaneController.prepareCreate}" value="#{bundle_tarifdouane.ViewTTarifDouaneCreateLink}" />
+                <br />
+                <h:commandLink action="#{tTarifDouaneController.prepareList}" value="#{bundle_tarifdouane.ViewTTarifDouaneShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle_tarifdouane.ViewTTarifDouaneIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

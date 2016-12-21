@@ -123,8 +123,14 @@ public class TEntDeclarationController implements Serializable {
 
     public String create() {
         try {
-           // =1200801257709   2201500008501
-            current.setEntDecContImmatr(ejbFacaderepuniq.find(2201500008501l));
+            System.out.println("Nous somme là");
+            try{
+            System.out.println("trouver     "+ejbFacaderepuniq.findByContImmatr(3200700099212l).getContNum());
+            }catch(Exception e){
+                System.out.println("quel exception "+ e);
+            }
+           System.out.println("Nous somme après");
+            current.setEntDecContImmatr(ejbFacaderepuniq.findByContImmatr(3200700099212l));
             current.setEntDecValidation("N");
             //current.setEntDecNum(2l);
             getFacade().create(current);
@@ -209,7 +215,7 @@ public class TEntDeclarationController implements Serializable {
      
         public List<TEntDeclaration> getFindListEntdeclfisc(){        
             //return ejbFacade.findListentdeclarcontrib(1201300000201l); 
-            return ejbFacade.findListentdeclarcontrib(2201500008501l);  
+            return ejbFacade.findListentdeclarcontrib(3200700099212l);  
         }
         
     public List<TEntDeclaration> getFindAll(){        

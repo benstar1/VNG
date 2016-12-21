@@ -22,23 +22,23 @@
                             
                             <p:panelGrid id="pd" columns="3"  >
                                 <p:outputLabel value="Numéro IFU : " for="ifu" />
-                                <h:inputText readonly="true" id="ifu" value="#{mAJIndividuelleMBean.current.contImmatr}" required="true" requiredMessage="Le numéro IFU est obligatoire">
+                                <h:inputText readonly="true" id="ifu" value="#{tRepUniqueController.selected.contImmatr}" required="true" requiredMessage="Le numéro IFU est obligatoire">
                                 
                                 </h:inputText>
                                 
                                 <p:commandButton value="Sélectionner l'IFU"  onclick="PF('dlgIFU').show();" type="button">       
                                 </p:commandButton>
                                 <br />
-                                <h:commandButton id="rech" value="Rechercher" action="#{mAJIndividuelleMBean.UpdateTableContrib()}" ></h:commandButton>
+                                <h:commandButton id="rech" value="Rechercher" action="#{tRepUniqueController.UpdateTableContrib()}" ></h:commandButton>
                                 <br />
                                 <br />
                                 
                                 
-                                <c:if test="#{mAJIndividuelleMBean.itemsIfu.contStatut == 'D'}" >
+                                <c:if test="#{tRepUniqueController.itemsIfu.contStatut == 'D'}" >
 
                                 <h:outputLabel value="Centre d'impôt  :  " for= "centreImpot" />
                                 
-                                <h:selectOneMenu id="centreImpot" value="#{mAJIndividuelleMBean.current.contCentrImpCode}" title="" >
+                                <h:selectOneMenu id="centreImpot" value="#{tRepUniqueController.selected.contCentrImpCode}" title="" >
                                 <f:selectItems value="#{tRepUniqueController.cimpotItem}"/>
                                 </h:selectOneMenu>
                                 </c:if>
@@ -57,7 +57,7 @@
                         <center>
 
                             <h1 align="left"><h:outputText value="Informations du Contribuable"/></h1>
-                            <h:dataTable  width="100%" id="ItemsIfu" value="#{mAJIndividuelleMBean.itemsIfu}" var="item" border="1" style="text-align: center"> 
+                            <h:dataTable  width="100%" id="ItemsIfu" value="#{tRepUniqueController.itemsIfu}" var="item" border="1" style="text-align: center"> 
 
                                 <h:column>
                                     <f:facet name="header">
@@ -90,7 +90,7 @@
                                     <f:facet name="header">
                                         <h:outputText value="Centre Impôt"/>
                                     </f:facet>
-                                    <h:outputText value="#{mAJIndividuelleMBean.itemsIfu.contCentrImpCode.centrImpLibelle}"/>
+                                    <h:outputText value="#{tRepUniqueController.itemsIfu.contCentrImpCode.centrImpLibelle}"/>
                                 </h:column> 
 
                                 <h:column>
@@ -98,7 +98,7 @@
                                         <h:outputText value="Statut"/>
                                     </f:facet>
                                     
-                                    <h:outputText value="#{mAJIndividuelleMBean.afficheStatut}"/>
+                                    <h:outputText value="#{tRepUniqueController.afficheStatut}"/>
                                     
                                     
                                 </h:column>
@@ -108,7 +108,7 @@
                                     <f:facet name="header">
                                         <h:outputText value="ACTION"/>
                                     </f:facet>
-                                    <p:commandButton  value="#{mAJIndividuelleMBean.statut}" action="#{mAJIndividuelleMBean.MAJStatut()}" update=":MAJICreateForm:rech @form" ajax="true" />
+                                    <p:commandButton  value="#{tRepUniqueController.statut}" action="#{tRepUniqueController.MAJStatut()}" update=":MAJICreateForm:rech @form" ajax="true" />
                                 </h:column>
                                 
 
@@ -124,13 +124,13 @@
 
             <p:dialog id="dlgIFU" header="Contribuables"  dynamic="true" widgetVar="dlgIFU" modal="true" showEffect="explose"  width="800" height="400">
                 <h:form>    
-                    <p:dataTable  value="#{mAJIndividuelleMBean.contrib}" var="contrib"  paginator="true" lazy="true" sortMode="multiple" rows="20" emptyMessage="Aucun enregistrement trouvé pour l'instant !">
+                    <p:dataTable  value="#{tRepUniqueController.contrib}" var="contrib"  paginator="false" lazy="true" sortMode="multiple" rows="20" emptyMessage="Aucun enregistrement trouvé pour l'instant !">
 
                         <p:column filterBy="#{contrib.contImmatr}" filterMatchMode="startsWith">
                             <f:facet name="header">
                                 <h:outputText value="Immatriculation"/>
                             </f:facet>                        
-                            <p:commandLink value="#{contrib.contImmatr}"  action="#{mAJIndividuelleMBean.contribSelectionne(contrib)}" update=":MAJICreateForm:ifu" oncomplete="PF('dlgIFU').hide();"  process="@this" title="Selectionnez" style="color: blue;"/>
+                            <p:commandLink value="#{contrib.contImmatr}"  action="#{tRepUniqueController.contribSelectionne(contrib)}" update=":MAJICreateForm:ifu" oncomplete="PF('dlgIFU').hide();"  process="@this" title="Selectionnez" style="color: blue;"/>
 
 
                         </p:column>

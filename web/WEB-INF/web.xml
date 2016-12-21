@@ -23,13 +23,16 @@
         <error-code>403</error-code>
         <location>/loginerror_1.xhtml</location>
     </error-page>
-  <!--  <security-constraint>
+    <security-constraint>
         <display-name>AccesContribuable</display-name>
         <web-resource-collection>
             <web-resource-name>declaration</web-resource-name>
             <description>déclaration fiscale</description>
             <url-pattern>/vues/tEntDeclaration/DeclarationFiscal.xhtml</url-pattern>
         </web-resource-collection>
+        <auth-constraint>
+            <description/>
+        </auth-constraint>
     </security-constraint>
     <security-constraint>
         <display-name>AccesStatutContrib</display-name>
@@ -44,7 +47,15 @@
             <url-pattern>/vues/tRepUnique/MAJCollective.xhtml</url-pattern>
         </web-resource-collection>
     </security-constraint>
---> <!--   <security-role>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>jdbcrealm</realm-name>
+        <form-login-config>
+            <form-login-page>/login.xhtml</form-login-page>
+            <form-error-page>/loginerror.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-role>
         <description>Profil des contribuables pour déclaration</description>
         <role-name>CONTRIBUABLE</role-name>
     </security-role>
@@ -60,5 +71,4 @@
         <description>Inspecteur chargé de mettre à jour l'état activé ou désactivé d'un contribuable</description>
         <role-name>INSPECTMAJ</role-name>
     </security-role>
-    -->
 </web-app>

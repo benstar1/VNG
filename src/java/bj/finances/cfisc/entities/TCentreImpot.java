@@ -52,8 +52,7 @@ public class TCentreImpot implements Serializable {
     private String centrImpLibelle;
     @OneToMany(mappedBy = "contCentrImpCode")
     private List<TRepUnique> tRepUniqueList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "histCentrImpCode")
-    private List<THistStatut> tHistStatutList;
+   
     @JoinColumn(name = "CENTR_DEP_CODE", referencedColumnName = "DEP_CODE")
     @ManyToOne
     private TDepartement centrDepCode;
@@ -147,14 +146,5 @@ public class TCentreImpot implements Serializable {
     public String toString() {
         return "bj.finances.cfisc.entities.TCentreImpot[ centrImpCode=" + centrImpCode + " ]";
     }
-
-    @XmlTransient
-    public List<THistStatut> getTHistStatutList() {
-        return tHistStatutList;
-    }
-
-    public void setTHistStatutList(List<THistStatut> tHistStatutList) {
-        this.tHistStatutList = tHistStatutList;
-    }
-    
+   
 }

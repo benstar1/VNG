@@ -47,6 +47,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @SequenceGenerator(name = "generateur_tax_declfisc",sequenceName = "SEQ_TAX_DECLFISC", allocationSize=1)
 public class TTaxeDeclaration implements Serializable {
+    @JoinColumn(name = "TAX_DEC_TARIF_CODE", referencedColumnName = "CODE_TARIF")
+    @ManyToOne
+    private TTarifDouane taxDecTarifCode;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "generateur_tax_declfisc")
@@ -54,9 +57,9 @@ public class TTaxeDeclaration implements Serializable {
     @NotNull
     @Column(name = "TAX_DEC_NUM")
     private Long taxDecNum;
-    @Size(max = 10)
-    @Column(name = "TAX_DEC_TARIF_CODE")
-    private String taxDecTarifCode;
+//    @Size(max = 10)
+//    @Column(name = "TAX_DEC_TARIF_CODE")
+//    private String taxDecTarifCode;
     @Column(name = "TAX_DEC_VAL_CAF")
     private Long taxDecValCaf;
     @Column(name = "TAX_DEC_BASE_TAXABLE")
@@ -96,13 +99,13 @@ public class TTaxeDeclaration implements Serializable {
         this.taxDecNum = taxDecNum;
     }
 
-    public String getTaxDecTarifCode() {
-        return taxDecTarifCode;
-    }
-
-    public void setTaxDecTarifCode(String taxDecTarifCode) {
-        this.taxDecTarifCode = taxDecTarifCode;
-    }
+//    public String getTaxDecTarifCode() {
+//        return taxDecTarifCode;
+//    }
+//
+//    public void setTaxDecTarifCode(String taxDecTarifCode) {
+//        this.taxDecTarifCode = taxDecTarifCode;
+//    }
 
     public Long getTaxDecValCaf() {
         return taxDecValCaf;
@@ -215,6 +218,14 @@ public class TTaxeDeclaration implements Serializable {
     @Override
     public String toString() {
         return "bj.finances.cfisc.entities.TTaxeDeclaration[ taxDecNum=" + taxDecNum + " ]";
+    }
+
+    public TTarifDouane getTaxDecTarifCode() {
+        return taxDecTarifCode;
+    }
+
+    public void setTaxDecTarifCode(TTarifDouane taxDecTarifCode) {
+        this.taxDecTarifCode = taxDecTarifCode;
     }
     
 }

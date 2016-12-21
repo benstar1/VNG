@@ -92,10 +92,9 @@ public class InterfaceIfuPlateforme {
     private String cheminFichierXsdCont = ResourceBundle.getBundle("/parametres").getString("cheminFichierXsdCont");
     private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-    @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/20", persistent = false)
+    //@Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/20", persistent = false)
     public void consommerFichierEntreprise() {
         try {
-            System.out.println(" Scan du dossier source ........ " + new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(new Date()));            
             scrutelocal();
 
         } catch (Exception ex) {
@@ -106,6 +105,8 @@ public class InterfaceIfuPlateforme {
     }
 
     public void scrutelocal() {
+        System.out.println(" Scan du dossier source ........ " + new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(new Date()));            
+         
         File depotLocal = new File(cheminDepotLocal);
         File dossierEchecs = new File(cheminDossierEchecs);
         File[] listeFichier = depotLocal.listFiles();
@@ -125,10 +126,13 @@ public class InterfaceIfuPlateforme {
                 System.out.println(f.getName().substring(0, 4));
                 //////////////////////////traitement des xml de t_contribuables/////////////
                 if (f.getName().substring(0, 4).equals("CONT")) {
+                    logger.info("JE SUIS DANS CONT");
                     SchemaFactory schemafac = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
                     schema = schemafac.newSchema(new File(cheminFichierXsdCont));
                     XMLReaderJDOMFactory factory = new XMLReaderSchemaFactory(schema);
+                    logger.info("APRES VALIDATION");
                     SAXBuilder builder = new SAXBuilder(factory);
+                    logger.info("APRES BUILDER");
                     in = new FileInputStream(f);
                     document = (Document) builder.build(in);
                     
@@ -166,7 +170,7 @@ public class InterfaceIfuPlateforme {
                 }
                 f.renameTo(new File(dossierEchecs, f.getName()));
             } catch (Exception ex) {
-                logger.error("Une excception inconnue a été générée : (" + ex.getMessage() + ")");
+                logger.error("Une exception inconnue a été générée : (" + ex.getMessage() + ")");
                 //ex.printStackTrace();      
                 try {
                     in.close();
@@ -1150,7 +1154,7 @@ public class InterfaceIfuPlateforme {
                 tRepUnique.setContTypContCode(ttrContrib);
 
                 TMotif tMotif = tMotifFacade.find("A");
-                TUtilisateur tUtilisateur = tUtilisateurFacade.find("deamon");
+                TUtilisateur tUtilisateur = tUtilisateurFacade.find("daemon");
                 if (tMotif == null || tUtilisateur == null) {
                     throw new UserOrMotifUndefined("");
                 }
@@ -1396,7 +1400,7 @@ public class InterfaceIfuPlateforme {
                 tRepUnique.setContTypContCode(ttrContrib);
                 
                 TMotif tMotif = tMotifFacade.find("M");
-                TUtilisateur tUtilisateur = tUtilisateurFacade.find("deamon");
+                TUtilisateur tUtilisateur = tUtilisateurFacade.find("daemon");
                 if (tMotif == null || tUtilisateur == null) {
                     throw new UserOrMotifUndefined("");
                 }

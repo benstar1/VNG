@@ -45,8 +45,6 @@
     <h:form id="formdeclar"> 
         <h1><h:outputText value="Formulaire de déclaration douanière"/></h1>
         <p:panelGrid columns="4" style="width:100%; ">
-            <p:outputLabel value="DeclarNum:" for="declarNum" />
-            <p:inputText id="declarNum" value="#{tDeclarationFiscaleController.selected.declarNum}" title="DeclarNum" required="true" requiredMessage="The DeclarNum field is required."/>
             <p:outputLabel value="DeclarReference:" for="declarReference" />
             <p:inputText id="declarReference" value="#{tDeclarationFiscaleController.selected.declarReference}" title="DeclarReference" />
             <p:outputLabel value="DeclarDate:" for="declarDate" />
@@ -73,7 +71,7 @@
     
     <h:form id='listdeclardou'>
         <h1><h:outputText value="Liste des déclrations douanière de la période"/></h1>
-        <p:dataTable    value="#{tDeclarationFiscaleController.getFindListEnt(tEntDeclarationController.selected)}" var="item" selectionMode="single" selection="#{tDeclarationFiscaleController.decl}" rowKey="#{item.declarNum}">
+        <p:dataTable scrollable="true"   style=" width: 100%; height: 300px"   value="#{tDeclarationFiscaleController.getFindListEnt(tEntDeclarationController.selected)}" var="item" selectionMode="single" selection="#{tDeclarationFiscaleController.decl}" rowKey="#{item.declarNum}">
         <p:ajax event="rowSelect"  update=":formdeclar" />
        
             
@@ -242,10 +240,16 @@
                 <h:form id='formtaxedeclaration'>
                     <h1><h:outputText value="Taxes déclarations Ref : #{tDeclarationFiscaleController.selected.declarReference}"/></h1>
                     <p:panelGrid columns="4">
-                        <p:outputLabel value="TaxDecNum:" for="taxDecNum" />
-                        <p:inputText id="taxDecNum" value="#{tTaxeDeclarationController.selected.taxDecNum}" title="TaxDecNum" required="true" requiredMessage="The TaxDecNum field is required."/>
+                        
                         <p:outputLabel value="TaxDecTarifCode:" for="taxDecTarifCode" />
-                        <p:inputText id="taxDecTarifCode" value="#{tTaxeDeclarationController.selected.taxDecTarifCode}" title="TaxDecTarifCode" />
+                        
+                         <h:panelGrid  columns="2" width="100%" style="vertical-align: top;  ">                    
+                            <p:inputText id="taxDecTarifCode" value="#{tTaxeDeclarationController.selected.taxDecTarifCode}" title="TaxDecTarifCode" />
+                       
+                            <p:commandButton value="..." type="button" onclick="PF('dldtarif').show();" /> 
+                      </h:panelGrid>
+                       
+                        
                         <p:outputLabel value="TaxDecValCaf:" for="taxDecValCaf" />
                         <p:inputText id="taxDecValCaf" value="#{tTaxeDeclarationController.selected.taxDecValCaf}" title="TaxDecValCaf" />
                         <p:outputLabel value="TaxDecBaseTaxable:" for="taxDecBaseTaxable" />
@@ -346,6 +350,31 @@
                            <h:outputText value="#{itemtaxedeclar.taxDecAib}"/>
                       </p:column>
                          
+                    </p:dataTable>
+                </h:form>
+            </p:dialog>
+
+
+
+<p:dialog id="dldtarif" header="Liste des tarif"  dynamic="true" widgetVar="dldtarif" modal="true" showEffect="explose" height="600"  width="1000" >
+       
+            <h:form id="listtarif">    
+                <p:dataTable   value="#{tTarifDouaneController.findAll}" var="itemtarif" paginator="true" rows="10" emptyMessage="Aucun enregistrement trouvé pour l'instant !" selectionMode="single" rowKey="#{itemtarif.codeTarif}" scrollable="true" >
+                      
+                      <p:column filterBy="#{itemtarif.codeTarif}" filterMatchMode="startsWith">
+                            <f:facet name="header">
+                                <h:outputText value="Numéro"/>
+                            </f:facet>                        
+                          <p:commandLink value="#{itemtarif.codeTarif}"  action="#{tTaxeDeclarationController.tarifdouaneselectionne(itemtarif)}"  update=":formtaxedeclaration:taxDecTarifCode" oncomplete="PF('dldtarif').hide();"  process="@this" title="Selectionnez" style="color: blue;" immediate="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Désignation"/>
+                            </f:facet>
+                            <h:outputText value="#{itemtarif.description}"/>
+                           
+                        </p:column>
+                          
                     </p:dataTable>
                 </h:form>
             </p:dialog>

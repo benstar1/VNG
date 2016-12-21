@@ -11,11 +11,14 @@ import java.util.Random;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -45,15 +48,16 @@ import javax.xml.bind.annotation.XmlRootElement;
     ,
 //    @NamedQuery(name = "THistStatut.updateTHistStatu", query = "UPDATE  THistStatut t SET t.histStatutCode= :histStatutCode, t.histStatutContImmatr =:histStatutContImmatr, t.histStatutDatedebut= :histStatutDatedebut, t.histStatutDatefin= :histStatutDatefin, t.histStatutStatut= :histStatutStatut, t.histStatutUtilLogin = :histStatutUtilLogin WHERE t.histStatutContImmatr= :histStatutContImmatr"),
     @NamedQuery(name = "THistStatut.findByHistStatutContImmatr", query = "SELECT t FROM THistStatut t WHERE t.histStatutContImmatr = :histStatutContImmatr")})
+@SequenceGenerator(name="thiststatutSequence", initialValue=1, allocationSize=1)
 public class THistStatut implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 10)
     @Column(name = "HIST_STATUT_CODE")
-    private String histStatutCode;
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="thiststatutSequence")
+    private Long histStatutCode;
     @Column(name = "HIST_STATUT_DATEDEBUT")
     @Temporal(TemporalType.TIMESTAMP)
     private Date histStatutDatedebut;
@@ -76,19 +80,10 @@ public class THistStatut implements Serializable {
     public THistStatut() {
     }
 
-    Long aleatoire() {
-        Random randnum = new Random();
-
-        long LOWER_RANGE = 0; //assign lower range value
-        long UPPER_RANGE = 1000000; //assign upper range value
-
-        return LOWER_RANGE + (long) (randnum.nextDouble() * (UPPER_RANGE - LOWER_RANGE));
-
-    }
 
     public THistStatut(TRepUnique tRepUnique, TUtilisateur tUtilisateur) {
 //        long randValue = randnum.nextLong();
-        this.histStatutCode = tRepUnique.getContStatut() + aleatoire();
+        //this.histStatutCode = 1L;
         this.histStatutContImmatr = tRepUnique;
         this.histStatutDatedebut = new Date();
         this.histCentrImpCode = tRepUnique.getContCentrImpCode();
@@ -96,15 +91,15 @@ public class THistStatut implements Serializable {
         this.histStatutUtilLogin = tUtilisateur;
     }
   
-    public THistStatut(String histStatutCode) {
+    public THistStatut(Long histStatutCode) {
         this.histStatutCode = histStatutCode;
     }
 
-    public String getHistStatutCode() {
+    public Long getHistStatutCode() {
         return histStatutCode;
     }
 
-    public void setHistStatutCode(String histStatutCode) {
+    public void setHistStatutCode(Long histStatutCode) {
         this.histStatutCode = histStatutCode;
     }
 
