@@ -16,12 +16,16 @@ import bj.finances.cfisc.sessions.THistStatutFacade;
 import bj.finances.cfisc.sessions.TRepUniqueFacade;
 import bj.finances.cfisc.sessions.TUtilisateurFacade;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 //import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
+import javax.inject.Inject;
 
 /**
  *
@@ -37,6 +41,9 @@ public class MAJIndividuelleMBean extends java.lang.Object {
     @EJB
     private bj.finances.cfisc.sessions.TRepUniqueFacade tRepUniqueFacade;
 //    private int selectedItemIndex;
+    
+    @Inject
+    bj.finances.cfisc.controllers.LoginMBean loginBean;
 
     public TRepUniqueFacade gettRepUniqueFacade() {
         return tRepUniqueFacade;
@@ -257,6 +264,11 @@ public class MAJIndividuelleMBean extends java.lang.Object {
          System.out.println("Je suis dans MAJStatut() " + current + " Et ifu contient quoi " + ifu);
           System.out.println("Je suis avec le statut " + current.getContStatut());  
        
+                    ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+                    Map<String, Object> sessionMap  = externalContext.getSessionMap();
+                    String le_login = (String) sessionMap.get("loginUser");
+                    System.out.println("LE LOGIN " + le_login);
+                    
           current = ifu;
         
         try {
@@ -283,8 +295,19 @@ public class MAJIndividuelleMBean extends java.lang.Object {
             //historisation
                 System.out.println("Début historisation -- Désactivation");
                 
-                user = tUtilisateurFacade.findAll().get(0);
-                System.out.println("User " + user);
+                try {
+                    user = tUtilisateurFacade.rechercheUtilconnecte(le_login); //.findAll().get(0);
+                 //user = loginBean.getUtilisateurconnecte();
+//                    ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+//                    Map<String, Object> sessionMap  = externalContext.getSessionMap();
+//                    String le_login = (String) sessionMap.get("loginUser");
+//                    System.out.println("LE LOGIN " + le_login);
+                    
+                System.out.println("RECHERCHE DE LOGIN " + user.getUtilNom());
+                } catch (Exception e) {
+                    System.out.println("Erreur " + e.getMessage());
+                }
+                
                 
             tHistStatut  = new THistStatut(current, user);
                 try {
@@ -316,11 +339,17 @@ public class MAJIndividuelleMBean extends java.lang.Object {
             //historisation
                 System.out.println("Début historisation -- Activation");
                 
-                user = tUtilisateurFacade.findAll().get(0);
+                 try {
+                    user = tUtilisateurFacade.rechercheUtilconnecte(le_login); //.findAll().get(0);
+                 
                 System.out.println("User " + user);
+                } catch (Exception e) {
+                    System.out.println("LEO " + e.getMessage());
+                }
                 
             tHistStatut  = new THistStatut(current, user);
                 try {
+                    System.out.println("LEO CONN " + user);
                     tHistStatutFacade.historiserStatut(tHistStatut);     
                 } catch (Exception e) { System.out.println("Erreur appel historiser" +e);
                 }

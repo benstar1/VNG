@@ -95,6 +95,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TRepUnique.findByContDateMajMatricule", query = "SELECT t FROM TRepUnique t WHERE t.contDateMajMatricule = :contDateMajMatricule"),
     @NamedQuery(name = "TRepUnique.findByContStatut", query = "SELECT t FROM TRepUnique t WHERE t.contStatut = :contStatut")})
 public class TRepUnique implements Serializable {
+    @OneToMany(mappedBy = "utilContImmatr")
+    private List<TUtilisateur> tUtilisateurList;
     @OneToMany(mappedBy = "histContImmatr")
     private List<THistorique> tHistoriqueList;
     @OneToMany(mappedBy = "entDecContImmatr")
@@ -814,6 +816,15 @@ public class TRepUnique implements Serializable {
 
     public void setTHistoriqueList(List<THistorique> tHistoriqueList) {
         this.tHistoriqueList = tHistoriqueList;
+    }
+
+    @XmlTransient
+    public List<TUtilisateur> getTUtilisateurList() {
+        return tUtilisateurList;
+    }
+
+    public void setTUtilisateurList(List<TUtilisateur> tUtilisateurList) {
+        this.tUtilisateurList = tUtilisateurList;
     }
     
 }

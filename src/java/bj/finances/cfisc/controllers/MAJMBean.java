@@ -22,12 +22,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Vector;
 import javax.ejb.EJB;
 //import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
@@ -147,6 +149,13 @@ public class MAJMBean extends java.lang.Object {
         File succes = new File(cheminActivationSucces + "/succes_" + cimpot.getCentrImpLibelle() + "_" + tstamp + ".txt");
         File upload = new File(cheminActivationFichier +"/chargement_" + cimpot.getCentrImpLibelle() + "_" + tstamp + ".xls");
 
+        // Récupération de l'utilisateur connecté
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+                    Map<String, Object> sessionMap  = externalContext.getSessionMap();
+                    String le_login = (String) sessionMap.get("loginUser");
+                    System.out.println("LE LOGIN " + le_login);
+                    
+                    
         // Sauvegarde du fichier Excel soumis
         WriteCSV(file, tstamp, upload);
 
@@ -222,7 +231,8 @@ public class MAJMBean extends java.lang.Object {
                         System.out.println("Début historisation -- Activation");
 
                         // Récupération provisoire du premier utilisateur dans la base
-                        user = tUtilisateurFacade.findAll().get(0);
+//                        user = tUtilisateurFacade.findAll().get(0);
+                        user = tUtilisateurFacade.rechercheUtilconnecte(le_login);
                         
 
                         tHistStatut = new THistStatut(tRepUnique, user);
@@ -245,7 +255,8 @@ public class MAJMBean extends java.lang.Object {
                         //historisation
                         System.out.println("Début historisation -- Désactivation");
 
-                        user = tUtilisateurFacade.findAll().get(0);
+//                        user = tUtilisateurFacade.findAll().get(0);
+                        user = tUtilisateurFacade.rechercheUtilconnecte(le_login);
                         System.out.println("User " + user);
 
                         tHistStatut = new THistStatut(tRepUnique, user);

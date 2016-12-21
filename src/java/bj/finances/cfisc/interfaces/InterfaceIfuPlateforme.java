@@ -32,11 +32,14 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import org.apache.log4j.*;
 import javax.ejb.EJB;
 import javax.ejb.Schedule;
 import javax.ejb.Stateless;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.xml.XMLConstants;
 import javax.xml.validation.Schema;
@@ -982,6 +985,11 @@ public class InterfaceIfuPlateforme {
             tTypeContribFacade.create(ttrContrib);
         }
 
+        // Utilisateur Connecté
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+                    Map<String, Object> sessionMap  = externalContext.getSessionMap();
+                    String le_login = (String) sessionMap.get("loginUser");
+                    
         tRepUnique = tRepUniqueFacade.find(Long.valueOf(contribuable.getChild("CONT_IMMATR").getValue()));
         
         if (tRepUnique == null) {

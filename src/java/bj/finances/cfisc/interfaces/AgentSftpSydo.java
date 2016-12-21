@@ -38,59 +38,23 @@ public class AgentSftpSydo {
     private TRepUniqueFacade tRepUniqueFacade;  
  
     private String cheminDepotLocal = ResourceBundle.getBundle("/parametres").getString("cheminDepotLocalSydo");
+    private String cheminDepotLocalActif = ResourceBundle.getBundle("/parametres").getString("cheminDepotLocalActif");
     
     private String SYDO_SFTPUSER = ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPUSER");
     private String SYDO_SFTPHOST = ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPHOST");
     private String SYDO_SFTPPASS = ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPPASS");
     private int SYDO_SFTPPORT = Integer.parseInt(ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPPORT"));
     
+    private String REP_UNI_SFTPUSER = ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPUSER");
+    private String REP_UNI_SFTPHOST = ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPHOST");
+    private String REP_UNI_SFTPPASS = ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPPASS");
+    private int REP_UNI_SFTPPORT = Integer.parseInt(ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPPORT"));
+    
     @Inject
     private InterfaceIfuPlateforme iifu;
     
     final static org.apache.log4j.Logger logger = Logger.getLogger(AgentSftpSydo.class.getName());
-//    
-//    public void telechargerDeclarationEndouane(){
-//        JSch jsch = new JSch();
-//        Session session = null;
-//        Channel channel = null;
-//        try {
-//            session = jsch.getSession(SFTPUSER, SFTPHOST, SFTPPORT);
-//            session.setPassword(SFTPPASS);
-//
-//            java.util.Properties config = new java.util.Properties();
-//            config.put("StrictHostKeyChecking", "no");
-//            session.setConfig(config);
-//            try{
-//            session.connect();
-//            }
-//            catch(Exception ex){
-//                logger.error("Problème de connexion de session" + ex.getMessage());
-//            }
-//
-//            channel = session.openChannel("sftp");
-//            try{
-//            channel.connect();
-//            }catch(Exception ex){
-//                logger.error("Problème de connexion au canal "+ ex.getMessage());
-//            }
-//            ChannelSftp channelSftp = (ChannelSftp) channel;
-//            channelSftp.lcd(cheminDepotLocal);
-//
-//            Vector<ChannelSftp.LsEntry> list = channelSftp.ls("*.xml");
-//            
-//            for (ChannelSftp.LsEntry entry : list) {
-//                channelSftp.get(entry.getFilename(), entry.getFilename());
-//                channelSftp.rename(entry.getFilename(), "/fichier_traite/" + entry.getFilename());
-//                logger.info("Fichier traité .... " + entry.getFilename());            }     
-//        } catch (Exception e) {
-//           logger.error("Erreur lors du téléchargement d'un fichier entreprise par sftp ( " + e.getMessage() + ")");
-//        }finally{
-//            channel.disconnect();
-//            session.disconnect();
-//        }
-//    }
-    
-    
+
     @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/20", persistent = false)
     public void telechargerEntreprise() {
         JSch jsch = new JSch();
@@ -140,4 +104,116 @@ public class AgentSftpSydo {
         iifu.scrutelocalSydo(); 
 
     }
+    
+    
+    @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/25", persistent = false)
+    public void uploadXmlActif() {
+        JSch jsch = new JSch();
+        Session session = null;
+        Channel channel = null;
+        
+        try {
+            session = jsch.getSession(REP_UNI_SFTPUSER, REP_UNI_SFTPHOST, REP_UNI_SFTPPORT);
+            session.setPassword(REP_UNI_SFTPPASS);
+            
+            java.util.Properties config = new java.util.Properties();
+            config.put("StrictHostKeyChecking", "no");            
+            session.setConfig(config);            
+            try{
+            session.connect();
+            }
+            catch(Exception ex){
+                logger.error("Problème de connexion de session" + ex.getMessage());
+            }
+            
+            channel = session.openChannel("sftp");    
+            
+            try{
+            channel.connect();
+            }catch(Exception ex){
+                logger.error("Problème de connexion au canal "+ ex.getMessage());
+            }
+            
+            ChannelSftp channelSftp = (ChannelSftp) channel;
+            //channelSftp.cd("/CFISC");
+            channelSftp.lcd(cheminDepotLocalActif);
+            
+            
+            Vector<ChannelSftp.LsEntry> list = channelSftp.ls("*.xml");
+              
+            logger.info("connexion a sydo reussi (Actif) .................. ");
+            System.out.println("TAILLE DE LA LISTE ----------------------------" + list.size());
+             System.out.println("LE HOME -----------------------------" + channelSftp.pwd());
+            for (ChannelSftp.LsEntry entry : list) {
+                
+                channelSftp.get(entry.getFilename(), entry.getFilename());
+                System.out.println("nom fichier : " + entry.getFilename());
+                //channelSftp.rename(entry.getFilename(), "fichier_traite/" + entry.getFilename());
+                logger.info("Fichier traité .... (Actif) " + entry.getFilename());
+            } 
+            
+            //envoiActifVersSydo();
+            
+        } catch (Exception e) {
+           logger.error("Erreur lors du telechargement d'un fichier entreprise par sftp (Sydo)( " + e.getMessage() + ")");
+        }finally{
+            channel.disconnect();
+            session.disconnect();
+        }        
+        //iifu.scrutelocalSydo(); 
+    }
+    
+    public void envoiActifVersSydo(){
+        
+        JSch jsch = new JSch();
+        Session session = null;
+        Channel channel = null;
+        
+        try {
+             session = jsch.getSession(SYDO_SFTPUSER, SYDO_SFTPHOST, SYDO_SFTPPORT);
+            session.setPassword(SYDO_SFTPPASS);
+            
+            java.util.Properties config = new java.util.Properties();
+            config.put("StrictHostKeyChecking", "no");            
+            session.setConfig(config);            
+            try{
+            session.connect();
+            }
+            catch(Exception ex){
+                logger.error("Problème de connexion de session" + ex.getMessage());
+            }
+            
+            channel = session.openChannel("sftp");            
+            try{
+            channel.connect();
+            }catch(Exception ex){
+                logger.error("Problème de connexion au canal "+ ex.getMessage());
+            }
+            
+            ChannelSftp channelSftp = (ChannelSftp) channel;
+            channelSftp.lcd(cheminDepotLocalActif);
+
+            Vector<ChannelSftp.LsEntry> list = channelSftp.ls("*.xml");
+            logger.info("connexion a sydo reussi (Actif) .................. ");
+            for (ChannelSftp.LsEntry entry : list) {
+                
+                channelSftp.get(entry.getFilename(), entry.getFilename());
+                System.out.println("nom fichier : " + entry.getFilename());
+
+                channelSftp.put(entry.getFilename());
+                
+                channelSftp.rename(entry.getFilename(), "fichier_traite/" + entry.getFilename());
+                logger.info("Fichier traité .... (Actif) " + entry.getFilename());
+            } 
+                       
+            
+        } catch (Exception e) {
+           logger.error("Erreur lors du telechargement d'un fichier entreprise par sftp (Sydo)( " + e.getMessage() + ")");
+        }finally{
+            channel.disconnect();
+            session.disconnect();
+        }               
+        
+    }
+    
 }

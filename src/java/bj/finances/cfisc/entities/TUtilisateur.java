@@ -13,6 +13,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -36,6 +38,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TUtilisateur.findByUtilLogin", query = "SELECT t FROM TUtilisateur t WHERE t.utilLogin = :utilLogin"),
     @NamedQuery(name = "TUtilisateur.findByUtilActif", query = "SELECT t FROM TUtilisateur t WHERE t.utilActif = :utilActif")})
 public class TUtilisateur implements Serializable {
+    @JoinColumn(name = "UTIL_CONT_IMMATR", referencedColumnName = "CONT_IMMATR")
+    @ManyToOne
+    private TRepUnique utilContImmatr;
     @Size(max = 30)
     @Column(name = "UTIL_COD")
     private String utilCod;
@@ -232,6 +237,14 @@ public class TUtilisateur implements Serializable {
 
     public void setUtilAdministration(String utilAdministration) {
         this.utilAdministration = utilAdministration;
+    }
+
+    public TRepUnique getUtilContImmatr() {
+        return utilContImmatr;
+    }
+
+    public void setUtilContImmatr(TRepUnique utilContImmatr) {
+        this.utilContImmatr = utilContImmatr;
     }
     
 }

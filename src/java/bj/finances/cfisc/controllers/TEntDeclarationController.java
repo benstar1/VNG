@@ -4,15 +4,19 @@ import bj.finances.cfisc.entities.TEntDeclaration;
 import bj.finances.cfisc.controllers.util.JsfUtil;
 import bj.finances.cfisc.controllers.util.PaginationHelper;
 import bj.finances.cfisc.entities.TDeclarationFiscale;
+import bj.finances.cfisc.entities.TUtilisateur;
 import bj.finances.cfisc.sessions.TEntDeclarationFacade;
+import bj.finances.cfisc.sessions.TUtilisateurFacade;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
@@ -25,6 +29,8 @@ import javax.inject.Named;
 //@Named("tEntDeclarationController")
 @SessionScoped
 public class TEntDeclarationController implements Serializable {
+    @EJB
+    private TUtilisateurFacade tUtilisateurFacade;
     private TEntDeclaration entdecl;
     private TEntDeclaration current;
     private DataModel items = null;
@@ -37,8 +43,27 @@ public class TEntDeclarationController implements Serializable {
     private int selectedItemIndex;
     private boolean valider =false;
     
+    private String loginutilisateur;
+    
     public TEntDeclarationController() {
         //System.out.println("PAPA MAMAN MIMI JORDI DIVINIA.......................");
+    }
+
+    public String getLoginutilisateur() {
+        return loginutilisateur;
+    }
+
+    public void setLoginutilisateur(String loginutilisateur) {
+        this.loginutilisateur = loginutilisateur;
+    }
+    
+    
+    public void trouvelogin (){
+          ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+                    Map<String, Object> sessionMap  = externalContext.getSessionMap();
+                    String le_login = (String) sessionMap.get("loginUser");
+                    System.out.println("LE LOGIN " + le_login);
+                    setLoginutilisateur(le_login);
     }
 
     public boolean isValider() {
@@ -124,13 +149,14 @@ public class TEntDeclarationController implements Serializable {
     public String create() {
         try {
             System.out.println("Nous somme là");
-            try{
-            System.out.println("trouver     "+ejbFacaderepuniq.findByContImmatr(3200700099212l).getContNum());
-            }catch(Exception e){
-                System.out.println("quel exception "+ e);
-            }
-           System.out.println("Nous somme après");
-            current.setEntDecContImmatr(ejbFacaderepuniq.findByContImmatr(3200700099212l));
+           
+            TUtilisateur Utilis = null;  
+            Utilis=tUtilisateurFacade.rechercheUtilconnecte(getLoginutilisateur());
+            System.out.println("Utilisateur connecté  ###########################   "+Utilis.getUtilNom());
+            System.out.println("IFU Utilisateur connecté  ###########################   "+Utilis.getUtilContImmatr().getContImmatr());
+     
+            System.out.println("Nous somme après");
+            current.setEntDecContImmatr(Utilis.getUtilContImmatr());
             current.setEntDecValidation("N");
             //current.setEntDecNum(2l);
             getFacade().create(current);
@@ -214,8 +240,11 @@ public class TEntDeclarationController implements Serializable {
     }
      
         public List<TEntDeclaration> getFindListEntdeclfisc(){        
-            //return ejbFacade.findListentdeclarcontrib(1201300000201l); 
-            return ejbFacade.findListentdeclarcontrib(3200700099212l);  
+            TUtilisateur Utilis = null;  
+            Utilis=tUtilisateurFacade.rechercheUtilconnecte(getLoginutilisateur());
+            System.out.println("Utilisateur connecté  ###########################   "+Utilis.getUtilNom());
+            System.out.println("IFU Utilisateur connecté  ###########################   "+Utilis.getUtilContImmatr().getContImmatr());
+            return ejbFacade.findListentdeclarcontrib(Utilis.getUtilContImmatr().getContImmatr());  
         }
         
     public List<TEntDeclaration> getFindAll(){        
