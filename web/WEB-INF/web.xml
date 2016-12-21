@@ -14,7 +14,7 @@
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
     <session-config>
-        <session-timeout>3</session-timeout>
+        <session-timeout>999</session-timeout>
     </session-config>
     <welcome-file-list>
         <welcome-file>index.xhtml</welcome-file>
@@ -30,6 +30,10 @@
             <description>déclaration fiscale</description>
             <url-pattern>/vues/tEntDeclaration/DeclarationFiscal.xhtml</url-pattern>
         </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>CONTRIBUABLE</role-name>
+        </auth-constraint>
     </security-constraint>
     <security-constraint>
         <display-name>AccesStatutContrib</display-name>
@@ -43,6 +47,10 @@
             <description/>
             <url-pattern>/vues/tRepUnique/MAJCollective.xhtml</url-pattern>
         </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>INSPECTMAJ</role-name>
+        </auth-constraint>
     </security-constraint>
     <login-config>
         <auth-method>FORM</auth-method>

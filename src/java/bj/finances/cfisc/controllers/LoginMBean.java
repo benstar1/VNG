@@ -5,12 +5,16 @@
  */
 package bj.finances.cfisc.controllers;
 
+import bj.finances.cfisc.entities.TUtilisateur;
+import bj.finances.cfisc.sessions.TUtilisateurFacade;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.enterprise.context.SessionScoped;
+import javax.ejb.EJB;
+//import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -18,16 +22,42 @@ import javax.faces.event.ComponentSystemEvent;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /*
  *
  * @author DELL
  */
-@ManagedBean
+@ManagedBean(name = "loginMBean")
 @SessionScoped
+
 public class LoginMBean implements Serializable{
+    @EJB
+    private TUtilisateurFacade tUtilisateurFacade;
+    private TUtilisateur utilisateurconnecte;
+    private boolean contribuable;
 String uname;
 String password;
+String nom=null;
+String prenom;
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+String raisonsocial ;
+ Long ifu ;
+
+    public Long getIfu() {
+        return ifu;
+    }
+
+    public void setIfu(Long ifu) {
+        this.ifu = ifu;
+    }
 private Boolean connecte;
 
     public Boolean getConnecte() {
@@ -77,6 +107,7 @@ private Boolean connecte;
         }
         else if (request.getParameter("logout")!=null && request.getParameter("logout").equalsIgnoreCase("true")) {
             context.addMessage(null, new FacesMessage("Déconnexion reussie."));
+            
         }
     }
  
@@ -85,9 +116,14 @@ private Boolean connecte;
         String page="/login?logout=true&faces-redirect=true";
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+       //HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
+        
         try {
+            FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
           request.logout();
           connecte=false;
+          
+          
           
         } catch (ServletException e) {
             context.addMessage(null, new FacesMessage("Logout failed!"));
@@ -100,7 +136,8 @@ private Boolean connecte;
     
     public boolean isContribuable() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        return externalContext.isUserInRole("CONTRIBUABLE");
+        contribuable = externalContext.isUserInRole("CONTRIBUABLE");
+        return contribuable;
     }
 
     public boolean isAdmin() {
@@ -123,10 +160,19 @@ private Boolean connecte;
       // ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
         if (request.getUserPrincipal()==null)
-     { return false;     }
+     { System.out.println("non");
+         return false;
+     }
      
      else
-     {return true;}
+     {System.out.println("oui");
+   utilisateurconnecte=tUtilisateurFacade.rechercheUtilconnecte(uname);
+   nom=utilisateurconnecte.getUtilLogin();
+   
+     
+     //rechercher le centre de l'utilisateur dans un truc public si c'est un inspecteur
+     
+             return true;}
 }
     public String login() {
        
