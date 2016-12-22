@@ -47,50 +47,9 @@ public class AgentSftpIfu {
     private InterfaceIfuPlateforme iifu;
     
     final static org.apache.log4j.Logger logger = Logger.getLogger(AgentSftpIfu.class.getName());
-//    
-//    public void telechargerDeclarationEndouane(){
-//        JSch jsch = new JSch();
-//        Session session = null;
-//        Channel channel = null;
-//        try {
-//            session = jsch.getSession(SFTPUSER, SFTPHOST, SFTPPORT);
-//            session.setPassword(SFTPPASS);
-//
-//            java.util.Properties config = new java.util.Properties();
-//            config.put("StrictHostKeyChecking", "no");
-//            session.setConfig(config);
-//            try{
-//            session.connect();
-//            }
-//            catch(Exception ex){
-//                logger.error("Problème de connexion de session" + ex.getMessage());
-//            }
-//
-//            channel = session.openChannel("sftp");
-//            try{
-//            channel.connect();
-//            }catch(Exception ex){
-//                logger.error("Problème de connexion au canal "+ ex.getMessage());
-//            }
-//            ChannelSftp channelSftp = (ChannelSftp) channel;
-//            channelSftp.lcd(cheminDepotLocal);
-//
-//            Vector<ChannelSftp.LsEntry> list = channelSftp.ls("*.xml");
-//            
-//            for (ChannelSftp.LsEntry entry : list) {
-//                channelSftp.get(entry.getFilename(), entry.getFilename());
-//                channelSftp.rename(entry.getFilename(), "/fichier_traite/" + entry.getFilename());
-//                logger.info("Fichier traité .... " + entry.getFilename());            }     
-//        } catch (Exception e) {
-//           logger.error("Erreur lors du téléchargement d'un fichier entreprise par sftp ( " + e.getMessage() + ")");
-//        }finally{
-//            channel.disconnect();
-//            session.disconnect();
-//        }
-//    }
+
     
-    
-    //@Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/20", persistent = false)
+    @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/20", persistent = false)
     public void telechargerEntrepriseIfu() {
         JSch jsch = new JSch();
         Session session = null;

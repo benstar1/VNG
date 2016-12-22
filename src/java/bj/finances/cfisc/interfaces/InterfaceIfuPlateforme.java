@@ -172,7 +172,7 @@ public class InterfaceIfuPlateforme {
     
     
     public void scrutelocalIfu() {
-        System.out.println(" Scan du dossier source ........ " + new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(new Date()));            
+        System.out.println(" Scan du dossier source de IFU ........ " + new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(new Date()));            
          
         File depotLocal = new File(cheminDepotLocalIfu);
         File dossierEchecs = new File(cheminDossierEchecsIfu);
@@ -192,6 +192,7 @@ public class InterfaceIfuPlateforme {
             try {
                 System.out.println(f.getName().substring(0, 4));
                 //////////////////////////traitement des xml de t_contribuables/////////////
+                 logger.info("JE SUIS DANS "+f.getName().substring(0, 4));
                 if (f.getName().substring(0, 4).equals("CONT")) {
                     logger.info("JE SUIS DANS CONT");
                     SchemaFactory schemafac = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
@@ -968,8 +969,9 @@ public class InterfaceIfuPlateforme {
    ////////////////////////// FIN INSERTION DECLARATION ARTICLE TAXE
        
      public void traitementDeDonnesCont(Document document, File fichier, InputStream in) throws JDOMException, SAXException, IOException, UserOrMotifUndefined {
+        System.out.println("Nous somme là");
         Element racine = document.getRootElement();
-    
+        System.err.println("CA DONNE = " + racine.getName());
         Element operation = racine.getChild("OPERATION");
         TTypeContrib ttrContrib = new TTypeContrib();
         TRepUnique tRepUnique = new TRepUnique();
@@ -985,16 +987,11 @@ public class InterfaceIfuPlateforme {
             tTypeContribFacade.create(ttrContrib);
         }
 
-        // Utilisateur Connecté
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-                    Map<String, Object> sessionMap  = externalContext.getSessionMap();
-                    String le_login = (String) sessionMap.get("loginUser");
-                    
         tRepUnique = tRepUniqueFacade.find(Long.valueOf(contribuable.getChild("CONT_IMMATR").getValue()));
-        
+        System.out.println("-----***********----------------");
         if (tRepUnique == null) {
             if ("A".equals(typeOperation.getValue())) {
-        
+                System.out.println("ESSAIIIII     IIIIIIIIIII");
                 tRepUnique = new TRepUnique();
                 try {
                     tRepUnique.setContDatenreg(dateFormat.parse(contribuable.getChild("CONT_DATENREG").getValue()));
@@ -1231,16 +1228,16 @@ public class InterfaceIfuPlateforme {
                 tHistoriqueFacade.historiser(tRepUnique, tMotif, tUtilisateur);
                 
                 in.close();
-                fichier.renameTo(new File(cheminDossierSuccesSydo, fichier.getName()));
+                fichier.renameTo(new File(cheminDossierSuccesIfu, fichier.getName()));
             } else {
-                System.out.println("IMPOSSIBLE DE MODIFIER UN CONTRIBUABLE INEXISTANT " + fichier.getName());
+                System.out.println("Ajout impossible pour cause de fichier existant " + fichier.getName());
                 in.close();
-                fichier.renameTo(new File(cheminDossierEchecsSydo, fichier.getName()));
+                fichier.renameTo(new File(cheminDossierEchecsIfu, fichier.getName()));
             }
             return;
         } else {
             if ("M".equals(typeOperation.getValue())) {
-                
+                System.out.println("Je suis dans la modification");
                 try {
                     tRepUnique.setContDatenreg(dateFormat.parse(contribuable.getChild("CONT_DATENREG").getValue()));
                 } catch (Exception e) {
@@ -1468,7 +1465,7 @@ public class InterfaceIfuPlateforme {
                 tRepUnique.setContTypContCode(ttrContrib);
                 
                 TMotif tMotif = tMotifFacade.find("M");
-                TUtilisateur tUtilisateur = tUtilisateurFacade.find("daemon");
+                TUtilisateur tUtilisateur = tUtilisateurFacade.find("deamon");
                 if (tMotif == null || tUtilisateur == null) {
                     throw new UserOrMotifUndefined("");
                 }
@@ -1476,11 +1473,12 @@ public class InterfaceIfuPlateforme {
                 tRepUniqueFacade.edit(tRepUnique);
                 tHistoriqueFacade.historiser(tRepUnique, tMotif, tUtilisateur);
 
+                System.out.println("cest ici");
                 in.close();
-
+                System.out.println("passe");
                 fichier.renameTo(new File(cheminDossierSuccesIfu, fichier.getName()));
             } else {
-                logger.info("IMPOSSIBLE D'AJOUTER UN CONTRIBUABLE EXISTANT " + fichier.getName());
+                System.out.println("inmpossible d'ajouter un contribuable existant " + fichier.getName());
                 in.close();
                 fichier.renameTo(new File(cheminDossierEchecsIfu, fichier.getName()));
             }
