@@ -1,17 +1,20 @@
 
 #top {
     position: relative;
-    background-color: #036fab;
+    background-color: white ;
     color: white;
     padding: 5px;
     margin: 0px 0px 10px 0px;
 }
 
 #bottom {
-    position: relative;
-    background-color: #c2dfef;
+    position:relative;
+    background-color: #8ea380;
     padding: 5px;
     margin: 10px 0px 0px 0px;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 #left {
@@ -19,6 +22,7 @@
     background-color: #ece3a5;
     padding: 5px;
     width: 150px;
+    min-height: 70%;
 }
 
 #right {
@@ -26,6 +30,7 @@
     background-color: #ece3a5;
     padding: 5px;
     width: 150px;
+    
 }
 
 .center_content {
@@ -35,9 +40,10 @@
 }
 
 .left_content {
-    background-color: #dddddd;
+    background-color:white;
     padding: 5px;
     margin-left: 170px;
+    min-height: 70%;
 }
 
 .right_content {

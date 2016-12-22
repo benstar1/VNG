@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+         <c:if test="#{loginBean.administration =='DOUANE'}">
+                <ui:include src="./topmenuDouane.xhtml"/>
+            </c:if> 
+            <c:if test="#{loginBean.administration == 'MFRE'}">
+                <ui:include src="./topmenuMFRE.xhtml"/>
+            </c:if>
+            <c:if test="#{loginBean.administration == 'RECETTE_ORDRE'}">
+                <ui:include src="./topmenuRO.xhtml"/>
+            </c:if>
+    </h:body>
+</html>
+

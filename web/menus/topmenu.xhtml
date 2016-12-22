@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
+          
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+
+    </h:head>
+
+    <h:body>
+        <div id="menu ">
+            <!--<div class="span12">-->
+
+
+
+            <nav class="navbar" >
+                <div class="navbar-inner" >
+                    <div class="container" >
+                        <ul class="nav">
+                            <li> <a href="/CFisc">Accueil</a> </li>
+
+
+
+
+
+                                <li class="divider-vertical"></li>
+
+                                <li class="divider-vertical"></li>  
+                                <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Espace Contribuable <b class="caret"></b> </a>
+                                    <ul class="dropdown-menu">
+
+                                        <li class="divider"></li> 
+                                        <li><a href="/CFisc/vues/tEntDeclaration/DeclarationFiscal.xhtml">Déclaration fiscale</a></li>
+                                        <li><a href="/CFisc/vues/tEntDeclaration/DeclarationFiscal.xhtml">Déclaration fiscale</a></li>
+
+
+                                    </ul>
+                                </li> 
+
+<!--                            </c:if>-->
+
+                            <c:if test="#{loginMBean.inspecteur}">
+                                <li class="divider-vertical"></li>
+
+                                <li class="divider-vertical"></li>  
+                                <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Espace Inspecteur <b class="caret"></b> </a>
+                                    <ul class="dropdown-menu">
+
+                                        <li class="divider"></li> 
+                                        <li><a href="/CFisc/vues/tDeclarationDou/ConsulterDeclarationEnDouane.xhtml"> Consulter les Déclarations en douane </a></li>
+                                        <li><a href="/CFisc/vues/tDeclarationDou/ConsulterDeclarationEnDouane.xhtml"> </a></li>
+
+                                    </ul>
+                                </li> 
+
+
+                            </c:if>
+                            <c:if test="#{loginMBean.inspectmaj}">
+
+                                <li class="divider-vertical"></li>
+
+                                <li class="divider-vertical"></li>  
+                                <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Espace Mise à jour <b class="caret"></b> </a>
+                                    <ul class="dropdown-menu">
+
+                                        <li class="divider"></li> 
+                                        <li><a href="/CFisc/vues/tRepUnique/MAJIndividuelle.xhtml">Mise à jour individuelle</a></li>
+                                        <li><a href="/CFisc/vues/tRepUnique/MAJCollective.xhtml">Mise à jour collective</a></li>
+
+                                    </ul>
+                                </li> 
+
+
+                            </c:if>
+
+                        </ul>
+                    </div>
+                </div>
+                <div style="width: 100%; margin: 0px; padding: 0px; vertical-align: top">
+                    <h:form >
+                        <div style="display: inline-block; width: 70%; margin: 0px">
+                            <h:outputLabel value="#{loginMBean.nom}" />
+                        </div>
+
+                        <div style="width: 30%; display: inline-block; margin: 0px; float: right; text-align: right">
+                            <h:commandButton  action="login.xhtml" rendered="#{!loginMBean.connected}" value="Se connecter" />
+
+                            <h:commandButton action="#{loginMBean.logout()}" rendered="#{loginMBean.connected}" value="se deconnecter" />                   
+
+                        </div>
+                    </h:form>   
+                </div>
+            </nav>
+
+
+        </div>
+
+    </h:body>
+</html>
+

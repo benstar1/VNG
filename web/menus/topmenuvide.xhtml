@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title><ui:insert name="title">Default Title</ui:insert></title>
+
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+        <h:outputStylesheet name="css/style.css"/>
+        <h:outputStylesheet name="bootstrap/css/bootstrap.css"/>
+        <h:outputStylesheet name="bootstrap/css/bootstrap-responsive.css"/>
+
+
+
+    </h:head>
+
+    <h:body>
+        <div class="container">
+            <!--Bannière et logo et nom application-->  
+            <div class="row">
+                <div class="span12" id="banniere">
+                    <div id="logo1"><h:graphicImage library="images" name="logodgid.bmp" style="width: 76px; height: 76px;" alt="Logo DGID"/></div>
+                    <div class="text-center" id="texte">REPUBLIQUE DU BENIN<br></br>
+                        MINISTERE DE L’ECONOMIE, DES FINANCES ET DES PROGRAMMES DE DENATIONALISATION<br></br>
+                        <span class="nomAppli">Pateforme de Gestion des exonérations</span></div>
+                    <div id="logo2"><h:graphicImage library="images" name="armoirie.png"  style="width: 87px; height: 76px;" alt="Logo Douane" /></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span12 text-center" id="nomApplication">
+                    <br></br>
+                    <!--form name="form1" method="post" action="">
+                        <strong>Exercice </strong> <select name="exercice" id="exercice" class="exerciceEntete">
+                            <option value="2014">2014</option>
+                            <option value="2013">2013</option>
+                            <option value="2012">2012</option>
+                            <option value="2011">2011</option>
+                            <option value="2010">2010</option>
+                        </select>
+                    </form-->
+                </div>
+            </div>
+
+            <!--Barre de navigation-->
+            <!--h:outputScript name="jquery-1.11.0.js"  ></h:outputScript-->
+            <h:outputScript name="bootstrap.min.js" library="bootstrap/js" ></h:outputScript>
+
+
+            <!--        <script type="text/javascript">     
+                       jQuery.noConflict();         
+                    </script>     -->
+
+            <!--Contenu central-->
+            
+        </div>
+    </h:body>
+</html>
+
