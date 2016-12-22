@@ -180,7 +180,7 @@ public class LoginMBean implements Serializable {
     }
 
     public String login() {
-
+String chemin="index.xhtml";
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         Map<String, Object> sessionMap  = externalContext.getSessionMap();
         sessionMap.put("loginUser", uname);
@@ -188,8 +188,21 @@ public class LoginMBean implements Serializable {
 
         try {
             request.login(uname, password);
-            connecte = true;           
-            return "index.xhtml";
+            connecte = true;   
+          if  (externalContext.isUserInRole("CONTRIBUABLE")==true){
+              chemin="/vues/tEntDeclaration/DeclarationFiscal.xhtml";
+          }
+           if  (externalContext.isUserInRole("ADMIN")==true){
+              chemin="/vues/tDeclarationDou/ConsulterDD.xhtml";
+           }
+                if  (externalContext.isUserInRole("INSPECTEUR")==true){
+              chemin="/vues/tDeclarationDou/ConsulterDD.xhtml";
+          }
+                  if  (externalContext.isUserInRole("INSPECTMAJ")==true){
+              chemin="/vues/tRepUnique/MAJIndividuelle.xhtml";
+          }
+            
+            return chemin;
         } catch (ServletException ex) {
             Logger.getLogger(LoginMBean.class.getName()).log(Level.INFO, "Failed to log in {0}", uname);
             FacesContext facesContext = FacesContext.getCurrentInstance();
