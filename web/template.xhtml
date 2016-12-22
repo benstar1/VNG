@@ -14,20 +14,34 @@
     <h:body>
 
         <div id="top">
-            <ui:insert name="top">Top</ui:insert>
+            <ui:insert name="top"></ui:insert>
+            <div class="row">
+                <div id="banniere" style="width: 100%; margin: 0px">
+                    <div align="left" id="logo1" style="display: inline-block; width: 30%; margin: 0px"><h:graphicImage library="images" name="logo_mef.jpg" style="width: 376px; height: 100px;" alt="Logo MEF"/></div>
+                   
+                    <div   class="text-center" id="texte" style=" float:  right;  text-align: center;  width: 70%; height: 100px; display: inline-block; margin: 0px; "><br/> <p style=" text-align: inherit ; color:black;  font-size: x-large;  text-decoration-style:  solid;  font-style:  italic; ">PLATEFORME DE GESTION DES DECLARATIONS FISCALES</p></div>
+
+                </div>
+            </div>
+
         </div>
+        
         <div>
             <div id="left">
                  <ui:include src="./res/menu.xhtml"/>
             </div>
+            
             <div id="content" class="left_content">
                 <ui:insert name="body">Content</ui:insert>
             </div>
+            
         </div>
-        <div id="bottom" >
-            <ui:insert name="bottom">Bottom</ui:insert>
+        <div id="bottom" style=" height: 70px; " >
+<!--            <ui:insert name="bottom">Bottom</ui:insert>-->
+           
+              <ui:include src="./menus/bottommenu.xhtml"/>
         </div>
-
+       
     </h:body>
 
 </html>
