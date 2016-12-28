@@ -70,7 +70,7 @@
 <!--    //////////////////////////// fin formulaire déclaration douanière///////-->
     
     <h:form id='listdeclardou'>
-        <h1><h:outputText value="Liste des déclrations douanière de la période"/></h1>
+        <h1><h:outputText value="Liste des déclrations douanières de la période"/></h1>
         <p:dataTable scrollable="true"   style=" width: 100%; height: 300px"   value="#{tDeclarationFiscaleController.getFindListEnt(tEntDeclarationController.selected)}" var="item" selectionMode="single" selection="#{tDeclarationFiscaleController.decl}" rowKey="#{item.declarNum}">
         <p:ajax event="rowSelect"  update=":formdeclar" />
        
@@ -178,7 +178,7 @@
                         <p:calendar  pattern="dd-MM-yyyy" mask="true" id="entDecDatefin" value="#{tEntDeclarationController.selected.entDecDatefin}" title="EntDecDatefin" />
                         <f:facet name="footer">
         
-                    <p:commandButton disabled="#{tEntDeclarationController.valider}"  update=":formentdeclar" process="@this"  action="#{tEntDeclarationController.prepareCreate()}"  value= "Nouveau"  style="width: 120px;" ajax="true" />
+                    <p:commandButton   update=":formentdeclar" process="@this"  action="#{tEntDeclarationController.prepareCreate()}"  value= "Nouveau"  style="width: 120px;" ajax="true" />
                     <p:commandButton disabled="#{tEntDeclarationController.valider}" value= "Enregistrer"  action="#{tEntDeclarationController.create()}" update=":listentdeclar" style="width: 120px;" ajax="true" />
                     <p:commandButton disabled="#{tEntDeclarationController.valider}" value= "Modifier"  action="#{tEntDeclarationController.update()}" update=":listentdeclar" style="width: 120px;" ajax="true" />
                     <p:commandButton disabled="#{tEntDeclarationController.valider}" value= "Supprimer" action="#{tEntDeclarationController.destroybis(tEntDeclarationController.selected)}" update=":listentdeclar"  style="width: 120px;" ajax="true" />

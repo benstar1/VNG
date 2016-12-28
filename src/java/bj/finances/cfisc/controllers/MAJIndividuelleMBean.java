@@ -228,11 +228,18 @@ public class MAJIndividuelleMBean extends java.lang.Object {
     }
       
           public List<TRepUnique> getContrib() {
-
-        if (contrib == null) {
-            contrib = tRepUniqueFacade.findAll();
+              try {
+                if (contrib == null) {
+//            contrib = tRepUniqueFacade.findAll();
+            contrib = tRepUniqueFacade.findContribByImmatPP();
         }
-        return tRepUniqueFacade.findAll();
+        contrib = tRepUniqueFacade.findContribByImmatPP();  
+              } catch (NumberFormatException e) {
+                  System.out.println("FindPP"+e.getMessage());
+              }
+        
+        
+        return contrib;
 
     }
       

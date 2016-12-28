@@ -2,7 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -18,30 +20,84 @@
             <div class="row">
                 <div id="banniere" style="width: 100%; margin: 0px">
                     <div align="left" id="logo1" style="display: inline-block; width: 30%; margin: 0px"><h:graphicImage library="images" name="logo_mef.jpg" style="width: 376px; height: 100px;" alt="Logo MEF"/></div>
-                   
+
                     <div   class="text-center" id="texte" style=" float:  right;  text-align: center;  width: 70%; height: 100px; display: inline-block; margin: 0px; "><br/> <p style=" text-align: inherit ; color:black;  font-size: x-large;  text-decoration-style:  solid;  font-style:  italic; ">PLATEFORME DE GESTION DES DECLARATIONS FISCALES</p></div>
+
+                </div>
+                <div id="identification" style=" height:5%;   clear:  both; background-color: forestgreen ; width: 100%; margin: 0px ">
+
+
+
+                    <table  style=" color:  #ffffff ; text-align:  left" border="0" bgcolor="forestgreen" width="100%">
+                        
+                        <tbody>
+                            <tr>
+                                <c:if test="#{loginMBean.contribuable}">
+       
+       
+                                    <td> <strong> <h:outputLabel  value="IFU :"/></strong></td>
+                                    <td>  <strong> <h:outputText style=" color:  yellow " value="#{loginMBean.utilisateurconnecte.utilContImmatr.contImmatr}"/></strong>
+                                </td>
+                             
+                                <td><strong>  <h:outputLabel value="Nom/Raison Sociale :"/></strong></td>
+                                <td>   <h:outputText value="#{loginMBean.utilisateurconnecte.utilContImmatr.contRais}"/>
+                                </td>
+                                
+                             
+       
+                                <td>  <strong> <h:outputLabel value="Prénoms/Autre dénomination :"/></strong>
+                                </td>
+                                <td>   <h:outputText value="#{loginMBean.utilisateurconnecte.utilContImmatr.contPren}"/>
+                                    <h:outputText value="#{loginMBean.utilisateurconnecte.utilContImmatr.contNomLong}"/>
+                              
+                                </td>
+                           
+                                
+                                
+                                 </c:if>
+                                
+                                <c:if test="#{loginMBean.inspectmaj}">
+                                 <td> <strong>  <h:outputLabel value="Nom :"/></strong> </td>
+                                <td>   <h:outputText value="#{loginMBean.utilisateurconnecte.utilNom}"/>
+                                </td>
+                                <td> <strong>  <h:outputLabel value="Prénoms :"/></strong>
+                                </td>
+                                <td><h:outputText value="#{loginMBean.utilisateurconnecte.utilPrenoms}"/>
+                                </td>
+                                 </c:if>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+
+
 
                 </div>
             </div>
 
         </div>
-        
+
         <div>
             <div id="left">
-                 <ui:include src="./res/menu.xhtml"/>
+                <ui:include src="./res/menu.xhtml"/>
             </div>
-            
+
             <div id="content" class="left_content">
-                <ui:insert name="body">Content</ui:insert>
+
+                <ui:insert name="body">
+                    <p/>
+                </ui:insert>
+
             </div>
-            
+
         </div>
         <div id="bottom" style=" height: 70px; " >
-<!--            <ui:insert name="bottom">Bottom</ui:insert>-->
-           
-              <ui:include src="./menus/bottommenu.xhtml"/>
+            <!--            <ui:insert name="bottom">Bottom</ui:insert>-->
+
+            <ui:include src="./menus/bottommenu.xhtml"/>
         </div>
-       
+
     </h:body>
 
 </html>

@@ -101,10 +101,12 @@ public class TDeclarationDouFacade extends AbstractFacade<TDeclarationDou> {
         return listeDeclaration;
     }
     
-    public List<TDeclarationDou> findAll(TRepUnique tRepUnique, String typeDeclaration, String typeDate, java.sql.Date dateDebut, java.sql.Date dateFin) {
+    public List<TDeclarationDou> findAll(TRepUnique tRepUnique, String typeDeclaration, String bureau, String typeDate, java.sql.Date dateDebut, java.sql.Date dateFin) {
         if( tRepUnique == null ) return new ArrayList<>();
         String queryString = "SELECT t FROM TDeclarationDou t WHERE (t.cmpConCod =:cmpCod OR t.cmpExpCod =:cmpCod) ";
-
+        if( bureau != null && !"".equals(bureau.trim()) ){
+            queryString += " AND t.ideCuoCod =:ideCuoCod";
+        }
         if ("1".equals(typeDeclaration)) {
             queryString += " AND t.ideTypSad = 'IM' ";
         } else if ("2".equals(typeDeclaration)) {
@@ -126,6 +128,7 @@ public class TDeclarationDouFacade extends AbstractFacade<TDeclarationDou> {
             }
         }
 
+        queryString += " ORDER BY t.ideCuoCod, t.ideRegDat, t.ideRegNbr";
         System.out.println(queryString);
 
         Query query = em.createQuery(queryString);
@@ -135,7 +138,9 @@ public class TDeclarationDouFacade extends AbstractFacade<TDeclarationDou> {
             query.setParameter("dateMin", dateDebut)
                     .setParameter("dateMax", dateFin);
         }
-        
+        if( bureau != null && !"".equals(bureau.trim()) ){
+            query.setParameter("ideCuoCod", bureau);
+        }
         List<TDeclarationDou> listeDeclaration = query.getResultList();
 
         if( listeDeclaration != null ) System.out.println(listeDeclaration.size());else System.out.println("il est null");

@@ -19,7 +19,9 @@
 
 #left {
     float: left;
-    background-color: #ece3a5;
+    border-color: #045491;
+    border-width:2px;
+    background-color: #dddddd;
     padding: 5px;
     width: 150px;
     min-height: 70%;
