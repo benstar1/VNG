@@ -18,6 +18,7 @@ import com.jcraft.jsch.Session;
 import java.io.File;
 import java.util.ResourceBundle;
 import java.util.Vector;
+import java.util.concurrent.ExecutionException;
 
 import javax.ejb.Schedule;
 import javax.ejb.Stateless;
@@ -38,25 +39,25 @@ public class AgentSftpSydo {
     @Inject
     private TRepUniqueFacade tRepUniqueFacade;  
  
-    private String cheminDepotLocal = ResourceBundle.getBundle("/parametres").getString("cheminDepotLocalSydo");
-    private String cheminDepotLocalActif = ResourceBundle.getBundle("/parametres").getString("cheminDepotLocalActif");
+    private final String cheminDepotLocal = ResourceBundle.getBundle("/parametres").getString("cheminDepotLocalSydo");
+    private final String cheminDepotLocalActif = ResourceBundle.getBundle("/parametres").getString("cheminDepotLocalActif");
     
-    private String SYDO_SFTPUSER = ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPUSER");
-    private String SYDO_SFTPHOST = ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPHOST");
-    private String SYDO_SFTPPASS = ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPPASS");
-    private int SYDO_SFTPPORT = Integer.parseInt(ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPPORT"));
+    private final String SYDO_SFTPUSER = ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPUSER");
+    private final String SYDO_SFTPHOST = ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPHOST");
+    private final String SYDO_SFTPPASS = ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPPASS");
+    private final int SYDO_SFTPPORT = Integer.parseInt(ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPPORT"));
     
-    private String REP_UNI_SFTPUSER = ResourceBundle.getBundle("/parametres").getString("REP_UNI_SFTPUSER");
-    private String REP_UNI_SFTPHOST = ResourceBundle.getBundle("/parametres").getString("REP_UNI_SFTPHOST");
-    private String REP_UNI_SFTPPASS = ResourceBundle.getBundle("/parametres").getString("REP_UNI_SFTPPASS");
-    private int REP_UNI_SFTPPORT = Integer.parseInt(ResourceBundle.getBundle("/parametres").getString("REP_UNI_SFTPPORT"));
+    private final String REP_UNI_SFTPUSER = ResourceBundle.getBundle("/parametres").getString("REP_UNI_SFTPUSER");
+    private final String REP_UNI_SFTPHOST = ResourceBundle.getBundle("/parametres").getString("REP_UNI_SFTPHOST");
+    private final String REP_UNI_SFTPPASS = ResourceBundle.getBundle("/parametres").getString("REP_UNI_SFTPPASS");
+    private final int REP_UNI_SFTPPORT = Integer.parseInt(ResourceBundle.getBundle("/parametres").getString("REP_UNI_SFTPPORT"));
     
     @Inject
     private InterfaceIfuPlateforme iifu;
     
     final static org.apache.log4j.Logger logger = Logger.getLogger(AgentSftpSydo.class.getName());
 
-   // @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/20", persistent = false)
+   @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/20", persistent = false)
     public void telechargerEntreprise() {
         JSch jsch = new JSch();
         Session session = null;
@@ -97,8 +98,10 @@ public class AgentSftpSydo {
         } catch (Exception e) {
            logger.error("Erreur lors du telechargement d'un fichier entreprise par sftp (Sydo)( " + e.getMessage() + ")");
         }finally{
+            try{
             channel.disconnect();
             session.disconnect();
+            }catch(Exception e){System.out.println("CANAL OU SESSION INEXISTANT");}
         }
         
         iifu.scrutelocalSydo(); 
@@ -106,7 +109,7 @@ public class AgentSftpSydo {
     }
     
     
-   // @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/25", persistent = false)
+    @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/25", persistent = false)
     public void uploadXmlActif() {
         JSch jsch = new JSch();
         Session session = null;
@@ -139,10 +142,10 @@ public class AgentSftpSydo {
                     
             Vector<ChannelSftp.LsEntry> list = channelSftp.ls("*.xml");
             System.out.println("TAILLE DE LA LISTE : " + list.size() );
-            logger.info("CONNEXION A REP UNIQUE OK .................. ");
+            
             for (ChannelSftp.LsEntry entry : list) {                
                 channelSftp.get(entry.getFilename(), entry.getFilename());
-                System.out.println("NOM FICHIER : " + entry.getFilename());
+                
                 channelSftp.rename(entry.getFilename(), "fichier_traite/" + entry.getFilename());
                 logger.info("Fichier traité .... " + entry.getFilename());
             }     
@@ -191,16 +194,16 @@ public class AgentSftpSydo {
            
             if (f.isDirectory()){
                 File[] listeFiles = f.listFiles();
-                System.out.println(" TAILLE LISTE ######################## " + listeFiles.length);
+                
                 for (File fichier : listeFiles){
                      if (fichier.getName().endsWith(".xml")){
-                    System.out.println( " NOM FILLLLLLLLLLLLLLLLLEEEEEEEEEEEEEEEEEEEEEE " + fichier.getName());                   
+                    
                     channelSftp.put(fichier.getName());
-                    System.out.println(" YYYOOOOOOOOOOOOOOOOOOOOOOOOOOO-----------------6OOOOOOOOOOOOOOO");
+                    
                     if(fichier.renameTo(new File(cheminDepotLocalActif + "/fichier_traite/" + fichier.getName()))){
-                        System.out.println(" YYYYYYYYYYYYEEEEEEEEEEEEEEEEEEESSSSSSSSSSSSSSSSSSS");
+                        
                     }else{
-                        System.out.println("PROBLEME 666666666666666666666666666666");
+                        System.out.println("PROBLEME DEPLACEMENT FICHIER");
                                 
                     }
                     
@@ -225,8 +228,11 @@ public class AgentSftpSydo {
         } catch (Exception e) {
            logger.error("Erreur lors du telechargement d'un fichier entreprise par sftp (Actif)( " + e.getMessage() + ")");
         }finally{
+            try{
             channel.disconnect();
             session.disconnect();
+            }
+            catch(Exception e){System.out.println("CANAL OU SESSION INEXISTANT");}
         }               
         
     }

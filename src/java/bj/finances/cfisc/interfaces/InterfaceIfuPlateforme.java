@@ -89,15 +89,16 @@ public class InterfaceIfuPlateforme {
 
     final static org.apache.log4j.Logger logger = Logger.getLogger(InterfaceIfuPlateforme.class.getName());
 
-    private String cheminDepotLocalIfu = ResourceBundle.getBundle("/parametres").getString("cheminDepotLocalIfu");
-    private String cheminDossierEchecsIfu = ResourceBundle.getBundle("/parametres").getString("cheminDossierEchecsIfu");
-    private String cheminDossierSuccesIfu = ResourceBundle.getBundle("/parametres").getString("cheminDossierSuccesIfu");
+    private final String cheminDepotLocalIfu = ResourceBundle.getBundle("/parametres").getString("cheminDepotLocalIfu");
+    private final String cheminDossierEchecsIfu = ResourceBundle.getBundle("/parametres").getString("cheminDossierEchecsIfu");
+    private final String cheminDossierSuccesIfu = ResourceBundle.getBundle("/parametres").getString("cheminDossierSuccesIfu");
     
-    private String cheminDepotLocalSydo = ResourceBundle.getBundle("/parametres").getString("cheminDepotLocalSydo");
-    private String cheminDossierEchecsSydo = ResourceBundle.getBundle("/parametres").getString("cheminDossierEchecsSydo");
-    private String cheminDossierSuccesSydo = ResourceBundle.getBundle("/parametres").getString("cheminDossierSuccesSydo");
+    private final String cheminDepotLocalSydo = ResourceBundle.getBundle("/parametres").getString("cheminDepotLocalSydo");
+    private final String cheminDossierEchecsSydo = ResourceBundle.getBundle("/parametres").getString("cheminDossierEchecsSydo");
+    private final String cheminDossierSuccesSydo = ResourceBundle.getBundle("/parametres").getString("cheminDossierSuccesSydo");
     
-    private String cheminFichierXsdCont = ResourceBundle.getBundle("/parametres").getString("cheminFichierXsdCont");
+    private final String cheminFichierXsdCont = ResourceBundle.getBundle("/parametres").getString("cheminFichierXsdCont");
+    private final String cheminFichierXsdSydo = ResourceBundle.getBundle("/parametres").getString("cheminFichierXsdSydo");
     private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     //@Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/20", persistent = false)
@@ -132,12 +133,17 @@ public class InterfaceIfuPlateforme {
             Schema schema = null;
 
             try {
-                System.out.println(f.getName().substring(0, 4));
+                System.out.println("------------------" + f.getName().substring(0, 4));
                 //////////////////////////traitement des xml de declarations /////////////
-                if (f.getName().substring(0, 4).equals("DECL")) {
+                if (f.getName().substring(0, 3).equals("DEC")) {
                     in = new FileInputStream(f);
-                    SAXBuilder builder = new SAXBuilder();
+                    
+                    SchemaFactory schemafac = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+                    schema = schemafac.newSchema(new File(cheminFichierXsdSydo));
+                    XMLReaderJDOMFactory factory = new XMLReaderSchemaFactory(schema);                    
+                    SAXBuilder builder = new SAXBuilder(factory);
                     document = (Document) builder.build(in);
+                    
                     TraitementDonneesDouane(document, f, in, f.getName());
                 }
 
@@ -192,15 +198,15 @@ public class InterfaceIfuPlateforme {
             try {
                 System.out.println(f.getName().substring(0, 4));
                 //////////////////////////traitement des xml de t_contribuables/////////////
-                 logger.info("JE SUIS DANS "+f.getName().substring(0, 4));
+                 //logger.info("JE SUIS DANS "+f.getName().substring(0, 4));
                 if (f.getName().substring(0, 4).equals("CONT")) {
-                    logger.info("JE SUIS DANS CONT");
+                    //logger.info("JE SUIS DANS CONT");
                     SchemaFactory schemafac = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
                     schema = schemafac.newSchema(new File(cheminFichierXsdCont));
                     XMLReaderJDOMFactory factory = new XMLReaderSchemaFactory(schema);
-                    logger.info("APRES VALIDATION");
+                    //logger.info("APRES VALIDATION");
                     SAXBuilder builder = new SAXBuilder(factory);
-                    logger.info("APRES BUILDER");
+                    //logger.info("APRES BUILDER");
                     in = new FileInputStream(f);
                     document = (Document) builder.build(in);
                     
@@ -1225,6 +1231,7 @@ public class InterfaceIfuPlateforme {
                 }
                 
                 tRepUniqueFacade.create(tRepUnique);
+                
                 tHistoriqueFacade.historiser(tRepUnique, tMotif, tUtilisateur);
                 
                 in.close();
@@ -1465,7 +1472,7 @@ public class InterfaceIfuPlateforme {
                 tRepUnique.setContTypContCode(ttrContrib);
                 
                 TMotif tMotif = tMotifFacade.find("M");
-                TUtilisateur tUtilisateur = tUtilisateurFacade.find("deamon");
+                TUtilisateur tUtilisateur = tUtilisateurFacade.find("daemon");
                 if (tMotif == null || tUtilisateur == null) {
                     throw new UserOrMotifUndefined("");
                 }

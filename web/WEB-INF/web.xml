@@ -17,7 +17,7 @@
         <session-timeout>999</session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>index.xhtml</welcome-file>
+        <welcome-file>login.xhtml</welcome-file>
     </welcome-file-list>
     <error-page>
         <error-code>403</error-code>

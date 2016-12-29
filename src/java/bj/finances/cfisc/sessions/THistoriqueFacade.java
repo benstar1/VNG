@@ -46,11 +46,12 @@ public class THistoriqueFacade extends AbstractFacade<THistorique> {
         THistorique tHistorique;
         
             if (object != null) {
+                System.out.println("JAI VU");
                 tHistorique = (THistorique) object;
                 tHistorique.setHistDateFin(new Date());
                 edit(tHistorique);
             } else {
-                //System.out.println("cest egal a null");
+                System.out.println("cest egal a null");
             }
             tHistorique = new THistorique(tRepUnique, tMotif, tUtilisateur);
             tHistorique.setHistDateDebut(new Date());
