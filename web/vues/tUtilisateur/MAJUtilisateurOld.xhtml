@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="body">
+            <h1 align="left">Mise à Jour des Utilisateurs</h1>
+
+            <center>
+                <h:form id="MAJICreateForm">
+                    <h:panelGroup id="display">
+
+                        <p:panelGrid columns="3" style="width: 100%"  >
+                            <br />
+
+
+                            <p:panelGrid id="pd" columns="3"  >
+                                <p:outputLabel value="Identifiant : " for="util" />
+                                <h:inputText readonly="true" id="util" value="#{mAJUtilisateurMBean.current.utilLogin}" required="true" requiredMessage="L'identifiant est obligatoire">
+
+                                </h:inputText>
+
+                                <p:commandButton value="Sélectionner l'Utilisateur"  onclick="PF('dlgIFU').show();" type="button">       
+                                </p:commandButton>
+                                <br />
+                                <h:commandButton id="rech" value="Rechercher" action="#{mAJUtilisateurMBean.UpdateTableUtil()}" ></h:commandButton>
+                                <br />
+                                <br />
+
+
+                                <c:if test="#{mAJUtilisateurMBean.itemsUtil.utilActif == 'D'}" >
+
+                                    <h:outputLabel value="Groupe  :  " for= "groupe" />
+
+                                    <h:selectOneMenu id="groupe" value="#{mAJUtilisateurMBean.current.groupe}" title="" >
+                                        <f:selectItems value="#{tUtilisateurController.groupeItem}"/>
+                                    </h:selectOneMenu>
+                                    
+                                    <br />
+                
+                                </c:if>
+                                
+                                 <c:if test="#{mAJUtilisateurMBean.itemsUtil.utilActif == 'N'}" >
+
+                                    <h:outputLabel value="Groupe  :  " for= "groupe" />
+
+                                    <h:selectOneMenu id="groupe" value="#{mAJUtilisateurMBean.current.groupe}" title="" >
+                                        <f:selectItems value="#{tUtilisateurController.groupeItem}"/>
+                                    </h:selectOneMenu>
+                                    
+                                    <br />
+                                    <h:outputLabel value="#{bundle.CreateTUtilisateurLabel_utilNumci}" for="utilNumci" />
+                    <h:inputText id="utilNumci" value="#{mAJUtilisateurMBean.current.utilNumci}" title="#{bundle.CreateTUtilisateurTitle_utilNumci}" required="true"/>
+                    <br />
+                    <h:outputLabel value="#{bundle.CreateTUtilisateurLabel_utilDateexpci}" for="utilDateexpci" />
+                                     
+                    <p:calendar value="#{mAJUtilisateurMBean.current.utilDateexpci}" id="utilDateexpci" required="true"/>
+
+                    <br />
+                    <h:outputLabel value="#{bundle.CreateTUtilisateurLabel_utilLieudelivrci}" for="utilLieudelivrci" />
+                    <h:inputText id="utilLieudelivrci" value="#{mAJUtilisateurMBean.current.utilLieudelivrci}" title="#{bundle.CreateTUtilisateurTitle_utilLieudelivrci}" required="true" />
+                
+                                </c:if>
+                            </p:panelGrid>
+
+                            <br />
+
+
+                            <br />
+
+
+                            <br />
+
+                        </p:panelGrid>
+
+                        <center>
+
+                            <h1 align="left"><h:outputText value="Informations de l'Utilisateur"/></h1>
+                            <h:dataTable  width="100%" id="ItemsUtil" value="#{mAJUtilisateurMBean.itemsUtil}" var="item" border="1" style="text-align: center"> 
+
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="UtilLogin"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.utilLogin}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="UtilNom"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.utilNom}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="UtilPrenoms"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.utilPrenoms}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="UtilContImmatr"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.utilContImmatr}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="UtilTel"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.utilTel}"/>
+                                </h:column>
+
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Groupe"/>
+                                    </f:facet>
+                                    <h:outputText value="#{mAJUtilisateurMBean.itemsUtil.groupe.groupName}"/>
+                                </h:column> 
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="UtilDateCreat"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.utilDateCreat}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                    </h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Statut"/>
+                                    </f:facet>
+
+                                    <h:outputText value="#{mAJUtilisateurMBean.afficheStatut}"/>
+
+
+                                </h:column>
+
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="ACTION"/>
+                                    </f:facet>
+                                    <p:commandButton  value="#{mAJUtilisateurMBean.statut}" action="#{mAJUtilisateurMBean.MAJStatut()}" update=":MAJICreateForm:rech @form" ajax="true" />
+                                </h:column>
+
+
+                            </h:dataTable>
+
+
+                        </center>
+                        <br />
+
+                    </h:panelGroup>
+                </h:form>
+            </center>
+
+            <p:dialog id="dlgIFU" header="Utilisateurs"  dynamic="true" widgetVar="dlgIFU" modal="true" showEffect="explose"  width="800" height="400">
+                <h:form>    
+                    <p:dataTable  value="#{mAJUtilisateurMBean.utilisateur}" var="utilisateur"  paginator="true" lazy="true" sortMode="multiple" rows="20" emptyMessage="Aucun enregistrement trouvé pour l'instant !">
+
+                        <p:column filterBy="#{utilisateur.utilLogin}" filterMatchMode="startsWith">
+                            <f:facet name="header">
+                                <h:outputText value="Identifiant"/>
+                            </f:facet>                        
+                            <p:commandLink value="#{utilisateur.utilLogin}"  action="#{mAJUtilisateurMBean.UtilisateurSelectionne(utilisateur)}" update=":MAJICreateForm:util" oncomplete="PF('dlgIFU').hide();"  process="@this" title="Selectionnez" style="color: blue;"/>
+
+
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Raison sociale"/>
+                            </f:facet>
+                            <h:outputText value="#{contrib.contRais}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:dialog> 
+
+        </ui:define>
+
+    </ui:composition>
+</html>
+

@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -36,16 +37,22 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "T_ENT_DECLARATION")
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name="TEntDeclaration.findLastVersion", query = "SELECT t FROM TEntDeclaration t WHERE t.entDecNum = SELECT max(th.entDecNum) FROM TEntDeclaration th where th.entDecContImmatr.contImmatr = :entContImmatr and th.exoAnne = :anne "),
      @NamedQuery(name = "TEntDeclaration.findAll", query = "SELECT t FROM TEntDeclaration t"),
     @NamedQuery(name = "TEntDeclaration.findByEntDecNum", query = "SELECT t FROM TEntDeclaration t WHERE t.entDecNum = :entDecNum"),
     @NamedQuery(name = "TEntDeclaration.findByEntDecValidation", query = "SELECT t FROM TEntDeclaration t WHERE t.entDecValidation = :entDecValidation"),
     @NamedQuery(name = "TEntDeclaration.findByEntDecDate", query = "SELECT t FROM TEntDeclaration t WHERE t.entDecDate = :entDecDate"),
     @NamedQuery(name = "TEntDeclaration.findByContrib", query = "SELECT t FROM TEntDeclaration t WHERE t.entDecContImmatr.contImmatr = :contrib"), 
+      @NamedQuery(name = "TEntDeclaration.findByContribanne", query = "SELECT t FROM TEntDeclaration t WHERE t.entDecContImmatr.contImmatr = :contrib and t.exoAnne.exoAnne = :anne "), 
+  
     @NamedQuery(name = "TEntDeclaration.findByEntDecDatefin", query = "SELECT t FROM TEntDeclaration t WHERE t.entDecDatefin = :entDecDatefin"),
     @NamedQuery(name = "TEntDeclaration.findByEntDecDatedebut", query = "SELECT t FROM TEntDeclaration t WHERE t.entDecDatedebut = :entDecDatedebut")})
 
 @SequenceGenerator(name = "generateur_ent_declfisc",sequenceName = "SEQ1", allocationSize=1 )
 public class TEntDeclaration implements Serializable {
+    @JoinColumn(name = "EXO_ANNE", referencedColumnName = "EXO_ANNE")
+    @ManyToOne
+    private TExercice exoAnne;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "generateur_ent_declfisc")
@@ -159,6 +166,14 @@ public class TEntDeclaration implements Serializable {
     @Override
     public String toString() {
         return "bj.finances.cfisc.entities.TEntDeclaration[ entDecNum=" + entDecNum + " ]";
+    }
+
+    public TExercice getExoAnne() {
+        return exoAnne;
+    }
+
+    public void setExoAnne(TExercice exoAnne) {
+        this.exoAnne = exoAnne;
     }
     
 }

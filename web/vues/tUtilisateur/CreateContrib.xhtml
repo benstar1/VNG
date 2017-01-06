@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:composition template="/templatelogin.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateTUtilisateurTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <center><h2>Inscription</h2></center>
+            <h:form>
+                <center>
+                    <h:panelGrid columns="6">
+                        <h:outputLabel value="#{bundle.CreateTUtilisateurLabel_utilContImmatr}" for="utilContImmatr" />
+                        <h:inputText readonly="false" id="utilContImmatr" value="#{tUtilisateurController.ifu}" title="#{bundle.CreateTUtilisateurTitle_utilContImmatr}" validator="#{tUtilisateurController.validateIfu}">
+                            <p:ajax event="blur" listener="#{tUtilisateurController.rechercheContribuable()}" update="utilNom utilPrenoms"/>
+                            <p:ajax event="change" listener="#{tUtilisateurController.rechercheContribuable()}" update="utilNom utilPrenoms"/>
+                        </h:inputText>
+                        <h:outputLabel value="#{bundle.CreateTUtilisateurLabel_utilNom}" for="utilNom" />
+                        <h:inputText size="40" readonly="true" id="utilNom" value="#{empty tUtilisateurController.contrib.contNom ? tUtilisateurController.contrib.contRais : tUtilisateurController.contrib.contNom}" title="#{bundle.CreateTUtilisateurTitle_utilNom}" />
+                        <h:outputLabel value="#{bundle.CreateTUtilisateurLabel_utilPrenoms}" for="utilPrenoms" />
+                        <h:inputText size="40" readonly="true" id="utilPrenoms" value="#{empty tUtilisateurController.contrib.contPren ? tUtilisateurController.contrib.contNomLong : tUtilisateurController.contrib.contPren}" title="#{bundle.CreateTUtilisateurTitle_utilPrenoms}" />
+                        <h:outputLabel value="#{bundle.CreateTUtilisateurLabel_utilTel}" for="utilTel" />
+                        <h:inputText id="utilTel" value="#{tUtilisateurController.selected.utilTel}" title="#{bundle.CreateTUtilisateurTitle_utilTel}" requiredMessage="Veuillez spécifier au moins un numéro de téléphone" />
+                        <h:outputLabel value="#{bundle.CreateTUtilisateurLabel_utilTel2}" for="utilTel2" />
+                        <h:inputText id="utilTel2" value="#{tUtilisateurController.selected.utilTel2}" title="#{bundle.CreateTUtilisateurTitle_utilTel2}" />
+                        <h:outputLabel value="#{bundle.CreateTUtilisateurLabel_utilTelfix}" for="utilTelfix" />
+                        <h:inputText id="utilTelfix" value="#{tUtilisateurController.selected.utilTelfix}" title="#{bundle.CreateTUtilisateurTitle_utilTelfix}" />
+                        <h:outputLabel value="#{bundle.CreateTUtilisateurLabel_utilEmail}" for="utilEmail" />
+                        <h:inputText id="utilEmail" value="#{tUtilisateurController.selected.utilEmail}" title="#{bundle.CreateTUtilisateurTitle_utilEmail}" validator="#{tUtilisateurController.validateEmail}" />
+                        <h:outputLabel value="#{bundle.CreateTUtilisateurLabel_utilPassword}" for="utilPassword" />
+                        <h:inputSecret id="utilPassword" value="#{tUtilisateurController.selected.utilPassword}" title="#{bundle.CreateTUtilisateurTitle_utilPassword}" required="true"/>
+                        <h:outputLabel value="Confirmer:" for="utilPassword2" />
+                        <h:inputSecret id="utilPassword2" value="#{tUtilisateurController.selected.utilPassword}" title="#{bundle.CreateTUtilisateurTitle_utilPassword}" required="true" requiredMessage="La confirmation est obligatoire"/>
+                    </h:panelGrid>
+                    <br />
+                    <h:commandButton action="#{tUtilisateurController.create}" value="#{bundle.CreateTUtilisateurSaveLink}" />
+                    <br />
+                    <br />
+
+                    <br />
+
+                </center>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

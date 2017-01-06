@@ -154,6 +154,11 @@ public class LoginMBean implements Serializable {
         return contribuable;
     }
 
+     public boolean isActivecc() {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        return externalContext.isUserInRole("ACTIVECC");
+        
+    }
     public boolean isAdmin() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         return externalContext.isUserInRole("ADMIN");
@@ -191,7 +196,7 @@ public class LoginMBean implements Serializable {
 
       public String login() {
         String chemin="index.xhtml";
-        String statut="0";
+        String statut="D";
 
         boolean actif=false;
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
@@ -207,7 +212,7 @@ public class LoginMBean implements Serializable {
                    setUtilisateur(tUtilisateurFacade.rechercheUtilconnecte(uname));
             statut = utilisateur.getUtilActif();
              }
-            if (statut.equals("1") ) {
+            if (statut.equals("A") ) {
            actif=true;
             }
             else
@@ -238,6 +243,9 @@ public class LoginMBean implements Serializable {
           }
                   if  (externalContext.isUserInRole("INSPECTMAJ")==true){
               chemin="/vues/tRepUnique/MAJIndividuelle.xhtml";
+          }
+                   if  (externalContext.isUserInRole("ACTIVECC")==true){
+              chemin="/vues/tUtilisateur/MAJUtilisateur.xhtml";
           }
                 }
                 

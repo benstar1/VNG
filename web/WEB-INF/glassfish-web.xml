@@ -6,27 +6,30 @@
     <principal-name>CONTRIBUABLE</principal-name>
     <group-name>CONTRIBUABLE</group-name>
   </security-role-mapping>
-  
-     <security-role-mapping>
-       <role-name>INSPECTMAJ</role-name>
-       <principal-name>INSPECTMAJ</principal-name>
-       <group-name>INSPECTMAJ</group-name>
-     </security-role-mapping>
-     <security-role-mapping>
-       <role-name>INSPECTEUR</role-name>
-       <principal-name>INSPECTEUR</principal-name>
-       <group-name>INSPECTEUR</group-name>
-     </security-role-mapping>
-     <security-role-mapping>
-       <role-name>ADMIN</role-name>
-       <principal-name>ADMIN</principal-name>
-       <group-name>ADMIN</group-name>
-     </security-role-mapping>
-    
-    <class-loader delegate="true"/>
-    <jsp-config>
-        <property name="keepgenerated" value="true">
-            <description>Keep a copy of the generated servlet class' java code.</description>
-        </property>
-    </jsp-config>
+  <security-role-mapping>
+    <role-name>INSPECTMAJ</role-name>
+    <principal-name>INSPECTMAJ</principal-name>
+    <group-name>INSPECTMAJ</group-name>
+  </security-role-mapping>
+  <security-role-mapping>
+    <role-name>INSPECTEUR</role-name>
+    <principal-name>INSPECTEUR</principal-name>
+    <group-name>INSPECTEUR</group-name>
+  </security-role-mapping>
+  <security-role-mapping>
+    <role-name>ADMIN</role-name>
+    <principal-name>ADMIN</principal-name>
+    <group-name>ADMIN</group-name>
+  </security-role-mapping>
+  <security-role-mapping>
+    <role-name>ACTIVECC</role-name>
+    <principal-name>ACTIVECC</principal-name>
+    <group-name>ACTIVECC</group-name>
+  </security-role-mapping>
+  <class-loader delegate="true"/>
+  <jsp-config>
+    <property name="keepgenerated" value="true">
+      <description>Keep a copy of the generated servlet class' java code.</description>
+    </property>
+  </jsp-config>
 </glassfish-web-app>

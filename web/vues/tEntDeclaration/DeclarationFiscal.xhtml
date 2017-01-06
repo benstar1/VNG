@@ -11,13 +11,14 @@
     </ui:define>
 
     <ui:define name="body">
-       
+       <p:messages severity="error,info"  id="mess" showDetail="true" autoUpdate="true" closable="true" />
+  
             <h:form id="entdeclaration">
                 <h1><h:outputText value="Déclaration des importations et des exportations"/></h1>
                 <p:panel style="width: 100%">
                 <h:panelGrid columns="1">
                     <h:panelGrid columns="2"  style="vertical-align: top; "> 
-                    <h:outputLabel value="EntDecNum:" for="entDecNum" />
+                    <h:outputLabel value="#{bundle.CreateTEntDeclarationLabel_entDecNum}" for="entDecNum" />
                       <h:panelGrid  columns="2" width="100%" style="vertical-align: top;  ">                    
                           <h:inputText readonly="true"  id="entDecNum" value="#{tEntDeclarationController.selected.entDecNum}" title="EntDecNum" required="true" requiredMessage="The EntDecNum field is required."/>
                         <p:commandButton value="..." type="button" onclick="PF('dldecarationfiscale').show();" /> 
@@ -25,10 +26,10 @@
                      </h:panelGrid>
                   <h:panelGrid columns="4" width="100%" style="vertical-align: top;">                    
                         
-                    <h:outputLabel value="EntDecDatedebut:" for="entDecDatedebut" />
+                    <h:outputLabel value="#{bundle.CreateTEntDeclarationLabel_entDecDatedebut}" for="entDecDatedebut" />
                     <p:calendar  mask="true" pattern="dd-MM-yyyy" id="entDecDatedebut" value="#{tEntDeclarationController.selected.entDecDatedebut}" title="EntDecDatedebut" />
    
-                    <h:outputLabel value="EntDecDatefin:" for="entDecDatefin" />
+                    <h:outputLabel value="#{bundle.CreateTEntDeclarationLabel_entDecDatefin}" for="entDecDatefin" />
                     <p:calendar mask="true" pattern="dd-MM-yyyy"  id="entDecDatefin" value="#{tEntDeclarationController.selected.entDecDatefin}" title="EntDecDatefin" />
                     </h:panelGrid>
                     
@@ -45,16 +46,21 @@
     <h:form id="formdeclar"> 
         <h1><h:outputText value="Formulaire de déclaration douanière"/></h1>
         <p:panelGrid columns="4" style="width:100%; ">
-            <p:outputLabel value="DeclarReference:" for="declarReference" />
-            <p:inputText id="declarReference" value="#{tDeclarationFiscaleController.selected.declarReference}" title="DeclarReference" />
-            <p:outputLabel value="DeclarDate:" for="declarDate" />
-            <p:calendar mask="true" pattern="dd-MM-yyyy" id="declarDate" value="#{tDeclarationFiscaleController.selected.declarDate}" title="DeclarDate" />
-                
             
-            <p:outputLabel value="DeclarBureau:" for="declarBureau" />
+            <p:outputLabel value="#{bundle.CreateTDeclarationFiscaleLabel_declarReference}" for="declarReference" />
+            <p:inputText id="declarReference" value="#{tDeclarationFiscaleController.selected.declarReference}" title="DeclarReference" />
+            
+            <p:outputLabel value="#{bundle.CreateTDeclarationFiscaleLabel_declarDate}" for="declarDate" />
+            <p:calendar mask="true" pattern="dd-MM-yyyy" id="declarDate" value="#{tDeclarationFiscaleController.selected.declarDate}" title="DeclarDate" />
+        
+            <p:outputLabel value="#{bundle.EditTDeclarationFiscaleLabel_declarBureau} " for="declarBureau" />
             <p:inputText id="declarBureau" value="#{tDeclarationFiscaleController.selected.declarBureau}" title="DeclarBureau" />
-            <p:outputLabel value="DeclarAnnee:" for="declarAnnee" />
+            
+            <p:outputLabel value="#{bundle.CreateTDeclarationFiscaleLabel_declarAnnee}" for="declarAnnee" />
             <p:inputText id="declarAnnee" value="#{tDeclarationFiscaleController.selected.declarAnnee}" title="DeclarAnnee" />
+            
+            <p:outputLabel value="#{bundle.CreateTDeclarationFiscaleLabel_declarQuitt}" for="declarQuitt" />           
+            <p:calendar  mask="true" pattern="dd-MM-yyyy" id="declarQuitt" value="#{tDeclarationFiscaleController.selected.declardateQuitt}" title="DeclarQuitt" />
             
             <f:facet name="footer">
         
@@ -62,6 +68,7 @@
             <p:commandButton id="enregistrerdecl" disabled="#{tEntDeclarationController.valider}"  value= "Enregistrer" actionListener="#{tDeclarationFiscaleController.selected.setDeclarEntDecNum(tEntDeclarationController.selected)}" action="#{tDeclarationFiscaleController.create()}" update=":listdeclardou" style="width: 120px;" ajax="true" />
             <p:commandButton id="modifierdecl" disabled="#{tEntDeclarationController.valider}"  value= "Modifier" actionListener="#{tDeclarationFiscaleController.selected.setDeclarEntDecNum(tEntDeclarationController.selected)}" action="#{tDeclarationFiscaleController.update()}" update=":listdeclardou" style="width: 120px;" ajax="true" />
             <p:commandButton id="supprimerdecl" disabled="#{tEntDeclarationController.valider}" value= "Supprimer" action="#{tDeclarationFiscaleController.destroybis(tDeclarationFiscaleController.selected)}" update=":listdeclardou"  style="width: 120px;" ajax="true" />
+            <h:commandButton value="Imprimer" actionListener="#{etat.PDFDETAILDECL}"/>       
             </f:facet>
         </p:panelGrid>
        
@@ -77,19 +84,19 @@
             
             <p:column>
                 <f:facet name="header">
-                    <h:outputText value="DeclarAnnee"/>
+                    <h:outputText value="#{bundle.CreateTDeclarationFiscaleLabel_declarAnnee}"/>
                 </f:facet>
                 <h:outputText value="#{item.declarAnnee}"/>
             </p:column>
             <p:column>
                 <f:facet name="header">
-                    <h:outputText value="DeclarReference"/>
+                    <h:outputText value="#{bundle.CreateTDeclarationFiscaleLabel_declarReference}"/>
                 </f:facet>
                 <h:outputText value="#{item.declarReference}"/>
             </p:column>
             <p:column>
                 <f:facet name="header">
-                    <h:outputText value="DeclarDate"/>
+                    <h:outputText value="#{bundle.CreateTDeclarationFiscaleLabel_declarDate}"/>
                 </f:facet>
                 <h:outputText value="#{item.declarDate}"  >
                     <f:convertDateTime pattern="dd/MM/yyyy" locale="true" />
@@ -97,7 +104,7 @@
             </p:column>
             <p:column>
                 <f:facet name="header">
-                    <h:outputText value="DeclarBureau"/>
+                    <h:outputText value="#{bundle.EditTDeclarationFiscaleLabel_declarBureau}"/>
                 </f:facet>
                 <h:outputText value="#{item.declarBureau}"/>
             </p:column>
@@ -166,15 +173,25 @@
         <p:dialog id="dldecarationfiscale" header="Liste des déclarations"  dynamic="true" widgetVar="dldecarationfiscale" modal="true" showEffect="explose"  width="800" >
             <f:view>
 
-
+  <p:messages severity="error,info"  id="messages" showDetail="true" autoUpdate="true" closable="true" />
+              
                 <h:form id="formentdeclar">
                     <h1><h:outputText value="Entête déclaration"/></h1>
                     <p:panelGrid columns="2">
-                                      
-                        <p:outputLabel value="EntDecDatedebut:" for="entDecDatedebut" />
-                        <p:calendar  pattern="dd-MM-yyyy" mask="true" id="entDecDatedebut" value="#{tEntDeclarationController.selected.entDecDatedebut}" title="EntDecDatedebut" />
-                           
-                        <p:outputLabel value="EntDecDatefin:" for="entDecDatefin" />
+                        <h:outputLabel value="Exercice fiscale : " for="annee" />
+
+                        <h:selectOneMenu  id="annee" value="#{tEntDeclarationController.selected.exoAnne}" title="" required="true" requiredMessage="Veuillez choisir un exercice fiscal">
+                                <f:selectItem itemLabel="----- Exercice Fiscale -----"></f:selectItem>
+                                <f:selectItems value="#{tEntDeclarationController.anneItem}"/>
+                                <f:ajax event="change" execute="#{tEntDeclarationController.trouvelogin()}"  listener="#{tEntDeclarationController.setDatedebut()}"  render="listentdeclar entDecDatedebut "/> 
+                                     
+                        </h:selectOneMenu>        
+                        
+                        <p:outputLabel value="#{bundle.CreateTEntDeclarationLabel_entDecDatedebut}" for="entDecDatedebut" />
+                       <h:inputText readonly="true" id="entDecDatedebut" value="#{tEntDeclarationController.selected.entDecDatedebut}" title="EntDecDatedebut" >
+                          <f:convertDateTime pattern="dd-MM-yyyy"  />
+                       </h:inputText>       
+                        <p:outputLabel value="#{bundle.CreateTEntDeclarationLabel_entDecDatefin}" for="entDecDatefin" />
                         <p:calendar  pattern="dd-MM-yyyy" mask="true" id="entDecDatefin" value="#{tEntDeclarationController.selected.entDecDatefin}" title="EntDecDatefin" />
                         <f:facet name="footer">
         

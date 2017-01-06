@@ -56,19 +56,19 @@ public class TRepUniqueFacade extends AbstractFacade<TRepUnique> {
         return listeContribuables;
     }    
     
-        public List<TRepUnique> findContribByImmatPP() {
-            
-            List<TRepUnique> res = null;
-            
-            try {
-//                Long param1 = Long.parseLong("1%");
-//            Long param2 = Long.parseLong("2%");
-//               res = em.createNamedQuery("TRepUnique.findContribByImmatPP").setParameter("contImmatr", (Object)param1).setParameter("contImmatr1", (Object) param2).getResultList();
- 
-                res = em.createNativeQuery("select * from prop_rep_unique.t_rep_unique where rownum<=2000").getResultList();
-            } catch (java.lang.NumberFormatException e) {
-                System.out.println("FindPP"+e.getMessage());
-            }
+    public List<TRepUnique> findContribByImmatPP() {
+
+        List<TRepUnique> res = null;
+//            Long param1 = Long.parseLong("1");
+//            Long param2 = Long.parseLong("2");
+        try {
+
+               res = em.createNamedQuery("TRepUnique.findContribByImmatPP").setParameter("contImmatr", "1").setParameter("contImmatr1", "2").getResultList();
+//            res = em.createNamedQuery("TRepUnique.findContribByImmatPPBis").getResultList();
+            //res = em.createNativeQuery("select * from prop_rep_unique.t_rep_unique").getResultList();
+        } catch (java.lang.NumberFormatException e) {
+            System.out.println("FindPP" + e.getMessage());
+        }
         return res;
     }
 }

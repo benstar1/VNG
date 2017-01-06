@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3e6d8b2c-af25-4b12-ab81-e5b2f7101c20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.awt.ignore.missing.font" value="true"/>
+	<style name="Title" fontName="Times-Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="numdeclar" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     T_DECLARATION_FISCALE."DECLAR_NUM" AS T_DECLARATION_FISCALE_DECLAR_N,
+     T_DECLARATION_FISCALE."DECLAR_REFERENCE" AS T_DECLARATION_FISCALE_DECLAR_R,
+     T_DECLARATION_FISCALE."DECLAR_DATE" AS T_DECLARATION_FISCALE_DECLAR_D,
+     T_DECLARATION_FISCALE."DECLAR_BUREAU" AS T_DECLARATION_FISCALE_DECLAR_B,
+     T_DECLARATION_FISCALE."DECLAR_ANNEE" AS T_DECLARATION_FISCALE_DECLAR_A,
+     T_DECLARATION_FISCALE."DECLAR_ENT_DEC_NUM" AS T_DECLARATION_FISCALE_DECLAR_E,
+     T_DECLARATION_FISCALE."TOTAL_DD" AS T_DECLARATION_FISCALE_TOTAL_DD,
+     T_DECLARATION_FISCALE."TOTAL_TVA" AS T_TOTAL_TVA,
+     T_DECLARATION_FISCALE."TOTAL_PC" AS T_DECLARATION_FISCALE_TOTAL_PC,
+     T_DECLARATION_FISCALE."TOTAL_PCS" AS T_TOTAL_PCS,
+     T_DECLARATION_FISCALE."TOTAL_RS" AS T_DECLARATION_FISCALE_TOTAL_RS,
+     T_DECLARATION_FISCALE."TOTAL_AIB" AS T_TOTAL_AIB,
+     T_DECLARATION_FISCALE."TOTAL_VCAF" AS T__TOTAL_VCAF,
+     T_ENT_DECLARATION."ENT_DEC_NUM" AS T_ENT_NUM,
+     T_ENT_DECLARATION."ENT_DEC_VALIDATION" AS T_ENT_DECLARATION_ENT_DEC_VALI,
+     T_ENT_DECLARATION."ENT_DEC_DATE" AS T_ENT_DECLARATION_ENT_DEC_DATE,
+     T_ENT_DECLARATION."ENT_DEC_DATEFIN" AS ENT_DEC_DATE_Fin,
+     T_ENT_DECLARATION."ENT_DEC_DATEDEBUT" AS T_ENT_DEC_DATE_Debut,
+     T_ENT_DECLARATION."ENT_DEC_CONT_IMMATR" AS T_IFU,
+     T_ENT_DECLARATION."EXO_ANNE" AS T_EXO_ANNE,
+     T_REP_UNIQUE."CONT_RAIS" AS T_REP_UNIQUE_CONT_RAIS
+FROM
+     "PROP_REP_UNIQUE"."T_ENT_DECLARATION" T_ENT_DECLARATION INNER JOIN "PROP_REP_UNIQUE"."T_DECLARATION_FISCALE" T_DECLARATION_FISCALE ON T_ENT_DECLARATION."ENT_DEC_NUM" = T_DECLARATION_FISCALE."DECLAR_ENT_DEC_NUM"
+     INNER JOIN "PROP_REP_UNIQUE"."T_REP_UNIQUE" T_REP_UNIQUE ON T_ENT_DECLARATION."ENT_DEC_CONT_IMMATR" = T_REP_UNIQUE."CONT_IMMATR"
+where 
+ENT_DEC_NUM =$P{numdeclar}]]>
+	</queryString>
+	<field name="T_DECLARATION_FISCALE_DECLAR_N" class="java.math.BigDecimal"/>
+	<field name="T_DECLARATION_FISCALE_DECLAR_R" class="java.lang.String"/>
+	<field name="T_DECLARATION_FISCALE_DECLAR_D" class="java.sql.Timestamp"/>
+	<field name="T_DECLARATION_FISCALE_DECLAR_B" class="java.lang.String"/>
+	<field name="T_DECLARATION_FISCALE_DECLAR_A" class="java.lang.String"/>
+	<field name="T_DECLARATION_FISCALE_DECLAR_E" class="java.math.BigDecimal"/>
+	<field name="T_DECLARATION_FISCALE_TOTAL_DD" class="java.math.BigDecimal"/>
+	<field name="T_TOTAL_TVA" class="java.math.BigDecimal"/>
+	<field name="T_DECLARATION_FISCALE_TOTAL_PC" class="java.math.BigDecimal"/>
+	<field name="T_TOTAL_PCS" class="java.math.BigDecimal"/>
+	<field name="T_DECLARATION_FISCALE_TOTAL_RS" class="java.math.BigDecimal"/>
+	<field name="T_TOTAL_AIB" class="java.math.BigDecimal"/>
+	<field name="T__TOTAL_VCAF" class="java.math.BigDecimal"/>
+	<field name="T_ENT_NUM" class="java.math.BigDecimal"/>
+	<field name="T_ENT_DECLARATION_ENT_DEC_VALI" class="java.lang.String"/>
+	<field name="T_ENT_DECLARATION_ENT_DEC_DATE" class="java.sql.Timestamp"/>
+	<field name="ENT_DEC_DATE_FIN" class="java.sql.Timestamp"/>
+	<field name="T_ENT_DEC_DATE_DEBUT" class="java.sql.Timestamp"/>
+	<field name="T_IFU" class="java.math.BigDecimal"/>
+	<field name="T_EXO_ANNE" class="java.lang.String"/>
+	<field name="T_REP_UNIQUE_CONT_RAIS" class="java.lang.String"/>
+	<group name="T_ENT_NUM">
+		<groupExpression><![CDATA[$F{T_ENT_NUM}]]></groupExpression>
+		<groupHeader>
+			<band height="74">
+				<frame>
+					<reportElement mode="Opaque" x="-21" y="7" width="843" height="50" forecolor="#B89F7D" backcolor="#F2EBDF" uuid="fea23379-186e-4605-81ab-69ff9048a742"/>
+					<rectangle>
+						<reportElement mode="Opaque" x="21" y="0" width="36" height="24" backcolor="#736343" uuid="40f88e8a-300e-42f0-b9a2-d05571a2b84e"/>
+						<graphicElement>
+							<pen lineWidth="0.0"/>
+						</graphicElement>
+					</rectangle>
+					<textField>
+						<reportElement style="SubTitle" x="59" y="0" width="160" height="24" forecolor="#736343" uuid="a7af461e-b470-468b-bce2-dd70b4096046"/>
+						<textElement>
+							<font isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{T_ENT_NUM}]]></textFieldExpression>
+					</textField>
+					<textField isStretchWithOverflow="true">
+						<reportElement style="Detail" x="309" y="9" width="61" height="15" uuid="1e172df9-3a1c-48a7-b1bc-6e6144b9eaae"/>
+						<textFieldExpression><![CDATA[$F{T_EXO_ANNE}]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement style="Column header" x="230" y="9" width="77" height="15" forecolor="#736343" uuid="3f32b9e9-6499-4335-8ade-48000e1ba124"/>
+						<text><![CDATA[Exercice :]]></text>
+					</staticText>
+					<textField isStretchWithOverflow="true">
+						<reportElement style="Detail" x="485" y="9" width="123" height="15" uuid="34257952-b88f-470f-b958-b7a0d08a62c2"/>
+						<textFieldExpression><![CDATA[$F{T_ENT_DEC_DATE_DEBUT}]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement style="Column header" x="387" y="9" width="98" height="15" forecolor="#736343" uuid="a12df246-68aa-4974-85a0-d5e8a4d6f59f"/>
+						<text><![CDATA[Période du :]]></text>
+					</staticText>
+					<staticText>
+						<reportElement style="Column header" x="609" y="9" width="22" height="15" forecolor="#736343" uuid="ac80f87a-3db5-41a7-b61e-3e3f2631478c"/>
+						<text><![CDATA[au]]></text>
+					</staticText>
+					<textField isStretchWithOverflow="true">
+						<reportElement style="Detail" x="631" y="9" width="183" height="15" uuid="fa96b804-2b3a-45dc-bed1-56158219b8cb"/>
+						<textFieldExpression><![CDATA[$F{ENT_DEC_DATE_FIN}]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement style="Column header" x="230" y="30" width="140" height="15" forecolor="#736343" uuid="f4b07454-57f8-41f7-905e-18c9b6befcff"/>
+						<text><![CDATA[Contribuable]]></text>
+					</staticText>
+					<textField isStretchWithOverflow="true">
+						<reportElement style="Detail" x="387" y="30" width="122" height="15" uuid="aaedaf7b-7566-41f2-a4f1-1c23a8ac9b5a"/>
+						<textFieldExpression><![CDATA[$F{T_IFU}]]></textFieldExpression>
+					</textField>
+					<textField isStretchWithOverflow="true">
+						<reportElement style="Detail" x="509" y="30" width="305" height="15" uuid="dc60f9e3-b37c-4bd3-9a51-ad5da4572279"/>
+						<textFieldExpression><![CDATA[$F{T_REP_UNIQUE_CONT_RAIS}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<staticText>
+					<reportElement style="Column header" x="0" y="58" width="101" height="15" forecolor="#736343" uuid="a8784cd7-dd4d-4162-a47b-d3e9161dd3b0"/>
+					<text><![CDATA[Ref.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="101" y="58" width="97" height="15" forecolor="#736343" uuid="41b96350-fab7-4839-9772-8250297b0e87"/>
+					<text><![CDATA[Valeur CAF]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="198" y="58" width="118" height="15" forecolor="#736343" uuid="c36a708a-da0c-4fa4-85d7-c2e2f30e8c27"/>
+					<text><![CDATA[Droit de Douane]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="316" y="58" width="92" height="15" forecolor="#736343" uuid="0b0fc442-1201-4b02-a3f8-38cd4b49ac81"/>
+					<text><![CDATA[TVA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="408" y="58" width="111" height="15" forecolor="#736343" uuid="3230307b-bfc7-496b-8124-052924339c80"/>
+					<text><![CDATA[PC]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="519" y="58" width="91" height="15" forecolor="#736343" uuid="f39d3364-bf8d-4fbb-b1f9-9b0f03cd4ea5"/>
+					<text><![CDATA[PCS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="610" y="58" width="89" height="15" forecolor="#736343" uuid="6a2a9a1a-10b1-46e5-a8df-9e5d219dbb52"/>
+					<text><![CDATA[AIB]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="699" y="58" width="92" height="15" forecolor="#736343" uuid="f0dda06e-0e06-4b26-9082-ea8fabdaebd5"/>
+					<text><![CDATA[RS]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="136" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="385" y="36" width="445" height="62" uuid="40d0d529-dcb8-409b-9e7e-4685aaeb2c39"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="26" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Détail d'une déclaration fiscale]]></text>
+			</staticText>
+			<image>
+				<reportElement x="10" y="10" width="375" height="120" uuid="83050f89-fffe-42d8-983c-1045cb553d28"/>
+				<imageExpression><![CDATA["logo_mef.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="802" height="1" uuid="77ed3400-44c9-4bb3-b785-bac01f468f07"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="802" height="15" uuid="272b72fc-a582-4c3a-bc7f-08088833b525"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="1" y="0" width="100" height="15" uuid="399134dd-01a3-41e1-b4e9-da9db64779aa"/>
+					<textFieldExpression><![CDATA[$F{T_DECLARATION_FISCALE_DECLAR_R}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="101" y="0" width="97" height="15" uuid="dc33c289-3fff-405c-bbbc-5e3769ec0872"/>
+					<textFieldExpression><![CDATA[$F{T__TOTAL_VCAF}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="198" y="0" width="118" height="15" uuid="bdde1aa9-dbdc-411a-b7ba-fa441da9ee6f"/>
+					<textFieldExpression><![CDATA[$F{T_DECLARATION_FISCALE_TOTAL_DD}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="316" y="0" width="92" height="15" uuid="07b1f747-5104-43f5-a20a-3012be536f18"/>
+					<textFieldExpression><![CDATA[$F{T_TOTAL_TVA}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="408" y="0" width="111" height="15" uuid="77ffb3f9-986b-46bf-9a65-7094d0ea1dc1"/>
+					<textFieldExpression><![CDATA[$F{T_DECLARATION_FISCALE_TOTAL_PC}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="519" y="0" width="91" height="15" uuid="16ee5f35-e4c7-44bf-b0d2-b07132f11457"/>
+					<textFieldExpression><![CDATA[$F{T_TOTAL_PCS}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="610" y="0" width="89" height="15" uuid="501a5861-2730-4836-ae7c-32fca69ab6b9"/>
+					<textFieldExpression><![CDATA[$F{T_TOTAL_AIB}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="699" y="0" width="92" height="15" uuid="6a981caf-c94c-4774-b95b-878ecb756579"/>
+					<textFieldExpression><![CDATA[$F{T_DECLARATION_FISCALE_TOTAL_RS}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1" uuid="87007f31-598f-42e9-b918-1df1bacc4986"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="843" height="24" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="bc3eb868-16e7-48d6-8df7-fb6484837912"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="783" y="1" width="40" height="20" forecolor="#736343" uuid="a0644516-ec10-4b50-b4e5-de8e7ec43bd1"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="703" y="1" width="80" height="20" forecolor="#736343" uuid="44156201-c7ca-4143-9e9f-e54b084dd601"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343" uuid="a7c2650a-70e1-4b39-9bc2-4225c6133912"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

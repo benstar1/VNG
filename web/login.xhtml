@@ -1,47 +1,49 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-        xmlns:h="http://xmlns.jcp.org/jsf/html"
-        xmlns:f="http://xmlns.jcp.org/jsf/core"
-        xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <ui:composition template="./templatelogin.xhtml">
-     
+
         <ui:define name="title">
 
             <h:outputText value="AUTHENTIFICATION"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            
+
             <center> 
                 <div id="chaineConnexion" align="center" style="width: 581px"  >
                     <h:form>    <p:fieldset>    
                             <table width="581">
-  <tr>
-    <td width="171" rowspan="4"><h:graphicImage library="images" name="connexion.jpg" alt="connexion"/></td>
-    <td colspan="2"> <p>Veuillez saisir votre login et mot de passe</p>
-        
-        <f:event listener="#{loginMBean.checkErrors}" type="preRenderView"/>
-        <h:messages/>    </td>
-  </tr>
-  
-  <tr>
-    <td width="128">Login:</td>
-    <td width="266"><h:inputText id="j_username" value="#{loginMBean.uname}" required="true"/></td>
-  </tr>
-  <tr>
-    <td>Mot de passe:</td>
-    <td><h:inputSecret id="j_password" value="#{loginMBean.password}"  required="true"/></td>
-    
-  </tr>
-  <tr>
-    <td></td>
-   
-    <td >&nbsp;<h:commandButton style="width:60%;"  value="Se connecter" action="#{loginMBean.login}" />&nbsp;&nbsp;&nbsp;&nbsp;</td>
-  </tr>
-</table>
-               </p:fieldset>   
-        </h:form>
-        </div></center>
+                                <tr>
+                                    <td width="171" rowspan="4"><h:graphicImage library="images" name="connexion.jpg" alt="connexion"/></td>
+                                    <td colspan="2"> <p>Veuillez saisir votre login et mot de passe</p>
+
+                                        <f:event listener="#{loginMBean.checkErrors}" type="preRenderView"/>
+                                        <h:messages/>    </td>
+                                </tr>
+
+                                <tr>
+                                    <td width="128">Login:</td>
+                                    <td width="266"><h:inputText id="j_username" value="#{loginMBean.uname}" required="true"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Mot de passe:</td>
+                                    <td><h:inputSecret id="j_password" value="#{loginMBean.password}"  required="true"/></td>
+
+                                </tr>
+                                <tr>
+                                    <td></td>
+
+                                    <td >&nbsp;<h:commandButton style="width:60%;"  value="Se connecter" action="#{loginMBean.login}" />&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                </tr>
+                            </table>
+                            Nouveau venu ? <a href="/CFisc/vues/tUtilisateur/CreateContrib.xhtml" target="_blank">Créer un compte!!! </a>
+
+                        </p:fieldset>   
+                    </h:form>
+                </div></center>
         </ui:define></ui:composition>
 </html>

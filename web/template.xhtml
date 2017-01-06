@@ -65,6 +65,15 @@
                                 <td><h:outputText value="#{loginMBean.utilisateurconnecte.utilPrenoms}"/>
                                 </td>
                                  </c:if>
+                                <c:if test="#{loginMBean.activecc}">
+                                 <td> <strong>  <h:outputLabel value="Nom :"/></strong> </td>
+                                <td>   <h:outputText value="#{loginMBean.utilisateurconnecte.utilNom}"/>
+                                </td>
+                                <td> <strong>  <h:outputLabel value="Prénoms :"/></strong>
+                                </td>
+                                <td><h:outputText value="#{loginMBean.utilisateurconnecte.utilPrenoms}"/>
+                                </td>
+                                 </c:if>
                             </tr>
                         </tbody>
                     </table>

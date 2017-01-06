@@ -11,6 +11,7 @@ import bj.finances.cfisc.entities.TCentreImpot;
 import bj.finances.cfisc.entities.THistStatut;
 import bj.finances.cfisc.entities.TRepUnique;
 import bj.finances.cfisc.entities.TUtilisateur;
+import bj.finances.cfisc.interfaces.AgentSftpIfu;
 import bj.finances.cfisc.sessions.TCentreImpotFacade;
 import bj.finances.cfisc.sessions.THistStatutFacade;
 import bj.finances.cfisc.sessions.TRepUniqueFacade;
@@ -26,6 +27,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.inject.Inject;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -41,9 +43,14 @@ public class MAJIndividuelleMBean extends java.lang.Object {
     @EJB
     private bj.finances.cfisc.sessions.TRepUniqueFacade tRepUniqueFacade;
 //    private int selectedItemIndex;
-    
+
     @Inject
     bj.finances.cfisc.controllers.LoginMBean loginBean;
+    
+    final static Logger logger = Logger.getLogger(AgentSftpIfu.class.getName());
+
+    @Inject
+    SendSMSMBean sms;
 
     public TRepUniqueFacade gettRepUniqueFacade() {
         return tRepUniqueFacade;
@@ -52,8 +59,8 @@ public class MAJIndividuelleMBean extends java.lang.Object {
     public void settRepUniqueFacade(TRepUniqueFacade tRepUniqueFacade) {
         this.tRepUniqueFacade = tRepUniqueFacade;
     }
-    
-        @EJB
+
+    @EJB
     private TCentreImpotFacade tCentreImpotFacade;
 
     private TCentreImpot centreImpot;
@@ -73,9 +80,8 @@ public class MAJIndividuelleMBean extends java.lang.Object {
     public void setCentreImpot(TCentreImpot centreImpot) {
         this.centreImpot = centreImpot;
     }
-    
-    
-        private TRepUnique current;
+
+    private TRepUnique current;
 
     public TRepUnique getCurrent() {
         if (current == null) {
@@ -94,7 +100,7 @@ public class MAJIndividuelleMBean extends java.lang.Object {
     private TRepUnique ifu = null;
 
     private TRepUnique ItemsIfu;
-    
+
 //        public TRepUnique getSelected() {
 //        if (current == null) {
 //            current = new TRepUnique();
@@ -120,10 +126,9 @@ public class MAJIndividuelleMBean extends java.lang.Object {
 //    public void setIfuChoisi(Long ifuChoisi) {
 //        this.ifuChoisi = ifuChoisi;
 //    }
-     // ajout
-    
+    // ajout
     String statut = "";
-    
+
     String afficheStatut = "";
 
     public String getAfficheStatut() {
@@ -133,8 +138,6 @@ public class MAJIndividuelleMBean extends java.lang.Object {
     public void setAfficheStatut(String afficheStatut) {
         this.afficheStatut = afficheStatut;
     }
-    
-    
 
     public String getStatut() {
         return statut;
@@ -144,14 +147,13 @@ public class MAJIndividuelleMBean extends java.lang.Object {
         this.statut = statut;
     }
 // fin 
-    
-    private THistStatut tHistStatut ;
-    
+
+    private THistStatut tHistStatut;
+
     @EJB
     private TUtilisateurFacade tUtilisateurFacade;
 
     private TUtilisateur user;
-
 
     public TUtilisateurFacade gettUtilisateurFacade() {
         return tUtilisateurFacade;
@@ -168,8 +170,8 @@ public class MAJIndividuelleMBean extends java.lang.Object {
     public void setUser(TUtilisateur user) {
         this.user = user;
     }
-    
-        public TRepUnique getIfu(TRepUnique ifumaj) {
+
+    public TRepUnique getIfu(TRepUnique ifumaj) {
 
         ifu = tRepUniqueFacade.find(ifumaj);
         return ifu;
@@ -192,18 +194,16 @@ public class MAJIndividuelleMBean extends java.lang.Object {
         this.chargement = chargement;
     }
 
-    private String centre;
-     
-
-    public String getCentre() {
-        return centre;
-    }
-
-    public void setCentre(String centre) {
-        this.centre = centre;
-    }
-
-
+//    private String centre;
+//     
+//
+//    public String getCentre() {
+//        return centre;
+//    }
+//
+//    public void setCentre(String centre) {
+//        this.centre = centre;
+//    }
     public TRepUniqueController gettRepUniqueController() {
         return tRepUniqueController;
     }
@@ -213,165 +213,235 @@ public class MAJIndividuelleMBean extends java.lang.Object {
 
     }
 
-    
-      public void prepareAfficheMAJIndividuelle(TRepUnique trepunique) {
+    public void prepareAfficheMAJIndividuelle(TRepUnique trepunique) {
 //        recreateModel();
 //        return "MAJIndividuelle";
-        if ("A".equals(trepunique.getContStatut())){
-        setStatut("Désactiver");
+        if ("A".equals(trepunique.getContStatut())) {
+            setStatut("Désactiver");
+        } else {
+            setStatut("Activer");
         }
-        else
-        {
-         setStatut("Activer");
-        }      
-        
+
     }
-      
-          public List<TRepUnique> getContrib() {
-              try {
-                if (contrib == null) {
+
+    public List<TRepUnique> getContrib() {
+        try {
+            if (contrib == null) {
 //            contrib = tRepUniqueFacade.findAll();
+                contrib = tRepUniqueFacade.findContribByImmatPP();
+            }
             contrib = tRepUniqueFacade.findContribByImmatPP();
+        } catch (NumberFormatException e) {
+            System.out.println("FindPP" + e.getMessage());
         }
-        contrib = tRepUniqueFacade.findContribByImmatPP();  
-              } catch (NumberFormatException e) {
-                  System.out.println("FindPP"+e.getMessage());
-              }
-        
-        
+
         return contrib;
 
     }
-      
-          public String contribSelectionne(TRepUnique contrib) {
-        System.out.println( " = choisi " + current + "pris " + contrib);
+
+    public String contribSelectionne(TRepUnique contrib) {
+        System.out.println(" = choisi " + current + "pris " + contrib);
         current.setContImmatr(contrib.getContImmatr());
         ifu = contrib;
         return "";
     }
-    
-    public String UpdateTableContrib() {
-        TRepUnique trepunique = tRepUniqueFacade.findByContImmatr(ifu.getContImmatr());
-        ItemsIfu = trepunique;
-        prepareAfficheMAJIndividuelle(trepunique);
-        
-        if ("A".equals(ItemsIfu.getContStatut())){
-            setAfficheStatut("ACTIVE");
+
+    public void UpdateTableContrib() {
+
+        System.out.println("current" + current.getContImmatr());
+        TRepUnique trepunique = null;
+        try {
+            trepunique = tRepUniqueFacade.findByContImmatr(current.getContImmatr());
+            if (trepunique != null) {
+                ifu = trepunique;
+                ItemsIfu = trepunique;
+                prepareAfficheMAJIndividuelle(trepunique);
+
+                if ("A".equals(ItemsIfu.getContStatut())) {
+                    setAfficheStatut("ACTIVE");
+                } else {
+                    setAfficheStatut("DESACTIVE");
+                }
+            }
+            else
+            {
+                JsfUtil.addErrorMessage("IFU Incorrect");
+            }
+        } catch (Exception e) {
+            System.out.println("Find IFU " + e.getMessage());
         }
-        else{
-            setAfficheStatut("DESACTIVE");
-        }
-        
-        return "";
+
+        //return "";
     }
 
-       
     public void MAJStatut() {
-        
-         System.out.println("Je suis dans MAJStatut() " + current + " Et ifu contient quoi " + ifu);
-          System.out.println("Je suis avec le statut " + current.getContStatut());  
-       
-                    ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-                    Map<String, Object> sessionMap  = externalContext.getSessionMap();
-                    String le_login = (String) sessionMap.get("loginUser");
-                    System.out.println("LE LOGIN " + le_login);
-                    
-          current = ifu;
-        
-        try {
-            System.out.println(centreImpot + " Centre impot choisi -- Test " + current.getContCentrImpCode().getCentrImpCode());
-            System.out.println(" Centre impot ancien " + ifu.getContCentrImpCode().getCentrImpCode());
 
-            TCentreImpot centre = ifu.getContCentrImpCode();            
-            
-            if ("A".equals(current.getContStatut())){
-            
-            //System.out.println(current.getContStatut() + " Ancien " + ifu.getContStatut());
+        System.out.println("Je suis dans MAJStatut() " + current + " Et ifu contient quoi " + ifu);
+        System.out.println("Je suis avec le statut " + current.getContStatut());
+
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        Map<String, Object> sessionMap = externalContext.getSessionMap();
+        String le_login = (String) sessionMap.get("loginUser");
+        System.out.println("LE LOGIN " + le_login);
+
+        current = ifu;
+
+        try {
+            //System.out.println(centreImpot + " Centre impot choisi -- Test " + current.getContCentrImpCode().getCentrImpCode());
+            //System.out.println(" Centre impot ancien " + ifu.getContCentrImpCode().getCentrImpCode());
+
+            TCentreImpot centre = ifu.getContCentrImpCode();
+
+            if ("A".equals(current.getContStatut())) {
+
+                //System.out.println(current.getContStatut() + " Ancien " + ifu.getContStatut());
 //         current.setContCentrImpCode(centre);
-            current.setContStatut("D");
-            System.out.println(" Statut " + current.getContStatut());
-            
-      //      current.setContCentrImpCode(centre);
-            gettRepUniqueFacade().edit(current);
-            setItemsIfu(current);
+                current.setContStatut("D");
+                System.out.println(" Statut " + current.getContStatut());
+
+                //      current.setContCentrImpCode(centre);
+                gettRepUniqueFacade().edit(current);
+                setItemsIfu(current);
                 setAfficheStatut("DESACTIVE");
                 System.out.println(afficheStatut + "-------------");
-            //ajout
-            setStatut("Activer");
-            
-            //historisation
-                System.out.println("Début historisation -- Désactivation");
+                //ajout
+                setStatut("Activer");
+
+                // Envoi de SMS
                 
-                try {
-                    user = tUtilisateurFacade.rechercheUtilconnecte(le_login); //.findAll().get(0);
-                 //user = loginBean.getUtilisateurconnecte();
-//                    ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-//                    Map<String, Object> sessionMap  = externalContext.getSessionMap();
-//                    String le_login = (String) sessionMap.get("loginUser");
-//                    System.out.println("LE LOGIN " + le_login);
+                Runnable myRunnable = new Runnable(){
+                public void run(){
+                   System.out.println("Runnable running");
+                   SendSMSMBean http = new SendSMSMBean();
+                    System.out.println("Testing 1 - Send Http GET request");
+
+                    // Récupération du numéro de phone
+                    String dest = "229" + current.getContTel();
+                    System.out.println("Le numéro du destinataire est : " + dest);
+
+                    System.out.println("Le numéro IFU est : " + current.getContImmatr());
+                    if (current.getContTel() == null) {
+                        try {
+                            TUtilisateur user = tUtilisateurFacade.find(current.getContImmatr().toString());
+                        } catch (Exception e) {
+                            System.out.println("Find utilisateur " + e.getMessage());
+                        }
+
+                        dest = user.getUtilTel();
+                        System.out.println("Le numéro du destinataire trouvé dans Tutilisateur est : " + dest);
+                    }
                     
-                System.out.println("RECHERCHE DE LOGIN " + user.getUtilNom());
+                    try{
+                    http.sendGet("22997217745", dest, "Plateforme+IFU+:+Votre+compte+vient+d'etre+desactivé.+Veuillez+vous+rapprocher+de+votre+centre+d'impot");
+                    }
+                    catch(Exception ex){logger.error("EXCEPTION LORS DE L'ENVOI DU SMS");}
+                }
+              };
+
+            Thread thread = new Thread(myRunnable);
+            thread.start();
+            
+                System.out.println("THREAD EXECUTE CORRECTEMENT ---------------------------------------------------");
+               //historisation
+                System.out.println("Début historisation -- Désactivation");
+
+                try {
+                    user = tUtilisateurFacade.rechercheUtilconnecte(le_login); 
+                    System.out.println("RECHERCHE DE LOGIN LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL" + user.getUtilNom());
                 } catch (Exception e) {
                     System.out.println("Erreur " + e.getMessage());
                 }
-                
-                
-            tHistStatut  = new THistStatut(current, user);
-                try {
-                    tHistStatutFacade.historiserStatut(tHistStatut);     
-                } catch (Exception e) { System.out.println("Erreur appel historiser" +e);
-                }
-            
-            System.out.println("Fin historisation -- Désactivation");
-            
 
-            //fin
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TRepUniqueUpdated"));
-            //return "View";
-            }
-            else 
-            {
+                tHistStatut = new THistStatut(current, user);
+                try {
+                    tHistStatutFacade.historiserStatut(tHistStatut);
+                    System.out.println("JE VIENS D'HISTORISER --------------------------------------------------");
+                } catch (Exception e) {
+                    System.out.println("Erreur appel historiser" + e);
+                }
+
+                System.out.println("Fin historisation -- Désactivation");
+
+                //fin
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TRepUniqueUpdated"));
+                //return "View";
+            } else {
                 current.setContStatut("A");
-            System.out.println(" Statut " + current.getContStatut());
-            // current.setContCentrImpCode(centre);
-            gettRepUniqueFacade().edit(current);
-            setItemsIfu(current);
-            setAfficheStatut("ACTIVE");
+                System.out.println(" Statut " + current.getContStatut());
+                // current.setContCentrImpCode(centre);
+                gettRepUniqueFacade().edit(current);
+                setItemsIfu(current);
+                setAfficheStatut("ACTIVE");
                 System.out.println(afficheStatut + "-------------");
-            
-            //ajout
-            setStatut("Désactiver");
-            //fin
-            
-            //historisation
+
+                //ajout
+                setStatut("Désactiver");
+                //fin
+
+                // Envoi de SMS  
+                Runnable myRunnable = new Runnable(){
+                public void run(){
+                   System.out.println("Runnable running");
+                   SendSMSMBean http = new SendSMSMBean();
+                    System.out.println("Testing 1 - Send Http GET request");
+
+                    // Récupération du numéro de phone
+                    String dest = "229" + current.getContTel();
+                    System.out.println("Le numéro du destinataire est : " + dest);
+
+                    System.out.println("Le numéro IFU est : " + current.getContImmatr());
+                    if (current.getContTel() == null) {
+                        try {
+                            TUtilisateur user = tUtilisateurFacade.find(current.getContImmatr().toString());
+                        } catch (Exception e) {
+                            System.out.println("Find utilisateur " + e.getMessage());
+                        }
+
+                        dest = user.getUtilTel();
+                        System.out.println("Le numéro du destinataire trouvé dans Tutilisateur est : " + dest);
+                    }
+                    
+                    try{
+                    http.sendGet("22997217745", dest, "Plateforme+IFU+:+Votre+compte+vient+d'etre+desactivé.+Veuillez+vous+rapprocher+de+votre+centre+d'impot");
+                    }
+                    catch(Exception ex){logger.error("EXCEPTION LORS DE L'ENVOI DU SMS");}
+                }
+              };
+
+            Thread thread = new Thread(myRunnable);
+            thread.start();
+
+                //historisation
                 System.out.println("Début historisation -- Activation");
-                
-                 try {
+
+                try {
                     user = tUtilisateurFacade.rechercheUtilconnecte(le_login); //.findAll().get(0);
-                 
-                System.out.println("User " + user);
+
+                    System.out.println("User " + user);
                 } catch (Exception e) {
                     System.out.println("LEO " + e.getMessage());
                 }
-                
-            tHistStatut  = new THistStatut(current, user);
+
+                tHistStatut = new THistStatut(current, user);
                 try {
                     System.out.println("LEO CONN " + user);
-                    tHistStatutFacade.historiserStatut(tHistStatut);     
-                } catch (Exception e) { System.out.println("Erreur appel historiser" +e);
+                    tHistStatutFacade.historiserStatut(tHistStatut);
+                } catch (Exception e) {
+                    System.out.println("Erreur appel historiser" + e);
                 }
-            
-            System.out.println("Fin historisation -- Activation");
-            
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TRepUniqueUpdated"));
+
+                System.out.println("Fin historisation -- Activation");
+
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TRepUniqueUpdated"));
             }
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            System.out.println("ERRREEEUUUUUUUUUUUUUUUUUR " + e.getMessage());
+            e.printStackTrace();
             // return null;
         }
     }
 
-    
     /**
      * Creates a new instance of MAJMBean
      */
@@ -382,7 +452,6 @@ public class MAJIndividuelleMBean extends java.lang.Object {
     public String active;
     public String filename;
 
-    
     public TCentreImpot cimpot;
 
     public TCentreImpot getCimpot() {

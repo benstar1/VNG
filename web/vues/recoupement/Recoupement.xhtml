@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"      
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateTDeclarationDouTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <!--<cc:TRepUniqueVision widgetVar="contribuablesDlg" id="contribuablesDlg" valeurIfu="#{TRUVCtlr.ifu}"/>-->
+            <h:form id="recoupementForm">
+                <br/>
+                <strong>Contribuable</strong>
+                <p:fieldset>
+                    <h:panelGrid columns="10" width="100%" border="0">
+                        <p:outputLabel value="Contribuable" for="contImmatr" />
+
+                        <p:inputText id="contImmatr"  value="#{recoupementController.selected.contImmatr}" style="width: 200px" >
+                            <p:ajax listener="#{recoupementController.rechercher()}" update="@form  :listentdeclar :parametres" />
+                        </p:inputText>
+
+                        <p:outputLabel value="Raion" for="contRais"  />
+                        <p:inputText id="contRais" value="#{recoupementController.selected.contRais}" readonly="true"/>
+
+                        <p:outputLabel value="Boite postale" for="contBp" />
+                        <p:inputText id="contBp" value="#{recoupementController.selected.contBp}" readonly="true"/>
+
+                        <p:outputLabel value="Nom" for="contNom" />
+                        <p:inputText id="contNom" value="#{recoupementController.selected.contNom}" readonly="true"/>
+
+                        <p:outputLabel value="Prénom" for="contPren" />
+                        <p:inputText id="contPren" value="#{recoupementController.selected.contPren}" readonly="true"/>    
+
+                        <p:outputLabel value="Téléphone" for="contTel" />
+                        <p:outputLabel id="contTel" value="#{recoupementController.selected.contTel}"/>                          
+                    </h:panelGrid>
+                </p:fieldset>
+                <br/>
+                <strong>Déclaration fiscale</strong>
+                <p:fieldset>
+                    <h:panelGrid columns="6" width="100%">     
+                        <p:outputLabel value="Référence dec. fisc." for="refDecFisc" />
+                        <h:panelGrid columns="2">
+                            <p:inputText id="refDecFisc" value="#{recoupementController.selectedEntDeclaration.entDecNum }" readonly="true"/>   
+                            <p:commandButton value="..." type="button" onclick="PF('decarationfiscaleDlg').show()"/>
+                        </h:panelGrid>
+
+                        <p:outputLabel value="Date de début" for="dateDebut" />
+                        <p:inputText id="dateDebut" value="#{recoupementController.dateDebut}" readonly="true">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </p:inputText>
+
+                        <p:outputLabel value="Date de fin" for="dateFin"/>
+                        <p:inputText id="dateFin" value="#{recoupementController.dateFin}" readonly="true">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </p:inputText>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2">  
+                        <p:splitButton value="Exécuter" actionListener="#{recoupementController.recouper()}" update="zoneResultat" ajax="true">
+                            <p:menuitem value="Paramètrer" actionListener="#{recoupementController.setStatusBoutonExecuter(true)}" update=":parametres:selChampComparDlg" oncomplete="PF('selChampComparDlg').show()" ajax="true"/>
+                            <p:separator />
+                            <p:menuitem value="Paramètrer et exécuter" actionListener="#{recoupementController.setStatusBoutonExecuter(false)}" update=":parametres:selChampComparDlg" oncomplete="PF('selChampComparDlg').show()" ajax="true"/>
+                        </p:splitButton>
+                    </h:panelGrid>
+                </p:fieldset>
+                <br/>
+                <p:panel id="zoneResultat">
+                    <p:panelGrid columns="3">
+                        <p:selectOneRadio id="status" value="#{recoupementController.status}" >
+                            <p:ajax update="zoneResultat"/>
+                            <f:selectItem itemLabel="tous" itemValue="0"  />
+                            <f:selectItem itemLabel="correct" itemValue="1" />
+                            <f:selectItem itemLabel="Impot" itemValue="2" />
+                            <f:selectItem itemLabel="Douane" itemValue="3" />
+                        </p:selectOneRadio>  
+
+                        <h:commandLink immediate="true" value="Exporter vers excel" actionListener="#{recoupementController.exportXlsx}"/>
+                    </p:panelGrid>
+                    <ui:include src="RecoupGlobal.xhtml"/>
+                    <ui:include src="RecoupDeclaration.xhtml"/>
+                    <ui:include src="RecoupArticle.xhtml"/>
+                    
+                </p:panel>
+            </h:form>
+            <h:form id="listentdeclar"> 
+                <p:dialog id="decarationfiscaleDlg" header="Liste des déclarations" widgetVar="decarationfiscaleDlg" modal="true"  width="800" > 
+
+                    <p:dataTable  value="#{recoupementController.listeEntDeclaration}" emptyMessage="Aucun enregistrement trouvé pour l'instant !" selectionMode="single" selection="#{recoupementController.selectedEntDeclaration}" var="itementdeclar" rowKey="#{itementdeclar.entDecNum}">
+                        <p:ajax event="rowSelect" listener="#{recoupementController.initDates}" update=":recoupementForm:refDecFisc :recoupementForm:dateFin :recoupementForm:dateDebut" oncomplete="PF('decarationfiscaleDlg').hide()"/>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Numéro"/>
+                            </f:facet>                        
+                            <p:commandLink value="#{itementdeclar.entDecNum}"  action="#{tEntDeclarationController.entetedeclarselectionne(itementdeclar)}"   process="@this" title="Selectionnez" style="color: blue;"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Date début"/>
+                            </f:facet>
+                            <h:outputText value="#{itementdeclar.entDecDatedebut}">
+                                <f:convertDateTime  pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Date fin"/>
+                            </f:facet>
+                            <h:outputText value="#{itementdeclar.entDecDatefin}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Validation"/>
+                            </f:facet>
+                            <h:outputText value="#{itementdeclar.entDecValidation}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:dialog>
+            </h:form>
+            <h:form id="parametres">
+                <p:dialog id="selChampComparDlg" header="Paramètres de recoupement"  widgetVar="selChampComparDlg" modal="true"  width="800" > 
+                    <strong>Paramètres</strong>
+                    <hr/>
+                    <p>Typde de recoupement</p>
+                    <p:selectOneRadio id="typeRecoupement" value="#{recoupementController.typeRecoupement}">
+                        <f:selectItem itemLabel="Niveau global" itemValue="1" />
+                        <f:selectItem itemLabel="Niveau déclaration" itemValue="2" />
+                        <f:selectItem itemLabel="Niveau article" itemValue="3" />
+                        
+                    </p:selectOneRadio>
+                    <br/>
+                    <hr/>
+                    <p>Liste des champs a prendre en compte pour la recherche</p>
+                    <h:panelGrid columns="4">
+                        <p:selectManyCheckbox id="selChampCompar" value="#{recoupementController.selectedFields}" layout="grid" columns="2">
+                            <p:ajax/>
+                            <f:selectItem itemLabel="Numéro de quittance" itemValue="3" />
+                            <f:selectItem itemLabel="Date de quittance" itemValue="4" />
+                            <f:selectItem itemLabel="Valeur CAF" itemValue="5" />
+                            <f:selectItem itemLabel="Droits de douane" itemValue="6" />
+                            <f:selectItem itemLabel="PC" itemValue="7" />
+                            <f:selectItem itemLabel="PCS" itemValue="8" />
+                            <f:selectItem itemLabel="RS" itemValue="9" />
+                            <f:selectItem itemLabel="AIB" itemValue="10" />
+                            <f:selectItem itemLabel="TVA" itemValue="11" />
+                            <f:selectItem itemLabel="Base taxable" itemValue="12" />
+                        </p:selectManyCheckbox>
+                    </h:panelGrid>
+                    <br/>
+                    <hr/>
+                    <br/>
+                    <c:if test="#{recoupementController.statusBoutonExecuter == true}">
+                        <p:commandButton value="Valider" ajax="true" oncomplete="PF('selChampComparDlg').hide()"/>
+                    </c:if>
+                    <c:if test="#{recoupementController.statusBoutonExecuter == false}">
+                        <p:commandButton value="Valider et exécuter" actionListener="#{recoupementController.recouper()}" update=":recoupementForm:zoneResultat"  ajax="true" oncomplete="PF('selChampComparDlg').hide()"/>
+                    </c:if>  
+                    <br/>                    
+                </p:dialog>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

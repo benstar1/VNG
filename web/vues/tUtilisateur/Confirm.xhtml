@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/templatelogin.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateClientTitle}"></h:outputText>
+        </ui:define>
+        
+        
+        <ui:define name="body">
+            <h2></h2>
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <center>
+                <h2>Merci pour votre inscription.</h2>
+            <h2>Veuillez vous rapprocher du Centre d'Impôt le plus proche pour confirmer votre inscription.</h2>
+            <br /> <h3><p style="color: red"  ><b>Se munir du régistre de commerce de l'entreprise et d'une pièce d'identité en cours de validité.</b></p></h3>
+            </center>
+        </ui:define>
+    </ui:composition>
+
+</html>

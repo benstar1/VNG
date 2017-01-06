@@ -25,12 +25,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 //import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -58,10 +61,13 @@ public class MAJMBean extends java.lang.Object {
     @EJB
     private TUtilisateurFacade tUtilisateurFacade;
 
+    @Inject
+    SendSMSMBean sms;
+
     private String cheminActivationSucces = ResourceBundle.getBundle("/parametres").getString("cheminActiveSucces");
- private String cheminActivationEchecs = ResourceBundle.getBundle("/parametres").getString("cheminActiveEchecs");
- private String cheminActivationFichier = ResourceBundle.getBundle("/parametres").getString("cheminActiveFichier");
- 
+    private String cheminActivationEchecs = ResourceBundle.getBundle("/parametres").getString("cheminActiveEchecs");
+    private String cheminActivationFichier = ResourceBundle.getBundle("/parametres").getString("cheminActiveFichier");
+
     private TUtilisateur user;
 
     private THistStatut tHistStatut;
@@ -147,15 +153,14 @@ public class MAJMBean extends java.lang.Object {
         String tstamp = sdf.format(new Date());
         File echecs = new File(cheminActivationEchecs + "/echecs_" + cimpot.getCentrImpLibelle() + "_" + tstamp + ".txt");
         File succes = new File(cheminActivationSucces + "/succes_" + cimpot.getCentrImpLibelle() + "_" + tstamp + ".txt");
-        File upload = new File(cheminActivationFichier +"/chargement_" + cimpot.getCentrImpLibelle() + "_" + tstamp + ".xls");
+        File upload = new File(cheminActivationFichier + "/chargement_" + cimpot.getCentrImpLibelle() + "_" + tstamp + ".xls");
 
         // Récupération de l'utilisateur connecté
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-                    Map<String, Object> sessionMap  = externalContext.getSessionMap();
-                    String le_login = (String) sessionMap.get("loginUser");
-                    System.out.println("LE LOGIN " + le_login);
-                    
-                    
+        Map<String, Object> sessionMap = externalContext.getSessionMap();
+        String le_login = (String) sessionMap.get("loginUser");
+        System.out.println("LE LOGIN " + le_login);
+
         // Sauvegarde du fichier Excel soumis
         WriteCSV(file, tstamp, upload);
 
@@ -166,14 +171,12 @@ public class MAJMBean extends java.lang.Object {
             FileWriter outechec = new FileWriter(echecs);
             FileWriter outsucces = new FileWriter(succes);
 
-            
             System.out.println("---- Lecture et Chargement des contribuables ----");
-            
+
             Vector dataHolder = ReadCSV(file);
 
 //            //String file = event.getFile().getFilename();
 //            System.out.print("size " + dataHolder.size());
-
             HttpServletResponse response
                     = (HttpServletResponse) FacesContext.getCurrentInstance()
                             .getExternalContext().getResponse();
@@ -185,7 +188,6 @@ public class MAJMBean extends java.lang.Object {
 //            response.getOutputStream().flush();
 //            response.getOutputStream().close();
 //            FacesContext.getCurrentInstance().responseComplete();
-            
             for (int i = 1; i < dataHolder.size(); i++) {
                 Vector cellStoreVector = (Vector) dataHolder.elementAt(i);
                 System.out.print("size " + cellStoreVector.size());
@@ -209,7 +211,7 @@ public class MAJMBean extends java.lang.Object {
                 String pnom = cellStoreVector.elementAt(2).toString();
                 statut = active;
 
-                System.out.println("Recherche de l'IFU qui est lu " + ifu );
+                System.out.println("Recherche de l'IFU qui est lu " + ifu);
 
                 tRepUnique = tRepUniqueFacade.findByContImmatr(ifu);
 
@@ -224,6 +226,32 @@ public class MAJMBean extends java.lang.Object {
                         tRepUnique.setContCentrImpCode(cimpot);
                         tRepUniqueFacade.edit(tRepUnique);
 
+                        // Envoi de SMS
+                        SendSMSMBean http = new SendSMSMBean();
+                        System.out.println("Testing 1 - Send Http GET request");
+
+                        // Récupération du numéro de phone
+                        String dest = "229" + tRepUnique.getContTel();
+                        System.out.println("Le numéro du destinataire est : " + dest);
+
+                        System.out.println("Le numéro IFU est : " + tRepUnique.getContImmatr());
+                        if (tRepUnique.getContTel() == null) {
+                            try {
+                                TUtilisateur user = tUtilisateurFacade.find(tRepUnique.getContImmatr().toString());
+                            } catch (Exception e) {
+                                System.out.println("Find utilisateur " + e.getMessage());
+                            }
+
+                            dest = user.getUtilTel();
+                            System.out.println("Le numéro du destinataire trouvé dans Tutilisateur est : " + dest);
+                        }
+                        try {
+                            http.sendGet("22997217745", dest, "Plateforme+IFU+:+Votre+compte+vient+d'etre+desactivé.+Veuillez+vous+rapprocher+de+votre+centre+d'impot");
+//          
+                        } catch (Exception ex) {
+                            Logger.getLogger(MAJMBean.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
                         // constitution de la liste des contribuables modifiés
                         chargement.add(tRepUnique);
                         charge = chargement;
@@ -233,7 +261,6 @@ public class MAJMBean extends java.lang.Object {
                         // Récupération provisoire du premier utilisateur dans la base
 //                        user = tUtilisateurFacade.findAll().get(0);
                         user = tUtilisateurFacade.rechercheUtilconnecte(le_login);
-                        
 
                         tHistStatut = new THistStatut(tRepUnique, user);
                         try {
@@ -247,6 +274,31 @@ public class MAJMBean extends java.lang.Object {
                     } else {
                         tRepUnique.setContStatut(statut);
                         tRepUniqueFacade.edit(tRepUnique);
+
+                        // Envoi de SMS
+                        SendSMSMBean http = new SendSMSMBean();
+                        System.out.println("Testing 1 - Send Http GET request");
+
+                        // Récupération du numéro de phone
+                        String dest = "229" + tRepUnique.getContTel();
+                        System.out.println("Le numéro du destinataire est : " + dest);
+
+                        System.out.println("Le numéro IFU est : " + tRepUnique.getContImmatr());
+                        if (tRepUnique.getContTel() == null) {
+                            try {
+                                TUtilisateur user = tUtilisateurFacade.find(tRepUnique.getContImmatr().toString());
+                            } catch (Exception e) {
+                                System.out.println("Find utilisateur " + e.getMessage());
+                            }
+
+                            dest = user.getUtilTel();
+                            System.out.println("Le numéro du destinataire trouvé dans Tutilisateur est : " + dest);
+                        }
+                        try {
+                            http.sendGet("22997217745", dest, "Plateforme+IFU+:+Votre+compte+vient+d'etre+activé.");
+                        } catch (Exception ex) {
+                            Logger.getLogger(MAJMBean.class.getName()).log(Level.SEVERE, null, ex);
+                        }
 
                         // constitution de la liste des contribuables modifiés
                         chargement.add(tRepUnique);
@@ -284,7 +336,7 @@ public class MAJMBean extends java.lang.Object {
 
                 }
             }
-            
+
             System.out.println("---- Fin de Lecture et Chargement des contribuables ----");
 // pout.close();
             outechec.close();

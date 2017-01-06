@@ -16,6 +16,10 @@ import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ResourceBundle;
 import java.util.Vector;
 import java.util.concurrent.ExecutionException;
@@ -57,7 +61,7 @@ public class AgentSftpSydo {
     
     final static org.apache.log4j.Logger logger = Logger.getLogger(AgentSftpSydo.class.getName());
 
-   @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/20", persistent = false)
+   @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/25", persistent = false)
     public void telechargerEntreprise() {
         JSch jsch = new JSch();
         Session session = null;
@@ -87,7 +91,7 @@ public class AgentSftpSydo {
             ChannelSftp channelSftp = (ChannelSftp) channel;
             channelSftp.lcd(cheminDepotLocal);
 
-            Vector<ChannelSftp.LsEntry> list = channelSftp.ls("*.xml");
+            Vector<ChannelSftp.LsEntry> list = channelSftp.ls("DEC*.xml");
             logger.info("connexion a sydo reussi .................. ");
             for (ChannelSftp.LsEntry entry : list) {                
                 channelSftp.get(entry.getFilename(), entry.getFilename());
@@ -109,7 +113,7 @@ public class AgentSftpSydo {
     }
     
     
-    @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/25", persistent = false)
+    @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/30", persistent = false)
     public void uploadXmlActif() {
         JSch jsch = new JSch();
         Session session = null;
@@ -198,8 +202,9 @@ public class AgentSftpSydo {
                 for (File fichier : listeFiles){
                      if (fichier.getName().endsWith(".xml")){
                     
-                    channelSftp.put(fichier.getName());
-                    
+                         InputStream is = new FileInputStream(fichier);
+                       channelSftp.put(is,fichier.getName());
+                         
                     if(fichier.renameTo(new File(cheminDepotLocalActif + "/fichier_traite/" + fichier.getName()))){
                         
                     }else{

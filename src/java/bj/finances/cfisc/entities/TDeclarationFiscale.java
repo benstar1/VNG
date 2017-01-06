@@ -84,6 +84,11 @@ public class TDeclarationFiscale implements Serializable {
     @Size(max = 10)
     @Column(name = "DECLAR_ANNEE")
     private String declarAnnee;
+    //AJOUT NUMERO QUITTANCE
+    @Column(name = "DECLAR_DATE_QUITT")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date declardateQuitt;
+    //FIN AJOUT
     @JoinColumn(name = "DECLAR_ENT_DEC_NUM", referencedColumnName = "ENT_DEC_NUM")
     @ManyToOne
     private TEntDeclaration declarEntDecNum;
@@ -105,6 +110,18 @@ public class TDeclarationFiscale implements Serializable {
         this.declarNum = declarNum;
     }
 
+    public Date getDeclardateQuitt() {
+        return declardateQuitt;
+    }
+
+    public void setDeclardateQuitt(Date declardateQuitt) {
+        this.declardateQuitt = declardateQuitt;
+    }
+
+
+
+    
+    
     public String getDeclarReference() {
         return declarReference;
     }

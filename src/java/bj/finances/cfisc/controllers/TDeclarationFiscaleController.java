@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -45,12 +46,23 @@ public class TDeclarationFiscaleController implements Serializable {
     @EJB
     private bj.finances.cfisc.sessions.TDeclarationFiscaleFacade ejbFacade;
     
+    private boolean nouv=false; 
     //@javax.inject.Inject
     //bj.finances.cfisc.controllers.TEntDeclarationController tentdeclarationcontrol;
     
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
+    public boolean isNouv() {
+        return nouv;
+    }
+
+    public void setNouv(boolean nouv) {
+        this.nouv = nouv;
+    }
+
+    
+    
     public TDeclarationFiscaleController() {
         System.out.println("dans le constructeur de declaration fiscal ............................");
     }
@@ -63,42 +75,7 @@ public class TDeclarationFiscaleController implements Serializable {
         return current;
     }
     
-    
-//    public void calcultotaux(TDeclarationFiscale Decl){
-//        System.out.println("Nous somme là");
-//         Long  totaltav=0l;
-//         Long  totaldd=0l;
-//         Long  totalpc=0l;
-//         Long  totalpcs=0l;
-//         Long  totalrs=0l;
-//         Long  totalaib=0l;
-//          Long  totalbt=0l;
-//         if (Decl.getTTaxeDeclarationList()!=null){
-//        for (TTaxeDeclaration tt : Decl.getTTaxeDeclarationList()){
-//            if (tt.getTaxDecTva()!=null)
-//             totaltav+=tt.getTaxDecTva();
-//            if (tt.getTaxDecPc()!=null)
-//             totalpc+=tt.getTaxDecPc();
-//            if (tt.getTaxDecPcs()!=null)
-//             totalpcs+=tt.getTaxDecPcs();
-//            if (tt.getTaxDecDd()!=null)
-//             totaldd+=tt.getTaxDecDd();
-//            if (tt.getTaxDecRs()!=null)
-//             totalrs+=tt.getTaxDecRs();
-//            if (tt.getTaxDecAib()!=null)
-//             totalaib+=tt.getTaxDecAib();
-//            if (tt.getTaxDecBaseTaxable()!=null)
-//             totalbt+=tt.getTaxDecBaseTaxable();    
-//        }
-//        current.setTotalTva(totaltav);
-//        current.setTotalAib(totalaib);
-//        current.setTotalDd(totaldd);
-//        current.setTotalPc(totalpc);
-//        current.setTotalPcs(totalpcs);
-//        current.setTotalRs(totalrs);
-//        current.setTotalBase(totalbt);
-//         }
-//    }
+
 
     
     public void calcultotaux(CloseEvent event){
@@ -189,19 +166,14 @@ public class TDeclarationFiscaleController implements Serializable {
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
-//      public String setEntdeclare(TEntDeclaration entdeclar){
-//      current.setDeclarEntDecNum(entdeclar);
-//      return "";
-//              }
+
     public void prepareCreate() {
+        setNouv(true);
         current = new TDeclarationFiscale();
         selectedItemIndex = -1;
         //return "Create";
     }
     public void onRowSelect(SelectEvent event) {
-       // FacesMessage msg = new FacesMessage("Car Selected", ((Car) event.getObject()).getId());
-       // FacesContext.getCurrentInstance().addMessage(null, msg);
-       // current=getSelected();
     }
     
     public List<TDeclarationFiscale> getFindAll(){        
@@ -214,13 +186,37 @@ public class TDeclarationFiscaleController implements Serializable {
     }
      
     public String create() {
+        
+        
+        
         try {
-            //current.setDeclarEntDecNum(tentdeclarationcontrol.getSelected());
-            //current.set
+          if(Integer.parseInt(current.getDeclarAnnee())>Integer.parseInt(current.getDeclarEntDecNum().getExoAnne().getExoAnne())){
+              FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Année de la déclaration ne peut être suppérieur à la période"));    
+              return null;
+          }  
+            
+          if(current.getDeclarEntDecNum().getEntDecDatedebut().after(current.getDeclardateQuitt())){
+                   FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La date de la quittance est hors de la période"));    
+              return null;
+          }
+           if(current.getDeclarEntDecNum().getEntDecDatefin().before(current.getDeclardateQuitt())){
+                   FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La date de la quittance est hors de la période"));
+               return null;
+          }
+          
+            
+            
+            
+            if (isNouv()){
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TDeclarationFiscaleCreated"));
-           // return prepareCreate();
+            setNouv(false);
             return null;
+            }else{
+               FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info!", "Veuillez cliquer nouveau"));
+          return null;
+            }
+            
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
@@ -230,7 +226,8 @@ public class TDeclarationFiscaleController implements Serializable {
     public String prepareEdit() {
         current = (TDeclarationFiscale) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "Edit";
+        setNouv(false);
+        return null;
     }
 
     public String update() {

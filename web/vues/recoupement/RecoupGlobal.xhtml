@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+        <c:set var="globalFlag" value="1"/>
+        <h:panelGrid columns="2" width="100%" rendered="#{globalFlag eq recoupementController.typeRecoupement}">
+            <p:dataTable value="#{ recoupementController.crossCheckData.data}"  scrollable="true" scrollHeight="400" var="item">
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{recoupementController.crossCheckData.titles[0]}"/>
+                        </f:facet>
+                        <h:outputText value="#{item[0]}"/>
+                    </p:column>                    
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{recoupementController.crossCheckData.titles[1]}"/>
+                        </f:facet>
+                        <h:outputText value="#{item[1]}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{recoupementController.crossCheckData.titles[2]}"/>
+                        </f:facet>
+                        <h:outputText value="#{item[2]}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{recoupementController.crossCheckData.titles[3]}"/>
+                        </f:facet>
+                        <h:outputText value="#{item[3]}">
+                        </h:outputText>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{recoupementController.crossCheckData.titles[4]}"/>
+                        </f:facet>
+                        <h:outputText value="#{item[4]}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{recoupementController.crossCheckData.titles[5]}"/>
+                        </f:facet>
+                        <h:outputText value="#{item[5]}"/>
+                    </p:column>                    
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{recoupementController.crossCheckData.titles[6]}"/>
+                        </f:facet>
+                        <h:outputText value="#{item[6]}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{recoupementController.crossCheckData.titles[7]}"/>
+                        </f:facet>
+                        <h:outputText value="#{item[7]}"/>
+                    </p:column>                    
+                </p:dataTable>
+        </h:panelGrid>
+
+    </body>
+</html>

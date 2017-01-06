@@ -8,10 +8,13 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:composition template="/template.xhtml">
 
-     
+      
         <ui:define name="body">
+            
             <h1 align="left">Mise à Jour Individuelle</h1>
-           
+           <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
             <center>
                 <h:form id="MAJICreateForm">
                     <h:panelGroup id="display">
@@ -20,19 +23,17 @@
                             <br />
                             
                             
+                            
                             <p:panelGrid id="pd" columns="3"  >
                                 <p:outputLabel value="Numéro IFU : " for="ifu" />
-                                <h:inputText readonly="true" id="ifu" value="#{mAJIndividuelleMBean.current.contImmatr}" required="true" requiredMessage="Le numéro IFU est obligatoire">
+                                <h:inputText readonly="false" id="ifu" value="#{mAJIndividuelleMBean.current.contImmatr}" required="true" requiredMessage="Le numéro IFU est obligatoire">
                                 
                                 </h:inputText>
                                 
-                                <p:commandButton value="Sélectionner l'IFU"  onclick="PF('dlgIFU').show();" type="button">       
-                                </p:commandButton>
-                                <br />
                                 <h:commandButton id="rech" value="Rechercher" action="#{mAJIndividuelleMBean.UpdateTableContrib()}" ></h:commandButton>
-                                <br />
-                                <br />
-                                
+                               
+                               
+                            
                                 
                                 <c:if test="#{mAJIndividuelleMBean.itemsIfu.contStatut == 'D'}" >
 
@@ -108,7 +109,7 @@
                                     <f:facet name="header">
                                         <h:outputText value="ACTION"/>
                                     </f:facet>
-                                    <p:commandButton  value="#{mAJIndividuelleMBean.statut}" action="#{mAJIndividuelleMBean.MAJStatut()}" update=":MAJICreateForm:rech @form" ajax="true" />
+                                    <p:commandButton  value="#{mAJIndividuelleMBean.statut}" action="#{mAJIndividuelleMBean.MAJStatut()}"  update=":MAJICreateForm:rech @form" ajax="false" />
                                 </h:column>
                                 
 

@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="top">
+        top
+    </ui:define>
+
+    <ui:define name="body">
+        <h:form id="listentdeclar">    
+
+            <h1><h:outputText value="Formulaire impression de rapport"/></h1>
+            <p:panelGrid columns="4" style="width:100%; ">
+                
+                <h:outputLabel value="IFU" for="contImmatr" />
+                <h:inputText  id="contImmatr" value="#{tEntDeclarationController.contrib}" title="#{bundle.CreateTRepUniqueTitle_contImmatr}" />
+                <h:outputLabel value="Exercice fiscale : " for="annee" />
+
+                <h:selectOneMenu  id="annee" value="#{tEntDeclarationController.selected.exoAnne}" title="" required="true" requiredMessage="Veuillez choisir un exercice fiscal">
+                    <f:selectItem itemLabel="----- Exercice Fiscale -----"></f:selectItem>
+                    <f:selectItems value="#{tEntDeclarationController.anneItem}"/>
+                    <f:ajax event="change" execute="contImmatr"   render="listedonne"/> 
+                </h:selectOneMenu>
+
+            </p:panelGrid>
+            <p:dataTable id="listedonne"  value="#{tEntDeclarationController.findListEntIFUANNE}" var="itementdeclar" paginator="true" rows="20" emptyMessage="Aucun enregistrement trouvé pour l'instant !" selectionMode="single" selection="#{tEntDeclarationController.entdecl}" rowKey="#{itementdeclar.entDecNum}">
+                <p:ajax event="rowSelect" />
+
+                <p:column filterBy="#{itementdeclar.entDecNum}" filterMatchMode="startsWith">
+                    <f:facet name="header">
+                        <h:outputText value="Numéro"/>
+                    </f:facet>                        
+                    <h:outputText value="#{itementdeclar.entDecNum}"  />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Date début"/>
+                    </f:facet>
+                    <h:outputText value="#{itementdeclar.entDecDatedebut}">
+                        <f:convertDateTime  pattern="dd/MM/yyyy"/>
+                    </h:outputText>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Date fin"/>
+                    </f:facet>
+                    <h:outputText value="#{itementdeclar.entDecDatefin}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+                </p:column>
+                
+                <f:facet name="footer">   
+                     <h:outputText value="Imprimer le détail de la déclarations encours" />
+                    <h:commandButton value="Exporter en Excel" actionListener="#{etat.XLSXCUMUL}"/>
+                    <h:commandButton value="Exporter en DOCX" actionListener="#{etat.DOCXCUMUL}"/>
+                    <h:commandButton value="Exporter en PDF" actionListener="#{etat.PDFDETAILDECL}"/>
+                </f:facet>
+            </p:dataTable>
+        </h:form>
+
+
+
+
+    </ui:define>
+
+</ui:composition>

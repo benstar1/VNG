@@ -87,6 +87,93 @@ public class TUtilisateur implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "histStatutUtilLogin")
     private List<THistStatut> tHistStatutList;
 
+    
+    @JoinColumn(name = "GROUPE", referencedColumnName = "GROUP_ID")
+    @ManyToOne(optional = false)
+    private TGroupe groupe;
+        @Size(max = 15)
+    @Column(name = "UTIL_TEL")
+    private String utilTel;
+@Size(max = 15)
+    @Column(name = "UTIL_TELFIX")
+    private String utilTelfix;
+
+    @Size(max = 15)
+    @Column(name = "UTIL_TEL2")
+    private String utilTel2;
+    @Size(max = 30)
+    @Column(name = "UTIL_EMAIL")
+    private String utilEmail;
+    
+        @Size(max = 15)
+    @Column(name = "UTIL_NUMCI")
+    private String utilNumci;
+    @Column(name = "UTIL_DATEEXPCI")
+    @Temporal(TemporalType.DATE)
+    private Date utilDateexpci;
+    @Size(max = 30)
+    @Column(name = "UTIL_LIEUDELIVRCI")
+    private String utilLieudelivrci;
+    
+    
+    public String getUtilTel() {
+        return utilTel;
+    }
+
+    public void setUtilTel(String utilTel) {
+        this.utilTel = utilTel;
+    }
+    
+        public String getUtilTel2() {
+        return utilTel2;
+    }
+
+    public void setUtilTel2(String utilTel2) {
+        this.utilTel2 = utilTel2;
+    }
+
+    public String getUtilEmail() {
+        return utilEmail;
+    }
+
+    public void setUtilEmail(String utilEmail) {
+        this.utilEmail = utilEmail;
+    }
+
+
+    public String getUtilTelfix() {
+        return utilTelfix;
+    }
+
+    public void setUtilTelfix(String utilTelfix) {
+        this.utilTelfix = utilTelfix;
+    }
+
+    
+    public String getUtilNumci() {
+        return utilNumci;
+    }
+
+    public void setUtilNumci(String utilNumci) {
+        this.utilNumci = utilNumci;
+    }
+
+    public Date getUtilDateexpci() {
+        return utilDateexpci;
+    }
+
+    public void setUtilDateexpci(Date utilDateexpci) {
+        this.utilDateexpci = utilDateexpci;
+    }
+
+    public String getUtilLieudelivrci() {
+        return utilLieudelivrci;
+    }
+
+    public void setUtilLieudelivrci(String utilLieudelivrci) {
+        this.utilLieudelivrci = utilLieudelivrci;
+    }
+
     public TUtilisateur() {
     }
 
@@ -247,4 +334,11 @@ public class TUtilisateur implements Serializable {
         this.utilContImmatr = utilContImmatr;
     }
     
+            public TGroupe getGroupe() {
+        return groupe;
+    }
+
+    public void setGroupe(TGroupe groupe) {
+        this.groupe = groupe;
+    }
 }

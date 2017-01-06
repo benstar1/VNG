@@ -42,7 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TRepUnique.findByContDatenreg", query = "SELECT t FROM TRepUnique t WHERE t.contDatenreg = :contDatenreg"),
     @NamedQuery(name = "TRepUnique.findByContImmatr", query = "SELECT t FROM TRepUnique t WHERE t.contImmatr = :contImmatr"),
     @NamedQuery(name = "TRepUnique.findByContImmatlike", query = "SELECT t FROM TRepUnique t WHERE t.contImmatr like :contImmatr"),
-    @NamedQuery(name = "TRepUnique.findContribByImmatPP", query = "SELECT t FROM TRepUnique t WHERE (t.contImmatr like :contImmatr or t.contImmatr like :contImmatr1) and (t.contRais is not null or t.contNomCourt is not null)"),
+    @NamedQuery(name = "TRepUnique.findContribByImmatPP", query = "SELECT t FROM TRepUnique t WHERE (t.contImmatr like concat(:contImmatr, '%') or t.contImmatr like concat(:contImmatr1, '%')) and (t.contRais is not null or t.contNomCourt is not null)"),
     @NamedQuery(name = "TRepUnique.findByContDateimmatr", query = "SELECT t FROM TRepUnique t WHERE t.contDateimmatr = :contDateimmatr"),
     @NamedQuery(name = "TRepUnique.findByContReimmatr", query = "SELECT t FROM TRepUnique t WHERE t.contReimmatr = :contReimmatr"),
     @NamedQuery(name = "TRepUnique.findByContNom", query = "SELECT t FROM TRepUnique t WHERE t.contNom = :contNom"),
@@ -96,6 +96,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TRepUnique.findByContDateMajMatricule", query = "SELECT t FROM TRepUnique t WHERE t.contDateMajMatricule = :contDateMajMatricule"),
     @NamedQuery(name = "TRepUnique.findByContStatut", query = "SELECT t FROM TRepUnique t WHERE t.contStatut = :contStatut")})
 public class TRepUnique implements Serializable {
+
     @OneToMany(mappedBy = "utilContImmatr")
     private List<TUtilisateur> tUtilisateurList;
     @OneToMany(mappedBy = "histContImmatr")
@@ -746,11 +747,9 @@ public class TRepUnique implements Serializable {
 //    public THistorique getTHistorique() {
 //        return tHistorique;
 //    }
-
 //    public void setTHistorique(THistorique tHistorique) {
 //        this.tHistorique = tHistorique;
 //    }
-
     public TTypeContrib getContTypContCode() {
         return contTypContCode;
     }
@@ -827,5 +826,5 @@ public class TRepUnique implements Serializable {
     public void setTUtilisateurList(List<TUtilisateur> tUtilisateurList) {
         this.tUtilisateurList = tUtilisateurList;
     }
-    
+
 }
