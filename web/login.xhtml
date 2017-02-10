@@ -20,9 +20,12 @@
                                 <tr>
                                     <td width="171" rowspan="4"><h:graphicImage library="images" name="connexion.jpg" alt="connexion"/></td>
                                     <td colspan="2"> <p>Veuillez saisir votre login et mot de passe</p>
-
-                                        <f:event listener="#{loginMBean.checkErrors}" type="preRenderView"/>
-                                        <h:messages/>    </td>
+                                       
+                                            <f:event listener="#{loginMBean.checkErrors}" type="preRenderView" id="error"/>
+                                            <h:messages errorStyle="color: red; font-weight: bold !important"/>   
+                                        
+                                    </td>
+                                        
                                 </tr>
 
                                 <tr>
@@ -31,7 +34,7 @@
                                 </tr>
                                 <tr>
                                     <td>Mot de passe:</td>
-                                    <td><h:inputSecret id="j_password" value="#{loginMBean.password}"  required="true"/></td>
+                                    <td><h:inputSecret id="j_password" value="#{loginMBean.password}"  /></td>
 
                                 </tr>
                                 <tr>

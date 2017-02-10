@@ -10,6 +10,7 @@ import bj.finances.cfisc.sessions.TUtilisateurFacade;
 import com.sun.faces.context.SessionMap;
 import java.io.Serializable;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -194,25 +195,41 @@ public class LoginMBean implements Serializable {
         }
     }
 
-      public String login() {
+    public String login() {
         String chemin="index.xhtml";
         String statut="D";
-
-        boolean actif=false;
+         boolean actif=false;
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         Map<String, Object> sessionMap  = externalContext.getSessionMap();
         sessionMap.put("loginUser", uname);
         HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
 
-        try {
-            
-          
-            
+        if (isConnected() ) {
+                     if  (externalContext.isUserInRole("CONTRIBUABLE")==true){
+              chemin="/vues/tEntDeclaration/DeclarationFiscal.xhtml";
+          }
+           if  (externalContext.isUserInRole("ADMIN")==true){
+              chemin="/vues/tDeclarationDou/ConsulterDD.xhtml";
+           }
+                if  (externalContext.isUserInRole("INSPECTEUR")==true){
+              chemin="/vues/tDeclarationDou/ConsulterDD.xhtml";
+          }
+                  if  (externalContext.isUserInRole("INSPECTMAJ")==true){
+              chemin="/vues/tRepUnique/MAJIndividuelle.xhtml";
+          }
+                   if  (externalContext.isUserInRole("ACTIVECC")==true){
+              chemin="/vues/tUtilisateur/MAJUtilisateur.xhtml";
+          }
+                }
+        else{
+       
+        try {            
              if (!(tUtilisateurFacade.rechercheUtilconnecte(uname)==null)){
                    setUtilisateur(tUtilisateurFacade.rechercheUtilconnecte(uname));
             statut = utilisateur.getUtilActif();
              }
-            if (statut.equals("A") ) {
+            //if (statut.equals("A") ) {
+             if ("A".equals(statut)){
            actif=true;
             }
             else
@@ -231,6 +248,7 @@ public class LoginMBean implements Serializable {
             else
                 {
                 request.login(uname, password);
+                 System.out.println("connexion");
                 if (isConnected() ) {
                      if  (externalContext.isUserInRole("CONTRIBUABLE")==true){
               chemin="/vues/tEntDeclaration/DeclarationFiscal.xhtml";
@@ -247,16 +265,15 @@ public class LoginMBean implements Serializable {
                    if  (externalContext.isUserInRole("ACTIVECC")==true){
               chemin="/vues/tUtilisateur/MAJUtilisateur.xhtml";
           }
+                   
+//                   HttpSession session = request.getSession();
+//                   session.setMaxInactiveInterval(Integer.parseInt(ResourceBundle.getBundle("/parametres").getString("timeOut"))*60);
                 }
                 
                 }
        
             return chemin;
         } catch (ServletException ex) {
-            
-           
-            
-           
             Logger.getLogger(LoginMBean.class.getName()).log(Level.INFO, "Failed to log in {0}", uname);
             FacesContext facesContext = FacesContext.getCurrentInstance();
             FacesMessage facesMessage = new FacesMessage("Login ou mot de passe incorrect. ");
@@ -267,5 +284,8 @@ public class LoginMBean implements Serializable {
             
             return "login.xhtml";
         }
+        }
+        return chemin;
+        
     }
 }

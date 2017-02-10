@@ -27,17 +27,17 @@
                         <h:outputLabel value="Num Décl. :" for="numDecl" rendered="#{tConsulterDeclarationController.referenceDec == 2}"/>
                         <h:inputText value="#{tConsulterDeclarationController.numDecl}" id="numDecl" rendered="#{tConsulterDeclarationController.referenceDec == 2}" required="true"/>
                         <h:outputLabel value="Date enreg. :" for="dateEnreg" rendered="#{tConsulterDeclarationController.referenceDec == 2}" />
-                        <p:calendar value="#{tConsulterDeclarationController.dateEnreg}" id="dateEnreg" rendered="#{tConsulterDeclarationController.referenceDec == 2 }" required="true"/>
+                        <p:calendar pattern="dd/MM/yyyy" value="#{tConsulterDeclarationController.dateEnreg}" id="dateEnreg" rendered="#{tConsulterDeclarationController.referenceDec == 2 }" required="true"/>
 
                         <h:outputLabel value="Num Liq. :" for="numLiq" rendered="#{tConsulterDeclarationController.referenceDec == 3}" />
                         <h:inputText value="#{tConsulterDeclarationController.numLiq}" id="numLiq" rendered="#{tConsulterDeclarationController.referenceDec == 3}" required="true"/>
                         <h:outputLabel value="Année :" for="dateLiq" rendered="#{tConsulterDeclarationController.referenceDec == 3}" />
-                        <p:calendar value="#{tConsulterDeclarationController.dateLiq}" id="dateLiq" rendered="#{tConsulterDeclarationController.referenceDec == 3}" required="true"/>
+                        <p:calendar  pattern="dd/MM/yyyy" value="#{tConsulterDeclarationController.dateLiq}" id="dateLiq" rendered="#{tConsulterDeclarationController.referenceDec == 3}" required="true"/>
 
                         <h:outputLabel value="Num Quit. :" for="numQuit" rendered="#{tConsulterDeclarationController.referenceDec == 4}"/>
                         <h:inputText value="#{tConsulterDeclarationController.numQuit}" id="numQuit" rendered="#{tConsulterDeclarationController.referenceDec == 4}" required="true"/>
                         <h:outputLabel value="Année :" for="dateQuit" rendered="#{tConsulterDeclarationController.referenceDec == 4}" />
-                        <p:calendar value="#{tConsulterDeclarationController.dateQuit}" id="dateQuit" rendered="#{tConsulterDeclarationController.referenceDec == 4}" required="true"/>
+                        <p:calendar  pattern="dd/MM/yyyy" value="#{tConsulterDeclarationController.dateQuit}" id="dateQuit" rendered="#{tConsulterDeclarationController.referenceDec == 4}" required="true"/>
 
                         <h:outputLabel value="" />
                         <p:commandButton value="Rechercher" actionListener="#{tConsulterDeclarationController.rechercheSimple()}" ajax="true" update=":formResultat:listeDeclaration"   />                
@@ -49,7 +49,7 @@
                     <h:panelGrid columns="4"  width="100%">
                         <h:panelGroup>
                             <h:panelGrid columns="2">
-                                <p:outputLabel value="bureau" />
+                                <p:outputLabel value="Bureau : " />
                                 <p:inputText  value="#{tConsulterDeclarationController.bureau}" id="bureauAvance"/>                                  
                                 <h:outputLabel value="N° IFU :" for="numIfu" />
                                 <h:inputText id="numIfu" value="#{tConsulterDeclarationController.ifu}">
@@ -234,7 +234,7 @@
 
                             <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideRegDat}"/>
                             <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideRegDat}" title="#{bundle.ViewTDeclarationDouTitle_ideRegDat}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputText>
                             <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideAstSer}"/>
                             <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideAstSer}" title="#{bundle.ViewTDeclarationDouTitle_ideAstSer}"/>
@@ -242,7 +242,7 @@
                             <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideAstNbr}" title="#{bundle.ViewTDeclarationDouTitle_ideAstNbr}"/>
                             <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideAstDat}"/>
                             <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideAstDat}" title="#{bundle.ViewTDeclarationDouTitle_ideAstDat}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputText>
                             <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideRcpSer}"/>
                             <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideRcpSer}" title="#{bundle.ViewTDeclarationDouTitle_ideRcpSer}"/>
@@ -250,7 +250,7 @@
                             <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideRcpNbr}" title="#{bundle.ViewTDeclarationDouTitle_ideRcpNbr}"/>
                             <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideRcpDat}"/>
                             <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideRcpDat}" title="#{bundle.ViewTDeclarationDouTitle_ideRcpDat}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputText>
                             <h:outputText value="#{bundle.ViewTDeclarationDouLabel_astAmt}"/>
                             <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.astAmt}" title="#{bundle.ViewTDeclarationDouTitle_astAmt}"/>

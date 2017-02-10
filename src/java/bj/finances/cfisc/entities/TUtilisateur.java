@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "TUtilisateur.findAll", query = "SELECT t FROM TUtilisateur t"),
     @NamedQuery(name = "TUtilisateur.findByUtilLogin", query = "SELECT t FROM TUtilisateur t WHERE t.utilLogin = :utilLogin"),
+    @NamedQuery(name = "TUtilisateur.findByGroupe", query = "SELECT t FROM TUtilisateur t WHERE t.groupe = :groupe"),
     @NamedQuery(name = "TUtilisateur.findByUtilActif", query = "SELECT t FROM TUtilisateur t WHERE t.utilActif = :utilActif")})
 public class TUtilisateur implements Serializable {
     @JoinColumn(name = "UTIL_CONT_IMMATR", referencedColumnName = "CONT_IMMATR")

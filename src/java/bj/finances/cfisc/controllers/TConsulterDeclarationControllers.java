@@ -96,13 +96,13 @@ public class TConsulterDeclarationControllers implements Serializable {
 
         switch (referenceDec) {
             case 2:
-                tDeclarationDouFacade.findAll(referenceDec, bureau, serie, numero, dateEnreg);
+                listeTDeclarationDou = tDeclarationDouFacade.findAll(referenceDec, bureau, serie, numero, dateEnreg);
                 break;
             case 3:
-                tDeclarationDouFacade.findAll(referenceDec, bureau, serie, numero, dateLiq);
+                listeTDeclarationDou = tDeclarationDouFacade.findAll(referenceDec, bureau, serie, numero, dateLiq);
                 break;
             case 4:
-                tDeclarationDouFacade.findAll(referenceDec, bureau, serie, numero, dateQuit);
+                listeTDeclarationDou = tDeclarationDouFacade.findAll(referenceDec, bureau, serie, numero, dateQuit);
                 break;
         }
 

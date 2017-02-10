@@ -46,7 +46,7 @@ public class TRecoupement {
                 + "  NVL((SELECT SUM(tt.TAX_LIN_AMT) FROM T_TAXE_DECL_DOU tt WHERE tt.TAX_LIN_COD = 'AIB' AND tt.INSTANCEID = td.INSTANCEID ),0) AS AIB, "
                 + "  NVL((SELECT SUM(tt.TAX_LIN_AMT) FROM T_TAXE_DECL_DOU tt WHERE tt.TAX_LIN_COD = 'TVA' AND tt.INSTANCEID = td.INSTANCEID ),0) AS TVA, "
                 + "  0 AS BASE_TAXABLE "
-                + "  FROM T_DECLARATION_DOU td WHERE (td.CMP_CON_COD like ? OR td.CMP_EXP_COD like ?) AND td.IDE_AST_DAT BETWEEN ? AND ? "
+                + "  FROM T_DECLARATION_DOU td WHERE (td.CMP_CON_COD like ? OR td.CMP_EXP_COD like ?) AND td.IDE_RCP_DAT BETWEEN ? AND ? "
                 + "  ORDER BY td.IDE_CUO_COD, td.IDE_REG_DAT, td.IDE_REG_SER || td.IDE_REG_NBR ";
         Query query = em.createNativeQuery(queryString);
         query.setParameter(1, contImmatr)
@@ -97,7 +97,7 @@ public class TRecoupement {
                 + "   SUM(NVL((SELECT SUM(tt.TAX_LIN_AMT) FROM T_TAXE_DECL_DOU tt WHERE tt.TAX_LIN_COD = 'AIB' AND tt.INSTANCEID = td.INSTANCEID ),0)) AS AIB,    "
                 + "   SUM(NVL((SELECT SUM(tt.TAX_LIN_AMT) FROM T_TAXE_DECL_DOU tt WHERE tt.TAX_LIN_COD = 'TVA' AND tt.INSTANCEID = td.INSTANCEID ),0)) AS TVA,    "
                 + "   SUM(NVL((SELECT SUM(tt.TAX_LIN_AMT) FROM T_TAXE_DECL_DOU tt WHERE tt.TAX_LIN_COD = 'AFS' AND tt.INSTANCEID = td.INSTANCEID ),0)) AS AFS    "
-                + "   FROM T_DECLARATION_DOU td WHERE (td.CMP_CON_COD like ? OR td.CMP_EXP_COD like ?) AND td.IDE_AST_DAT BETWEEN ? AND ? GROUP BY 1";
+                + "   FROM T_DECLARATION_DOU td WHERE (td.CMP_CON_COD like ? OR td.CMP_EXP_COD like ?) AND td.IDE_RCP_DAT BETWEEN ? AND ? GROUP BY 1";
         Query query = em.createNativeQuery(queryString)
                         .setParameter(2, contImmatr)
                         .setParameter(3, new java.sql.Date(debut.getTime()))
@@ -147,7 +147,7 @@ public class TRecoupement {
                                 " 0 AS BASE_TAXABLE " +
                                 "  FROM T_DECLARATION_DOU td, T_ARTICLE ta" +
                                 "  WHERE td.INSTANCEID = ta.INSTANCEID" +
-                                "  AND (td.CMP_CON_COD like ? OR td.CMP_EXP_COD like ?) AND td.IDE_AST_DAT BETWEEN ? AND ?";
+                                "  AND (td.CMP_CON_COD like ? OR td.CMP_EXP_COD like ?) AND td.IDE_RCP_DAT BETWEEN ? AND ?";
         Query query = em.createNativeQuery(queryString);
         query.setParameter(1, contImmatr)
                 .setParameter(2, contImmatr)
@@ -194,7 +194,7 @@ public class TRecoupement {
                 + "   NVL((SELECT SUM(tt.TAX_LIN_AMT) FROM T_TAXE_DECL_DOU tt WHERE tt.TAX_LIN_COD = 'DD' AND tt.INSTANCEID = td.INSTANCEID ),0) AS DD,    "
                 + "   NVL((SELECT SUM(tt.TAX_LIN_AMT) FROM T_TAXE_DECL_DOU tt WHERE tt.TAX_LIN_COD = 'TVA' AND tt.INSTANCEID = td.INSTANCEID ),0) AS TVA,    "
                 + "   NVL((SELECT SUM(tt.TAX_LIN_AMT) FROM T_TAXE_DECL_DOU tt WHERE tt.TAX_LIN_COD = 'AFS' AND tt.INSTANCEID = td.INSTANCEID ),0) AS AFS    "
-                + "   FROM T_DECLARATION_DOU td WHERE (td.CMP_CON_COD like ? OR td.CMP_EXP_COD like ?) AND td.IDE_AST_DAT BETWEEN ? AND ? ";
+                + "   FROM T_DECLARATION_DOU td WHERE (td.CMP_CON_COD like ? OR td.CMP_EXP_COD like ?) AND td.IDE_RCP_DAT BETWEEN ? AND ? ";
         Query query = em.createNativeQuery(queryString)
                         .setParameter(2, contImmatr)
                         .setParameter(3, new java.sql.Date(debut.getTime()))

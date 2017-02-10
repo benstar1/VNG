@@ -6,6 +6,7 @@
 package bj.finances.cfisc.controllers;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
@@ -26,7 +27,7 @@ public class Bean implements Serializable{
     }
 
     public void setText(String text) {
-        this.text = text;
+        this.text = text;        
     }
     
     

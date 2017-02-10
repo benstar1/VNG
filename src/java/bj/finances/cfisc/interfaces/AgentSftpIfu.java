@@ -49,7 +49,7 @@ public class AgentSftpIfu {
     final static org.apache.log4j.Logger logger = Logger.getLogger(AgentSftpIfu.class.getName());
 
     
-    @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/20", persistent = false)
+    //@Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/20", persistent = false)
     public void telechargerEntrepriseIfu() {
         JSch jsch = new JSch();
         Session session = null;
@@ -78,13 +78,18 @@ public class AgentSftpIfu {
             
             ChannelSftp channelSftp = (ChannelSftp) channel;
             channelSftp.lcd(cheminDepotLocal);
-
+            System.out.println("Connexion à SFTP IFU REUSSI");
+            channelSftp.cd("cfiscuser");
             Vector<ChannelSftp.LsEntry> list = channelSftp.ls("*.xml");
             
+            System.out.println("chemin local gethome  "+ channelSftp.getHome());
+            System.out.println("chemin local pwd  "+ channelSftp.pwd());
+            System.out.println("Nombre de fichier trouvé "+list.size());
+             
             for (ChannelSftp.LsEntry entry : list) {
                 
                 channelSftp.get(entry.getFilename(), entry.getFilename());
-                System.out.println("nom fichier : " + entry.getFilename());
+                System.out.println("nom fichier IFU : " + entry.getFilename());
                 channelSftp.rename(entry.getFilename(), "fichier_traite/" + entry.getFilename());
                 logger.info("Fichier traité .... " + entry.getFilename());
             }     

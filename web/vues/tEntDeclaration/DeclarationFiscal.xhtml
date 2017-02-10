@@ -68,7 +68,7 @@
             <p:commandButton id="enregistrerdecl" disabled="#{tEntDeclarationController.valider}"  value= "Enregistrer" actionListener="#{tDeclarationFiscaleController.selected.setDeclarEntDecNum(tEntDeclarationController.selected)}" action="#{tDeclarationFiscaleController.create()}" update=":listdeclardou" style="width: 120px;" ajax="true" />
             <p:commandButton id="modifierdecl" disabled="#{tEntDeclarationController.valider}"  value= "Modifier" actionListener="#{tDeclarationFiscaleController.selected.setDeclarEntDecNum(tEntDeclarationController.selected)}" action="#{tDeclarationFiscaleController.update()}" update=":listdeclardou" style="width: 120px;" ajax="true" />
             <p:commandButton id="supprimerdecl" disabled="#{tEntDeclarationController.valider}" value= "Supprimer" action="#{tDeclarationFiscaleController.destroybis(tDeclarationFiscaleController.selected)}" update=":listdeclardou"  style="width: 120px;" ajax="true" />
-            <h:commandButton value="Imprimer" actionListener="#{etat.PDFDETAILDECL}"/>       
+            <p:commandButton value="Imprimer" actionListener="#{etat.PDFDETAILDECL}"/>       
             </f:facet>
         </p:panelGrid>
        

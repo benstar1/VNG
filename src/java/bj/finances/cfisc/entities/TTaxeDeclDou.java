@@ -43,22 +43,19 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TTaxeDeclDou.findByTaxLinMop", query = "SELECT t FROM TTaxeDeclDou t WHERE t.taxLinMop = :taxLinMop"),
     @NamedQuery(name = "TTaxeDeclDou.findByTaxLinTyp", query = "SELECT t FROM TTaxeDeclDou t WHERE t.taxLinTyp = :taxLinTyp")})
 public class TTaxeDeclDou implements Serializable {
+    @Column(name = "TAX_LIN_BSE")
+    private BigDecimal taxLinBse;
+    @Column(name = "TAX_LIN_RAT")
+    private BigDecimal taxLinRat;
+    @Column(name = "TAX_LIN_AMT")
+    private BigDecimal taxLinAmt;
+    @JoinColumn(name = "TAX_LIN_COD", referencedColumnName = "TAX_COD")
+    @ManyToOne
+    private TTaxeDouane taxLinCod;
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected TTaxeDeclDouPK tTaxeDeclDouPK;
-    @Size(max = 3)
-    @Column(name = "TAX_LIN_COD")
-    private String taxLinCod;
-    @Column(name = "TAX_LIN_BSE")
-    //private BigInteger taxLinBse;
-    private BigDecimal taxLinBse;
-    @Column(name = "TAX_LIN_RAT")
-    //private BigInteger taxLinRat;
-    private BigDecimal taxLinRat;
-    
-    @Column(name = "TAX_LIN_AMT")
-    //private BigInteger taxLinAmt;
-    private BigDecimal taxLinAmt;
+   
     @Size(max = 1)
     @Column(name = "TAX_LIN_MOP")
     private String taxLinMop;
@@ -90,13 +87,7 @@ public class TTaxeDeclDou implements Serializable {
         this.tTaxeDeclDouPK = tTaxeDeclDouPK;
     }
 
-    public String getTaxLinCod() {
-        return taxLinCod;
-    }
-
-    public void setTaxLinCod(String taxLinCod) {
-        this.taxLinCod = taxLinCod;
-    }
+    
 
     public BigDecimal getTaxLinBse() {
         return taxLinBse;
@@ -169,6 +160,15 @@ public class TTaxeDeclDou implements Serializable {
     @Override
     public String toString() {
         return "bj.finances.cfisc.entities.TTaxeDeclDou[ tTaxeDeclDouPK=" + tTaxeDeclDouPK + " ]";
+    }
+
+
+    public TTaxeDouane getTaxLinCod() {
+        return taxLinCod;
+    }
+
+    public void setTaxLinCod(TTaxeDouane taxLinCod) {
+        this.taxLinCod = taxLinCod;
     }
     
 }

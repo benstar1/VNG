@@ -167,7 +167,7 @@ ENT_DEC_NUM =$P{numdeclar}]]>
 	<title>
 		<band height="136" splitType="Stretch">
 			<staticText>
-				<reportElement style="Title" x="385" y="36" width="445" height="62" uuid="40d0d529-dcb8-409b-9e7e-4685aaeb2c39"/>
+				<reportElement style="Title" x="385" y="36" width="408" height="62" uuid="40d0d529-dcb8-409b-9e7e-4685aaeb2c39"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="26" pdfFontName="Times-Roman"/>
 				</textElement>

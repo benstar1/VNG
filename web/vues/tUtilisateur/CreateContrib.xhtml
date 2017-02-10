@@ -20,27 +20,27 @@
                 <center>
                     <h:panelGrid columns="6">
                         <h:outputLabel value="#{bundle.CreateTUtilisateurLabel_utilContImmatr}" for="utilContImmatr" />
-                        <h:inputText readonly="false" id="utilContImmatr" value="#{tUtilisateurController.ifu}" title="#{bundle.CreateTUtilisateurTitle_utilContImmatr}" validator="#{tUtilisateurController.validateIfu}">
+                        <p:inputText readonly="false" id="utilContImmatr" value="#{tUtilisateurController.ifu}" title="#{bundle.CreateTUtilisateurTitle_utilContImmatr}" validator="#{tUtilisateurController.validateIfu}">
                             <p:ajax event="blur" listener="#{tUtilisateurController.rechercheContribuable()}" update="utilNom utilPrenoms"/>
                             <p:ajax event="change" listener="#{tUtilisateurController.rechercheContribuable()}" update="utilNom utilPrenoms"/>
-                        </h:inputText>
+                        </p:inputText>
                         <h:outputLabel value="#{bundle.CreateTUtilisateurLabel_utilNom}" for="utilNom" />
-                        <h:inputText size="40" readonly="true" id="utilNom" value="#{empty tUtilisateurController.contrib.contNom ? tUtilisateurController.contrib.contRais : tUtilisateurController.contrib.contNom}" title="#{bundle.CreateTUtilisateurTitle_utilNom}" />
+                        <p:inputText readonly="true" id="utilNom" value="#{empty tUtilisateurController.contrib.contNom ? tUtilisateurController.contrib.contRais : tUtilisateurController.contrib.contNom}" title="#{bundle.CreateTUtilisateurTitle_utilNom}" />
                         <h:outputLabel value="#{bundle.CreateTUtilisateurLabel_utilPrenoms}" for="utilPrenoms" />
-                        <h:inputText size="40" readonly="true" id="utilPrenoms" value="#{empty tUtilisateurController.contrib.contPren ? tUtilisateurController.contrib.contNomLong : tUtilisateurController.contrib.contPren}" title="#{bundle.CreateTUtilisateurTitle_utilPrenoms}" />
+                        <p:inputText readonly="true" id="utilPrenoms" value="#{empty tUtilisateurController.contrib.contPren ? tUtilisateurController.contrib.contNomLong : tUtilisateurController.contrib.contPren}" title="#{bundle.CreateTUtilisateurTitle_utilPrenoms}" />
                         <h:outputLabel value="#{bundle.CreateTUtilisateurLabel_utilTel}" for="utilTel" />
-                        <h:inputText id="utilTel" value="#{tUtilisateurController.selected.utilTel}" title="#{bundle.CreateTUtilisateurTitle_utilTel}" requiredMessage="Veuillez spécifier au moins un numéro de téléphone" />
+                        <p:inputText id="utilTel" value="#{tUtilisateurController.selected.utilTel}" title="#{bundle.CreateTUtilisateurTitle_utilTel}" requiredMessage="Veuillez spécifier au moins un numéro de téléphone" />
                         <h:outputLabel value="#{bundle.CreateTUtilisateurLabel_utilTel2}" for="utilTel2" />
-                        <h:inputText id="utilTel2" value="#{tUtilisateurController.selected.utilTel2}" title="#{bundle.CreateTUtilisateurTitle_utilTel2}" />
+                        <p:inputText id="utilTel2" value="#{tUtilisateurController.selected.utilTel2}" title="#{bundle.CreateTUtilisateurTitle_utilTel2}" />
                         <h:outputLabel value="#{bundle.CreateTUtilisateurLabel_utilTelfix}" for="utilTelfix" />
-                        <h:inputText id="utilTelfix" value="#{tUtilisateurController.selected.utilTelfix}" title="#{bundle.CreateTUtilisateurTitle_utilTelfix}" />
+                        <p:inputText id="utilTelfix" value="#{tUtilisateurController.selected.utilTelfix}" title="#{bundle.CreateTUtilisateurTitle_utilTelfix}" />
                         <h:outputLabel value="#{bundle.CreateTUtilisateurLabel_utilEmail}" for="utilEmail" />
-                        <h:inputText id="utilEmail" value="#{tUtilisateurController.selected.utilEmail}" title="#{bundle.CreateTUtilisateurTitle_utilEmail}" validator="#{tUtilisateurController.validateEmail}" />
+                        <p:inputText id="utilEmail" value="#{tUtilisateurController.selected.utilEmail}" title="#{bundle.CreateTUtilisateurTitle_utilEmail}" validator="#{tUtilisateurController.validateEmail}" />
                         <h:outputLabel value="#{bundle.CreateTUtilisateurLabel_utilPassword}" for="utilPassword" />
-                        <h:inputSecret id="utilPassword" value="#{tUtilisateurController.selected.utilPassword}" title="#{bundle.CreateTUtilisateurTitle_utilPassword}" required="true"/>
+                        <p:password id="utilPassword" feedback="false" match="utilPassword2" value="#{tUtilisateurController.selected.utilPassword}" title="#{bundle.CreateTUtilisateurTitle_utilPassword}" required="true" requiredMessage="La confirmation est obligatoire" validatorMessage="Les Mots de passe sont différents"/>
                         <h:outputLabel value="Confirmer:" for="utilPassword2" />
-                        <h:inputSecret id="utilPassword2" value="#{tUtilisateurController.selected.utilPassword}" title="#{bundle.CreateTUtilisateurTitle_utilPassword}" required="true" requiredMessage="La confirmation est obligatoire"/>
-                    </h:panelGrid>
+                        <p:password id="utilPassword2" feedback="false" value="#{tUtilisateurController.selected.utilPassword}" title="#{bundle.CreateTUtilisateurTitle_utilPassword}" required="true" requiredMessage="La confirmation est obligatoire"/>
+                     </h:panelGrid>
                     <br />
                     <h:commandButton action="#{tUtilisateurController.create}" value="#{bundle.CreateTUtilisateurSaveLink}" />
                     <br />

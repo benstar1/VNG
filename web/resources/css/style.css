@@ -24,6 +24,10 @@ div#banniere{
     /*margin-left:auto;
     margin-right:auto;*/
 }
+#{color: red;
+  font-weight: bold;
+    
+}
 
 .nomAppli{
     background-color:  #ffffff;

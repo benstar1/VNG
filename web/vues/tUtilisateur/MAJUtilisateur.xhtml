@@ -17,7 +17,7 @@
 
             <center>
                 <h:form id="MAJICreateForm">
-                    <h:panelGroup id="display">
+                    <h:panelGroup id="display" >
 
                         <p:panelGrid columns="3" style="width: 100%"  >
                             <br />
@@ -36,7 +36,7 @@
                                 <br />
                                 <br />
 
-                                <c:if test="#{mAJUtilisateurMBean.itemsUtil.utilActif == 'N'}" >
+                                <c:if  test="#{mAJUtilisateurMBean.itemsUtil.utilActif == 'N'}" >
 
 
 
@@ -68,58 +68,50 @@
                         <center>
 
                             <h1 align="left"><h:outputText value="Informations de l'Utilisateur"/></h1>
-                            <h:dataTable  width="100%" id="ItemsUtil" value="#{mAJUtilisateurMBean.itemsUtil}" var="item" border="1" style="text-align: center"> 
+                            <p:dataTable   id="ItemsUtil" value="#{mAJUtilisateurMBean.itemsUtil}" var="item"  style="text-align: center"> 
 
 
-                                <h:column>
+                                <p:column>
                                     <f:facet name="header">
-                                        <h:outputText value="UtilLogin"/>
+                                        <h:outputText value="Identifiant"/>
                                     </f:facet>
                                     <h:outputText value="#{item.utilLogin}"/>
-                                </h:column>
+                                </p:column>
 
-                                <h:column>
+                                <p:column>
                                     <f:facet name="header">
-                                        <h:outputText value="UtilNom"/>
+                                        <h:outputText value="Nom"/>
                                     </f:facet>
                                     <h:outputText value="#{item.utilNom}"/>
-                                </h:column>
-                                <h:column>
+                                </p:column>
+                                <p:column>
                                     <f:facet name="header">
-                                        <h:outputText value="UtilPrenoms"/>
+                                        <h:outputText value="Prénoms"/>
                                     </f:facet>
                                     <h:outputText value="#{item.utilPrenoms}"/>
-                                </h:column>
+                                </p:column>
 
-                                <h:column>
+                                <p:column>
                                     <f:facet name="header">
-                                        <h:outputText value="UtilContImmatr"/>
+                                        <h:outputText value="IFU"/>
                                     </f:facet>
                                     <h:outputText value="#{item.utilContImmatr}"/>
-                                </h:column>
-                                <h:column>
+                                </p:column>
+                                <p:column>
                                     <f:facet name="header">
-                                        <h:outputText value="UtilTel"/>
+                                        <h:outputText value="Télephone"/>
                                     </f:facet>
                                     <h:outputText value="#{item.utilTel}"/>
-                                </h:column>
+                                </p:column>
 
 
-                                <h:column>
+                                <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="Groupe"/>
                                     </f:facet>
                                     <h:outputText value="#{mAJUtilisateurMBean.itemsUtil.groupe.groupName}"/>
-                                </h:column> 
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="UtilDateCreat"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.utilDateCreat}">
-                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                                    </h:outputText>
-                                </h:column>
-                                <h:column>
+                                </p:column> 
+                                <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="Statut"/>
                                     </f:facet>
@@ -127,17 +119,17 @@
                                     <h:outputText value="#{mAJUtilisateurMBean.afficheStatut}"/>
 
 
-                                </h:column>
+                                </p:column>
 
 
-                                <h:column>
+                                <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="ACTION"/>
                                     </f:facet>
-                                    <p:commandButton  value="#{mAJUtilisateurMBean.statut}" action="#{mAJUtilisateurMBean.MAJStatut}" update=":MAJICreateForm:rech @form" ajax="true" />
-                                </h:column>
+                                    <p:commandButton  value="#{mAJUtilisateurMBean.statut}" action="#{mAJUtilisateurMBean.MAJStatut()}" update=":MAJICreateForm:rech @form" ajax="true" />
+                                </p:column>
 
-                            </h:dataTable>
+                            </p:dataTable>
 
 
                         </center>
@@ -156,14 +148,24 @@
                                 <h:outputText value="Identifiant"/>
                             </f:facet>                        
                             <p:commandLink value="#{utilisateur.utilLogin}"  action="#{mAJUtilisateurMBean.UtilisateurSelectionne(utilisateur)}" update=":MAJICreateForm:util" oncomplete="PF('dlgIFU').hide();"  process="@this" title="Selectionnez" style="color: blue;"/>
-
-
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="Raison sociale"/>
+                                <h:outputText value="Email"/>
                             </f:facet>
-                            <h:outputText value="#{contrib.contRais}"/>
+                            <h:outputText value="#{utilisateur.utilEmail}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Téléphone"/>
+                            </f:facet>
+                            <h:outputText value="#{utilisateur.utilTel}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Groupe"/>
+                            </f:facet>
+                            <h:outputText value="#{utilisateur.groupe.groupName}"/>
                         </p:column>
                     </p:dataTable>
                 </h:form>

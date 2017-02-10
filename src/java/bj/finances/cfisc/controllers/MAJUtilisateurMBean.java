@@ -17,6 +17,7 @@ import bj.finances.cfisc.sessions.TGroupeFacade;
 import bj.finances.cfisc.sessions.THistStatutFacade;
 import bj.finances.cfisc.sessions.TRepUniqueFacade;
 import bj.finances.cfisc.sessions.TUtilisateurFacade;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -37,69 +38,98 @@ import javax.inject.Inject;
 @ManagedBean
 @SessionScoped
 public class MAJUtilisateurMBean extends java.lang.Object {
-    
+
     public TGroupeFacade gettGroupeFacade() {
         return tGroupeFacade;
     }
-    
+
     public void settGroupeFacade(TGroupeFacade tGroupeFacade) {
         this.tGroupeFacade = tGroupeFacade;
     }
-    
+
     @EJB
     private TGroupeFacade tGroupeFacade;
-    
+
     private TGroupe groupe;
-    
+
     public TGroupe getGroupe() {
         return groupe;
     }
-    
+
     public void setGroupe(TGroupe groupe) {
         this.groupe = groupe;
     }
-    
+
     private List<TUtilisateur> utilisateur = null;
 //    @EJB
-//    private TRepUniqueFacade tRepUniqueFacade;
+//    private TRepUniqueFacade tRepUniqueFacade
+
+    String numcarte;
+    String lieudeli;
+    Date datedeli;
+
+    public String getNumcarte() {
+        return numcarte;
+    }
+
+    public void setNumcarte(String numcarte) {
+        this.numcarte = numcarte;
+    }
+
+    public String getLieudeli() {
+        return lieudeli;
+    }
+
+    public void setLieudeli(String lieudeli) {
+        this.lieudeli = lieudeli;
+    }
+
+    public Date getDatedeli() {
+        return datedeli;
+    }
+
+    public void setDatedeli(Date datedeli) {
+        this.datedeli = datedeli;
+    }
+
     @EJB
     private bj.finances.cfisc.sessions.TRepUniqueFacade tRepUniqueFacade;
 //    private int selectedItemIndex;
 
     @Inject
     bj.finances.cfisc.controllers.LoginMBean loginBean;
-    
+
     public TRepUniqueFacade gettRepUniqueFacade() {
         return tRepUniqueFacade;
     }
-    
+
     public void settRepUniqueFacade(TRepUniqueFacade tRepUniqueFacade) {
         this.tRepUniqueFacade = tRepUniqueFacade;
     }
-    
+
     @EJB
     private TCentreImpotFacade tCentreImpotFacade;
-    
+
     private TCentreImpot centreImpot;
-    
+
     public TCentreImpotFacade gettCentreImpotFacade() {
         return tCentreImpotFacade;
     }
-    
+
     public void settCentreImpotFacade(TCentreImpotFacade tCentreImpotFacade) {
         this.tCentreImpotFacade = tCentreImpotFacade;
     }
-    
+
     public TCentreImpot getCentreImpot() {
         return centreImpot;
     }
-    
+
     public void setCentreImpot(TCentreImpot centreImpot) {
         this.centreImpot = centreImpot;
     }
-    
+
     private TUtilisateur current;
-    
+
     public TUtilisateur getCurrent() {
         if (current == null) {
             current = new TUtilisateur();
@@ -107,15 +137,15 @@ public class MAJUtilisateurMBean extends java.lang.Object {
         }
         return current;
     }
-    
+
     public void setCurrent(TUtilisateur current) {
         this.current = current;
     }
     private DataModel items = null;
     private List<TRepUnique> contrib = null;
-    
+
     private TUtilisateur util = null;
-    
+
     private TUtilisateur ItemsUtil;
 
 //        public TRepUnique getSelected() {
@@ -128,7 +158,7 @@ public class MAJUtilisateurMBean extends java.lang.Object {
     public TUtilisateur getItemsUtil() {
         return ItemsUtil;
     }
-    
+
     public void setItemsUtil(TUtilisateur ItemsUtil) {
         this.ItemsUtil = ItemsUtil;
     }
@@ -145,91 +175,91 @@ public class MAJUtilisateurMBean extends java.lang.Object {
 //    }
     // ajout
     String statut = "";
-    
+
     String afficheStatut = "";
-    
+
     public String getAfficheStatut() {
         return afficheStatut;
     }
-    
+
     public void setAfficheStatut(String afficheStatut) {
         this.afficheStatut = afficheStatut;
     }
-    
+
     public String getStatut() {
         return statut;
     }
-    
+
     public void setStatut(String statut) {
         this.statut = statut;
     }
 // fin 
 
     private THistStatut tHistStatut;
-    
+
     @EJB
     private TUtilisateurFacade tUtilisateurFacade;
-    
+
     private TUtilisateur user;
-    
+
     public TUtilisateurFacade gettUtilisateurFacade() {
         return tUtilisateurFacade;
     }
-    
+
     public void settUtilisateurFacade(TUtilisateurFacade tUtilisateurFacade) {
         this.tUtilisateurFacade = tUtilisateurFacade;
     }
-    
+
     public TUtilisateur getUser() {
         return user;
     }
-    
+
     public void setUser(TUtilisateur user) {
         this.user = user;
     }
-    
+
     public TUtilisateur getUtil(TUtilisateur utilmaj) {
-        
+
         util = tUtilisateurFacade.find(utilmaj);
         return util;
     }
-    
+
     @EJB
     private THistStatutFacade tHistStatutFacade;
 
     // @Inject
     TRepUniqueController tRepUniqueController;
-    
+
     private TRepUnique tRepUnique;
     private List<TRepUnique> chargement = null;
-    
+
     public List<TRepUnique> getChargement() {
         return chargement;
     }
-    
+
     public void setChargement(List<TRepUnique> chargement) {
         this.chargement = chargement;
     }
-    
+
     private String centre;
-    
+
     public String getCentre() {
         return centre;
     }
-    
+
     public void setCentre(String centre) {
         this.centre = centre;
     }
-    
+
     public TRepUniqueController gettRepUniqueController() {
         return tRepUniqueController;
     }
-    
+
     public void settRepUniqueController(TRepUniqueController tRepUniqueController) {
         this.tRepUniqueController = tRepUniqueController;
-        
+
     }
-    
+
     public void prepareAfficheMAJIndividuelle(TUtilisateur tutilisateur) {
 //        recreateModel();
 //        return "MAJIndividuelle";
@@ -238,33 +268,32 @@ public class MAJUtilisateurMBean extends java.lang.Object {
         } else {
             setStatut("Activer");
         }
-        
+
     }
-    
+
     public String UpdateTableUtil() {
         TUtilisateur tutilisateur = tUtilisateurFacade.find(util.getUtilLogin());
         ItemsUtil = tutilisateur;
         prepareAfficheMAJIndividuelle(tutilisateur);
-        
+
         if ("A".equals(ItemsUtil.getUtilActif())) {
             setAfficheStatut("ACTIVE");
         } else {
             setAfficheStatut("DESACTIVE");
         }
-        
+
         return "";
     }
-    
+
     public void MAJStatut() {
-        
+
         System.out.println("Je suis dans MAJStatut() " + current + " Et ifu contient quoi " + util);
         System.out.println("Je suis avec le statut " + current.getUtilActif());
 
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        Map<String, Object> sessionMap = externalContext.getSessionMap();
-        String le_login = (String) sessionMap.get("loginUser");
-        System.out.println("LE LOGIN " + le_login);
-
+//        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+//        Map<String, Object> sessionMap = externalContext.getSessionMap();
+//        String le_login = (String) sessionMap.get("loginUser");
+//        System.out.println("LE LOGIN " + le_login);
         current = util;
 
         try {
@@ -280,7 +309,6 @@ public class MAJUtilisateurMBean extends java.lang.Object {
 //                current.setUtilNumci(util.getUtilNumci());
 //                current.setUtilDateexpci(util.getUtilDateexpci());
 //                current.setUtilLieudelivrci(util.getUtilLieudelivrci());
-
                 current.setUtilActif("D");
                 System.out.println(" Statut " + current.getUtilActif());
 
@@ -324,13 +352,11 @@ public class MAJUtilisateurMBean extends java.lang.Object {
 
                 // Cas Spécifique du contribuable
                 if ("N".equals(current.getUtilActif())) {
-                    System.out.println("Hé, il est un nouveau");
-                    System.out.println(util.getUtilNumci());
-                    System.out.println(util.getUtilDateexpci());
-                    System.out.println(util.getUtilLieudelivrci());
-                    current.setUtilNumci(util.getUtilNumci());
-                    current.setUtilDateexpci(util.getUtilDateexpci());
-                    current.setUtilLieudelivrci(util.getUtilLieudelivrci());
+                    System.out.println("Hé, il est un nouveau" + numcarte);
+                    current.setUtilNumci(numcarte);
+                    current.setUtilDateexpci(datedeli);
+                    current.setUtilLieudelivrci(lieudeli);
+
                 }
                 System.out.println(" Statut Nouveau" + current.getUtilActif());
                 current.setUtilActif("A");
@@ -371,22 +397,20 @@ public class MAJUtilisateurMBean extends java.lang.Object {
             // return null;
         }
     }
-    
+
     public List<TUtilisateur> getUtilisateur() {
+        TGroupe groupe = new TGroupe("CONTRIBUABLE");
+
         try {
-//                if (utilisateur == null) {
-////            contrib = tRepUniqueFacade.findAll();
-//            utilisateur = tUtilisateurFacade.findAll();
-//        }
-            utilisateur = tUtilisateurFacade.findAll();
+            utilisateur = tUtilisateurFacade.findByGroupe(groupe);
         } catch (NumberFormatException e) {
             System.out.println("Find" + e.getMessage());
         }
-        
+
         return utilisateur;
-        
+
     }
-    
+
     public String UtilisateurSelectionne(TUtilisateur utilisateur) {
         System.out.println(" = choisi " + current + "pris " + utilisateur);
         current.setUtilLogin(utilisateur.getUtilLogin());
@@ -400,7 +424,7 @@ public class MAJUtilisateurMBean extends java.lang.Object {
     public MAJUtilisateurMBean() {
         this.ItemsUtil = null;
     }
-    
+
     public String active;
 //    public String filename;
 
@@ -416,7 +440,7 @@ public class MAJUtilisateurMBean extends java.lang.Object {
     public String getActive() {
         return active;
     }
-    
+
     public void setActive(String active) {
         this.active = active;
     }

@@ -23,8 +23,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
@@ -55,18 +57,74 @@ import static org.apache.jasper.compiler.ELFunctionMapper.map;
 @ManagedBean
 @SessionScoped
 public class Etat {
- //   @EJB
+
+    //   @EJB
 //    private Mp2Facade mp2Facade;
-    @Resource(mappedName ="jdbc/cfiscDS",type = DataSource.class )
-    private DataSource myDB ;
+
+    @Resource(mappedName = "jdbc/cfiscDS", type = DataSource.class)
+    private DataSource myDB;
     public Date dateD;
     public Date dateF;
     public String nummp2;
     public JasperReport jasperreport;
-    private  Long nument ;
+    private Long nument;
     private TCentreImpot centreimpot;
     private TExercice exercice;
 
+    //Etat Ben
+    private String ifu;
+    private Date datedeb;
+    private Date datefin;
+    private Integer type;
+    private Integer test_ifu;
+    private Integer formEtat = 1;
+
+    public Integer getTest_ifu() {
+        return test_ifu;
+    }
+
+    public void setTest_ifu(Integer test_ifu) {
+        this.test_ifu = test_ifu;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public String getIfu() {
+        return ifu;
+    }
+
+    public void setIfu(String ifu) {
+        this.ifu = ifu;
+    }
+
+    public Date getDatedeb() {
+        return datedeb;
+    }
+
+    public void setDatedeb(Date datedeb) {
+        this.datedeb = datedeb;
+    }
+
+    public Date getDatefin() {
+        return datefin;
+    }
+
+    public void setDatefin(Date datefin) {
+        this.datefin = datefin;
+    }
+
+    @PostConstruct
+    public void Etat() {
+        setType(0);
+    }
+
+    // fin Etat Ben
     public TExercice getExercice() {
         return exercice;
     }
@@ -74,7 +132,6 @@ public class Etat {
     public void setExercice(TExercice exercice) {
         this.exercice = exercice;
     }
-    
 
     public TCentreImpot getCentreimpot() {
         return centreimpot;
@@ -99,13 +156,21 @@ public class Etat {
     public void setDateF(Date dateF) {
         this.dateF = dateF;
     }
-  
- public void trouveNumDeclar (){
-          ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-                    Map<String, Object> sessionMap  = externalContext.getSessionMap();
-                    nument= (Long) sessionMap.get("NumEntSession");               
+
+    public Integer getFormEtat() {
+        return formEtat;
     }
- 
+
+    public void setFormEtat(Integer formEtat) {
+        this.formEtat = formEtat;
+    }
+
+    public void trouveNumDeclar() {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        Map<String, Object> sessionMap = externalContext.getSessionMap();
+        nument = (Long) sessionMap.get("NumEntSession");
+    }
+
     JasperPrint jasperPrint;
 
     public String getNummp2() {
@@ -120,54 +185,109 @@ public class Etat {
         String reportPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/vues/etat/cumulimportexport/cumulimportexport.jasper");
         Connection connection = myDB.getConnection();
         HashMap map = new HashMap();
-        
-        map.put("datedebut", dateD);
-        map.put("datefin", dateF);
-        jasperPrint = JasperFillManager.fillReport(reportPath, map, connection);   
+        System.out.println("EEEEEE Exercicie " + getExercice().getExoAnne());
+        System.out.println("CCCCCC Centre " + getCentreimpot().getCentrImpCode());
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", getExercice().getExoAnne() + "        et CENTRE " + getCentreimpot().getCentrImpCode()));
+
+        map.put("paramexo", getExercice().getExoAnne());
+        map.put("paramcentre", getCentreimpot().getCentrImpCode());
+        jasperPrint = JasperFillManager.fillReport(reportPath, map, connection);
         System.out.println("Taille liste classe --> " + jasperPrint.getPages().size());
         connection.close();
     }
-    
-     public void initdetaildeclar() throws JRException, ClassNotFoundException, SQLException, ParseException {
+
+    public void initdetaildeclar() throws JRException, ClassNotFoundException, SQLException, ParseException {
         String reportPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/vues/etat/listedeclaration/listedeclaration.jasper");
         Connection connection = myDB.getConnection();
-        System.out.println("chaine de connection "+(connection.getMetaData().getURL()));
+        System.out.println("chaine de connection " + (connection.getMetaData().getURL()));
         HashMap map = new HashMap();
         trouveNumDeclar();
         String st = nument.toString();
         Integer num = Integer.parseInt(st);
-        map.put("numdeclar",num);   
-        jasperPrint = JasperFillManager.fillReport(reportPath, map, connection);   
+        map.put("numdeclar", num);
+        jasperPrint = JasperFillManager.fillReport(reportPath, map, connection);
         System.out.println("Taille liste classe --> " + jasperPrint.getPages().size());
         connection.close();
     }
-     
-      public void PDFDETAILDECL(ActionEvent actionEvent) throws JRException, IOException, ClassNotFoundException, SQLException, ParseException {
 
-            initdetaildeclar();
-            System.out.println("Taille liste classe apres init --> " + jasperPrint.getPages().size());
-            HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-            httpServletResponse.addHeader("Content-disposition", "attachment; filename=CumulImportExportDeclar.pdf");
-            ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
-            JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
-            //JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);   
-            FacesContext.getCurrentInstance().responseComplete();
-            System.out.println("servletOutputStream> " + servletOutputStream);
+    public void PDFDETAILDECL(ActionEvent actionEvent) throws JRException, IOException, ClassNotFoundException, SQLException, ParseException {
+
+        initdetaildeclar();
+        System.out.println("Taille liste classe apres init --> " + jasperPrint.getPages().size());
+        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        httpServletResponse.addHeader("Content-disposition", "attachment; filename=CumulImportExportDeclar.pdf");
+        ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+        JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+        //JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);   
+        FacesContext.getCurrentInstance().responseComplete();
+        System.out.println("servletOutputStream> " + servletOutputStream);
     }
 
-        public void PDFCUMULEXERCICE(ActionEvent actionEvent) throws JRException, IOException, ClassNotFoundException, SQLException, ParseException {
+    public void PDFCUMULEXERCICE(ActionEvent actionEvent) throws JRException, IOException, ClassNotFoundException, SQLException, ParseException {
+        initcumulexercice();
+        System.out.println("Taille liste classe apres init --> " + jasperPrint.getPages().size());
+        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        httpServletResponse.addHeader("Content-disposition", "attachment; filename=CumulImportExportDeclar.pdf");
+        ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+        JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+        //JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);   
+        FacesContext.getCurrentInstance().responseComplete();
+        System.out.println("servletOutputStream> " + servletOutputStream);
+    }
 
-            initcumulexercice();
-            System.out.println("Taille liste classe apres init --> " + jasperPrint.getPages().size());
+    public void listeDeclDou(ActionEvent actionEvent) throws JRException, IOException, ClassNotFoundException, SQLException, ParseException {
+
+        HashMap map = new HashMap();
+        if (formEtat == 2) {
+            String reportPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/vues/etat/detailDeclarations/detailDeclarations.jasper");
+            Connection connection = myDB.getConnection();
+            map.put("entreprise", test_ifu);
+            map.put("debut", datedeb);
+            map.put("fin", datefin);
+            jasperPrint = JasperFillManager.fillReport(reportPath, map, connection);
+            connection.close();
             HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-            httpServletResponse.addHeader("Content-disposition", "attachment; filename=CumulImportExportDeclar.pdf");
+            httpServletResponse.addHeader("Content-disposition", (type == 0) ? "attachment; filename=listeRecapContr.pdf" : (type == 1) ? "attachment; filename=listeRecapImp.pdf" : "attachment; filename=listeRecapExp.pdf");
             ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
             JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
-            //JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);   
             FacesContext.getCurrentInstance().responseComplete();
-            System.out.println("servletOutputStream> " + servletOutputStream);
+            return;
+        }
+
+        if (ifu.equals("")) {
+            FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "LE NUMERO IFU NE PEUT ETRE VIDE"));
+            System.out.println("VVVVVVVVVVVVVVVVVVVIIIIIIIIIIIIIIIIIIIIDDDDDDDDDDDDDDDDDDDDDEEEEEEEEEEEE");
+            //return;
+            map.put("ifu", null);
+            test_ifu = 0;
+            map.put("test_ifu", test_ifu);
+
+        } else {
+            map.put("ifu", Long.parseLong(ifu));
+            test_ifu = 1;
+            map.put("test_ifu", test_ifu);
+        }
+
+        String reportPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/vues/etat/droits_par_importateur/droits_par_importateur.jasper");
+        Connection connection = myDB.getConnection();
+
+        //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", getExercice().getExoAnne()+"        et CENTRE "+getCentreimpot().getCentrImpCode()));    
+        map.put("dateDeb", datedeb);
+        map.put("dateFin", datefin);
+        map.put("type", type);
+        jasperPrint = JasperFillManager.fillReport(reportPath, map, connection);
+        //System.out.println("Taille liste classe --> " + jasperPrint.getPages().size());
+        connection.close();
+
+        //System.out.println("Taille liste classe apres init --> " + jasperPrint.getPages().size());
+        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        httpServletResponse.addHeader("Content-disposition", (type == 0) ? "attachment; filename=listeRecapContr.pdf" : (type == 1) ? "attachment; filename=listeRecapImp.pdf" : "attachment; filename=listeRecapExp.pdf");
+        ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+        JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+        //JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);   
+        FacesContext.getCurrentInstance().responseComplete();
+        //System.out.println("servletOutputStream> " + servletOutputStream);
     }
-    
 
     public void DOCXCUMUL(ActionEvent actionEvent) throws JRException, IOException, ClassNotFoundException, SQLException, ParseException {
         initcumulexercice();
@@ -191,5 +311,5 @@ public class Etat {
         docxExporter.setParameter(JRExporterParameter.OUTPUT_STREAM, servletOutputStream);
         docxExporter.exportReport();
     }
-    
+
 }

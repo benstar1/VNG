@@ -315,20 +315,25 @@ public class MAJIndividuelleMBean extends java.lang.Object {
                    SendSMSMBean http = new SendSMSMBean();
                     System.out.println("Testing 1 - Send Http GET request");
 
-                    // Récupération du numéro de phone
-                    String dest = "229" + current.getContTel();
-                    System.out.println("Le numéro du destinataire est : " + dest);
-
-                    System.out.println("Le numéro IFU est : " + current.getContImmatr());
-                    if (current.getContTel() == null) {
-                        try {
-                            TUtilisateur user = tUtilisateurFacade.find(current.getContImmatr().toString());
+                    TUtilisateur user = null ;
+                    try {
+                            user = tUtilisateurFacade.find(current.getContImmatr().toString());
                         } catch (Exception e) {
                             System.out.println("Find utilisateur " + e.getMessage());
                         }
+                    
+                    // Récupération du numéro de phone
+                    String dest = ""; //229" + current.getContTel();
+                    System.out.println("Le numéro du destinataire est : " + dest);
 
-                        dest = user.getUtilTel();
+                    System.out.println("Le numéro IFU est : " + current.getContImmatr());
+                    if (user.getUtilTel() != null) {
+                        
+                        dest =  "229" + user.getUtilTel();
                         System.out.println("Le numéro du destinataire trouvé dans Tutilisateur est : " + dest);
+                    }
+                    else{
+                        dest = "229" + current.getContTel();
                     }
                     
                     try{
@@ -386,20 +391,38 @@ public class MAJIndividuelleMBean extends java.lang.Object {
                     System.out.println("Testing 1 - Send Http GET request");
 
                     // Récupération du numéro de phone
-                    String dest = "229" + current.getContTel();
-                    System.out.println("Le numéro du destinataire est : " + dest);
-
-                    System.out.println("Le numéro IFU est : " + current.getContImmatr());
-                    if (current.getContTel() == null) {
-                        try {
-                            TUtilisateur user = tUtilisateurFacade.find(current.getContImmatr().toString());
+//                    String dest = "229" + current.getContTel();
+                     TUtilisateur user = null ;
+                    try {
+                            user = tUtilisateurFacade.find(current.getContImmatr().toString());
                         } catch (Exception e) {
                             System.out.println("Find utilisateur " + e.getMessage());
                         }
+                    
+                    // Récupération du numéro de phone
+                    String dest = ""; //229" + current.getContTel();
+                    
+                    System.out.println("Le numéro du destinataire est : " + dest);
 
-                        dest = user.getUtilTel();
+                    System.out.println("Le numéro IFU est : " + current.getContImmatr());
+                    if (user.getUtilTel() != null) {
+                        
+                        dest =  "229" + user.getUtilTel();
                         System.out.println("Le numéro du destinataire trouvé dans Tutilisateur est : " + dest);
                     }
+                    else{
+                        dest = "229" + current.getContTel();
+                    }
+//                    if (current.getContTel() == null) {
+//                        try {
+//                            TUtilisateur user = tUtilisateurFacade.find(current.getContImmatr().toString());
+//                        } catch (Exception e) {
+//                            System.out.println("Find utilisateur " + e.getMessage());
+//                        }
+//
+//                        dest = user.getUtilTel();
+//                        System.out.println("Le numéro du destinataire trouvé dans Tutilisateur est : " + dest);
+//                    }
                     
                     try{
                     http.sendGet("22997217745", dest, "Plateforme+IFU+:+Votre+compte+vient+d'etre+desactivé.+Veuillez+vous+rapprocher+de+votre+centre+d'impot");

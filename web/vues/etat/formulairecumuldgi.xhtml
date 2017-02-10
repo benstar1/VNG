@@ -11,6 +11,8 @@
     </ui:define>
 
     <ui:define name="body">
+            <p:messages severity="error,info"  id="mess" showDetail="true" autoUpdate="true" closable="true" />
+  
         <h:form id="formdeclar"> 
             <h1><h:outputText value="Formulaire impression de rapport"/></h1>
             <p:panelGrid columns="4" style="width:100%; ">
@@ -29,7 +31,7 @@
                <f:facet name="footer">        
                     <h:commandButton value="Exporter en Excel" actionListener="#{etat.XLSXCUMUL}"/>
                     <h:commandButton value="Exporter en DOCX" actionListener="#{etat.DOCXCUMUL}"/>
-                    <h:commandButton value="Exporter en PDF" actionListener="#{etat.PDFCUMUL}"/>
+                    <h:commandButton value="Exporter en PDF" actionListener="#{etat.PDFCUMULEXERCICE}"/>
                 </f:facet>
             </p:panelGrid>
         </h:form>

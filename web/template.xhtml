@@ -4,24 +4,28 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+       
         <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
+        <meta http-equiv="refresh" content="900;url=https://192.168.1.250:8181/CFisc/login.xhtml"/>
         <title>Facelets Template</title>
     </h:head>
 
     <h:body>
-
+ <!--       <f:facet name="last">
+            <h:outputStylesheet library="css" name="default.css"/>
+        </f:facet>-->
         <div id="top">
             <ui:insert name="top"></ui:insert>
             <div class="row">
                 <div id="banniere" style="width: 100%; margin: 0px">
-                    <div align="left" id="logo1" style="display: inline-block; width: 30%; margin: 0px"><h:graphicImage library="images" name="logo_mef.jpg" style="width: 376px; height: 100px;" alt="Logo MEF"/></div>
+                    <div align="left" id="logo1" style="display: inline-block; width: 25%; margin: 0px"><h:graphicImage library="images" name="logo_mef.jpg" style="width: 376px; height: 100px;" alt="Logo MEF"/></div>
 
-                    <div   class="text-center" id="texte" style=" float:  right;  text-align: center;  width: 70%; height: 100px; display: inline-block; margin: 0px; "><br/> <p style=" text-align: inherit ; color:black;  font-size: x-large;  text-decoration-style:  solid;  font-style:  italic; ">PLATEFORME DE GESTION DES DECLARATIONS FISCALES</p></div>
+                    <div   class="text-center" id="texte" style=" float:  right;  text-align: right;  width: 70%; height: 100px; display: inline-block; margin: 0px; "><br/> <p style=" text-align: inherit ; color:black;  font-size: x-large;  text-decoration-style:  solid;  font-style:  italic; ">PLATEFORME DE GESTION DES DECLARATIONS FISCALES</p></div>
 
                 </div>
                 <div id="identification" style=" height:5%;   clear:  both; background-color: forestgreen ; width: 100%; margin: 0px ">
@@ -77,11 +81,6 @@
                             </tr>
                         </tbody>
                     </table>
-
-
-
-
-
                 </div>
             </div>
 

@@ -194,8 +194,8 @@ public class TEntDeclarationController implements Serializable {
             System.out.println("Nous somme là");
            
             TUtilisateur Utilis = null;  
-            //Utilis=tUtilisateurFacade.rechercheUtilconnecte(getLoginutilisateur());
-            Utilis=tUtilisateurFacade.rechercheUtilconnecte("ben");
+            Utilis=tUtilisateurFacade.rechercheUtilconnecte(getLoginutilisateur());
+            //Utilis=tUtilisateurFacade.rechercheUtilconnecte("ben");
            
             System.out.println("Utilisateur connecté  ###########################   "+Utilis.getUtilNom());
             System.out.println("IFU Utilisateur connecté  ###########################   "+Utilis.getUtilContImmatr().getContImmatr());
@@ -292,7 +292,7 @@ public class TEntDeclarationController implements Serializable {
          TEntDeclaration t =null;
             TUtilisateur Utilis = null;  
             Utilis=tUtilisateurFacade.rechercheUtilconnecte(getLoginutilisateur());
-            Utilis=tUtilisateurFacade.rechercheUtilconnecte("ben");
+           // Utilis=tUtilisateurFacade.rechercheUtilconnecte("ben");
           
             System.out.println("Utilisateur connecté  ###########################   "+Utilis.getUtilNom());
            if((!(Utilis.getUtilContImmatr()==null))&&(!(current.getExoAnne()==null))) {
@@ -301,7 +301,7 @@ public class TEntDeclarationController implements Serializable {
                    current.setEntDecDatedebut(t.getEntDecDatefin());
                }else{
                    String s="01/01/"+current.getExoAnne().getExoAnne();
-                   DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+                   DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
                    try {
                        current.setEntDecDatedebut(df.parse(s));
                    } catch (ParseException ex) {

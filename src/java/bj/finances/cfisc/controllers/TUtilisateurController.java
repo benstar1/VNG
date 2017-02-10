@@ -64,9 +64,9 @@ public class TUtilisateurController implements Serializable {
         this.ifu = ifu;
     }
 
-    public void rechercheContribuable() throws NullPointerException  {
+    public void rechercheContribuable() throws NullPointerException {
         System.out.println("IFU est " + ifu);
-        
+
         contrib = tRepUniqueFacade.find(ifu);
 //
 //        if (contrib == null) {
@@ -104,13 +104,14 @@ public class TUtilisateurController implements Serializable {
     public void validateIfu(FacesContext context, UIComponent toValidate,
             Object value) throws ValidatorException {
         Long ifusaisi = (Long) value;
-        
+
         if (tRepUniqueFacade.find(ifusaisi) == null) {
             FacesMessage message = new FacesMessage("Ce numéro IFU est incorrect !");
             throw new ValidatorException(message);
-                  
+
         }
     }
+
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -190,6 +191,7 @@ public class TUtilisateurController implements Serializable {
             System.out.println("Le groupe du contribuable " + tGroupeFacade.find("CONTRIBUABLE"));
             System.out.println("Login " + login);
             current.setUtilLogin(login);
+            current.setUtilContImmatr(tRepUniqueFacade.findByContImmatr(ifu));
 
             Long pin = sms.aleatoire();
             System.out.println("Pin = " + pin);
@@ -205,9 +207,9 @@ public class TUtilisateurController implements Serializable {
 
             current.setUtilActif("N");
 
-            SendSMSMBean http = new SendSMSMBean();
-
-            System.out.println("Testing 1 - Send Http GET request");
+////            SendSMSMBean http = new SendSMSMBean();
+////
+////            System.out.println("Testing 1 - Send Http GET request");
 
             System.out.println("Ici 1" + current);
 

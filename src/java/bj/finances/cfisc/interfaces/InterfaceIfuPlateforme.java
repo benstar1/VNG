@@ -16,10 +16,12 @@ import bj.finances.cfisc.entities.TArticlePK;
 import bj.finances.cfisc.entities.TMotif;
 import bj.finances.cfisc.entities.TTaxeDeclDou;
 import bj.finances.cfisc.entities.TTaxeDeclDouPK;
+import bj.finances.cfisc.entities.TTaxeDouane;
 import bj.finances.cfisc.entities.TUtilisateur;
 import bj.finances.cfisc.sessions.*;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
@@ -51,6 +53,8 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.input.sax.XMLReaderJDOMFactory;
 import org.jdom2.input.sax.XMLReaderSchemaFactory;
 import org.xml.sax.SAXException;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 
 /**
  *
@@ -113,7 +117,7 @@ public class InterfaceIfuPlateforme {
 
     }
 */
-
+    @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/25", persistent = false)
     public void scrutelocalSydo() {
         System.out.println(" Scan du dossier source Sydo ........ " + new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(new Date()));            
          
@@ -391,10 +395,23 @@ public class InterfaceIfuPlateforme {
         
         String typeope = declaration.getChild("typeope").getAttribute("type").getValue();
         
+        SimpleDateFormat f1 = new SimpleDateFormat("dd-MM-yyyy");
+        Element racine = new Element("declaration");        
+        BigDecimal totalAIB = BigDecimal.ZERO;     
+        Document docTaxe = new Document(racine);
+        
         if (Tdeclaration == null) {
             Tdeclaration = new TDeclarationDou();
+//            racine.setAttribute("numero_decl", declaration.getChild("segment_general").getAttribute("serie_enreg").getValue() + declaration.getChild("segment_general").getAttribute("num_enreg").getValue());
+//            racine.setAttribute("annee_dec", declaration.getChild("segment_general").getAttribute("annee_dec").getValue());
+//            racine.setAttribute("bureau_dec", declaration.getChild("segment_general").getAttribute("bureau_dec").getValue());
+//            racine.setAttribute("num_quittance", declaration.getChild("segment_general").getAttribute("ser_quittance").getValue() + declaration.getChild("segment_general").getAttribute("num_quittance").getValue());
+//            racine.setAttribute("date_quittance", declaration.getChild("segment_general").getAttribute("date_quittance").getValue());            
+//            racine.setAttribute("ifu", declaration.getChild("segment_general").getAttribute("ifu_exportateur").getValue() + declaration.getChild("segment_general").getAttribute("ifu_importateur").getValue());            
 
-            if ("A".equals(typeope) || "M".equals(typeope)) {                
+            if ("A".equals(typeope) || "M".equals(typeope)) { 
+                racine.setAttribute("type_ope","A");
+                racine.setAttribute("date_ope",f1.format(new Date()));
                 //PARTIE DECLARATION                
                 try {
                     Tdeclaration.setInstanceid(Long.parseLong(declaration.getChild("segment_general").getAttribute("INSTANCE_ID").getValue()));
@@ -420,11 +437,11 @@ public class InterfaceIfuPlateforme {
                 } catch (Exception e) {
                 };
                 try {
-                    Tdeclaration.setIdeRegSer(declaration.getChild("segment_general").getAttribute("reg_serial").getValue());
+                    Tdeclaration.setIdeRegSer(declaration.getChild("segment_general").getAttribute("serie_enreg").getValue());
                 } catch (Exception e) {
                 };
                 try {
-                    Tdeclaration.setIdeRegNbr(declaration.getChild("segment_general").getAttribute("reg_nber").getValue());
+                    Tdeclaration.setIdeRegNbr(declaration.getChild("segment_general").getAttribute("num_enreg").getValue());
                 } catch (Exception e) {
                 };
                 try {
@@ -500,7 +517,7 @@ public class InterfaceIfuPlateforme {
                 } catch (Exception e) {
                 };
                 try {
-                    Tdeclaration.setIdePstDat(dateFormat.parse(declaration.getChild("segment_general").getAttribute("ifu_importateur").getValue()));
+                    //Tdeclaration.setIdePstDat(dateFormat.parse(declaration.getChild("segment_general").getAttribute("ifu_importateur").getValue()));
                 } catch (Exception e) {
                 };
                 try {
@@ -515,10 +532,10 @@ public class InterfaceIfuPlateforme {
                     Tdeclaration.setTptMotInl(declaration.getChild("segment_general").getAttribute("mot_inland").getValue());
                 } catch (Exception e) {
                 };
-                try {
-                    Tdeclaration.setIdeCuoCod(declaration.getChild("segment_general").getAttribute("cuo_bord").getValue());
-                } catch (Exception e) {
-                };
+//                try {
+//                    Tdeclaration.setIdeCuoCod(declaration.getChild("segment_general").getAttribute("cuo_bord").getValue());
+//                } catch (Exception e) {
+//                };
                 try {
                     Tdeclaration.setFinAmtDty(new BigDecimal(declaration.getChild("segment_general").getAttribute("Valeur_en_douane").getValue()));
                 } catch (Exception e) {
@@ -543,7 +560,7 @@ public class InterfaceIfuPlateforme {
                 //PARTIE ARTICLE        
 
                 List<Element> malistedArticles = declaration.getChildren("article");
-                List<TArticle> mla = new ArrayList<>();
+                //List<TArticle> mla = new ArrayList<>();
                 //fin
                 for (Element ArtElt : malistedArticles) {
                     //construction cle primaire TaxeDeclaration
@@ -611,7 +628,7 @@ public class InterfaceIfuPlateforme {
                     try {
                         tArticleFacade.create(tarcticle);
                     } catch (Exception ex) {
-                        //tDeclarationDouaneFacade.remove(Tdeclaration);       
+                        tDeclarationDouaneFacade.remove(Tdeclaration);       
                         logger.error("Probleme lors de la création d article - " + ex.getMessage());
                         //ARCHIVAGE FICHIER
                         in.close();
@@ -625,6 +642,10 @@ public class InterfaceIfuPlateforme {
                     for (Element TaxeElt : malistedeTaxes) {
                         //construction cle primaire TaxeDeclaration  
                         TTaxeDeclDou taxe = new TTaxeDeclDou();
+                        if( "AIB".equals( TaxeElt.getAttribute("TAX_LIN_COD").getValue() )){
+                            BigDecimal montantAIB = new BigDecimal(TaxeElt.getAttribute("TAX_LIN_AMT").getValue());
+                            totalAIB.add(montantAIB);
+                        }
                         Long tax_rnk = Long.parseLong(TaxeElt.getAttribute("KEY_TAX_RNK").getValue());
                         TTaxeDeclDouPK cleTaxe = new TTaxeDeclDouPK(instance_id, itm_nbr, tax_rnk);
                         taxe.setTTaxeDeclDouPK(cleTaxe);
@@ -639,7 +660,7 @@ public class InterfaceIfuPlateforme {
                         } catch (Exception e) {
                         };
                         try {
-                            taxe.setTaxLinCod(TaxeElt.getAttribute("TAX_LIN_COD").getValue());
+                            taxe.setTaxLinCod(new TTaxeDouane(TaxeElt.getAttribute("TAX_LIN_COD").getValue()));
                         } catch (Exception e) {
                         };
                         try {
@@ -678,7 +699,9 @@ public class InterfaceIfuPlateforme {
             }
         } else {
             if ("M".equals(typeope)) {
-                 //PARTIE DECLARATION               
+                 //PARTIE DECLARATION    
+//                racine.setAttribute("type_ope","M");
+//                racine.setAttribute("date_ope",f1.format(new Date()));
                 Tdeclaration = new TDeclarationDou();        
                 try {
                      tDeclarationDouaneFacade.supprimer(instance_id);                     
@@ -784,7 +807,7 @@ public class InterfaceIfuPlateforme {
                 } catch (Exception e) {
                 };
                 try {
-                    Tdeclaration.setIdePstDat(dateFormat.parse(declaration.getChild("segment_general").getAttribute("ifu_importateur").getValue()));
+                    //Tdeclaration.setIdePstDat(dateFormat.parse(declaration.getChild("segment_general").getAttribute("ifu_importateur").getValue()));
                 } catch (Exception e) {
                 };
                 try {
@@ -799,10 +822,10 @@ public class InterfaceIfuPlateforme {
                     Tdeclaration.setTptMotInl(declaration.getChild("segment_general").getAttribute("mot_inland").getValue());
                 } catch (Exception e) {
                 };
-                try {
-                    Tdeclaration.setIdeCuoCod(declaration.getChild("segment_general").getAttribute("cuo_bord").getValue());
-                } catch (Exception e) {
-                };
+//                try {
+//                    Tdeclaration.setIdeCuo(declaration.getChild("segment_general").getAttribute("cuo_bord").getValue());
+//                } catch (Exception e) {
+//                };
                 try {
                     Tdeclaration.setFinAmtDty(new BigDecimal(declaration.getChild("segment_general").getAttribute("Valeur_en_douane").getValue()));
                 } catch (Exception e) {
@@ -909,6 +932,10 @@ public class InterfaceIfuPlateforme {
                     for (Element TaxeElt : malistedeTaxes) {
                         //construction cle primaire TaxeDeclaration  
                         TTaxeDeclDou taxe = new TTaxeDeclDou();
+                        if( "AIB".equals( TaxeElt.getAttribute("TAX_LIN_COD").getValue() )){
+                            BigDecimal montantAIB = new BigDecimal(TaxeElt.getAttribute("TAX_LIN_AMT").getValue());
+                            totalAIB.add(montantAIB);
+                        }
                         Long tax_rnk = Long.parseLong(TaxeElt.getAttribute("KEY_TAX_RNK").getValue());
                         TTaxeDeclDouPK cleTaxe = new TTaxeDeclDouPK(instance_id, itm_nbr, tax_rnk);
                         taxe.setTTaxeDeclDouPK(cleTaxe);
@@ -923,7 +950,7 @@ public class InterfaceIfuPlateforme {
                         } catch (Exception e) {
                         };
                         try {
-                            taxe.setTaxLinCod(TaxeElt.getAttribute("TAX_LIN_COD").getValue());
+                            taxe.setTaxLinCod(new TTaxeDouane(TaxeElt.getAttribute("TAX_LIN_COD").getValue()));
                         } catch (Exception e) {
                         };
                         try {
@@ -962,6 +989,8 @@ public class InterfaceIfuPlateforme {
                     
 
                 }
+                racine.setAttribute("montantAIB", totalAIB.toString());
+                genererFichierPourTakwe( docTaxe);
                 logger.info("Declaration Modifiée ..... " + decl);
 }       
             
@@ -1493,6 +1522,16 @@ public class InterfaceIfuPlateforme {
         }
     }
 
+     //generation fichier takwe
+     public void genererFichierPourTakwe(Document doc) throws IOException{
+
+        Format format = Format.getPrettyFormat();
+        //format.setEncoding("ISO-8859-1");
+        XMLOutputter sortie = new XMLOutputter(format);
+        Element racine = doc.getRootElement();
+        sortie.output(doc, new FileOutputStream("/home/cfiscuser/CFISC/cfisc_local/AIB/" + racine.getAttributeValue("bureau_dec") + "_" +  racine.getAttributeValue("annee_dec") + "_" + racine.getAttributeValue("numero_decl") + "_" + racine.getAttributeValue("ifu")  + "_AIB" +   ".xml"));         
+    }
+     // fin generation fichier takwe
 
     private class UserOrMotifUndefined extends Exception {
 

@@ -206,9 +206,9 @@ public class MAJMBean extends java.lang.Object {
 
                 String ifuAsSeenInExcel = fmt.formatCellValue((Cell) cellStoreVector.elementAt(0));
                 ifu = new Long(ifuAsSeenInExcel);
-                centre = cellStoreVector.elementAt(4).toString();
+////                centre = cellStoreVector.elementAt(3).toString();
                 String nom = cellStoreVector.elementAt(1).toString();
-                String pnom = cellStoreVector.elementAt(2).toString();
+//                String pnom = cellStoreVector.elementAt(2).toString();
                 statut = active;
 
                 System.out.println("Recherche de l'IFU qui est lu " + ifu);
@@ -325,14 +325,14 @@ public class MAJMBean extends java.lang.Object {
 //                        }
                     }
                     System.out.println("---- Ecriture dans le fichier succès  ----");
-                    outsucces.write(ifu.toString() + " " + nom + " " + pnom + " \n");
+                    outsucces.write(ifu.toString() + " " + nom + " "  + " \n");
                 } else {
 
                     System.out.println("---- Ecriture dans le fichier échec  ----");
-                    outechec.write(ifu.toString() + " " + nom + " " + pnom + " \n");
+                    outechec.write(ifu.toString() + " " + nom + " "  + " \n");
 //                    pout.write(ifu.toString() + " " + nom + " " + pnom + " \n");
 
-                    chargeAbsent.add(ifu.toString() + "\t           " + nom + " \t " + pnom);
+                    chargeAbsent.add(ifu.toString() + "\t           " + nom + " \t " );
 
                 }
             }

@@ -3,7 +3,8 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<property name="net.sf.jasperreports.awt.ignore.missing.font" value="true"/>
+	<style name="Title" fontName="Arial" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
 	<style name="Detail" fontName="Arial" fontSize="12"/>
@@ -31,7 +32,7 @@ FROM
      "T_ENT_DECLARATION" T_ENT_DECLARATION INNER JOIN "T_DECLARATION_FISCALE" T_DECLARATION_FISCALE ON T_ENT_DECLARATION."ENT_DEC_NUM" = T_DECLARATION_FISCALE."DECLAR_ENT_DEC_NUM"
      INNER JOIN "T_REP_UNIQUE" T_REP_UNIQUE ON T_ENT_DECLARATION."ENT_DEC_CONT_IMMATR" = T_REP_UNIQUE."CONT_IMMATR"
 WHERE
-EXO_ANNE = 2016 
+     EXO_ANNE =$P{paramexo}  AND CONT_CENTR_IMP_CODE = $P{paramcentre}
 GROUP BY
      ENT_DEC_CONT_IMMATR,
      CONT_NOM,
@@ -55,41 +56,41 @@ GROUP BY
 			<staticText>
 				<reportElement style="Title" x="305" y="42" width="516" height="62" uuid="38f074bf-b004-4892-a25d-cedcf4d3a1cb"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Tw Cen MT" size="26" pdfFontName="Times-Roman"/>
+					<font fontName="Arial" size="26" isItalic="false" pdfFontName="Times-Roman"/>
 				</textElement>
 				<text><![CDATA[Cumul des droits et taxes par importateur]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="SubTitle" x="387" y="104" width="38" height="22" uuid="f4b847fc-1f04-489f-bfee-6f1585eba4f3"/>
+				<reportElement style="SubTitle" x="317" y="104" width="108" height="22" uuid="f4b847fc-1f04-489f-bfee-6f1585eba4f3"/>
 				<textElement>
 					<font fontName="Tw Cen MT" pdfFontName="Times-Roman"/>
 				</textElement>
-				<text><![CDATA[Du ]]></text>
+				<text><![CDATA[Exercice :]]></text>
 			</staticText>
 			<image>
 				<reportElement x="1" y="2" width="375" height="120" uuid="11d870c8-cd09-4f44-9af9-cec6b0fc52a7"/>
 				<imageExpression><![CDATA["logo_mef.jpg"]]></imageExpression>
 			</image>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="Detail" x="603" y="104" width="89" height="15" uuid="c6bf8674-b76c-4143-bd3d-73193fef262b"/>
+				<reportElement style="Detail" x="630" y="104" width="89" height="15" uuid="c6bf8674-b76c-4143-bd3d-73193fef262b"/>
 				<textElement>
 					<font fontName="Times New Roman" size="18"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{datefin}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{paramcentre}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement style="Detail" x="435" y="104" width="89" height="15" uuid="793c2b56-3b3b-4d57-bb01-e64c9f424774"/>
 				<textElement>
 					<font fontName="Times New Roman" size="18"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{datedebut}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{paramexo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="SubTitle" x="542" y="104" width="38" height="22" uuid="ee17d42e-26e0-42f9-bbbb-e07246a2b867"/>
+				<reportElement style="SubTitle" x="542" y="104" width="88" height="22" uuid="ee17d42e-26e0-42f9-bbbb-e07246a2b867"/>
 				<textElement>
 					<font fontName="Tw Cen MT" pdfFontName="Times-Roman"/>
 				</textElement>
-				<text><![CDATA[au]]></text>
+				<text><![CDATA[Centre :]]></text>
 			</staticText>
 		</band>
 	</title>

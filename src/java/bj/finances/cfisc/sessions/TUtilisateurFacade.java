@@ -5,7 +5,9 @@
  */
 package bj.finances.cfisc.sessions;
 
+import bj.finances.cfisc.entities.TGroupe;
 import bj.finances.cfisc.entities.TUtilisateur;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -40,6 +42,12 @@ public class TUtilisateurFacade extends AbstractFacade<TUtilisateur> {
       
       
     }
+     
+        public List<TUtilisateur> findByGroupe(TGroupe groupe) {
+        List<TUtilisateur> listeUtilisateurs = em.createNamedQuery("TUtilisateur.findByGroupe").setParameter("groupe", groupe).getResultList();
+                return listeUtilisateurs;
+    }
+        
     public TUtilisateurFacade() {
         super(TUtilisateur.class);
     }
