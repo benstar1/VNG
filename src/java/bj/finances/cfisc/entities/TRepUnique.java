@@ -281,6 +281,24 @@ public class TRepUnique implements Serializable {
     private TCentreImpot contCentrImpCode;
     @OneToMany(mappedBy = "histStatutContImmatr")
     private List<THistStatut> tHistStatutList;
+    
+    //ajout champ CONT_DATE_PREM_DESAC 
+    
+    @Column(name = "CONT_DATE_PREM_DESAC")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date contDatePremDesact;
+
+
+    public Date getContDatePremDesact() {
+        return contDatePremDesact;
+    }
+
+    public void setContDatePremDesact(Date contDatePremDesact) {
+        this.contDatePremDesact = contDatePremDesact;
+    }
+
+    
+    // ---------------
 
     public TRepUnique() {
     }

@@ -7,12 +7,18 @@ package bj.finances.cfisc.sessions;
 
 import bj.finances.cfisc.entities.TCentreImpot;
 import bj.finances.cfisc.entities.TRepUnique;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
+import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.sql.DataSource;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -23,6 +29,9 @@ public class TRepUniqueFacade extends AbstractFacade<TRepUnique> {
 
     @PersistenceContext(unitName = "CFiscPU")
     private EntityManager em;
+    
+    @Resource(mappedName = "jdbc/cfiscDS", type = DataSource.class)
+    private DataSource myDB;
 
     @Override
     protected EntityManager getEntityManager() {
@@ -55,6 +64,25 @@ public class TRepUniqueFacade extends AbstractFacade<TRepUnique> {
         System.out.println("recensement " + listeContribuables.size());
         return listeContribuables;
     }    
+    
+     public void updatePremDesact() {
+         Connection con;
+        String query = "UPDATE T_REP_UNIQUE SET CONT_STATUT = 'D' WHERE CONT_DATE_PREM_DESAC = ?";
+        try {
+            con = myDB.getConnection();
+            System.out.println("DESCATIVATION AUTOMATIQUE");
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setDate(1, new java.sql.Date(new java.util.Date().getTime()));
+            pstmt.executeUpdate();  
+            con.close();
+        } catch (SQLException ex) {
+            System.out.println("EXCEPTION MAJ PREMIERE DATE DESACTIVATION " + ex.getMessage());
+            //Logger.getLogger(TRepUniqueFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+
+    }
     
     public List<TRepUnique> findContribByImmatPP() {
 

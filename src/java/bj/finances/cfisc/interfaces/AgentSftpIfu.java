@@ -49,7 +49,7 @@ public class AgentSftpIfu {
     final static org.apache.log4j.Logger logger = Logger.getLogger(AgentSftpIfu.class.getName());
 
     
-    //@Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/20", persistent = false)
+    @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/20", persistent = false)
     public void telechargerEntrepriseIfu() {
         JSch jsch = new JSch();
         Session session = null;
@@ -79,7 +79,7 @@ public class AgentSftpIfu {
             ChannelSftp channelSftp = (ChannelSftp) channel;
             channelSftp.lcd(cheminDepotLocal);
             System.out.println("Connexion à SFTP IFU REUSSI");
-            channelSftp.cd("cfiscuser");
+            channelSftp.cd("CONT");
             Vector<ChannelSftp.LsEntry> list = channelSftp.ls("*.xml");
             
             System.out.println("chemin local gethome  "+ channelSftp.getHome());

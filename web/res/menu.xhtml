@@ -19,14 +19,14 @@
 
         <c:if test="#{loginMBean.inspecteur}">
             <h:link outcome="/vues/tDeclarationDou/ConsulterDD.xhtml" value="Consultation Déclaration en Douane" /><br/>
-            <h:link outcome="/vues/recoupement/Recoupement.xhtml" value="Recoupement" /><br/>
-            <h:link outcome="/vues/etat/formulairecumuldgi.xhtml" value="Cumul des déclarations" /><br/>
+            <!--h:link outcome="/vues/recoupement/Recoupement.xhtml" value="Recoupement" /><br/ -->
+            <!--h:link outcome="/vues/etat/formulairecumuldgi.xhtml" value="Cumul des déclarations" /><br/ -->
                 
         </c:if>
         
         <c:if test="#{loginMBean.inspectmaj}">
-            <h:link outcome="/vues/tRepUnique/MAJIndividuelle.xhtml" value="MAJ Répertoire Contrib Indivi." /><br/><br/>
-            <h:link outcome="/vues/tRepUnique/MAJCollective.xhtml" value="MAJ Répertoire Contrib : collective " /><br/>
+            <h:link outcome="/vues/tRepUnique/MAJIndividuelle.xhtml" value="MAJ Répertoire Contrib : Individuelle." /><br/><br/>
+            <h:link outcome="/vues/tRepUnique/MAJCollective.xhtml" value="MAJ Répertoire Contrib : Collective " /><br/>
         </c:if>
         
         
@@ -34,11 +34,11 @@
             
                         <h:link outcome="/vues/tUtilisateur/MAJUtilisateur.xhtml" value="Activation compte contrib." /><br/><br/>
 
-            <h:link outcome="/vues/tRepUnique/MAJIndividuelle.xhtml" value="MAJ Répertoire Contrib Indivi." /><br/><br/>
-            <h:link outcome="/vues/tRepUnique/MAJCollective.xhtml" value="MAJ Répertoire Contrib : collective " /> <br/><br/>
-            <h:link outcome="/vues/tEntDeclaration/DeclarationFiscal.xhtml" value="Déclaration fiscale" /><br/><br/>
+            <h:link outcome="/vues/tRepUnique/MAJIndividuelle.xhtml" value="MAJ Répertoire Contrib : Individuelle." /><br/><br/>
+            <h:link outcome="/vues/tRepUnique/MAJCollective.xhtml" value="MAJ Répertoire Contrib : Collective " /> <br/><br/>
+            <!-- h:link outcome="/vues/tEntDeclaration/DeclarationFiscal.xhtml" value="Déclaration fiscale" /><br/><br/ -->
             <h:link outcome="/vues/tDeclarationDou/ConsulterDD.xhtml" value="Consultation Déclaration en Douane" /><br/><br/>
-            <h:link outcome="/vues/etat/formulairecumuldgi.xhtml" value="Cumul des déclarations" /><br/><br/>
+            <!--h:link outcome="/vues/etat/formulairecumuldgi.xhtml" value="Cumul des déclarations" /><br/><br/ -->
             <h:link outcome="/vues/tDeclarationDou/droits_par_importateur.xhtml" value="Liste déclarations douanières" /><br/>
         </c:if>
         

@@ -61,7 +61,7 @@ public class AgentSftpSydo {
     
     final static org.apache.log4j.Logger logger = Logger.getLogger(AgentSftpSydo.class.getName());
 
-   //@Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/25", persistent = false)
+   @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/25", persistent = false)
     public void telechargerEntreprise() {
         JSch jsch = new JSch();
         Session session = null;

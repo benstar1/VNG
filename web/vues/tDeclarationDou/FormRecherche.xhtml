@@ -196,25 +196,9 @@
                     </p:column>                     
                 </p:dataTable>
 
-                <h:commandLink>xls
-                    <!--<p:graphicImage name="/demo/images/excel.png" />-->
-                    <p:dataExporter type="xls" target="listeDeclaration" fileName="declaration" pageOnly="true"/>
-                </h:commandLink>
-
-                <h:commandLink>pdf
-                    <!--<p:graphicImage name="/demo/images/pdf.png" />-->
-                    <p:dataExporter type="pdf" target="listeDeclaration" fileName="declaration" pageOnly="true"  postProcessor="#{tConsulterDeclarationController.preProcessPDF}" />
-                </h:commandLink>
+               
                 <h:commandLink actionListener="#{tConsulterDeclarationController.transformToPDF()}" value="telecharger pdf"></h:commandLink>
-                <h:commandLink>csv
-                    <!--<p:graphicImage name="/demo/images/csv.png" />-->
-                    <p:dataExporter type="csv" target="listeDeclaration" fileName="declaration" pageOnly="true" />
-                </h:commandLink>
-
-                <h:commandLink>xml
-                    <!--<p:graphicImage name="/demo/images/xml.png" />-->
-                    <p:dataExporter type="xml" target="listeDeclaration" fileName="declaration" pageOnly="true" />
-                </h:commandLink>
+                
 
                 <h:panelGroup id="FicheDetailDeclaration">
                     <p:dialog  header="Detail de declaration" widgetVar="FicheDetailDeclaration" modal="true" width="800px" closable="true" >

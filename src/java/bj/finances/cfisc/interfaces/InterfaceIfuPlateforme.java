@@ -31,6 +31,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -103,6 +104,7 @@ public class InterfaceIfuPlateforme {
     
     private final String cheminFichierXsdCont = ResourceBundle.getBundle("/parametres").getString("cheminFichierXsdCont");
     private final String cheminFichierXsdSydo = ResourceBundle.getBundle("/parametres").getString("cheminFichierXsdSydo");
+    private final String tempsDesactivation = ResourceBundle.getBundle("/parametres").getString("tempsDesactivation");
     private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     //@Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/20", persistent = false)
@@ -1023,16 +1025,27 @@ public class InterfaceIfuPlateforme {
         }
 
         tRepUnique = tRepUniqueFacade.find(Long.valueOf(contribuable.getChild("CONT_IMMATR").getValue()));
-        System.out.println("-----***********----------------");
+        //System.out.println("-----***********----------------");
         if (tRepUnique == null) {
             if ("A".equals(typeOperation.getValue())) {
-                System.out.println("ESSAIIIII     IIIIIIIIIII");
+                //System.out.println("ESSAIIIII     IIIIIIIIIII");
                 tRepUnique = new TRepUnique();
                 try {
                     tRepUnique.setContDatenreg(dateFormat.parse(contribuable.getChild("CONT_DATENREG").getValue()));
                 } catch (Exception e) {
                     System.out.println("Erreur date enreg" + e);
                 };
+                
+                try {
+                     Date dateOperation = dateFormat.parse(operation.getChild("DATEOP").getValue());
+                     Calendar cl = Calendar.getInstance();
+                     cl.setTime(dateOperation);
+                     cl.add(Calendar.DAY_OF_MONTH, Integer.parseInt(tempsDesactivation));
+                    tRepUnique.setContDatePremDesact(cl.getTime());
+                } catch (Exception e) {
+                    System.out.println("Erreur date enreg" + e);
+                };
+                
                 try {
                     tRepUnique.setContImmatr(Long.parseLong(contribuable.getChild("CONT_IMMATR").getValue()));
                 } catch (Exception e) {
@@ -1237,7 +1250,7 @@ public class InterfaceIfuPlateforme {
                 } catch (Exception e) {
                 }
                 try {
-                    tRepUnique.setContStatut(contribuable.getChild("CONT_STATUT").getValue());
+                    tRepUnique.setContStatut("A");
                 } catch (Exception e) {
                 }
                 try {
@@ -1482,10 +1495,7 @@ public class InterfaceIfuPlateforme {
                     tRepUnique.setContSitMat(contribuable.getChild("CONT_SIT_MAT").getValue());
                 } catch (Exception e) {
                 }
-                try {
-                    tRepUnique.setContStatut(contribuable.getChild("CONT_STATUT").getValue());
-                } catch (Exception e) {
-                }
+                
                 try {
                     tRepUnique.setContTel(BigDecimal.valueOf(Long.parseLong(contribuable.getChild("CONT_TEL").getValue())).toBigInteger());
                 } catch (Exception e) {
@@ -1544,4 +1554,12 @@ public class InterfaceIfuPlateforme {
         }
     };
    //fin traitement table contribuable
+   
+    //@Schedule(dayOfWeek = "Mon-Fri", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/60", persistent = false)    
+    @Schedule(dayOfWeek = "*", month = "*", hour = "*/23", dayOfMonth = "*", year = "*", minute = "*", second = "*", persistent = false)
+    public void Execute() {
+        tRepUniqueFacade.updatePremDesact();
+        System.out.println(" APRES ACTIVATION AUTO .... " + new Date());
+    }
+    
 }
