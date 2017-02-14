@@ -66,7 +66,7 @@ public class TRepUniqueFacade extends AbstractFacade<TRepUnique> {
     }    
     
      public void updatePremDesact() {
-         Connection con;
+         Connection con = null;
         String query = "UPDATE T_REP_UNIQUE SET CONT_STATUT = 'D' WHERE CONT_DATE_PREM_DESAC = ?";
         try {
             con = myDB.getConnection();
@@ -74,10 +74,18 @@ public class TRepUniqueFacade extends AbstractFacade<TRepUnique> {
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setDate(1, new java.sql.Date(new java.util.Date().getTime()));
             pstmt.executeUpdate();  
-            con.close();
+            
         } catch (SQLException ex) {
             System.out.println("EXCEPTION MAJ PREMIERE DATE DESACTIVATION " + ex.getMessage());
             //Logger.getLogger(TRepUniqueFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally{
+            if(con != null){
+                try{
+            con.close();
+                }
+            catch(Exception e){ e.getMessage();  }
+            }
         }
         
         

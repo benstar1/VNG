@@ -3,10 +3,14 @@ package bj.finances.cfisc.controllers;
 import bj.finances.cfisc.entities.TUtilisateur;
 import bj.finances.cfisc.controllers.util.JsfUtil;
 import bj.finances.cfisc.controllers.util.PaginationHelper;
+import bj.finances.cfisc.entities.TDirection;
 import bj.finances.cfisc.entities.TGroupe;
 import bj.finances.cfisc.entities.TRepUnique;
+import bj.finances.cfisc.entities.TService;
+import bj.finances.cfisc.sessions.TDirectionFacade;
 import bj.finances.cfisc.sessions.TGroupeFacade;
 import bj.finances.cfisc.sessions.TRepUniqueFacade;
+import bj.finances.cfisc.sessions.TServiceFacade;
 import bj.finances.cfisc.sessions.TUtilisateurFacade;
 
 import java.io.Serializable;
@@ -374,7 +378,145 @@ public class TUtilisateurController implements Serializable {
 
         return GroupeItem;
     }
+    
+    
 
+    //creation utiisateur simple
+    
+    @EJB
+    private TDirectionFacade tDirectionFacade;
+
+    @EJB
+    private TServiceFacade tServiceFacade;
+
+    public TDirectionFacade gettDirectionFacade() {
+        return tDirectionFacade;
+    }
+
+    public void settDirectionFacade(TDirectionFacade tDirectionFacade) {
+        this.tDirectionFacade = tDirectionFacade;
+    }
+
+    public TServiceFacade gettServiceFacade() {
+        return tServiceFacade;
+    }
+
+    public void settServiceFacade(TServiceFacade tServiceFacade) {
+        this.tServiceFacade = tServiceFacade;
+    }
+    
+        private List<TDirection> listDirection;
+
+    private List<TService> listService;
+    
+    private TUtilisateur monUtilisateur;
+    
+    private TService monService;
+    
+    private TDirection maDirection;
+    private TGroupe monGroupe;
+
+    public TGroupe getMonGroupe() {
+        return monGroupe;
+    }
+
+    public void setMonGroupe(TGroupe monGroupe) {
+        this.monGroupe = monGroupe;
+    }
+            
+   
+    
+    public List<TService> list_Service(){
+        listService = tServiceFacade.findAll();
+        return listService;
+    }
+
+    public List<SelectItem> getListDirection(){
+        List<SelectItem> listDir = new ArrayList();
+        listDirection = tDirectionFacade.findAll();
+        
+        for (TDirection madir : listDirection){
+            listDir.add(new SelectItem(madir, madir.getCode()+ " --> "  + madir.getLibelle() ));
+        }
+        return listDir;
+    }
+    
+
+    public List<SelectItem> getListService(){
+        List<SelectItem> listServ = new ArrayList();
+        listService = tServiceFacade.findAll();
+        
+        for (TService monser : listService){
+            listServ.add(new SelectItem(monser, monser.getCode() + " --> "  + monser.getLibelle() ));
+        }
+        return listServ;
+    }
+
+    public void setListService(List<TService> listService) {
+        this.listService = listService;
+    }
+
+    public TUtilisateur getMonUtilisateur() {
+        return monUtilisateur;
+    }
+
+    public void setMonUtilisateur(TUtilisateur monUtilisateur) {
+        this.monUtilisateur = monUtilisateur;
+    }
+
+    public TService getMonService() {
+        return monService;
+    }
+
+    public void setMonService(TService monService) {
+        this.monService = monService;
+    }
+
+    public TDirection getMaDirection() {
+        return maDirection;
+    }
+
+    public void setMaDirection(TDirection maDirection) {
+        this.maDirection = maDirection;
+    }
+    
+     
+    public String prepareCreateUser() {
+        //current = new TUtilisateur();
+        System.out.println("Objet courant " + current);
+//        utilContImmatr = se
+        selectedItemIndex = -1;
+        //return "Create";
+        return "Confirm?faces-redirect=true&includeViewParams=true";
+    }
+    public String createUser(){      
+       // monUtilisateur.setUtilCod(null);
+        //tUtilisateurFacade.create(monUtilisateur);
+        
+        try {
+            //current.setFonctCod("01");
+            
+            String serv = monService.getCode();
+            System.out.println("test create"); 
+            current.setFonctCod(serv);
+            System.out.println("test create login " + current.getUtilLogin()); 
+            System.out.println("test create service " + current.getFonctCod() ); 
+            //current.setGroupe(tGroupeFacade.find("INSPECTEUR"));
+             current.setGroupe(tGroupeFacade.find(current.getGroupe().getGroupId()));
+            System.out.println("test create groupe " + current.getGroupe());
+            getFacade().create(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TUtilisateurCreated"));
+            return prepareCreateUser();
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            return null;
+        }
+               
+        
+        
+    }
+    
+    
     @FacesConverter(forClass = TUtilisateur.class)
     public static class TUtilisateurControllerConverter implements Converter {
 

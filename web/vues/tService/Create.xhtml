@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateTServiceTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateTServiceLabel_code}" for="code" />
+                    <h:inputText id="code" value="#{tServiceController.selected.code}" title="#{bundle.CreateTServiceTitle_code}" required="true" requiredMessage="#{bundle.CreateTServiceRequiredMessage_code}"/>
+                    <h:outputLabel value="#{bundle.CreateTServiceLabel_libelle}" for="libelle" />
+                    <h:inputText id="libelle" value="#{tServiceController.selected.libelle}" title="#{bundle.CreateTServiceTitle_libelle}" />
+                    <h:outputLabel value="#{bundle.CreateTServiceLabel_direction}" for="direction" />
+                    <h:inputText id="direction" value="#{tServiceController.selected.direction}" title="#{bundle.CreateTServiceTitle_direction}" required="true" requiredMessage="#{bundle.CreateTServiceRequiredMessage_direction}"/>
+                    <h:outputLabel value="#{bundle.CreateTServiceLabel_TDirection}" for="TDirection" />
+                    <h:selectOneMenu id="TDirection" value="#{tServiceController.selected.TDirection}" title="#{bundle.CreateTServiceTitle_TDirection}" required="true" requiredMessage="#{bundle.CreateTServiceRequiredMessage_TDirection}">
+                        <f:selectItems value="#{tDirectionController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tServiceController.create}" value="#{bundle.CreateTServiceSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{tServiceController.prepareList}" value="#{bundle.CreateTServiceShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateTServiceIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

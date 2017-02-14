@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:composition template="/templatelogin.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateTUtilisateurTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <center><h2>Inscription</h2></center>
+            <h:form>
+                <center>
+                    <h:panelGrid columns="4">                        
+                        <h:outputLabel value="Direction :" for="direction" />
+                        <h:selectOneMenu id="direction" value="#{tUtilisateurController.maDirection}" title="" required="true" requiredMessage="Veuillez choisir la Direction">
+                                    <f:selectItem itemLabel="----------- Direction -----------"></f:selectItem>
+                                    <f:selectItems value="#{tUtilisateurController.listDirection}"/>
+                        </h:selectOneMenu>
+                        
+                        <h:outputLabel value="Service :" for="service" />
+                        <h:selectOneMenu id="service" value="#{tUtilisateurController.monService}" title="" required="true" requiredMessage="Veuillez choisir le service">
+                                    <f:selectItem itemLabel="----------- Service -----------"></f:selectItem>
+                                    <f:selectItems value="#{tUtilisateurController.listService}"/>
+                        </h:selectOneMenu>
+                                               
+                        
+                        <h:outputLabel value="Groupe  :  " for= "group" />
+                        <h:selectOneMenu id="group" value="#{tUtilisateurController.monGroupe}" title="" required="true" requiredMessage="Veuillez choisir le groupe">
+                                    <f:selectItem itemLabel="----------- Groupe -----------"></f:selectItem>
+                                    <f:selectItems value="#{tUtilisateurController.groupeItem}"/>
+                        </h:selectOneMenu>
+                                    
+                        <h:outputLabel value="Nom :" for="utilNom1" />
+                        <p:inputText id="utilNom1" value="#{tUtilisateurController.selected.utilNom}"  />
+                        
+                        <h:outputLabel value="Prenoms :" for="utilPrenoms1" />
+                        <p:inputText id="utilPrenoms1" value="#{tUtilisateurController.selected.utilPrenoms}"  />
+                        
+                        <h:outputLabel value="Login :" for="utilLogin" />                         
+                        <p:inputText id="utilLogin" value="#{tUtilisateurController.selected.utilLogin}" title="#{bundle.CreateTUtilisateurTitle_utilTel}" requiredMessage="Veuillez spécifier le login" />
+                        
+                        <h:outputLabel value="Mot de passe :" for="utilPassword" />
+                        <p:password id="utilPassword" feedback="false" match="utilPassword2" value="#{tUtilisateurController.selected.utilPassword}" title="#{bundle.CreateTUtilisateurTitle_utilPassword}" required="true" requiredMessage="La confirmation est obligatoire" validatorMessage="Les Mots de passe sont différents"/>
+                        
+                        <h:outputLabel value="Confirmer Mot de passe :" for="utilPassword2" />
+                        <p:password id="utilPassword2" feedback="false" value="#{tUtilisateurController.selected.utilPassword}" title="#{bundle.CreateTUtilisateurTitle_utilPassword}" required="true" requiredMessage="La confirmation est obligatoire"/>
+                        
+                        <h:outputLabel value="Email :" for="utilEmail" />
+                        <p:inputText id="utilEmail" value="#{tUtilisateurController.selected.utilEmail}" title="#{bundle.CreateTUtilisateurTitle_utilEmail}" validator="#{tUtilisateurController.validateEmail}" />
+                                                
+                        <h:outputLabel value="Tel :" for="utilTel" />
+                        <p:inputText id="utilTel" value="#{tUtilisateurController.selected.utilTel}" title="#{bundle.CreateTUtilisateurTitle_utilTel}" />
+                        
+                        <h:outputLabel value="Tel fixe :" for="utilTelfix" />
+                        <p:inputText id="utilTelfix" value="#{tUtilisateurController.selected.utilTelfix}" title="#{bundle.CreateTUtilisateurTitle_utilTelfix}" />
+                        
+                        
+                     </h:panelGrid>
+                    <br />
+                    <h:commandButton action="#{tUtilisateurController.createUser()}" value="   Créer Utilisateur   " />
+                    <br />
+                    <br />
+
+                    <br />
+
+                </center>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

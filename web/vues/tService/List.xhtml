@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTServiceTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListTServiceEmpty}" rendered="#{tServiceController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{tServiceController.items.rowCount > 0}">
+                    <h:outputText value="#{tServiceController.pagination.pageFirstItem + 1}..#{tServiceController.pagination.pageLastItem + 1}/#{tServiceController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{tServiceController.previous}" value="#{bundle.Previous} #{tServiceController.pagination.pageSize}" rendered="#{tServiceController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{tServiceController.next}" value="#{bundle.Next} #{tServiceController.pagination.pageSize}" rendered="#{tServiceController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{tServiceController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTServiceTitle_code}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.code}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTServiceTitle_libelle}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.libelle}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTServiceTitle_direction}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.direction}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTServiceTitle_TDirection}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.TDirection}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{tServiceController.prepareView}" value="#{bundle.ListTServiceViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tServiceController.prepareEdit}" value="#{bundle.ListTServiceEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tServiceController.destroy}" value="#{bundle.ListTServiceDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{tServiceController.prepareCreate}" value="#{bundle.ListTServiceCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListTServiceIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
