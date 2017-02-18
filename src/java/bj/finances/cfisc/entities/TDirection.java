@@ -6,18 +6,20 @@
 package bj.finances.cfisc.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -43,8 +45,8 @@ public class TDirection implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "LIBELLE")
     private String libelle;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "tDirection")
-    private TService tService;
+    @OneToMany(mappedBy = "direction")
+    private List<TService> tServiceList;
 
     public TDirection() {
     }
@@ -74,12 +76,14 @@ public class TDirection implements Serializable {
         this.libelle = libelle;
     }
 
-    public TService getTService() {
-        return tService;
+    @XmlTransient
+    @JsonIgnore
+    public List<TService> getTServiceList() {
+        return tServiceList;
     }
 
-    public void setTService(TService tService) {
-        this.tService = tService;
+    public void setTServiceList(List<TService> tServiceList) {
+        this.tServiceList = tServiceList;
     }
 
     @Override

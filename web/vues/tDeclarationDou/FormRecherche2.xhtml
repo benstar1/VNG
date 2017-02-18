@@ -21,10 +21,13 @@
                     </h:panelGrid>
                     <h:panelGrid columns="2">
 
+                        <h:outputLabel value="IFU :" for="ifu" />
+                        <h:inputText value="#{tConsulterDeclarationController.ifu}" id="ifu" required="true" />
+                        
                         <h:outputLabel value="Bureau :" for="bureau" />
                         <h:inputText value="#{tConsulterDeclarationController.bureau}" id="bureau" required="true" />
 
-                        <h:outputLabel value="Num Décl. :" for="numDecl" rendered="#{tConsulterDeclarationController.referenceDec == 2}" />
+                        <h:outputLabel value="Num Décl. :" for="numDecl" rendered="#{tConsulterDeclarationController.referenceDec == 2}"/>
                         <h:inputText value="#{tConsulterDeclarationController.numDecl}" id="numDecl" rendered="#{tConsulterDeclarationController.referenceDec == 2}" required="true"/>
                         <h:outputLabel value="Date enreg. :" for="dateEnreg" rendered="#{tConsulterDeclarationController.referenceDec == 2}" />
                         <p:calendar pattern="dd/MM/yyyy" value="#{tConsulterDeclarationController.dateEnreg}" id="dateEnreg" rendered="#{tConsulterDeclarationController.referenceDec == 2 }" required="true"/>
@@ -50,9 +53,9 @@
                         <h:panelGroup>
                             <h:panelGrid columns="2">
                                 <p:outputLabel value="Bureau : " />
-                                <p:inputText  value="#{tConsulterDeclarationController.bureau}" id="bureauAvance"  required="true" requiredMessage="Obligatoire"/>                                  
+                                <p:inputText  value="#{tConsulterDeclarationController.bureau}" id="bureauAvance"/>                                  
                                 <h:outputLabel value="N° IFU :" for="numIfu" />
-                                <h:inputText id="numIfu" value="#{tConsulterDeclarationController.ifu}"  required="true" requiredMessage="Obligatoire">
+                                <h:inputText id="numIfu" value="#{tConsulterDeclarationController.ifu}">
                                     <p:ajax event="blur" listener="#{tConsulterDeclarationController.rechercheContribuable()}" update="nom prenom raison"/>
                                     <p:ajax event="change" listener="#{tConsulterDeclarationController.rechercheContribuable()}" update="nom prenom raison"/>
                                 </h:inputText>
@@ -202,74 +205,94 @@
 
                 <h:panelGroup id="FicheDetailDeclaration">
                     <p:dialog  header="Detail de declaration" widgetVar="FicheDetailDeclaration" modal="true" width="800px" closable="true" >
-                        <h:panelGrid columns="5" width="100%">
-                            <h:outputLabel value="Bureau"/>
-                            <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideCuoCod } #{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideCuoNam }"/>
-                            <h:outputLabel value=""/>
-                            <h:outputLabel value="N° decl. "/>
-                            <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideRegSer }  #{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideRegNbr }" title="Numero decl"/>
-                            
-                            <h:outputLabel value="Date decl. "/>
-                            <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideRegDat}"><f:convertDateTime pattern="dd/MM/yyyy" /></h:outputText>
-                            <h:outputLabel value=""/>
-                            <h:outputLabel value="N° quit. "/>
-                            <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideRcpSer }  #{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideRcpNbr }" title="Numero quit"/>
-                            
-                            <h:outputLabel value="Date quit. "/>
-                            <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideRcpDat}"><f:convertDateTime pattern="dd/MM/yyyy" /></h:outputText>                            
-                            <h:outputLabel value=""/>
-                            <h:outputLabel value="Num liq. "/>
-                            <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideAstSer }  #{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideAstNbr }" title="Numero decl"/>                            
-                            
-                            <h:outputLabel value="date liq. "/>                         
-                            <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideAstDat}"><f:convertDateTime pattern="dd/MM/yyyy" /></h:outputText>
-                            <h:outputLabel value=""/>
-                            <h:outputLabel value="Nombre d'article "/>
-                            <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ptyNbrItm}"/>
+                        <h:panelGrid columns="4" width="100%">
+                            <h:outputText value="Bureau "/>
+                            <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideCuoCod }  #{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideCuoNam }" title="#{bundle.ViewTDeclarationDouTitle_ideCuoCod}"/>
+                            <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideTypSad}"/>
+                            <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideTypSad} #{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideTypPrc}" title="#{bundle.ViewTDeclarationDouTitle_ideTypSad}"/>
+                            <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideTypTyp}"/>
+                            <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideTypTyp}" title="#{bundle.ViewTDeclarationDouTitle_ideTypTyp}"/>
+                            <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideTypTrs}"/>
+                            <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideTypTrs}" title="#{bundle.ViewTDeclarationDouTitle_ideTypTrs}"/>
+                            <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideMan}"/>
+                            <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideMan}" title="#{bundle.ViewTDeclarationDouTitle_ideMan}"/>
+                            <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideRegSer}"/>
+                            <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideRegSer}#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideRegNbr}" title="#{bundle.ViewTDeclarationDouTitle_ideRegSer}"/>
 
-                            <h:outputLabel value="Montant decl."/>
-                            <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.finAmtDty}"/>
-                            <h:outputLabel value=""/>
-                            <h:outputLabel value="Total droits/taxes."/>
-                            <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.astAmt}"/>
-                            
-                            <h:outputLabel value="total taxes Art."/>
-                            <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.astTot}"/>
+                            <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideRegDat}"/>
+                            <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideRegDat}" title="#{bundle.ViewTDeclarationDouTitle_ideRegDat}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                            <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideAstSer}"/>
+                            <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideAstSer}" title="#{bundle.ViewTDeclarationDouTitle_ideAstSer}"/>
+                            <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideAstNbr}"/>
+                            <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideAstNbr}" title="#{bundle.ViewTDeclarationDouTitle_ideAstNbr}"/>
+                            <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideAstDat}"/>
+                            <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideAstDat}" title="#{bundle.ViewTDeclarationDouTitle_ideAstDat}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                            <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideRcpSer}"/>
+                            <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideRcpSer}" title="#{bundle.ViewTDeclarationDouTitle_ideRcpSer}"/>
+                            <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideRcpNbr}"/>
+                            <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideRcpNbr}" title="#{bundle.ViewTDeclarationDouTitle_ideRcpNbr}"/>
+                            <h:outputText value="#{bundle.ViewTDeclarationDouLabel_ideRcpDat}"/>
+                            <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideRcpDat}" title="#{bundle.ViewTDeclarationDouTitle_ideRcpDat}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                            <h:outputText value="#{bundle.ViewTDeclarationDouLabel_astAmt}"/>
+                            <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.astAmt}" title="#{bundle.ViewTDeclarationDouTitle_astAmt}"/>
                         </h:panelGrid>
 
                         <p:tabView>
                             <c:forEach items="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.TArticleList}" var="article">
                                 <c:set var="titreArticle" value="Article " />
                                 <p:tab title="#{ tConsulterDeclarationController.titreArticle(article.TArticlePK.keyItmNbr)}" >
-                                    <h:panelGrid columns="5" width="100%">
-                                        <h:outputLabel value="Num. art." />
-                                        <h:outputText value="#{article.TArticlePK.keyItmNbr}"/>
-                                        <h:outputLabel value=""/>
-                                        <h:outputLabel value="Postion tar." />
-                                        <h:outputText value="#{article.tarHscNb1}"/>
-                                        
-                                        <h:outputLabel value="Poids Net" />
-                                        <h:outputText value="#{article.vitWgtNet}"/>
-                                        <h:outputLabel value=""/>
-                                        <h:outputLabel value="Valeur" />
-                                        <h:outputText value="#{article.vitStv}"/>
-                                        
-                                        <h:outputLabel value="Droits et taxes" />
-                                        <h:outputText value="#{article.taxAmt}"/>
-                                        <h:outputLabel value=""/>
-                                        <h:outputLabel value="Description" />
-                                        <h:outputText value="#{article.gdsDsc} #{article.gdsDs3}"/>
-                                        
-                                        <h:outputLabel value="Pays Orig." />
-                                        <h:outputText value="#{article.gdsOrgCty}"/>
-                                        <h:outputLabel value=""/>
-                                        <h:outputLabel value="Marque et num." />
-                                        <h:outputText value="#{article.pckMrk1} #{article.pckMrk2}"/>
-                                        
-                                        <h:outputLabel value="Régime" />
-                                        <h:outputText value="#{article.tarPrcExt}#{article.tarPrcNat}"/>   
-                                        <h:outputLabel value=""/>                                         
-                                        
+                                    <h:panelGrid columns="6" width="100%">
+                                        <h:outputText value="#{bundle.ViewTArticleLabel_TArticlePK_instanceid}"/>
+                                        <h:outputText value="#{article.TArticlePK.instanceid}" title="#{bundle.ViewTArticleTitle_TArticlePK_instanceid}"/>
+                                        <h:outputText value="#{bundle.ViewTArticleLabel_TArticlePK_keyItmNbr}"/>
+                                        <h:outputText value="#{article.TArticlePK.keyItmNbr}" title="#{bundle.ViewTArticleTitle_TArticlePK_keyItmNbr}"/>
+                                        <h:outputText value="#{bundle.ViewTArticleLabel_pckNbr}"/>
+                                        <h:outputText value="#{article.pckNbr}" title="#{bundle.ViewTArticleTitle_pckNbr}"/>
+                                        <h:outputText value="#{bundle.ViewTArticleLabel_pckMrk1}"/>
+                                        <h:outputText value="#{article.pckMrk1}" title="#{bundle.ViewTArticleTitle_pckMrk1}"/>
+                                        <h:outputText value="#{bundle.ViewTArticleLabel_pckMrk2}"/>
+                                        <h:outputText value="#{article.pckMrk2}" title="#{bundle.ViewTArticleTitle_pckMrk2}"/>
+                                        <h:outputText value="#{bundle.ViewTArticleLabel_pckTypCod}"/>
+                                        <h:outputText value="#{article.pckTypCod}" title="#{bundle.ViewTArticleTitle_pckTypCod}"/>
+                                        <h:outputText value="#{bundle.ViewTArticleLabel_pckTypNam}"/>
+                                        <h:outputText value="#{article.pckTypNam}" title="#{bundle.ViewTArticleTitle_pckTypNam}"/>
+                                        <h:outputText value="#{bundle.ViewTArticleLabel_tarHscNb1}"/>
+                                        <h:outputText value="#{article.tarHscNb1}" title="#{bundle.ViewTArticleTitle_tarHscNb1}"/>
+
+                                        <h:outputText value="#{bundle.ViewTArticleLabel_tarHscTscDat}"/>
+                                        <h:outputText value="#{article.tarHscTscDat}" title="#{bundle.ViewTArticleTitle_tarHscTscDat}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                        <h:outputText value="#{bundle.ViewTArticleLabel_tarHscTscSta}"/>
+                                        <h:outputText value="#{article.tarHscTscSta}" title="#{bundle.ViewTArticleTitle_tarHscTscSta}"/>
+                                        <h:outputText value="#{bundle.ViewTArticleLabel_tarPrf}"/>
+                                        <h:outputText value="#{article.tarPrf}" title="#{bundle.ViewTArticleTitle_tarPrf}"/>
+                                        <h:outputText value="#{bundle.ViewTArticleLabel_tarPrcExt}"/>
+                                        <h:outputText value="#{article.tarPrcExt}" title="#{bundle.ViewTArticleTitle_tarPrcExt}"/>
+                                        <h:outputText value="#{bundle.ViewTArticleLabel_tarPrcNat}"/>
+                                        <h:outputText value="#{article.tarPrcNat}" title="#{bundle.ViewTArticleTitle_tarPrcNat}"/>
+                                        <h:outputText value="#{bundle.ViewTArticleLabel_tarQuo}"/>
+                                        <h:outputText value="#{article.tarQuo}" title="#{bundle.ViewTArticleTitle_tarQuo}"/>
+                                        <h:outputText value="#{bundle.ViewTArticleLabel_tarPri}"/>
+                                        <h:outputText value="#{article.tarPri}" title="#{bundle.ViewTArticleTitle_tarPri}"/>
+                                        <h:outputText value="#{bundle.ViewTArticleLabel_tarVmt}"/>
+                                        <h:outputText value="#{article.tarVmt}" title="#{bundle.ViewTArticleTitle_tarVmt}"/>
+                                        <h:outputText value="#{bundle.ViewTArticleLabel_tarVdt}"/>
+                                        <h:outputText value="#{article.tarVdt}" title="#{bundle.ViewTArticleTitle_tarVdt}"/>
+                                        <h:outputText value="#{bundle.ViewTArticleLabel_tarAtt}"/>
+                                        <h:outputText value="#{article.tarAtt}" title="#{bundle.ViewTArticleTitle_tarAtt}"/>
+                                        <h:outputText value="#{bundle.ViewTArticleLabel_tarAic}"/>
+                                        <h:outputText value="#{article.tarAic}" title="#{bundle.ViewTArticleTitle_tarAic}"/>
+                                        <h:outputText value="#{bundle.ViewTArticleLabel_gdsOrgCty}"/>
+                                        <h:outputText value="#{article.gdsOrgCty}" title="#{bundle.ViewTArticleTitle_gdsOrgCty}"/>
+                                        <h:outputText value="#{bundle.ViewTArticleLabel_gdsOrgCrg}"/>
+                                        <h:outputText value="#{article.gdsOrgCrg}" title="#{bundle.ViewTArticleTitle_gdsOrgCrg}"/>
                                     </h:panelGrid>
                                     <c:set value="#{article.TTaxeDeclDouList}" var="taxes"/>
                                     <p:dataTable value="#{taxes}" var="taxe"  >
@@ -277,7 +300,7 @@
                                             <f:facet name="header">
                                                 <h:outputText value="Code taxe"/>
                                             </f:facet>
-                                            <h:outputText value="#{taxe.taxLinCod.taxCod}"/>
+                                            <h:outputText value="#{taxe.taxLinCod}"/>
                                         </p:column>       
                                         <p:column>
                                             <f:facet name="header">

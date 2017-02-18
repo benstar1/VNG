@@ -4,6 +4,7 @@ import bj.finances.cfisc.controllers.util.DeclarationEtendue;
 import bj.finances.cfisc.controllers.util.DeclarationSynthese;
 import bj.finances.cfisc.entities.TDeclarationDou;
 import bj.finances.cfisc.entities.TRepUnique;
+import bj.finances.cfisc.entities.TTaxeDouane;
 import bj.finances.cfisc.sessions.TDeclarationDouFacade;
 import bj.finances.cfisc.sessions.TRepUniqueFacade;
 import bj.finances.cfisc.sessions.TTaxeDeclDouFacade;
@@ -96,9 +97,10 @@ public class TConsulterDeclarationControllers implements Serializable {
 
         switch (referenceDec) {
             case 2:
+
                 listeTDeclarationDou = tDeclarationDouFacade.findAll(referenceDec, bureau, serie, numero, dateEnreg);
                 break;
-            case 3:
+            case 3: 
                 listeTDeclarationDou = tDeclarationDouFacade.findAll(referenceDec, bureau, serie, numero, dateLiq);
                 break;
             case 4:
@@ -117,11 +119,11 @@ public class TConsulterDeclarationControllers implements Serializable {
     }
 
     public void rechercheAvancee() {
-
+        System.out.println("TAMTAMPION");
         listeTDeclarationDou = new ArrayList<>();
         listDeclarationEtendue = new ArrayList<>();
         selectedSeDeclarationEtendue = null;
-
+ System.out.println("TATAPORANOU " + selected.getContImmatr().toString() + "  " + typeDeclaration + "  " + bureau + "  " + dateAchoisir);
         if (selected == null) {
             return;
         }
@@ -143,9 +145,9 @@ public class TConsulterDeclarationControllers implements Serializable {
         parametres.put("dateAchoisir", dateAchoisir);
         parametres.put("dateDeDebut", debut);
         parametres.put("dateDeFin", fin);
-
+       
         listeTDeclarationDou = tDeclarationDouFacade.findAll(selected, typeDeclaration,bureau, dateAchoisir, debut, fin);
-
+        System.out.println("LA TAILLE EST EST EST " + listeTDeclarationDou.size());
         convertirADeclarationEtendu();
     }
 
@@ -174,7 +176,7 @@ public class TConsulterDeclarationControllers implements Serializable {
                 Object[] s = (Object[]) synthese;
                 Long instanceId = (Long) s[0];
                 if (instanceId.equals(decEtendue.getInstanceid())) {
-                    String codeTaxe = (String) s[1];
+                    String codeTaxe = ((TTaxeDouane)s[1]).getTaxCod();
                     if (codeTaxe == null) {
                         codeTaxe = "";
                     }

@@ -132,7 +132,7 @@ public class TDeclarationDouFacade extends AbstractFacade<TDeclarationDou> {
         System.out.println(queryString);
 
         Query query = em.createQuery(queryString);
-        query.setParameter("cmpCod", tRepUnique.getContNum());
+        query.setParameter("cmpCod", tRepUnique.getContImmatr().toString());
 
         if ((dateDebut != null && dateFin != null) && ("1".equals(typeDate) || "2".equals(typeDate) || "3".equals(typeDate))) {
             query.setParameter("dateMin", dateDebut)

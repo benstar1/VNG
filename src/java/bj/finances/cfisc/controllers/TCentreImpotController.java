@@ -6,6 +6,8 @@ import bj.finances.cfisc.controllers.util.PaginationHelper;
 import bj.finances.cfisc.sessions.TCentreImpotFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -26,9 +28,22 @@ public class TCentreImpotController implements Serializable {
     private DataModel items = null;
     @EJB
     private bj.finances.cfisc.sessions.TCentreImpotFacade ejbFacade;
+    
+    private List<TCentreImpot> listCentre = null;
+    
+    private TCentreImpot monCentre;
+    
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
+    public TCentreImpot getMonCentre() {
+        return monCentre;
+    }
+
+    public void setMonCentre(TCentreImpot monCentre) {
+        this.monCentre = monCentre;
+    } 
+    
     public TCentreImpotController() {
     }
 
@@ -62,6 +77,16 @@ public class TCentreImpotController implements Serializable {
         return pagination;
     }
 
+    public List<SelectItem> getListCentre(){
+        List<SelectItem> listCent = new ArrayList();
+        listCentre = ejbFacade.findAll();
+        
+        for (TCentreImpot monCentre : listCentre){
+            listCent.add(new SelectItem(monCentre, monCentre.getCentrImpCode()+ " --> "  + monCentre.getCentrImpLibelle() ));
+        }
+        return listCent;
+    }
+    
     public String prepareList() {
         recreateModel();
         return "List";

@@ -5,10 +5,13 @@
  */
 package bj.finances.cfisc.sessions;
 
+import bj.finances.cfisc.entities.TEntDeclaration;
 import bj.finances.cfisc.entities.TGroupe;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -24,6 +27,14 @@ public class TGroupeFacade extends AbstractFacade<TGroupe> {
     protected EntityManager getEntityManager() {
         return em;
     }
+    
+    public List<TGroupe> findTrueGroupe() {
+        Query query;
+        query = em.createNamedQuery("TGroupe.findTrueGroupe");
+        //query.setParameter("anne", anne);
+        return query.getResultList();
+    }
+    
 
     public TGroupeFacade() {
         super(TGroupe.class);

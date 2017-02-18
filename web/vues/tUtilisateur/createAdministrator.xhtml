@@ -6,30 +6,12 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-
-               
-            <center><h2>Inscription</h2></center>
+    
+           <center><h2>Créer un Administrateur</h2></center>
             <p:messages id="msg" ></p:messages>
             <h:form>
                 <center>
-                    <h:panelGrid columns="4">                        
-                        <h:outputLabel value="Direction :" for="direction" />
-                        <h:selectOneMenu id="direction" value="#{tUtilisateurController.maDirection}" title="" required="true" requiredMessage="Veuillez choisir la Direction">
-                                    <f:selectItem itemLabel="----------- Direction -----------"></f:selectItem>
-                                    <f:selectItems value="#{tUtilisateurController.listDirection}"/>
-                        </h:selectOneMenu>
-                        
-                        <h:outputLabel value="Service :" for="service" />
-                        <h:selectOneMenu id="service" value="#{tUtilisateurController.monService}" title="" required="true" requiredMessage="Veuillez choisir le service">
-                                    <f:selectItem itemLabel="----------- Service -----------"></f:selectItem>
-                                    <f:selectItems value="#{tUtilisateurController.listService}"/>
-                        </h:selectOneMenu>
-                                               
-                         <h:outputLabel value="Groupe  :  " for= "groupe" />
-                         <h:selectOneMenu id="groupe" value="#{tUtilisateurController.selected.groupe}" title="" required="true" requiredMessage="Veuillez choisir le groupe">
-                                    <f:selectItem itemLabel="----------- Groupe -----------"></f:selectItem>
-                                    <f:selectItems value="#{tUtilisateurController.listGroupe}"/>
-                        </h:selectOneMenu>
+                    <h:panelGrid columns="4">
                          
                         <h:outputLabel value="Nom :" for="utilNom1" />
                         <p:inputText id="utilNom1" value="#{tUtilisateurController.selected.utilNom}"  />
@@ -58,14 +40,13 @@
                         
                      </h:panelGrid>
                     <br />
-                    <h:commandButton action="#{tUtilisateurController.createUser2()}" value="   Créer Utilisateur   " />
+                    <h:commandButton action="#{tUtilisateurController.createAdmin()}" value="   Créer Administrateur   " />
                     <br />
                     <br />
 
                     <br />
 
                 </center>
-            </h:form>
-        
+            </h:form>       
 
 </html>

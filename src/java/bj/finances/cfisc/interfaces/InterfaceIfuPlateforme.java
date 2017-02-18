@@ -144,10 +144,10 @@ public class InterfaceIfuPlateforme {
                 if (f.getName().substring(0, 3).equals("DEC")) {
                     in = new FileInputStream(f);
                     
-                    SchemaFactory schemafac = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-                    schema = schemafac.newSchema(new File(cheminFichierXsdSydo));
-                    XMLReaderJDOMFactory factory = new XMLReaderSchemaFactory(schema);                    
-                    SAXBuilder builder = new SAXBuilder(factory);
+//                    SchemaFactory schemafac = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+//                    schema = schemafac.newSchema(new File(cheminFichierXsdSydo));
+//                    XMLReaderJDOMFactory factory = new XMLReaderSchemaFactory(schema);                    
+                    SAXBuilder builder = new SAXBuilder();
                     document = (Document) builder.build(in);
                     
                     TraitementDonneesDouane(document, f, in, f.getName());

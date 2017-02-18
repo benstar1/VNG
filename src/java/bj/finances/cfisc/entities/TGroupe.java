@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TGroupe.findAll", query = "SELECT t FROM TGroupe t")
+    , @NamedQuery(name = "TGroupe.findTrueGroupe", query = "SELECT t FROM TGroupe t WHERE t.groupId  NOT IN ('ADMIN','CONTRIBUABLE')")
     , @NamedQuery(name = "TGroupe.findByGroupId", query = "SELECT t FROM TGroupe t WHERE t.groupId = :groupId")
     , @NamedQuery(name = "TGroupe.findByGroupName", query = "SELECT t FROM TGroupe t WHERE t.groupName = :groupName")})
 public class TGroupe implements Serializable {
@@ -108,7 +109,7 @@ public class TGroupe implements Serializable {
 
     @Override
     public String toString() {
-        return "bj.mef.cfisc.entite.TGroupe[ groupId=" + groupId + " ]";
+        return "bj.finances.cfisc.entities.TGroupe[ groupId=" + groupId + " ]";
     }
     
 }

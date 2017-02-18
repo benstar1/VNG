@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        
+                <h:outputText value="Etat des entreprises" />
+                <p:fieldset>
+                <h:form>
+
+                    <h:selectOneRadio value="#{reportController.choix_etat}">
+                        <p:ajax update="@form"/>
+                        <f:selectItem itemLabel="Toutes les entreprises à jour" itemValue="#{true}"/>
+                        <f:selectItem itemLabel="Etat des entreprises à une date donnée" itemValue="#{false}"/>
+                    </h:selectOneRadio>
+
+                    <h:panelGroup rendered="#{reportController.choix_etat == true}">
+                        <p:commandButton ajax="false" value="Afficher" actionListener="#{reportController.obtenirRepertoireUnique()}"/>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{reportController.choix_etat == false}">
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="Date" for="dateJour"/>
+                            <p:calendar id="dateJour" value="#{reportController.dateJour}" pattern="dd/mm/yyyy"/>
+
+                            <h:outputLabel value="Centre d'impôt" for="centre_impot"/>
+                            <h:selectOneMenu id="centre_impot" value="#{tCentreImpotController.monCentre}" title="" required="true" requiredMessage="Veuillez choisir la Direction">
+                                    <f:selectItem itemLabel="----------- Centre -----------"></f:selectItem>
+                                    <f:selectItems value="#{tCentreImpotController.listCentre}"/>
+                            </h:selectOneMenu>
+                            <!-- h:inputText id="centre_impot" value="#{reportController.centreImpot}"/ --> 
+
+                            <h:outputLabel value="" for="etat"/>
+                            <h:selectOneRadio id="etat" value="#{reportController.statut}">
+                                <p:ajax update="@form"/>
+                                <f:selectItem itemLabel="Activées" itemValue="A"/>
+                                <f:selectItem itemLabel="Désactivées" itemValue="D"/>
+                            </h:selectOneRadio>
+
+                            <h:outputLabel value="" for="btn" />
+                            <p:commandButton id="btn" ajax="false" value="Rechercher" actionListener="#{reportController.rechercherEntreprisePArStatut()}" update="@form"/> <!-- update="@form:resultat"/> -->
+
+                        </h:panelGrid>                        
+                    </h:panelGroup>                    
+
+
+                    <br/>
+                </h:form>
+                    </p:fieldset>
+    </body>
+</html>

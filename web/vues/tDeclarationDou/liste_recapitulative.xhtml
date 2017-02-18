@@ -20,8 +20,8 @@
                         <h:outputLabel value="Date fin. :" for="datefin" />
                         <p:calendar pattern="dd/MM/yyyy" value="#{etat.datefin}" id="datefin" />
 
-                        <h:outputLabel value="Date fin. :" for="datefin" />
-                        <p:selectOneMenu value="#{etat.formEtat}">
+                        <h:outputLabel value="Type :" for="formEtat" />
+                        <p:selectOneMenu  id="formEtat" value="#{etat.formEtat}">
                             <f:selectItem itemLabel="Global" itemValue="1"/>
                             <f:selectItem itemLabel="Detaillé" itemValue="2"/>
                         </p:selectOneMenu>

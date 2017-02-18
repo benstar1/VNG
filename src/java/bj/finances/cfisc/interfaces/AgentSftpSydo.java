@@ -66,7 +66,7 @@ public class AgentSftpSydo {
         JSch jsch = new JSch();
         Session session = null;
         Channel channel = null;
-        logger.info("Scan du dossier Sydo");
+        
         try {
             session = jsch.getSession(SYDO_SFTPUSER, SYDO_SFTPHOST, SYDO_SFTPPORT);
             session.setPassword(SYDO_SFTPPASS);
@@ -81,7 +81,8 @@ public class AgentSftpSydo {
                 logger.error("Problème de connexion de session" + ex.getMessage());
             }
             
-            channel = session.openChannel("sftp");            
+            channel = session.openChannel("sftp");  
+            logger.info("Scan du dossier Sydo SFTP");
             try{
             channel.connect();
             }catch(Exception ex){
@@ -92,7 +93,7 @@ public class AgentSftpSydo {
             channelSftp.lcd(cheminDepotLocal);
 
             Vector<ChannelSftp.LsEntry> list = channelSftp.ls("DEC*.xml");
-            logger.info("connexion a sydo reussi .................. ");
+            logger.info("CONNEXION A SYDONIA REUSSI .................. ");
             for (ChannelSftp.LsEntry entry : list) {                
                 channelSftp.get(entry.getFilename(), entry.getFilename());
                 System.out.println("nom fichier : " + entry.getFilename());

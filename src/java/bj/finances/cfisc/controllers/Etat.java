@@ -10,7 +10,13 @@ package bj.finances.cfisc.controllers;
 //import bj.mefpd.gesexo.sessionBeans.ContribFacade;
 //import bj.mefpd.gesexo.sessionBeans.Mp2Facade;
 import bj.finances.cfisc.entities.TCentreImpot;
+import bj.finances.cfisc.entities.TDirection;
 import bj.finances.cfisc.entities.TExercice;
+import bj.finances.cfisc.entities.TService;
+import bj.finances.cfisc.entities.TUtilisateur;
+import bj.finances.cfisc.sessions.TDirectionFacade;
+import bj.finances.cfisc.sessions.TRepUniqueFacade;
+import bj.finances.cfisc.sessions.TServiceFacade;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -63,6 +69,14 @@ public class Etat {
 
     @Resource(mappedName = "jdbc/cfiscDS", type = DataSource.class)
     private DataSource myDB;
+    
+    @EJB
+    TRepUniqueFacade tRepuniqueFacade;
+    
+    @EJB
+    TServiceFacade tServiceFacade;
+    
+    
     public Date dateD;
     public Date dateF;
     public String nummp2;
@@ -237,7 +251,22 @@ public class Etat {
 
     public void listeDeclDou(ActionEvent actionEvent) throws JRException, IOException, ClassNotFoundException, SQLException, ParseException {
 
-        HashMap map = new HashMap();
+        //System.out.println(" +++++++++++++++ ############################### " + new LoginMBean().getUtilisateur().getFonctCod().getTDirection().getCode());
+        
+    ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+    
+    Map<String, Object> sessionMap = externalContext.getSessionMap();
+    TUtilisateur connectedUser = (TUtilisateur) sessionMap.get("utilisateurConnecte");
+        System.out.println("SESSION UUUUUUUSEEEEERRRRRRRR 1" + sessionMap.get("loginUser"));
+        System.out.println("SESSION UUUUUUUSEEEEERRRRRRRR 2" + ((TUtilisateur) sessionMap.get("utilisateurConnecte")).getFonctCod().getCode());       
+        TService serv = (TService) ((TUtilisateur) sessionMap.get("utilisateurConnecte")).getFonctCod();
+    TDirection connectedDirection = (TDirection) tServiceFacade.find(serv.getCode()).getDirection();    
+    
+    String ifuDirection = tRepuniqueFacade.find(Long.parseLong(ifu)).getContCentrImpCode().getCentrImpCode();
+    //System.out.println("+++++++++++++++++++++++++++++ " + ifuDirection + " " + connectedDirection.getCode());
+    
+    if((connectedDirection.getCode()).equals(ifuDirection) || ((TUtilisateur) sessionMap.get("utilisateurConnecte")).getFonctCod().getCode().equals("BEF") || sessionMap.get("loginUser").equals("admin")){
+              HashMap map = new HashMap();
         if (formEtat == 2) {
             String reportPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/vues/etat/detailDeclarations/detailDeclarations.jasper");
             Connection connection = myDB.getConnection();
@@ -256,7 +285,7 @@ public class Etat {
 
         if (ifu.equals("")) {
             FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "LE NUMERO IFU NE PEUT ETRE VIDE"));
-            System.out.println("VVVVVVVVVVVVVVVVVVVIIIIIIIIIIIIIIIIIIIIDDDDDDDDDDDDDDDDDDDDDEEEEEEEEEEEE");
+            System.out.println("VVVVVVVEEE");
             //return;
             map.put("ifu", null);
             test_ifu = 0;
@@ -286,7 +315,68 @@ public class Etat {
         JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
         //JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);   
         FacesContext.getCurrentInstance().responseComplete();
-        //System.out.println("servletOutputStream> " + servletOutputStream);
+    } else{
+        FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "VOUS N'ETES PAS AUTORISE A CONSULTER LES DECL. DE CE CONTRIBUABLE"));
+            return;
+    }   
+    
+    
+//    if(!connectedUserDirection.equals(ifuDirection)){            
+//            FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "VOUS N'ETES PAS AUTORISE A CONSULTER LES DECL. DE CE CONTRIBUABLE"));
+//            return; 
+//        }
+//        else{        
+//        HashMap map = new HashMap();
+//        if (formEtat == 2) {
+//            String reportPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/vues/etat/detailDeclarations/detailDeclarations.jasper");
+//            Connection connection = myDB.getConnection();
+//            map.put("entreprise", test_ifu);
+//            map.put("debut", datedeb);
+//            map.put("fin", datefin);
+//            jasperPrint = JasperFillManager.fillReport(reportPath, map, connection);
+//            connection.close();
+//            HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+//            httpServletResponse.addHeader("Content-disposition", (type == 0) ? "attachment; filename=listeRecapContr.pdf" : (type == 1) ? "attachment; filename=listeRecapImp.pdf" : "attachment; filename=listeRecapExp.pdf");
+//            ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+//            JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+//            FacesContext.getCurrentInstance().responseComplete();
+//            return;
+//        }
+//
+//        if (ifu.equals("")) {
+//            FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "LE NUMERO IFU NE PEUT ETRE VIDE"));
+//            System.out.println("VVVVVVVEEE");
+//            //return;
+//            map.put("ifu", null);
+//            test_ifu = 0;
+//            map.put("test_ifu", test_ifu);
+//
+//        } else {
+//            map.put("ifu", Long.parseLong(ifu));
+//            test_ifu = 1;
+//            map.put("test_ifu", test_ifu);
+//        }
+//
+//        String reportPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/vues/etat/droits_par_importateur/droits_par_importateur.jasper");
+//        Connection connection = myDB.getConnection();
+//
+//        //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", getExercice().getExoAnne()+"        et CENTRE "+getCentreimpot().getCentrImpCode()));    
+//        map.put("dateDeb", datedeb);
+//        map.put("dateFin", datefin);
+//        map.put("type", type);
+//        jasperPrint = JasperFillManager.fillReport(reportPath, map, connection);
+//        //System.out.println("Taille liste classe --> " + jasperPrint.getPages().size());
+//        connection.close();
+//
+//        //System.out.println("Taille liste classe apres init --> " + jasperPrint.getPages().size());
+//        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+//        httpServletResponse.addHeader("Content-disposition", (type == 0) ? "attachment; filename=listeRecapContr.pdf" : (type == 1) ? "attachment; filename=listeRecapImp.pdf" : "attachment; filename=listeRecapExp.pdf");
+//        ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+//        JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+//        //JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);   
+//        FacesContext.getCurrentInstance().responseComplete();
+//        //System.out.println("servletOutputStream> " + servletOutputStream);
+//        }
     }
 
     public void DOCXCUMUL(ActionEvent actionEvent) throws JRException, IOException, ClassNotFoundException, SQLException, ParseException {

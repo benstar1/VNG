@@ -405,6 +405,27 @@ public class TUtilisateurController implements Serializable {
         this.tServiceFacade = tServiceFacade;
     }
     
+    private List<TGroupe> listGroupe;
+
+  //public List<TGroupe> getListGroupe() {
+  //    return listGroupe;
+  //}
+    
+      public List<SelectItem> getListGroupe(){
+        List<SelectItem> listGrp = new ArrayList();
+        listGroupe = tGroupeFacade.findTrueGroupe();
+        
+        for (TGroupe mongrp : listGroupe){            
+            listGrp.add(new SelectItem(mongrp, mongrp.getGroupId() + " --> "  + mongrp.getGroupName()));          
+        }
+        return listGrp;
+    }
+      
+
+    public void setListGroupe(List<TGroupe> listGroupe) {
+        this.listGroupe = listGroupe;
+    }
+    
         private List<TDirection> listDirection;
 
     private List<TService> listService;
@@ -481,42 +502,90 @@ public class TUtilisateurController implements Serializable {
     }
     
      
-    public String prepareCreateUser() {
+    public void prepareCreateUser() {
         //current = new TUtilisateur();
         System.out.println("Objet courant " + current);
 //        utilContImmatr = se
         selectedItemIndex = -1;
         //return "Create";
-        return "Confirm?faces-redirect=true&includeViewParams=true";
+        //return "ConfirmUser";
     }
-    public String createUser(){      
-       // monUtilisateur.setUtilCod(null);
-        //tUtilisateurFacade.create(monUtilisateur);
+   
+    
+     public void createUser2() {
+
+        String pwdmd5 = md5.generateMD5(current.getUtilPassword());
+        current.setUtilPassword(pwdmd5);
         
-        try {
-            //current.setFonctCod("01");
+        //String serv = monService.getCode();
+            System.out.println("test create " + current.getGroupe()); 
+            current.setFonctCod(monService);
             
-            String serv = monService.getCode();
-            System.out.println("test create"); 
-            current.setFonctCod(serv);
-            System.out.println("test create login " + current.getUtilLogin()); 
-            System.out.println("test create service " + current.getFonctCod() ); 
-            //current.setGroupe(tGroupeFacade.find("INSPECTEUR"));
-             current.setGroupe(tGroupeFacade.find(current.getGroupe().getGroupId()));
-            System.out.println("test create groupe " + current.getGroupe());
+            TUtilisateur userExist = ejbFacade.find(current.getUtilLogin());
+            
+            if( userExist != null) {                
+                JsfUtil.addErrorMessage("L'UTILISATEUR "+ current.getUtilLogin() + " EXISTE DEJA");
+                //FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Test", "L'UTILISATEUR EXISTE DEJA."));               
+                return;
+            }
+                                 
+            
+        try {                                  
+            current.setUtilContImmatr(null);
+           
+            current.setUtilActif("A");
+
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TUtilisateurCreated"));
-            return prepareCreateUser();
+
+               JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TUtilisateurCreated"));
+            //return 
+               prepareCreateUser();
+               FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_INFO, "", "UTILISATEUR CREE AVEC SUCCES"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            return null;
+            //return null;
         }
-               
-        
-        
     }
     
     
+     
+          public void createAdmin() {
+
+        String pwdmd5 = md5.generateMD5(current.getUtilPassword());
+        current.setUtilPassword(pwdmd5);
+        
+//        String serv = monService.getCode();
+//            System.out.println("test create " + current.getGroupe()); 
+            current.setFonctCod(null);
+            
+              
+            current.setGroupe(tGroupeFacade.find("ADMIN"));
+            
+            TUtilisateur userExist = ejbFacade.find(current.getUtilLogin());
+            
+            if( userExist != null) {                
+                JsfUtil.addErrorMessage("L'UTILISATEUR "+ current.getUtilLogin() + " EXISTE DEJA");
+                //FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Test", "L'UTILISATEUR EXISTE DEJA."));               
+                return; 
+            }
+            
+        try {                                  
+            current.setUtilContImmatr(null);
+           
+            current.setUtilActif("A");
+
+            getFacade().create(current);
+
+               JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TUtilisateurCreated"));
+            //return 
+               prepareCreateUser();
+               FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_INFO, "", "UTILISATEUR CREE AVEC SUCCES"));
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            //return null;
+        }
+    }
+     
     @FacesConverter(forClass = TUtilisateur.class)
     public static class TUtilisateurControllerConverter implements Converter {
 

@@ -12,6 +12,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -39,16 +40,29 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TUtilisateur.findByGroupe", query = "SELECT t FROM TUtilisateur t WHERE t.groupe = :groupe"),
     @NamedQuery(name = "TUtilisateur.findByUtilActif", query = "SELECT t FROM TUtilisateur t WHERE t.utilActif = :utilActif")})
 public class TUtilisateur implements Serializable {
-    @JoinColumn(name = "UTIL_CONT_IMMATR", referencedColumnName = "CONT_IMMATR")
+//    @Column(name = "UTIL_CONT_IMMATR")
+//    private Long utilContImmatr;
+    @JoinColumn(name = "FONCT_COD", referencedColumnName = "CODE")
+    @ManyToOne(fetch=FetchType.EAGER)
+    private TService fonctCod;
+    
+    @JoinColumn(name = "UTIL_CONT_IMMATR", referencedColumnName = "CONT_IMMATR")    
     @ManyToOne
     private TRepUnique utilContImmatr;
+    
+    @JoinColumn(name = "GROUPE", referencedColumnName = "GROUP_ID")
+    @ManyToOne(optional = false)
+    private TGroupe groupe;
+    
     @Size(max = 30)
     @Column(name = "UTIL_COD")
+    
     private String utilCod;
-    @Size(max = 30)
-    @Column(name = "FONCT_COD")
-    private String fonctCod;
-    @Size(max = 50)
+    //@Size(max = 30)
+    
+//    @Column(name = "FONCT_COD")
+//    private String fonctCod;
+    @Size(max = 50)    
     @Column(name = "UTIL_NOM")
     private String utilNom;
     @Size(max = 50)
@@ -87,12 +101,8 @@ public class TUtilisateur implements Serializable {
     private List<TAppartenir> tAppartenirList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "histStatutUtilLogin")
     private List<THistStatut> tHistStatutList;
-
     
-    @JoinColumn(name = "GROUPE", referencedColumnName = "GROUP_ID")
-    @ManyToOne(optional = false)
-    private TGroupe groupe;
-        @Size(max = 15)
+    @Size(max = 15)
     @Column(name = "UTIL_TEL")
     private String utilTel;
 @Size(max = 15)
@@ -263,13 +273,13 @@ public class TUtilisateur implements Serializable {
         this.utilCod = utilCod;
     }
 
-    public String getFonctCod() {
-        return fonctCod;
-    }
-
-    public void setFonctCod(String fonctCod) {
-        this.fonctCod = fonctCod;
-    }
+//    public String getFonctCod() {
+//        return fonctCod;
+//    }
+//
+//    public void setFonctCod(String fonctCod) {
+//        this.fonctCod = fonctCod;
+//    }
 
     public String getUtilNom() {
         return utilNom;
@@ -341,5 +351,21 @@ public class TUtilisateur implements Serializable {
 
     public void setGroupe(TGroupe groupe) {
         this.groupe = groupe;
+    }
+
+//    public Long getUtilContImmatr() {
+//        return utilContImmatr;
+//    }
+
+//    public void setUtilContImmatr(Long utilContImmatr) {
+//        this.utilContImmatr = utilContImmatr;
+//    }
+
+    public TService getFonctCod() {
+        return fonctCod;
+    }
+
+    public void setFonctCod(TService fonctCod) {
+        this.fonctCod = fonctCod;
     }
 }

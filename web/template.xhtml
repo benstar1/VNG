@@ -8,24 +8,24 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
-       
+
         <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
-        <meta http-equiv="refresh" content="900;url=http://10.200.1.154:8080/CFisc/login.xhtml"/>
-        <title>Facelets Template</title>
+        <meta http-equiv="refresh" content="60;url=http://10.3.3.183:8080/CFisc/login.xhtml"/>
+        <title>Bienvenue sur la plateforme de gestion du repertoire unique</title>
     </h:head>
 
     <h:body>
- <!--       <f:facet name="last">
-            <h:outputStylesheet library="css" name="default.css"/>
-        </f:facet>-->
+        <!--       <f:facet name="last">
+                   <h:outputStylesheet library="css" name="default.css"/>
+               </f:facet>-->
         <div id="top">
             <ui:insert name="top"></ui:insert>
             <div class="row">
                 <div id="banniere" style="width: 100%; margin: 0px">
                     <div align="left" id="logo1" style="display: inline-block; width: 25%; margin: 0px"><h:graphicImage library="images" name="logo_mef.jpg" style="width: 376px; height: 100px;" alt="Logo MEF"/></div>
 
-                    <div   class="text-center" id="texte" style=" float:  right;  text-align: right;  width: 70%; height: 100px; display: inline-block; margin: 0px; "><br/> <p style=" text-align: inherit ; color:black;  font-size: x-large;  text-decoration-style:  solid;  font-style:  italic; ">PLATEFORME DE GESTION DES DECLARATIONS FISCALES</p></div>
+                    <div   class="text-center" id="texte" style=" float:  right;  text-align: right;  width: 70%; height: 100px; display: inline-block; margin: 0px; "><br/> <p style=" text-align: inherit ; color:black;  font-size: x-large;  text-decoration-style:  solid;  font-style:  italic; ">PLATEFORME DE GESTION DU REPERTOIRE UNIQUE</p></div>
 
                 </div>
                 <div id="identification" style=" height:5%;   clear:  both; background-color: forestgreen ; width: 100%; margin: 0px ">
@@ -33,51 +33,67 @@
 
 
                     <table  style=" color:  #ffffff ; text-align:  left" border="0" bgcolor="forestgreen" width="100%">
-                        
+
                         <tbody>
                             <tr>
                                 <c:if test="#{loginMBean.contribuable}">
-       
-       
+
+
                                     <td> <strong> <h:outputLabel  value="IFU :"/></strong></td>
                                     <td>  <strong> <h:outputText style=" color:  yellow " value="#{loginMBean.utilisateurconnecte.utilContImmatr.contImmatr}"/></strong>
-                                </td>
-                             
-                                <td><strong>  <h:outputLabel value="Nom/Raison Sociale :"/></strong></td>
-                                <td>   <h:outputText value="#{loginMBean.utilisateurconnecte.utilContImmatr.contRais}"/>
-                                </td>
-                                
-                             
-       
-                                <td>  <strong> <h:outputLabel value="Prénoms/Autre dénomination :"/></strong>
-                                </td>
-                                <td>   <h:outputText value="#{loginMBean.utilisateurconnecte.utilContImmatr.contPren}"/>
-                                    <h:outputText value="#{loginMBean.utilisateurconnecte.utilContImmatr.contNomLong}"/>
-                              
-                                </td>
-                           
-                                
-                                
-                                 </c:if>
-                                
+                                    </td>
+
+                                    <td><strong>  <h:outputLabel value="Nom/Raison Sociale :"/></strong></td>
+                                    <td>   <h:outputText value="#{loginMBean.utilisateurconnecte.utilContImmatr.contRais}"/>
+                                    </td>
+                                    <td>  <strong> <h:outputLabel value="Prénoms/Autre dénomination :"/></strong>
+                                    </td>
+                                    <td>   <h:outputText value="#{loginMBean.utilisateurconnecte.utilContImmatr.contPren.toUpperCase()}"/>
+                                        <h:outputText value="#{loginMBean.utilisateurconnecte.utilContImmatr.contNomLong.toUpperCase()}"/>
+
+                                    </td>
+
+
+
+                                </c:if>
+
                                 <c:if test="#{loginMBean.inspectmaj}">
-                                 <td> <strong>  <h:outputLabel value="Nom :"/></strong> </td>
-                                <td>   <h:outputText value="#{loginMBean.utilisateurconnecte.utilNom}"/>
-                                </td>
-                                <td> <strong>  <h:outputLabel value="Prénoms :"/></strong>
-                                </td>
-                                <td><h:outputText value="#{loginMBean.utilisateurconnecte.utilPrenoms}"/>
-                                </td>
-                                 </c:if>
+
+                                    <td > 
+                                        <h:outputText value="#{loginMBean.utilisateurconnecte.utilNom.toUpperCase()} #{loginMBean.utilisateurconnecte.utilPrenoms} " /> 
+                                    </td>
+
+                                    <td>
+                                    </td>
+                                </c:if>
+
+                                <c:if test="#{loginMBean.inspecteur}">
+                                    <td > 
+                                        <h:outputText value="#{loginMBean.utilisateurconnecte.utilNom.toUpperCase()} #{loginMBean.utilisateurconnecte.utilPrenoms}"/> 
+                                    </td>
+
+                                    <td>
+                                    </td>
+                                </c:if>
+
+                                <c:if test="#{loginMBean.admin}">
+                                    <td > 
+                                        <h:outputText value="#{loginMBean.utilisateurconnecte.utilNom.toUpperCase()} #{loginMBean.utilisateurconnecte.utilPrenoms}"/> 
+                                    </td>
+
+                                    <td>
+                                    </td>
+                                </c:if>
+
                                 <c:if test="#{loginMBean.activecc}">
-                                 <td> <strong>  <h:outputLabel value="Nom :"/></strong> </td>
-                                <td>   <h:outputText value="#{loginMBean.utilisateurconnecte.utilNom}"/>
-                                </td>
-                                <td> <strong>  <h:outputLabel value="Prénoms :"/></strong>
-                                </td>
-                                <td><h:outputText value="#{loginMBean.utilisateurconnecte.utilPrenoms}"/>
-                                </td>
-                                 </c:if>
+                                    <td > 
+                                        <h:outputText value="#{loginMBean.utilisateurconnecte.utilNom.toUpperCase()} #{loginMBean.utilisateurconnecte.utilPrenoms}"/> 
+                                    </td>
+
+                                    <td>
+
+                                    </td>
+                                </c:if>
                             </tr>
                         </tbody>
                     </table>
@@ -106,6 +122,20 @@
             <ui:include src="./menus/bottommenu.xhtml"/>
         </div>
 
+        <p:dialog widgetVar="passwordChgDlg" id="passwordChgDlg" >
+            <h:form id="passwordChgForm">
+                <h:messages errorStyle="color: red; font-weight: bold !important"/>  
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Mot de passe actuel"/>
+                    <h:inputSecret value="#{loginMBean.currentPassWord}" required="true"/>
+                    <h:outputLabel value="Nouveau mot de passe"/>
+                    <h:inputSecret value="#{loginMBean.newPassword}" required="true"/>
+                    <h:outputLabel value="Confirmantion"/>
+                    <h:inputSecret value="#{loginMBean.confirmPassword}" required="true"/>
+                </h:panelGrid>
+                <p:commandButton value="Changer" actionListener="#{loginMBean.changePassword()}" ajax="true" update="@form"/>
+            </h:form>
+        </p:dialog>
     </h:body>
 
 </html>

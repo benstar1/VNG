@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.0.final using JasperReports Library version 3.1.0  -->
+<!-- 2017-02-15T15:42:47 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contribuableAJour" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="822" leftMargin="10" rightMargin="10" topMargin="20" bottomMargin="20">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="cfisc local"/>
+	<parameter name="dateAjour" class="java.util.Date"/>
+	<parameter name="centre_impot" class="java.lang.String"/>
+	<parameter name="etat" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<queryString>
+		<![CDATA[ SELECT
+"T_REP_UNIQUE"."CONT_IMMATR" AS "CONT_IMMATR",
+"T_REP_UNIQUE"."CONT_DATEIMMATR" AS  "CONT_DATEIMMATR",
+"T_REP_UNIQUE"."CONT_NUM" AS  "CONT_NUM",
+"T_REP_UNIQUE"."CONT_DATENREG" AS "CONT_DATENREG" ,
+"T_REP_UNIQUE"."CONT_RAIS" AS  "CONT_RAIS",
+"T_REP_UNIQUE"."CONT_BP" AS "CONT_BP" ,
+"T_REP_UNIQUE"."CONT_TEL" AS  "CONT_TEL",
+"T_REP_UNIQUE"."CONT_FAX"  AS "CONT_FAX" ,
+"T_REP_UNIQUE"."CONT_MAIL" AS "CONT_MAIL",
+"T_REP_UNIQUE"."CONT_CARRE" AS "CONT_CARRE" ,
+"T_REP_UNIQUE"."CONT_LOT"  AS "CONT_LOT" ,
+"T_REP_UNIQUE"."CONT_CENTR_IMP_CODE" AS "CONT_CENTR_IMP_CODE",
+"T_CENTRE_IMPOT"."CENTR_IMP_LIBELLE" AS  "CENTR_IMP_LIBELLE"
+FROM T_REP_UNIQUE  "T_REP_UNIQUE", T_HIST_STATUT "T_HIST_STATUT", T_CENTRE_IMPOT "T_CENTRE_IMPOT"
+WHERE 
+"T_REP_UNIQUE"."CONT_CENTR_IMP_CODE" = "T_CENTRE_IMPOT"."CENTR_IMP_CODE"
+AND "T_HIST_STATUT"."HIST_STATUT_CONT_IMMATR" = "T_REP_UNIQUE"."CONT_IMMATR"
+AND "T_HIST_STATUT"."HIST_STATUT_CODE" = ( SELECT MAX(HIST_STATUT_CODE) FROM T_HIST_STATUT TH WHERE  HIST_STATUT_DATEDEBUT <=  $P{dateAjour}  AND HIST_STATUT_DATEFIN >=  $P{dateAjour}  AND TH."HIST_STATUT_STATUT" LIKE  $P{etat}  AND TH.HIST_STATUT_CONT_IMMATR = "T_REP_UNIQUE"."CONT_IMMATR" )
+ORDER BY "T_CENTRE_IMPOT"."CENTR_IMP_CODE"]]>
+	</queryString>
+	<field name="CONT_IMMATR" class="java.math.BigDecimal"/>
+	<field name="CONT_DATEIMMATR" class="java.sql.Timestamp"/>
+	<field name="CONT_NUM" class="java.lang.String"/>
+	<field name="CONT_DATENREG" class="java.sql.Timestamp"/>
+	<field name="CONT_RAIS" class="java.lang.String"/>
+	<field name="CONT_BP" class="java.lang.String"/>
+	<field name="CONT_TEL" class="java.math.BigDecimal"/>
+	<field name="CONT_FAX" class="java.math.BigDecimal"/>
+	<field name="CONT_MAIL" class="java.lang.String"/>
+	<field name="CONT_CARRE" class="java.lang.String"/>
+	<field name="CONT_LOT" class="java.lang.String"/>
+	<field name="CONT_CENTR_IMP_CODE" class="java.lang.String"/>
+	<field name="CENTR_IMP_LIBELLE" class="java.lang.String"/>
+	<variable name="CONT_IMMATR2" class="java.lang.Integer" resetType="Group" resetGroup="Groupe_centre_impot" calculation="Count">
+		<variableExpression><![CDATA[$F{CONT_IMMATR}]]></variableExpression>
+	</variable>
+	<group name="Groupe_centre_impot">
+		<groupHeader>
+			<band height="71">
+				<textField>
+					<reportElement x="113" y="9" width="77" height="20"/>
+					<box rightPadding="10">
+						<rightPen lineWidth="0.5" lineColor="#292828"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CONT_CENTR_IMP_CODE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="203" y="9" width="380" height="20"/>
+					<textElement verticalAlignment="Middle" lineSpacing="Single">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CENTR_IMP_LIBELLE}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="41" width="82" height="30" forecolor="#292828" backcolor="#EBEBEB"/>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#403E3E"/>
+						<leftPen lineWidth="0.5" lineColor="#403E3E"/>
+						<bottomPen lineWidth="0.0" lineColor="#403E3E"/>
+						<rightPen lineColor="#403E3E"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[IFU]]></text>
+				</staticText>
+				<staticText>
+					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="82" y="41" width="58" height="30" forecolor="#292828" backcolor="#EBEBEB"/>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#403E3E"/>
+						<leftPen lineWidth="0.5" lineColor="#403E3E"/>
+						<bottomPen lineWidth="0.0" lineColor="#403E3E"/>
+						<rightPen lineColor="#403E3E"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Date immat.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="141" y="41" width="91" height="30" forecolor="#292828" backcolor="#EBEBEB"/>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#403E3E"/>
+						<leftPen lineWidth="0.5" lineColor="#403E3E"/>
+						<bottomPen lineWidth="0.0" lineColor="#403E3E"/>
+						<rightPen lineColor="#403E3E"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Num. dossier]]></text>
+				</staticText>
+				<staticText>
+					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="233" y="41" width="65" height="30" forecolor="#292828" backcolor="#EBEBEB">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#403E3E"/>
+						<leftPen lineWidth="0.5" lineColor="#403E3E"/>
+						<bottomPen lineWidth="0.0" lineColor="#403E3E"/>
+						<rightPen lineColor="#403E3E"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Date enreg.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="298" y="41" width="121" height="30" forecolor="#292828" backcolor="#EBEBEB"/>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#403E3E"/>
+						<leftPen lineWidth="0.5" lineColor="#403E3E"/>
+						<bottomPen lineWidth="0.0" lineColor="#403E3E"/>
+						<rightPen lineColor="#403E3E"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Raison]]></text>
+				</staticText>
+				<staticText>
+					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="419" y="41" width="72" height="30" forecolor="#292828" backcolor="#EBEBEB"/>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#403E3E"/>
+						<leftPen lineWidth="0.5" lineColor="#403E3E"/>
+						<bottomPen lineWidth="0.0" lineColor="#403E3E"/>
+						<rightPen lineColor="#403E3E"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[BP]]></text>
+				</staticText>
+				<staticText>
+					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="492" y="41" width="58" height="30" forecolor="#292828" backcolor="#EBEBEB">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#403E3E"/>
+						<leftPen lineWidth="0.5" lineColor="#403E3E"/>
+						<bottomPen lineWidth="0.0" lineColor="#403E3E"/>
+						<rightPen lineColor="#403E3E"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Téléphone]]></text>
+				</staticText>
+				<staticText>
+					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="551" y="41" width="129" height="30" forecolor="#292828" backcolor="#EBEBEB"/>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#403E3E"/>
+						<leftPen lineWidth="0.5" lineColor="#403E3E"/>
+						<bottomPen lineWidth="0.0" lineColor="#403E3E"/>
+						<rightPen lineColor="#403E3E"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Mail]]></text>
+				</staticText>
+				<staticText>
+					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="680" y="41" width="81" height="30" forecolor="#292828" backcolor="#EBEBEB"/>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#403E3E"/>
+						<leftPen lineWidth="0.5" lineColor="#403E3E"/>
+						<bottomPen lineWidth="0.0" lineColor="#403E3E"/>
+						<rightPen lineColor="#403E3E"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Carré]]></text>
+				</staticText>
+				<staticText>
+					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="762" y="41" width="60" height="30" forecolor="#292828" backcolor="#EBEBEB"/>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#403E3E"/>
+						<leftPen lineWidth="0.5" lineColor="#403E3E"/>
+						<bottomPen lineWidth="0.0" lineColor="#403E3E"/>
+						<rightPen lineWidth="0.5" lineColor="#403E3E"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Lot]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="10" y="7" width="100" height="25">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="12" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Centre d'impot:]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="2" width="822" height="1">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<graphicElement>
+						<pen lineColor="#292828"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="31">
+				<staticText>
+					<reportElement mode="Opaque" x="551" y="0" width="159" height="30" backcolor="#EBEBEB"/>
+					<box leftPadding="10" rightPadding="10">
+						<topPen lineWidth="0.0" lineColor="#292828"/>
+						<leftPen lineWidth="0.5" lineColor="#292828"/>
+						<bottomPen lineWidth="0.5" lineColor="#292828"/>
+						<rightPen lineWidth="0.0" lineColor="#292828"/>
+					</box>
+					<textElement verticalAlignment="Middle" lineSpacing="Single">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nombre total :]]></text>
+				</staticText>
+				<textField>
+					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="710" y="0" width="112" height="30" backcolor="#EBEBEB"/>
+					<box leftPadding="10" rightPadding="10">
+						<topPen lineWidth="0.0" lineColor="#292828"/>
+						<leftPen lineWidth="0.5" lineColor="#292828"/>
+						<bottomPen lineWidth="0.5" lineColor="#292828"/>
+						<rightPen lineWidth="0.5" lineColor="#292828"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{CONT_IMMATR2}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="124">
+			<staticText>
+				<reportElement x="260" y="41" width="180" height="30"/>
+				<textElement lineSpacing="Single">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Etat à la date du ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="170" y="71" width="90" height="21"/>
+				<textElement lineSpacing="Single">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Paramètres :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="440" y="40" width="120" height="31">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement lineSpacing="Single">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dateAjour}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="93" width="160" height="20"/>
+				<textElement lineSpacing="Single">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class=""><![CDATA[$P{centre_impot} == null ? "Tous" : $P{centre_impot}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="-17" width="710" height="57"/>
+				<textElement lineSpacing="Single">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression class=""><![CDATA["A".equals($P{etat}) ? "Liste des entreprises activeées du repertoire unique" : "D".equals($P{etat}) ?  "Liste des entreprises inactivées du repertoire unique" : ""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="232" y="93" width="88" height="20">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement lineSpacing="Single">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Centre d'impot :]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band/>
+	</pageHeader>
+	<columnHeader>
+		<band/>
+	</columnHeader>
+	<detail>
+		<band height="25">
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="82" height="25" forecolor="#292828">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineColor="#403E3E"/>
+					<leftPen lineWidth="0.5" lineColor="#403E3E"/>
+					<bottomPen lineWidth="0.5" lineColor="#403E3E"/>
+					<rightPen lineColor="#403E3E"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single"/>
+				<textFieldExpression><![CDATA[$F{CONT_IMMATR}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="82" y="0" width="58" height="25" forecolor="#292828"/>
+				<box>
+					<topPen lineColor="#403E3E"/>
+					<leftPen lineWidth="0.5" lineColor="#403E3E"/>
+					<bottomPen lineWidth="0.5" lineColor="#403E3E"/>
+					<rightPen lineColor="#403E3E"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CONT_DATEIMMATR}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="141" y="0" width="91" height="25" forecolor="#292828"/>
+				<box>
+					<topPen lineColor="#403E3E"/>
+					<leftPen lineWidth="0.5" lineColor="#403E3E"/>
+					<bottomPen lineWidth="0.5" lineColor="#403E3E"/>
+					<rightPen lineColor="#403E3E"/>
+				</box>
+				<textElement verticalAlignment="Middle" lineSpacing="Single"/>
+				<textFieldExpression><![CDATA[$F{CONT_NUM}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement key="" stretchType="RelativeToTallestObject" x="233" y="0" width="65" height="25" forecolor="#292828"/>
+				<box>
+					<topPen lineColor="#403E3E"/>
+					<leftPen lineWidth="0.5" lineColor="#403E3E"/>
+					<bottomPen lineWidth="0.5" lineColor="#403E3E"/>
+					<rightPen lineColor="#403E3E"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single"/>
+				<textFieldExpression><![CDATA[$F{CONT_DATENREG}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="298" y="0" width="121" height="25" forecolor="#292828"/>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineColor="#403E3E"/>
+					<leftPen lineWidth="0.5" lineColor="#403E3E"/>
+					<bottomPen lineWidth="0.5" lineColor="#403E3E"/>
+					<rightPen lineColor="#403E3E"/>
+				</box>
+				<textElement verticalAlignment="Middle" lineSpacing="Single"/>
+				<textFieldExpression><![CDATA[$F{CONT_RAIS}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="419" y="0" width="72" height="25" forecolor="#292828"/>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineColor="#403E3E"/>
+					<leftPen lineWidth="0.5" lineColor="#403E3E"/>
+					<bottomPen lineWidth="0.5" lineColor="#403E3E"/>
+					<rightPen lineColor="#403E3E"/>
+				</box>
+				<textElement verticalAlignment="Middle" lineSpacing="Single"/>
+				<textFieldExpression><![CDATA[$F{CONT_BP}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="492" y="0" width="58" height="25" forecolor="#292828">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineColor="#403E3E"/>
+					<leftPen lineWidth="0.5" lineColor="#403E3E"/>
+					<bottomPen lineWidth="0.5" lineColor="#403E3E"/>
+					<rightPen lineColor="#403E3E"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single"/>
+				<textFieldExpression><![CDATA[$F{CONT_TEL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="551" y="0" width="129" height="25" forecolor="#292828"/>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineColor="#403E3E"/>
+					<leftPen lineWidth="0.5" lineColor="#403E3E"/>
+					<bottomPen lineWidth="0.5" lineColor="#403E3E"/>
+					<rightPen lineColor="#403E3E"/>
+				</box>
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class=""><![CDATA[$F{CONT_MAIL}.toLowerCase()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="680" y="0" width="81" height="25" forecolor="#292828"/>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineColor="#403E3E"/>
+					<leftPen lineWidth="0.5" lineColor="#403E3E"/>
+					<bottomPen lineWidth="0.5" lineColor="#403E3E"/>
+					<rightPen lineColor="#403E3E"/>
+				</box>
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CONT_CARRE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="762" y="0" width="60" height="25" forecolor="#292828"/>
+				<box leftPadding="5" rightPadding="2">
+					<topPen lineColor="#403E3E"/>
+					<leftPen lineWidth="0.5" lineColor="#403E3E"/>
+					<bottomPen lineWidth="0.5" lineColor="#403E3E"/>
+					<rightPen lineWidth="0.5" lineColor="#403E3E"/>
+				</box>
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CONT_LOT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54"/>
+	</pageFooter>
+	<summary>
+		<band height="42"/>
+	</summary>
+</jasperReport>

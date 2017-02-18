@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../template.xhtml">
+
+            <ui:define name="top">
+                top
+            </ui:define>
+
+            <ui:define name="body">
+                <h:form>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Début" for="debut"/>
+                        <p:calendar id="debut" value="#{reportController.debut}" pattern="dd/mm/yyyy"/>
+                        <h:outputLabel value="Fin" for="fin"/> 
+                        <p:calendar id="fin" value="#{reportController.fin}" pattern="dd/mm/yyyy"/>
+                        <h:outputLabel value="Ifu" for="ifu"/>
+                        <h:inputText id="ifu" value="#{reportController.ifu}"/> 
+                        <h:outputLabel value=""/>
+                        <p:commandButton value="Rechercher" actionListener="#{reportController.rechercher()}" update="@form:resultat"/>
+                    </h:panelGrid>
+                    <br/>
+                    <p:dataTable  id="resultat" value="#{reportController.resultat}" var="item"
+                                  selectionMode="single" selection="#{reportController.selected}"
+                                  rowKey="#{item[0]}"
+                                  rows="30"
+                                  >              
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Année d'enreg."/>
+                            </f:facet>
+                            <h:outputText value="#{item[0]}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Bureau"/>
+                            </f:facet>
+                            <h:outputText value="#{item[1]}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Déclarant"/>
+                            </f:facet>
+                            <h:outputText value="#{item[2]}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="N° Enreg."/>
+                            </f:facet>
+                            <h:outputText value="#{item[3]}"/>
+                        </p:column> 
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="N° article"/>
+                            </f:facet>
+                            <h:outputText value="#{item[4]}"/>
+                        </p:column>    
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Marque colis"/>
+                            </f:facet>
+                            <h:outputText value="#{item[5]}"/>
+                        </p:column>    
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Poids net"/>
+                            </f:facet>
+                            <h:outputText value="#{item[6]}"/>
+                        </p:column>    
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Total taxe art."/>
+                            </f:facet>
+                            <h:outputText value="#{item[7]}"/>
+                        </p:column>    
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Total taxe dec."/>
+                            </f:facet>
+                            <h:outputText value="#{item[8]}"/>
+                        </p:column>    
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="N°article"/>
+                            </f:facet>
+                            <h:outputText value="#{item[9]}"/>
+                        </p:column>    
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Date Liq."/>
+                            </f:facet>
+                            <h:outputText value="#{item[10]}"><f:convertDateTime pattern="dd/MM/yyyy" /></h:outputText>
+                        </p:column> 
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Manifeste"/>
+                            </f:facet>
+                            <h:outputText value="#{item[11]}"/>
+                        </p:column>  
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Titre Transp."/>
+                            </f:facet>
+                            <h:outputText value="#{item[12]}"/>
+                        </p:column>  
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nbre total art."/>
+                            </f:facet>
+                            <h:outputText value="#{item[13]}"/>
+                        </p:column>  
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Régime"/>
+                            </f:facet>
+                            <h:outputText value="#{item[14]}"/>
+                        </p:column>  
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Code additionnel"/>
+                            </f:facet>
+                            <h:outputText value="#{item[15]}"/>
+                        </p:column>  
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Destinataire"/>
+                            </f:facet>
+                            <h:outputText value="#{item[16]}"/>
+                        </p:column>  
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Exportateur"/>
+                            </f:facet>
+                            <h:outputText value="#{item[17]}"/>
+                        </p:column>  
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nomenclature"/>
+                            </f:facet>
+                            <h:outputText value="#{item[18]}"/>
+                        </p:column>                          
+                    </p:dataTable>               
+
+                </h:form>
+            </ui:define>
+
+            <ui:define name="bottom">
+                bottom
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

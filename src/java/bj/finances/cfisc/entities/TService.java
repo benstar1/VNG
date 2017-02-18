@@ -11,9 +11,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -29,8 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "TService.findAll", query = "SELECT t FROM TService t"),
     @NamedQuery(name = "TService.findByCode", query = "SELECT t FROM TService t WHERE t.code = :code"),
-    @NamedQuery(name = "TService.findByLibelle", query = "SELECT t FROM TService t WHERE t.libelle = :libelle"),
-    @NamedQuery(name = "TService.findByDirection", query = "SELECT t FROM TService t WHERE t.direction = :direction")})
+    @NamedQuery(name = "TService.findByLibelle", query = "SELECT t FROM TService t WHERE t.libelle = :libelle")})
 public class TService implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -42,25 +41,15 @@ public class TService implements Serializable {
     @Size(max = 50)
     @Column(name = "LIBELLE")
     private String libelle;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "DIRECTION")
-    private String direction;
-    @JoinColumn(name = "CODE", referencedColumnName = "CODE", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private TDirection tDirection;
+    @JoinColumn(name = "DIRECTION", referencedColumnName = "CODE")
+    @ManyToOne
+    private TDirection direction;
 
     public TService() {
     }
 
     public TService(String code) {
         this.code = code;
-    }
-
-    public TService(String code, String direction) {
-        this.code = code;
-        this.direction = direction;
     }
 
     public String getCode() {
@@ -79,20 +68,12 @@ public class TService implements Serializable {
         this.libelle = libelle;
     }
 
-    public String getDirection() {
+    public TDirection getDirection() {
         return direction;
     }
 
-    public void setDirection(String direction) {
+    public void setDirection(TDirection direction) {
         this.direction = direction;
-    }
-
-    public TDirection getTDirection() {
-        return tDirection;
-    }
-
-    public void setTDirection(TDirection tDirection) {
-        this.tDirection = tDirection;
     }
 
     @Override
