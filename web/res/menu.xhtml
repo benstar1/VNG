@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -18,8 +19,11 @@
         </c:if>
 
         <c:if test="#{loginMBean.inspecteur}">
-            <h:link outcome="/vues/tDeclarationDou/ConsulterDD.xhtml" value="Consultation Déclaration en Douane" /><br/>
-            <!--h:link outcome="/vues/recoupement/Recoupement.xhtml" value="Recoupement" /><br/ -->
+            <h:link outcome="/vues/tDeclarationDou/ConsulterDD.xhtml" value="Consultation Déclaration en Douane" />
+            <br/><br/>
+          <h:link outcome="/vues/fenStat/FormBEF.xhtml" value="Recoupement avancé." /><br/><br/>
+           <h:link outcome="/vues/tDeclarationDou/droits_par_importateur.xhtml" value="Liste déclarations douanières" />
+            <br/><!--h:link outcome="/vues/recoupement/Recoupement.xhtml" value="Recoupement" /><br/ -->
             <!--h:link outcome="/vues/etat/formulairecumuldgi.xhtml" value="Cumul des déclarations" /><br/ -->
                 
         </c:if>
@@ -27,6 +31,7 @@
         <c:if test="#{loginMBean.inspectmaj}">
             <h:link outcome="/vues/tRepUnique/MAJIndividuelle.xhtml" value="MAJ Répertoire Contrib : Individuelle." /><br/><br/>
             <h:link outcome="/vues/tRepUnique/MAJCollective.xhtml" value="MAJ Répertoire Contrib : Collective " /><br/>
+            <h:link outcome="/vues/fenStat/StatEnt.xhtml" value="Etat Contribuabble." /><br/><br/>
         </c:if>
         
         
@@ -35,16 +40,26 @@
                         <h:link outcome="/vues/tUtilisateur/MAJUtilisateur.xhtml" value="Activation compte contrib." /><br/><br/>
 
             <h:link outcome="/vues/tRepUnique/MAJIndividuelle.xhtml" value="MAJ Répertoire Contrib : Individuelle." /><br/><br/>
+              
             <h:link outcome="/vues/tRepUnique/MAJCollective.xhtml" value="MAJ Répertoire Contrib : Collective " /> <br/><br/>
             <!-- h:link outcome="/vues/tEntDeclaration/DeclarationFiscal.xhtml" value="Déclaration fiscale" /><br/><br/ -->
             <h:link outcome="/vues/tDeclarationDou/ConsulterDD.xhtml" value="Consultation Déclaration en Douane" /><br/><br/>
             <!--h:link outcome="/vues/etat/formulairecumuldgi.xhtml" value="Cumul des déclarations" /><br/><br/ -->
-            <h:link outcome="/vues/tDeclarationDou/droits_par_importateur.xhtml" value="Liste déclarations douanières" /><br/>
+            <h:link outcome="/vues/tDeclarationDou/droits_par_importateur.xhtml" value="Liste déclarations douanières" />
+            <br/><br/>            
+            <h:link outcome="/vues/tUtilisateur/creerUtilisateur.xhtml" value="Créer un utilisateur" /><br/>
+            
+            <h:link outcome="/vues/tUtilisateur/createAdmin.xhtml" value="Créer un Administrateur" />
+            <br/><br/>            
+           <h:link outcome="/vues/fenStat/StatEnt.xhtml" value="Etat Contribuabble." /><br/><br/>              
+            <h:link outcome="/vues/fenStat/FormBEF.xhtml" value="Recoupement avancé." /><br/><br/>
         </c:if>
         
         <c:if test="#{loginMBean.activecc}">
             
-                        <h:link outcome="/vues/tUtilisateur/MAJUtilisateur.xhtml" value="Activation compte contrib." /><br/><br/>
+            <h:link outcome="/vues/tUtilisateur/MAJUtilisateur.xhtml" value="Activation compte contrib." /><br/><br/>
+                                
+           
         </c:if>
 
         <h:form>
@@ -53,8 +68,9 @@
             <h:commandLink action="login.xhtml" rendered="#{!loginMBean.connected}">Se connecter</h:commandLink>
 
  <br/>
-
-            <h:commandLink action="#{loginMBean.logout()}" rendered="#{loginMBean.connected}">se deconnecter</h:commandLink>
+ <p:commandLink action="#{loginMBean.beforePasswordChange()}" ajax="true" oncomplete="PF('passwordChgDlg').show()" update=":passwordChgDlg" >Modifier mot de passe </p:commandLink>
+ <br/>
+ <h:commandLink action="#{loginMBean.logout()}" rendered="#{loginMBean.connected}">se deconnecter</h:commandLink>
 
 
         </h:form> 
