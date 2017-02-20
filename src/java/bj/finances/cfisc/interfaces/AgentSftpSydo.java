@@ -114,7 +114,7 @@ public class AgentSftpSydo {
     }
     
     
-    //@Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/30", persistent = false)
+    @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/30", persistent = false)
     public void uploadXmlActif() {
         JSch jsch = new JSch();
         Session session = null;

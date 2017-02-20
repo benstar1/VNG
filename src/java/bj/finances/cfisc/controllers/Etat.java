@@ -89,7 +89,7 @@ public class Etat {
     private String ifu;
     private Date datedeb;
     private Date datefin;
-    private Integer type;
+    private int type;
     private Integer test_ifu;
     private Integer formEtat = 1;
 
@@ -101,11 +101,11 @@ public class Etat {
         this.test_ifu = test_ifu;
     }
 
-    public Integer getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(int type) {
         this.type = type;
     }
 
@@ -262,17 +262,25 @@ public class Etat {
         TService serv = (TService) ((TUtilisateur) sessionMap.get("utilisateurConnecte")).getFonctCod();
     TDirection connectedDirection = (TDirection) tServiceFacade.find(serv.getCode()).getDirection();    
     
-    String ifuDirection = tRepuniqueFacade.find(Long.parseLong(ifu)).getContCentrImpCode().getCentrImpCode();
+    String ifuDirection = "";
+    try{
+        ifuDirection = tRepuniqueFacade.find(Long.parseLong(ifu)).getContCentrImpCode().getCentrImpCode();
     //System.out.println("+++++++++++++++++++++++++++++ " + ifuDirection + " " + connectedDirection.getCode());
+    }
+    catch(Exception e){
+        e.printStackTrace();
+        FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "VEUILLEZ CONTACTER LA BEF."));
+    }
     
     if((connectedDirection.getCode()).equals(ifuDirection) || ((TUtilisateur) sessionMap.get("utilisateurConnecte")).getFonctCod().getCode().equals("BEF") || sessionMap.get("loginUser").equals("admin")){
               HashMap map = new HashMap();
         if (formEtat == 2) {
             String reportPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/vues/etat/detailDeclarations/detailDeclarations.jasper");
             Connection connection = myDB.getConnection();
-            map.put("entreprise", test_ifu);
+            map.put("entreprise", Long.parseLong(ifu));
             map.put("debut", datedeb);
             map.put("fin", datefin);
+            map.put("type", type);
             jasperPrint = JasperFillManager.fillReport(reportPath, map, connection);
             connection.close();
             HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
@@ -283,24 +291,11 @@ public class Etat {
             return;
         }
 
-        if (ifu.equals("")) {
-            FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "LE NUMERO IFU NE PEUT ETRE VIDE"));
-            System.out.println("VVVVVVVEEE");
-            //return;
-            map.put("ifu", null);
-            test_ifu = 0;
-            map.put("test_ifu", test_ifu);
-
-        } else {
-            map.put("ifu", Long.parseLong(ifu));
-            test_ifu = 1;
-            map.put("test_ifu", test_ifu);
-        }
-
         String reportPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/vues/etat/droits_par_importateur/droits_par_importateur.jasper");
         Connection connection = myDB.getConnection();
 
         //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", getExercice().getExoAnne()+"        et CENTRE "+getCentreimpot().getCentrImpCode()));    
+        map.put("ifu",Long.parseLong(ifu));
         map.put("dateDeb", datedeb);
         map.put("dateFin", datefin);
         map.put("type", type);

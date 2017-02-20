@@ -11,8 +11,8 @@
 
         <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
-        <meta http-equiv="refresh" content="60;url=http://10.3.3.183:8080/CFisc/login.xhtml"/>
-        <title>Bienvenue sur la plateforme de gestion du repertoire unique</title>
+        <meta http-equiv="refresh" content="2600;url=http://10.3.3.183:8080/CFisc/login.xhtml"/>
+        <title>BIENVENUE SUR LA PLATEFORME DE GESTION DU REPERTOIRE UNIQUE</title>
     </h:head>
 
     <h:body>
@@ -60,7 +60,9 @@
                                 <c:if test="#{loginMBean.inspectmaj}">
 
                                     <td > 
-                                        <h:outputText value="#{loginMBean.utilisateurconnecte.utilNom.toUpperCase()} #{loginMBean.utilisateurconnecte.utilPrenoms} " /> 
+                                        <div id="nom" style="float: left; padding-right: 10px; font-weight: bold; color: yellow" >Nom et Prénoms :</div><div style="float: left; padding-right: 10px"><h:outputText value="#{loginMBean.utilisateurconnecte.utilNom.toUpperCase()} #{loginMBean.utilisateurconnecte.utilPrenoms} " /></div>
+                                        <div id="service" style="float: left; padding-right: 10px; font-weight: bold; color: yellow">Service :</div><div style="float: left; padding-right: 10px"><h:outputText value="#{loginMBean.utilisateurconnecte.fonctCod.code} " /></div>
+                                        <div id="direction" style="float: left; padding-right: 10px; font-weight: bold; color: yellow">Direction/Centre : </div><div style="float: left; padding-right: 10px"><h:outputText value="#{loginMBean.utilisateurconnecte.fonctCod.direction.code}" /></div>                               
                                     </td>
 
                                     <td>
@@ -69,7 +71,9 @@
 
                                 <c:if test="#{loginMBean.inspecteur}">
                                     <td > 
-                                        <h:outputText value="#{loginMBean.utilisateurconnecte.utilNom.toUpperCase()} #{loginMBean.utilisateurconnecte.utilPrenoms}"/> 
+                                        <div id="nom" style="float: left; padding-right: 10px; font-weight: bold; color: yellow" >Nom et Prénoms :</div><div style="float: left; padding-right: 10px"><h:outputText value="#{loginMBean.utilisateurconnecte.utilNom.toUpperCase()} #{loginMBean.utilisateurconnecte.utilPrenoms} " /></div>
+                                        <div id="service" style="float: left; padding-right: 10px; font-weight: bold; color: yellow">Service :</div><div style="float: left; padding-right: 10px"><h:outputText value="#{loginMBean.utilisateurconnecte.fonctCod.code} " /></div>
+                                        <div id="direction" style="float: left; padding-right: 10px; font-weight: bold; color: yellow">Direction/Centre : </div><div style="float: left; padding-right: 10px"><h:outputText value="#{loginMBean.utilisateurconnecte.fonctCod.direction.code} " /></div>                               
                                     </td>
 
                                     <td>

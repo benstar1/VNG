@@ -2,10 +2,13 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0a82d85b-8d11-4225-bb9b-13752643b198">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="12"/>
+	<property name="ireport.y" value="96"/>
 	<parameter name="debut" class="java.util.Date"/>
 	<parameter name="fin" class="java.util.Date"/>
 	<parameter name="entreprise" class="java.lang.String"/>
+	<parameter name="type" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
      TO_CHAR(T_DECLARATION_DOU."IDE_REG_DAT",'YYYYmmDD') || T_DECLARATION_DOU."IDE_REG_SER" || T_DECLARATION_DOU."IDE_REG_NBR" AS ID,	
@@ -30,6 +33,7 @@ FROM
      "PROP_REP_UNIQUE"."T_TAXE_DECL_DOU" T_TAXE_DECL_DOU
 WHERE T_DECLARATION_DOU."INSTANCEID" = T_ARTICLE."INSTANCEID" 
 AND T_ARTICLE."INSTANCEID" = T_TAXE_DECL_DOU."INSTANCEID"
+AND ((T_DECLARATION_DOU.CMP_CON_COD LIKE $P{entreprise} AND $P{type} = 1)  OR (T_DECLARATION_DOU.CMP_EXP_COD LIKE  $P{entreprise} AND $P{type} = 2) OR ($P{type} = 0 AND (T_DECLARATION_DOU.CMP_CON_COD LIKE $P{entreprise} OR T_DECLARATION_DOU.CMP_EXP_COD LIKE  $P{entreprise}) ))
 AND T_TAXE_DECL_DOU."KEY_ITM_NBR" = T_ARTICLE."KEY_ITM_NBR"
 ORDER BY TO_CHAR(T_DECLARATION_DOU."IDE_REG_DAT",'YYYYmmDD') || T_DECLARATION_DOU."IDE_REG_SER" || T_DECLARATION_DOU."IDE_REG_NBR", NUMERO_ARTICLE, T_TAXE_DECL_DOU."KEY_TAX_RNK"]]>
 	</queryString>
@@ -41,7 +45,7 @@ ORDER BY TO_CHAR(T_DECLARATION_DOU."IDE_REG_DAT",'YYYYmmDD') || T_DECLARATION_DO
 	<field name="NUMERO_DECL" class="java.lang.String"/>
 	<field name="DATE_ENREG" class="java.sql.Timestamp"/>
 	<field name="ENTREPRISE" class="java.lang.String"/>
-	<field name="NOM_ENTREPRISE" class="oracle.sql.CLOB"/>
+	<field name="NOM_ENTREPRISE" class="java.lang.String"/>
 	<field name="TAXE_CODE" class="java.lang.String"/>
 	<field name="BASE_TAXABLE" class="java.math.BigDecimal"/>
 	<field name="TAUX" class="java.math.BigDecimal"/>
@@ -270,7 +274,7 @@ ORDER BY TO_CHAR(T_DECLARATION_DOU."IDE_REG_DAT",'YYYYmmDD') || T_DECLARATION_DO
 	<title>
 		<band height="122" splitType="Stretch">
 			<staticText>
-				<reportElement x="273" y="29" width="280" height="41" uuid="8999a739-d866-4230-867d-b7c8cf82551c"/>
+				<reportElement x="273" y="29" width="280" height="47" uuid="8999a739-d866-4230-867d-b7c8cf82551c"/>
 				<box topPadding="0"/>
 				<textElement textAlignment="Center">
 					<font size="16" isBold="true"/>
@@ -283,18 +287,6 @@ ORDER BY TO_CHAR(T_DECLARATION_DOU."IDE_REG_DAT",'YYYYmmDD') || T_DECLARATION_DO
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Période allant de :]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="94" y="0" width="173" height="36" uuid="1e95b78a-a2de-49af-887e-7b6f06bd20d2"/>
-				<textElement textAlignment="Center"/>
-				<text><![CDATA[République du Bénin
-Ministère des Finances et de
-l'Economie]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="94" y="36" width="173" height="28" uuid="745ee0b2-115e-4a1d-a8e0-f33efd6a845c"/>
-				<textElement textAlignment="Center"/>
-				<text><![CDATA[Direction Générale des Impôts]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="15" y="96" width="47" height="16" uuid="23d0b133-3482-47b6-9a9c-228723cdd924"/>
@@ -318,9 +310,6 @@ l'Economie]]></text>
 				<reportElement x="411" y="76" width="100" height="16" uuid="204a8782-1afe-4f1d-841b-bfbad064c6e3"/>
 				<textFieldExpression><![CDATA[$P{fin}]]></textFieldExpression>
 			</textField>
-			<image>
-				<reportElement x="0" y="0" width="79" height="70" uuid="f0b8468b-1a7b-4979-af85-36fd01a4eda6"/>
-			</image>
 			<staticText>
 				<reportElement x="384" y="77" width="22" height="16" uuid="68230808-796f-4f45-9bb4-2bfdc00daa75"/>
 				<textElement>
@@ -336,6 +325,10 @@ l'Economie]]></text>
 				<reportElement x="324" y="97" width="231" height="16" uuid="a7da1493-990b-496f-97d0-7aec28f51f3d"/>
 				<textFieldExpression><![CDATA[""+$F{NOM_ENTREPRISE}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="0" y="0" width="233" height="77" uuid="78868055-b7e4-48f4-8da6-8c9386d6e7cc"/>
+				<imageExpression><![CDATA["logo_mef.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>

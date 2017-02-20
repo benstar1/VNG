@@ -14,9 +14,6 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="type" class="java.lang.Integer"/>
-	<parameter name="test_ifu" class="java.lang.Integer">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
 	<queryString>
 		<![CDATA[SELECT distinct
      T_DECLARATION_DOU."IDE_REG_SER" || T_DECLARATION_DOU."IDE_REG_NBR" AS NUM_DECL,
@@ -69,16 +66,14 @@ FROM "PROP_REP_UNIQUE"."T_DECLARATION_DOU" T_DECLARATION_DOU, "PROP_REP_UNIQUE".
 	 "PROP_REP_UNIQUE"."T_TAXE_DECL_DOU" T_TAXE_DECL_DOU, "PROP_REP_UNIQUE"."T_REP_UNIQUE" T_REP_UNIQUE,"PROP_REP_UNIQUE"."T_CENTRE_IMPOT" T_CENTRE_IMPOT
 WHERE T_DECLARATION_DOU."INSTANCEID" = T_ARTICLE."INSTANCEID" 
 AND T_ARTICLE."INSTANCEID" = T_TAXE_DECL_DOU."INSTANCEID"
-AND T_DECLARATION_DOU."CMP_CON_COD" = T_REP_UNIQUE."CONT_IMMATR"
-AND T_REP_UNIQUE."CONT_CENTR_IMP_CODE" = T_CENTRE_IMPOT."CENTR_IMP_CODE"
+AND (T_DECLARATION_DOU."CMP_CON_COD" = T_REP_UNIQUE."CONT_IMMATR" OR T_DECLARATION_DOU."CMP_EXP_COD" = T_REP_UNIQUE."CONT_IMMATR")
 AND T_ARTICLE."KEY_ITM_NBR" = T_TAXE_DECL_DOU."KEY_ITM_NBR" 
 AND T_TAXE_DECL_DOU."TAX_LIN_COD" IN ('PC','PCS','AIB','AFS','DD','TVA') 
-AND (
-	(($P{test_ifu}=0  and $P{type} = 1 and T_DECLARATION_DOU."CMP_CON_COD" is not null) or ($P{test_ifu}=1 and T_DECLARATION_DOU."CMP_CON_COD" = $P{ifu} AND $P{type} = 1	 )) 
-	OR 
-	(($P{test_ifu}=0 and $P{type} = 2 and T_DECLARATION_DOU."CMP_EXP_COD" is not null) or ($P{test_ifu}=1 and T_DECLARATION_DOU."CMP_EXP_COD" = $P{ifu} AND $P{type} = 2	 ))
-	OR ((($P{test_ifu}=0 and (T_DECLARATION_DOU."CMP_EXP_COD" is not null OR T_DECLARATION_DOU."CMP_CON_COD" is not null)) AND $P{type} = 0) or (($P{test_ifu}=1 and (T_DECLARATION_DOU."CMP_EXP_COD" = $P{ifu} OR T_DECLARATION_DOU."CMP_CON_COD" = $P{ifu})) AND $P{type} = 0	 ))
-	)
+AND ( ($P{type} = 1 and T_DECLARATION_DOU."CMP_CON_COD" LIKE $P{ifu} ) 
+       OR 
+      ($P{type} = 2 and T_DECLARATION_DOU."CMP_EXP_COD" LIKE $P{ifu})
+       OR 
+      (((T_DECLARATION_DOU."CMP_EXP_COD" LIKE $P{ifu} OR T_DECLARATION_DOU."CMP_CON_COD" LIKE $P{ifu} ) AND $P{type} = 0)))
 AND T_DECLARATION_DOU."IDE_RCP_DAT" BETWEEN $P{dateDeb} AND $P{dateFin}]]>
 	</queryString>
 	<field name="NUM_DECL" class="java.lang.String"/>
