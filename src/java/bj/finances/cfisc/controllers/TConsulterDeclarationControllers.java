@@ -75,7 +75,7 @@ public class TConsulterDeclarationControllers implements Serializable {
 
     public void rechercheSimple() {
         listeTDeclarationDou = new ArrayList<>();
-        listeTDeclarationDou = new ArrayList<>();
+        //listeTDeclarationDou = new ArrayList<>();
         selectedSeDeclarationEtendue = null;
         selectedTDeclarationDou = null;
         
@@ -108,7 +108,7 @@ public class TConsulterDeclarationControllers implements Serializable {
                 break;
         }
 
-        listeTDeclarationDou = tDeclarationDouFacade.findAll(referenceDec, bureau, serie, numero, dateEnreg);
+       // listeTDeclarationDou = tDeclarationDouFacade.findAll(referenceDec, bureau, serie, numero, dateEnreg);
 
         if (listeTDeclarationDou == null) {
             listeTDeclarationDou = new ArrayList<>();
@@ -164,9 +164,9 @@ public class TConsulterDeclarationControllers implements Serializable {
 
         List<Object[]> syntheseTaxe = tTaxeDeclDouFacade.findSyntheseTaxes(instanceIds);
 
-        if (listeTDeclarationDou == null) {
-            listeTDeclarationDou = new ArrayList<>();
-        }
+//        if (listeTDeclarationDou == null) {
+//            listeTDeclarationDou = new ArrayList<>();
+//        }
 
         listDeclarationEtendue = new ArrayList<>();
 
@@ -199,6 +199,8 @@ public class TConsulterDeclarationControllers implements Serializable {
                             break;
                         case "AFS":
                             decEtendue.setAfs(montantTaxe);
+                        case "TV":
+                            decEtendue.setTv(montantTaxe);    
                             break;
                     }
                 }

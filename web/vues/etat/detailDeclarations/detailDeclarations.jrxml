@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0a82d85b-8d11-4225-bb9b-13752643b198">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0a82d85b-8d11-4225-bb9b-13752643b198">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="96"/>
+	<property name="ireport.y" value="55"/>
 	<parameter name="debut" class="java.util.Date"/>
 	<parameter name="fin" class="java.util.Date"/>
 	<parameter name="entreprise" class="java.lang.String"/>
@@ -20,13 +20,19 @@
      T_DECLARATION_DOU."IDE_REG_DAT" AS DATE_ENREG,
      T_DECLARATION_DOU."CMP_EXP_COD" || T_DECLARATION_DOU."CMP_CON_COD" AS ENTREPRISE,
      T_DECLARATION_DOU."CMP_EXP_NAM" || T_DECLARATION_DOU."CMP_CON_NAM" AS NOM_ENTREPRISE,
+      T_DECLARATION_DOU."FIN_AMT_DTY" AS DROITS_DECL,
      T_TAXE_DECL_DOU."TAX_LIN_COD" AS TAXE_CODE,
      T_TAXE_DECL_DOU."TAX_LIN_BSE" AS BASE_TAXABLE,
      T_TAXE_DECL_DOU."TAX_LIN_RAT" AS TAUX,
      T_TAXE_DECL_DOU."TAX_LIN_AMT" AS MONTANT_TAXE,
      T_DECLARATION_DOU."IDE_CUO_COD" AS CODE_BUREAU,
      T_DECLARATION_DOU."IDE_CUO_NAM" AS NOM_BUREAU,
-     T_ARTICLE."PCK_NBR" AS NBRE_COLIS
+     T_ARTICLE."PCK_NBR" AS NBRE_COLIS,
+     T_ARTICLE."VIT_STV" AS VALEUR_ART,
+     T_ARTICLE."TAX_AMT" AS DROITS_ART,
+     T_ARTICLE."GDS_DS3" AS MSES,
+     T_ARTICLE."GDS_ORG_CTY" AS ORIGINE
+    
 FROM
      "PROP_REP_UNIQUE"."T_DECLARATION_DOU" T_DECLARATION_DOU,
      "PROP_REP_UNIQUE"."T_ARTICLE" T_ARTICLE,
@@ -46,6 +52,7 @@ ORDER BY TO_CHAR(T_DECLARATION_DOU."IDE_REG_DAT",'YYYYmmDD') || T_DECLARATION_DO
 	<field name="DATE_ENREG" class="java.sql.Timestamp"/>
 	<field name="ENTREPRISE" class="java.lang.String"/>
 	<field name="NOM_ENTREPRISE" class="java.lang.String"/>
+	<field name="DROITS_DECL" class="java.math.BigDecimal"/>
 	<field name="TAXE_CODE" class="java.lang.String"/>
 	<field name="BASE_TAXABLE" class="java.math.BigDecimal"/>
 	<field name="TAUX" class="java.math.BigDecimal"/>
@@ -53,6 +60,10 @@ ORDER BY TO_CHAR(T_DECLARATION_DOU."IDE_REG_DAT",'YYYYmmDD') || T_DECLARATION_DO
 	<field name="CODE_BUREAU" class="java.lang.String"/>
 	<field name="NOM_BUREAU" class="java.lang.String"/>
 	<field name="NBRE_COLIS" class="java.math.BigDecimal"/>
+	<field name="VALEUR_ART" class="java.math.BigDecimal"/>
+	<field name="DROITS_ART" class="java.math.BigDecimal"/>
+	<field name="MSES" class="java.lang.String"/>
+	<field name="ORIGINE" class="java.lang.String"/>
 	<variable name="TOT_TAXE" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{MONTANT_TAXE}]]></variableExpression>
 	</variable>
@@ -62,83 +73,87 @@ ORDER BY TO_CHAR(T_DECLARATION_DOU."IDE_REG_DAT",'YYYYmmDD') || T_DECLARATION_DO
 			<band height="66">
 				<staticText>
 					<reportElement x="4" y="26" width="90" height="16" uuid="ef4e77af-0352-41c6-b4f8-6cb09957bbaf"/>
-					<textElement>
-						<font isBold="true"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true" isUnderline="true"/>
 					</textElement>
 					<text><![CDATA[Quittance N° :]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="364" y="26" width="140" height="16" uuid="e1894fb7-2636-4926-8283-51a2a1d24dfa"/>
-					<textElement>
-						<font isBold="true"/>
+					<reportElement x="333" y="26" width="121" height="16" uuid="e1894fb7-2636-4926-8283-51a2a1d24dfa"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true" isUnderline="true"/>
 					</textElement>
 					<text><![CDATA[Total Taxes déclaration :]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="264" y="10" width="32" height="16" uuid="2aa9beb4-dbce-478d-8ff2-062acaa27473"/>
-					<textElement>
+					<reportElement x="252" y="10" width="32" height="16" uuid="2aa9beb4-dbce-478d-8ff2-062acaa27473"/>
+					<textElement verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Pays :]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="359" y="10" width="63" height="16" uuid="8e8ee17f-900d-47d2-b3a4-781da330eaaa"/>
-					<textElement>
-						<font isBold="true"/>
-					</textElement>
-					<text><![CDATA[Déclarant :]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="178" y="26" width="100" height="16" uuid="621755df-307a-431d-9ecb-d30f8022300f"/>
-					<textElement>
-						<font isBold="true"/>
+					<reportElement x="150" y="26" width="100" height="16" uuid="621755df-307a-431d-9ecb-d30f8022300f"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true" isUnderline="true"/>
 					</textElement>
 					<text><![CDATA[Date quittance :]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="4" y="10" width="90" height="16" uuid="ab692010-58d4-4a50-825a-45266be478fb"/>
-					<textElement>
-						<font isBold="true"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true" isUnderline="true"/>
 					</textElement>
 					<text><![CDATA[Déclaration N°:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="4" y="43" width="100" height="16" uuid="73c0c3cd-524e-4d06-86ca-7249008a9049"/>
-					<textElement>
-						<font isBold="true"/>
+					<reportElement x="4" y="43" width="90" height="16" uuid="73c0c3cd-524e-4d06-86ca-7249008a9049"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true" isUnderline="true"/>
 					</textElement>
-					<text><![CDATA[Bureau Douane]]></text>
+					<text><![CDATA[Bureau Douane :]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="94" y="10" width="56" height="16" uuid="5450eb30-975a-4466-9195-d844d90b8e04"/>
+					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{NUMERO_DECL}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="150" y="10" width="18" height="16" uuid="876697bc-8b00-4a9c-9993-e20806a5cbcc"/>
-					<textElement>
+					<textElement verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[du]]></text>
 				</staticText>
 				<textField pattern="dd/MM/yyyy">
 					<reportElement x="168" y="10" width="82" height="16" uuid="aa1178ef-81cb-4251-947b-a1790bc47a6d"/>
+					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{DATE_ENREG}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="106" y="43" width="44" height="16" uuid="f004e4e9-cbf4-439c-b1d2-112bedb3ef68"/>
+					<reportElement x="94" y="43" width="96" height="16" uuid="f004e4e9-cbf4-439c-b1d2-112bedb3ef68"/>
+					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{CODE_BUREAU}]]></textFieldExpression>
 				</textField>
-				<textField>
-					<reportElement x="150" y="43" width="328" height="16" uuid="93ab5b98-dbc1-48e6-9af0-8349830681a1"/>
+				<textField isBlankWhenNull="true">
+					<reportElement x="193" y="43" width="122" height="16" uuid="93ab5b98-dbc1-48e6-9af0-8349830681a1"/>
+					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{NOM_BUREAU}]]></textFieldExpression>
 				</textField>
-				<textField>
-					<reportElement x="273" y="26" width="74" height="16" uuid="cdbba85e-1287-4f9a-9516-e78977359094"/>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="245" y="26" width="82" height="16" uuid="cdbba85e-1287-4f9a-9516-e78977359094"/>
+					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{DATE_QUIT}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="94" y="26" width="74" height="16" uuid="28598077-c61c-410d-8c03-6503021f544e"/>
+					<reportElement x="94" y="26" width="41" height="16" uuid="28598077-c61c-410d-8c03-6503021f544e"/>
+					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{NUMERO_QUIT}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="455" y="26" width="100" height="16" uuid="4750578f-8733-4f2b-a2a6-84cc66d98b55"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{DROITS_DECL}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -158,98 +173,109 @@ ORDER BY TO_CHAR(T_DECLARATION_DOU."IDE_REG_DAT",'YYYYmmDD') || T_DECLARATION_DO
 		<groupHeader>
 			<band height="53">
 				<textField>
-					<reportElement x="79" y="7" width="25" height="16" uuid="99f41571-ece2-46d1-9697-7657ce207f56"/>
+					<reportElement x="67" y="7" width="15" height="16" uuid="99f41571-ece2-46d1-9697-7657ce207f56"/>
+					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{NUMERO_ARTICLE}]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
-					<reportElement x="324" y="7" width="37" height="16" uuid="af0c6e61-a285-4c47-9c02-c2b928761efd"/>
+					<reportElement x="417" y="7" width="37" height="16" uuid="af0c6e61-a285-4c47-9c02-c2b928761efd"/>
+					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{NBRE_COLIS}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="67" y="33" width="101" height="20" uuid="d683b327-3a19-49bb-997c-598c68f07f6a"/>
+					<reportElement mode="Opaque" x="67" y="33" width="101" height="20" backcolor="#CCCCFF" uuid="d683b327-3a19-49bb-997c-598c68f07f6a"/>
 					<box topPadding="3" leftPadding="3" rightPadding="3">
 						<topPen lineWidth="0.5"/>
 						<leftPen lineWidth="0.5"/>
 					</box>
-					<textElement textAlignment="Center">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Taxe]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="168" y="33" width="99" height="20" uuid="5d0f42fa-f626-4f96-9caf-e61675c12641"/>
+					<reportElement mode="Opaque" x="168" y="33" width="99" height="20" backcolor="#CCCCFF" uuid="5d0f42fa-f626-4f96-9caf-e61675c12641"/>
 					<box topPadding="3" leftPadding="3" rightPadding="3">
 						<topPen lineWidth="0.5"/>
 						<leftPen lineWidth="0.5"/>
 					</box>
-					<textElement textAlignment="Center">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Base taxable]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="267" y="33" width="106" height="20" uuid="a26ce5ce-8953-46da-a006-e37d0a39c12d"/>
+					<reportElement mode="Opaque" x="267" y="33" width="106" height="20" backcolor="#CCCCFF" uuid="a26ce5ce-8953-46da-a006-e37d0a39c12d"/>
 					<box topPadding="3" leftPadding="3" rightPadding="3">
 						<topPen lineWidth="0.5"/>
 						<leftPen lineWidth="0.5"/>
 					</box>
-					<textElement textAlignment="Center">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Taux]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="373" y="33" width="105" height="20" uuid="09bab5dd-e416-4e4d-a6b2-dd10feb35adb"/>
+					<reportElement mode="Opaque" x="373" y="33" width="105" height="20" backcolor="#CCCCFF" uuid="09bab5dd-e416-4e4d-a6b2-dd10feb35adb"/>
 					<box topPadding="3" leftPadding="3" rightPadding="3">
 						<topPen lineWidth="0.5"/>
 						<leftPen lineWidth="0.5"/>
 						<rightPen lineWidth="0.5"/>
 					</box>
-					<textElement textAlignment="Center">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Montant taxe]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="16" y="7" width="63" height="16" uuid="e8a0d94f-80db-4053-a700-94e8da80022b"/>
-					<textElement>
-						<font size="10" isBold="true"/>
+					<reportElement x="4" y="7" width="63" height="16" uuid="e8a0d94f-80db-4053-a700-94e8da80022b"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true" isUnderline="true"/>
 					</textElement>
 					<text><![CDATA[N° Article :]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="128" y="7" width="60" height="16" uuid="c18b30ec-9878-4c00-9f60-3708fcbd4d85"/>
-					<textElement>
-						<font size="10" isBold="true"/>
+					<reportElement x="85" y="7" width="71" height="16" uuid="c18b30ec-9878-4c00-9f60-3708fcbd4d85"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true" isUnderline="true"/>
 					</textElement>
-					<text><![CDATA[Marques :]]></text>
+					<text><![CDATA[Design. Mses :]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="285" y="7" width="40" height="16" uuid="18fec7f1-2256-4f9d-a257-8a3218b003ed"/>
-					<textElement>
-						<font size="10" isBold="true"/>
+					<reportElement x="378" y="7" width="40" height="16" uuid="18fec7f1-2256-4f9d-a257-8a3218b003ed"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true" isUnderline="true"/>
 					</textElement>
 					<text><![CDATA[Nbre :]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="408" y="7" width="51" height="16" uuid="969c543e-743f-4704-8999-249ab243acce"/>
-					<textElement>
-						<font size="10" isBold="true"/>
+					<reportElement x="441" y="7" width="51" height="16" uuid="969c543e-743f-4704-8999-249ab243acce"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true" isUnderline="true"/>
 					</textElement>
 					<text><![CDATA[Val Caf :]]></text>
 				</staticText>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="485" y="7" width="68" height="16" uuid="84594632-71ef-4a3e-9d3d-7ad378bbd7b1"/>
+					<textFieldExpression><![CDATA[$F{VALEUR_ART}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="156" y="7" width="220" height="16" uuid="578a6657-7a73-4a31-94f6-4a00982f411a"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{MSES}]]></textFieldExpression>
+				</textField>
 			</band>
 		</groupHeader>
 		<groupFooter>
 			<band height="20">
-				<textField>
-					<reportElement x="373" y="0" width="105" height="20" uuid="d7ceb6c5-a502-44b1-8eae-10d106ef634f"/>
+				<textField pattern="#,##0">
+					<reportElement mode="Opaque" x="373" y="0" width="105" height="20" backcolor="#CCCCFF" uuid="d7ceb6c5-a502-44b1-8eae-10d106ef634f"/>
 					<box topPadding="3" leftPadding="0" rightPadding="3">
 						<leftPen lineWidth="0.5"/>
 						<bottomPen lineWidth="0.5"/>
 						<rightPen lineWidth="0.5"/>
 					</box>
-					<textElement textAlignment="Right">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{TOT_TAXE}]]></textFieldExpression>
@@ -263,7 +289,7 @@ ORDER BY TO_CHAR(T_DECLARATION_DOU."IDE_REG_DAT",'YYYYmmDD') || T_DECLARATION_DO
 					<textElement textAlignment="Center">
 						<font isBold="true"/>
 					</textElement>
-					<text><![CDATA[TOTAL TAXE]]></text>
+					<text><![CDATA[TOTAL DOITS TAXE]]></text>
 				</staticText>
 			</band>
 		</groupFooter>
@@ -273,6 +299,9 @@ ORDER BY TO_CHAR(T_DECLARATION_DOU."IDE_REG_DAT",'YYYYmmDD') || T_DECLARATION_DO
 	</background>
 	<title>
 		<band height="122" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Transparent" x="0" y="0" width="555" height="76" uuid="6a659fc6-ffb5-4c63-960d-41cc0a0a0ce0"/>
+			</rectangle>
 			<staticText>
 				<reportElement x="273" y="29" width="280" height="47" uuid="8999a739-d866-4230-867d-b7c8cf82551c"/>
 				<box topPadding="0"/>
@@ -282,53 +311,54 @@ ORDER BY TO_CHAR(T_DECLARATION_DOU."IDE_REG_DAT",'YYYYmmDD') || T_DECLARATION_DO
 				<text><![CDATA[Liste détaillée des déclarations]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="181" y="76" width="100" height="16" uuid="e2367c9f-b1e5-4302-bef0-e5c77e65376e"/>
-				<textElement>
+				<reportElement x="213" y="79" width="48" height="16" uuid="e2367c9f-b1e5-4302-bef0-e5c77e65376e"/>
+				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Période allant de :]]></text>
+				<text><![CDATA[Période :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="15" y="96" width="47" height="16" uuid="23d0b133-3482-47b6-9a9c-228723cdd924"/>
+				<reportElement x="7" y="96" width="47" height="16" uuid="23d0b133-3482-47b6-9a9c-228723cdd924"/>
 				<textElement>
-					<font isBold="true"/>
+					<font size="12" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[N° IFU :]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="172" y="96" width="61" height="16" uuid="4b1ce4a1-b97a-44bb-b051-e7d35195b18d"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[N° INSAE :]]></text>
-			</staticText>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="281" y="76" width="100" height="16" uuid="1e97de51-5c59-4d23-a163-39bced925095"/>
+				<reportElement x="261" y="79" width="66" height="16" uuid="1e97de51-5c59-4d23-a163-39bced925095"/>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{debut}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="411" y="76" width="100" height="16" uuid="204a8782-1afe-4f1d-841b-bfbad064c6e3"/>
+				<reportElement x="361" y="79" width="66" height="16" uuid="204a8782-1afe-4f1d-841b-bfbad064c6e3"/>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{fin}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="384" y="77" width="22" height="16" uuid="68230808-796f-4f45-9bb4-2bfdc00daa75"/>
-				<textElement>
+				<reportElement x="330" y="79" width="22" height="16" uuid="68230808-796f-4f45-9bb4-2bfdc00daa75"/>
+				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[au]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="62" y="96" width="100" height="16" uuid="8f00f44f-d089-4f7f-bb55-de846570e508"/>
-				<textFieldExpression><![CDATA[$F{ENTREPRISE}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="324" y="97" width="231" height="16" uuid="a7da1493-990b-496f-97d0-7aec28f51f3d"/>
-				<textFieldExpression><![CDATA[""+$F{NOM_ENTREPRISE}]]></textFieldExpression>
+			<textField isBlankWhenNull="true">
+				<reportElement x="213" y="96" width="298" height="16" uuid="a7da1493-990b-496f-97d0-7aec28f51f3d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOM_ENTREPRISE}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="0" y="0" width="233" height="77" uuid="78868055-b7e4-48f4-8da6-8c9386d6e7cc"/>
+				<reportElement x="5" y="4" width="193" height="69" uuid="78868055-b7e4-48f4-8da6-8c9386d6e7cc"/>
 				<imageExpression><![CDATA["logo_mef.jpg"]]></imageExpression>
 			</image>
+			<textField isBlankWhenNull="true">
+				<reportElement x="54" y="96" width="114" height="16" uuid="b721ad64-8e14-494a-8076-30bf64908348"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ENTREPRISE}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -346,7 +376,7 @@ ORDER BY TO_CHAR(T_DECLARATION_DOU."IDE_REG_DAT",'YYYYmmDD') || T_DECLARATION_DO
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{TAXE_CODE}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
@@ -356,7 +386,7 @@ ORDER BY TO_CHAR(T_DECLARATION_DOU."IDE_REG_DAT",'YYYYmmDD') || T_DECLARATION_DO
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{BASE_TAXABLE}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
@@ -366,7 +396,7 @@ ORDER BY TO_CHAR(T_DECLARATION_DOU."IDE_REG_DAT",'YYYYmmDD') || T_DECLARATION_DO
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{TAUX}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
@@ -377,7 +407,7 @@ ORDER BY TO_CHAR(T_DECLARATION_DOU."IDE_REG_DAT",'YYYYmmDD') || T_DECLARATION_DO
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{MONTANT_TAXE}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -386,7 +416,17 @@ ORDER BY TO_CHAR(T_DECLARATION_DOU."IDE_REG_DAT",'YYYYmmDD') || T_DECLARATION_DO
 		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="427" y="34" width="82" height="20" uuid="57d7eceb-d75a-483d-8bd0-b089debf3ff9"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+"/"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="509" y="34" width="40" height="20" uuid="c0bd1e51-bb52-4c4c-a6e7-1211525cdce3"/>
+				<textFieldExpression><![CDATA["" + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
 	<summary>
 		<band splitType="Stretch"/>

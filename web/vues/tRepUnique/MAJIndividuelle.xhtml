@@ -7,30 +7,25 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:composition template="/template.xhtml">
-
       
-        <ui:define name="body">
-            
-            <h1 align="left">Mise à Jour Individuelle</h1>
-           <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
+        <ui:define name="body">            
+            <h3 align="left" style="margin-top: 0px; margin-bottom: 0px;">Mise à Jour Individuelle</h3>
+            <p:separator />
+            <p:messages id="msg" showIcon="true" showDetail="false"/>
+                       
             <center>
                 <h:form id="MAJICreateForm">
                     <h:panelGroup id="display">
 
-                        <p:panelGrid columns="3" style="width: 100%"  >
+                        
                             <br />
-                            
-                            
-                            
                             <p:panelGrid id="pd" columns="3"  >
                                 <p:outputLabel value="Numéro IFU : " for="ifu" />
                                 <h:inputText readonly="false" id="ifu" value="#{mAJIndividuelleMBean.current.contImmatr}" required="true" requiredMessage="Le numéro IFU est obligatoire">
                                 
                                 </h:inputText>
                                 
-                                <h:commandButton id="rech" value="Rechercher" actionListener="#{mAJIndividuelleMBean.UpdateTableContrib()}" ></h:commandButton>
+                                <h:commandButton id="rech" class="btn-primary" value="Rechercher" actionListener="#{mAJIndividuelleMBean.UpdateTableContrib()}" ></h:commandButton>
                                
                                
                             
@@ -43,21 +38,12 @@
                                 <f:selectItems value="#{tRepUniqueController.cimpotItem}"/>
                                 </h:selectOneMenu>
                                 </c:if>
-                            </p:panelGrid>
-                            
+                            </p:panelGrid>                            
                             <br />
-                            
-                              
                              <br />
-                           
-                              
                             <br />
-                           
-                        </p:panelGrid>
 
-                        <center>
-
-                            <h1 align="left"><h:outputText value="Informations du Contribuable"/></h1>
+                        <center>                            
                             <p:dataTable id="ItemsIfu" value="#{mAJIndividuelleMBean.itemsIfu}" var="item"  style="text-align: center"> 
 
                                 <p:column>

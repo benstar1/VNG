@@ -20,6 +20,7 @@ public class DeclarationEtendue extends TDeclarationDou {
     private BigDecimal aib;
     private BigDecimal afs;
     private BigDecimal dd;
+    private BigDecimal tv;
 
     public DeclarationEtendue() {
 
@@ -213,9 +214,27 @@ public class DeclarationEtendue extends TDeclarationDou {
         this.setVgsOtcCurNam(tDeclarationDou.getVgsOtcCurNam());
         this.setVgsWrk(tDeclarationDou.getVgsWrk());
         this.setWhsCod(tDeclarationDou.getWhsCod());
-
+        
+        //Ben initialisation à 0
+        this.setTv(new BigDecimal(0));
+        this.setTva(new BigDecimal(0));
+        this.setPc(new BigDecimal(0));
+        this.setPcs(new BigDecimal(0));
+        this.setAib(new BigDecimal(0));
+        this.setAfs(new BigDecimal(0));
+        this.setDd(new BigDecimal(0));
+        //
     }
 
+    public BigDecimal getTv() {
+        return tv;
+    }
+
+    public void setTv(BigDecimal tv) {
+        this.tv = tv;
+    }
+
+        
     public BigDecimal getPcs() {
         return pcs;
     }

@@ -119,7 +119,7 @@ public class InterfaceIfuPlateforme {
 
     }
 */
-    @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/25", persistent = false)
+    //@Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/25", persistent = false)
     public void scrutelocalSydo() {
         System.out.println(" Scan du dossier source Sydo ........ " + new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(new Date()));            
          
@@ -407,7 +407,7 @@ public class InterfaceIfuPlateforme {
 //            racine.setAttribute("numero_decl", declaration.getChild("segment_general").getAttribute("serie_enreg").getValue() + declaration.getChild("segment_general").getAttribute("num_enreg").getValue());
 //            racine.setAttribute("annee_dec", declaration.getChild("segment_general").getAttribute("annee_dec").getValue());
 //            racine.setAttribute("bureau_dec", declaration.getChild("segment_general").getAttribute("bureau_dec").getValue());
-//            racine.setAttribute("num_quittance", declaration.getChild("segment_general").getAttribute("ser_quittance").getValue() + declaration.getChild("segment_general").getAttribute("num_quittance").getValue());
+//            racine.GsetAttribute("num_quittance", declaration.getChild("segment_general").getAttribute("ser_quittance").getValue() + declaration.getChild("segment_general").getAttribute("num_quittance").getValue());
 //            racine.setAttribute("date_quittance", declaration.getChild("segment_general").getAttribute("date_quittance").getValue());            
 //            racine.setAttribute("ifu", declaration.getChild("segment_general").getAttribute("ifu_exportateur").getValue() + declaration.getChild("segment_general").getAttribute("ifu_importateur").getValue());            
 
@@ -426,6 +426,17 @@ public class InterfaceIfuPlateforme {
                     Tdeclaration.setDecRefYer(Long.parseLong(declaration.getChild("segment_general").getAttribute("annee_dec").getValue()));
                 } catch (Exception e) {
                 };
+                
+                try {
+                    Tdeclaration.setIdeTypSad(declaration.getChild("segment_general").getAttribute("model_dec").getValue().substring(0, 2));
+                } catch (Exception e) {
+                };
+                
+                try {
+                    Tdeclaration.setIdeTypPrc(declaration.getChild("segment_general").getAttribute("model_dec").getValue().substring(2,1));
+                } catch (Exception e) {
+                };
+                
                 try {
                     Tdeclaration.setIdeCuoCod(declaration.getChild("segment_general").getAttribute("bureau_dec").getValue());
                 } catch (Exception e) {
@@ -451,21 +462,19 @@ public class InterfaceIfuPlateforme {
                 } catch (Exception e) {
                 };
                 try {
-                    Tdeclaration.setIdeAstSer(declaration.getChild("segment_general").getAttribute("ast_serial").getValue());
+                    Tdeclaration.setIdeAstSer(declaration.getChild("segment_general").getAttribute("serie_liq").getValue());
                 } catch (Exception e) {
                 };
                 try {
-                    Tdeclaration.setIdeAstNbr(declaration.getChild("segment_general").getAttribute("ast_nbr").getValue());
+                    Tdeclaration.setIdeAstNbr(declaration.getChild("segment_general").getAttribute("num_liq").getValue());
                 } catch (Exception e) {
                 };
+                
                 try {
-                    Tdeclaration.setIdeTypSad(declaration.getChild("segment_general").getAttribute("ide_typ_sad").getValue());
+                    Tdeclaration.setIdeAstDat(dateFormat.parse(declaration.getChild("segment_general").getAttribute("date_liq").getValue()));
                 } catch (Exception e) {
                 };
-                try {
-                    Tdeclaration.setIdeTypPrc(declaration.getChild("segment_general").getAttribute("ide_typ_proc").getValue());
-                } catch (Exception e) {
-                };
+                
                 try {
                     Tdeclaration.setIdeMan(declaration.getChild("segment_general").getAttribute("manifest").getValue());
                 } catch (Exception e) {
@@ -514,6 +523,11 @@ public class InterfaceIfuPlateforme {
                     Tdeclaration.setIdeRcpNbr(declaration.getChild("segment_general").getAttribute("num_quittance").getValue());
                 } catch (Exception e) {
                 };
+                try {
+                    Tdeclaration.setIdeRcpDat(dateFormat.parse(declaration.getChild("segment_general").getAttribute("date_quittance").getValue()));
+                } catch (Exception e) {
+                };
+                
                 try {
                     Tdeclaration.setIdePstNbr(declaration.getChild("segment_general").getAttribute("num_version").getValue());
                 } catch (Exception e) {
@@ -716,6 +730,17 @@ public class InterfaceIfuPlateforme {
                     Tdeclaration.setDecRefYer(Long.parseLong(declaration.getChild("segment_general").getAttribute("annee_dec").getValue()));
                 } catch (Exception e) {
                 };
+                
+                try {
+                    Tdeclaration.setIdeTypSad(declaration.getChild("segment_general").getAttribute("model_dec").getValue().substring(0, 2));
+                } catch (Exception e) {
+                };
+                
+                try {
+                    Tdeclaration.setIdeTypPrc(declaration.getChild("segment_general").getAttribute("model_dec").getValue().substring(2,1));
+                } catch (Exception e) {
+                };
+                
                 try {
                     Tdeclaration.setIdeCuoCod(declaration.getChild("segment_general").getAttribute("bureau_dec").getValue());
                 } catch (Exception e) {
@@ -724,6 +749,11 @@ public class InterfaceIfuPlateforme {
                     Tdeclaration.setDecCod(declaration.getChild("segment_general").getAttribute("dec_code").getValue());
                 } catch (Exception e) {
                 };
+                try {
+                    Tdeclaration.setDecNam(declaration.getChild("segment_general").getAttribute("nom_declarant").getValue());
+                } catch (Exception e) {
+                };
+                
                 try {
                     Tdeclaration.setDecRefNbr(declaration.getChild("segment_general").getAttribute("repertoire_dec").getValue());
                 } catch (Exception e) {
@@ -741,21 +771,19 @@ public class InterfaceIfuPlateforme {
                 } catch (Exception e) {
                 };
                 try {
-                    Tdeclaration.setIdeAstSer(declaration.getChild("segment_general").getAttribute("ast_serial").getValue());
+                    Tdeclaration.setIdeAstSer(declaration.getChild("segment_general").getAttribute("serie_liq").getValue());
                 } catch (Exception e) {
                 };
                 try {
-                    Tdeclaration.setIdeAstNbr(declaration.getChild("segment_general").getAttribute("ast_nbr").getValue());
+                    Tdeclaration.setIdeAstNbr(declaration.getChild("segment_general").getAttribute("num_liq").getValue());
                 } catch (Exception e) {
-                };
+                };                
+               
                 try {
-                    Tdeclaration.setIdeTypSad(declaration.getChild("segment_general").getAttribute("ide_typ_sad").getValue());
+                    Tdeclaration.setIdeAstDat(dateFormat.parse(declaration.getChild("segment_general").getAttribute("date_liq").getValue()));
                 } catch (Exception e) {
                 };
-                try {
-                    Tdeclaration.setIdeTypPrc(declaration.getChild("segment_general").getAttribute("ide_typ_proc").getValue());
-                } catch (Exception e) {
-                };
+                
                 try {
                     Tdeclaration.setIdeMan(declaration.getChild("segment_general").getAttribute("manifest").getValue());
                 } catch (Exception e) {
@@ -784,6 +812,12 @@ public class InterfaceIfuPlateforme {
                     Tdeclaration.setDecCod(declaration.getChild("segment_general").getAttribute("dec_code").getValue());
                 } catch (Exception e) {
                 };
+                
+                try {
+                    Tdeclaration.setDecNam(declaration.getChild("segment_general").getAttribute("nom_declarant").getValue());
+                } catch (Exception e) {
+                };
+                
                 try {
                     Tdeclaration.setDecNam(declaration.getChild("segment_general").getAttribute("nom_declarant").getValue());
                 } catch (Exception e) {
@@ -802,6 +836,10 @@ public class InterfaceIfuPlateforme {
                 };
                 try {
                     Tdeclaration.setIdeRcpNbr(declaration.getChild("segment_general").getAttribute("num_quittance").getValue());
+                } catch (Exception e) {
+                };
+                try {
+                    Tdeclaration.setIdeRcpDat(dateFormat.parse(declaration.getChild("segment_general").getAttribute("date_quittance").getValue()));
                 } catch (Exception e) {
                 };
                 try {

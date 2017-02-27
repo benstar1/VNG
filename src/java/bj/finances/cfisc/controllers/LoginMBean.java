@@ -178,13 +178,13 @@ public class LoginMBean implements Serializable {
         if ("true".equals((String) request.getParameter("Failed to log in {0}"))) {
             /* GET parameter "failed" has been sent in theillez revoir votre login et mot de passe!"));
              } HTTP request... */
-            context.addMessage(null, new FacesMessage("Veuillez revoir votre login et mot de passe!"));
+            context.addMessage(null, new FacesMessage("Login ou mot de passe incorrect!"));
         } else if (request.getRequestedSessionId() != null && !request.isRequestedSessionIdValid()
                 & request.getParameter("logout") == null) {
             /* The user session has timed out (not caused by a logout action)... */
-            context.addMessage(null, new FacesMessage("Votre session est expiré!"));
+            context.addMessage(null, new FacesMessage("Votre session a expiré!"));
         } else if (request.getParameter("logout") != null && request.getParameter("logout").equalsIgnoreCase("true")) {
-            context.addMessage(null, new FacesMessage("Déconnexion reussie."));
+            context.addMessage(null, new FacesMessage("Vous êtes déconnecté."));
 
         }
     }

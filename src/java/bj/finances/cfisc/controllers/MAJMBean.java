@@ -6,6 +6,7 @@
 package bj.finances.cfisc.controllers;
 
 //import bj.finances.cfisc.controllers.TRepUniqueController;
+import bj.finances.cfisc.controllers.util.DeclarationSynthese;
 import bj.finances.cfisc.entities.TCentreImpot;
 import bj.finances.cfisc.entities.THistStatut;
 import bj.finances.cfisc.entities.TRepUnique;
@@ -17,9 +18,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -28,14 +31,21 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 //import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -71,6 +81,34 @@ public class MAJMBean extends java.lang.Object {
     private TUtilisateur user;
 
     private THistStatut tHistStatut;
+    
+    @EJB
+    private THistStatutFacade tHistStatutFacade;
+
+    // @Inject
+    TRepUniqueController tRepUniqueController;
+
+    private TRepUnique tRepUnique;
+    private List<TRepUnique> chargement = null;
+    
+    List<FauxIfu> listeEchecs = new ArrayList();
+    
+    private Long ifu;
+    private String centre;
+    private String statut;
+    private int nbre_rejets;
+    private int nbre_total;
+    private int nbre_maj;
+    private int j;
+    private String nomFichier;
+
+    public String getNomFichier() {
+        return nomFichier;
+    }
+
+    public void setNomFichier(String nomFichier) {
+        this.nomFichier = nomFichier;
+    }
 
     public TUtilisateurFacade gettUtilisateurFacade() {
         return tUtilisateurFacade;
@@ -87,15 +125,7 @@ public class MAJMBean extends java.lang.Object {
     public void setUser(TUtilisateur user) {
         this.user = user;
     }
-
-    @EJB
-    private THistStatutFacade tHistStatutFacade;
-
-    // @Inject
-    TRepUniqueController tRepUniqueController;
-
-    private TRepUnique tRepUnique;
-    private List<TRepUnique> chargement = null;
+    
 
     public List<TRepUnique> getChargement() {
         return chargement;
@@ -104,11 +134,81 @@ public class MAJMBean extends java.lang.Object {
     public void setChargement(List<TRepUnique> chargement) {
         this.chargement = chargement;
     }
+    
 
-    private Long ifu;
-    private String centre;
-    private String statut;
+    public int getNbre_maj() {
+        return nbre_maj;
+    }
 
+    public void setNbre_maj(int nbre_maj) {
+        this.nbre_maj = nbre_maj;
+    }
+
+    public int getNbre_total() {
+        return nbre_total;
+    }
+
+    public void setNbre_total(int nbre_total) {
+        this.nbre_total = nbre_total;
+    }
+    
+    
+    public int getNbre_rejets() {
+        return nbre_rejets;
+    }
+
+    public void setNbre_rejets(int nbre_rejets) {
+        this.nbre_rejets = nbre_rejets;
+    }  
+    
+
+    public List<FauxIfu> getListeEchecs() {
+        return listeEchecs;
+    }
+
+    public void setListeEchecs(List<FauxIfu> listeEchecs) {
+        this.listeEchecs = listeEchecs;
+    }    
+    
+    
+    public class FauxIfu {
+    String fauxIfu;
+    String fauxNom; 
+    String fauxPrenoms;
+
+        public String getFauxIfu() {
+            return fauxIfu;
+        }
+
+        public void setFauxIfu(String fauxIfu) {
+            this.fauxIfu = fauxIfu;
+        }
+
+        public String getFauxNom() {
+            return fauxNom;
+        }
+
+        public void setFauxNom(String fauxNom) {
+            this.fauxNom = fauxNom;
+        }
+
+        public String getFauxPrenoms() {
+            return fauxPrenoms;
+        }
+
+        public void setFauxPrenoms(String fauxPrenoms) {
+            this.fauxPrenoms = fauxPrenoms;
+        }
+
+    
+    
+        public FauxIfu() {
+        }
+    
+    }
+    
+    FauxIfu monFauxIfu ;
+    
     public Long getIfu() {
         return ifu;
     }
@@ -143,9 +243,26 @@ public class MAJMBean extends java.lang.Object {
     }
 
     private Part file;
+    
 //    private String fileContent;
 
     public void upload() {
+        
+        if(file == null){
+           FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_ERROR, "VEUILLEZ SELECTIONNER UN FICHIER", "VEUILLEZ SELECTIONNER UN FICHIER"));
+            return;
+        }
+        if(cimpot == null){            
+            FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_ERROR, "VEUILLEZ ENTRER UN CENTRE D'IMPOT", "VEUILLEZ ENTRER UN CENTRE D'IMPOT"));
+            return;
+        }
+        
+        //Récupération du nom du fichier Ben
+        
+        setNomFichier(file.getSubmittedFileName());
+        
+        setCentre(cimpot.getCentrImpLibelle());
+        
         chargement = new ArrayList<>();
         chargeAbsent = new ArrayList<>();
 
@@ -175,7 +292,7 @@ public class MAJMBean extends java.lang.Object {
 
             Vector dataHolder = ReadCSV(file);
 
-//            //String file = event.getFile().getFilename();
+//            String file = event.getFile().getFilename();
 //            System.out.print("size " + dataHolder.size());
             HttpServletResponse response
                     = (HttpServletResponse) FacesContext.getCurrentInstance()
@@ -208,7 +325,7 @@ public class MAJMBean extends java.lang.Object {
                 ifu = new Long(ifuAsSeenInExcel);
 ////                centre = cellStoreVector.elementAt(3).toString();
                 String nom = cellStoreVector.elementAt(1).toString();
-//                String pnom = cellStoreVector.elementAt(2).toString();
+                String pnom = cellStoreVector.elementAt(2).toString();
                 statut = active;
 
                 System.out.println("Recherche de l'IFU qui est lu " + ifu);
@@ -325,18 +442,33 @@ public class MAJMBean extends java.lang.Object {
 //                        }
                     }
                     System.out.println("---- Ecriture dans le fichier succès  ----");
-                    outsucces.write(ifu.toString() + " " + nom + " "  + " \n");
+                    outsucces.write(ifu.toString() + " " + nom + " " + pnom  + " \n");
                 } else {
-
+                    
                     System.out.println("---- Ecriture dans le fichier échec  ----");
-                    outechec.write(ifu.toString() + " " + nom + " "  + " \n");
+                    monFauxIfu = new FauxIfu();
+                    outechec.write(ifu.toString() + " " + nom + " " + pnom  + " \n");
+                    monFauxIfu.setFauxIfu(ifu.toString());
+                    monFauxIfu.setFauxNom(nom);
+                    monFauxIfu.setFauxPrenoms(pnom);
+                    
+                    listeEchecs.add(monFauxIfu);
+                    j = j + 1;
 //                    pout.write(ifu.toString() + " " + nom + " " + pnom + " \n");
-
                     chargeAbsent.add(ifu.toString() + "\t           " + nom + " \t " );
-
                 }
+                setNbre_rejets(j);
+                setNbre_total(i);
+                setNbre_maj(nbre_total - nbre_rejets);
             }
 
+            if(nbre_rejets == 0){            
+            FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_INFO, "MISE A JOUR TOTAL EFFECTUE", "MISE A JOUR TOTAL EFFECTUE"));            
+            }else{
+               FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_WARN, "MISE A JOUR PARTIELLE EFFECTUEE : " + nbre_maj + "/" + nbre_total, "MISE A JOUR PARTIELLE EFFECTUEE"));             
+            }
+            
+            
             System.out.println("---- Fin de Lecture et Chargement des contribuables ----");
 // pout.close();
             outechec.close();
@@ -440,6 +572,9 @@ public class MAJMBean extends java.lang.Object {
      * Creates a new instance of MAJMBean
      */
     public MAJMBean() {
+        setActive("A");
+        setFile(null);
+        
     }
 
     public String active;
@@ -470,5 +605,36 @@ public class MAJMBean extends java.lang.Object {
     public void setFilename(String filename) {
         this.filename = filename;
     }
+    
+    //Export to pdf
+    public void export2PDF(){
+        InputStream reportStream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/report/listeRejets.jasper");
+        
+        JRBeanCollectionDataSource jRBeanArrayDataSource = new JRBeanCollectionDataSource((List<FauxIfu>) listeEchecs);
+        JasperReport jasperReport;
+        JasperPrint jasperPrint;
+        
+        HashMap map = new HashMap();
+        map.put("nomFichier", getNomFichier());
+        map.put("centre", getCentre());
+        map.put("logo", FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/report/logo_mef.jpg") );
+        map.put("action", getActive().equals("D")? "Désactivation" : "Activation");
+        
+        try{
+            jasperPrint = JasperFillManager.fillReport(reportStream, map, jRBeanArrayDataSource);
+            HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();            
+            
+            httpServletResponse.addHeader("Content-disposition", "attachment; filename=listeRejets_" + getCentre() + "_.pdf");
+            ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+            JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+            FacesContext.getCurrentInstance().responseComplete();
+            return;
+        }catch(Exception e){
+            e.printStackTrace();
+        }            
+            
+        
+    }
+    
 
 }

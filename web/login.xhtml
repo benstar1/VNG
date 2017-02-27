@@ -4,49 +4,59 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+    
     <ui:composition template="./templatelogin.xhtml">
 
         <ui:define name="title">
-
-            <h:outputText value="AUTHENTIFICATION"></h:outputText>
+            <h:outputText value="Authentification"></h:outputText>
         </ui:define>
+        
         <ui:define name="body">
-
             <center> 
-                <div id="chaineConnexion" align="center" style="width: 581px"  >
+                <div id="chaineConnexion" align="center" style="width: 50%; padding-top: 30px"  >
                     <h:form>    <p:fieldset>    
-                            <table width="581">
+                            <table width="100%">
                                 <tr>
-                                    <td width="171" rowspan="4"><h:graphicImage library="images" name="connexion.jpg" alt="connexion"/></td>
-                                    <td colspan="2"> <p>Veuillez saisir votre login et mot de passe</p>
+                                    <td width="20%" rowspan="4"><h:graphicImage library="images" name="connexion.jpg" alt="connexion"/></td>
+                                    <td colspan="2" align="center"> <h4>Veuillez saisir votre login et mot de passe</h4>
                                        
                                             <f:event listener="#{loginMBean.checkErrors}" type="preRenderView" id="error"/>
-                                            <h:messages errorStyle="color: red; font-weight: bold !important"/>   
-                                        
+                                            <h:messages errorStyle="color: red; font-weight: bold !important"/>
+                                    </td>                                        
+                                </tr>
+                                <tr>                                    
+                                    <td colspan="2" align="center">                                    
+                                    <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                    <input jsf:id="j_username" type="text" class="form-control" jsf:value="#{loginMBean.uname}" placeholder="Login" />
+                                    </div>
+                                    </td>                                    
+                                </tr>
+                                <tr style="height: 6px"><td></td></tr>
+                                <tr>                                   
+                                   <td colspan="2" align="center"><!-- h:inputSecret class="form-control" id="j_password" value="#{loginMBean.password}" alt="test" /-->
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                        <input jsf:id="j_password" type="password" class="form-control" jsf:value="#{loginMBean.password}" placeholder="Password" />
+                                    </div>
                                     </td>
-                                        
                                 </tr>
-
-                                <tr>
-                                    <td width="128">Login:</td>
-                                    <td width="266"><h:inputText id="j_username" value="#{loginMBean.uname}" required="true"/></td>
-                                </tr>
-                                <tr>
-                                    <td>Mot de passe:</td>
-                                    <td><h:inputSecret id="j_password" value="#{loginMBean.password}"  /></td>
-
-                                </tr>
+                                <tr><td></td></tr>
                                 <tr>
                                     <td></td>
 
-                                    <td >&nbsp;<h:commandButton style="width:60%;"  value="Se connecter" action="#{loginMBean.login}" />&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                    <td colspan="2" align="center">&nbsp;<h:commandButton class="btn-primary"  value="   Se connecter   " action="#{loginMBean.login}" />&nbsp;&nbsp;&nbsp;&nbsp;</td>
                                 </tr>
                             </table>
                             Nouveau venu ? <a href="/CFisc/vues/tUtilisateur/CreateContrib.xhtml" target="_blank">Créer un compte!!! </a>
 
                         </p:fieldset>   
                     </h:form>
-                </div></center>
+                </div>
+            </center>
+            
         </ui:define></ui:composition>
 </html>

@@ -17,6 +17,7 @@ import bj.finances.cfisc.entities.TUtilisateur;
 import bj.finances.cfisc.sessions.TDirectionFacade;
 import bj.finances.cfisc.sessions.TRepUniqueFacade;
 import bj.finances.cfisc.sessions.TServiceFacade;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -49,6 +50,9 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JExcelApiExporter;
+import net.sf.jasperreports.engine.export.JExcelApiExporterParameter;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.oasis.JROdtExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRDocxExporterParameter;
@@ -90,9 +94,20 @@ public class Etat {
     private Date datedeb;
     private Date datefin;
     private int type;
+    private String sortie;
     private Integer test_ifu;
     private Integer formEtat = 1;
 
+    public String getSortie() {
+        return sortie;
+    }
+
+    public void setSortie(String sortie) {
+        this.sortie = sortie;
+    }
+
+    
+    
     public Integer getTest_ifu() {
         return test_ifu;
     }
@@ -136,6 +151,7 @@ public class Etat {
     @PostConstruct
     public void Etat() {
         setType(0);
+        setSortie("excel");
     }
 
     // fin Etat Ben
@@ -273,7 +289,8 @@ public class Etat {
     }
     
     if((connectedDirection.getCode()).equals(ifuDirection) || ((TUtilisateur) sessionMap.get("utilisateurConnecte")).getFonctCod().getCode().equals("BEF") || sessionMap.get("loginUser").equals("admin")){
-              HashMap map = new HashMap();
+        HashMap map = new HashMap();
+        
         if (formEtat == 2) {
             String reportPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/vues/etat/detailDeclarations/detailDeclarations.jasper");
             Connection connection = myDB.getConnection();
@@ -284,9 +301,21 @@ public class Etat {
             jasperPrint = JasperFillManager.fillReport(reportPath, map, connection);
             connection.close();
             HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+            
+            if(sortie.equals("pdf")){
             httpServletResponse.addHeader("Content-disposition", (type == 0) ? "attachment; filename=listeRecapContr.pdf" : (type == 1) ? "attachment; filename=listeRecapImp.pdf" : "attachment; filename=listeRecapExp.pdf");
             ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
             JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+            }
+            else if (sortie.equals("excel")){
+                httpServletResponse.addHeader("Content-disposition", (type == 0) ? "attachment; filename=listeDetailContr.xlsx" : (type == 1) ? "attachment; filename=listeDetailImp.xlsx" : "attachment; filename=listeDetailExp.xlsx");          
+                ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+                JRXlsxExporter docxExporter = new JRXlsxExporter();
+                docxExporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+                docxExporter.setParameter(JRExporterParameter.OUTPUT_STREAM, servletOutputStream);
+                docxExporter.exportReport();
+            }
+            
             FacesContext.getCurrentInstance().responseComplete();
             return;
         }
@@ -299,16 +328,27 @@ public class Etat {
         map.put("dateDeb", datedeb);
         map.put("dateFin", datefin);
         map.put("type", type);
-        jasperPrint = JasperFillManager.fillReport(reportPath, map, connection);
-        //System.out.println("Taille liste classe --> " + jasperPrint.getPages().size());
+        jasperPrint = JasperFillManager.fillReport(reportPath, map, connection);      
         connection.close();
-
-        //System.out.println("Taille liste classe apres init --> " + jasperPrint.getPages().size());
+        
         HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-        httpServletResponse.addHeader("Content-disposition", (type == 0) ? "attachment; filename=listeRecapContr.pdf" : (type == 1) ? "attachment; filename=listeRecapImp.pdf" : "attachment; filename=listeRecapExp.pdf");
-        ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
-        JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
-        //JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);   
+        
+        if(sortie.equals("pdf")){
+            httpServletResponse.addHeader("Content-disposition", (type == 0) ? "attachment; filename=listeRecapContr.pdf" : (type == 1) ? "attachment; filename=listeRecapImp.pdf" : "attachment; filename=listeRecapExp.pdf");        
+            ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+            JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+        }
+        else if(sortie.equals("excel")){
+
+          httpServletResponse.addHeader("Content-disposition", (type == 0) ? "attachment; filename=listeRecapContr.xlsx" : (type == 1) ? "attachment; filename=listeRecapImp.xlsx" : "attachment; filename=listeRecapExp.xlsx");          
+          ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+          JRXlsxExporter docxExporter = new JRXlsxExporter();
+          docxExporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+          docxExporter.setParameter(JRExporterParameter.OUTPUT_STREAM, servletOutputStream);
+          docxExporter.exportReport();            
+          //FacesContext.getCurrentInstance().responseComplete();
+            
+        }
         FacesContext.getCurrentInstance().responseComplete();
     } else{
         FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "VOUS N'ETES PAS AUTORISE A CONSULTER LES DECL. DE CE CONTRIBUABLE"));

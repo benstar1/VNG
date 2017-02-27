@@ -9,14 +9,15 @@
     <body>
 
         
-                <h:outputText value="Etat des entreprises" />
+        <h3><h:outputText value="Statut des contribuables" /></h3>
                 <p:fieldset>
                 <h:form>
 
                     <h:selectOneRadio value="#{reportController.choix_etat}">
                         <p:ajax update="@form"/>
-                        <f:selectItem itemLabel="Toutes les entreprises à jour" itemValue="#{true}"/>
-                        <f:selectItem itemLabel="Etat des entreprises à une date donnée" itemValue="#{false}"/>
+                        <f:selectItem itemLabel="Tous les contribuables à jour   " itemValue="#{true}"/>
+                        <f:selectItem itemLabel="Statut des contribuables d'un centre donné " itemValue="#{false}"/>
+                        <f:selectItem itemLabel="Statut d'un contribuable à une date donnée " itemValue="#{seul}"/>
                     </h:selectOneRadio>
 
                     <h:panelGroup rendered="#{reportController.choix_etat == true}">
@@ -24,10 +25,10 @@
                     </h:panelGroup>
                     <h:panelGroup rendered="#{reportController.choix_etat == false}">
                         <h:panelGrid columns="2">
-                            <h:outputLabel value="Date" for="dateJour"/>
+                            <h:outputLabel value="Date :" for="dateJour"/>
                             <p:calendar id="dateJour" value="#{reportController.dateJour}" pattern="dd/mm/yyyy"/>
 
-                            <h:outputLabel value="Centre d'impôt" for="centre_impot"/>
+                            <h:outputLabel value="Centre d'impôt :" for="centre_impot"/>
                             <h:selectOneMenu id="centre_impot" value="#{tCentreImpotController.monCentre}" title="" required="true" requiredMessage="Veuillez choisir la Direction">
                                     <f:selectItem itemLabel="----------- Centre -----------"></f:selectItem>
                                     <f:selectItems value="#{tCentreImpotController.listCentre}"/>

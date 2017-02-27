@@ -5,16 +5,17 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <body>
-        <h:outputText value="Liste déclarative des déclarations par importateur" />
+        <h:outputText value="Liste des déclarations par importateur" />
         <p:fieldset>
         <h:form>
-            <p:messages id="msg" showIcon="true" showDetail="true"  />
+            <p:messages id="msg" showIcon="true" showDetail="false" showSummary="true" globalOnly="false"  />
+            
             <h:panelGrid columns="2">
 
                         <h:outputLabel value="IFU :" for="ifu" />
-                        <h:inputText value="#{etat.ifu}" id="ifu" />
+                        <h:inputText value="#{etat.ifu}" id="ifu"  />
                         
-                        <h:outputLabel value="Date deb. :" for="datedeb" />
+                        <h:outputLabel value="Date debut :" for="datedeb" />
                         <p:calendar pattern="dd/MM/yyyy" value="#{etat.datedeb}" id="datedeb" />
                         
                         <h:outputLabel value="Date fin. :" for="datefin" />
@@ -26,6 +27,15 @@
                             <f:selectItem itemLabel="Detaillé" itemValue="2"/>
                         </p:selectOneMenu>
                         
+                        <h:outputLabel value="Sortie :" for="sortie" />
+                        <p:selectOneRadio id="sortie" value="#{etat.sortie}" >
+                           
+                            <f:selectItem itemLabel="Excel" itemValue="excel" />
+                            <f:selectItem itemLabel="PDF" itemValue="pdf"  />                          
+                            
+                        </p:selectOneRadio>
+                        
+                        <h:outputLabel value="Filtre :" for="type" />
                         <p:selectOneRadio id="type" value="#{etat.type}" >
                            
                             <f:selectItem itemLabel="TOUS" itemValue="0" />
@@ -35,7 +45,7 @@
                         </p:selectOneRadio> 
                         
                         <h:outputLabel value=" " />
-                        <h:outputLabel value=" " />
+                       
                         <h:commandButton value="         Imprimer         " actionListener="#{etat.listeDeclDou}" />                        
                         
             </h:panelGrid>

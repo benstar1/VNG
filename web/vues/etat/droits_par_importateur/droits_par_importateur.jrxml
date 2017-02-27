@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="57bfc21c-108f-41b7-9949-5eaa8230a185">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="48"/>
 	<property name="net.sf.jasperreports.awt.ignore.missing.font" value="true"/>
 	<parameter name="ifu" class="java.lang.Long">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -74,7 +74,8 @@ AND ( ($P{type} = 1 and T_DECLARATION_DOU."CMP_CON_COD" LIKE $P{ifu} )
       ($P{type} = 2 and T_DECLARATION_DOU."CMP_EXP_COD" LIKE $P{ifu})
        OR 
       (((T_DECLARATION_DOU."CMP_EXP_COD" LIKE $P{ifu} OR T_DECLARATION_DOU."CMP_CON_COD" LIKE $P{ifu} ) AND $P{type} = 0)))
-AND T_DECLARATION_DOU."IDE_RCP_DAT" BETWEEN $P{dateDeb} AND $P{dateFin}]]>
+AND T_DECLARATION_DOU."IDE_RCP_DAT" BETWEEN $P{dateDeb} AND $P{dateFin}
+ORDER BY 9]]>
 	</queryString>
 	<field name="NUM_DECL" class="java.lang.String"/>
 	<field name="DATE_ENR" class="java.sql.Timestamp"/>
@@ -152,7 +153,7 @@ AND T_DECLARATION_DOU."IDE_RCP_DAT" BETWEEN $P{dateDeb} AND $P{dateFin}]]>
 		<groupHeader>
 			<band height="43">
 				<staticText>
-					<reportElement mode="Opaque" x="0" y="0" width="47" height="20" backcolor="#CCCCFF" uuid="dccde9b4-ae92-4f83-99b9-66db9523cb17"/>
+					<reportElement mode="Opaque" x="21" y="1" width="47" height="20" backcolor="#CCCCFF" uuid="dccde9b4-ae92-4f83-99b9-66db9523cb17"/>
 					<box>
 						<pen lineWidth="0.5" lineStyle="Solid"/>
 						<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -163,10 +164,10 @@ AND T_DECLARATION_DOU."IDE_RCP_DAT" BETWEEN $P{dateDeb} AND $P{dateFin}]]>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
 					</textElement>
-					<text><![CDATA[N° Decl]]></text>
+					<text><![CDATA[N° DECL :]]></text>
 				</staticText>
 				<textField isBlankWhenNull="true">
-					<reportElement x="47" y="0" width="47" height="20" uuid="d49f728d-f505-4804-8f15-02aa9cb8c0c2"/>
+					<reportElement x="68" y="1" width="47" height="20" uuid="d49f728d-f505-4804-8f15-02aa9cb8c0c2"/>
 					<box>
 						<pen lineWidth="0.5" lineStyle="Solid"/>
 						<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -178,7 +179,7 @@ AND T_DECLARATION_DOU."IDE_RCP_DAT" BETWEEN $P{dateDeb} AND $P{dateFin}]]>
 					<textFieldExpression><![CDATA[$F{NUM_DECL}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement mode="Opaque" x="47" y="23" width="27" height="20" backcolor="#CCCCFF" uuid="dff18392-3e37-4e1b-8a0e-a6e5c192aeec"/>
+					<reportElement mode="Opaque" x="21" y="23" width="27" height="20" backcolor="#CCCCFF" uuid="dff18392-3e37-4e1b-8a0e-a6e5c192aeec"/>
 					<box>
 						<pen lineWidth="0.5" lineStyle="Solid"/>
 						<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -192,7 +193,7 @@ AND T_DECLARATION_DOU."IDE_RCP_DAT" BETWEEN $P{dateDeb} AND $P{dateFin}]]>
 					<text><![CDATA[N° Art]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="74" y="23" width="48" height="20" backcolor="#CCCCFF" uuid="7e6d2e8a-986b-4141-98f0-1689e6a81f87"/>
+					<reportElement mode="Opaque" x="48" y="23" width="58" height="20" backcolor="#CCCCFF" uuid="7e6d2e8a-986b-4141-98f0-1689e6a81f87"/>
 					<box>
 						<pen lineWidth="0.5" lineStyle="Solid"/>
 						<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -206,7 +207,7 @@ AND T_DECLARATION_DOU."IDE_RCP_DAT" BETWEEN $P{dateDeb} AND $P{dateFin}]]>
 					<text><![CDATA[DATE ENR]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="122" y="23" width="47" height="20" backcolor="#CCCCFF" uuid="42349520-71dc-470e-b3a2-1d36f34bbb9f"/>
+					<reportElement mode="Opaque" x="106" y="23" width="47" height="20" backcolor="#CCCCFF" uuid="42349520-71dc-470e-b3a2-1d36f34bbb9f"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -220,7 +221,7 @@ AND T_DECLARATION_DOU."IDE_RCP_DAT" BETWEEN $P{dateDeb} AND $P{dateFin}]]>
 					<text><![CDATA[N° QUIT]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="169" y="23" width="48" height="20" backcolor="#CCCCFF" uuid="a9b41a3a-aaf2-4b49-9e91-d95133e76242"/>
+					<reportElement mode="Opaque" x="153" y="23" width="64" height="20" backcolor="#CCCCFF" uuid="a9b41a3a-aaf2-4b49-9e91-d95133e76242"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -231,7 +232,7 @@ AND T_DECLARATION_DOU."IDE_RCP_DAT" BETWEEN $P{dateDeb} AND $P{dateFin}]]>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
 					</textElement>
-					<text><![CDATA[DATE_QUIT]]></text>
+					<text><![CDATA[DATE QUIT.]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="217" y="23" width="66" height="20" backcolor="#CCCCFF" uuid="cc134ef0-12ed-400c-b65c-5b35846b672e"/>
@@ -245,7 +246,7 @@ AND T_DECLARATION_DOU."IDE_RCP_DAT" BETWEEN $P{dateDeb} AND $P{dateFin}]]>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
 					</textElement>
-					<text><![CDATA[VALEUR_ART]]></text>
+					<text><![CDATA[VALEUR ART]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="283" y="23" width="80" height="20" backcolor="#CCCCFF" uuid="fc9074b0-e9ac-43d7-b1a5-b710232b9381"/>
@@ -259,7 +260,7 @@ AND T_DECLARATION_DOU."IDE_RCP_DAT" BETWEEN $P{dateDeb} AND $P{dateFin}]]>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
 					</textElement>
-					<text><![CDATA[DROITS_ART]]></text>
+					<text><![CDATA[DROITS ART]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="423" y="23" width="61" height="20" backcolor="#CCCCFF" uuid="ff861788-e25c-4c11-9f9e-8d3f024d0b56"/>
@@ -346,7 +347,7 @@ AND T_DECLARATION_DOU."IDE_RCP_DAT" BETWEEN $P{dateDeb} AND $P{dateFin}]]>
 					<text><![CDATA[TVA]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="127" y="1" width="42" height="20" backcolor="#CCCCFF" uuid="f6849681-4924-4f1d-af74-75082924597c"/>
+					<reportElement mode="Opaque" x="128" y="1" width="42" height="20" backcolor="#CCCCFF" uuid="f6849681-4924-4f1d-af74-75082924597c"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -360,7 +361,7 @@ AND T_DECLARATION_DOU."IDE_RCP_DAT" BETWEEN $P{dateDeb} AND $P{dateFin}]]>
 					<text><![CDATA[ANNEE :]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="365" y="1" width="54" height="20" uuid="1f4917e4-c20b-4ef2-b68e-06300e9df245"/>
+					<reportElement x="448" y="0" width="54" height="20" uuid="1f4917e4-c20b-4ef2-b68e-06300e9df245"/>
 					<box>
 						<topPen lineWidth="0.5"/>
 						<bottomPen lineWidth="0.5"/>
@@ -368,10 +369,10 @@ AND T_DECLARATION_DOU."IDE_RCP_DAT" BETWEEN $P{dateDeb} AND $P{dateFin}]]>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{CODE_DECLARANT}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[" " + $F{CODE_DECLARANT}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement mode="Opaque" x="295" y="1" width="70" height="20" backcolor="#CCCCFF" uuid="87f9563f-d14e-4dbd-aa8d-b2dee48fb12c"/>
+					<reportElement mode="Opaque" x="368" y="0" width="80" height="20" backcolor="#CCCCFF" uuid="87f9563f-d14e-4dbd-aa8d-b2dee48fb12c"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -385,7 +386,7 @@ AND T_DECLARATION_DOU."IDE_RCP_DAT" BETWEEN $P{dateDeb} AND $P{dateFin}]]>
 					<text><![CDATA[DECLARANT :]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="419" y="1" width="288" height="20" uuid="1827ebf4-9924-4ee7-bc43-c46d09173550"/>
+					<reportElement x="502" y="0" width="288" height="20" uuid="1827ebf4-9924-4ee7-bc43-c46d09173550"/>
 					<box>
 						<pen lineWidth="0.0"/>
 						<topPen lineWidth="0.5"/>
@@ -407,10 +408,36 @@ AND T_DECLARATION_DOU."IDE_RCP_DAT" BETWEEN $P{dateDeb} AND $P{dateFin}]]>
 						<bottomPen lineWidth="0.5"/>
 						<rightPen lineWidth="0.5"/>
 					</box>
-					<textElement verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{ANNEE}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Opaque" x="231" y="1" width="60" height="20" backcolor="#CCCCFF" uuid="de19df76-7054-410d-8a53-05d829f89a12"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[BUREAU :]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="290" y="1" width="66" height="20" uuid="f0fc4fb8-32cb-47df-9177-a29755f12453"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{BUREAU}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -513,7 +540,7 @@ AND T_DECLARATION_DOU."IDE_RCP_DAT" BETWEEN $P{dateDeb} AND $P{dateFin}]]>
 					<textFieldExpression><![CDATA[($V{totTVA} != null ? $V{totTVA}: BigDecimal.ZERO)]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="169" y="0" width="48" height="20" uuid="8b9827d5-9bc8-4c92-9ef6-bedae2971d72"/>
+					<reportElement mode="Opaque" x="153" y="0" width="64" height="20" backcolor="#CCCCFF" uuid="8b9827d5-9bc8-4c92-9ef6-bedae2971d72"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -524,7 +551,7 @@ AND T_DECLARATION_DOU."IDE_RCP_DAT" BETWEEN $P{dateDeb} AND $P{dateFin}]]>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Total :]]></text>
+					<text><![CDATA[TOTAL :]]></text>
 				</staticText>
 			</band>
 		</groupFooter>
@@ -540,9 +567,9 @@ AND T_DECLARATION_DOU."IDE_RCP_DAT" BETWEEN $P{dateDeb} AND $P{dateFin}]]>
 			<textField>
 				<reportElement x="310" y="27" width="481" height="42" uuid="af1a0d09-4d58-4e55-a6ed-78e4d5d723e1"/>
 				<textElement verticalAlignment="Middle" markup="none">
-					<font fontName="Arial" size="18" isItalic="false" pdfFontName="Times-Roman"/>
+					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" pdfFontName="Times-Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($P{type} ==  0) ? "Liste Récapitulative des Déclarations par contribuable" : ($P{type} ==  1) ? "Liste Récapitulative des Déclarations par Importateur" : "Liste Récapitulative des Déclarations par Exportateur"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($P{type} ==  0) ? "Liste Récapitulative des Déclarations douanières par contribuable" : ($P{type} ==  1) ? "Liste Récapitulative des Déclarations douanières par Importateur" : "Liste Récapitulative des Déclarations douanières par Exportateur"]]></textFieldExpression>
 			</textField>
 			<image>
 				<reportElement x="6" y="4" width="291" height="105" uuid="28c2da30-ace3-4218-93ad-6c012c08eaf6"/>
@@ -557,10 +584,10 @@ AND T_DECLARATION_DOU."IDE_RCP_DAT" BETWEEN $P{dateDeb} AND $P{dateFin}]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true" isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[PERIODE :]]></text>
+				<text><![CDATA[Période :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="260" y="26" width="21" height="20" uuid="e541bade-65c9-4f4f-bff4-4035d0e97d17"/>
+				<reportElement x="269" y="26" width="21" height="20" uuid="e541bade-65c9-4f4f-bff4-4035d0e97d17"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[AU]]></text>
 			</staticText>
@@ -572,23 +599,26 @@ AND T_DECLARATION_DOU."IDE_RCP_DAT" BETWEEN $P{dateDeb} AND $P{dateFin}]]>
 				<text><![CDATA[IFU :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="232" y="5" width="223" height="20" uuid="5b2d4c87-f167-468f-a993-ab86ce56b6a8"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement x="215" y="5" width="480" height="20" uuid="5b2d4c87-f167-468f-a993-ab86ce56b6a8"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{RAIS_SOC}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="125" y="6" width="100" height="20" uuid="1da884b9-7108-4008-a021-527c6557a936"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{ifu}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="208" y="26" width="48" height="20" uuid="584a014e-b07c-4d0a-9c57-7703769bdb97"/>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="204" y="26" width="63" height="20" uuid="584a014e-b07c-4d0a-9c57-7703769bdb97"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{dateDeb}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="284" y="26" width="48" height="20" uuid="096b0415-0337-4a30-b70c-013ebc72f4a9"/>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="293" y="26" width="66" height="20" uuid="096b0415-0337-4a30-b70c-013ebc72f4a9"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{dateFin}]]></textFieldExpression>
 			</textField>
@@ -600,7 +630,7 @@ AND T_DECLARATION_DOU."IDE_RCP_DAT" BETWEEN $P{dateDeb} AND $P{dateFin}]]>
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement x="47" y="0" width="27" height="20" uuid="5b3c0844-5a3b-412e-b3f7-a32ee631b553"/>
+				<reportElement x="21" y="0" width="27" height="20" uuid="5b3c0844-5a3b-412e-b3f7-a32ee631b553"/>
 				<box>
 					<pen lineWidth="0.5" lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -611,8 +641,8 @@ AND T_DECLARATION_DOU."IDE_RCP_DAT" BETWEEN $P{dateDeb} AND $P{dateFin}]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{NUM_ART}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="74" y="0" width="48" height="20" uuid="4181dca6-317c-4ac4-ae63-8ccf10e9ff7b"/>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="48" y="0" width="58" height="20" uuid="4181dca6-317c-4ac4-ae63-8ccf10e9ff7b"/>
 				<box>
 					<pen lineWidth="0.5" lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -624,7 +654,7 @@ AND T_DECLARATION_DOU."IDE_RCP_DAT" BETWEEN $P{dateDeb} AND $P{dateFin}]]>
 				<textFieldExpression><![CDATA[$F{DATE_ENR}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="122" y="0" width="47" height="20" uuid="849e343f-6292-422d-ae1d-296e6b0cf4b5"/>
+				<reportElement x="106" y="0" width="47" height="20" uuid="849e343f-6292-422d-ae1d-296e6b0cf4b5"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -635,8 +665,8 @@ AND T_DECLARATION_DOU."IDE_RCP_DAT" BETWEEN $P{dateDeb} AND $P{dateFin}]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{NUM_QUIT}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="169" y="0" width="48" height="20" uuid="6f484367-4b11-49dc-b4ab-4d528e161d86"/>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="153" y="0" width="64" height="20" uuid="6f484367-4b11-49dc-b4ab-4d528e161d86"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -745,134 +775,17 @@ AND T_DECLARATION_DOU."IDE_RCP_DAT" BETWEEN $P{dateDeb} AND $P{dateFin}]]>
 			</textField>
 		</band>
 	</detail>
-	<summary>
-		<band height="45" splitType="Stretch">
+	<pageFooter>
+		<band height="50">
 			<textField>
-				<reportElement x="283" y="0" width="80" height="20" uuid="9e222a26-b3de-4918-804a-538f35213ca8"/>
-				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[($V{totGloDroits}!= null ? $V{totGloDroits} : BigDecimal.ZERO)]]></textFieldExpression>
+				<reportElement x="695" y="29" width="65" height="16" uuid="112a863c-2ec4-4f35-8c0a-e258b60bba06"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+"/"]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="217" y="0" width="66" height="20" uuid="2131c4a2-541b-44be-b9b4-d4532a8c899f"/>
-				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[($V{totGloVar} != null ? $V{totGloVar}: BigDecimal.ZERO)]]></textFieldExpression>
+			<textField evaluationTime="Report">
+				<reportElement x="760" y="29" width="40" height="16" uuid="2b7ad978-0226-415c-a4d6-a221d98ebbe9"/>
+				<textFieldExpression><![CDATA["" + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="707" y="0" width="83" height="20" uuid="3593048b-eae5-4bd2-9aa9-b5ac67b54ff0"/>
-				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[($V{totGloTVA} != null ? $V{totGloTVA}: BigDecimal.ZERO)]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="363" y="0" width="60" height="20" uuid="864a76b5-92bb-4d2c-ab82-65e3d9aa789e"/>
-				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[($V{totGloPC} != null ? $V{totGloPC}: BigDecimal.ZERO)]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="423" y="0" width="61" height="20" uuid="7e2b18e3-0af8-43d7-8090-4186f272f6e9"/>
-				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[($V{totGloPCS} != null ? $V{totGloPCS}: BigDecimal.ZERO)]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="484" y="0" width="61" height="20" uuid="8d14dd10-c058-4874-99ae-d4c0a3456a6c"/>
-				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[($V{totGloAIB} != null ? $V{totGloAIB}: BigDecimal.ZERO)]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="545" y="0" width="62" height="20" uuid="2ee398d5-8146-41d6-9835-224e5f0342bc"/>
-				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[($V{totGloAFS} != null ? $V{totGloAFS}: BigDecimal.ZERO)]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="607" y="0" width="100" height="20" uuid="71ee9645-6568-4d8e-a957-6938b38bcfec"/>
-				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[($V{totGloDD} != null ? $V{totGloDD}: BigDecimal.ZERO)]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="169" y="0" width="48" height="20" uuid="3e04d20c-fe21-45ec-82b3-de366cdab11b"/>
-				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Total Global :]]></text>
-			</staticText>
 		</band>
-	</summary>
+	</pageFooter>
 </jasperReport>

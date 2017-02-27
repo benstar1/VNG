@@ -16,16 +16,19 @@
 
             <ui:define name="body">
                 <h:form>
+                    Recoupement avancé
+                    <p:fieldset>
                     <h:panelGrid columns="2">
-                        <h:outputLabel value="Début" for="debut"/>
+                        <h:outputLabel value="Début :" for="debut"/>
                         <p:calendar id="debut" value="#{reportController.debut}" pattern="dd/mm/yyyy"/>
-                        <h:outputLabel value="Fin" for="fin"/> 
+                        <h:outputLabel value="Fin :" for="fin"/> 
                         <p:calendar id="fin" value="#{reportController.fin}" pattern="dd/mm/yyyy"/>
-                        <h:outputLabel value="Ifu" for="ifu"/>
+                        <h:outputLabel value="IFU :" for="ifu"/>
                         <h:inputText id="ifu" value="#{reportController.ifu}"/> 
                         <h:outputLabel value=""/>
                         <p:commandButton value="Rechercher" actionListener="#{reportController.rechercher()}" update="@form:resultat"/>
                     </h:panelGrid>
+                        </p:fieldset>
                     <br/>
                     <p:dataTable  id="resultat" value="#{reportController.resultat}" var="item"
                                   selectionMode="single" selection="#{reportController.selected}"

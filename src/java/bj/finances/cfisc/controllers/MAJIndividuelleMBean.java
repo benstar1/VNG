@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 //import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -265,7 +266,9 @@ public class MAJIndividuelleMBean extends java.lang.Object {
             }
             else
             {
-                JsfUtil.addErrorMessage("IFU Incorrect");
+                //JsfUtil.addErrorMessage("IFU Incorrect");
+                FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_ERROR, "IFU INCONNU.", "IFU INCONNU."));
+                
             }
         } catch (Exception e) {
             System.out.println("Find IFU " + e.getMessage());
@@ -368,7 +371,8 @@ public class MAJIndividuelleMBean extends java.lang.Object {
                 System.out.println("Fin historisation -- Désactivation");
 
                 //fin
-                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TRepUniqueUpdated"));
+                //JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TRepUniqueUpdated"));
+                FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_INFO, "CONTRIBUABLE MIS A JOUR AVEC SUCCES.", "CONTRIBUABLE MIS A JOUR AVEC SUCCES."));
                 //return "View";
             } else {
                 current.setContStatut("A");
@@ -455,10 +459,12 @@ public class MAJIndividuelleMBean extends java.lang.Object {
 
                 System.out.println("Fin historisation -- Activation");
 
-                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TRepUniqueUpdated"));
+                //JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TRepUniqueUpdated"));
+                FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_INFO, "CONTRIBUABLE MIS A JOUR AVEC SUCCES.", "CONTRIBUABLE MIS A JOUR AVEC SUCCES."));
             }
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            //JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured").toUpperCase()));
             System.out.println("ERRREEEUUUUUUUUUUUUUUUUUR " + e.getMessage());
             e.printStackTrace();
             // return null;

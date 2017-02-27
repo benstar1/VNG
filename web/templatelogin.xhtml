@@ -2,22 +2,29 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      >
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet library="css" name="default.css"/>
         <h:outputStylesheet library="css" name="cssLayout.css"/>
+        
+        <link href="resources/bootstrap3/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link href="resources/bootstrap3/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        
+         <h:outputStylesheet name="./bootstrap3/css/bootstrap-theme.css"/>
+        <h:outputStylesheet library="css" name="modern-business.css"/>
         <title>Login</title>
     </h:head>
 
-    <h:body>
+    <h:body style="padding-top: 0px">
 
         <div id="top">
             <ui:insert name="top"></ui:insert>
             <div class="row">
                 <div id="banniere" style="width: 100%; margin: 0px">
-                    <div align="left" id="logo1" style="display: inline-block; width: 30%; margin: 0px"><h:graphicImage library="images" name="logo_mef.jpg" style="width: 376px; height: 100px;" alt="Logo MEF"/></div>
+                    <div align="left" id="logo1" style="display: inline-block; width: 30%; margin: 0px"><h:graphicImage library="images" name="logo_mef.jpg" style="width: 367px; height: 100px;" alt="Logo MEF"/></div>
                    
                     <div   class="text-center" id="texte" style=" float:  right;  text-align: center;  width: 70%; height: 100px; display: inline-block; margin: 0px; "><br/> <p style=" text-align: inherit ; color:black;  font-size: x-large;  text-decoration-style:  solid;  font-style:  italic; ">BIENVENUE SUR LA PLATEFORME DE GESTION DU REPERTOIRE UNIQUE</p></div>
 
@@ -26,10 +33,9 @@
 
         </div>
         
-        <div>
-          
+        <div>          
             
-            <div id="content" class="left_content">
+            <div id="content" >
         
                 <ui:insert name="body">
                 <p/>

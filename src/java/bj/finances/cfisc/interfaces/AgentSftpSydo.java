@@ -161,8 +161,6 @@ public class AgentSftpSydo {
             session.disconnect();
             envoiActifVersSydo();
         }
-        
-        
     }
     
     public void envoiActifVersSydo(){

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="828" leftMargin="7" rightMargin="7" topMargin="20" bottomMargin="20" uuid="c3b26b3b-f9fc-4037-a7ed-4c230d5f2745">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<property name="net.sf.jasperreports.awt.ignore.missing.font" value="true"/>
@@ -49,9 +49,9 @@ ORDER BY "T_CENTRE_IMPOT"."CENTR_IMP_CODE"]]>
 				<textField>
 					<reportElement x="123" y="17" width="77" height="20" uuid="063c9a24-344a-4c9b-90db-1419b304eb87"/>
 					<box rightPadding="10">
-						<rightPen lineWidth="0.5" lineColor="#292828"/>
+						<rightPen lineWidth="0.0" lineColor="#292828"/>
 					</box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
@@ -66,7 +66,7 @@ ORDER BY "T_CENTRE_IMPOT"."CENTR_IMP_CODE"]]>
 					<textFieldExpression><![CDATA[$F{CENTR_IMP_LIBELLE}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="3" y="49" width="82" height="30" forecolor="#292828" backcolor="#EBEBEB" uuid="8491a137-948c-459c-bba7-870ebe0430e9"/>
+					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="49" width="93" height="30" forecolor="#292828" backcolor="#EBEBEB" uuid="8491a137-948c-459c-bba7-870ebe0430e9"/>
 					<box>
 						<topPen lineWidth="0.5" lineColor="#403E3E"/>
 						<leftPen lineWidth="0.5" lineColor="#403E3E"/>
@@ -80,7 +80,7 @@ ORDER BY "T_CENTRE_IMPOT"."CENTR_IMP_CODE"]]>
 					<text><![CDATA[IFU]]></text>
 				</staticText>
 				<staticText>
-					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="85" y="49" width="58" height="30" forecolor="#292828" backcolor="#EBEBEB" uuid="166765a1-e7ba-4a40-a6a6-7e91e4f5ac18"/>
+					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="92" y="49" width="92" height="30" forecolor="#292828" backcolor="#EBEBEB" uuid="166765a1-e7ba-4a40-a6a6-7e91e4f5ac18"/>
 					<box>
 						<topPen lineWidth="0.5" lineColor="#403E3E"/>
 						<leftPen lineWidth="0.5" lineColor="#403E3E"/>
@@ -94,21 +94,7 @@ ORDER BY "T_CENTRE_IMPOT"."CENTR_IMP_CODE"]]>
 					<text><![CDATA[Date immat.]]></text>
 				</staticText>
 				<staticText>
-					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="143" y="49" width="92" height="30" forecolor="#292828" backcolor="#EBEBEB" uuid="5c897ad6-a5dd-4728-b1f6-c6ed7bb465dc"/>
-					<box>
-						<topPen lineWidth="0.5" lineColor="#403E3E"/>
-						<leftPen lineWidth="0.5" lineColor="#403E3E"/>
-						<bottomPen lineWidth="0.0" lineColor="#403E3E"/>
-						<rightPen lineColor="#403E3E"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="12" isBold="true"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<text><![CDATA[Num. dossier]]></text>
-				</staticText>
-				<staticText>
-					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="235" y="49" width="66" height="30" forecolor="#292828" backcolor="#EBEBEB" uuid="c7709450-1516-4214-9903-099bf98cf078">
+					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="184" y="49" width="88" height="30" forecolor="#292828" backcolor="#EBEBEB" uuid="c7709450-1516-4214-9903-099bf98cf078">
 						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					</reportElement>
 					<box>
@@ -124,7 +110,7 @@ ORDER BY "T_CENTRE_IMPOT"."CENTR_IMP_CODE"]]>
 					<text><![CDATA[Date enreg.]]></text>
 				</staticText>
 				<staticText>
-					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="301" y="49" width="121" height="30" forecolor="#292828" backcolor="#EBEBEB" uuid="f4190afe-3fbe-4192-845b-aaf844217520"/>
+					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="272" y="49" width="160" height="30" forecolor="#292828" backcolor="#EBEBEB" uuid="f4190afe-3fbe-4192-845b-aaf844217520"/>
 					<box>
 						<topPen lineWidth="0.5" lineColor="#403E3E"/>
 						<leftPen lineWidth="0.5" lineColor="#403E3E"/>
@@ -138,7 +124,7 @@ ORDER BY "T_CENTRE_IMPOT"."CENTR_IMP_CODE"]]>
 					<text><![CDATA[Raison]]></text>
 				</staticText>
 				<staticText>
-					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="422" y="49" width="72" height="30" forecolor="#292828" backcolor="#EBEBEB" uuid="46a5bf78-199c-4cf2-833a-30c797064c92"/>
+					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="432" y="49" width="62" height="30" forecolor="#292828" backcolor="#EBEBEB" uuid="46a5bf78-199c-4cf2-833a-30c797064c92"/>
 					<box>
 						<topPen lineWidth="0.5" lineColor="#403E3E"/>
 						<leftPen lineWidth="0.5" lineColor="#403E3E"/>
@@ -165,7 +151,7 @@ ORDER BY "T_CENTRE_IMPOT"."CENTR_IMP_CODE"]]>
 						<font size="12" isBold="true"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
-					<text><![CDATA[Téléphone]]></text>
+					<text><![CDATA[Tél.]]></text>
 				</staticText>
 				<staticText>
 					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="553" y="49" width="130" height="30" forecolor="#292828" backcolor="#EBEBEB" uuid="ed5737c6-5fc9-4531-bc30-000eaef9f617"/>
@@ -210,7 +196,7 @@ ORDER BY "T_CENTRE_IMPOT"."CENTR_IMP_CODE"]]>
 					<text><![CDATA[Lot]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="20" y="15" width="100" height="25" uuid="28825ab6-e273-4f0a-9e36-8714bad948fd">
+					<reportElement x="5" y="15" width="118" height="25" uuid="28825ab6-e273-4f0a-9e36-8714bad948fd">
 						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					</reportElement>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -219,18 +205,12 @@ ORDER BY "T_CENTRE_IMPOT"."CENTR_IMP_CODE"]]>
 					</textElement>
 					<text><![CDATA[Centre d'impot:]]></text>
 				</staticText>
-				<line>
-					<reportElement x="10" y="10" width="822" height="1" uuid="5695de44-2dfc-4791-b39a-a83074a9c6d7"/>
-					<graphicElement>
-						<pen lineColor="#292828"/>
-					</graphicElement>
-				</line>
 			</band>
 		</groupHeader>
 		<groupFooter>
 			<band height="25">
 				<textField>
-					<reportElement mode="Opaque" x="684" y="0" width="141" height="25" backcolor="#EBEBEB" uuid="4155105d-9b9d-4ebe-9857-a42df03be147"/>
+					<reportElement mode="Opaque" x="683" y="0" width="142" height="25" backcolor="#EBEBEB" uuid="4155105d-9b9d-4ebe-9857-a42df03be147"/>
 					<box>
 						<leftPen lineWidth="0.5" lineColor="#292828"/>
 						<bottomPen lineWidth="0.5" lineColor="#292828"/>
@@ -249,7 +229,7 @@ ORDER BY "T_CENTRE_IMPOT"."CENTR_IMP_CODE"]]>
 						<bottomPen lineWidth="0.5" lineColor="#292828"/>
 						<rightPen lineWidth="0.0" lineColor="#292828"/>
 					</box>
-					<textElement verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
@@ -264,25 +244,25 @@ ORDER BY "T_CENTRE_IMPOT"."CENTR_IMP_CODE"]]>
 	<title>
 		<band height="97" splitType="Stretch">
 			<staticText>
-				<reportElement key="" x="270" y="27" width="537" height="30" uuid="cde03e7e-7989-4ecf-a375-a53cf9cf24b5"/>
+				<reportElement key="" x="235" y="27" width="590" height="30" uuid="cde03e7e-7989-4ecf-a375-a53cf9cf24b5"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Adobe Caslon Pro" size="22" isBold="true"/>
+					<font fontName="SansSerif" size="22" isBold="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[Liste des entreprises actives du repertoire unique]]></text>
+				<text><![CDATA[Liste des entreprises à jour du repertoire unique]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement key="" x="555" y="57" width="150" height="30" uuid="cac9ae80-f034-44ac-92fe-c933fdc6a226"/>
-				<textElement>
-					<font fontName="Adobe Caslon Pro" size="22" isBold="true"/>
+				<reportElement key="" x="503" y="57" width="150" height="30" uuid="cac9ae80-f034-44ac-92fe-c933fdc6a226"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="15" isBold="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="395" y="57" width="160" height="30" uuid="80c02db2-8eee-4cff-84a6-60fd93bc12bd"/>
-				<textElement>
-					<font fontName="Adobe Caslon Pro" size="22" isBold="true"/>
+				<reportElement x="383" y="57" width="170" height="30" uuid="80c02db2-8eee-4cff-84a6-60fd93bc12bd"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="15" isBold="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[ Etat à la date du ]]></text>
@@ -291,6 +271,9 @@ ORDER BY "T_CENTRE_IMPOT"."CENTR_IMP_CODE"]]>
 				<reportElement x="12" y="0" width="254" height="95" uuid="1c2625f8-9912-4447-b587-618978e752bc"/>
 				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
 			</image>
+			<rectangle>
+				<reportElement mode="Transparent" x="0" y="-1" width="827" height="97" uuid="d0e82baf-a9d8-422e-ae4a-4888a1214a45"/>
+			</rectangle>
 		</band>
 	</title>
 	<pageHeader>
@@ -301,23 +284,8 @@ ORDER BY "T_CENTRE_IMPOT"."CENTR_IMP_CODE"]]>
 	</columnHeader>
 	<detail>
 		<band height="25" splitType="Stretch">
-			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="3" y="0" width="82" height="25" forecolor="#292828" uuid="c64c7acc-e832-4e8c-a038-0927dfab1f76">
-					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-				</reportElement>
-				<box>
-					<topPen lineColor="#403E3E"/>
-					<leftPen lineWidth="0.5" lineColor="#403E3E"/>
-					<bottomPen lineWidth="0.5" lineColor="#403E3E"/>
-					<rightPen lineColor="#403E3E"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{CONT_IMMATR}]]></textFieldExpression>
-			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="85" y="0" width="58" height="25" forecolor="#292828" uuid="4fcac8bf-ea22-4380-bb13-dd48cc38482d"/>
+				<reportElement stretchType="RelativeToTallestObject" x="92" y="0" width="92" height="25" forecolor="#292828" uuid="4fcac8bf-ea22-4380-bb13-dd48cc38482d"/>
 				<box>
 					<topPen lineColor="#403E3E"/>
 					<leftPen lineWidth="0.5" lineColor="#403E3E"/>
@@ -330,21 +298,8 @@ ORDER BY "T_CENTRE_IMPOT"."CENTR_IMP_CODE"]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{CONT_DATEIMMATR}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="143" y="0" width="92" height="25" forecolor="#292828" uuid="24cf8cad-24f0-4868-851f-0f5a8674ba14"/>
-				<box>
-					<topPen lineColor="#403E3E"/>
-					<leftPen lineWidth="0.5" lineColor="#403E3E"/>
-					<bottomPen lineWidth="0.5" lineColor="#403E3E"/>
-					<rightPen lineColor="#403E3E"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{CONT_NUM}]]></textFieldExpression>
-			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement key="" stretchType="RelativeToTallestObject" x="235" y="0" width="66" height="25" forecolor="#292828" uuid="0b9500cb-1640-4aef-bc30-c18ab9c237d8"/>
+				<reportElement key="" stretchType="RelativeToTallestObject" x="184" y="0" width="88" height="25" forecolor="#292828" uuid="0b9500cb-1640-4aef-bc30-c18ab9c237d8"/>
 				<box>
 					<topPen lineColor="#403E3E"/>
 					<leftPen lineWidth="0.5" lineColor="#403E3E"/>
@@ -357,27 +312,27 @@ ORDER BY "T_CENTRE_IMPOT"."CENTR_IMP_CODE"]]>
 				<textFieldExpression><![CDATA[$F{CONT_DATENREG}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="301" y="0" width="121" height="25" forecolor="#292828" uuid="ebf1f2af-8c42-4e4d-bec1-5ac7dfd1f71c"/>
+				<reportElement stretchType="RelativeToTallestObject" x="272" y="0" width="160" height="25" forecolor="#292828" uuid="ebf1f2af-8c42-4e4d-bec1-5ac7dfd1f71c"/>
 				<box leftPadding="2" rightPadding="2">
 					<topPen lineColor="#403E3E"/>
 					<leftPen lineWidth="0.5" lineColor="#403E3E"/>
 					<bottomPen lineWidth="0.5" lineColor="#403E3E"/>
 					<rightPen lineColor="#403E3E"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{CONT_RAIS}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="422" y="0" width="72" height="25" forecolor="#292828" uuid="b2408501-fcc3-4b99-b827-52759027de7c"/>
+				<reportElement stretchType="RelativeToTallestObject" x="432" y="0" width="62" height="25" forecolor="#292828" uuid="b2408501-fcc3-4b99-b827-52759027de7c"/>
 				<box leftPadding="2" rightPadding="2">
 					<topPen lineColor="#403E3E"/>
 					<leftPen lineWidth="0.5" lineColor="#403E3E"/>
 					<bottomPen lineWidth="0.5" lineColor="#403E3E"/>
 					<rightPen lineColor="#403E3E"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{CONT_BP}]]></textFieldExpression>
@@ -405,7 +360,7 @@ ORDER BY "T_CENTRE_IMPOT"."CENTR_IMP_CODE"]]>
 					<bottomPen lineWidth="0.5" lineColor="#403E3E"/>
 					<rightPen lineColor="#403E3E"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
@@ -419,7 +374,7 @@ ORDER BY "T_CENTRE_IMPOT"."CENTR_IMP_CODE"]]>
 					<bottomPen lineWidth="0.5" lineColor="#403E3E"/>
 					<rightPen lineColor="#403E3E"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
@@ -433,11 +388,23 @@ ORDER BY "T_CENTRE_IMPOT"."CENTR_IMP_CODE"]]>
 					<bottomPen lineWidth="0.5" lineColor="#403E3E"/>
 					<rightPen lineWidth="0.5" lineColor="#403E3E"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{CONT_LOT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="92" height="25" uuid="5ed4da77-ff65-4561-a637-722d1c483c2c"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{CONT_IMMATR}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -445,7 +412,22 @@ ORDER BY "T_CENTRE_IMPOT"."CENTR_IMP_CODE"]]>
 		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band splitType="Stretch"/>
+		<band height="50">
+			<textField>
+				<reportElement x="696" y="30" width="80" height="20" uuid="ffb6a31b-7548-4e3f-8908-eb9bc3b1903d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="776" y="30" width="40" height="20" uuid="8e0ccb63-770a-4c9f-9c39-49b5e9368fbe"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
 	<summary>
 		<band splitType="Stretch"/>

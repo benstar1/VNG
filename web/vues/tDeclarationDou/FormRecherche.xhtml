@@ -6,17 +6,18 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    <body>
-        <p:tabView id="recherche" style="height: 50%">    
+    <body>          
+        
+        <p:tabView id="recherche" style="height: 40%">    
             <p:tab title="Recherche">
                 <h:form id="formRechercheSimple">
                     <h:panelGrid columns="2">
                         <h:outputLabel value="Rechercher par :" for="rechercherPar" />
                         <p:selectOneMenu id="rechercherPar" value="#{tConsulterDeclarationController.referenceDec}" style="width:200px">
                             <p:ajax update="@form" />
-                            <f:selectItem itemLabel="Reférence Douane" itemValue="2" />
-                            <f:selectItem itemLabel="Référence liquidation" itemValue="3" />
-                            <f:selectItem itemLabel="Référence quittance" itemValue="4" />
+                            <f:selectItem itemLabel="N° Declaration" itemValue="2" />
+                            <f:selectItem itemLabel="N° Liquidation" itemValue="3" />
+                            <f:selectItem itemLabel="N° Quittance" itemValue="4" />
                         </p:selectOneMenu>                    
                     </h:panelGrid>
                     <h:panelGrid columns="2">
@@ -31,16 +32,16 @@
 
                         <h:outputLabel value="Num Liq. :" for="numLiq" rendered="#{tConsulterDeclarationController.referenceDec == 3}" />
                         <h:inputText value="#{tConsulterDeclarationController.numLiq}" id="numLiq" rendered="#{tConsulterDeclarationController.referenceDec == 3}" required="true"/>
-                        <h:outputLabel value="Année :" for="dateLiq" rendered="#{tConsulterDeclarationController.referenceDec == 3}" />
+                        <h:outputLabel value="Date Liquidation :" for="dateLiq" rendered="#{tConsulterDeclarationController.referenceDec == 3}" />
                         <p:calendar  pattern="dd/MM/yyyy" value="#{tConsulterDeclarationController.dateLiq}" id="dateLiq" rendered="#{tConsulterDeclarationController.referenceDec == 3}" required="true"/>
 
                         <h:outputLabel value="Num Quit. :" for="numQuit" rendered="#{tConsulterDeclarationController.referenceDec == 4}"/>
                         <h:inputText value="#{tConsulterDeclarationController.numQuit}" id="numQuit" rendered="#{tConsulterDeclarationController.referenceDec == 4}" required="true"/>
-                        <h:outputLabel value="Année :" for="dateQuit" rendered="#{tConsulterDeclarationController.referenceDec == 4}" />
+                        <h:outputLabel value="Date Quittance :" for="dateQuit" rendered="#{tConsulterDeclarationController.referenceDec == 4}" />
                         <p:calendar  pattern="dd/MM/yyyy" value="#{tConsulterDeclarationController.dateQuit}" id="dateQuit" rendered="#{tConsulterDeclarationController.referenceDec == 4}" required="true"/>
 
                         <h:outputLabel value="" />
-                        <p:commandButton value="Rechercher" actionListener="#{tConsulterDeclarationController.rechercheSimple()}" ajax="true" update=":formResultat:listeDeclaration"   />                
+                        <p:commandButton class="btn-primary" value="   Rechercher   " actionListener="#{tConsulterDeclarationController.rechercheSimple()}" ajax="true" update=":formResultat:listeDeclaration"   />                                        
                     </h:panelGrid>
                 </h:form>
             </p:tab>
@@ -185,7 +186,7 @@
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="TVA"/>
-                        </f:facet>
+                        </f:facet>                       
                         <h:outputText value="#{item.tva}"/>
                     </p:column>      
                     <p:column>
@@ -193,47 +194,54 @@
                             <h:outputText value="AFS"/>
                         </f:facet>
                         <h:outputText value="#{item.afs}"/>
-                    </p:column>                     
+                    </p:column>  
+                    
+                    <p:column>
+                        <f:facet name="header">                             
+                            <h:outputText value="TV"/>
+                        </f:facet>
+                        <h:outputText value="#{item.tv}"/>
+                    </p:column>  
                 </p:dataTable>
 
                
-                <h:commandLink actionListener="#{tConsulterDeclarationController.transformToPDF()}" value="telecharger pdf"></h:commandLink>
+                <h:commandLink actionListener="#{tConsulterDeclarationController.transformToPDF()}" value="Exporter vers PDF"></h:commandLink>
                 
 
                 <h:panelGroup id="FicheDetailDeclaration">
                     <p:dialog  header="Detail de declaration" widgetVar="FicheDetailDeclaration" modal="true" width="800px" closable="true" >
                         <h:panelGrid columns="5" width="100%">
-                            <h:outputLabel value="Bureau"/>
+                            <h:outputLabel style="font-weight: bold" value="Bureau :"/>
                             <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideCuoCod } #{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideCuoNam }"/>
-                            <h:outputLabel value=""/>
-                            <h:outputLabel value="N° decl. "/>
+                            <h:outputLabel  value=""/>
+                            <h:outputLabel style="font-weight: bold" value="N° decl. :"/>
                             <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideRegSer }  #{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideRegNbr }" title="Numero decl"/>
                             
-                            <h:outputLabel value="Date decl. "/>
+                            <h:outputLabel style="font-weight: bold" value="Date decl. :"/>
                             <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideRegDat}"><f:convertDateTime pattern="dd/MM/yyyy" /></h:outputText>
                             <h:outputLabel value=""/>
-                            <h:outputLabel value="N° quit. "/>
+                            <h:outputLabel style="font-weight: bold" value="N° quit. :"/>
                             <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideRcpSer }  #{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideRcpNbr }" title="Numero quit"/>
                             
-                            <h:outputLabel value="Date quit. "/>
+                            <h:outputLabel style="font-weight: bold" value="Date quit. :"/>
                             <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideRcpDat}"><f:convertDateTime pattern="dd/MM/yyyy" /></h:outputText>                            
                             <h:outputLabel value=""/>
-                            <h:outputLabel value="Num liq. "/>
+                            <h:outputLabel style="font-weight: bold" value="Num liq. :"/>
                             <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideAstSer }  #{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideAstNbr }" title="Numero decl"/>                            
                             
-                            <h:outputLabel value="date liq. "/>                         
+                            <h:outputLabel style="font-weight: bold" value="date liq. :"/>                         
                             <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideAstDat}"><f:convertDateTime pattern="dd/MM/yyyy" /></h:outputText>
                             <h:outputLabel value=""/>
-                            <h:outputLabel value="Nombre d'article "/>
+                            <h:outputLabel style="font-weight: bold" value="Nombre d'article :"/>
                             <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ptyNbrItm}"/>
 
-                            <h:outputLabel value="Montant decl."/>
+                            <h:outputLabel style="font-weight: bold" value="Montant decl. :"/>
                             <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.finAmtDty}"/>
                             <h:outputLabel value=""/>
-                            <h:outputLabel value="Total droits/taxes."/>
+                            <h:outputLabel style="font-weight: bold" value="Total droits/taxes. :"/>
                             <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.astAmt}"/>
                             
-                            <h:outputLabel value="total taxes Art."/>
+                            <h:outputLabel style="font-weight: bold" value="total taxes Art. :"/>
                             <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.astTot}"/>
                         </h:panelGrid>
 
@@ -242,31 +250,31 @@
                                 <c:set var="titreArticle" value="Article " />
                                 <p:tab title="#{ tConsulterDeclarationController.titreArticle(article.TArticlePK.keyItmNbr)}" >
                                     <h:panelGrid columns="5" width="100%">
-                                        <h:outputLabel value="Num. art." />
+                                        <h:outputLabel style="font-weight: bold" value="Num. art." />
                                         <h:outputText value="#{article.TArticlePK.keyItmNbr}"/>
                                         <h:outputLabel value=""/>
-                                        <h:outputLabel value="Postion tar." />
+                                        <h:outputLabel style="font-weight: bold" value="Postion tar." />
                                         <h:outputText value="#{article.tarHscNb1}"/>
                                         
-                                        <h:outputLabel value="Poids Net" />
+                                        <h:outputLabel style="font-weight: bold" value="Poids Net" />
                                         <h:outputText value="#{article.vitWgtNet}"/>
                                         <h:outputLabel value=""/>
-                                        <h:outputLabel value="Valeur" />
+                                        <h:outputLabel style="font-weight: bold" value="Valeur" />
                                         <h:outputText value="#{article.vitStv}"/>
                                         
-                                        <h:outputLabel value="Droits et taxes" />
+                                        <h:outputLabel style="font-weight: bold" value="Droits et taxes" />
                                         <h:outputText value="#{article.taxAmt}"/>
                                         <h:outputLabel value=""/>
-                                        <h:outputLabel value="Description" />
+                                        <h:outputLabel style="font-weight: bold" value="Description" />
                                         <h:outputText value="#{article.gdsDsc} #{article.gdsDs3}"/>
                                         
-                                        <h:outputLabel value="Pays Orig." />
+                                        <h:outputLabel style="font-weight: bold" value="Pays Orig." />
                                         <h:outputText value="#{article.gdsOrgCty}"/>
                                         <h:outputLabel value=""/>
-                                        <h:outputLabel value="Marque et num." />
+                                        <h:outputLabel style="font-weight: bold" value="Marque et num." />
                                         <h:outputText value="#{article.pckMrk1} #{article.pckMrk2}"/>
                                         
-                                        <h:outputLabel value="Régime" />
+                                        <h:outputLabel style="font-weight: bold" value="Régime" />
                                         <h:outputText value="#{article.tarPrcExt}#{article.tarPrcNat}"/>   
                                         <h:outputLabel value=""/>                                         
                                         

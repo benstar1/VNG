@@ -7,39 +7,40 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <h:head>
-
-        <h:outputStylesheet name="./css/default.css"/>
-        <h:outputStylesheet name="./css/cssLayout.css"/>
-        <meta http-equiv="refresh" content="2600;url=http://10.3.3.183:8080/CFisc/login.xhtml"/>
+    <h:head>       
+        <h:outputScript library="js" name="bootstrap.min.js" />
+        <h:outputScript library="js" name="jqBootstrapValidation.js" />        
+        
+        <!--meta http-equiv="refresh" content="2600;url=http://10.3.3.183:8080/CFisc/login.xhtml"/-->
         <title>BIENVENUE SUR LA PLATEFORME DE GESTION DU REPERTOIRE UNIQUE</title>
     </h:head>
 
-    <h:body>
-        <!--       <f:facet name="last">
-                   <h:outputStylesheet library="css" name="default.css"/>
-               </f:facet>-->
-        <div id="top">
+    <h:body style="padding-top: 0px">
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <h:outputStylesheet library="bootstrap3" name="css/bootstrap.css"/>
+      
+      <link href="resources/bootstrap3/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+      <link href="resources/bootstrap3/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+      <link href="resources/bootstrap3/css/bootstrap-theme.css" rel="stylesheet" type="text/css"/>
+        <h:outputStylesheet name="./css/modern-business.css" />       
+         
+        
+        <div id="top" style="margin-bottom: 0px ">
             <ui:insert name="top"></ui:insert>
-            <div class="row">
+            <div class="row" style="margin-bottom: 0px !important; padding: 0px !important">
                 <div id="banniere" style="width: 100%; margin: 0px">
-                    <div align="left" id="logo1" style="display: inline-block; width: 25%; margin: 0px"><h:graphicImage library="images" name="logo_mef.jpg" style="width: 376px; height: 100px;" alt="Logo MEF"/></div>
+                    <div align="left" id="logo1" style="display: inline-block; width: 25%; margin: 0px"><h:graphicImage library="images" name="logo_mef.jpg" style="width: 364px; height: 100px;" alt="Logo MEF"/></div>
 
                     <div   class="text-center" id="texte" style=" float:  right;  text-align: right;  width: 70%; height: 100px; display: inline-block; margin: 0px; "><br/> <p style=" text-align: inherit ; color:black;  font-size: x-large;  text-decoration-style:  solid;  font-style:  italic; ">PLATEFORME DE GESTION DU REPERTOIRE UNIQUE</p></div>
 
                 </div>
-                <div id="identification" style=" height:5%;   clear:  both; background-color: forestgreen ; width: 100%; margin: 0px ">
+                <div id="identification" style=" height:0;   clear:  both; background-color: forestgreen ; width: 100%; margin-bottom: 0px">
+ 
+                     <c:if test="#{loginMBean.contribuable}">
 
 
-
-                    <table  style=" color:  #ffffff ; text-align:  left" border="0" bgcolor="forestgreen" width="100%">
-
-                        <tbody>
-                            <tr>
-                                <c:if test="#{loginMBean.contribuable}">
-
-
-                                    <td> <strong> <h:outputLabel  value="IFU :"/></strong></td>
+                                    <!--td> <strong> <h:outputLabel  value="IFU :"/></strong></td>
                                     <td>  <strong> <h:outputText style=" color:  yellow " value="#{loginMBean.utilisateurconnecte.utilContImmatr.contImmatr}"/></strong>
                                     </td>
 
@@ -51,63 +52,158 @@
                                     <td>   <h:outputText value="#{loginMBean.utilisateurconnecte.utilContImmatr.contPren.toUpperCase()}"/>
                                         <h:outputText value="#{loginMBean.utilisateurconnecte.utilContImmatr.contNomLong.toUpperCase()}"/>
 
-                                    </td>
+                                    </td -->
 
 
 
                                 </c:if>
 
                                 <c:if test="#{loginMBean.inspectmaj}">
+                                    <nav class="navbar navbar-default">
+                                    <div class="container-fluid">
+                                      <!-- Brand and toggle get grouped for better mobile display -->
+                                      <ul class="nav navbar-nav">
+                                          <li ><a href="#"><div id="nom" style="float: left; padding-right: 10px; font-weight: bold; color: #045491" >Nom et Prénoms :</div> <span class="sr-only">(current)</span></a></li>
+                                          <li><a href="#"><div class="mesDivBanieres">#{loginMBean.utilisateurconnecte.utilNom.toUpperCase()} #{loginMBean.utilisateurconnecte.utilPrenoms}</div></a></li>
 
-                                    <td > 
-                                        <div id="nom" style="float: left; padding-right: 10px; font-weight: bold; color: yellow" >Nom et Prénoms :</div><div style="float: left; padding-right: 10px"><h:outputText value="#{loginMBean.utilisateurconnecte.utilNom.toUpperCase()} #{loginMBean.utilisateurconnecte.utilPrenoms} " /></div>
-                                        <div id="service" style="float: left; padding-right: 10px; font-weight: bold; color: yellow">Service :</div><div style="float: left; padding-right: 10px"><h:outputText value="#{loginMBean.utilisateurconnecte.fonctCod.code} " /></div>
-                                        <div id="direction" style="float: left; padding-right: 10px; font-weight: bold; color: yellow">Direction/Centre : </div><div style="float: left; padding-right: 10px"><h:outputText value="#{loginMBean.utilisateurconnecte.fonctCod.direction.code}" /></div>                               
-                                    </td>
+                                          <li ><a href="#"><div id="nom" style="float: left; padding-right: 10px; font-weight: bold; color: #045491" >Service :</div> <span class="sr-only">(current)</span></a></li>
+                                          <li><a href="#"><div class="mesDivBanieres">#{loginMBean.utilisateurconnecte.fonctCod.code}</div></a></li>
 
-                                    <td>
-                                    </td>
+                                          <li><a href="#"><div id="nom" style="float: left; padding-right: 10px; font-weight: bold; color: #045491" >Direction/Centre :</div> <span class="sr-only">(current)</span></a></li>
+                                          <li><a href="#"><div class="mesDivBanieres">#{loginMBean.utilisateurconnecte.fonctCod.direction.code}</div></a></li>
+
+                                      </ul>
+
+                                      <!-- Collect the nav links, forms, and other content for toggling -->
+                                      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+
+                                        <ul class="nav navbar-nav navbar-right">       
+                                          <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicons glyphicons-cogwheel"></span> Paramètres <span class="caret"></span></a>
+                                            <ul class="dropdown-menu">
+                                                <li><h:form><p:commandLink class="myButton" action="#{loginMBean.beforePasswordChange()}" ajax="true" oncomplete="PF('passwordChgDlg').show()" update=":passwordChgDlg" >Modifier mot de passe </p:commandLink></h:form></li>                                                                                          
+                                              <li role="separator" class="divider"></li>
+                                              <li><h:form><h:commandLink class="myButtonDeconnexion" action="#{loginMBean.logout()}" rendered="#{loginMBean.connected}">se déconnecter</h:commandLink></h:form></li>
+                                            </ul>
+                                          </li>
+                                        </ul>
+                                      </div><!-- /.navbar-collapse -->
+                                    </div><!-- /.container-fluid -->
+                                  </nav>
                                 </c:if>
 
                                 <c:if test="#{loginMBean.inspecteur}">
-                                    <td > 
-                                        <div id="nom" style="float: left; padding-right: 10px; font-weight: bold; color: yellow" >Nom et Prénoms :</div><div style="float: left; padding-right: 10px"><h:outputText value="#{loginMBean.utilisateurconnecte.utilNom.toUpperCase()} #{loginMBean.utilisateurconnecte.utilPrenoms} " /></div>
-                                        <div id="service" style="float: left; padding-right: 10px; font-weight: bold; color: yellow">Service :</div><div style="float: left; padding-right: 10px"><h:outputText value="#{loginMBean.utilisateurconnecte.fonctCod.code} " /></div>
-                                        <div id="direction" style="float: left; padding-right: 10px; font-weight: bold; color: yellow">Direction/Centre : </div><div style="float: left; padding-right: 10px"><h:outputText value="#{loginMBean.utilisateurconnecte.fonctCod.direction.code} " /></div>                               
-                                    </td>
+                                   <nav class="navbar navbar-default">
+                                    <div class="container-fluid">
+                                      <!-- Brand and toggle get grouped for better mobile display -->
+                                      <ul class="nav navbar-nav">
+                                          <li ><a href="#"><div id="nom" style="float: left; padding-right: 10px; font-weight: bold; color: #045491" >Nom et Prénoms :</div> <span class="sr-only">(current)</span></a></li>
+                                          <li><a href="#"><div class="mesDivBanieres">#{loginMBean.utilisateurconnecte.utilNom.toUpperCase()} #{loginMBean.utilisateurconnecte.utilPrenoms}</div></a></li>
 
-                                    <td>
-                                    </td>
+                                          <li ><a href="#"><div id="nom" style="float: left; padding-right: 10px; font-weight: bold; color: #045491" >Service :</div> <span class="sr-only">(current)</span></a></li>
+                                          <li><a href="#"><div class="mesDivBanieres">#{loginMBean.utilisateurconnecte.fonctCod.code}</div></a></li>
+
+                                          <li><a href="#"><div id="nom" style="float: left; padding-right: 10px; font-weight: bold; color: #045491" >Direction/Centre :</div> <span class="sr-only">(current)</span></a></li>
+                                          <li><a href="#"><div class="mesDivBanieres">#{loginMBean.utilisateurconnecte.fonctCod.direction.code}</div></a></li>
+
+                                      </ul>
+
+                                      <!-- Collect the nav links, forms, and other content for toggling -->
+                                      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+
+                                        <ul class="nav navbar-nav navbar-right">       
+                                          <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Paramètres <span class="caret"></span></a>
+                                            <ul class="dropdown-menu">
+                                              <li><a href="#">Changer mot de passe</a></li>
+                                              <li><a href="#">Créer un utilisateur</a></li>
+                                              <li><a href="#">Créer un administrateur </a></li>
+                                              <li role="separator" class="divider"></li>
+                                              <li><a href="#">Se déconnecter</a></li>
+                                            </ul>
+                                          </li>
+                                        </ul>
+                                      </div><!-- /.navbar-collapse -->
+                                    </div><!-- /.container-fluid -->
+                                  </nav>
                                 </c:if>
 
                                 <c:if test="#{loginMBean.admin}">
-                                    <td > 
-                                        <h:outputText value="#{loginMBean.utilisateurconnecte.utilNom.toUpperCase()} #{loginMBean.utilisateurconnecte.utilPrenoms}"/> 
-                                    </td>
+                                    <nav class="navbar navbar-default">
+                                    <div class="container-fluid">
+                                      <!-- Brand and toggle get grouped for better mobile display -->
+                                      <ul class="nav navbar-nav">
+                                          <li ><a href="#"><div id="nom" style="float: left; padding-right: 10px; font-weight: bold; color: #045491" >Nom et Prénoms :</div> <span class="sr-only">(current)</span></a></li>
+                                          <li><a href="#"><div class="mesDivBanieres">#{loginMBean.utilisateurconnecte.utilNom.toUpperCase()} #{loginMBean.utilisateurconnecte.utilPrenoms}</div></a></li>
+                                      </ul>
 
-                                    <td>
-                                    </td>
+                                      <!-- Collect the nav links, forms, and other content for toggling -->
+                                      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+
+                                        <ul class="nav navbar-nav navbar-right">       
+                                          <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Paramètres <span class="caret"></span></a>
+                                            <ul class="dropdown-menu">
+                                              <li><a href="#">Changer mot de passe</a></li>
+                                              <li><a href="#">Se déconnecter</a></li>
+                                              <li><a href="#">Something else </a></li>
+                                              <li role="separator" class="divider"></li>
+                                              <li><a href="#">Se déconnecter</a></li>
+                                            </ul>
+                                          </li>
+                                        </ul>
+                                      </div><!-- /.navbar-collapse -->
+                                    </div><!-- /.container-fluid -->
+                                  </nav>
                                 </c:if>
 
                                 <c:if test="#{loginMBean.activecc}">
-                                    <td > 
-                                        <h:outputText value="#{loginMBean.utilisateurconnecte.utilNom.toUpperCase()} #{loginMBean.utilisateurconnecte.utilPrenoms}"/> 
-                                    </td>
+                                    <nav class="navbar navbar-default">
+                                    <div class="container-fluid">
+                                      <!-- Brand and toggle get grouped for better mobile display -->
+                                      <ul class="nav navbar-nav">
+                                          <li ><a href="#"><div id="nom" style="float: left; padding-right: 10px; font-weight: bold; color: #045491" >Nom et Prénoms :</div> <span class="sr-only">(current)</span></a></li>
+                                          <li><a href="#"><div class="mesDivBanieres">#{loginMBean.utilisateurconnecte.utilNom.toUpperCase()} #{loginMBean.utilisateurconnecte.utilPrenoms}</div></a></li>
 
-                                    <td>
+                                          <li ><a href="#"><div id="nom" style="float: left; padding-right: 10px; font-weight: bold; color: #045491" >Service :</div> <span class="sr-only">(current)</span></a></li>
+                                          <li><a href="#"><div class="mesDivBanieres">#{loginMBean.utilisateurconnecte.fonctCod.code}</div></a></li>
 
-                                    </td>
+                                          <li><a href="#"><div id="nom" style="float: left; padding-right: 10px; font-weight: bold; color: #045491" >Direction/Centre :</div> <span class="sr-only">(current)</span></a></li>
+                                          <li><a href="#"><div class="mesDivBanieres">#{loginMBean.utilisateurconnecte.fonctCod.direction.code}</div></a></li>
+
+                                      </ul>
+
+                                      <!-- Collect the nav links, forms, and other content for toggling -->
+                                      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+
+                                        <ul class="nav navbar-nav navbar-right">       
+                                          <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Paramètres <span class="caret"></span></a>
+                                            <ul class="dropdown-menu">
+                                              <li><a href="#">Changer mot de passe</a></li>
+                                              <li><a href="#">Se déconnecter</a></li>
+                                              <li><a href="#">Something else </a></li>
+                                              <li role="separator" class="divider"></li>
+                                              <li><a href="#">Se déconnecter</a></li>
+                                            </ul>
+                                          </li>
+                                        </ul>
+                                      </div><!-- /.navbar-collapse -->
+                                    </div><!-- /.container-fluid -->
+                                  </nav>
                                 </c:if>
-                            </tr>
-                        </tbody>
-                    </table>
+                           
                 </div>
             </div>
 
         </div>
 
         <div>
-            <div id="left">
+            <div id="left" style="width: 15% !important">
                 <ui:include src="./res/menu.xhtml"/>
             </div>
 
@@ -136,8 +232,10 @@
                     <h:inputSecret value="#{loginMBean.newPassword}" required="true"/>
                     <h:outputLabel value="Confirmantion"/>
                     <h:inputSecret value="#{loginMBean.confirmPassword}" required="true"/>
+                    <h:outputLabel value=""/>
+                    <p:commandButton value="Changer" actionListener="#{loginMBean.changePassword()}" ajax="true" update="@form"/>
                 </h:panelGrid>
-                <p:commandButton value="Changer" actionListener="#{loginMBean.changePassword()}" ajax="true" update="@form"/>
+                
             </h:form>
         </p:dialog>
     </h:body>

@@ -10,26 +10,23 @@
 
 
         <ui:define name="body">
-
-
-          
-                <h1 align="left">Mise à Jour Collective</h1>
+                <h3 align="left" style="margin-top: 0px; margin-bottom: 0px;">Mise à Jour Collective</h3>
+                <p:separator />
+                 <p:messages id="msg" showSummary="true" />
                 <f:view>
-                    <h:panelGroup id="messagePanel" layout="block">
-                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                    </h:panelGroup>
+                    
                     <h:form enctype="multipart/form-data">
-
+                       
                         <center>
                             <p:panelGrid columns="3"  style="width: 100%">
                                 <h:outputLabel value="Fichier : " for="fichier" />
 
-                                <h:inputFile id="fichier" value="#{mAJMBean.file}" size="40" required="true" requiredMessage="Veuillez sélectionner le fichier"/>   
+                                <h:inputFile id="fichier" value="#{mAJMBean.file}" size="40"/>   
 
                                 <br /><br />    
                                 <h:outputLabel value="Centre d'Impôt : " for="centreImpot" />
 
-                                <h:selectOneMenu id="centreImpot" value="#{mAJMBean.cimpot}" title="" required="true" requiredMessage="Veuillez choisir le centre d'impôt">
+                                <h:selectOneMenu id="centreImpot" value="#{mAJMBean.cimpot}" >
                                     <f:selectItem itemLabel="----- Centre d'Impôt -----"></f:selectItem>
                                     <f:selectItems value="#{tRepUniqueController.cimpotItem}"/>
                                 </h:selectOneMenu>
@@ -38,8 +35,8 @@
                                 <br/>
 
                                 <h:outputLabel value="Action : " for="activation"  />
-                                <h:selectOneRadio id="activation" value="#{mAJMBean.active}" required="true" requiredMessage="Choisissez l'action">
-                                    <f:selectItem itemValue="A" itemLabel="Activer"> </f:selectItem>
+                                <h:selectOneRadio id="activation" value="#{mAJMBean.active}" >
+                                    <f:selectItem itemValue="A" itemLabel="Activer" > </f:selectItem>
                                     <f:selectItem itemValue="D" itemLabel="Désactiver"> </f:selectItem>                        
                                 </h:selectOneRadio>
 
@@ -50,7 +47,7 @@
                             </p:panelGrid>
                             <br />
 
-                            <h:commandButton action="#{mAJMBean.upload}" value="Mettre à Jour" />
+                            <h:commandButton class="btn-primary" action="#{mAJMBean.upload}" value="     Mettre à Jour     " />
                             <br />
                             <br />
 
@@ -61,7 +58,7 @@
                         <c:if test="#{mAJMBean.charge.size() ge 1}" >
 
                             <center> 
-                                <h1 align="center"><h:outputText value="Liste des Contribuables Mis à Jour"/></h1>
+                                <h3 align="center"><h:outputText value="Liste des Contribuables Mis à Jour"/> (#{mAJMBean.nbre_maj})</h3>
                                 <p:dataTable value="#{mAJMBean.charge}"  var="item">
 
                                     <p:column>
@@ -109,6 +106,42 @@
                                 </p:dataTable>
 
                             </center>
+                           
+                            <c:if test="#{mAJMBean.nbre_rejets != 0}" >
+                            <center> 
+                                <div>
+                                    <div style="float: left; width: 65%"><h3 align="center"><h:outputText value="Liste de rejets"/>(#{mAJMBean.nbre_rejets})</h3></div>
+                                    <div style="float: right; width: 20%; padding-top: 24px;"><h:commandLink class="exportPDF" actionListener="#{mAJMBean.export2PDF()}" value="Exporter vers PDF"></h:commandLink><img src="../../resources/images/pdf.jpg" style="height: 24px" alt=""/></div>
+                                    
+                                </div>
+                                                                    
+                                <p:dataTable value="#{mAJMBean.listeEchecs}"  var="item">
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Numéro IFU"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fauxIfu}"/>
+                                    </p:column>
+                                    
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Nom du contribuable"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fauxNom}"/>
+                                    </p:column>
+                                                                 
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Prénoms du contribuable"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fauxPrenoms}"/>
+                                    </p:column>
+                                    
+                                </p:dataTable>
+
+                            </center>
+                                </c:if>
 
                         </c:if>
                         

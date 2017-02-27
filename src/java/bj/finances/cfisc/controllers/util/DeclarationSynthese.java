@@ -28,12 +28,13 @@ public class DeclarationSynthese {
     private BigDecimal dd;
     private BigDecimal tva;
     private BigDecimal afs;
+    private BigDecimal tv;
     
     public DeclarationSynthese(){
         
     }
 
-    public DeclarationSynthese(String bureau, String numEnreg, Date dateEnreg, String numLiq, Date dateLiq, String numQuit, Date dateQuit, BigDecimal pcs, BigDecimal pc, BigDecimal aib, BigDecimal dd, BigDecimal tva, BigDecimal afs) {
+    public DeclarationSynthese(String bureau, String numEnreg, Date dateEnreg, String numLiq, Date dateLiq, String numQuit, Date dateQuit, BigDecimal pcs, BigDecimal pc, BigDecimal aib, BigDecimal dd, BigDecimal tva, BigDecimal afs, BigDecimal tv) {
         this.bureau = bureau;
         this.numEnreg = numEnreg;
         this.dateEnreg = dateEnreg;
@@ -47,6 +48,7 @@ public class DeclarationSynthese {
         this.dd = dd;
         this.tva = tva;
         this.afs = afs;
+        this.tv = tv;
     }
 
     public String getBureau() {
@@ -151,6 +153,14 @@ public class DeclarationSynthese {
 
     public void setAfs(BigDecimal afs) {
         this.afs = afs;
+    }
+
+    public BigDecimal getTv() {
+        return tv;
+    }
+
+    public void setTv(BigDecimal tv) {
+        this.tv = tv;
     }
     
     
