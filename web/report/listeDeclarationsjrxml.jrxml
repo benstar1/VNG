@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.2.0.final using JasperReports Library version 6.2.0  -->
-<!-- 2016-12-20T17:53:08 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="listeDeclarationsjrxml" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d633f7e5-d2de-4401-a744-dafad5202055">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
-	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="48"/>
 	<parameter name="contribuable" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="bureau" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="typedeclaration" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="dateDeDebut" class="java.util.Date"/>
 	<parameter name="dateDeFin" class="java.util.Date"/>
+	<parameter name="logo" class="java.io.InputStream"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -57,49 +56,60 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="44" splitType="Stretch"/>
+		<band height="122" splitType="Stretch">
+			<staticText>
+				<reportElement x="474" y="51" width="280" height="47" uuid="e8d0d5f2-7afe-40c3-83cf-894e36bd70ac"/>
+				<box topPadding="0"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Consultation de déclarations]]></text>
+			</staticText>
+			<image>
+				<reportElement x="15" y="14" width="228" height="88" uuid="8bb9a80a-f5be-4a90-8a77-acb5f5e1f270"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement mode="Transparent" x="0" y="0" width="802" height="112" uuid="925dff04-bb36-4608-8645-050cc5e88ade"/>
+			</rectangle>
+		</band>
 	</title>
 	<pageHeader>
-		<band height="63" splitType="Stretch">
-			<rectangle>
-				<reportElement x="29" y="2" width="738" height="60" backcolor="#F5F2F2" uuid="b6603210-a956-479c-8911-360376554dda"/>
-				<graphicElement>
-					<pen lineWidth="0.5" lineColor="#6E6969"/>
-				</graphicElement>
-			</rectangle>
+		<band height="84" splitType="Stretch">
 			<staticText>
-				<reportElement x="33" y="3" width="210" height="20" uuid="bc2d708d-f4c3-4144-b6b8-4384df1b45c6"/>
+				<reportElement x="33" y="8" width="210" height="20" uuid="bc2d708d-f4c3-4144-b6b8-4384df1b45c6"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Paramètres de recherche]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="33" y="24" width="100" height="14" uuid="aae0f970-bb2a-42a1-8120-072eb3b157d4"/>
-				<text><![CDATA[Bureau]]></text>
+				<reportElement x="33" y="29" width="100" height="14" uuid="aae0f970-bb2a-42a1-8120-072eb3b157d4"/>
+				<textElement>
+					<font isBold="true" isUnderline="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Bureau :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="33" y="41" width="100" height="15" uuid="5b78cdcd-6f39-419e-94f8-19249b6718d6"/>
-				<text><![CDATA[Contribuable]]></text>
+				<reportElement x="339" y="8" width="122" height="16" uuid="35f0951d-88f0-46b3-9748-308c96790dbd"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Recherche par date ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="539" y="6" width="101" height="16" uuid="35f0951d-88f0-46b3-9748-308c96790dbd"/>
-				<text><![CDATA[Recherche par date]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="280" y="24" width="100" height="14" uuid="2b4410b6-387d-4e5b-989e-47c06f01a414"/>
+				<reportElement x="33" y="46" width="116" height="14" uuid="2b4410b6-387d-4e5b-989e-47c06f01a414"/>
+				<textElement>
+					<font isBold="true" isUnderline="true" isStrikeThrough="false"/>
+				</textElement>
 				<text><![CDATA[Type de déclaration :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="133" y="24" width="100" height="14" uuid="d8386630-be7f-4ba5-b79a-93fcce748f49"/>
+				<reportElement x="139" y="29" width="100" height="14" uuid="d8386630-be7f-4ba5-b79a-93fcce748f49"/>
 				<textFieldExpression><![CDATA[$P{bureau}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="133" y="41" width="100" height="14" uuid="a56c4a6d-7f71-430c-95ab-cdf4bfc2edbc"/>
-				<textFieldExpression><![CDATA[$P{contribuable}]]></textFieldExpression>
-			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="615" y="24" width="100" height="14" uuid="407e74ab-466a-4504-8cb8-80702801378c">
+				<reportElement x="427" y="26" width="100" height="14" uuid="407e74ab-466a-4504-8cb8-80702801378c">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<textElement>
@@ -108,22 +118,28 @@
 				<textFieldExpression><![CDATA[$P{dateDeDebut}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="615" y="41" width="100" height="14" uuid="fd0ad76d-a996-471f-be83-4f1701cacf0b"/>
+				<reportElement x="427" y="43" width="100" height="14" uuid="fd0ad76d-a996-471f-be83-4f1701cacf0b"/>
 				<textFieldExpression><![CDATA[$P{dateDeFin}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="539" y="24" width="70" height="14" uuid="ee719653-70f6-4c0c-a9d5-81a88ca6bf25"/>
-				<text><![CDATA[Date de début]]></text>
+				<reportElement x="339" y="26" width="88" height="14" uuid="ee719653-70f6-4c0c-a9d5-81a88ca6bf25"/>
+				<textElement>
+					<font isBold="true" isUnderline="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Date de début :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="539" y="41" width="70" height="14" uuid="106d3fbc-0f3e-4b4f-a097-2c733925f782">
+				<reportElement x="339" y="43" width="88" height="14" uuid="106d3fbc-0f3e-4b4f-a097-2c733925f782">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
-				<text><![CDATA[Date de fin]]></text>
+				<textElement>
+					<font isBold="true" isUnderline="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Date de fin :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="380" y="24" width="100" height="14" uuid="a764c4e2-651a-482c-8c63-4f4794e0b129"/>
-				<textFieldExpression><![CDATA["1".equals( $P{typedeclaration}) ? "Importations"  :  ( "2".equals($P{typedeclaration}) ? "Exportation" : "Tous" )     ]]></textFieldExpression>
+				<reportElement x="150" y="46" width="100" height="14" uuid="a764c4e2-651a-482c-8c63-4f4794e0b129"/>
+				<textFieldExpression><![CDATA["1".equals( $P{typedeclaration}) ? "Importations"  :  ( "2".equals($P{typedeclaration}) ? "Exportation" : "Tous" )]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -286,7 +302,7 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="20" splitType="Stretch">
+		<band height="35" splitType="Stretch">
 			<textField isBlankWhenNull="true">
 				<reportElement x="29" y="0" width="60" height="20" forecolor="#333333" uuid="784c0a12-dd96-4601-82d2-7289c89a4727"/>
 				<box leftPadding="3" rightPadding="3">
@@ -421,13 +437,18 @@
 			</textField>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="20" splitType="Stretch"/>
-	</columnFooter>
 	<pageFooter>
-		<band height="19" splitType="Stretch"/>
+		<band height="37" splitType="Stretch">
+			<textField>
+				<reportElement x="674" y="17" width="80" height="20" uuid="1bc99d04-1906-4c46-98cd-4133081cb7ba"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+"/"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="754" y="17" width="40" height="20" uuid="f5a7826a-d717-424e-8e38-ebf16af38248"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["" + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
-	<summary>
-		<band height="15" splitType="Stretch"/>
-	</summary>
 </jasperReport>

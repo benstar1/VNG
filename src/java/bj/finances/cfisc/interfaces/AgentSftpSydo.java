@@ -51,6 +51,11 @@ public class AgentSftpSydo {
     private final String SYDO_SFTPPASS = ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPPASS");
     private final int SYDO_SFTPPORT = Integer.parseInt(ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPPORT"));
     
+    private final String IFU_SYDO_SFTPUSER = ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPUSER");
+    private final String IFU_SYDO_SFTPHOST = ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPHOST");
+    private final String IFU_SYDO_SFTPPASS = ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPPASS");
+    private final int IFU_SYDO_SFTPPORT = Integer.parseInt(ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPPORT"));
+    
     private final String REP_UNI_SFTPUSER = ResourceBundle.getBundle("/parametres").getString("REP_UNI_SFTPUSER");
     private final String REP_UNI_SFTPHOST = ResourceBundle.getBundle("/parametres").getString("REP_UNI_SFTPHOST");
     private final String REP_UNI_SFTPPASS = ResourceBundle.getBundle("/parametres").getString("REP_UNI_SFTPPASS");
@@ -68,8 +73,8 @@ public class AgentSftpSydo {
         Channel channel = null;
         
         try {
-            session = jsch.getSession(SYDO_SFTPUSER, SYDO_SFTPHOST, SYDO_SFTPPORT);
-            session.setPassword(SYDO_SFTPPASS);
+            session = jsch.getSession(IFU_SYDO_SFTPUSER, IFU_SYDO_SFTPHOST, IFU_SYDO_SFTPPORT);
+            session.setPassword(IFU_SYDO_SFTPPASS);
             
             java.util.Properties config = new java.util.Properties();
             config.put("StrictHostKeyChecking", "no");            
@@ -91,6 +96,7 @@ public class AgentSftpSydo {
             
             ChannelSftp channelSftp = (ChannelSftp) channel;
             channelSftp.lcd(cheminDepotLocal);
+            channelSftp.cd("DECL");
 
             Vector<ChannelSftp.LsEntry> list = channelSftp.ls("DEC*.xml");
             logger.info("CONNEXION A SYDONIA REUSSI .................. ");
@@ -135,7 +141,7 @@ public class AgentSftpSydo {
             }
             
             channel = session.openChannel("sftp");            
-            try{
+            try{                
             channel.connect();
             }catch(Exception ex){
                 logger.error("Problème de connexion au canal "+ ex.getMessage());
@@ -143,12 +149,14 @@ public class AgentSftpSydo {
             
             ChannelSftp channelSftp = (ChannelSftp) channel;
             channelSftp.lcd(cheminDepotLocalActif);
+            channelSftp.cd("ACTIVATION");
             System.out.println("JE SUIS DANS  " + channelSftp.getHome());
                     
             Vector<ChannelSftp.LsEntry> list = channelSftp.ls("*.xml");
             System.out.println("TAILLE DE LA LISTE : " + list.size() );
             
-            for (ChannelSftp.LsEntry entry : list) {                
+            for (ChannelSftp.LsEntry entry : list) {       
+                
                 channelSftp.get(entry.getFilename(), entry.getFilename());
                 
                 channelSftp.rename(entry.getFilename(), "fichier_traite/" + entry.getFilename());

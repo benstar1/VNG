@@ -9,8 +9,8 @@
 
     <h:head>       
         <h:outputScript library="js" name="bootstrap.min.js" />
-        <h:outputScript library="js" name="jqBootstrapValidation.js" />        
-        
+        <h:outputScript library="js" name="jqBootstrapValidation.js" /> 
+        <h:outputStylesheet library="bootstrap3" name="css/bootstrap.min.css"/>        
         <!--meta http-equiv="refresh" content="2600;url=http://10.3.3.183:8080/CFisc/login.xhtml"/-->
         <title>BIENVENUE SUR LA PLATEFORME DE GESTION DU REPERTOIRE UNIQUE</title>
     </h:head>
@@ -19,18 +19,22 @@
         <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
         <h:outputStylesheet library="bootstrap3" name="css/bootstrap.css"/>
-      
+        
       <link href="resources/bootstrap3/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
       <link href="resources/bootstrap3/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
       <link href="resources/bootstrap3/css/bootstrap-theme.css" rel="stylesheet" type="text/css"/>
         <h:outputStylesheet name="./css/modern-business.css" />       
-         
+                     <style>
+                .ui-widget-content{
+                    border: none!important;
+                }
+            </style>
         
         <div id="top" style="margin-bottom: 0px ">
             <ui:insert name="top"></ui:insert>
             <div class="row" style="margin-bottom: 0px !important; padding: 0px !important">
                 <div id="banniere" style="width: 100%; margin: 0px">
-                    <div align="left" id="logo1" style="display: inline-block; width: 25%; margin: 0px"><h:graphicImage library="images" name="logo_mef.jpg" style="width: 364px; height: 100px;" alt="Logo MEF"/></div>
+                    <div align="left" id="logo1" style="display: inline-block; width: 25%; margin: 0px"><h:graphicImage library="images" name="logo_mef.jpg" style="width: 354px; height: 100px;" alt="Logo MEF"/></div>
 
                     <div   class="text-center" id="texte" style=" float:  right;  text-align: right;  width: 70%; height: 100px; display: inline-block; margin: 0px; "><br/> <p style=" text-align: inherit ; color:black;  font-size: x-large;  text-decoration-style:  solid;  font-style:  italic; ">PLATEFORME DE GESTION DU REPERTOIRE UNIQUE</p></div>
 
@@ -82,9 +86,9 @@
                                           <li class="dropdown">
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicons glyphicons-cogwheel"></span> Paramètres <span class="caret"></span></a>
                                             <ul class="dropdown-menu">
-                                                <li><h:form><p:commandLink class="myButton" action="#{loginMBean.beforePasswordChange()}" ajax="true" oncomplete="PF('passwordChgDlg').show()" update=":passwordChgDlg" >Modifier mot de passe </p:commandLink></h:form></li>                                                                                          
+                                                <li><h:form><p:commandLink class="list-group-item" action="#{loginMBean.beforePasswordChange()}" ajax="true" oncomplete="PF('passwordChgDlg').show()" update=":passwordChgDlg" >Changer mot de passe </p:commandLink></h:form></li>                                                                                          
                                               <li role="separator" class="divider"></li>
-                                              <li><h:form><h:commandLink class="myButtonDeconnexion" action="#{loginMBean.logout()}" rendered="#{loginMBean.connected}">se déconnecter</h:commandLink></h:form></li>
+                                              <li><h:form><h:commandLink class="list-group-item" action="#{loginMBean.logout()}" rendered="#{loginMBean.connected}">Se déconnecter</h:commandLink></h:form></li>
                                             </ul>
                                           </li>
                                         </ul>
@@ -117,11 +121,9 @@
                                           <li class="dropdown">
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Paramètres <span class="caret"></span></a>
                                             <ul class="dropdown-menu">
-                                              <li><a href="#">Changer mot de passe</a></li>
-                                              <li><a href="#">Créer un utilisateur</a></li>
-                                              <li><a href="#">Créer un administrateur </a></li>
+                                                <li><h:form><p:commandLink class="list-group-item" action="#{loginMBean.beforePasswordChange()}" ajax="true" oncomplete="PF('passwordChgDlg').show()" update=":passwordChgDlg" >Changer mot de passe </p:commandLink></h:form></li>                                                                                          
                                               <li role="separator" class="divider"></li>
-                                              <li><a href="#">Se déconnecter</a></li>
+                                              <li><h:form><h:commandLink class="list-group-item" action="#{loginMBean.logout()}" rendered="#{loginMBean.connected}">Se déconnecter</h:commandLink></h:form></li>
                                             </ul>
                                           </li>
                                         </ul>
@@ -147,11 +149,11 @@
                                           <li class="dropdown">
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Paramètres <span class="caret"></span></a>
                                             <ul class="dropdown-menu">
-                                              <li><a href="#">Changer mot de passe</a></li>
-                                              <li><a href="#">Se déconnecter</a></li>
-                                              <li><a href="#">Something else </a></li>
+                                                <li><h:link class="list-group-item" outcome="/vues/tUtilisateur/creerUtilisateur.xhtml" title="Créer un utilisateur" value="Créer un utilisateur" /></li>
+                                                <li><h:link class="list-group-item" outcome="/vues/tUtilisateur/createAdmin.xhtml" title="Créer un administrateur" value="Créer un administrateur" /></li>
+                                                <li><h:form><p:commandLink class="list-group-item" action="#{loginMBean.beforePasswordChange()}" ajax="true" oncomplete="PF('passwordChgDlg').show()" update=":passwordChgDlg" >Changer mot de passe </p:commandLink></h:form></li>                                                                                          
                                               <li role="separator" class="divider"></li>
-                                              <li><a href="#">Se déconnecter</a></li>
+                                              <li><h:form><h:commandLink class="list-group-item" action="#{loginMBean.logout()}" rendered="#{loginMBean.connected}">se déconnecter</h:commandLink></h:form></li>
                                             </ul>
                                           </li>
                                         </ul>
@@ -204,12 +206,14 @@
 
         <div>
             <div id="left" style="width: 15% !important">
+                <link href="resources/bootstrap3/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
                 <ui:include src="./res/menu.xhtml"/>
             </div>
 
-            <div id="content" class="left_content">
-
+            <div id="content" class="left_content" style="width: auto !important">
+                <link href="resources/bootstrap3/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
                 <ui:insert name="body">
+                     
                     <p/>
                 </ui:insert>
 
@@ -226,14 +230,14 @@
             <h:form id="passwordChgForm">
                 <h:messages errorStyle="color: red; font-weight: bold !important"/>  
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="Mot de passe actuel"/>
+                    <h:outputLabel value="Mot de passe actuel :"/>
                     <h:inputSecret value="#{loginMBean.currentPassWord}" required="true"/>
-                    <h:outputLabel value="Nouveau mot de passe"/>
+                    <h:outputLabel value="Nouveau mot de passe :"/>
                     <h:inputSecret value="#{loginMBean.newPassword}" required="true"/>
-                    <h:outputLabel value="Confirmantion"/>
+                    <h:outputLabel value="Confirmation :"/>
                     <h:inputSecret value="#{loginMBean.confirmPassword}" required="true"/>
                     <h:outputLabel value=""/>
-                    <p:commandButton value="Changer" actionListener="#{loginMBean.changePassword()}" ajax="true" update="@form"/>
+                    <p:commandButton value=" Changer mot de passe  " actionListener="#{loginMBean.changePassword()}" ajax="true" update="@form"/>
                 </h:panelGrid>
                 
             </h:form>

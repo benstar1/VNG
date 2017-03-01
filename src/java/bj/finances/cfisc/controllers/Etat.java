@@ -9,6 +9,7 @@ package bj.finances.cfisc.controllers;
 //import bj.mefpd.gesexo.entities.Mp2;
 //import bj.mefpd.gesexo.sessionBeans.ContribFacade;
 //import bj.mefpd.gesexo.sessionBeans.Mp2Facade;
+import bj.finances.cfisc.controllers.util.JsfUtil;
 import bj.finances.cfisc.entities.TCentreImpot;
 import bj.finances.cfisc.entities.TDirection;
 import bj.finances.cfisc.entities.TExercice;
@@ -275,6 +276,12 @@ public class Etat {
     TUtilisateur connectedUser = (TUtilisateur) sessionMap.get("utilisateurConnecte");
         System.out.println("SESSION UUUUUUUSEEEEERRRRRRRR 1" + sessionMap.get("loginUser"));
         System.out.println("SESSION UUUUUUUSEEEEERRRRRRRR 2" + ((TUtilisateur) sessionMap.get("utilisateurConnecte")).getFonctCod().getCode());       
+        
+        if(getIfu().isEmpty() || !(new JsfUtil().isNumeric(getIfu()))){
+            FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_ERROR, "LE NUMERO IFU N'EST PAS CORRECT", "LE NUMERO IFU N'EST PAS CORRECT"));
+            return;
+        }
+        
         TService serv = (TService) ((TUtilisateur) sessionMap.get("utilisateurConnecte")).getFonctCod();
     TDirection connectedDirection = (TDirection) tServiceFacade.find(serv.getCode()).getDirection();    
     
@@ -285,7 +292,7 @@ public class Etat {
     }
     catch(Exception e){
         e.printStackTrace();
-        FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "VEUILLEZ CONTACTER LA BEF."));
+        FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_ERROR, "VEUILLEZ CONTACTER LA BEF.", "VEUILLEZ CONTACTER LA BEF."));
     }
     
     if((connectedDirection.getCode()).equals(ifuDirection) || ((TUtilisateur) sessionMap.get("utilisateurConnecte")).getFonctCod().getCode().equals("BEF") || sessionMap.get("loginUser").equals("admin")){

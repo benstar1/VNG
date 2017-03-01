@@ -10,16 +10,25 @@
 
 
         <ui:define name="body">
+            <style>
+                .companyHeaderGrid.ui-panelgrid>*>tr,
+                .companyHeaderGrid.ui-panelgrid 
+                .ui-panelgrid-cell{
+                    border: none;
+                }
+            </style>
+            
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
-            <h1 align="left">Mise à Jour des Utilisateurs</h1>
-
+            <h3 align="left">Mise à Jour des Utilisateurs</h3>
+            
             <center>
                 <h:form id="MAJICreateForm">
+                    <p:fieldset>
                     <h:panelGroup id="display" >
 
-                        <p:panelGrid columns="3" style="width: 100%"  >
+                        <p:panelGrid class="companyHeaderGrid" columns="3" style="width: 90%"  >
                             <br />
 
 
@@ -67,8 +76,8 @@
 
                         <center>
 
-                            <h1 align="left"><h:outputText value="Informations de l'Utilisateur"/></h1>
-                            <p:dataTable   id="ItemsUtil" value="#{mAJUtilisateurMBean.itemsUtil}" var="item"  style="text-align: center"> 
+                            <h3 align="left"><h:outputText value="Informations de l'Utilisateur"/></h3>
+                            <p:dataTable   id="ItemsUtil" value="#{mAJUtilisateurMBean.itemsUtil}" var="item"  style="text-align: center; width: 90%"> 
 
 
                                 <p:column>
@@ -136,6 +145,7 @@
                         <br />
 
                     </h:panelGroup>
+                        </p:fieldset>
                 </h:form>
             </center>
 

@@ -10,15 +10,23 @@
 
 
         <ui:define name="body">
+            <style>
+                .companyHeaderGrid.ui-panelgrid>*>tr,
+                .companyHeaderGrid.ui-panelgrid 
+                .ui-panelgrid-cell{
+                    border: none;
+                }
+            </style>
                 <h3 align="left" style="margin-top: 0px; margin-bottom: 0px;">Mise à Jour Collective</h3>
                 <p:separator />
                  <p:messages id="msg" showSummary="true" />
+              
                 <f:view>
                     
                     <h:form enctype="multipart/form-data">
-                       
+                        <p:fieldset>
                         <center>
-                            <p:panelGrid columns="3"  style="width: 100%">
+                            <p:panelGrid columns="3" class="companyHeaderGrid"  style="width: 90%; alignment-adjust: central;">
                                 <h:outputLabel value="Fichier : " for="fichier" />
 
                                 <h:inputFile id="fichier" value="#{mAJMBean.file}" size="40"/>   
@@ -42,24 +50,21 @@
 
                                 <br/>
                                 <br/>
-
-
                             </p:panelGrid>
                             <br />
 
                             <h:commandButton class="btn-primary" action="#{mAJMBean.upload}" value="     Mettre à Jour     " />
                             <br />
                             <br />
-
                         </center>
-
+                </p:fieldset>
 
 
                         <c:if test="#{mAJMBean.charge.size() ge 1}" >
 
                             <center> 
                                 <h3 align="center"><h:outputText value="Liste des Contribuables Mis à Jour"/> (#{mAJMBean.nbre_maj})</h3>
-                                <p:dataTable value="#{mAJMBean.charge}"  var="item">
+                                <p:dataTable value="#{mAJMBean.charge}" style="width: 90%"  var="item">
 
                                     <p:column>
                                         <f:facet name="header">
@@ -111,11 +116,11 @@
                             <center> 
                                 <div>
                                     <div style="float: left; width: 65%"><h3 align="center"><h:outputText value="Liste de rejets"/>(#{mAJMBean.nbre_rejets})</h3></div>
-                                    <div style="float: right; width: 20%; padding-top: 24px;"><h:commandLink class="exportPDF" actionListener="#{mAJMBean.export2PDF()}" value="Exporter vers PDF"></h:commandLink><img src="../../resources/images/pdf.jpg" style="height: 24px" alt=""/></div>
+                                    <div style="float: right; width: 20%; padding-top: 24px;"><h:commandLink class="exportPDF" actionListener="#{mAJMBean.export2PDF()}" value="Exporter vers PDF"></h:commandLink><img src="../../resources/images/pdf.png" style="height: 24px" alt=""/></div>
                                     
                                 </div>
                                                                     
-                                <p:dataTable value="#{mAJMBean.listeEchecs}"  var="item">
+                                <p:dataTable value="#{mAJMBean.listeEchecs}" style="width: 90%"  var="item">
 
                                     <p:column>
                                         <f:facet name="header">
@@ -144,15 +149,10 @@
                                 </c:if>
 
                         </c:if>
-                        
-                        
-                           
                     </h:form>
-
-
-
+               
                 </f:view>
-
+       
        
         </ui:define>
     </ui:composition>

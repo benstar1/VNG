@@ -7,12 +7,12 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <body>          
-        
-        <p:tabView id="recherche" style="height: 40%">    
+        <h3>Consultation de déclarations douanières</h3>
+        <p:tabView id="recherche" style="height: 40%; width: 97% !important; float: left; alignment-adjust: central; margin-bottom: 30px">    
             <p:tab title="Recherche">
                 <h:form id="formRechercheSimple">
                     <h:panelGrid columns="2">
-                        <h:outputLabel value="Rechercher par :" for="rechercherPar" />
+                        <h:outputLabel value="Recher. par :" for="rechercherPar" />
                         <p:selectOneMenu id="rechercherPar" value="#{tConsulterDeclarationController.referenceDec}" style="width:200px">
                             <p:ajax update="@form" />
                             <f:selectItem itemLabel="N° Declaration" itemValue="2" />
@@ -20,8 +20,8 @@
                             <f:selectItem itemLabel="N° Quittance" itemValue="4" />
                         </p:selectOneMenu>                    
                     </h:panelGrid>
+                    
                     <h:panelGrid columns="2">
-
                         <h:outputLabel value="Bureau :" for="bureau" />
                         <h:inputText value="#{tConsulterDeclarationController.bureau}" id="bureau" required="true" />
 
@@ -41,9 +41,11 @@
                         <p:calendar  pattern="dd/MM/yyyy" value="#{tConsulterDeclarationController.dateQuit}" id="dateQuit" rendered="#{tConsulterDeclarationController.referenceDec == 4}" required="true"/>
 
                         <h:outputLabel value="" />
-                        <p:commandButton class="btn-primary" value="   Rechercher   " actionListener="#{tConsulterDeclarationController.rechercheSimple()}" ajax="true" update=":formResultat:listeDeclaration"   />                                        
+                        <p:commandButton value="   Rechercher   " action="#{tConsulterDeclarationController.rechercheSimple()}" ajax="true" update=":formResultat:listeDeclaration" resetValues="true"  />                                        
                     </h:panelGrid>
                 </h:form>
+                
+                
             </p:tab>
             <p:tab  title="Recherche avancée"> 
                 <h:form id="formRechercheAvancee">
@@ -107,9 +109,16 @@
                 </h:form>
             </p:tab>
         </p:tabView>
-        <p:fieldset id="listeResultat">
+        
+        <p:fieldset id="listeResultat" style="width: 97% !important">
             <h:form id="formResultat">
-                <p:dataTable id="listeDeclaration" value="#{tConsulterDeclarationController.listDeclarationEtendue}" selection="#{tConsulterDeclarationController.selectedSeDeclarationEtendue}" var="item" selectionMode="single" rowKey="#{item.instanceid}" scrollable="true" scrollHeight="150">
+                <!-- c:if test="#{tConsulterDeclarationController.res != 0}" -->
+                <center>
+                <div>
+                    <div style="float: left; width: 65%"><h3 align="center"><h:outputText value="Liste des déclarations"/></h3></div>
+                    <div style="float: right; width: 20%; padding-top: 24px;"><h:commandLink class="exportPDF" actionListener="#{tConsulterDeclarationController.transformToPDF()}" value="Exporter vers PDF"></h:commandLink><h:graphicImage library="images" name="pdf.png" width="24px"/></div>                                                        
+                </div>
+                    <p:dataTable style="width: 100% !important; float: right; alignment-adjust: central" id="listeDeclaration" value="#{tConsulterDeclarationController.listDeclarationEtendue}" selection="#{tConsulterDeclarationController.selectedSeDeclarationEtendue}" var="item" selectionMode="single" rowKey="#{item.instanceid}" scrollable="true" scrollHeight="150">
                     <p:ajax event="rowSelect" oncomplete="PF('FicheDetailDeclaration').show()" update=":formResultat:FicheDetailDeclaration" />
                     <p:column>
                         <f:facet name="header">
@@ -203,11 +212,9 @@
                         <h:outputText value="#{item.tv}"/>
                     </p:column>  
                 </p:dataTable>
-
-               
-                <h:commandLink actionListener="#{tConsulterDeclarationController.transformToPDF()}" value="Exporter vers PDF"></h:commandLink>
+                </center>
+                <!--/c:if-->
                 
-
                 <h:panelGroup id="FicheDetailDeclaration">
                     <p:dialog  header="Detail de declaration" widgetVar="FicheDetailDeclaration" modal="true" width="800px" closable="true" >
                         <h:panelGrid columns="5" width="100%">
@@ -229,7 +236,7 @@
                             <h:outputLabel style="font-weight: bold" value="Num liq. :"/>
                             <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideAstSer }  #{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideAstNbr }" title="Numero decl"/>                            
                             
-                            <h:outputLabel style="font-weight: bold" value="date liq. :"/>                         
+                            <h:outputLabel style="font-weight: bold" value="Date liq. :"/>                         
                             <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.ideAstDat}"><f:convertDateTime pattern="dd/MM/yyyy" /></h:outputText>
                             <h:outputLabel value=""/>
                             <h:outputLabel style="font-weight: bold" value="Nombre d'article :"/>
@@ -241,7 +248,7 @@
                             <h:outputLabel style="font-weight: bold" value="Total droits/taxes. :"/>
                             <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.astAmt}"/>
                             
-                            <h:outputLabel style="font-weight: bold" value="total taxes Art. :"/>
+                            <h:outputLabel style="font-weight: bold" value="Total taxes Art. :"/>
                             <h:outputText value="#{tConsulterDeclarationController.selectedSeDeclarationEtendue.astTot}"/>
                         </h:panelGrid>
 
@@ -250,28 +257,28 @@
                                 <c:set var="titreArticle" value="Article " />
                                 <p:tab title="#{ tConsulterDeclarationController.titreArticle(article.TArticlePK.keyItmNbr)}" >
                                     <h:panelGrid columns="5" width="100%">
-                                        <h:outputLabel style="font-weight: bold" value="Num. art." />
+                                        <h:outputLabel style="font-weight: bold" value="Num. art. :" />
                                         <h:outputText value="#{article.TArticlePK.keyItmNbr}"/>
                                         <h:outputLabel value=""/>
-                                        <h:outputLabel style="font-weight: bold" value="Postion tar." />
+                                        <h:outputLabel style="font-weight: bold" value="Postion tar. :" />
                                         <h:outputText value="#{article.tarHscNb1}"/>
                                         
-                                        <h:outputLabel style="font-weight: bold" value="Poids Net" />
+                                        <h:outputLabel style="font-weight: bold" value="Poids Net :" />
                                         <h:outputText value="#{article.vitWgtNet}"/>
                                         <h:outputLabel value=""/>
-                                        <h:outputLabel style="font-weight: bold" value="Valeur" />
+                                        <h:outputLabel style="font-weight: bold" value="Valeur :" />
                                         <h:outputText value="#{article.vitStv}"/>
                                         
-                                        <h:outputLabel style="font-weight: bold" value="Droits et taxes" />
+                                        <h:outputLabel style="font-weight: bold" value="Droits et taxes :" />
                                         <h:outputText value="#{article.taxAmt}"/>
                                         <h:outputLabel value=""/>
-                                        <h:outputLabel style="font-weight: bold" value="Description" />
+                                        <h:outputLabel style="font-weight: bold" value="Description :" />
                                         <h:outputText value="#{article.gdsDsc} #{article.gdsDs3}"/>
                                         
-                                        <h:outputLabel style="font-weight: bold" value="Pays Orig." />
+                                        <h:outputLabel style="font-weight: bold" value="Pays Orig. :" />
                                         <h:outputText value="#{article.gdsOrgCty}"/>
                                         <h:outputLabel value=""/>
-                                        <h:outputLabel style="font-weight: bold" value="Marque et num." />
+                                        <h:outputLabel style="font-weight: bold" value="Marque et num. :" />
                                         <h:outputText value="#{article.pckMrk1} #{article.pckMrk2}"/>
                                         
                                         <h:outputLabel style="font-weight: bold" value="Régime" />
@@ -300,6 +307,7 @@
                     </p:dialog> 
                 </h:panelGroup>
             </h:form>
+            <p:messages id="msg" showSummary="true" />
         </p:fieldset>
     </body>
 </html>

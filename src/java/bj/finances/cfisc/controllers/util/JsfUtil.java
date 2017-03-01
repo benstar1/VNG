@@ -31,6 +31,18 @@ public class JsfUtil {
             addErrorMessage(defaultMsg);
         }
     }
+public static boolean isNumeric(String str)  
+{  
+  try  
+  {  
+    double d = Long.parseLong(str);  
+  }  
+  catch(NumberFormatException nfe)  
+  {  
+    return false;  
+  }  
+  return true;  
+}
 
     public static void addErrorMessages(List<String> messages) {
         for (String message : messages) {

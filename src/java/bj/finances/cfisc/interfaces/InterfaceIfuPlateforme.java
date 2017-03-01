@@ -6,6 +6,7 @@
 package bj.finances.cfisc.interfaces;
 
 import bj.finances.cfisc.controllers.util.JsfUtil;
+import bj.finances.cfisc.controllers.util.SendMailTLS;
 import bj.finances.cfisc.entities.TCentreImpot;
 import bj.finances.cfisc.entities.TParticiper;
 import bj.finances.cfisc.entities.TRepUnique;
@@ -160,7 +161,11 @@ public class InterfaceIfuPlateforme {
                     in.close();
                 } catch (IOException ex) {
                 }
+                
                 f.renameTo(new File(dossierEchecs, f.getName()));
+//                Thread thread = new Thread(new SendMailTLS("Echec déclaration", f.getName() ));
+//                thread.start();
+                
             } catch (IOException i) {
                 logger.error("Problème de lecture du fichier : (" + i.getMessage() + ")");
                 //i.printStackTrace(); 
@@ -620,7 +625,7 @@ public class InterfaceIfuPlateforme {
                     } catch (Exception e) {
                     };
                     try {
-                        tarcticle.setVitStv((new BigDecimal(ArtElt.getAttribute("PCK_MRK2").getValue())));
+                        tarcticle.setVitStv((new BigDecimal(ArtElt.getAttribute("VIT_STV").getValue())));
                     } catch (Exception e) {
                     };
                     try {
@@ -711,6 +716,8 @@ public class InterfaceIfuPlateforme {
                     //ARCHIVAGE FICHIER
                     in.close();
                     fichier.renameTo(new File(cheminDossierSuccesSydo, fichier.getName()));
+                    Thread thread = new Thread(new SendMailTLS("Echec déclaration", fichier.getName() ));
+                    thread.start();
                     //FIN ARCHIVAGE FICHIER
             }
         } else {
@@ -932,7 +939,7 @@ public class InterfaceIfuPlateforme {
                     } catch (Exception e) {
                     };
                     try {
-                        tarcticle.setVitStv((new BigDecimal(ArtElt.getAttribute("PCK_MRK2").getValue())));
+                        tarcticle.setVitStv((new BigDecimal(ArtElt.getAttribute("VIT_STV").getValue())));
                     } catch (Exception e) {
                     };
                     try {
@@ -1288,7 +1295,13 @@ public class InterfaceIfuPlateforme {
                 } catch (Exception e) {
                 }
                 try {
-                    tRepUnique.setContStatut("A");
+                    if("3".equals(contribuable.getChild("CONT_IMMATR").getValue().substring(0,1)) || "6".equals(contribuable.getChild("CONT_IMMATR").getValue().substring(0,1))){
+                        tRepUnique.setContStatut("A"); 
+                    }else{
+                       tRepUnique.setContStatut("D");  
+                    }
+                   
+                    
                 } catch (Exception e) {
                 }
                 try {

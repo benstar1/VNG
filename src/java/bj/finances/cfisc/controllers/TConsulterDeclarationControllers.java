@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -68,7 +69,24 @@ public class TConsulterDeclarationControllers implements Serializable {
     private TRepUniqueFacade tRepUniqueFacade;
     @EJB
     private TTaxeDeclDouFacade tTaxeDeclDouFacade;
+    
+    private int res;
 
+    
+    public void TConsulterDeclarationControllers(){
+        setReferenceDec(2);
+    }
+    
+    
+    
+    public int getRes() {
+        return res;
+    }
+
+    public void setRes(int res) {
+        this.res = res;
+    }
+    
     public void rechercheContribuable() {
         selected = tRepUniqueFacade.find(ifu);
     }
@@ -79,6 +97,17 @@ public class TConsulterDeclarationControllers implements Serializable {
         selectedSeDeclarationEtendue = null;
         selectedTDeclarationDou = null;
         
+        System.out.println("Bureau --------- = " + getBureau() + " NUm decl = " + getNumDecl());
+        
+        FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_WARN, "VEUILLEZ REMPLIR TOUS LES CHAMPS", "VEUILLEZ REMPLIR TOUS LES CHAMPS"));
+        
+        if(getBureau().equals("") || getNumDecl().equals("") || getDateEnreg() == null){
+            System.out.println("YES JE SUIS NULLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+            FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_WARN, "VEUILLEZ REMPLIR TOUS LES CHAMPS", "VEUILLEZ REMPLIR TOUS LES CHAMPS"));
+            return;
+        }
+        
+        
         String serie = "";
         String numero = "";
         if (numDecl != null && numDecl.length() >= 2) {
@@ -88,6 +117,7 @@ public class TConsulterDeclarationControllers implements Serializable {
         
         parametres = new HashMap();
         parametres.put("referenceDec", referenceDec);
+        parametres.put("logo", FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/report/logo_mef.jpg") );
         parametres.put("bureau", bureau);
         parametres.put("serie", serie);
         parametres.put("numero", null);
@@ -112,6 +142,8 @@ public class TConsulterDeclarationControllers implements Serializable {
 
         if (listeTDeclarationDou == null) {
             listeTDeclarationDou = new ArrayList<>();
+            setRes(0);
+            FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_WARN, "AUCUN RESULTAT", "AUCUN RESULTAT"));
         }
 
         convertirADeclarationEtendu();
@@ -140,6 +172,7 @@ public class TConsulterDeclarationControllers implements Serializable {
         
         parametres = new HashMap();
         parametres.put("contribuable", selected.getContImmatr().toString());
+        parametres.put("logo", FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/report/logo_mef.jpg") );
         parametres.put("typedeclaration", typeDeclaration);
         parametres.put("bureau", bureau);
         parametres.put("dateAchoisir", dateAchoisir);
@@ -148,6 +181,11 @@ public class TConsulterDeclarationControllers implements Serializable {
        
         listeTDeclarationDou = tDeclarationDouFacade.findAll(selected, typeDeclaration,bureau, dateAchoisir, debut, fin);
         System.out.println("LA TAILLE EST EST EST " + listeTDeclarationDou.size());
+        
+        if(listeTDeclarationDou.isEmpty()){
+            setRes(0);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AUCUN RESULTAT", "AUCUN RESULTAT"));
+        }
         convertirADeclarationEtendu();
     }
 

@@ -16,7 +16,7 @@
 
             <ui:define name="body">
                 <h:form>
-                    Recoupement avancé
+                    <h3>Recoupement avancé</h3>
                     <p:fieldset>
                     <h:panelGrid columns="2">
                         <h:outputLabel value="Début :" for="debut"/>
@@ -30,17 +30,12 @@
                     </h:panelGrid>
                         </p:fieldset>
                     <br/>
-                    <p:dataTable  id="resultat" value="#{reportController.resultat}" var="item"
+                    <p:dataTable style="float: right; width: 98%"  id="resultat" value="#{reportController.resultat}" var="item"
                                   selectionMode="single" selection="#{reportController.selected}"
                                   rowKey="#{item[0]}"
                                   rows="30"
                                   >              
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Année d'enreg."/>
-                            </f:facet>
-                            <h:outputText value="#{item[0]}"/>
-                        </p:column>
+                        
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Bureau"/>

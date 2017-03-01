@@ -7,26 +7,47 @@
     <h:head>
         <title>Facelet Title</title>
     </h:head>
-    <h:body>
-        
-        <link href="resources/bootstrap3/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        
+    <h:body> 
         <c:if test="#{loginMBean.contribuable}">
             <h:link class="list-group-item" outcome="/vues/tEntDeclaration/DeclarationFiscal.xhtml" value="Déclaration fiscale" /><br/>
     
         </c:if>
 
         <c:if test="#{loginMBean.inspecteur}">
-            <h:link class="list-group-item" outcome="/vues/tDeclarationDou/ConsulterDD.xhtml" title="Consulter une déclaration douanière" value="Voir Décl. Douane" />            
-            <h:link class="list-group-item" outcome="/vues/fenStat/FormBEF.xhtml" title="Recoupement avancé de déclarations" value="Recoupement avancé" />          
-            <h:link class="list-group-item" outcome="/vues/tDeclarationDou/droits_par_importateur.xhtml" title="Lister des déclarations douanières" value="Liste décl. douanières" />
-           <br/><br/>                
+           
+            <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+            <h:link class="list-group-item" outcome="/vues/tDeclarationDou/ConsulterDD.xhtml" title="Consulter une déclaration douanière" value="Consulter Décl. Douane" />            <!--h:link outcome="/vues/etat/formulairecumuldgi.xhtml" value="Cumul des déclarations" /><br/><br/ -->
+            </div>
+            
+            <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i></span>
+            <h:link class="list-group-item" outcome="/vues/tDeclarationDou/droits_par_importateur.xhtml" title="Lister des déclarations douanières" value="Liste décl. douanières" />                       
+            </div>
+            
+            <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-asterisk"></i></span>
+            <h:link class="list-group-item" outcome="/vues/fenStat/FormBEF.xhtml" title="Recoupement avancé de déclarations" value="Recoupement avancé" />
+            </div>
+            <br/><br/>                
         </c:if>
         
         <c:if test="#{loginMBean.inspectmaj}">
-            <h:link class="list-group-item" outcome="/vues/tRepUnique/MAJIndividuelle.xhtml" title="Mise à jour d'un contribuable" value="MAJ un contribuable" />            
-            <h:link class="list-group-item" outcome="/vues/tRepUnique/MAJCollective.xhtml" title="Mise à jour collective de contribuable" value="MAJ lot contribuables" />           
-            <h:link class="list-group-item" outcome="/vues/fenStat/StatEnt.xhtml" title="Voir le statut d'un contribuable" value="Voir statut Contribuable" />
+            <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-retweet"></i></span>
+            <h:link class="list-group-item" outcome="/vues/tRepUnique/MAJIndividuelle.xhtml" title="Mise à jour d'un contribuable" value="MAJ un contribuable" />              
+            </div>
+            
+            <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-folder-open"></i></span>
+            <h:link class="list-group-item" outcome="/vues/tRepUnique/MAJCollective.xhtml" title="Mise à jour collective de contribuable" value="MAJ lot contribuables" />            <!-- h:link outcome="/vues/tEntDeclaration/DeclarationFiscal.xhtml" value="Déclaration fiscale" /><br/><br/ -->
+            </div>
+            
+            <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-eye-open"></i></span>
+            <h:link class="list-group-item" outcome="/vues/fenStat/StatEnt.xhtml" title="Voir le statut d'un contribuable" value="Voir statut Contribuable" />             
+            </div>
+            
             <br/><br/>            
         </c:if>
         
@@ -47,6 +68,7 @@
             <span class="input-group-addon"><i class="glyphicon glyphicon-folder-open"></i></span>
             <h:link class="list-group-item" outcome="/vues/tRepUnique/MAJCollective.xhtml" title="Mise à jour collective de contribuable" value="MAJ lot contribuables" />            <!-- h:link outcome="/vues/tEntDeclaration/DeclarationFiscal.xhtml" value="Déclaration fiscale" /><br/><br/ -->
             </div>
+            
             <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
             <h:link class="list-group-item" outcome="/vues/tDeclarationDou/ConsulterDD.xhtml" title="Consulter une déclaration douanière" value="Consulter Décl. Douane" />            <!--h:link outcome="/vues/etat/formulairecumuldgi.xhtml" value="Cumul des déclarations" /><br/><br/ -->
@@ -95,7 +117,6 @@
  <span class="input-group-addon"><i class="glyphicon glyphicon-star"></i></span>
  <p:commandLink class="list-group-item list-group-item-info" action="#{loginMBean.beforePasswordChange()}" ajax="true" oncomplete="PF('passwordChgDlg').show()" update=":passwordChgDlg" >Modifier mot de passe </p:commandLink>
  </div>
- <br/>
  
  <div class="input-group">
  <span class="input-group-addon"><i class="glyphicon glyphicon-log-out"></i></span>

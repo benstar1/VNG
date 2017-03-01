@@ -248,6 +248,15 @@ public class MAJMBean extends java.lang.Object {
 
     public void upload() {
         
+        setNbre_maj(0);
+        setNbre_rejets(0);
+        setNbre_total(0);
+        j=0;
+        
+        listeEchecs = new ArrayList();
+        charge = new ArrayList();
+        
+        
         if(file == null){
            FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_ERROR, "VEUILLEZ SELECTIONNER UN FICHIER", "VEUILLEZ SELECTIONNER UN FICHIER"));
             return;

@@ -8,28 +8,30 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:composition template="/template.xhtml">
       
-        <ui:define name="body">            
-            <h3 align="left" style="margin-top: 0px; margin-bottom: 0px;">Mise à Jour Individuelle</h3>
+        <ui:define name="body"> 
+            <style>
+                .companyHeaderGrid.ui-panelgrid>*>tr,
+                .companyHeaderGrid.ui-panelgrid 
+                .ui-panelgrid-cell{
+                    border: none;
+                }
+            </style>
+            <h3 align="left" style="margin-top: 20px; margin-bottom: 0px;">Mise à Jour Individuelle</h3>
             <p:separator />
             <p:messages id="msg" showIcon="true" showDetail="false"/>
-                       
+            <p:fieldset>
             <center>
                 <h:form id="MAJICreateForm">
                     <h:panelGroup id="display">
 
                         
                             <br />
-                            <p:panelGrid id="pd" columns="3"  >
+                            <p:panelGrid class="companyHeaderGrid" id="pd" columns="3"  >
                                 <p:outputLabel value="Numéro IFU : " for="ifu" />
-                                <h:inputText readonly="false" id="ifu" value="#{mAJIndividuelleMBean.current.contImmatr}" required="true" requiredMessage="Le numéro IFU est obligatoire">
-                                
-                                </h:inputText>
+                                <h:inputText readonly="false" id="ifu" value="#{mAJIndividuelleMBean.current.contImmatr}" required="true" requiredMessage="Le numéro IFU est obligatoire" />                                
                                 
                                 <h:commandButton id="rech" class="btn-primary" value="Rechercher" actionListener="#{mAJIndividuelleMBean.UpdateTableContrib()}" ></h:commandButton>
                                
-                               
-                            
-                                
                                 <c:if test="#{mAJIndividuelleMBean.itemsIfu.contStatut == 'D'}" >
 
                                 <h:outputLabel value="Centre d'impôt  :  " for= "centreImpot" />
@@ -44,7 +46,7 @@
                             <br />
 
                         <center>                            
-                            <p:dataTable id="ItemsIfu" value="#{mAJIndividuelleMBean.itemsIfu}" var="item"  style="text-align: center"> 
+                            <p:dataTable id="ItemsIfu" value="#{mAJIndividuelleMBean.itemsIfu}" var="item"  style="text-align: center; float: right; width: 95%"> 
 
                                 <p:column>
                                     <f:facet name="header">
@@ -108,7 +110,7 @@
                     </h:panelGroup>
                 </h:form>
            </center>
-
+    </p:fieldset>          
             <p:dialog id="dlgIFU" header="Contribuables"  dynamic="true" widgetVar="dlgIFU" modal="true" showEffect="explose"  width="800" height="400">
                 <h:form>    
                     <p:dataTable  value="#{mAJIndividuelleMBean.contrib}" var="contrib"  paginator="true" lazy="true" sortMode="multiple" rows="20" emptyMessage="Aucun enregistrement trouvé pour l'instant !">

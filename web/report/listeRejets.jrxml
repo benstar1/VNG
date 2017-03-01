@@ -36,14 +36,14 @@
 				</textElement>
 				<text><![CDATA[Date :]]></text>
 			</staticText>
+			<rectangle>
+				<reportElement mode="Transparent" x="-3" y="-1" width="555" height="82" uuid="e366c2e8-cc1b-49b4-8fa9-ef595d0b7e01"/>
+			</rectangle>
 			<textField pattern="EEE, d MMM yyyy HH:mm:ss Z">
 				<reportElement x="404" y="61" width="147" height="20" uuid="83be371f-66af-4836-b2de-0510d0775d74"/>
 				<textElement verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
-			<rectangle>
-				<reportElement mode="Transparent" x="-3" y="-1" width="555" height="82" uuid="e366c2e8-cc1b-49b4-8fa9-ef595d0b7e01"/>
-			</rectangle>
 			<image isUsingCache="true">
 				<reportElement x="5" y="5" width="179" height="71" uuid="3953e933-2f01-4628-a72a-1053c4d91dc4"/>
 				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
