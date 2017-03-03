@@ -51,10 +51,10 @@ public class AgentSftpSydo {
     private final String SYDO_SFTPPASS = ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPPASS");
     private final int SYDO_SFTPPORT = Integer.parseInt(ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPPORT"));
     
-    private final String IFU_SYDO_SFTPUSER = ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPUSER");
-    private final String IFU_SYDO_SFTPHOST = ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPHOST");
-    private final String IFU_SYDO_SFTPPASS = ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPPASS");
-    private final int IFU_SYDO_SFTPPORT = Integer.parseInt(ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPPORT"));
+    private final String IFU_SYDO_SFTPUSER = ResourceBundle.getBundle("/parametres").getString("SFTPUSER");
+    private final String IFU_SYDO_SFTPHOST = ResourceBundle.getBundle("/parametres").getString("SFTPHOST");
+    private final String IFU_SYDO_SFTPPASS = ResourceBundle.getBundle("/parametres").getString("SFTPPASS");
+    private final int IFU_SYDO_SFTPPORT = Integer.parseInt(ResourceBundle.getBundle("/parametres").getString("SFTPPORT"));
     
     private final String REP_UNI_SFTPUSER = ResourceBundle.getBundle("/parametres").getString("REP_UNI_SFTPUSER");
     private final String REP_UNI_SFTPHOST = ResourceBundle.getBundle("/parametres").getString("REP_UNI_SFTPHOST");
@@ -66,7 +66,7 @@ public class AgentSftpSydo {
     
     final static org.apache.log4j.Logger logger = Logger.getLogger(AgentSftpSydo.class.getName());
 
-   @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/25", persistent = false)
+   //@Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/25", persistent = false)
     public void telechargerEntreprise() {
         JSch jsch = new JSch();
         Session session = null;

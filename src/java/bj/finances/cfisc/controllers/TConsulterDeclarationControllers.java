@@ -33,6 +33,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.apache.poi.xwpf.usermodel.Borders;
 
 @ManagedBean(name = "tConsulterDeclarationController")
 @ViewScoped
@@ -69,16 +70,13 @@ public class TConsulterDeclarationControllers implements Serializable {
     private TRepUniqueFacade tRepUniqueFacade;
     @EJB
     private TTaxeDeclDouFacade tTaxeDeclDouFacade;
-    
+
     private int res;
 
-    
-    public void TConsulterDeclarationControllers(){
+    public void TConsulterDeclarationControllers() {
         setReferenceDec(2);
     }
-    
-    
-    
+
     public int getRes() {
         return res;
     }
@@ -86,7 +84,7 @@ public class TConsulterDeclarationControllers implements Serializable {
     public void setRes(int res) {
         this.res = res;
     }
-    
+
     public void rechercheContribuable() {
         selected = tRepUniqueFacade.find(ifu);
     }
@@ -96,28 +94,28 @@ public class TConsulterDeclarationControllers implements Serializable {
         //listeTDeclarationDou = new ArrayList<>();
         selectedSeDeclarationEtendue = null;
         selectedTDeclarationDou = null;
-        
+
         System.out.println("Bureau --------- = " + getBureau() + " NUm decl = " + getNumDecl());
-        
+
         FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_WARN, "VEUILLEZ REMPLIR TOUS LES CHAMPS", "VEUILLEZ REMPLIR TOUS LES CHAMPS"));
-        
-        if(getBureau().equals("") || getNumDecl().equals("") || getDateEnreg() == null){
+
+        if (getBureau().equals("") || getNumDecl().equals("") || getDateEnreg() == null) {
             System.out.println("YES JE SUIS NULLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
             FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_WARN, "VEUILLEZ REMPLIR TOUS LES CHAMPS", "VEUILLEZ REMPLIR TOUS LES CHAMPS"));
             return;
         }
-        
-        
+
         String serie = "";
         String numero = "";
         if (numDecl != null && numDecl.length() >= 2) {
             serie += numDecl.charAt(0);
             numero = numDecl.substring(1);
         }
-        
+        if (bureau != null)
+                bureau = bureau.trim();
         parametres = new HashMap();
         parametres.put("referenceDec", referenceDec);
-        parametres.put("logo", FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/report/logo_mef.jpg") );
+        parametres.put("logo", FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/report/logo_mef.jpg"));
         parametres.put("bureau", bureau);
         parametres.put("serie", serie);
         parametres.put("numero", null);
@@ -130,7 +128,7 @@ public class TConsulterDeclarationControllers implements Serializable {
 
                 listeTDeclarationDou = tDeclarationDouFacade.findAll(referenceDec, bureau, serie, numero, dateEnreg);
                 break;
-            case 3: 
+            case 3:
                 listeTDeclarationDou = tDeclarationDouFacade.findAll(referenceDec, bureau, serie, numero, dateLiq);
                 break;
             case 4:
@@ -139,7 +137,6 @@ public class TConsulterDeclarationControllers implements Serializable {
         }
 
        // listeTDeclarationDou = tDeclarationDouFacade.findAll(referenceDec, bureau, serie, numero, dateEnreg);
-
         if (listeTDeclarationDou == null) {
             listeTDeclarationDou = new ArrayList<>();
             setRes(0);
@@ -155,7 +152,7 @@ public class TConsulterDeclarationControllers implements Serializable {
         listeTDeclarationDou = new ArrayList<>();
         listDeclarationEtendue = new ArrayList<>();
         selectedSeDeclarationEtendue = null;
- System.out.println("TATAPORANOU " + selected.getContImmatr().toString() + "  " + typeDeclaration + "  " + bureau + "  " + dateAchoisir);
+        System.out.println("TATAPORANOU " + selected.getContImmatr().toString() + "  " + typeDeclaration + "  " + bureau + "  " + dateAchoisir);
         if (selected == null) {
             return;
         }
@@ -169,20 +166,20 @@ public class TConsulterDeclarationControllers implements Serializable {
         } else if (!"4".equals(dateAchoisir)) {
             return;
         }
-        
+
         parametres = new HashMap();
         parametres.put("contribuable", selected.getContImmatr().toString());
-        parametres.put("logo", FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/report/logo_mef.jpg") );
+        parametres.put("logo", FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/report/logo_mef.jpg"));
         parametres.put("typedeclaration", typeDeclaration);
         parametres.put("bureau", bureau);
         parametres.put("dateAchoisir", dateAchoisir);
         parametres.put("dateDeDebut", debut);
         parametres.put("dateDeFin", fin);
-       
-        listeTDeclarationDou = tDeclarationDouFacade.findAll(selected, typeDeclaration,bureau, dateAchoisir, debut, fin);
+
+        listeTDeclarationDou = tDeclarationDouFacade.findAll(selected, typeDeclaration, bureau, dateAchoisir, debut, fin);
         System.out.println("LA TAILLE EST EST EST " + listeTDeclarationDou.size());
-        
-        if(listeTDeclarationDou.isEmpty()){
+
+        if (listeTDeclarationDou.isEmpty()) {
             setRes(0);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AUCUN RESULTAT", "AUCUN RESULTAT"));
         }
@@ -205,7 +202,6 @@ public class TConsulterDeclarationControllers implements Serializable {
 //        if (listeTDeclarationDou == null) {
 //            listeTDeclarationDou = new ArrayList<>();
 //        }
-
         listDeclarationEtendue = new ArrayList<>();
 
         for (TDeclarationDou tDeclarationDou : listeTDeclarationDou) {
@@ -214,7 +210,7 @@ public class TConsulterDeclarationControllers implements Serializable {
                 Object[] s = (Object[]) synthese;
                 Long instanceId = (Long) s[0];
                 if (instanceId.equals(decEtendue.getInstanceid())) {
-                    String codeTaxe = ((TTaxeDouane)s[1]).getTaxCod();
+                    String codeTaxe = ((TTaxeDouane) s[1]).getTaxCod();
                     if (codeTaxe == null) {
                         codeTaxe = "";
                     }
@@ -238,7 +234,7 @@ public class TConsulterDeclarationControllers implements Serializable {
                         case "AFS":
                             decEtendue.setAfs(montantTaxe);
                         case "TV":
-                            decEtendue.setTv(montantTaxe);    
+                            decEtendue.setTv(montantTaxe);
                             break;
                     }
                 }
@@ -255,14 +251,23 @@ public class TConsulterDeclarationControllers implements Serializable {
         for (DeclarationEtendue declarationEtendue : listDeclarationEtendue) {
             DeclarationSynthese declarationSynthese = new DeclarationSynthese();
             declarationSynthese.setBureau(declarationEtendue.getIdeCuoCod());
-            if( declarationEtendue.getIdeRegSer() != null ) declarationSynthese.setNumEnreg(declarationEtendue.getIdeRegSer() + declarationEtendue.getIdeRegNbr());
-            else declarationSynthese.setNumEnreg("");
+            if (declarationEtendue.getIdeRegSer() != null) {
+                declarationSynthese.setNumEnreg(declarationEtendue.getIdeRegSer() + declarationEtendue.getIdeRegNbr());
+            } else {
+                declarationSynthese.setNumEnreg("");
+            }
             declarationSynthese.setDateEnreg(declarationEtendue.getIdeRegDat());
-            if( declarationEtendue.getIdeAstSer() != null) declarationSynthese.setNumLiq(declarationEtendue.getIdeAstSer() + declarationEtendue.getIdeAstNbr());
-            else declarationSynthese.setNumLiq("");
+            if (declarationEtendue.getIdeAstSer() != null) {
+                declarationSynthese.setNumLiq(declarationEtendue.getIdeAstSer() + declarationEtendue.getIdeAstNbr());
+            } else {
+                declarationSynthese.setNumLiq("");
+            }
             declarationSynthese.setDateLiq(declarationEtendue.getIdeAstDat());
-            if( declarationEtendue.getIdeRcpSer() != null ) declarationSynthese.setNumQuit(declarationEtendue.getIdeRcpSer() + declarationEtendue.getIdeRcpNbr());
-            else declarationSynthese.setNumQuit("");
+            if (declarationEtendue.getIdeRcpSer() != null) {
+                declarationSynthese.setNumQuit(declarationEtendue.getIdeRcpSer() + declarationEtendue.getIdeRcpNbr());
+            } else {
+                declarationSynthese.setNumQuit("");
+            }
             declarationSynthese.setDateQuit(declarationEtendue.getIdeRcpDat());
             declarationSynthese.setPc(declarationEtendue.getPc());
             declarationSynthese.setPcs(declarationEtendue.getPcs());

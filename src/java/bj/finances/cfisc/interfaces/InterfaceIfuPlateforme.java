@@ -120,7 +120,7 @@ public class InterfaceIfuPlateforme {
 
     }
 */
-    //@Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/25", persistent = false)
+    //@Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*/15", second = "*", persistent = false)
     public void scrutelocalSydo() {
         System.out.println(" Scan du dossier source Sydo ........ " + new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(new Date()));            
          
@@ -163,8 +163,8 @@ public class InterfaceIfuPlateforme {
                 }
                 
                 f.renameTo(new File(dossierEchecs, f.getName()));
-//                Thread thread = new Thread(new SendMailTLS("Echec déclaration", f.getName() ));
-//                thread.start();
+                Thread thread = new Thread(new SendMailTLS("Echec déclaration", f.getName() ));
+                thread.start();                
                 
             } catch (IOException i) {
                 logger.error("Problème de lecture du fichier : (" + i.getMessage() + ")");
@@ -252,7 +252,7 @@ public class InterfaceIfuPlateforme {
                 f.renameTo(new File(dossierEchecs, f.getName()));
             } catch (Exception ex) {
                 logger.error("Une exception inconnue a ete generee : (" + ex.getMessage() + ")");
-                //ex.printStackTrace();      
+                ex.printStackTrace();      
                 try {
                     in.close();
                 } catch (IOException ioe) {
@@ -716,8 +716,6 @@ public class InterfaceIfuPlateforme {
                     //ARCHIVAGE FICHIER
                     in.close();
                     fichier.renameTo(new File(cheminDossierSuccesSydo, fichier.getName()));
-                    Thread thread = new Thread(new SendMailTLS("Echec déclaration", fichier.getName() ));
-                    thread.start();
                     //FIN ARCHIVAGE FICHIER
             }
         } else {
