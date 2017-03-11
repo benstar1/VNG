@@ -472,7 +472,7 @@ public class MAJMBean extends java.lang.Object {
             }
 
             if(nbre_rejets == 0){            
-            FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_INFO, "MISE A JOUR TOTAL EFFECTUE", "MISE A JOUR TOTAL EFFECTUE"));            
+            FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_INFO, "MISE A JOUR TOTALE EFFECTUEE", "MISE A JOUR TOTALE EFFECTUEE"));            
             }else{
                FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_WARN, "MISE A JOUR PARTIELLE EFFECTUEE : " + nbre_maj + "/" + nbre_total, "MISE A JOUR PARTIELLE EFFECTUEE"));             
             }

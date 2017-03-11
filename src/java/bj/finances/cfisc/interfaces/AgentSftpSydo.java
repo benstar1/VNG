@@ -46,10 +46,10 @@ public class AgentSftpSydo {
     private final String cheminDepotLocal = ResourceBundle.getBundle("/parametres").getString("cheminDepotLocalSydo");
     private final String cheminDepotLocalActif = ResourceBundle.getBundle("/parametres").getString("cheminDepotLocalActif");
     
-    private final String SYDO_SFTPUSER = ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPUSER");
-    private final String SYDO_SFTPHOST = ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPHOST");
-    private final String SYDO_SFTPPASS = ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPPASS");
-    private final int SYDO_SFTPPORT = Integer.parseInt(ResourceBundle.getBundle("/parametres").getString("SYDO_SFTPPORT"));
+    private final String SYDO_SFTPUSER = ResourceBundle.getBundle("/parametres").getString("SFTPUSER");
+    private final String SYDO_SFTPHOST = ResourceBundle.getBundle("/parametres").getString("SFTPHOST");
+    private final String SYDO_SFTPPASS = ResourceBundle.getBundle("/parametres").getString("SFTPPASS");
+    private final int SYDO_SFTPPORT = Integer.parseInt(ResourceBundle.getBundle("/parametres").getString("SFTPPORT"));
     
     private final String IFU_SYDO_SFTPUSER = ResourceBundle.getBundle("/parametres").getString("SFTPUSER");
     private final String IFU_SYDO_SFTPHOST = ResourceBundle.getBundle("/parametres").getString("SFTPHOST");
@@ -66,7 +66,7 @@ public class AgentSftpSydo {
     
     final static org.apache.log4j.Logger logger = Logger.getLogger(AgentSftpSydo.class.getName());
 
-   //@Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/25", persistent = false)
+   @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*/40", second = "0", persistent = false)
     public void telechargerEntreprise() {
         JSch jsch = new JSch();
         Session session = null;
@@ -149,7 +149,7 @@ public class AgentSftpSydo {
             
             ChannelSftp channelSftp = (ChannelSftp) channel;
             channelSftp.lcd(cheminDepotLocalActif);
-            channelSftp.cd("ACTIVATION");
+            //channelSftp.cd("ACTIVATION");
             System.out.println("JE SUIS DANS  " + channelSftp.getHome());
                     
             Vector<ChannelSftp.LsEntry> list = channelSftp.ls("*.xml");
@@ -199,6 +199,7 @@ public class AgentSftpSydo {
             }
             
             ChannelSftp channelSftp = (ChannelSftp) channel;
+            channelSftp.cd("ACTIVATION");
             channelSftp.lcd(cheminDepotLocalActif);
             //channelSftp.put("SYDO_A_3200700098616_2011_01_18_06_37_07.xml");
             File f = new File(cheminDepotLocalActif);

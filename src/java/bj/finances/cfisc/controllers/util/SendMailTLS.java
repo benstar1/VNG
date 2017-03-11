@@ -6,7 +6,9 @@
 package bj.finances.cfisc.controllers.util;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -25,12 +27,13 @@ public class SendMailTLS implements Runnable {
     private final String host = "smtp.gmail.com";
     private final String user = "cfiscbj@gmail.com";//change accordingly  
     private final String password = "cfisc123";//change accordingly  
-    private final String to = "bentsijohnson@gmail.com";//change accordingly  
+    //private final String to = "bentsijohnson@gmail.com";//change accordingly  
     
     private String subject;
-    private String content;
+    private String content; 
+    private List<String> listmail = new ArrayList<>();
     
-    public void sendMail(String subject, String content) {
+    public void sendMail(String subject, String content, List<String> listMail) {
 
         Properties props = new Properties();
 
@@ -51,6 +54,8 @@ public class SendMailTLS implements Runnable {
         try {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(user));
+            
+            for(String to : listMail){
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));            
             message.setSubject(subject);
             Date maintenant = new Date();
@@ -60,6 +65,7 @@ public class SendMailTLS implements Runnable {
 
             //send the message  
             Transport.send(message);
+            }
 
         } catch (MessagingException e) {
             System.out.println("Echec envoi mail...");
@@ -68,12 +74,13 @@ public class SendMailTLS implements Runnable {
 
     @Override
     public void run() {
-        sendMail(subject, content);
+        sendMail(subject, content,listmail);
     }
 
-    public SendMailTLS(String subject, String content) {
+    public SendMailTLS(String subject, String content, List<String> listMail) {
         this.subject = subject;
         this.content = content;
+        this.listmail = listMail;
     }
     
     

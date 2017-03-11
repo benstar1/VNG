@@ -7,10 +7,13 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     
-           <center><h2>Créer un Administrateur</h2></center>
+           <h3>Créer un Administrateur</h3>
+           <p:separator/>
             <p:messages id="msg" ></p:messages>
             <h:form>
+                <p:fieldset>
                 <center>
+                    <br/>
                     <h:panelGrid columns="4">
                          
                         <h:outputLabel value="Nom :" for="utilNom1" />
@@ -47,6 +50,7 @@
                     <br />
 
                 </center>
+                    </p:fieldset>
             </h:form>       
 
 </html>

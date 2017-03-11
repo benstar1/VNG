@@ -15,10 +15,11 @@
         </ui:define>
         
         <ui:define name="body">
-            <center> 
+            <center style="width: 70%;margin-left: 15%;margin-top: 6%;"> 
                 
-                    <h:form>    <p:fieldset>    
-                            <table width="100%">
+                    <h:form>    
+                        <p:fieldset>    
+                            <table width="60%">
                                 <tr>
                                     <td width="20%" rowspan="4"><h:graphicImage library="images" name="connexion.jpg" alt="connexion"/></td>
                                     <td colspan="2" align="center"> <h4>Veuillez saisir votre login et mot de passe</h4>
@@ -51,6 +52,7 @@
                                     <td colspan="2" align="center">&nbsp;<h:commandButton class="btn-primary"  value="   Se connecter   " action="#{loginMBean.login}" />&nbsp;&nbsp;&nbsp;&nbsp;</td>
                                 </tr>
                             </table>
+                            <br/>
                             Nouveau venu ? <a href="/CFisc/vues/tUtilisateur/CreateContrib.xhtml" target="_blank">Créer un compte!!! </a>
 
                         </p:fieldset>   

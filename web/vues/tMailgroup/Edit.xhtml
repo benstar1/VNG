@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TMailgroupEditDlg" widgetVar="TMailgroupEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle2.EditTMailgroupTitle}">
+            <h:form id="TMailgroupEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tMailgroupController.selected != null}">
+                        <p:outputLabel value="#{bundle2.EditTMailgroupLabel_groupid}" for="groupid" />
+                        <p:inputText id="groupid" value="#{tMailgroupController.selected.groupid}" title="#{bundle2.EditTMailgroupTitle_groupid}" required="true" requiredMessage="#{bundle2.EditTMailgroupRequiredMessage_groupid}"/>
+                        <p:outputLabel value="#{bundle2.EditTMailgroupLabel_groupname}" for="groupname" />
+                        <p:inputText id="groupname" value="#{tMailgroupController.selected.groupname}" title="#{bundle2.EditTMailgroupTitle_groupname}" required="true" requiredMessage="#{bundle2.EditTMailgroupRequiredMessage_groupname}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tMailgroupController.update}" value="#{bundle2.Save}" update="display,:TMailgroupListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TMailgroupEditDialog');"/>
+                    <p:commandButton value="#{bundle2.Cancel}" onclick="TMailgroupEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -248,7 +248,7 @@ public class MAJIndividuelleMBean extends java.lang.Object {
     }
 
     public void UpdateTableContrib() {
-
+    
         System.out.println("current" + current.getContImmatr());
         TRepUnique trepunique = null;
         try {
@@ -279,13 +279,13 @@ public class MAJIndividuelleMBean extends java.lang.Object {
 
     public void MAJStatut() {
 
-        System.out.println("Je suis dans MAJStatut() " + current + " Et ifu contient quoi " + ifu);
-        System.out.println("Je suis avec le statut " + current.getContStatut());
+       // System.out.println("Je suis dans MAJStatut() " + current + " Et ifu contient quoi " + ifu);
+        //System.out.println("Je suis avec le statut " + current.getContStatut());
 
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         Map<String, Object> sessionMap = externalContext.getSessionMap();
         String le_login = (String) sessionMap.get("loginUser");
-        System.out.println("LE LOGIN " + le_login);
+        //System.out.println("LE LOGIN " + le_login);
 
         current = ifu;
 
@@ -306,6 +306,7 @@ public class MAJIndividuelleMBean extends java.lang.Object {
                 gettRepUniqueFacade().edit(current);
                 setItemsIfu(current);
                 setAfficheStatut("DESACTIVE");
+                
                 System.out.println(afficheStatut + "-------------");
                 //ajout
                 setStatut("Activer");

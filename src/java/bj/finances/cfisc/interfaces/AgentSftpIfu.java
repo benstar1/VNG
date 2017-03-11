@@ -49,7 +49,7 @@ public class AgentSftpIfu {
     final static org.apache.log4j.Logger logger = Logger.getLogger(AgentSftpIfu.class.getName());
 
     
-    @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/20", persistent = false)
+    @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*/30", second = "0", persistent = false)
     public void telechargerEntrepriseIfu() {
         JSch jsch = new JSch();
         Session session = null;

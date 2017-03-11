@@ -19,6 +19,8 @@ import bj.finances.cfisc.entities.TTaxeDeclDou;
 import bj.finances.cfisc.entities.TTaxeDeclDouPK;
 import bj.finances.cfisc.entities.TTaxeDouane;
 import bj.finances.cfisc.entities.TUtilisateur;
+import bj.finances.cfisc.entities.TMailgroup;
+import bj.finances.cfisc.entities.TMaillist;
 import bj.finances.cfisc.sessions.*;
 import java.io.File;
 import java.io.FileInputStream;
@@ -67,6 +69,12 @@ public class InterfaceIfuPlateforme {
 
     @EJB
     private TDeclarationDouFacade tDeclarationDouaneFacade;
+    
+    @EJB 
+    private TMailgroupFacade tMailgroupfacade;
+    
+    @EJB
+    private TMaillistFacade tMaillistfacafde;
 
     @Inject
     private TTypeContribFacade tTypeContribFacade;
@@ -163,8 +171,18 @@ public class InterfaceIfuPlateforme {
                 }
                 
                 f.renameTo(new File(dossierEchecs, f.getName()));
-                Thread thread = new Thread(new SendMailTLS("Echec déclaration", f.getName() ));
-                thread.start();                
+                //envoi de mail aux admins
+                TMailgroup tGroupe = tMailgroupfacade.find("ADMIN");
+                List<TMaillist> tMaillist = (List<TMaillist>) tMaillistfacafde.findAllByGroup(tGroupe);
+                List<String> lsMail = new ArrayList<>();
+                for(TMaillist email : tMaillist){
+                    lsMail.add(email.getEmail());
+                }                
+                
+                Thread thread = new Thread(new SendMailTLS("Echec déclaration", f.getName(), lsMail));
+                thread.start(); 
+                
+                //fin envoi
                 
             } catch (IOException i) {
                 logger.error("Problème de lecture du fichier : (" + i.getMessage() + ")");
@@ -174,6 +192,18 @@ public class InterfaceIfuPlateforme {
                 } catch (IOException ex) {
                 }
                 f.renameTo(new File(dossierEchecs, f.getName()));
+                //envoi de mail aux admins
+                TMailgroup tGroupe = tMailgroupfacade.find("ADMIN");
+                List<TMaillist> tMaillist = (List<TMaillist>) tMaillistfacafde.findAllByGroup(tGroupe);
+                List<String> lsMail = new ArrayList<>();
+                for(TMaillist email : tMaillist){
+                    lsMail.add(email.getEmail());
+                }                
+                
+                Thread thread = new Thread(new SendMailTLS("Echec déclaration", f.getName(), lsMail));
+                thread.start(); 
+                
+                //fin envoi
             } catch (Exception ex) {
                 logger.error("Une exception inconnue a ete generee (Sydo): (" + ex.getMessage() + ")");
                 //ex.printStackTrace();      
@@ -182,6 +212,18 @@ public class InterfaceIfuPlateforme {
                 } catch (IOException ioe) {
                 }
                 f.renameTo(new File(dossierEchecs, f.getName()));
+                //envoi de mail aux admins
+                TMailgroup tGroupe = tMailgroupfacade.find("ADMIN");
+                List<TMaillist> tMaillist = (List<TMaillist>) tMaillistfacafde.findAllByGroup(tGroupe);
+                List<String> lsMail = new ArrayList<>();
+                for(TMaillist email : tMaillist){
+                    lsMail.add(email.getEmail());
+                }                
+                
+                Thread thread = new Thread(new SendMailTLS("Echec déclaration", f.getName(), lsMail));
+                thread.start(); 
+                
+                //fin envoi
             } 
 
         }
@@ -567,9 +609,22 @@ public class InterfaceIfuPlateforme {
                 };
                
                 try {
-                    tDeclarationDouaneFacade.create(Tdeclaration);
+                    tDeclarationDouaneFacade.create(Tdeclaration);                    
                 } catch (Exception ex) {
                     logger.error("Probleme lors de la création de la declaration - " + ex.getMessage());
+                    
+                //envoi de mail aux admins
+                TMailgroup tGroupe = tMailgroupfacade.find("ADMIN");
+                List<TMaillist> tMaillist = (List<TMaillist>) tMaillistfacafde.findAllByGroup(tGroupe);
+                List<String> lsMail = new ArrayList<>();
+                for(TMaillist email : tMaillist){
+                    lsMail.add(email.getEmail());
+                }                
+                
+                Thread thread = new Thread(new SendMailTLS("Echec création déclaration", declaration.getChild("segment_general").getAttribute("bureau_dec").getValue() + "_" + declaration.getChild("segment_general").getAttribute("annee_dec").getValue() + "_" + declaration.getChild("segment_general").getAttribute("serie_enreg").getValue() + declaration.getChild("segment_general").getAttribute("num_enreg").getValue() , lsMail));
+                thread.start(); 
+                
+                //fin envoi
                     //ARCHIVAGE FICHIER
                     in.close();
                     fichier.renameTo(new File(cheminDossierEchecsSydo, fichier.getName()));
@@ -651,6 +706,20 @@ public class InterfaceIfuPlateforme {
                     } catch (Exception ex) {
                         tDeclarationDouaneFacade.remove(Tdeclaration);       
                         logger.error("Probleme lors de la création d article - " + ex.getMessage());
+                        
+                        //envoi de mail aux admins
+                TMailgroup tGroupe = tMailgroupfacade.find("ADMIN");
+                List<TMaillist> tMaillist = (List<TMaillist>) tMaillistfacafde.findAllByGroup(tGroupe);
+                List<String> lsMail = new ArrayList<>();
+                for(TMaillist email : tMaillist){
+                    lsMail.add(email.getEmail());
+                }                
+                
+                Thread thread = new Thread(new SendMailTLS("Echec création article de la déclaration", declaration.getChild("segment_general").getAttribute("bureau_dec").getValue() + "_" + declaration.getChild("segment_general").getAttribute("annee_dec").getValue() + "_" + declaration.getChild("segment_general").getAttribute("serie_enreg").getValue() + declaration.getChild("segment_general").getAttribute("num_enreg").getValue() + "_" + ArtElt.getAttribute("KEY_ITM_NBR").getValue() , lsMail));
+                thread.start(); 
+                
+                //fin envoi
+                        
                         //ARCHIVAGE FICHIER
                         in.close();
                         fichier.renameTo(new File(cheminDossierEchecsSydo, fichier.getName()));
@@ -658,7 +727,7 @@ public class InterfaceIfuPlateforme {
                         //FIN ARCHIVAGE FICHIER
                     }
                 logger.info("avt creation taxe");
-//PARTIE TAXE
+                //PARTIE TAXE
                     List<Element> malistedeTaxes = ArtElt.getChildren("taxe");
                     for (Element TaxeElt : malistedeTaxes) {
                         //construction cle primaire TaxeDeclaration  
@@ -702,7 +771,22 @@ public class InterfaceIfuPlateforme {
                             tTaxeDecDouFacade.create(taxe);
                         } catch (Exception ex) {                            
                             tArticleFacade.remove(tarcticle);
+                            //envoi de mail aux admins
+                TMailgroup tGroupe = tMailgroupfacade.find("ADMIN");
+                List<TMaillist> tMaillist = (List<TMaillist>) tMaillistfacafde.findAllByGroup(tGroupe);
+                List<String> lsMail = new ArrayList<>();
+                for(TMaillist email : tMaillist){
+                    lsMail.add(email.getEmail());
+                }                
+                
+                Thread thread = new Thread(new SendMailTLS("Echec création article de la déclaration", declaration.getChild("segment_general").getAttribute("bureau_dec").getValue() + "_" + declaration.getChild("segment_general").getAttribute("annee_dec").getValue() + "_" + declaration.getChild("segment_general").getAttribute("serie_enreg").getValue() + declaration.getChild("segment_general").getAttribute("num_enreg").getValue() + "_" + ArtElt.getAttribute("KEY_ITM_NBR").getValue() + "_" + TaxeElt.getAttribute("TAX_LIN_COD").getValue() , lsMail));
+                thread.start(); 
+                
+                //fin envoi
+                            
                             logger.error("Probleme lors de la création de taxe - " + ex.getMessage());
+                            
+                            
                             //ARCHIVAGE FICHIER
                             in.close();
                             fichier.renameTo(new File(cheminDossierEchecsSydo, fichier.getName()));
@@ -883,8 +967,21 @@ public class InterfaceIfuPlateforme {
                 try {
                     tDeclarationDouaneFacade.create(Tdeclaration);
                 } catch (Exception ex) {
-                    logger.error("Probleme lors de la création de la declaration - " + ex.getMessage());
-                    //ARCHIVAGE FICHIER
+                    logger.error("Probleme lors de la création de la declaration - (Modif)" + ex.getMessage());
+                    
+                    //envoi de mail aux admins
+                TMailgroup tGroupe = tMailgroupfacade.find("ADMIN");
+                List<TMaillist> tMaillist = (List<TMaillist>) tMaillistfacafde.findAllByGroup(tGroupe);
+                List<String> lsMail = new ArrayList<>();
+                for(TMaillist email : tMaillist){
+                    lsMail.add(email.getEmail());
+                }                
+                
+                Thread thread = new Thread(new SendMailTLS("Echec création déclaration (Modif)", declaration.getChild("segment_general").getAttribute("bureau_dec").getValue() + "_" + declaration.getChild("segment_general").getAttribute("annee_dec").getValue() + "_" + declaration.getChild("segment_general").getAttribute("serie_enreg").getValue() + declaration.getChild("segment_general").getAttribute("num_enreg").getValue() , lsMail));
+                thread.start(); 
+                
+                //fin envoi
+//ARCHIVAGE FICHIER
                     in.close();
                     fichier.renameTo(new File(cheminDossierEchecsSydo, fichier.getName()));
                     return;
@@ -963,6 +1060,20 @@ public class InterfaceIfuPlateforme {
                     } catch (Exception ex) {
                         //tDeclarationDouaneFacade.remove(Tdeclaration);       
                         logger.error("Probleme lors de la création d article - " + ex.getMessage());
+                        
+                        //envoi de mail aux admins
+                TMailgroup tGroupe = tMailgroupfacade.find("ADMIN");
+                List<TMaillist> tMaillist = (List<TMaillist>) tMaillistfacafde.findAllByGroup(tGroupe);
+                List<String> lsMail = new ArrayList<>();
+                for(TMaillist email : tMaillist){
+                    lsMail.add(email.getEmail());
+                }                
+                
+                Thread thread = new Thread(new SendMailTLS("Echec création article de la déclaration", declaration.getChild("segment_general").getAttribute("bureau_dec").getValue() + "_" + declaration.getChild("segment_general").getAttribute("annee_dec").getValue() + "_" + declaration.getChild("segment_general").getAttribute("serie_enreg").getValue() + declaration.getChild("segment_general").getAttribute("num_enreg").getValue() + "_" + ArtElt.getAttribute("KEY_ITM_NBR").getValue() , lsMail));
+                thread.start(); 
+                
+                //fin envoi
+                        
                         //ARCHIVAGE FICHIER
                         in.close();
                         fichier.renameTo(new File(cheminDossierEchecsSydo, fichier.getName()));
@@ -1017,7 +1128,21 @@ public class InterfaceIfuPlateforme {
                         } catch (Exception ex) {
                             //tDeclarationDouaneFacade.remove(Tdeclaration);
                             tArticleFacade.remove(tarcticle);
-                            logger.error("Probleme lors de la création de taxe - " + ex.getMessage());
+                            logger.error("Probleme lors de la création de taxe - (Modif)" + ex.getMessage());
+                          
+                            //envoi de mail aux admins
+                                TMailgroup tGroupe = tMailgroupfacade.find("ADMIN");
+                                List<TMaillist> tMaillist = (List<TMaillist>) tMaillistfacafde.findAllByGroup(tGroupe);
+                                List<String> lsMail = new ArrayList<>();
+                                for(TMaillist email : tMaillist){
+                                    lsMail.add(email.getEmail());
+                                }                
+
+                                Thread thread = new Thread(new SendMailTLS("Echec création article de la déclaration", declaration.getChild("segment_general").getAttribute("bureau_dec").getValue() + "_" + declaration.getChild("segment_general").getAttribute("annee_dec").getValue() + "_" + declaration.getChild("segment_general").getAttribute("serie_enreg").getValue() + declaration.getChild("segment_general").getAttribute("num_enreg").getValue() + "_" + ArtElt.getAttribute("KEY_ITM_NBR").getValue() + "_" + TaxeElt.getAttribute("TAX_LIN_COD").getValue() , lsMail));
+                                thread.start(); 
+                
+                //fin envoi
+                            
                             //ARCHIVAGE FICHIER
                             in.close();
                             fichier.renameTo(new File(cheminDossierEchecsSydo, fichier.getName()));
@@ -1293,7 +1418,8 @@ public class InterfaceIfuPlateforme {
                 } catch (Exception e) {
                 }
                 try {
-                    if("3".equals(contribuable.getChild("CONT_IMMATR").getValue().substring(0,1)) || "6".equals(contribuable.getChild("CONT_IMMATR").getValue().substring(0,1))){
+                    if("3".equals(contribuable.getChild("CONT_IMMATR").getValue().substring(0,1)) || "4".equals(contribuable.getChild("CONT_IMMATR").getValue().substring(0,1)) || "5".equals(contribuable.getChild("CONT_IMMATR").getValue().substring(0,1)) || "6".equals(contribuable.getChild("CONT_IMMATR").getValue().substring(0,1))){
+                    
                         tRepUnique.setContStatut("A"); 
                     }else{
                        tRepUnique.setContStatut("D");  

@@ -10,13 +10,18 @@ import bj.finances.cfisc.controllers.util.JsfUtil;
 import bj.finances.cfisc.entities.TCentreImpot;
 import bj.finances.cfisc.entities.TGroupe;
 import bj.finances.cfisc.entities.THistStatut;
+import bj.finances.cfisc.entities.TMailgroup;
+import bj.finances.cfisc.entities.TMaillist;
 import bj.finances.cfisc.entities.TRepUnique;
 import bj.finances.cfisc.entities.TUtilisateur;
 import bj.finances.cfisc.sessions.TCentreImpotFacade;
 import bj.finances.cfisc.sessions.TGroupeFacade;
 import bj.finances.cfisc.sessions.THistStatutFacade;
+import bj.finances.cfisc.sessions.TMailgroupFacade;
+import bj.finances.cfisc.sessions.TMaillistFacade;
 import bj.finances.cfisc.sessions.TRepUniqueFacade;
 import bj.finances.cfisc.sessions.TUtilisateurFacade;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +52,12 @@ public class MAJUtilisateurMBean extends java.lang.Object {
         this.tGroupeFacade = tGroupeFacade;
     }
 
+    @EJB 
+    private TMailgroupFacade tMailgroupfacade;
+    
+    @EJB
+    private TMaillistFacade tMaillistfacafde;
+    
     @EJB
     private TGroupeFacade tGroupeFacade;
 
@@ -280,8 +291,8 @@ public class MAJUtilisateurMBean extends java.lang.Object {
             setAfficheStatut("ACTIVE");
         } else {
             setAfficheStatut("DESACTIVE");
-        }
-
+        }        
+        
         return "";
     }
 
