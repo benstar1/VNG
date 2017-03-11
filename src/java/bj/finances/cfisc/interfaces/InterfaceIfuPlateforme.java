@@ -115,6 +115,8 @@ public class InterfaceIfuPlateforme {
     private final String cheminFichierXsdSydo = ResourceBundle.getBundle("/parametres").getString("cheminFichierXsdSydo");
     private final String tempsDesactivation = ResourceBundle.getBundle("/parametres").getString("tempsDesactivation");
     private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    
+    private final String cheminLocalAIB = ResourceBundle.getBundle("/parametres").getString("cheminLocalAIB");
 
     //@Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/20", persistent = false)
     /* public void consommerFichierEntreprise() {
@@ -1447,14 +1449,58 @@ public class InterfaceIfuPlateforme {
                     throw new UserOrMotifUndefined("");
                 }
                 
+                try{
                 tRepUniqueFacade.create(tRepUnique);
+                }catch(Exception ex){
+                    //envoi de mail aux admins
+                    TMailgroup tGroupe = tMailgroupfacade.find("ADMIN");
+                    List<TMaillist> tMaillist = (List<TMaillist>) tMaillistfacafde.findAllByGroup(tGroupe);
+                    List<String> lsMail = new ArrayList<>();
+                    for(TMaillist email : tMaillist){
+                        lsMail.add(email.getEmail());
+                    }                
                 
+                    Thread thread = new Thread(new SendMailTLS("Echec création contribuable ", contribuable.getChild("CONT_IMMATR").getValue() , lsMail));
+                    thread.start(); 
+
+                    //fin envoi
+                }
+                
+                try{
                 tHistoriqueFacade.historiser(tRepUnique, tMotif, tUtilisateur);
+                }catch(Exception ex){
+                    
+                    //envoi de mail aux admins
+                    TMailgroup tGroupe = tMailgroupfacade.find("ADMIN");
+                    List<TMaillist> tMaillist = (List<TMaillist>) tMaillistfacafde.findAllByGroup(tGroupe);
+                    List<String> lsMail = new ArrayList<>();
+                    for(TMaillist email : tMaillist){
+                        lsMail.add(email.getEmail());
+                    }                
                 
+                    Thread thread = new Thread(new SendMailTLS("Echec historisation contribuable ", contribuable.getChild("CONT_IMMATR").getValue() , lsMail));
+                    thread.start(); 
+
+                    //fin envoi
+                }
                 in.close();
                 fichier.renameTo(new File(cheminDossierSuccesIfu, fichier.getName()));
             } else {
                 System.out.println("Ajout impossible pour cause de fichier existant " + fichier.getName());
+                
+                //envoi de mail aux admins
+                    TMailgroup tGroupe = tMailgroupfacade.find("ADMIN");
+                    List<TMaillist> tMaillist = (List<TMaillist>) tMaillistfacafde.findAllByGroup(tGroupe);
+                    List<String> lsMail = new ArrayList<>();
+                    for(TMaillist email : tMaillist){
+                        lsMail.add(email.getEmail());
+                    }                
+                
+                    Thread thread = new Thread(new SendMailTLS("Echec création contribuable ", " Le contribuable : " + contribuable.getChild("CONT_IMMATR").getValue() + " n'existe pas. Pourtant un fichier de modif est généré.", lsMail));
+                    thread.start(); 
+
+                    //fin envoi
+                
                 in.close();
                 fichier.renameTo(new File(cheminDossierEchecsIfu, fichier.getName()));
             }
@@ -1691,15 +1737,46 @@ public class InterfaceIfuPlateforme {
                     throw new UserOrMotifUndefined("");
                 }
                 
+                try{
                 tRepUniqueFacade.edit(tRepUnique);
-                tHistoriqueFacade.historiser(tRepUnique, tMotif, tUtilisateur);
+                }catch(Exception ex){
+                    //envoi de mail aux admins
+                    TMailgroup tGroupe = tMailgroupfacade.find("ADMIN");
+                    List<TMaillist> tMaillist = (List<TMaillist>) tMaillistfacafde.findAllByGroup(tGroupe);
+                    List<String> lsMail = new ArrayList<>();
+                    for(TMaillist email : tMaillist){
+                        lsMail.add(email.getEmail());
+                    }                
+                
+                    Thread thread = new Thread(new SendMailTLS("Echec de modification contribuable ", contribuable.getChild("CONT_IMMATR").getValue() , lsMail));
+                    thread.start(); 
 
-                System.out.println("cest ici");
+                    //fin envoi
+                }
+                try{
+                tHistoriqueFacade.historiser(tRepUnique, tMotif, tUtilisateur);
+                }
+                catch(Exception ex){
+                    //envoi de mail aux admins
+                    TMailgroup tGroupe = tMailgroupfacade.find("ADMIN");
+                    List<TMaillist> tMaillist = (List<TMaillist>) tMaillistfacafde.findAllByGroup(tGroupe);
+                    List<String> lsMail = new ArrayList<>();
+                    for(TMaillist email : tMaillist){
+                        lsMail.add(email.getEmail());
+                    }                
+                
+                    Thread thread = new Thread(new SendMailTLS("Echec historisation contribuable ", contribuable.getChild("CONT_IMMATR").getValue() , lsMail));
+                    thread.start(); 
+
+                    //fin envoi
+                }
+               // System.out.println("cest ici");
                 in.close();
-                System.out.println("passe");
+                //System.out.println("passe");
                 fichier.renameTo(new File(cheminDossierSuccesIfu, fichier.getName()));
             } else {
                 System.out.println("inmpossible d'ajouter un contribuable existant " + fichier.getName());
+                
                 in.close();
                 fichier.renameTo(new File(cheminDossierEchecsIfu, fichier.getName()));
             }
@@ -1714,7 +1791,7 @@ public class InterfaceIfuPlateforme {
         //format.setEncoding("ISO-8859-1");
         XMLOutputter sortie = new XMLOutputter(format);
         Element racine = doc.getRootElement();
-        sortie.output(doc, new FileOutputStream("/home/cfiscuser/CFISC/cfisc_local/AIB/" + racine.getAttributeValue("bureau_dec") + "_" +  racine.getAttributeValue("annee_dec") + "_" + racine.getAttributeValue("numero_decl") + "_" + racine.getAttributeValue("ifu")  + "_AIB" +   ".xml"));         
+        sortie.output(doc, new FileOutputStream(cheminLocalAIB + racine.getAttributeValue("bureau_dec") + "_" +  racine.getAttributeValue("annee_dec") + "_" + racine.getAttributeValue("numero_decl") + "_" + racine.getAttributeValue("ifu")  + "_AIB" +   ".xml"));         
     }
      // fin generation fichier takwe
 
