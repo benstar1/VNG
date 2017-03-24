@@ -96,7 +96,7 @@ public class TDeclarationDouFacade extends AbstractFacade<TDeclarationDou> {
              .setParameter("ideDat", date);
         
         List<TDeclarationDou> listeDeclaration = query.getResultList();
-        System.out.println("AZERTYUIOP  " + listeDeclaration.size());
+        //System.out.println("AZERTYUIOP  " + listeDeclaration.size());
         if( listeDeclaration != null ) System.out.println(listeDeclaration.size());else System.out.println("il est null");
         return listeDeclaration;
     }

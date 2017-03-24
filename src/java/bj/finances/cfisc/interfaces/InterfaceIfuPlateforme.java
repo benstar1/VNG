@@ -1197,7 +1197,7 @@ public class InterfaceIfuPlateforme {
         tRepUnique = tRepUniqueFacade.find(Long.valueOf(contribuable.getChild("CONT_IMMATR").getValue()));
         //System.out.println("-----***********----------------");
         if (tRepUnique == null) {
-            if ("A".equals(typeOperation.getValue())) {
+            if ("A".equals(typeOperation.getValue()) || "M".equals(typeOperation.getValue())) {
                 //System.out.println("ESSAIIIII     IIIIIIIIIII");
                 tRepUnique = new TRepUnique();
                 try {
@@ -1420,7 +1420,7 @@ public class InterfaceIfuPlateforme {
                 } catch (Exception e) {
                 }
                 try {
-                    if("3".equals(contribuable.getChild("CONT_IMMATR").getValue().substring(0,1)) || "4".equals(contribuable.getChild("CONT_IMMATR").getValue().substring(0,1)) || "5".equals(contribuable.getChild("CONT_IMMATR").getValue().substring(0,1)) || "6".equals(contribuable.getChild("CONT_IMMATR").getValue().substring(0,1))){
+                    if("4".equals(contribuable.getChild("CONT_IMMATR").getValue().substring(0,1)) || "5".equals(contribuable.getChild("CONT_IMMATR").getValue().substring(0,1))){
                     
                         tRepUnique.setContStatut("A"); 
                     }else{
@@ -1450,7 +1450,13 @@ public class InterfaceIfuPlateforme {
                 }
                 
                 try{
+                    
+                System.out.println("AVANT CREATION CONTRIB");
                 tRepUniqueFacade.create(tRepUnique);
+                in.close();
+                fichier.renameTo(new File(cheminDossierSuccesIfu, fichier.getName()));
+                System.out.println(" CREATION CONTRIB");
+                
                 }catch(Exception ex){
                     //envoi de mail aux admins
                     TMailgroup tGroupe = tMailgroupfacade.find("ADMIN");
@@ -1459,17 +1465,16 @@ public class InterfaceIfuPlateforme {
                     for(TMaillist email : tMaillist){
                         lsMail.add(email.getEmail());
                     }                
-                
+                     System.out.println("PROBLEME CREATION CONTRIB");
                     Thread thread = new Thread(new SendMailTLS("Echec création contribuable ", contribuable.getChild("CONT_IMMATR").getValue() , lsMail));
                     thread.start(); 
-
                     //fin envoi
                 }
                 
                 try{
                 tHistoriqueFacade.historiser(tRepUnique, tMotif, tUtilisateur);
                 }catch(Exception ex){
-                    
+                     System.out.println("PROBLEME HISTORISATION CONTRIB");
                     //envoi de mail aux admins
                     TMailgroup tGroupe = tMailgroupfacade.find("ADMIN");
                     List<TMaillist> tMaillist = (List<TMaillist>) tMaillistfacafde.findAllByGroup(tGroupe);
@@ -1483,8 +1488,8 @@ public class InterfaceIfuPlateforme {
 
                     //fin envoi
                 }
-                in.close();
-                fichier.renameTo(new File(cheminDossierSuccesIfu, fichier.getName()));
+
+                
             } else {
                 System.out.println("Ajout impossible pour cause de fichier existant " + fichier.getName());
                 
