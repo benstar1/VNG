@@ -78,7 +78,7 @@ public class AgentSftpIfu {
             
             ChannelSftp channelSftp = (ChannelSftp) channel;
             channelSftp.lcd(cheminDepotLocal);
-            System.out.println("Connexion à SFTP IFU REUSSI");
+            System.out.println("Connexion à SFTP IFU REUSSI ------------------");
             channelSftp.cd("CONT");
             Vector<ChannelSftp.LsEntry> list = channelSftp.ls("*.xml");
             

@@ -1176,7 +1176,7 @@ public class InterfaceIfuPlateforme {
    ////////////////////////// FIN INSERTION DECLARATION ARTICLE TAXE
        
      public void traitementDeDonnesCont(Document document, File fichier, InputStream in) throws JDOMException, SAXException, IOException, UserOrMotifUndefined {
-        System.out.println("Nous somme là");
+        System.out.println("TRAITEMENT DONNEES CONTRIBUABLE ---------------");
         Element racine = document.getRootElement();
         System.err.println("CA DONNE = " + racine.getName());
         Element operation = racine.getChild("OPERATION");
