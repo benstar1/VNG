@@ -330,8 +330,14 @@ public class MAJMBean extends java.lang.Object {
 //            }
                 DataFormatter fmt = new DataFormatter();
 
+                try{
                 String ifuAsSeenInExcel = fmt.formatCellValue((Cell) cellStoreVector.elementAt(0));
                 ifu = new Long(ifuAsSeenInExcel);
+                }
+                catch(java.lang.NumberFormatException nfe){                    
+                    FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_ERROR, "VERIFIER LE FORMAT DES NUMEROS IFU (Pas de séparateur de milliers)", "VERIFIER LE FORMAT DES NUMEROS IFU."));            
+                    nfe.printStackTrace();
+                }
 ////                centre = cellStoreVector.elementAt(3).toString();
                 String nom = cellStoreVector.elementAt(1).toString();
                 String pnom = cellStoreVector.elementAt(2).toString();
