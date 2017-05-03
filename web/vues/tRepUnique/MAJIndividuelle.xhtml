@@ -37,6 +37,7 @@
                                 <h:outputLabel value="Centre d'impôt  :  " for= "centreImpot" />
                                 
                                 <h:selectOneMenu id="centreImpot" value="#{mAJIndividuelleMBean.current.contCentrImpCode}" title="" >
+                                    <p:ajax event="change" process="@this" />
                                 <f:selectItems value="#{tRepUniqueController.cimpotItem}"/>
                                 </h:selectOneMenu>
                                 </c:if>
@@ -93,7 +94,16 @@
                                         <h:outputText value="Statut"/>
                                     </f:facet>
                                     
-                                    <h:outputText value="#{mAJIndividuelleMBean.afficheStatut}"/>
+                                    <h:outputText value="#{mAJIndividuelleMBean.afficheStatut}"/>                                    
+                                    
+                                </p:column>
+                                
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Statut SYDONIA"/>
+                                    </f:facet>
+                                    
+                                    <h:outputText value="#{item.contStatutSydo}"/>
                                     
                                     
                                 </p:column>

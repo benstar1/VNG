@@ -1,4 +1,23 @@
 
+menuParam{
+    border-bottom: solid 1px; 
+    border-color:#0003;
+}
+
+menuParam:hover{
+    border-bottom: solid 1px; 
+    border-color:#0003;
+    background-color: #0003;
+}
+
+lienMenu{
+    text-decoration: none;
+}
+
+lienMenu:hover{
+    text-decoration: none;
+}
+
 #top {
     position: relative;
     background-color: white ;
@@ -44,7 +63,7 @@
 .left_content {
     background-color:white;
     padding: 0px;
-    margin-left: 170px;
+    margin-left: 0px;
     min-height: 70%;
 }
 

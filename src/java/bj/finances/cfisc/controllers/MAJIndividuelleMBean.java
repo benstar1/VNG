@@ -45,6 +45,9 @@ public class MAJIndividuelleMBean extends java.lang.Object {
     private bj.finances.cfisc.sessions.TRepUniqueFacade tRepUniqueFacade;
 //    private int selectedItemIndex;
 
+    @EJB
+    private bj.finances.cfisc.sessions.TCentreImpotFacade tcentreImpotFacade;
+    
     @Inject
     bj.finances.cfisc.controllers.LoginMBean loginBean;
     
@@ -286,8 +289,19 @@ public class MAJIndividuelleMBean extends java.lang.Object {
         Map<String, Object> sessionMap = externalContext.getSessionMap();
         String le_login = (String) sessionMap.get("loginUser");
         //System.out.println("LE LOGIN " + le_login);
-
+        
+        
+        if(current.getContCentrImpCode() != null){
+        ifu.setContCentrImpCode(current.getContCentrImpCode());
+        }
+        
+        if(ifu.getContCentrImpCode() == null){
+                ifu.setContCentrImpCode(tcentreImpotFacade.find("SANSCENTRE"));
+                }
+        
         current = ifu;
+        
+        
 
         try {
             //System.out.println(centreImpot + " Centre impot choisi -- Test " + current.getContCentrImpCode().getCentrImpCode());
@@ -302,7 +316,7 @@ public class MAJIndividuelleMBean extends java.lang.Object {
                 current.setContStatut("D");
                 System.out.println(" Statut " + current.getContStatut());
 
-                //      current.setContCentrImpCode(centre);
+                
                 gettRepUniqueFacade().edit(current);
                 setItemsIfu(current);
                 setAfficheStatut("DESACTIVE");
@@ -361,6 +375,7 @@ public class MAJIndividuelleMBean extends java.lang.Object {
                     System.out.println("Erreur " + e.getMessage());
                 }
 
+                
                 tHistStatut = new THistStatut(current, user);
                 try {
                     tHistStatutFacade.historiserStatut(tHistStatut);
@@ -370,6 +385,9 @@ public class MAJIndividuelleMBean extends java.lang.Object {
                 }
 
                 System.out.println("Fin historisation -- Désactivation");
+                
+                
+                
 
                 //fin
                 //JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TRepUniqueUpdated"));
@@ -450,6 +468,7 @@ public class MAJIndividuelleMBean extends java.lang.Object {
                     System.out.println("LEO " + e.getMessage());
                 }
 
+                System.out.println(current.getContCentrImpCode()+ " --------------###################");
                 tHistStatut = new THistStatut(current, user);
                 try {
                     System.out.println("LEO CONN " + user);

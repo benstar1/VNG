@@ -111,6 +111,10 @@ public class InterfaceIfuPlateforme {
     private final String cheminDossierEchecsSydo = ResourceBundle.getBundle("/parametres").getString("cheminDossierEchecsSydo");
     private final String cheminDossierSuccesSydo = ResourceBundle.getBundle("/parametres").getString("cheminDossierSuccesSydo");
     
+    private final String cheminDepotLocalAccuse = ResourceBundle.getBundle("/parametres").getString("cheminDepotLocalAccuse");
+    private final String cheminDossierEchecsAccuse = ResourceBundle.getBundle("/parametres").getString("cheminDossierEchecsAccuse");
+    private final String cheminDossierSuccesAccuse = ResourceBundle.getBundle("/parametres").getString("cheminDossierSuccesAccuse");
+    
     private final String cheminFichierXsdCont = ResourceBundle.getBundle("/parametres").getString("cheminFichierXsdCont");
     private final String cheminFichierXsdSydo = ResourceBundle.getBundle("/parametres").getString("cheminFichierXsdSydo");
     private final String tempsDesactivation = ResourceBundle.getBundle("/parametres").getString("tempsDesactivation");
@@ -132,7 +136,7 @@ public class InterfaceIfuPlateforme {
 */
     //@Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*/15", second = "*", persistent = false)
     public void scrutelocalSydo() {
-        System.out.println(" Scan du dossier source Sydo ........ " + new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(new Date()));            
+        System.out.println(" Scan du dossier local DECL ........ " + new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(new Date()));            
          
         File depotLocal = new File(cheminDepotLocalSydo);
         File dossierEchecs = new File(cheminDossierEchecsSydo);
@@ -231,6 +235,106 @@ public class InterfaceIfuPlateforme {
         }
     }
     
+    
+    public void scrutelocalSydoAccuse() {
+        System.out.println(" Scan du dossier local ACCUSE ........ " + new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(new Date()));            
+         
+        File depotLocal = new File(cheminDepotLocalAccuse);
+        File dossierEchecs = new File(cheminDossierEchecsAccuse);
+        File[] listeFichier = depotLocal.listFiles();
+        List<File> liste = Arrays.asList(listeFichier);
+        Collections.sort(liste);
+
+        for (File f : liste) {
+
+            if (f.isDirectory()) {
+                continue;
+            }
+            Document document = null;
+            InputStream in = null;
+            Schema schema = null;
+
+            try {
+                System.out.println("------------------" + f.getName().substring(0, 4));
+                //////////////////////////traitement des xml de declarations /////////////
+                if (f.getName().substring(0, 3).equals("ACQ")) {
+                    in = new FileInputStream(f);
+                    
+//                    SchemaFactory schemafac = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+//                    schema = schemafac.newSchema(new File(cheminFichierXsdSydo));
+//                    XMLReaderJDOMFactory factory = new XMLReaderSchemaFactory(schema);                    
+                    SAXBuilder builder = new SAXBuilder();
+                    document = (Document) builder.build(in);                    
+                    
+                    TraitementDonneesAccuse(document, f, in, f.getName());
+                }
+
+            } catch (JDOMException | SAXException j) {
+                logger.error("Echec de validation du fichier : (" + j.getMessage() + ")");
+                //j.printStackTrace();
+                try {
+                    in.close();
+                } catch (IOException ex) {
+                }
+                
+                f.renameTo(new File(dossierEchecs, f.getName()));
+                //envoi de mail aux admins
+                TMailgroup tGroupe = tMailgroupfacade.find("ADMIN");
+                List<TMaillist> tMaillist = (List<TMaillist>) tMaillistfacafde.findAllByGroup(tGroupe);
+                List<String> lsMail = new ArrayList<>();
+                for(TMaillist email : tMaillist){
+                    lsMail.add(email.getEmail());
+                }                
+                
+                Thread thread = new Thread(new SendMailTLS("Echec intégration Accusé réception", f.getName(), lsMail));
+                thread.start(); 
+                
+                //fin envoi
+                
+            } catch (IOException i) {
+                logger.error("Problème de lecture du fichier : (" + i.getMessage() + ")");
+                //i.printStackTrace(); 
+                try {
+                    in.close();
+                } catch (IOException ex) {
+                }
+                f.renameTo(new File(dossierEchecs, f.getName()));
+                //envoi de mail aux admins
+                TMailgroup tGroupe = tMailgroupfacade.find("ADMIN");
+                List<TMaillist> tMaillist = (List<TMaillist>) tMaillistfacafde.findAllByGroup(tGroupe);
+                List<String> lsMail = new ArrayList<>();
+                for(TMaillist email : tMaillist){
+                    lsMail.add(email.getEmail());
+                }                
+                
+                Thread thread = new Thread(new SendMailTLS("Echec intégration Accusé réception", f.getName(), lsMail));
+                thread.start(); 
+                
+                //fin envoi
+            } catch (Exception ex) {
+                logger.error("Une exception inconnue a ete generee (Sydo Accuse reception): (" + ex.getMessage() + ")");
+                //ex.printStackTrace();      
+                try {
+                    in.close();
+                } catch (IOException ioe) {
+                }
+                f.renameTo(new File(dossierEchecs, f.getName()));
+                //envoi de mail aux admins
+                TMailgroup tGroupe = tMailgroupfacade.find("ADMIN");
+                List<TMaillist> tMaillist = (List<TMaillist>) tMaillistfacafde.findAllByGroup(tGroupe);
+                List<String> lsMail = new ArrayList<>();
+                for(TMaillist email : tMaillist){
+                    lsMail.add(email.getEmail());
+                }                
+                
+                Thread thread = new Thread(new SendMailTLS("Echec intégration Accusé réception", f.getName(), lsMail));
+                thread.start(); 
+                
+                //fin envoi
+            } 
+
+        }
+    }
     
     public void scrutelocalIfu() {
         System.out.println(" Scan du dossier source de IFU ........ " + new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(new Date()));            
@@ -434,7 +538,33 @@ public class InterfaceIfuPlateforme {
     }
    //////////////////////// méthode fin de maj de la table t_participer à partir des fichiers xml///////
 
-    /////////////////////// METHODE INSERTION DECLARATION SYDONIA /////////////////////////
+/*------------------------- INTEGRATION ACCUSE DE RECEPTION --------------------------------- */
+    
+ public void TraitementDonneesAccuse(Document document, File fichier, InputStream in, String decl) throws JDOMException, SAXException, IOException {
+
+        Element accuse = document.getRootElement();
+        TRepUnique Trepunique = null;
+
+        //Long instance_id = Long.parseLong(declaration.getChild("segment_general").getAttribute("INSTANCE_ID").getValue());
+        
+        Long ifu = Long.parseLong(accuse.getAttribute("ifu").getValue());
+        String statut_operation = accuse.getAttribute("statut_operation").getValue();
+        Trepunique = tRepUniqueFacade.find(ifu);
+        
+ 
+        if (Trepunique != null) {
+            //Tdeclaration = new TDeclarationDou();
+            try {
+            Trepunique.setContStatutSydo(statut_operation);
+            tRepUniqueFacade.edit(Trepunique);
+            } catch (Exception e) {
+                e.printStackTrace();
+                };  
+            }        
+    }
+    
+/* -------------------------- FIN INTEGRATION ACCUSE DE RECEPTION ----------------------------- */
+/////////////////////// METHODE INSERTION DECLARATION SYDONIA /////////////////////////
     public void TraitementDonneesDouane(Document document, File fichier, InputStream in, String decl) throws JDOMException, SAXException, IOException {
 
         Element declaration = document.getRootElement();
@@ -611,7 +741,8 @@ public class InterfaceIfuPlateforme {
                 };
                
                 try {
-                    tDeclarationDouaneFacade.create(Tdeclaration);                    
+                    tDeclarationDouaneFacade.create(Tdeclaration);  
+                    
                 } catch (Exception ex) {
                     logger.error("Probleme lors de la création de la declaration - " + ex.getMessage());
                     
@@ -705,6 +836,7 @@ public class InterfaceIfuPlateforme {
 
                     try {
                         tArticleFacade.create(tarcticle);
+                        
                     } catch (Exception ex) {
                         tDeclarationDouaneFacade.remove(Tdeclaration);       
                         logger.error("Probleme lors de la création d article - " + ex.getMessage());
@@ -734,6 +866,10 @@ public class InterfaceIfuPlateforme {
                     for (Element TaxeElt : malistedeTaxes) {
                         //construction cle primaire TaxeDeclaration  
                         TTaxeDeclDou taxe = new TTaxeDeclDou();
+                        if("".equals( TaxeElt.getAttribute("TAX_LIN_COD").getValue())){
+                            continue;
+                        }
+                        
                         if( "AIB".equals( TaxeElt.getAttribute("TAX_LIN_COD").getValue() )){
                             BigDecimal montantAIB = new BigDecimal(TaxeElt.getAttribute("TAX_LIN_AMT").getValue());
                             totalAIB.add(montantAIB);
@@ -771,24 +907,24 @@ public class InterfaceIfuPlateforme {
 
                         try {
                             tTaxeDecDouFacade.create(taxe);
-                        } catch (Exception ex) {                            
+                        } catch (Exception ex) { 
+                            tDeclarationDouaneFacade.remove(Tdeclaration);
                             tArticleFacade.remove(tarcticle);
                             //envoi de mail aux admins
-                TMailgroup tGroupe = tMailgroupfacade.find("ADMIN");
-                List<TMaillist> tMaillist = (List<TMaillist>) tMaillistfacafde.findAllByGroup(tGroupe);
-                List<String> lsMail = new ArrayList<>();
-                for(TMaillist email : tMaillist){
-                    lsMail.add(email.getEmail());
-                }                
+                            TMailgroup tGroupe = tMailgroupfacade.find("ADMIN");
+                            List<TMaillist> tMaillist = (List<TMaillist>) tMaillistfacafde.findAllByGroup(tGroupe);
+                            List<String> lsMail = new ArrayList<>();
+                            for(TMaillist email : tMaillist){
+                                lsMail.add(email.getEmail());
+                            }                
                 
-                Thread thread = new Thread(new SendMailTLS("Echec création article de la déclaration", declaration.getChild("segment_general").getAttribute("bureau_dec").getValue() + "_" + declaration.getChild("segment_general").getAttribute("annee_dec").getValue() + "_" + declaration.getChild("segment_general").getAttribute("serie_enreg").getValue() + declaration.getChild("segment_general").getAttribute("num_enreg").getValue() + "_" + ArtElt.getAttribute("KEY_ITM_NBR").getValue() + "_" + TaxeElt.getAttribute("TAX_LIN_COD").getValue() , lsMail));
-                thread.start(); 
+                            Thread thread = new Thread(new SendMailTLS("Echec création article de la déclaration", declaration.getChild("segment_general").getAttribute("bureau_dec").getValue() + "_" + declaration.getChild("segment_general").getAttribute("annee_dec").getValue() + "_" + declaration.getChild("segment_general").getAttribute("serie_enreg").getValue() + declaration.getChild("segment_general").getAttribute("num_enreg").getValue() + "_" + ArtElt.getAttribute("KEY_ITM_NBR").getValue() + "_" + TaxeElt.getAttribute("TAX_LIN_COD").getValue() , lsMail));
+                            thread.start(); 
                 
-                //fin envoi
+                            //fin envoi
                             
                             logger.error("Probleme lors de la création de taxe - " + ex.getMessage());
-                            
-                            
+                                                        
                             //ARCHIVAGE FICHIER
                             in.close();
                             fichier.renameTo(new File(cheminDossierEchecsSydo, fichier.getName()));
@@ -798,11 +934,11 @@ public class InterfaceIfuPlateforme {
 
                     }                   
                 }
+                in.close();
                 logger.info("Declaration créée ...... " + decl);
-                    //ARCHIVAGE FICHIER
-                    in.close();
-                    fichier.renameTo(new File(cheminDossierSuccesSydo, fichier.getName()));
-                    //FIN ARCHIVAGE FICHIER
+                //ARCHIVAGE FICHIER                    
+                fichier.renameTo(new File(cheminDossierSuccesSydo, fichier.getName()));
+                //FIN ARCHIVAGE FICHIER
             }
         } else {
             if ("M".equals(typeope)) {
@@ -1090,6 +1226,10 @@ public class InterfaceIfuPlateforme {
                     for (Element TaxeElt : malistedeTaxes) {
                         //construction cle primaire TaxeDeclaration  
                         TTaxeDeclDou taxe = new TTaxeDeclDou();
+                        if("".equals( TaxeElt.getAttribute("TAX_LIN_COD").getValue())){
+                            continue;
+                        }
+                        
                         if( "AIB".equals( TaxeElt.getAttribute("TAX_LIN_COD").getValue() )){
                             BigDecimal montantAIB = new BigDecimal(TaxeElt.getAttribute("TAX_LIN_AMT").getValue());
                             totalAIB.add(montantAIB);

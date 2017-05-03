@@ -46,6 +46,8 @@ public class AgentSftpSydo {
     private final String cheminDepotLocal = ResourceBundle.getBundle("/parametres").getString("cheminDepotLocalSydo");
     private final String cheminDepotLocalActif = ResourceBundle.getBundle("/parametres").getString("cheminDepotLocalActif");
     
+    private final String cheminDepotLocalAccuse = ResourceBundle.getBundle("/parametres").getString("cheminDepotLocalAccuse");
+    
     private final String SYDO_SFTPUSER = ResourceBundle.getBundle("/parametres").getString("SFTPUSER");
     private final String SYDO_SFTPHOST = ResourceBundle.getBundle("/parametres").getString("SFTPHOST");
     private final String SYDO_SFTPPASS = ResourceBundle.getBundle("/parametres").getString("SFTPPASS");
@@ -66,7 +68,7 @@ public class AgentSftpSydo {
     
     final static org.apache.log4j.Logger logger = Logger.getLogger(AgentSftpSydo.class.getName());
 
-   @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/30", persistent = false)
+   @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/40", persistent = false)
     public void telechargerEntreprise() {
         JSch jsch = new JSch();
         Session session = null;
@@ -116,6 +118,60 @@ public class AgentSftpSydo {
         }
         
         iifu.scrutelocalSydo(); 
+
+    }
+    
+    
+    @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/59", persistent = false)
+    public void updateSydoStatus() {
+        JSch jsch = new JSch();
+        Session session = null;
+        Channel channel = null;
+        
+        try {
+            session = jsch.getSession(IFU_SYDO_SFTPUSER, IFU_SYDO_SFTPHOST, IFU_SYDO_SFTPPORT);
+            session.setPassword(IFU_SYDO_SFTPPASS);
+            
+            java.util.Properties config = new java.util.Properties();
+            config.put("StrictHostKeyChecking", "no");            
+            session.setConfig(config);            
+            try{
+            session.connect();
+            }
+            catch(Exception ex){
+                logger.error("Problème de connexion de session" + ex.getMessage());
+            }
+            
+            channel = session.openChannel("sftp");  
+            logger.info("Scan du dossier Sydo SFTP ACCUSE RECPTION");
+            try{
+            channel.connect();
+            }catch(Exception ex){
+                logger.error("Problème de connexion au canal "+ ex.getMessage());
+            }
+            
+            ChannelSftp channelSftp = (ChannelSftp) channel;
+            channelSftp.lcd(cheminDepotLocalAccuse);
+            channelSftp.cd("ACCUSE");
+
+            Vector<ChannelSftp.LsEntry> list = channelSftp.ls("ACQ*.xml");
+            logger.info("CONNEXION A SYDONIA REUSSI (ACCUSE RECEPTION).................. ");
+            for (ChannelSftp.LsEntry entry : list) {                
+                channelSftp.get(entry.getFilename(), entry.getFilename());
+                System.out.println("nom fichier : " + entry.getFilename());
+                channelSftp.rename(entry.getFilename(), "fichier_traite/" + entry.getFilename());
+                logger.info("Fichier traité .... " + entry.getFilename());
+            }     
+        } catch (Exception e) {
+           logger.error("Erreur lors du telechargement d'un fichier ACCUSE DE RECEPTION par sftp (Sydo)( " + e.getMessage() + ")");
+        }finally{
+            try{
+            channel.disconnect();
+            session.disconnect();
+            }catch(Exception e){System.out.println("CANAL OU SESSION INEXISTANT");}
+        }
+        
+        iifu.scrutelocalSydoAccuse(); 
 
     }
     

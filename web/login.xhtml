@@ -10,19 +10,17 @@
     
     <ui:composition template="./templatelogin.xhtml">
 
-        <ui:define name="title">
-            <h:outputText value="Authentification"></h:outputText>
-        </ui:define>
+        
         
         <ui:define name="body">
             <center style="width: 70%;margin-left: 15%;margin-top: 6%;"> 
                 
                     <h:form>    
-                        <p:fieldset>    
-                            <table width="60%">
+                        <p:fieldset style="width: 560px; margin: 0 auto;">    
+                            <table width="100%">
                                 <tr>
-                                    <td width="20%" rowspan="4"><h:graphicImage library="images" name="connexion.jpg" alt="connexion"/></td>
-                                    <td colspan="2" align="center"> <h4>Veuillez saisir votre login et mot de passe</h4>
+                                    <td width="20%" rowspan="6"><h:graphicImage library="images" name="connexion.jpg" style="height: 125px !important; width:125px !important" alt="connexion"/></td>
+                                    <td colspan="2" align="center"> <h4>Veuillez saisir vos login et mot de passe</h4>
                                        
                                             <f:event listener="#{loginMBean.checkErrors}" type="preRenderView" id="error"/>
                                             <h:messages errorStyle="color: red; font-weight: bold !important"/>
@@ -49,7 +47,7 @@
                                 <tr>
                                     <td></td>
 
-                                    <td colspan="2" align="center">&nbsp;<h:commandButton class="btn-primary"  value="   Se connecter   " action="#{loginMBean.login}" />&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                    <td colspan="2" style="margin-top: 15px; height: 64px" align="center">&nbsp;<h:commandButton class="btn-primary"  value="   Se connecter   " action="#{loginMBean.login}" />&nbsp;&nbsp;&nbsp;&nbsp;</td>
                                 </tr>
                             </table>
                             <br/>

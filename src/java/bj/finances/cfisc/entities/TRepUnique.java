@@ -94,7 +94,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TRepUnique.findByContActif", query = "SELECT t FROM TRepUnique t WHERE t.contActif = :contActif"),
     @NamedQuery(name = "TRepUnique.findByContMatricule", query = "SELECT t FROM TRepUnique t WHERE t.contMatricule = :contMatricule"),
     @NamedQuery(name = "TRepUnique.findByContDateMajMatricule", query = "SELECT t FROM TRepUnique t WHERE t.contDateMajMatricule = :contDateMajMatricule"),
-    @NamedQuery(name = "TRepUnique.findByContStatut", query = "SELECT t FROM TRepUnique t WHERE t.contStatut = :contStatut")})
+    @NamedQuery(name = "TRepUnique.findByContStatut", query = "SELECT t FROM TRepUnique t WHERE t.contStatut = :contStatut"),
+    @NamedQuery(name = "TRepUnique.findByContStatutSydo", query = "SELECT t FROM TRepUnique t WHERE t.contStatutSydo = :contStatutSydo")})
 public class TRepUnique implements Serializable {
 
     @OneToMany(mappedBy = "utilContImmatr")
@@ -269,6 +270,11 @@ public class TRepUnique implements Serializable {
     @Size(max = 10)
     @Column(name = "CONT_STATUT")
     private String contStatut;
+    
+    @Size(max = 1)
+    @Column(name = "CONT_STATUT_SYDO")
+    private String contStatutSydo;
+    
 //    @OneToOne(mappedBy = "entDecContImmatr")
 //    private TEntDeclaration tEntDeclaration;
 //    @OneToOne(mappedBy = "histContImmatr")
@@ -314,6 +320,16 @@ public class TRepUnique implements Serializable {
         this.contCentrCode = contCentrCode;
     }
 
+    public String getContStatutSydo() {
+        return contStatutSydo;
+    }
+
+    public void setContStatutSydo(String contStatutSydo) {
+        this.contStatutSydo = contStatutSydo;
+    }
+
+    
+    
     public String getContNum() {
         return contNum;
     }
