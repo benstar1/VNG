@@ -192,7 +192,7 @@ public class TRepUnique implements Serializable {
     private Short contNbEnf;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 10)
+    @Size(max = 10)
     @Column(name = "CONT_CENTR_CODE")
     private String contCentrCode;
     @Size(max = 8)
