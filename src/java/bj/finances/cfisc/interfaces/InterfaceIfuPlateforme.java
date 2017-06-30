@@ -240,7 +240,7 @@ public class InterfaceIfuPlateforme {
         System.out.println(" Scan du dossier local ACCUSE ........ " + new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(new Date()));            
          
         File depotLocal = new File(cheminDepotLocalAccuse);
-        File dossierEchecs = new File(cheminDossierEchecsAccuse);
+        File dossierEchecs = new File(cheminDossierEchecsAccuse);        
         File[] listeFichier = depotLocal.listFiles();
         List<File> liste = Arrays.asList(listeFichier);
         Collections.sort(liste);
@@ -264,8 +264,7 @@ public class InterfaceIfuPlateforme {
 //                    schema = schemafac.newSchema(new File(cheminFichierXsdSydo));
 //                    XMLReaderJDOMFactory factory = new XMLReaderSchemaFactory(schema);                    
                     SAXBuilder builder = new SAXBuilder();
-                    document = (Document) builder.build(in);                    
-                    
+                    document = (Document) builder.build(in);                                     
                     TraitementDonneesAccuse(document, f, in, f.getName());
                 }
 
@@ -543,23 +542,34 @@ public class InterfaceIfuPlateforme {
  public void TraitementDonneesAccuse(Document document, File fichier, InputStream in, String decl) throws JDOMException, SAXException, IOException {
 
         Element accuse = document.getRootElement();
-        TRepUnique Trepunique = null;
+        TRepUnique Trepunique = null;        
 
         //Long instance_id = Long.parseLong(declaration.getChild("segment_general").getAttribute("INSTANCE_ID").getValue());
         
         Long ifu = Long.parseLong(accuse.getAttribute("ifu").getValue());
-        String statut_operation = accuse.getAttribute("statut_operation").getValue();
+        String operation = accuse.getAttribute("operation").getValue();
         Trepunique = tRepUniqueFacade.find(ifu);
         
  
         if (Trepunique != null) {
             //Tdeclaration = new TDeclarationDou();
             try {
-            Trepunique.setContStatutSydo(statut_operation);
+            System.out.println("--------- OPERATION ACCUSE ---------------" + operation);
+                   
+            Trepunique.setContStatutSydo(operation);
             tRepUniqueFacade.edit(Trepunique);
+            
+            //Deplacement des accuses de recpetion vers le dossier Succes
+            in.close();
+            fichier.renameTo(new File(cheminDossierSuccesAccuse, fichier.getName()));
+            return;
+            
             } catch (Exception e) {
-                e.printStackTrace();
-                };  
+            in.close();
+            fichier.renameTo(new File(cheminDossierEchecsAccuse, fichier.getName()));            
+            System.out.println(e.getMessage());
+            return;
+                }  
             }        
     }
     
@@ -583,12 +593,14 @@ public class InterfaceIfuPlateforme {
         
         if (Tdeclaration == null) {
             Tdeclaration = new TDeclarationDou();
-//            racine.setAttribute("numero_decl", declaration.getChild("segment_general").getAttribute("serie_enreg").getValue() + declaration.getChild("segment_general").getAttribute("num_enreg").getValue());
-//            racine.setAttribute("annee_dec", declaration.getChild("segment_general").getAttribute("annee_dec").getValue());
-//            racine.setAttribute("bureau_dec", declaration.getChild("segment_general").getAttribute("bureau_dec").getValue());
-//            racine.GsetAttribute("num_quittance", declaration.getChild("segment_general").getAttribute("ser_quittance").getValue() + declaration.getChild("segment_general").getAttribute("num_quittance").getValue());
-//            racine.setAttribute("date_quittance", declaration.getChild("segment_general").getAttribute("date_quittance").getValue());            
-//            racine.setAttribute("ifu", declaration.getChild("segment_general").getAttribute("ifu_exportateur").getValue() + declaration.getChild("segment_general").getAttribute("ifu_importateur").getValue());            
+            racine.setAttribute("bureau_dec", declaration.getChild("segment_general").getAttribute("bureau_dec").getValue());
+            racine.setAttribute("numero_decl", declaration.getChild("segment_general").getAttribute("serie_enreg").getValue() + declaration.getChild("segment_general").getAttribute("num_enreg").getValue());
+            racine.setAttribute("num_version", declaration.getChild("segment_general").getAttribute("num_version").getValue());
+            racine.setAttribute("date_enreg", declaration.getChild("segment_general").getAttribute("date_enreg").getValue());
+            racine.setAttribute("annee_dec", declaration.getChild("segment_general").getAttribute("annee_dec").getValue());
+            racine.setAttribute("num_quittance", declaration.getChild("segment_general").getAttribute("ser_quittance").getValue() + declaration.getChild("segment_general").getAttribute("num_quittance").getValue());
+            racine.setAttribute("date_quittance", declaration.getChild("segment_general").getAttribute("date_quittance").getValue());            
+            racine.setAttribute("ifu", declaration.getChild("segment_general").getAttribute("ifu_exportateur").getValue() + declaration.getChild("segment_general").getAttribute("ifu_importateur").getValue());            
 
             if ("A".equals(typeope) || "M".equals(typeope)) { 
                 racine.setAttribute("type_ope","A");
