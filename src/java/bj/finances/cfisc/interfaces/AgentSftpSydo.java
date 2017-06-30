@@ -68,7 +68,14 @@ public class AgentSftpSydo {
     
     final static org.apache.log4j.Logger logger = Logger.getLogger(AgentSftpSydo.class.getName());
 
-   @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/40", persistent = false)
+   @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/50", persistent = false)
+    public void execute_scrutelocalSydo() {
+           logger.info("----Début MAJ Déclaration----");
+            iifu.scrutelocalSydo(); 
+           logger.info("----FIN MAJ Déclaration----");
+    }
+    
+    
     public void telechargerEntreprise() {
         JSch jsch = new JSch();
         Session session = null;
@@ -117,12 +124,19 @@ public class AgentSftpSydo {
             }catch(Exception e){System.out.println("CANAL OU SESSION INEXISTANT");}
         }
         
-        iifu.scrutelocalSydo(); 
+        //iifu.scrutelocalSydo(); 
 
     }
     
     
     @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/59", persistent = false)
+    public void execute_scrutelocalSydoAccuse() {
+           logger.info("----Debut MAJ Statut SYDO----");
+            iifu.scrutelocalSydoAccuse(); 
+           logger.info("----FIN MAJ Statut SYDO----");
+    }
+    
+    
     public void updateSydoStatus() {
         JSch jsch = new JSch();
         Session session = null;
@@ -171,7 +185,7 @@ public class AgentSftpSydo {
             }catch(Exception e){System.out.println("CANAL OU SESSION INEXISTANT");}
         }
         
-        iifu.scrutelocalSydoAccuse(); 
+       // iifu.scrutelocalSydoAccuse(); 
 
     }
     
@@ -223,7 +237,7 @@ public class AgentSftpSydo {
         }finally{
             channel.disconnect();
             session.disconnect();
-            envoiActifVersSydo();
+           // envoiActifVersSydo();
         }
     }
     

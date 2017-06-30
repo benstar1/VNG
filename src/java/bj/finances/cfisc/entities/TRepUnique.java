@@ -325,7 +325,7 @@ public class TRepUnique implements Serializable {
     }
 
     public void setContStatutSydo(String contStatutSydo) {
-        this.contStatutSydo = contStatutSydo;
+        this.contStatutSydo = contStatutSydo.trim();
     }
 
     
