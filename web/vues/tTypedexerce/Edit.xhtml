@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TTypedexerceEditDlg" widgetVar="TTypedexerceEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTTypedexerceTitle}">
+            <h:form id="TTypedexerceEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tTypedexerceController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTTypedexerceLabel_tdeCode}" for="tdeCode" />
+                        <p:inputText id="tdeCode" value="#{tTypedexerceController.selected.tdeCode}" title="#{bundle.EditTTypedexerceTitle_tdeCode}" required="true" requiredMessage="#{bundle.EditTTypedexerceRequiredMessage_tdeCode}"/>
+                        <p:outputLabel value="#{bundle.EditTTypedexerceLabel_tdeDesig}" for="tdeDesig" />
+                        <p:inputText id="tdeDesig" value="#{tTypedexerceController.selected.tdeDesig}" title="#{bundle.EditTTypedexerceTitle_tdeDesig}" />
+                        <p:outputLabel value="#{bundle.EditTTypedexerceLabel_tdeCat}" for="tdeCat" />
+                        <p:inputText id="tdeCat" value="#{tTypedexerceController.selected.tdeCat}" title="#{bundle.EditTTypedexerceTitle_tdeCat}" />
+                        <p:outputLabel value="#{bundle.EditTTypedexerceLabel_tdeCodeParent}" for="tdeCodeParent" />
+                        <p:inputText id="tdeCodeParent" value="#{tTypedexerceController.selected.tdeCodeParent}" title="#{bundle.EditTTypedexerceTitle_tdeCodeParent}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tTypedexerceController.update}" value="#{bundle.Save}" update="display,:TTypedexerceListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TTypedexerceEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TTypedexerceEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

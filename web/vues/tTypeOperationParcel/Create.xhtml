@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TTypeOperationParcelCreateDlg" widgetVar="TTypeOperationParcelCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTTypeOperationParcelTitle}">
+            <h:form id="TTypeOperationParcelCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tTypeOperationParcelController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTTypeOperationParcelLabel_tyovCode}" for="tyovCode" />
+                        <p:inputText id="tyovCode" value="#{tTypeOperationParcelController.selected.tyovCode}" title="#{bundle.CreateTTypeOperationParcelTitle_tyovCode}" required="true" requiredMessage="#{bundle.CreateTTypeOperationParcelRequiredMessage_tyovCode}"/>
+                        <p:outputLabel value="#{bundle.CreateTTypeOperationParcelLabel_tyovLib}" for="tyovLib" />
+                        <p:inputText id="tyovLib" value="#{tTypeOperationParcelController.selected.tyovLib}" title="#{bundle.CreateTTypeOperationParcelTitle_tyovLib}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tTypeOperationParcelController.create}" value="#{bundle.Save}" update="display,:TTypeOperationParcelListForm:datalist,:growl" oncomplete="handleSubmit(args,'TTypeOperationParcelCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TTypeOperationParcelCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

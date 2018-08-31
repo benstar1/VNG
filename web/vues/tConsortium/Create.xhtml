@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TConsortiumCreateDlg" widgetVar="TConsortiumCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTConsortiumTitle}">
+            <h:form id="TConsortiumCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tConsortiumController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTConsortiumLabel_conCode}" for="conCode" />
+                        <p:inputText id="conCode" value="#{tConsortiumController.selected.conCode}" title="#{bundle.CreateTConsortiumTitle_conCode}" required="true" requiredMessage="#{bundle.CreateTConsortiumRequiredMessage_conCode}"/>
+                        <p:outputLabel value="#{bundle.CreateTConsortiumLabel_conNom}" for="conNom" />
+                        <p:inputText id="conNom" value="#{tConsortiumController.selected.conNom}" title="#{bundle.CreateTConsortiumTitle_conNom}" />
+                        <p:outputLabel value="#{bundle.CreateTConsortiumLabel_conAdresse}" for="conAdresse" />
+                        <p:inputText id="conAdresse" value="#{tConsortiumController.selected.conAdresse}" title="#{bundle.CreateTConsortiumTitle_conAdresse}" />
+                        <p:outputLabel value="#{bundle.CreateTConsortiumLabel_conTel}" for="conTel" />
+                        <p:inputText id="conTel" value="#{tConsortiumController.selected.conTel}" title="#{bundle.CreateTConsortiumTitle_conTel}" />
+                        <p:outputLabel value="#{bundle.CreateTConsortiumLabel_conIfu}" for="conIfu" />
+                        <p:inputText id="conIfu" value="#{tConsortiumController.selected.conIfu}" title="#{bundle.CreateTConsortiumTitle_conIfu}" />
+                        <p:outputLabel value="#{bundle.CreateTConsortiumLabel_conDateChargement}" for="conDateChargement" />
+                        <p:calendar id="conDateChargement" pattern="MM/dd/yyyy" value="#{tConsortiumController.selected.conDateChargement}" title="#{bundle.EditTConsortiumTitle_conDateChargement}"  showOn="button"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tConsortiumController.create}" value="#{bundle.Save}" update="display,:TConsortiumListForm:datalist,:growl" oncomplete="handleSubmit(args,'TConsortiumCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TConsortiumCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TIntervenirEditDlg" widgetVar="TIntervenirEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTIntervenirTitle}">
+            <h:form id="TIntervenirEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tIntervenirController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invNumero}" for="invNumero" />
+                        <p:inputText id="invNumero" value="#{tIntervenirController.selected.invNumero}" title="#{bundle.EditTIntervenirTitle_invNumero}" required="true" requiredMessage="#{bundle.EditTIntervenirRequiredMessage_invNumero}"/>
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invNumProp}" for="invNumProp" />
+                        <p:inputText id="invNumProp" value="#{tIntervenirController.selected.invNumProp}" title="#{bundle.EditTIntervenirTitle_invNumProp}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invDateDeb}" for="invDateDeb" />
+                        <p:calendar id="invDateDeb" pattern="MM/dd/yyyy" value="#{tIntervenirController.selected.invDateDeb}" title="#{bundle.EditTIntervenirTitle_invDateDeb}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invDateFin}" for="invDateFin" />
+                        <p:calendar id="invDateFin" pattern="MM/dd/yyyy" value="#{tIntervenirController.selected.invDateFin}" title="#{bundle.EditTIntervenirTitle_invDateFin}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invContreparti}" for="invContreparti" />
+                        <p:inputText id="invContreparti" value="#{tIntervenirController.selected.invContreparti}" title="#{bundle.EditTIntervenirTitle_invContreparti}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invAutremodalite}" for="invAutremodalite" />
+                        <p:inputText id="invAutremodalite" value="#{tIntervenirController.selected.invAutremodalite}" title="#{bundle.EditTIntervenirTitle_invAutremodalite}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invRattachement}" for="invRattachement" />
+                        <p:inputText id="invRattachement" value="#{tIntervenirController.selected.invRattachement}" title="#{bundle.EditTIntervenirTitle_invRattachement}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invAutochtone}" for="invAutochtone" />
+                        <p:selectBooleanCheckbox id="invAutochtone" value="#{tIntervenirController.selected.invAutochtone}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invObservation}" for="invObservation" />
+                        <p:inputText id="invObservation" value="#{tIntervenirController.selected.invObservation}" title="#{bundle.EditTIntervenirTitle_invObservation}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invPrix}" for="invPrix" />
+                        <p:inputText id="invPrix" value="#{tIntervenirController.selected.invPrix}" title="#{bundle.EditTIntervenirTitle_invPrix}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invAutreModPaie}" for="invAutreModPaie" />
+                        <p:inputText id="invAutreModPaie" value="#{tIntervenirController.selected.invAutreModPaie}" title="#{bundle.EditTIntervenirTitle_invAutreModPaie}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invLimitation}" for="invLimitation" />
+                        <p:selectBooleanCheckbox id="invLimitation" value="#{tIntervenirController.selected.invLimitation}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invLimitLeg}" for="invLimitLeg" />
+                        <p:selectBooleanCheckbox id="invLimitLeg" value="#{tIntervenirController.selected.invLimitLeg}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invLimitVent}" for="invLimitVent" />
+                        <p:selectBooleanCheckbox id="invLimitVent" value="#{tIntervenirController.selected.invLimitVent}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invLimitDon}" for="invLimitDon" />
+                        <p:selectBooleanCheckbox id="invLimitDon" value="#{tIntervenirController.selected.invLimitDon}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invLimitPret}" for="invLimitPret" />
+                        <p:selectBooleanCheckbox id="invLimitPret" value="#{tIntervenirController.selected.invLimitPret}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invLimiteAutre}" for="invLimiteAutre" />
+                        <p:inputText id="invLimiteAutre" value="#{tIntervenirController.selected.invLimiteAutre}" title="#{bundle.EditTIntervenirTitle_invLimiteAutre}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invRefPapier}" for="invRefPapier" />
+                        <p:inputText id="invRefPapier" value="#{tIntervenirController.selected.invRefPapier}" title="#{bundle.EditTIntervenirTitle_invRefPapier}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_intvDateEnquete}" for="intvDateEnquete" />
+                        <p:calendar id="intvDateEnquete" pattern="MM/dd/yyyy" value="#{tIntervenirController.selected.intvDateEnquete}" title="#{bundle.EditTIntervenirTitle_intvDateEnquete}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invAnneeArrive}" for="invAnneeArrive" />
+                        <p:inputText id="invAnneeArrive" value="#{tIntervenirController.selected.invAnneeArrive}" title="#{bundle.EditTIntervenirTitle_invAnneeArrive}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invCollectivite}" for="invCollectivite" />
+                        <p:inputText id="invCollectivite" value="#{tIntervenirController.selected.invCollectivite}" title="#{bundle.EditTIntervenirTitle_invCollectivite}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invPv}" for="invPv" />
+                        <p:inputText id="invPv" value="#{tIntervenirController.selected.invPv}" title="#{bundle.EditTIntervenirTitle_invPv}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invNomImg}" for="invNomImg" />
+                        <p:inputText id="invNomImg" value="#{tIntervenirController.selected.invNomImg}" title="#{bundle.EditTIntervenirTitle_invNomImg}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invNomPhoto}" for="invNomPhoto" />
+                        <p:inputText id="invNomPhoto" value="#{tIntervenirController.selected.invNomPhoto}" title="#{bundle.EditTIntervenirTitle_invNomPhoto}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invMacAutre}" for="invMacAutre" />
+                        <p:inputText id="invMacAutre" value="#{tIntervenirController.selected.invMacAutre}" title="#{bundle.EditTIntervenirTitle_invMacAutre}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invCopAutre}" for="invCopAutre" />
+                        <p:inputText id="invCopAutre" value="#{tIntervenirController.selected.invCopAutre}" title="#{bundle.EditTIntervenirTitle_invCopAutre}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invRolAutre}" for="invRolAutre" />
+                        <p:inputText id="invRolAutre" value="#{tIntervenirController.selected.invRolAutre}" title="#{bundle.EditTIntervenirTitle_invRolAutre}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invObservationRegistre}" for="invObservationRegistre" />
+                        <p:inputText id="invObservationRegistre" value="#{tIntervenirController.selected.invObservationRegistre}" title="#{bundle.EditTIntervenirTitle_invObservationRegistre}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invEtatLieu}" for="invEtatLieu" />
+                        <p:inputText id="invEtatLieu" value="#{tIntervenirController.selected.invEtatLieu}" title="#{bundle.EditTIntervenirTitle_invEtatLieu}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invRattachementAutre}" for="invRattachementAutre" />
+                        <p:inputText id="invRattachementAutre" value="#{tIntervenirController.selected.invRattachementAutre}" title="#{bundle.EditTIntervenirTitle_invRattachementAutre}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invFormalise}" for="invFormalise" />
+                        <p:inputText id="invFormalise" value="#{tIntervenirController.selected.invFormalise}" title="#{bundle.EditTIntervenirTitle_invFormalise}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invCodeCommune}" for="invCodeCommune" />
+                        <p:inputText id="invCodeCommune" value="#{tIntervenirController.selected.invCodeCommune}" title="#{bundle.EditTIntervenirTitle_invCodeCommune}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_intLigCode}" for="intLigCode" />
+                        <p:inputText id="intLigCode" value="#{tIntervenirController.selected.intLigCode}" title="#{bundle.EditTIntervenirTitle_intLigCode}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_intImageTemoin}" for="intImageTemoin" />
+                        <p:inputText id="intImageTemoin" value="#{tIntervenirController.selected.intImageTemoin}" title="#{bundle.EditTIntervenirTitle_intImageTemoin}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_intImagePapier1}" for="intImagePapier1" />
+                        <p:inputText id="intImagePapier1" value="#{tIntervenirController.selected.intImagePapier1}" title="#{bundle.EditTIntervenirTitle_intImagePapier1}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_intImagePapier2}" for="intImagePapier2" />
+                        <p:inputText id="intImagePapier2" value="#{tIntervenirController.selected.intImagePapier2}" title="#{bundle.EditTIntervenirTitle_intImagePapier2}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_intImagePapier3}" for="intImagePapier3" />
+                        <p:inputText id="intImagePapier3" value="#{tIntervenirController.selected.intImagePapier3}" title="#{bundle.EditTIntervenirTitle_intImagePapier3}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_intImagePapier4}" for="intImagePapier4" />
+                        <p:inputText id="intImagePapier4" value="#{tIntervenirController.selected.intImagePapier4}" title="#{bundle.EditTIntervenirTitle_intImagePapier4}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invIndetermine}" for="invIndetermine" />
+                        <p:inputText id="invIndetermine" value="#{tIntervenirController.selected.invIndetermine}" title="#{bundle.EditTIntervenirTitle_invIndetermine}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invDuree}" for="invDuree" />
+                        <p:inputText id="invDuree" value="#{tIntervenirController.selected.invDuree}" title="#{bundle.EditTIntervenirTitle_invDuree}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invLimitationOp}" for="invLimitationOp" />
+                        <p:inputText id="invLimitationOp" value="#{tIntervenirController.selected.invLimitationOp}" title="#{bundle.EditTIntervenirTitle_invLimitationOp}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invLimitAliener}" for="invLimitAliener" />
+                        <p:inputText id="invLimitAliener" value="#{tIntervenirController.selected.invLimitAliener}" title="#{bundle.EditTIntervenirTitle_invLimitAliener}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invLimitTransmission}" for="invLimitTransmission" />
+                        <p:inputText id="invLimitTransmission" value="#{tIntervenirController.selected.invLimitTransmission}" title="#{bundle.EditTIntervenirTitle_invLimitTransmission}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invLimitPlanter}" for="invLimitPlanter" />
+                        <p:inputText id="invLimitPlanter" value="#{tIntervenirController.selected.invLimitPlanter}" title="#{bundle.EditTIntervenirTitle_invLimitPlanter}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invLimitRecolterFruit}" for="invLimitRecolterFruit" />
+                        <p:inputText id="invLimitRecolterFruit" value="#{tIntervenirController.selected.invLimitRecolterFruit}" title="#{bundle.EditTIntervenirTitle_invLimitRecolterFruit}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invLimitConstruireCase}" for="invLimitConstruireCase" />
+                        <p:inputText id="invLimitConstruireCase" value="#{tIntervenirController.selected.invLimitConstruireCase}" title="#{bundle.EditTIntervenirTitle_invLimitConstruireCase}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invLimitHabiterTerrain}" for="invLimitHabiterTerrain" />
+                        <p:inputText id="invLimitHabiterTerrain" value="#{tIntervenirController.selected.invLimitHabiterTerrain}" title="#{bundle.EditTIntervenirTitle_invLimitHabiterTerrain}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invLimitAutreOp}" for="invLimitAutreOp" />
+                        <p:inputText id="invLimitAutreOp" value="#{tIntervenirController.selected.invLimitAutreOp}" title="#{bundle.EditTIntervenirTitle_invLimitAutreOp}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invRepresente}" for="invRepresente" />
+                        <p:inputText id="invRepresente" value="#{tIntervenirController.selected.invRepresente}" title="#{bundle.EditTIntervenirTitle_invRepresente}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invDateChargement}" for="invDateChargement" />
+                        <p:calendar id="invDateChargement" pattern="MM/dd/yyyy" value="#{tIntervenirController.selected.invDateChargement}" title="#{bundle.EditTIntervenirTitle_invDateChargement}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invNomAudio}" for="invNomAudio" />
+                        <p:inputText id="invNomAudio" value="#{tIntervenirController.selected.invNomAudio}" title="#{bundle.EditTIntervenirTitle_invNomAudio}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invIntervenantAudio}" for="invIntervenantAudio" />
+                        <p:inputText id="invIntervenantAudio" value="#{tIntervenirController.selected.invIntervenantAudio}" title="#{bundle.EditTIntervenirTitle_invIntervenantAudio}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invNomVideo}" for="invNomVideo" />
+                        <p:inputText id="invNomVideo" value="#{tIntervenirController.selected.invNomVideo}" title="#{bundle.EditTIntervenirTitle_invNomVideo}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invIntervenantVideo}" for="invIntervenantVideo" />
+                        <p:inputText id="invIntervenantVideo" value="#{tIntervenirController.selected.invIntervenantVideo}" title="#{bundle.EditTIntervenirTitle_invIntervenantVideo}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invLimitAutreOpChaine}" for="invLimitAutreOpChaine" />
+                        <p:inputText id="invLimitAutreOpChaine" value="#{tIntervenirController.selected.invLimitAutreOpChaine}" title="#{bundle.EditTIntervenirTitle_invLimitAutreOpChaine}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invType}" for="invType" />
+                        <p:inputText id="invType" value="#{tIntervenirController.selected.invType}" title="#{bundle.EditTIntervenirTitle_invType}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invDeQui}" for="invDeQui" />
+                        <p:inputText id="invDeQui" value="#{tIntervenirController.selected.invDeQui}" title="#{bundle.EditTIntervenirTitle_invDeQui}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invStatut}" for="invStatut" />
+                        <p:inputText id="invStatut" value="#{tIntervenirController.selected.invStatut}" title="#{bundle.EditTIntervenirTitle_invStatut}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invStructure}" for="invStructure" />
+                        <p:inputText id="invStructure" value="#{tIntervenirController.selected.invStructure}" title="#{bundle.EditTIntervenirTitle_invStructure}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invFonction}" for="invFonction" />
+                        <p:inputText id="invFonction" value="#{tIntervenirController.selected.invFonction}" title="#{bundle.EditTIntervenirTitle_invFonction}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invDopRepresenter}" for="invDopRepresenter" />
+                        <p:selectBooleanCheckbox id="invDopRepresenter" value="#{tIntervenirController.selected.invDopRepresenter}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invDopDetenteur}" for="invDopDetenteur" />
+                        <p:inputText id="invDopDetenteur" value="#{tIntervenirController.selected.invDopDetenteur}" title="#{bundle.EditTIntervenirTitle_invDopDetenteur}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invCiPp}" for="invCiPp" />
+                        <p:inputText id="invCiPp" value="#{tIntervenirController.selected.invCiPp}" title="#{bundle.EditTIntervenirTitle_invCiPp}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invDateExpCiPp}" for="invDateExpCiPp" />
+                        <p:calendar id="invDateExpCiPp" pattern="MM/dd/yyyy" value="#{tIntervenirController.selected.invDateExpCiPp}" title="#{bundle.EditTIntervenirTitle_invDateExpCiPp}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invEnqCode}" for="invEnqCode" />
+                        <p:selectOneMenu id="invEnqCode" value="#{tIntervenirController.selected.invEnqCode}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tEnqueteController.itemsAvailableSelectOne}"
+                                           var="invEnqCodeItem"
+                                           itemValue="#{invEnqCodeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invCopCode}" for="invCopCode" />
+                        <p:selectOneMenu id="invCopCode" value="#{tIntervenirController.selected.invCopCode}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tConditionpaieController.itemsAvailableSelectOne}"
+                                           var="invCopCodeItem"
+                                           itemValue="#{invCopCodeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invIntNumero}" for="invIntNumero" />
+                        <p:selectOneMenu id="invIntNumero" value="#{tIntervenirController.selected.invIntNumero}" required="true" requiredMessage="#{bundle.EditTIntervenirRequiredMessage_invIntNumero}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tIntervenantController.itemsAvailableSelectOne}"
+                                           var="invIntNumeroItem"
+                                           itemValue="#{invIntNumeroItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invMacCode}" for="invMacCode" />
+                        <p:selectOneMenu id="invMacCode" value="#{tIntervenirController.selected.invMacCode}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tModeacquisController.itemsAvailableSelectOne}"
+                                           var="invMacCodeItem"
+                                           itemValue="#{invMacCodeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invMutNumero}" for="invMutNumero" />
+                        <p:selectOneMenu id="invMutNumero" value="#{tIntervenirController.selected.invMutNumero}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tMutationController.itemsAvailableSelectOne}"
+                                           var="invMutNumeroItem"
+                                           itemValue="#{invMutNumeroItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invNatPapier}" for="invNatPapier" />
+                        <p:selectOneMenu id="invNatPapier" value="#{tIntervenirController.selected.invNatPapier}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tNaturepapierController.itemsAvailableSelectOne}"
+                                           var="invNatPapierItem"
+                                           itemValue="#{invNatPapierItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invOpvNumero}" for="invOpvNumero" />
+                        <p:selectOneMenu id="invOpvNumero" value="#{tIntervenirController.selected.invOpvNumero}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tOperationParcelController.itemsAvailableSelectOne}"
+                                           var="invOpvNumeroItem"
+                                           itemValue="#{invOpvNumeroItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invOpvNumeroPreneur}" for="invOpvNumeroPreneur" />
+                        <p:selectOneMenu id="invOpvNumeroPreneur" value="#{tIntervenirController.selected.invOpvNumeroPreneur}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tOperationParcelController.itemsAvailableSelectOne}"
+                                           var="invOpvNumeroPreneurItem"
+                                           itemValue="#{invOpvNumeroPreneurItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invUtiCode}" for="invUtiCode" />
+                        <p:selectOneMenu id="invUtiCode" value="#{tIntervenirController.selected.invUtiCode}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tUtilisateurController.itemsAvailableSelectOne}"
+                                           var="invUtiCodeItem"
+                                           itemValue="#{invUtiCodeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invPbaNumeroLim}" for="invPbaNumeroLim" />
+                        <p:selectOneMenu id="invPbaNumeroLim" value="#{tIntervenirController.selected.invPbaNumeroLim}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tParcelleBafonController.itemsAvailableSelectOne}"
+                                           var="invPbaNumeroLimItem"
+                                           itemValue="#{invPbaNumeroLimItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invPbaNumero}" for="invPbaNumero" />
+                        <p:selectOneMenu id="invPbaNumero" value="#{tIntervenirController.selected.invPbaNumero}" required="true" requiredMessage="#{bundle.EditTIntervenirRequiredMessage_invPbaNumero}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tParcelleBafonController.itemsAvailableSelectOne}"
+                                           var="invPbaNumeroItem"
+                                           itemValue="#{invPbaNumeroItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTIntervenirLabel_invRolCode}" for="invRolCode" />
+                        <p:selectOneMenu id="invRolCode" value="#{tIntervenirController.selected.invRolCode}" required="true" requiredMessage="#{bundle.EditTIntervenirRequiredMessage_invRolCode}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tRoleController.itemsAvailableSelectOne}"
+                                           var="invRolCodeItem"
+                                           itemValue="#{invRolCodeItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tIntervenirController.update}" value="#{bundle.Save}" update="display,:TIntervenirListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TIntervenirEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TIntervenirEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

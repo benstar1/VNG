@@ -1,0 +1,43 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <ul class="route-bar-menu">
+        <li>
+            <a href="#">
+                <i class="fa fa-asterisk" />
+                <span>Overview</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="fa fa-paper-plane" />
+                <span>Demos</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="fa fa-file-code-o" />
+                <span>Documentation</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="fa fa-life-saver" />
+                <span>Support</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="fa fa-user" />
+                <span>Profile</span>
+            </a>
+        </li>
+    </ul>
+
+    <p:tooltip globalSelector=".route-bar-menu a" position="bottom" showDelay="0"/>
+
+</ui:composition>

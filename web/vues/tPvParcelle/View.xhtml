@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TPvParcelleViewDlg" widgetVar="TPvParcelleViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTPvParcelleTitle}">
+            <h:form id="TPvParcelleViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tPvParcelleController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTPvParcelleLabel_pvNumero}"/>
+                        <h:outputText value="#{tPvParcelleController.selected.pvNumero}" title="#{bundle.ViewTPvParcelleTitle_pvNumero}"/>
+                        <h:outputText value="#{bundle.ViewTPvParcelleLabel_pvNomImageDet}"/>
+                        <h:outputText value="#{tPvParcelleController.selected.pvNomImageDet}" title="#{bundle.ViewTPvParcelleTitle_pvNomImageDet}"/>
+                        <h:outputText value="#{bundle.ViewTPvParcelleLabel_pvDateDeb}"/>
+                        <h:outputText value="#{tPvParcelleController.selected.pvDateDeb}" title="#{bundle.ViewTPvParcelleTitle_pvDateDeb}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTPvParcelleLabel_pvDateFin}"/>
+                        <h:outputText value="#{tPvParcelleController.selected.pvDateFin}" title="#{bundle.ViewTPvParcelleTitle_pvDateFin}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTPvParcelleLabel_pvPv}"/>
+                        <h:outputText value="#{tPvParcelleController.selected.pvPv}" title="#{bundle.ViewTPvParcelleTitle_pvPv}"/>
+                        <h:outputText value="#{bundle.ViewTPvParcelleLabel_pvNomImageEnq}"/>
+                        <h:outputText value="#{tPvParcelleController.selected.pvNomImageEnq}" title="#{bundle.ViewTPvParcelleTitle_pvNomImageEnq}"/>
+                        <h:outputText value="#{bundle.ViewTPvParcelleLabel_pvNomImageGeo}"/>
+                        <h:outputText value="#{tPvParcelleController.selected.pvNomImageGeo}" title="#{bundle.ViewTPvParcelleTitle_pvNomImageGeo}"/>
+                        <h:outputText value="#{bundle.ViewTPvParcelleLabel_pvPvEntete}"/>
+                        <h:outputText value="#{tPvParcelleController.selected.pvPvEntete}" title="#{bundle.ViewTPvParcelleTitle_pvPvEntete}"/>
+                        <h:outputText value="#{bundle.ViewTPvParcelleLabel_pvEnqCode}"/>
+                        <h:outputText value="#{tPvParcelleController.selected.pvEnqCode}" title="#{bundle.ViewTPvParcelleTitle_pvEnqCode}"/>
+                        <h:outputText value="#{bundle.ViewTPvParcelleLabel_pvDateChargement}"/>
+                        <h:outputText value="#{tPvParcelleController.selected.pvDateChargement}" title="#{bundle.ViewTPvParcelleTitle_pvDateChargement}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTPvParcelleLabel_pvIntNumero}"/>
+                        <h:outputText value="#{tPvParcelleController.selected.pvIntNumero}" title="#{bundle.ViewTPvParcelleTitle_pvIntNumero}"/>
+                        <h:outputText value="#{bundle.ViewTPvParcelleLabel_pvPbaNumero}"/>
+                        <h:outputText value="#{tPvParcelleController.selected.pvPbaNumero}" title="#{bundle.ViewTPvParcelleTitle_pvPbaNumero}"/>
+                        <h:outputText value="#{bundle.ViewTPvParcelleLabel_pvUtiCodeEnq}"/>
+                        <h:outputText value="#{tPvParcelleController.selected.pvUtiCodeEnq}" title="#{bundle.ViewTPvParcelleTitle_pvUtiCodeEnq}"/>
+                        <h:outputText value="#{bundle.ViewTPvParcelleLabel_pvUtiCodeGeo}"/>
+                        <h:outputText value="#{tPvParcelleController.selected.pvUtiCodeGeo}" title="#{bundle.ViewTPvParcelleTitle_pvUtiCodeGeo}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TPvParcelleViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

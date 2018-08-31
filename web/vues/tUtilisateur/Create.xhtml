@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TUtilisateurCreateDlg" widgetVar="TUtilisateurCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTUtilisateurTitle}">
+            <h:form id="TUtilisateurCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tUtilisateurController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTUtilisateurLabel_utiCode}" for="utiCode" />
+                        <p:inputText id="utiCode" value="#{tUtilisateurController.selected.utiCode}" title="#{bundle.CreateTUtilisateurTitle_utiCode}" required="true" requiredMessage="#{bundle.CreateTUtilisateurRequiredMessage_utiCode}"/>
+                        <p:outputLabel value="#{bundle.CreateTUtilisateurLabel_utiNom}" for="utiNom" />
+                        <p:inputText id="utiNom" value="#{tUtilisateurController.selected.utiNom}" title="#{bundle.CreateTUtilisateurTitle_utiNom}" />
+                        <p:outputLabel value="#{bundle.CreateTUtilisateurLabel_utiPrenom}" for="utiPrenom" />
+                        <p:inputText id="utiPrenom" value="#{tUtilisateurController.selected.utiPrenom}" title="#{bundle.CreateTUtilisateurTitle_utiPrenom}" />
+                        <p:outputLabel value="#{bundle.CreateTUtilisateurLabel_utiLogin}" for="utiLogin" />
+                        <p:inputText id="utiLogin" value="#{tUtilisateurController.selected.utiLogin}" title="#{bundle.CreateTUtilisateurTitle_utiLogin}" />
+                        <p:outputLabel value="#{bundle.CreateTUtilisateurLabel_utiPassword}" for="utiPassword" />
+                        <p:inputText id="utiPassword" value="#{tUtilisateurController.selected.utiPassword}" title="#{bundle.CreateTUtilisateurTitle_utiPassword}" />
+                        <p:outputLabel value="#{bundle.CreateTUtilisateurLabel_utiDateNais}" for="utiDateNais" />
+                        <p:calendar id="utiDateNais" pattern="MM/dd/yyyy" value="#{tUtilisateurController.selected.utiDateNais}" title="#{bundle.EditTUtilisateurTitle_utiDateNais}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTUtilisateurLabel_utiMail}" for="utiMail" />
+                        <p:inputText id="utiMail" value="#{tUtilisateurController.selected.utiMail}" title="#{bundle.CreateTUtilisateurTitle_utiMail}" />
+                        <p:outputLabel value="#{bundle.CreateTUtilisateurLabel_utiAdresse}" for="utiAdresse" />
+                        <p:inputText id="utiAdresse" value="#{tUtilisateurController.selected.utiAdresse}" title="#{bundle.CreateTUtilisateurTitle_utiAdresse}" />
+                        <p:outputLabel value="#{bundle.CreateTUtilisateurLabel_utiTelephone}" for="utiTelephone" />
+                        <p:inputText id="utiTelephone" value="#{tUtilisateurController.selected.utiTelephone}" title="#{bundle.CreateTUtilisateurTitle_utiTelephone}" />
+                        <p:outputLabel value="#{bundle.CreateTUtilisateurLabel_utiAdressePhoto}" for="utiAdressePhoto" />
+                        <p:inputText id="utiAdressePhoto" value="#{tUtilisateurController.selected.utiAdressePhoto}" title="#{bundle.CreateTUtilisateurTitle_utiAdressePhoto}" />
+                        <p:outputLabel value="#{bundle.CreateTUtilisateurLabel_utilNomImage}" for="utilNomImage" />
+                        <p:inputText id="utilNomImage" value="#{tUtilisateurController.selected.utilNomImage}" title="#{bundle.CreateTUtilisateurTitle_utilNomImage}" />
+                        <p:outputLabel value="#{bundle.CreateTUtilisateurLabel_utiDateChargement}" for="utiDateChargement" />
+                        <p:calendar id="utiDateChargement" pattern="MM/dd/yyyy" value="#{tUtilisateurController.selected.utiDateChargement}" title="#{bundle.EditTUtilisateurTitle_utiDateChargement}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTUtilisateurLabel_utiTyuCode}" for="utiTyuCode" />
+                        <p:selectOneMenu id="utiTyuCode" value="#{tUtilisateurController.selected.utiTyuCode}" >
+                            <f:selectItems value="#{tTypeutilController.itemsAvailableSelectOne}"
+                                           var="utiTyuCodeItem"
+                                           itemValue="#{utiTyuCodeItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tUtilisateurController.create}" value="#{bundle.Save}" update="display,:TUtilisateurListForm:datalist,:growl" oncomplete="handleSubmit(args,'TUtilisateurCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TUtilisateurCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

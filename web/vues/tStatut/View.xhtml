@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TStatutViewDlg" widgetVar="TStatutViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTStatutTitle}">
+            <h:form id="TStatutViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tStatutController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTStatutLabel_staCode}"/>
+                        <h:outputText value="#{tStatutController.selected.staCode}" title="#{bundle.ViewTStatutTitle_staCode}"/>
+                        <h:outputText value="#{bundle.ViewTStatutLabel_staDesig}"/>
+                        <h:outputText value="#{tStatutController.selected.staDesig}" title="#{bundle.ViewTStatutTitle_staDesig}"/>
+                        <h:outputText value="#{bundle.ViewTStatutLabel_staTydoCode}"/>
+                        <h:outputText value="#{tStatutController.selected.staTydoCode}" title="#{bundle.ViewTStatutTitle_staTydoCode}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TStatutViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

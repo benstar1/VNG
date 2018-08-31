@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TStatutCreateDlg" widgetVar="TStatutCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTStatutTitle}">
+            <h:form id="TStatutCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tStatutController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTStatutLabel_staCode}" for="staCode" />
+                        <p:inputText id="staCode" value="#{tStatutController.selected.staCode}" title="#{bundle.CreateTStatutTitle_staCode}" required="true" requiredMessage="#{bundle.CreateTStatutRequiredMessage_staCode}"/>
+                        <p:outputLabel value="#{bundle.CreateTStatutLabel_staDesig}" for="staDesig" />
+                        <p:inputText id="staDesig" value="#{tStatutController.selected.staDesig}" title="#{bundle.CreateTStatutTitle_staDesig}" />
+                        <p:outputLabel value="#{bundle.CreateTStatutLabel_staTydoCode}" for="staTydoCode" />
+                        <p:inputText id="staTydoCode" value="#{tStatutController.selected.staTydoCode}" title="#{bundle.CreateTStatutTitle_staTydoCode}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tStatutController.create}" value="#{bundle.Save}" update="display,:TStatutListForm:datalist,:growl" oncomplete="handleSubmit(args,'TStatutCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TStatutCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

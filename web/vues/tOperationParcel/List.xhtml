@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTOperationParcelTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="TOperationParcelListForm">
+                <p:panel header="#{bundle.ListTOperationParcelTitle}">
+                    <p:dataTable id="datalist" value="#{tOperationParcelController.items}" var="item"
+                                 selectionMode="single" selection="#{tOperationParcelController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.opvNumero}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvNumero}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvNumero}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvDateOp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvDateOp}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvPrix}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvPrix}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvNumeroPv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvNumeroPv}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvLimitPlanter}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvLimitPlanter}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvLimitRecolterFruit}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvLimitRecolterFruit}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvLimitConstruireCase}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvLimitConstruireCase}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvLimitHabiterTerrain}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvLimitHabiterTerrain}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvLimitAutreOp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvLimitAutreOp}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvLimitationOp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvLimitationOp}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvLimitAliener}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvLimitAliener}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvLimitTransmission}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvLimitTransmission}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvLimitation}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.opvLimitation}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvLimitLeg}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.opvLimitLeg}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvLimitVent}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.opvLimitVent}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvLimitDon}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.opvLimitDon}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvLimitPret}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.opvLimitPret}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvLimiteAutre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvLimiteAutre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvDuree}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvDuree}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvDateDeb}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvDateDeb}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvDateFin}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvDateFin}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvMutObjet}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvMutObjet}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvMutDateMut}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvMutDateMut}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvNatureCulture}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvNatureCulture}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvLieuPartage}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvLieuPartage}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvDesiReference}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvDesiReference}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvDesiDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvDesiDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvNumeroAffirmation}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvNumeroAffirmation}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvNomMaire}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvNomMaire}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvNomInterprete}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvNomInterprete}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvRattachement}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvRattachement}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvContreparti}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvContreparti}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvAutremodalite}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvAutremodalite}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvCopAutre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvCopAutre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvRolAutre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvRolAutre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvMacAutre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvMacAutre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvLigCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvLigCode}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvCiPp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvCiPp}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvDateExpCiPp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvDateExpCiPp}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvMopCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvMopCode}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvCopCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvCopCode}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvDesiCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvDesiCode}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvIntNumeroBailleur}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvIntNumeroBailleur}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvIntNumeroPreneur}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvIntNumeroPreneur}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvMacCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvMacCode}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvPbaNumero}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvPbaNumero}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvPerCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvPerCode}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvRolCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvRolCode}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvTyovCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvTyovCode}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTOperationParcelTitle_opvUtiCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvUtiCode}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tOperationParcelController.prepareCreate}" update=":TOperationParcelCreateForm" oncomplete="PF('TOperationParcelCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TOperationParcelViewForm" oncomplete="PF('TOperationParcelViewDialog').show()" disabled="#{empty tOperationParcelController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TOperationParcelEditForm" oncomplete="PF('TOperationParcelEditDialog').show()" disabled="#{empty tOperationParcelController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{tOperationParcelController.destroy}" update=":growl,datalist" disabled="#{empty tOperationParcelController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

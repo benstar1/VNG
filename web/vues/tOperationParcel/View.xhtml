@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TOperationParcelViewDlg" widgetVar="TOperationParcelViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTOperationParcelTitle}">
+            <h:form id="TOperationParcelViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tOperationParcelController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvNumero}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvNumero}" title="#{bundle.ViewTOperationParcelTitle_opvNumero}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvDateOp}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvDateOp}" title="#{bundle.ViewTOperationParcelTitle_opvDateOp}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvPrix}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvPrix}" title="#{bundle.ViewTOperationParcelTitle_opvPrix}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvNumeroPv}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvNumeroPv}" title="#{bundle.ViewTOperationParcelTitle_opvNumeroPv}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvLimitPlanter}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvLimitPlanter}" title="#{bundle.ViewTOperationParcelTitle_opvLimitPlanter}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvLimitRecolterFruit}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvLimitRecolterFruit}" title="#{bundle.ViewTOperationParcelTitle_opvLimitRecolterFruit}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvLimitConstruireCase}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvLimitConstruireCase}" title="#{bundle.ViewTOperationParcelTitle_opvLimitConstruireCase}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvLimitHabiterTerrain}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvLimitHabiterTerrain}" title="#{bundle.ViewTOperationParcelTitle_opvLimitHabiterTerrain}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvLimitAutreOp}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvLimitAutreOp}" title="#{bundle.ViewTOperationParcelTitle_opvLimitAutreOp}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvLimitationOp}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvLimitationOp}" title="#{bundle.ViewTOperationParcelTitle_opvLimitationOp}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvLimitAliener}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvLimitAliener}" title="#{bundle.ViewTOperationParcelTitle_opvLimitAliener}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvLimitTransmission}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvLimitTransmission}" title="#{bundle.ViewTOperationParcelTitle_opvLimitTransmission}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvLimitation}"/>
+                        <p:selectBooleanCheckbox value="#{tOperationParcelController.selected.opvLimitation}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvLimitLeg}"/>
+                        <p:selectBooleanCheckbox value="#{tOperationParcelController.selected.opvLimitLeg}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvLimitVent}"/>
+                        <p:selectBooleanCheckbox value="#{tOperationParcelController.selected.opvLimitVent}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvLimitDon}"/>
+                        <p:selectBooleanCheckbox value="#{tOperationParcelController.selected.opvLimitDon}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvLimitPret}"/>
+                        <p:selectBooleanCheckbox value="#{tOperationParcelController.selected.opvLimitPret}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvLimiteAutre}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvLimiteAutre}" title="#{bundle.ViewTOperationParcelTitle_opvLimiteAutre}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvDuree}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvDuree}" title="#{bundle.ViewTOperationParcelTitle_opvDuree}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvDateDeb}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvDateDeb}" title="#{bundle.ViewTOperationParcelTitle_opvDateDeb}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvDateFin}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvDateFin}" title="#{bundle.ViewTOperationParcelTitle_opvDateFin}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvMutObjet}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvMutObjet}" title="#{bundle.ViewTOperationParcelTitle_opvMutObjet}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvMutDateMut}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvMutDateMut}" title="#{bundle.ViewTOperationParcelTitle_opvMutDateMut}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvNatureCulture}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvNatureCulture}" title="#{bundle.ViewTOperationParcelTitle_opvNatureCulture}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvLieuPartage}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvLieuPartage}" title="#{bundle.ViewTOperationParcelTitle_opvLieuPartage}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvDesiReference}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvDesiReference}" title="#{bundle.ViewTOperationParcelTitle_opvDesiReference}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvDesiDate}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvDesiDate}" title="#{bundle.ViewTOperationParcelTitle_opvDesiDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvNumeroAffirmation}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvNumeroAffirmation}" title="#{bundle.ViewTOperationParcelTitle_opvNumeroAffirmation}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvNomMaire}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvNomMaire}" title="#{bundle.ViewTOperationParcelTitle_opvNomMaire}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvNomInterprete}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvNomInterprete}" title="#{bundle.ViewTOperationParcelTitle_opvNomInterprete}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvRattachement}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvRattachement}" title="#{bundle.ViewTOperationParcelTitle_opvRattachement}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvContreparti}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvContreparti}" title="#{bundle.ViewTOperationParcelTitle_opvContreparti}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvAutremodalite}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvAutremodalite}" title="#{bundle.ViewTOperationParcelTitle_opvAutremodalite}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvCopAutre}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvCopAutre}" title="#{bundle.ViewTOperationParcelTitle_opvCopAutre}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvRolAutre}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvRolAutre}" title="#{bundle.ViewTOperationParcelTitle_opvRolAutre}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvMacAutre}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvMacAutre}" title="#{bundle.ViewTOperationParcelTitle_opvMacAutre}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvLigCode}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvLigCode}" title="#{bundle.ViewTOperationParcelTitle_opvLigCode}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvCiPp}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvCiPp}" title="#{bundle.ViewTOperationParcelTitle_opvCiPp}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvDateExpCiPp}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvDateExpCiPp}" title="#{bundle.ViewTOperationParcelTitle_opvDateExpCiPp}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvMopCode}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvMopCode}" title="#{bundle.ViewTOperationParcelTitle_opvMopCode}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvCopCode}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvCopCode}" title="#{bundle.ViewTOperationParcelTitle_opvCopCode}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvDesiCode}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvDesiCode}" title="#{bundle.ViewTOperationParcelTitle_opvDesiCode}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvIntNumeroBailleur}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvIntNumeroBailleur}" title="#{bundle.ViewTOperationParcelTitle_opvIntNumeroBailleur}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvIntNumeroPreneur}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvIntNumeroPreneur}" title="#{bundle.ViewTOperationParcelTitle_opvIntNumeroPreneur}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvMacCode}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvMacCode}" title="#{bundle.ViewTOperationParcelTitle_opvMacCode}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvPbaNumero}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvPbaNumero}" title="#{bundle.ViewTOperationParcelTitle_opvPbaNumero}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvPerCode}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvPerCode}" title="#{bundle.ViewTOperationParcelTitle_opvPerCode}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvRolCode}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvRolCode}" title="#{bundle.ViewTOperationParcelTitle_opvRolCode}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvTyovCode}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvTyovCode}" title="#{bundle.ViewTOperationParcelTitle_opvTyovCode}"/>
+                        <h:outputText value="#{bundle.ViewTOperationParcelLabel_opvUtiCode}"/>
+                        <h:outputText value="#{tOperationParcelController.selected.opvUtiCode}" title="#{bundle.ViewTOperationParcelTitle_opvUtiCode}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TOperationParcelViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

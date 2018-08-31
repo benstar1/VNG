@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TConflitViewDlg" widgetVar="TConflitViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTConflitTitle}">
+            <h:form id="TConflitViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tConflitController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTConflitLabel_confNum}"/>
+                        <h:outputText value="#{tConflitController.selected.confNum}" title="#{bundle.ViewTConflitTitle_confNum}"/>
+                        <h:outputText value="#{bundle.ViewTConflitLabel_confNatCompromi}"/>
+                        <h:outputText value="#{tConflitController.selected.confNatCompromi}" title="#{bundle.ViewTConflitTitle_confNatCompromi}"/>
+                        <h:outputText value="#{bundle.ViewTConflitLabel_confModeRegle}"/>
+                        <h:outputText value="#{tConflitController.selected.confModeRegle}" title="#{bundle.ViewTConflitTitle_confModeRegle}"/>
+                        <h:outputText value="#{bundle.ViewTConflitLabel_confDateRegl}"/>
+                        <h:outputText value="#{tConflitController.selected.confDateRegl}" title="#{bundle.ViewTConflitTitle_confDateRegl}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTConflitLabel_confDate}"/>
+                        <h:outputText value="#{tConflitController.selected.confDate}" title="#{bundle.ViewTConflitTitle_confDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTConflitLabel_confActeurRegl}"/>
+                        <h:outputText value="#{tConflitController.selected.confActeurRegl}" title="#{bundle.ViewTConflitTitle_confActeurRegl}"/>
+                        <h:outputText value="#{bundle.ViewTConflitLabel_confTemoinRegl}"/>
+                        <h:outputText value="#{tConflitController.selected.confTemoinRegl}" title="#{bundle.ViewTConflitTitle_confTemoinRegl}"/>
+                        <h:outputText value="#{bundle.ViewTConflitLabel_divTyreAutre}"/>
+                        <h:outputText value="#{tConflitController.selected.divTyreAutre}" title="#{bundle.ViewTConflitTitle_divTyreAutre}"/>
+                        <h:outputText value="#{bundle.ViewTConflitLabel_divOriginDroitAutre}"/>
+                        <h:outputText value="#{tConflitController.selected.divOriginDroitAutre}" title="#{bundle.ViewTConflitTitle_divOriginDroitAutre}"/>
+                        <h:outputText value="#{bundle.ViewTConflitLabel_divNatureContestAutre}"/>
+                        <h:outputText value="#{tConflitController.selected.divNatureContestAutre}" title="#{bundle.ViewTConflitTitle_divNatureContestAutre}"/>
+                        <h:outputText value="#{bundle.ViewTConflitLabel_confEncoursRegl}"/>
+                        <h:outputText value="#{tConflitController.selected.confEncoursRegl}" title="#{bundle.ViewTConflitTitle_confEncoursRegl}"/>
+                        <h:outputText value="#{bundle.ViewTConflitLabel_confObservation}"/>
+                        <h:outputText value="#{tConflitController.selected.confObservation}" title="#{bundle.ViewTConflitTitle_confObservation}"/>
+                        <h:outputText value="#{bundle.ViewTConflitLabel_confDateChargement}"/>
+                        <h:outputText value="#{tConflitController.selected.confDateChargement}" title="#{bundle.ViewTConflitTitle_confDateChargement}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTConflitLabel_confPbaNumero}"/>
+                        <h:outputText value="#{tConflitController.selected.confPbaNumero}" title="#{bundle.ViewTConflitTitle_confPbaNumero}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TConflitViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

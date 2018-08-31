@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TEnqueterViewDlg" widgetVar="TEnqueterViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTEnqueterTitle}">
+            <h:form id="TEnqueterViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tEnqueterController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTEnqueterLabel_TEnqueterPK_eqDateDebut}"/>
+                        <h:outputText value="#{tEnqueterController.selected.TEnqueterPK.eqDateDebut}" title="#{bundle.ViewTEnqueterTitle_TEnqueterPK_eqDateDebut}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTEnqueterLabel_eqDateFin}"/>
+                        <h:outputText value="#{tEnqueterController.selected.eqDateFin}" title="#{bundle.ViewTEnqueterTitle_eqDateFin}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTEnqueterLabel_eqConCode}"/>
+                        <h:outputText value="#{tEnqueterController.selected.eqConCode}" title="#{bundle.ViewTEnqueterTitle_eqConCode}"/>
+                        <h:outputText value="#{bundle.ViewTEnqueterLabel_eqDateChargement}"/>
+                        <h:outputText value="#{tEnqueterController.selected.eqDateChargement}" title="#{bundle.ViewTEnqueterTitle_eqDateChargement}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTEnqueterLabel_TEnquete}"/>
+                        <h:outputText value="#{tEnqueterController.selected.TEnquete}" title="#{bundle.ViewTEnqueterTitle_TEnquete}"/>
+                        <h:outputText value="#{bundle.ViewTEnqueterLabel_TUtilisateur}"/>
+                        <h:outputText value="#{tEnqueterController.selected.TUtilisateur}" title="#{bundle.ViewTEnqueterTitle_TUtilisateur}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TEnqueterViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

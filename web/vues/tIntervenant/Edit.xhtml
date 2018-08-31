@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TIntervenantEditDlg" widgetVar="TIntervenantEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTIntervenantTitle}">
+            <h:form id="TIntervenantEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tIntervenantController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intNumero}" for="intNumero" />
+                        <p:inputText id="intNumero" value="#{tIntervenantController.selected.intNumero}" title="#{bundle.EditTIntervenantTitle_intNumero}" required="true" requiredMessage="#{bundle.EditTIntervenantRequiredMessage_intNumero}"/>
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intNom}" for="intNom" />
+                        <p:inputText id="intNom" value="#{tIntervenantController.selected.intNom}" title="#{bundle.EditTIntervenantTitle_intNom}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intPrenom}" for="intPrenom" />
+                        <p:inputText id="intPrenom" value="#{tIntervenantController.selected.intPrenom}" title="#{bundle.EditTIntervenantTitle_intPrenom}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intCollectivite}" for="intCollectivite" />
+                        <p:inputText id="intCollectivite" value="#{tIntervenantController.selected.intCollectivite}" title="#{bundle.EditTIntervenantTitle_intCollectivite}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intLepi}" for="intLepi" />
+                        <p:inputText id="intLepi" value="#{tIntervenantController.selected.intLepi}" title="#{bundle.EditTIntervenantTitle_intLepi}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intCiPp}" for="intCiPp" />
+                        <p:inputText id="intCiPp" value="#{tIntervenantController.selected.intCiPp}" title="#{bundle.EditTIntervenantTitle_intCiPp}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intDateExpCi}" for="intDateExpCi" />
+                        <p:calendar id="intDateExpCi" pattern="MM/dd/yyyy" value="#{tIntervenantController.selected.intDateExpCi}" title="#{bundle.EditTIntervenantTitle_intDateExpCi}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intIfu}" for="intIfu" />
+                        <p:inputText id="intIfu" value="#{tIntervenantController.selected.intIfu}" title="#{bundle.EditTIntervenantTitle_intIfu}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intDomicile}" for="intDomicile" />
+                        <p:inputText id="intDomicile" value="#{tIntervenantController.selected.intDomicile}" title="#{bundle.EditTIntervenantTitle_intDomicile}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intNomInsti}" for="intNomInsti" />
+                        <p:inputText id="intNomInsti" value="#{tIntervenantController.selected.intNomInsti}" title="#{bundle.EditTIntervenantTitle_intNomInsti}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intCheflieu}" for="intCheflieu" />
+                        <p:inputText id="intCheflieu" value="#{tIntervenantController.selected.intCheflieu}" title="#{bundle.EditTIntervenantTitle_intCheflieu}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intSexe}" for="intSexe" />
+                        <p:inputText id="intSexe" value="#{tIntervenantController.selected.intSexe}" title="#{bundle.EditTIntervenantTitle_intSexe}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intPreuveAdm}" for="intPreuveAdm" />
+                        <p:inputText id="intPreuveAdm" value="#{tIntervenantController.selected.intPreuveAdm}" title="#{bundle.EditTIntervenantTitle_intPreuveAdm}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intOrigine}" for="intOrigine" />
+                        <p:inputText id="intOrigine" value="#{tIntervenantController.selected.intOrigine}" title="#{bundle.EditTIntervenantTitle_intOrigine}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intAnneArriv}" for="intAnneArriv" />
+                        <p:inputText id="intAnneArriv" value="#{tIntervenantController.selected.intAnneArriv}" title="#{bundle.EditTIntervenantTitle_intAnneArriv}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intProfession}" for="intProfession" />
+                        <p:inputText id="intProfession" value="#{tIntervenantController.selected.intProfession}" title="#{bundle.EditTIntervenantTitle_intProfession}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intNomPhoto}" for="intNomPhoto" />
+                        <p:inputText id="intNomPhoto" value="#{tIntervenantController.selected.intNomPhoto}" title="#{bundle.EditTIntervenantTitle_intNomPhoto}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intNumeroAssigne}" for="intNumeroAssigne" />
+                        <p:inputText id="intNumeroAssigne" value="#{tIntervenantController.selected.intNumeroAssigne}" title="#{bundle.EditTIntervenantTitle_intNumeroAssigne}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intNomEmprunt}" for="intNomEmprunt" />
+                        <p:inputText id="intNomEmprunt" value="#{tIntervenantController.selected.intNomEmprunt}" title="#{bundle.EditTIntervenantTitle_intNomEmprunt}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intTelephone}" for="intTelephone" />
+                        <p:inputText id="intTelephone" value="#{tIntervenantController.selected.intTelephone}" title="#{bundle.EditTIntervenantTitle_intTelephone}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intActAutre}" for="intActAutre" />
+                        <p:inputText id="intActAutre" value="#{tIntervenantController.selected.intActAutre}" title="#{bundle.EditTIntervenantTitle_intActAutre}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intEthAutre}" for="intEthAutre" />
+                        <p:inputText id="intEthAutre" value="#{tIntervenantController.selected.intEthAutre}" title="#{bundle.EditTIntervenantTitle_intEthAutre}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intNationalite}" for="intNationalite" />
+                        <p:inputText id="intNationalite" value="#{tIntervenantController.selected.intNationalite}" title="#{bundle.EditTIntervenantTitle_intNationalite}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intNationaliteAutre}" for="intNationaliteAutre" />
+                        <p:inputText id="intNationaliteAutre" value="#{tIntervenantController.selected.intNationaliteAutre}" title="#{bundle.EditTIntervenantTitle_intNationaliteAutre}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intNumeroRavip}" for="intNumeroRavip" />
+                        <p:inputText id="intNumeroRavip" value="#{tIntervenantController.selected.intNumeroRavip}" title="#{bundle.EditTIntervenantTitle_intNumeroRavip}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intStatutSocial}" for="intStatutSocial" />
+                        <p:inputText id="intStatutSocial" value="#{tIntervenantController.selected.intStatutSocial}" title="#{bundle.EditTIntervenantTitle_intStatutSocial}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intStructure}" for="intStructure" />
+                        <p:inputText id="intStructure" value="#{tIntervenantController.selected.intStructure}" title="#{bundle.EditTIntervenantTitle_intStructure}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intFonction}" for="intFonction" />
+                        <p:inputText id="intFonction" value="#{tIntervenantController.selected.intFonction}" title="#{bundle.EditTIntervenantTitle_intFonction}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intLigCode}" for="intLigCode" />
+                        <p:inputText id="intLigCode" value="#{tIntervenantController.selected.intLigCode}" title="#{bundle.EditTIntervenantTitle_intLigCode}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intPhotoIdentit}" for="intPhotoIdentit" />
+                        <p:inputText id="intPhotoIdentit" value="#{tIntervenantController.selected.intPhotoIdentit}" title="#{bundle.EditTIntervenantTitle_intPhotoIdentit}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intPhotoComplet}" for="intPhotoComplet" />
+                        <p:inputText id="intPhotoComplet" value="#{tIntervenantController.selected.intPhotoComplet}" title="#{bundle.EditTIntervenantTitle_intPhotoComplet}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intImage3}" for="intImage3" />
+                        <p:inputText id="intImage3" value="#{tIntervenantController.selected.intImage3}" title="#{bundle.EditTIntervenantTitle_intImage3}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intImage4}" for="intImage4" />
+                        <p:inputText id="intImage4" value="#{tIntervenantController.selected.intImage4}" title="#{bundle.EditTIntervenantTitle_intImage4}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intLigAutre}" for="intLigAutre" />
+                        <p:inputText id="intLigAutre" value="#{tIntervenantController.selected.intLigAutre}" title="#{bundle.EditTIntervenantTitle_intLigAutre}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intDateNais}" for="intDateNais" />
+                        <p:inputText id="intDateNais" value="#{tIntervenantController.selected.intDateNais}" title="#{bundle.EditTIntervenantTitle_intDateNais}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intDateChargement}" for="intDateChargement" />
+                        <p:calendar id="intDateChargement" pattern="MM/dd/yyyy" value="#{tIntervenantController.selected.intDateChargement}" title="#{bundle.EditTIntervenantTitle_intDateChargement}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intDateNaissCalcul}" for="intDateNaissCalcul" />
+                        <p:calendar id="intDateNaissCalcul" pattern="MM/dd/yyyy" value="#{tIntervenantController.selected.intDateNaissCalcul}" title="#{bundle.EditTIntervenantTitle_intDateNaissCalcul}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intLieuNaiss}" for="intLieuNaiss" />
+                        <p:inputText id="intLieuNaiss" value="#{tIntervenantController.selected.intLieuNaiss}" title="#{bundle.EditTIntervenantTitle_intLieuNaiss}" />
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intActCode}" for="intActCode" />
+                        <p:selectOneMenu id="intActCode" value="#{tIntervenantController.selected.intActCode}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tActiviteController.itemsAvailableSelectOne}"
+                                           var="intActCodeItem"
+                                           itemValue="#{intActCodeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intEthCode}" for="intEthCode" />
+                        <p:selectOneMenu id="intEthCode" value="#{tIntervenantController.selected.intEthCode}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tEthnieController.itemsAvailableSelectOne}"
+                                           var="intEthCodeItem"
+                                           itemValue="#{intEthCodeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTIntervenantLabel_intVilaCode}" for="intVilaCode" />
+                        <p:selectOneMenu id="intVilaCode" value="#{tIntervenantController.selected.intVilaCode}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tVillageController.itemsAvailableSelectOne}"
+                                           var="intVilaCodeItem"
+                                           itemValue="#{intVilaCodeItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tIntervenantController.update}" value="#{bundle.Save}" update="display,:TIntervenantListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TIntervenantEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TIntervenantEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

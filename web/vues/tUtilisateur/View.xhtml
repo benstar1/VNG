@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TUtilisateurViewDlg" widgetVar="TUtilisateurViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTUtilisateurTitle}">
+            <h:form id="TUtilisateurViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tUtilisateurController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTUtilisateurLabel_utiCode}"/>
+                        <h:outputText value="#{tUtilisateurController.selected.utiCode}" title="#{bundle.ViewTUtilisateurTitle_utiCode}"/>
+                        <h:outputText value="#{bundle.ViewTUtilisateurLabel_utiNom}"/>
+                        <h:outputText value="#{tUtilisateurController.selected.utiNom}" title="#{bundle.ViewTUtilisateurTitle_utiNom}"/>
+                        <h:outputText value="#{bundle.ViewTUtilisateurLabel_utiPrenom}"/>
+                        <h:outputText value="#{tUtilisateurController.selected.utiPrenom}" title="#{bundle.ViewTUtilisateurTitle_utiPrenom}"/>
+                        <h:outputText value="#{bundle.ViewTUtilisateurLabel_utiLogin}"/>
+                        <h:outputText value="#{tUtilisateurController.selected.utiLogin}" title="#{bundle.ViewTUtilisateurTitle_utiLogin}"/>
+                        <h:outputText value="#{bundle.ViewTUtilisateurLabel_utiPassword}"/>
+                        <h:outputText value="#{tUtilisateurController.selected.utiPassword}" title="#{bundle.ViewTUtilisateurTitle_utiPassword}"/>
+                        <h:outputText value="#{bundle.ViewTUtilisateurLabel_utiDateNais}"/>
+                        <h:outputText value="#{tUtilisateurController.selected.utiDateNais}" title="#{bundle.ViewTUtilisateurTitle_utiDateNais}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTUtilisateurLabel_utiMail}"/>
+                        <h:outputText value="#{tUtilisateurController.selected.utiMail}" title="#{bundle.ViewTUtilisateurTitle_utiMail}"/>
+                        <h:outputText value="#{bundle.ViewTUtilisateurLabel_utiAdresse}"/>
+                        <h:outputText value="#{tUtilisateurController.selected.utiAdresse}" title="#{bundle.ViewTUtilisateurTitle_utiAdresse}"/>
+                        <h:outputText value="#{bundle.ViewTUtilisateurLabel_utiTelephone}"/>
+                        <h:outputText value="#{tUtilisateurController.selected.utiTelephone}" title="#{bundle.ViewTUtilisateurTitle_utiTelephone}"/>
+                        <h:outputText value="#{bundle.ViewTUtilisateurLabel_utiAdressePhoto}"/>
+                        <h:outputText value="#{tUtilisateurController.selected.utiAdressePhoto}" title="#{bundle.ViewTUtilisateurTitle_utiAdressePhoto}"/>
+                        <h:outputText value="#{bundle.ViewTUtilisateurLabel_utilNomImage}"/>
+                        <h:outputText value="#{tUtilisateurController.selected.utilNomImage}" title="#{bundle.ViewTUtilisateurTitle_utilNomImage}"/>
+                        <h:outputText value="#{bundle.ViewTUtilisateurLabel_utiDateChargement}"/>
+                        <h:outputText value="#{tUtilisateurController.selected.utiDateChargement}" title="#{bundle.ViewTUtilisateurTitle_utiDateChargement}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTUtilisateurLabel_utiTyuCode}"/>
+                        <h:outputText value="#{tUtilisateurController.selected.utiTyuCode}" title="#{bundle.ViewTUtilisateurTitle_utiTyuCode}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TUtilisateurViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

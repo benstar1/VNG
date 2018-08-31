@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <title>PrimeFaces harmony</title>
+        <script type="text/javascript">
+            hideMenu = function() {
+                var menu = $('#landing-menu');
+                menu.removeClass('landing-menu-active');
+                $(document.body).removeClass('landing-masked').children('.landing-wrapper').children('.layout-mask').remove();
+            }
+
+            showMenu = function() {
+                var menu = $('#landing-menu');
+                menu.addClass('landing-menu-active');
+                $(document.body).addClass('landing-masked').children('.landing-wrapper').append('<div class="layout-mask"></div>');
+            }
+
+            $(function() {
+                $('#menu-btn').on('click', function(e) {
+                    var menu = $('#landing-menu');
+                    if(menu.hasClass('landing-menu-active')) {
+                        hideMenu();
+                    }
+                    else {
+                        showMenu();
+                    }
+
+                    e.preventDefault();
+                });
+
+                $('#landing-menu').find('a').on('click', function(e) {
+                    hideMenu();
+                    e.preventDefault();
+                });
+            });
+        </script>
+    </h:head>
+
+    <h:body styleClass="landing-body">
+        <div class="landing-wrapper">
+            <div id="header">
+                <div class="header-top">
+                    <div class="ui-g">
+                        <div class="ui-g-9 ui-md-9 ui-lg-4 logo-container">
+                            <a href="#" class="logo">
+                                <p:graphicImage name="images/harmony-logo.png" library="harmony-layout"/>
+                                <span class="app-name">HARMONY</span> 
+                            </a>
+                        </div>
+                        <a id="menu-btn" href="#" class="ui-g-3 ui-md-3 menu-button-mobile">
+                            <i class="fa fa-ellipsis-v"></i>
+                        </a>
+                        <div class="ui-g-12 ui-md-12 ui-lg-8">
+                            <ul id="landing-menu">
+                                <li>
+                                    <a href="#home">Home</a>
+                                    <i class="fa fa-arrow-right"></i>
+                                </li>
+                                <li>
+                                    <a href="#features">Features</a>
+                                    <i class="fa fa-arrow-right"></i>
+                                </li>
+                                <li>
+                                    <a href="#news">News</a>
+                                    <i class="fa fa-arrow-right"></i>
+                                </li>
+                                <li>
+                                    <a href="#pricing">Pricing</a>
+                                    <i class="fa fa-arrow-right"></i>
+                                </li>
+                                <li>
+                                    <a href="#multimedia">Multimedia</a>
+                                    <i class="fa fa-arrow-right"></i>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="header-content animation-element slide-bottom">
+                    <h1>PrimeFaces Presents Harmony</h1>
+                    <h2 style="line-height: 1.5">Modern and elegant responsive application template with a premium look 
+                    for PrimeFaces components.</h2>
+                    <div>
+                        <p:button outcome="dashboard" value="Learn More" styleClass="yellow-btn raised-btn"/>
+                    </div>
+                </div>
+            </div>
+                        
+            <div id="features">
+                <div>
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-12 ui-lg-4">
+                            <div class="features-content">
+                                <p:graphicImage name="images/landing/icon-responsive.svg" library="harmony-layout" />
+                                <h3>RESPONSIVE LAYOUT</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-4">
+                            <div class="features-content">
+                                <p:graphicImage name="images/landing/icon-moderndesign.svg" library="harmony-layout" />
+                                <h3>MODERN DESIGN</h3>
+                                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-4">
+                            <div class="features-content">
+                                <p:graphicImage name="images/landing/icon-cleancode.svg" library="harmony-layout" />
+                                <h3>CLEAN CODE</h3>
+                                <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="news">
+                <div>
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-12 news-content">
+                            <h2>PrimeFaces Premium Template</h2>
+                            <p>
+                                Take advantage of media's most prominent business trend, and empowers your internal advertising teams.
+                            </p>
+                            <p:button id="promotionButton" value="Learn More" styleClass="green-btn"></p:button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="pricing">
+                <div>
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-12 ui-lg-4">
+                            <div class="price-type">
+                                <div class="price-header">
+                                    <h3>BEGINNER</h3>
+                                    <span class="price-for">$5 per month</span>
+                                </div>
+                                <div class="pricing-bottom">
+                                    <div>
+                                        <ul>
+                                            <li><i class="fa fa-check"></i>Responsive</li>
+                                            <li><i class="fa fa-check"></i>Push Messages</li>
+                                        </ul>
+                                    </div>
+                                    <p:button outcome="/dashboard" value="Buy Now" styleClass="green-btn raised-btn" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-4">
+                            <div class="price-type">
+                                <div class="price-header">
+                                    <h3>PROFESSIONAL</h3>
+                                    <span class="price-for">$10 per month</span>
+                                </div>
+                                <div class="pricing-bottom">
+                                    <div>
+                                        <ul>
+                                            <li><i class="fa fa-check"></i>Responsive</li>
+                                            <li><i class="fa fa-check"></i>Push Messages</li>
+                                            <li><i class="fa fa-check"></i>10 Support Tickets</li>
+                                            <li><i class="fa fa-check"></i>Free Shipping</li>
+                                        </ul>
+                                    </div>
+                                    <p:button outcome="/dashboard" value="Buy Now" styleClass="green-btn raised-btn" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-4">
+                            <div class="price-type">
+                                <div class="price-header">
+                                    <h3>ENTERPRISE</h3>
+                                    <span class="price-for">Get a quote</span>
+                                </div>
+                                <div class="pricing-bottom">
+                                    <div>
+                                        <ul>
+                                            <li><i class="fa fa-check"></i>Responsive</li>
+                                            <li><i class="fa fa-check"></i>Push Messages</li>
+                                            <li><i class="fa fa-check"></i>10 Support Tickets</li>
+                                            <li><i class="fa fa-check"></i>Free Shipping</li>
+                                            <li><i class="fa fa-check"></i>Unlimited Space</li>
+                                        </ul>
+                                    </div>
+                                
+                                    <p:button outcome="/dashboard" value="Get a Quote" styleClass="green-btn raised-btn" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="multimedia">
+               <div>
+                    <div class="ui-g-12 ui-md-12 video-header">
+                        <h2>Multimedia</h2>
+                        <span>Duis nec lobortis massa, sed facilisis lorem. In hac habitasse platea dictumst. </span>
+                    </div>
+                   <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/B_lYGUtCd0g" frameborder="0" width="560"></iframe>
+                   </div>
+               </div>
+           </div>
+            
+           <div id="footer">
+               <div class="ui-g">
+                   <div class="ui-g-12 ui-md-12 ui-lg-4 footer">
+                        <div class="logo">
+                            <p:graphicImage name="images/harmony-logo.png" library="harmony-layout"/>
+                            <span class="app-name">HARMONY</span>        
+                        </div>
+                        <span class="ui-g-12">Premium PrimeFaces Application Template</span>
+                   </div>
+                   <div class="ui-g-12 ui-md-12 ui-lg-8" style="text-align:center">
+                       <div id="landing-menu">
+                           <div class="ui-g-12 ui-md-6 ui-lg-3 landing-box">
+                               <span>OVERVIEW</span>
+                             
+                                   <a href="#primefaces">Why PrimeFaces</a>
+                             
+                                   <a href="#prime">Who Uses PrimeFaces</a>
+                             
+                                   <a href="#testimonials">Testimonials</a>
+                             
+                                    <a href="#licence">License</a>
+                               
+                           </div>
+                           <div class="ui-g-12 ui-md-6 ui-lg-3 landing-box">
+                                <span>DEMOS</span>
+                               
+                                   <a href="#faces">PrimeFaces</a>
+                             
+                                   <a href="#ng">PrimeNG</a>
+                              
+                                    <a href="#react">PrimeReact</a>
+                               
+                                    <a href="#ui">PrimeUI</a>
+
+                           </div>
+                           <div class="ui-g-12 ui-md-6 ui-lg-3 landing-box">
+                               <span>SUPPORT</span>
+                                
+                                    <a href="#options">Support Options</a>
+                                
+                                    <a href="#pro">PrimeFaces PRO</a>
+                              
+                                    <a href="#elite">PrimeFaces Elite</a>
+                             
+                                    <a href="#forum">Forum</a>
+                             
+                            </div>
+                            <div class="ui-g-12 ui-md-6 ui-lg-3 landing-box">
+                                <span>SOCIAL</span>
+                                <a href="#twitter" class="icon-link"><i class="fa fa-twitter icon"></i></a>
+                                <a href="#facebook" class="icon-link"><i class="fa fa-facebook icon"></i></a>
+                                <a href="#github" class="icon-link"><i class="fa fa-github icon"></i></a>
+                            </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+        </div>
+        
+        <h:outputStylesheet name="css/layout-#{guestPreferences.layout}.css" library="harmony-layout" />
+        
+        <script>
+        //<![CDATA[
+            var $this = this;
+            
+            $(document).ready(function(){
+                $('html').animate({scrollTop:0}, 1);
+                $('body').animate({scrollTop:0}, 1);
+            });
+            
+            /* Scroll Animate */
+            $('a[href*="#"]:not([href="#"])').click(function() {
+                var target = $(this.hash);
+                if (target.length) {
+                    $('html, body').animate({
+                        scrollTop: target.offset().top
+                    }, 500);
+                    return false;
+                }   
+            });
+            
+            //window and animation items
+          var animation_elements = $.find('.animation-element');
+          var web_window = $(window);
+
+          //check to see if any animation containers are currently in view
+          function check_if_in_view() {
+                //get current window information
+                var window_height = web_window.height();
+                var window_top_position = web_window.scrollTop();
+                var window_bottom_position = (window_top_position + window_height);
+
+                //iterate through elements to see if its in view
+                $.each(animation_elements, function() {
+                      //get the element sinformation
+                      var element = $(this);
+                      var element_height = $(element).outerHeight();
+                      var element_top_position = $(element).offset().top;
+                      var element_bottom_position = (element_top_position + element_height);
+                      
+                      //check to see if this current container is visible (its viewable if it exists between the viewable space of the viewport)
+                    
+                      if ((element_top_position <= window_bottom_position)) {
+                        element.addClass('in-view');
+                      }
+                      
+                });
+          }
+
+          //on or scroll, detect elements in view
+          $(window).on('scroll resize', function() {
+              check_if_in_view()
+            })
+            //trigger our scroll event on initial load
+          $(window).trigger('scroll');
+        //]]>
+        </script>
+    </h:body>
+
+</html>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TDepotSignatureViewDlg" widgetVar="TDepotSignatureViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTDepotSignatureTitle}">
+            <h:form id="TDepotSignatureViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tDepotSignatureController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTDepotSignatureLabel_desiCode}"/>
+                        <h:outputText value="#{tDepotSignatureController.selected.desiCode}" title="#{bundle.ViewTDepotSignatureTitle_desiCode}"/>
+                        <h:outputText value="#{bundle.ViewTDepotSignatureLabel_desiReference}"/>
+                        <h:outputText value="#{tDepotSignatureController.selected.desiReference}" title="#{bundle.ViewTDepotSignatureTitle_desiReference}"/>
+                        <h:outputText value="#{bundle.ViewTDepotSignatureLabel_desiDateDeb}"/>
+                        <h:outputText value="#{tDepotSignatureController.selected.desiDateDeb}" title="#{bundle.ViewTDepotSignatureTitle_desiDateDeb}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTDepotSignatureLabel_desiDateFin}"/>
+                        <h:outputText value="#{tDepotSignatureController.selected.desiDateFin}" title="#{bundle.ViewTDepotSignatureTitle_desiDateFin}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTDepotSignatureLabel_desiIntNumero}"/>
+                        <h:outputText value="#{tDepotSignatureController.selected.desiIntNumero}" title="#{bundle.ViewTDepotSignatureTitle_desiIntNumero}"/>
+                        <h:outputText value="#{bundle.ViewTDepotSignatureLabel_desiUtiCode}"/>
+                        <h:outputText value="#{tDepotSignatureController.selected.desiUtiCode}" title="#{bundle.ViewTDepotSignatureTitle_desiUtiCode}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TDepotSignatureViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

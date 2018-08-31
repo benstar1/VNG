@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TDroitExerceViewDlg" widgetVar="TDroitExerceViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTDroitExerceTitle}">
+            <h:form id="TDroitExerceViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tDroitExerceController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTDroitExerceLabel_dreCode}"/>
+                        <h:outputText value="#{tDroitExerceController.selected.dreCode}" title="#{bundle.ViewTDroitExerceTitle_dreCode}"/>
+                        <h:outputText value="#{bundle.ViewTDroitExerceLabel_dreDateDebut}"/>
+                        <h:outputText value="#{tDroitExerceController.selected.dreDateDebut}" title="#{bundle.ViewTDroitExerceTitle_dreDateDebut}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTDroitExerceLabel_dreDateFin}"/>
+                        <h:outputText value="#{tDroitExerceController.selected.dreDateFin}" title="#{bundle.ViewTDroitExerceTitle_dreDateFin}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTDroitExerceLabel_dreCat}"/>
+                        <h:outputText value="#{tDroitExerceController.selected.dreCat}" title="#{bundle.ViewTDroitExerceTitle_dreCat}"/>
+                        <h:outputText value="#{bundle.ViewTDroitExerceLabel_dreDateEnquete}"/>
+                        <h:outputText value="#{tDroitExerceController.selected.dreDateEnquete}" title="#{bundle.ViewTDroitExerceTitle_dreDateEnquete}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTDroitExerceLabel_dreRolAutre}"/>
+                        <h:outputText value="#{tDroitExerceController.selected.dreRolAutre}" title="#{bundle.ViewTDroitExerceTitle_dreRolAutre}"/>
+                        <h:outputText value="#{bundle.ViewTDroitExerceLabel_dreTdeAutre}"/>
+                        <h:outputText value="#{tDroitExerceController.selected.dreTdeAutre}" title="#{bundle.ViewTDroitExerceTitle_dreTdeAutre}"/>
+                        <h:outputText value="#{bundle.ViewTDroitExerceLabel_dreDateChargement}"/>
+                        <h:outputText value="#{tDroitExerceController.selected.dreDateChargement}" title="#{bundle.ViewTDroitExerceTitle_dreDateChargement}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTDroitExerceLabel_dreEnqCode}"/>
+                        <h:outputText value="#{tDroitExerceController.selected.dreEnqCode}" title="#{bundle.ViewTDroitExerceTitle_dreEnqCode}"/>
+                        <h:outputText value="#{bundle.ViewTDroitExerceLabel_dreIntNumero}"/>
+                        <h:outputText value="#{tDroitExerceController.selected.dreIntNumero}" title="#{bundle.ViewTDroitExerceTitle_dreIntNumero}"/>
+                        <h:outputText value="#{bundle.ViewTDroitExerceLabel_drePbaNumero}"/>
+                        <h:outputText value="#{tDroitExerceController.selected.drePbaNumero}" title="#{bundle.ViewTDroitExerceTitle_drePbaNumero}"/>
+                        <h:outputText value="#{bundle.ViewTDroitExerceLabel_dreRolCode}"/>
+                        <h:outputText value="#{tDroitExerceController.selected.dreRolCode}" title="#{bundle.ViewTDroitExerceTitle_dreRolCode}"/>
+                        <h:outputText value="#{bundle.ViewTDroitExerceLabel_dreTdeCode}"/>
+                        <h:outputText value="#{tDroitExerceController.selected.dreTdeCode}" title="#{bundle.ViewTDroitExerceTitle_dreTdeCode}"/>
+                        <h:outputText value="#{bundle.ViewTDroitExerceLabel_dreUtiCode}"/>
+                        <h:outputText value="#{tDroitExerceController.selected.dreUtiCode}" title="#{bundle.ViewTDroitExerceTitle_dreUtiCode}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TDroitExerceViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

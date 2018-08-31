@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TAffecterEditDlg" widgetVar="TAffecterEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTAffecterTitle}">
+            <h:form id="TAffecterEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tAffecterController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTAffecterLabel_affCode}" for="affCode" />
+                        <p:inputText id="affCode" value="#{tAffecterController.selected.affCode}" title="#{bundle.EditTAffecterTitle_affCode}" required="true" requiredMessage="#{bundle.EditTAffecterRequiredMessage_affCode}"/>
+                        <p:outputLabel value="#{bundle.EditTAffecterLabel_affDateDebut}" for="affDateDebut" />
+                        <p:calendar id="affDateDebut" pattern="MM/dd/yyyy" value="#{tAffecterController.selected.affDateDebut}" title="#{bundle.EditTAffecterTitle_affDateDebut}" required="true" requiredMessage="#{bundle.EditTAffecterRequiredMessage_affDateDebut}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTAffecterLabel_affDateFin}" for="affDateFin" />
+                        <p:calendar id="affDateFin" pattern="MM/dd/yyyy" value="#{tAffecterController.selected.affDateFin}" title="#{bundle.EditTAffecterTitle_affDateFin}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTAffecterLabel_affDateChargement}" for="affDateChargement" />
+                        <p:calendar id="affDateChargement" pattern="MM/dd/yyyy" value="#{tAffecterController.selected.affDateChargement}" title="#{bundle.EditTAffecterTitle_affDateChargement}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTAffecterLabel_affEnqCode}" for="affEnqCode" />
+                        <p:selectOneMenu id="affEnqCode" value="#{tAffecterController.selected.affEnqCode}" required="true" requiredMessage="#{bundle.EditTAffecterRequiredMessage_affEnqCode}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tEnqueteController.itemsAvailableSelectOne}"
+                                           var="affEnqCodeItem"
+                                           itemValue="#{affEnqCodeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTAffecterLabel_affUtiCode}" for="affUtiCode" />
+                        <p:selectOneMenu id="affUtiCode" value="#{tAffecterController.selected.affUtiCode}" required="true" requiredMessage="#{bundle.EditTAffecterRequiredMessage_affUtiCode}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tUtilisateurController.itemsAvailableSelectOne}"
+                                           var="affUtiCodeItem"
+                                           itemValue="#{affUtiCodeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTAffecterLabel_affVilaCode}" for="affVilaCode" />
+                        <p:selectOneMenu id="affVilaCode" value="#{tAffecterController.selected.affVilaCode}" required="true" requiredMessage="#{bundle.EditTAffecterRequiredMessage_affVilaCode}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tVillageController.itemsAvailableSelectOne}"
+                                           var="affVilaCodeItem"
+                                           itemValue="#{affVilaCodeItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tAffecterController.update}" value="#{bundle.Save}" update="display,:TAffecterListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TAffecterEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TAffecterEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

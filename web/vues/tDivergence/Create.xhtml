@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TDivergenceCreateDlg" widgetVar="TDivergenceCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTDivergenceTitle}">
+            <h:form id="TDivergenceCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tDivergenceController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTDivergenceLabel_divCode}" for="divCode" />
+                        <p:inputText id="divCode" value="#{tDivergenceController.selected.divCode}" title="#{bundle.CreateTDivergenceTitle_divCode}" required="true" requiredMessage="#{bundle.CreateTDivergenceRequiredMessage_divCode}"/>
+                        <p:outputLabel value="#{bundle.CreateTDivergenceLabel_divOriginDroit}" for="divOriginDroit" />
+                        <p:inputText id="divOriginDroit" value="#{tDivergenceController.selected.divOriginDroit}" title="#{bundle.CreateTDivergenceTitle_divOriginDroit}" />
+                        <p:outputLabel value="#{bundle.CreateTDivergenceLabel_divDureeOccup}" for="divDureeOccup" />
+                        <p:inputText id="divDureeOccup" value="#{tDivergenceController.selected.divDureeOccup}" title="#{bundle.CreateTDivergenceTitle_divDureeOccup}" />
+                        <p:outputLabel value="#{bundle.CreateTDivergenceLabel_divNatureContest}" for="divNatureContest" />
+                        <p:inputText id="divNatureContest" value="#{tDivergenceController.selected.divNatureContest}" title="#{bundle.CreateTDivergenceTitle_divNatureContest}" />
+                        <p:outputLabel value="#{bundle.CreateTDivergenceLabel_divRocAutre}" for="divRocAutre" />
+                        <p:inputText id="divRocAutre" value="#{tDivergenceController.selected.divRocAutre}" title="#{bundle.CreateTDivergenceTitle_divRocAutre}" />
+                        <p:outputLabel value="#{bundle.CreateTDivergenceLabel_divOriginDroitAutre}" for="divOriginDroitAutre" />
+                        <p:inputText id="divOriginDroitAutre" value="#{tDivergenceController.selected.divOriginDroitAutre}" title="#{bundle.CreateTDivergenceTitle_divOriginDroitAutre}" />
+                        <p:outputLabel value="#{bundle.CreateTDivergenceLabel_divNatureContestAutre}" for="divNatureContestAutre" />
+                        <p:inputText id="divNatureContestAutre" value="#{tDivergenceController.selected.divNatureContestAutre}" title="#{bundle.CreateTDivergenceTitle_divNatureContestAutre}" />
+                        <p:outputLabel value="#{bundle.CreateTDivergenceLabel_divPhotoSignature}" for="divPhotoSignature" />
+                        <p:inputText id="divPhotoSignature" value="#{tDivergenceController.selected.divPhotoSignature}" title="#{bundle.CreateTDivergenceTitle_divPhotoSignature}" />
+                        <p:outputLabel value="#{bundle.CreateTDivergenceLabel_divNomPhoto}" for="divNomPhoto" />
+                        <p:inputText id="divNomPhoto" value="#{tDivergenceController.selected.divNomPhoto}" title="#{bundle.CreateTDivergenceTitle_divNomPhoto}" />
+                        <p:outputLabel value="#{bundle.CreateTDivergenceLabel_divDateChargement}" for="divDateChargement" />
+                        <p:calendar id="divDateChargement" pattern="MM/dd/yyyy" value="#{tDivergenceController.selected.divDateChargement}" title="#{bundle.EditTDivergenceTitle_divDateChargement}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTDivergenceLabel_divTyreAutre}" for="divTyreAutre" />
+                        <p:inputText id="divTyreAutre" value="#{tDivergenceController.selected.divTyreAutre}" title="#{bundle.CreateTDivergenceTitle_divTyreAutre}" />
+                        <p:outputLabel value="#{bundle.CreateTDivergenceLabel_divConfNum}" for="divConfNum" />
+                        <p:selectOneMenu id="divConfNum" value="#{tDivergenceController.selected.divConfNum}" required="true" requiredMessage="#{bundle.EditTDivergenceRequiredMessage_divConfNum}">
+                            <f:selectItems value="#{tConflitController.itemsAvailableSelectOne}"
+                                           var="divConfNumItem"
+                                           itemValue="#{divConfNumItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTDivergenceLabel_divIntNumero}" for="divIntNumero" />
+                        <p:selectOneMenu id="divIntNumero" value="#{tDivergenceController.selected.divIntNumero}" >
+                            <f:selectItems value="#{tIntervenantController.itemsAvailableSelectOne}"
+                                           var="divIntNumeroItem"
+                                           itemValue="#{divIntNumeroItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTDivergenceLabel_divRocCode}" for="divRocCode" />
+                        <p:selectOneMenu id="divRocCode" value="#{tDivergenceController.selected.divRocCode}" >
+                            <f:selectItems value="#{tRolecController.itemsAvailableSelectOne}"
+                                           var="divRocCodeItem"
+                                           itemValue="#{divRocCodeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTDivergenceLabel_divTyreCode}" for="divTyreCode" />
+                        <p:selectOneMenu id="divTyreCode" value="#{tDivergenceController.selected.divTyreCode}" >
+                            <f:selectItems value="#{tTypedrevendiqController.itemsAvailableSelectOne}"
+                                           var="divTyreCodeItem"
+                                           itemValue="#{divTyreCodeItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tDivergenceController.create}" value="#{bundle.Save}" update="display,:TDivergenceListForm:datalist,:growl" oncomplete="handleSubmit(args,'TDivergenceCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TDivergenceCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

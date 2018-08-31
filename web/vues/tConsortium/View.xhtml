@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TConsortiumViewDlg" widgetVar="TConsortiumViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTConsortiumTitle}">
+            <h:form id="TConsortiumViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tConsortiumController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTConsortiumLabel_conCode}"/>
+                        <h:outputText value="#{tConsortiumController.selected.conCode}" title="#{bundle.ViewTConsortiumTitle_conCode}"/>
+                        <h:outputText value="#{bundle.ViewTConsortiumLabel_conNom}"/>
+                        <h:outputText value="#{tConsortiumController.selected.conNom}" title="#{bundle.ViewTConsortiumTitle_conNom}"/>
+                        <h:outputText value="#{bundle.ViewTConsortiumLabel_conAdresse}"/>
+                        <h:outputText value="#{tConsortiumController.selected.conAdresse}" title="#{bundle.ViewTConsortiumTitle_conAdresse}"/>
+                        <h:outputText value="#{bundle.ViewTConsortiumLabel_conTel}"/>
+                        <h:outputText value="#{tConsortiumController.selected.conTel}" title="#{bundle.ViewTConsortiumTitle_conTel}"/>
+                        <h:outputText value="#{bundle.ViewTConsortiumLabel_conIfu}"/>
+                        <h:outputText value="#{tConsortiumController.selected.conIfu}" title="#{bundle.ViewTConsortiumTitle_conIfu}"/>
+                        <h:outputText value="#{bundle.ViewTConsortiumLabel_conDateChargement}"/>
+                        <h:outputText value="#{tConsortiumController.selected.conDateChargement}" title="#{bundle.ViewTConsortiumTitle_conDateChargement}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TConsortiumViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

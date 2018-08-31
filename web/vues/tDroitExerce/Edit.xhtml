@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TDroitExerceEditDlg" widgetVar="TDroitExerceEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTDroitExerceTitle}">
+            <h:form id="TDroitExerceEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tDroitExerceController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTDroitExerceLabel_dreCode}" for="dreCode" />
+                        <p:inputText id="dreCode" value="#{tDroitExerceController.selected.dreCode}" title="#{bundle.EditTDroitExerceTitle_dreCode}" required="true" requiredMessage="#{bundle.EditTDroitExerceRequiredMessage_dreCode}"/>
+                        <p:outputLabel value="#{bundle.EditTDroitExerceLabel_dreDateDebut}" for="dreDateDebut" />
+                        <p:calendar id="dreDateDebut" pattern="MM/dd/yyyy" value="#{tDroitExerceController.selected.dreDateDebut}" title="#{bundle.EditTDroitExerceTitle_dreDateDebut}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTDroitExerceLabel_dreDateFin}" for="dreDateFin" />
+                        <p:calendar id="dreDateFin" pattern="MM/dd/yyyy" value="#{tDroitExerceController.selected.dreDateFin}" title="#{bundle.EditTDroitExerceTitle_dreDateFin}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTDroitExerceLabel_dreCat}" for="dreCat" />
+                        <p:inputText id="dreCat" value="#{tDroitExerceController.selected.dreCat}" title="#{bundle.EditTDroitExerceTitle_dreCat}" required="true" requiredMessage="#{bundle.EditTDroitExerceRequiredMessage_dreCat}"/>
+                        <p:outputLabel value="#{bundle.EditTDroitExerceLabel_dreDateEnquete}" for="dreDateEnquete" />
+                        <p:calendar id="dreDateEnquete" pattern="MM/dd/yyyy" value="#{tDroitExerceController.selected.dreDateEnquete}" title="#{bundle.EditTDroitExerceTitle_dreDateEnquete}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTDroitExerceLabel_dreRolAutre}" for="dreRolAutre" />
+                        <p:inputText id="dreRolAutre" value="#{tDroitExerceController.selected.dreRolAutre}" title="#{bundle.EditTDroitExerceTitle_dreRolAutre}" />
+                        <p:outputLabel value="#{bundle.EditTDroitExerceLabel_dreTdeAutre}" for="dreTdeAutre" />
+                        <p:inputText id="dreTdeAutre" value="#{tDroitExerceController.selected.dreTdeAutre}" title="#{bundle.EditTDroitExerceTitle_dreTdeAutre}" />
+                        <p:outputLabel value="#{bundle.EditTDroitExerceLabel_dreDateChargement}" for="dreDateChargement" />
+                        <p:calendar id="dreDateChargement" pattern="MM/dd/yyyy" value="#{tDroitExerceController.selected.dreDateChargement}" title="#{bundle.EditTDroitExerceTitle_dreDateChargement}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTDroitExerceLabel_dreEnqCode}" for="dreEnqCode" />
+                        <p:selectOneMenu id="dreEnqCode" value="#{tDroitExerceController.selected.dreEnqCode}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tEnqueteController.itemsAvailableSelectOne}"
+                                           var="dreEnqCodeItem"
+                                           itemValue="#{dreEnqCodeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTDroitExerceLabel_dreIntNumero}" for="dreIntNumero" />
+                        <p:selectOneMenu id="dreIntNumero" value="#{tDroitExerceController.selected.dreIntNumero}" required="true" requiredMessage="#{bundle.EditTDroitExerceRequiredMessage_dreIntNumero}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tIntervenantController.itemsAvailableSelectOne}"
+                                           var="dreIntNumeroItem"
+                                           itemValue="#{dreIntNumeroItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTDroitExerceLabel_drePbaNumero}" for="drePbaNumero" />
+                        <p:selectOneMenu id="drePbaNumero" value="#{tDroitExerceController.selected.drePbaNumero}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tParcelleBafonController.itemsAvailableSelectOne}"
+                                           var="drePbaNumeroItem"
+                                           itemValue="#{drePbaNumeroItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTDroitExerceLabel_dreRolCode}" for="dreRolCode" />
+                        <p:selectOneMenu id="dreRolCode" value="#{tDroitExerceController.selected.dreRolCode}" required="true" requiredMessage="#{bundle.EditTDroitExerceRequiredMessage_dreRolCode}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tRoleController.itemsAvailableSelectOne}"
+                                           var="dreRolCodeItem"
+                                           itemValue="#{dreRolCodeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTDroitExerceLabel_dreTdeCode}" for="dreTdeCode" />
+                        <p:selectOneMenu id="dreTdeCode" value="#{tDroitExerceController.selected.dreTdeCode}" required="true" requiredMessage="#{bundle.EditTDroitExerceRequiredMessage_dreTdeCode}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tTypedexerceController.itemsAvailableSelectOne}"
+                                           var="dreTdeCodeItem"
+                                           itemValue="#{dreTdeCodeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTDroitExerceLabel_dreUtiCode}" for="dreUtiCode" />
+                        <p:selectOneMenu id="dreUtiCode" value="#{tDroitExerceController.selected.dreUtiCode}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tUtilisateurController.itemsAvailableSelectOne}"
+                                           var="dreUtiCodeItem"
+                                           itemValue="#{dreUtiCodeItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tDroitExerceController.update}" value="#{bundle.Save}" update="display,:TDroitExerceListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TDroitExerceEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TDroitExerceEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

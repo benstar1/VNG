@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TEnqueteCreateDlg" widgetVar="TEnqueteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTEnqueteTitle}">
+            <h:form id="TEnqueteCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tEnqueteController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTEnqueteLabel_enqCode}" for="enqCode" />
+                        <p:inputText id="enqCode" value="#{tEnqueteController.selected.enqCode}" title="#{bundle.CreateTEnqueteTitle_enqCode}" required="true" requiredMessage="#{bundle.CreateTEnqueteRequiredMessage_enqCode}"/>
+                        <p:outputLabel value="#{bundle.CreateTEnqueteLabel_enqDesig}" for="enqDesig" />
+                        <p:inputText id="enqDesig" value="#{tEnqueteController.selected.enqDesig}" title="#{bundle.CreateTEnqueteTitle_enqDesig}" />
+                        <p:outputLabel value="#{bundle.CreateTEnqueteLabel_enqDateDebut}" for="enqDateDebut" />
+                        <p:calendar id="enqDateDebut" pattern="MM/dd/yyyy" value="#{tEnqueteController.selected.enqDateDebut}" title="#{bundle.EditTEnqueteTitle_enqDateDebut}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTEnqueteLabel_enqDateFin}" for="enqDateFin" />
+                        <p:calendar id="enqDateFin" pattern="MM/dd/yyyy" value="#{tEnqueteController.selected.enqDateFin}" title="#{bundle.EditTEnqueteTitle_enqDateFin}"  showOn="button"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tEnqueteController.create}" value="#{bundle.Save}" update="display,:TEnqueteListForm:datalist,:growl" oncomplete="handleSubmit(args,'TEnqueteCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TEnqueteCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

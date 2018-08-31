@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TDepotSignatureCreateDlg" widgetVar="TDepotSignatureCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTDepotSignatureTitle}">
+            <h:form id="TDepotSignatureCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tDepotSignatureController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTDepotSignatureLabel_desiCode}" for="desiCode" />
+                        <p:inputText id="desiCode" value="#{tDepotSignatureController.selected.desiCode}" title="#{bundle.CreateTDepotSignatureTitle_desiCode}" required="true" requiredMessage="#{bundle.CreateTDepotSignatureRequiredMessage_desiCode}"/>
+                        <p:outputLabel value="#{bundle.CreateTDepotSignatureLabel_desiReference}" for="desiReference" />
+                        <p:inputText id="desiReference" value="#{tDepotSignatureController.selected.desiReference}" title="#{bundle.CreateTDepotSignatureTitle_desiReference}" />
+                        <p:outputLabel value="#{bundle.CreateTDepotSignatureLabel_desiDateDeb}" for="desiDateDeb" />
+                        <p:calendar id="desiDateDeb" pattern="MM/dd/yyyy" value="#{tDepotSignatureController.selected.desiDateDeb}" title="#{bundle.EditTDepotSignatureTitle_desiDateDeb}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTDepotSignatureLabel_desiDateFin}" for="desiDateFin" />
+                        <p:calendar id="desiDateFin" pattern="MM/dd/yyyy" value="#{tDepotSignatureController.selected.desiDateFin}" title="#{bundle.EditTDepotSignatureTitle_desiDateFin}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTDepotSignatureLabel_desiIntNumero}" for="desiIntNumero" />
+                        <p:selectOneMenu id="desiIntNumero" value="#{tDepotSignatureController.selected.desiIntNumero}" >
+                            <f:selectItems value="#{tIntervenantController.itemsAvailableSelectOne}"
+                                           var="desiIntNumeroItem"
+                                           itemValue="#{desiIntNumeroItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTDepotSignatureLabel_desiUtiCode}" for="desiUtiCode" />
+                        <p:selectOneMenu id="desiUtiCode" value="#{tDepotSignatureController.selected.desiUtiCode}" >
+                            <f:selectItems value="#{tUtilisateurController.itemsAvailableSelectOne}"
+                                           var="desiUtiCodeItem"
+                                           itemValue="#{desiUtiCodeItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tDepotSignatureController.create}" value="#{bundle.Save}" update="display,:TDepotSignatureListForm:datalist,:growl" oncomplete="handleSubmit(args,'TDepotSignatureCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TDepotSignatureCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

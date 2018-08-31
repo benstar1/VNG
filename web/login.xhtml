@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <title>PrimeFaces harmony</title>
+    </h:head>
+
+    <h:body styleClass="login-body">     
+        <div class="logo">
+            <p:graphicImage name="images/harmony-logo.png" library="harmony-layout"/>
+            <span class="app-name">HARMONY</span>        
+        </div>
+
+        <div class="login-panel">
+            <h:form>
+            <p:graphicImage name="images/template/image-login-mobile.jpg" library="harmony-layout" class="mobile"/>
+            <div class="left-part">
+                <span class="login-panel-header">Sign in To Harmony</span>
+                <span class="login-panel-subheader">Welcome, please use the form to sign-in Harmony network</span>
+                
+                <div style="margin-top:32px">
+                    <p:outputLabel value="Enter e-mail address"/>
+                    <p:inputText/>
+                    <p:outputLabel value="Enter password" />
+                    <p:inputText/>
+                    <p:inputSwitch />
+                    <p:outputLabel value="Remember me" />
+                </div>
+                <p:commandButton id="login" value="Login" action="#{loginBean.login}" style="margin-bottom:10px" styleClass="raised-btn"/>
+                
+            </div>
+            <div class="right-part">
+                <p:graphicImage name="images/template/image-login.png" library="harmony-layout"/>
+            </div>
+           </h:form> 
+        </div>
+        <h:outputStylesheet name="css/layout-#{guestPreferences.theme}.css" library="harmony-layout" />
+    </h:body>
+
+</html>

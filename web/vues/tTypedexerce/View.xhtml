@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TTypedexerceViewDlg" widgetVar="TTypedexerceViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTTypedexerceTitle}">
+            <h:form id="TTypedexerceViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tTypedexerceController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTTypedexerceLabel_tdeCode}"/>
+                        <h:outputText value="#{tTypedexerceController.selected.tdeCode}" title="#{bundle.ViewTTypedexerceTitle_tdeCode}"/>
+                        <h:outputText value="#{bundle.ViewTTypedexerceLabel_tdeDesig}"/>
+                        <h:outputText value="#{tTypedexerceController.selected.tdeDesig}" title="#{bundle.ViewTTypedexerceTitle_tdeDesig}"/>
+                        <h:outputText value="#{bundle.ViewTTypedexerceLabel_tdeCat}"/>
+                        <h:outputText value="#{tTypedexerceController.selected.tdeCat}" title="#{bundle.ViewTTypedexerceTitle_tdeCat}"/>
+                        <h:outputText value="#{bundle.ViewTTypedexerceLabel_tdeCodeParent}"/>
+                        <h:outputText value="#{tTypedexerceController.selected.tdeCodeParent}" title="#{bundle.ViewTTypedexerceTitle_tdeCodeParent}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TTypedexerceViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

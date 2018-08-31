@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TIntervenantViewDlg" widgetVar="TIntervenantViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTIntervenantTitle}">
+            <h:form id="TIntervenantViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tIntervenantController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intNumero}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intNumero}" title="#{bundle.ViewTIntervenantTitle_intNumero}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intNom}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intNom}" title="#{bundle.ViewTIntervenantTitle_intNom}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intPrenom}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intPrenom}" title="#{bundle.ViewTIntervenantTitle_intPrenom}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intCollectivite}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intCollectivite}" title="#{bundle.ViewTIntervenantTitle_intCollectivite}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intLepi}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intLepi}" title="#{bundle.ViewTIntervenantTitle_intLepi}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intCiPp}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intCiPp}" title="#{bundle.ViewTIntervenantTitle_intCiPp}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intDateExpCi}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intDateExpCi}" title="#{bundle.ViewTIntervenantTitle_intDateExpCi}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intIfu}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intIfu}" title="#{bundle.ViewTIntervenantTitle_intIfu}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intDomicile}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intDomicile}" title="#{bundle.ViewTIntervenantTitle_intDomicile}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intNomInsti}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intNomInsti}" title="#{bundle.ViewTIntervenantTitle_intNomInsti}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intCheflieu}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intCheflieu}" title="#{bundle.ViewTIntervenantTitle_intCheflieu}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intSexe}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intSexe}" title="#{bundle.ViewTIntervenantTitle_intSexe}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intPreuveAdm}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intPreuveAdm}" title="#{bundle.ViewTIntervenantTitle_intPreuveAdm}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intOrigine}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intOrigine}" title="#{bundle.ViewTIntervenantTitle_intOrigine}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intAnneArriv}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intAnneArriv}" title="#{bundle.ViewTIntervenantTitle_intAnneArriv}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intProfession}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intProfession}" title="#{bundle.ViewTIntervenantTitle_intProfession}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intNomPhoto}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intNomPhoto}" title="#{bundle.ViewTIntervenantTitle_intNomPhoto}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intNumeroAssigne}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intNumeroAssigne}" title="#{bundle.ViewTIntervenantTitle_intNumeroAssigne}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intNomEmprunt}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intNomEmprunt}" title="#{bundle.ViewTIntervenantTitle_intNomEmprunt}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intTelephone}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intTelephone}" title="#{bundle.ViewTIntervenantTitle_intTelephone}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intActAutre}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intActAutre}" title="#{bundle.ViewTIntervenantTitle_intActAutre}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intEthAutre}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intEthAutre}" title="#{bundle.ViewTIntervenantTitle_intEthAutre}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intNationalite}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intNationalite}" title="#{bundle.ViewTIntervenantTitle_intNationalite}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intNationaliteAutre}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intNationaliteAutre}" title="#{bundle.ViewTIntervenantTitle_intNationaliteAutre}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intNumeroRavip}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intNumeroRavip}" title="#{bundle.ViewTIntervenantTitle_intNumeroRavip}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intStatutSocial}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intStatutSocial}" title="#{bundle.ViewTIntervenantTitle_intStatutSocial}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intStructure}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intStructure}" title="#{bundle.ViewTIntervenantTitle_intStructure}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intFonction}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intFonction}" title="#{bundle.ViewTIntervenantTitle_intFonction}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intLigCode}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intLigCode}" title="#{bundle.ViewTIntervenantTitle_intLigCode}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intPhotoIdentit}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intPhotoIdentit}" title="#{bundle.ViewTIntervenantTitle_intPhotoIdentit}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intPhotoComplet}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intPhotoComplet}" title="#{bundle.ViewTIntervenantTitle_intPhotoComplet}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intImage3}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intImage3}" title="#{bundle.ViewTIntervenantTitle_intImage3}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intImage4}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intImage4}" title="#{bundle.ViewTIntervenantTitle_intImage4}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intLigAutre}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intLigAutre}" title="#{bundle.ViewTIntervenantTitle_intLigAutre}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intDateNais}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intDateNais}" title="#{bundle.ViewTIntervenantTitle_intDateNais}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intDateChargement}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intDateChargement}" title="#{bundle.ViewTIntervenantTitle_intDateChargement}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intDateNaissCalcul}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intDateNaissCalcul}" title="#{bundle.ViewTIntervenantTitle_intDateNaissCalcul}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intLieuNaiss}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intLieuNaiss}" title="#{bundle.ViewTIntervenantTitle_intLieuNaiss}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intActCode}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intActCode}" title="#{bundle.ViewTIntervenantTitle_intActCode}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intEthCode}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intEthCode}" title="#{bundle.ViewTIntervenantTitle_intEthCode}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenantLabel_intVilaCode}"/>
+                        <h:outputText value="#{tIntervenantController.selected.intVilaCode}" title="#{bundle.ViewTIntervenantTitle_intVilaCode}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TIntervenantViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

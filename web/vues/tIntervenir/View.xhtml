@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TIntervenirViewDlg" widgetVar="TIntervenirViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTIntervenirTitle}">
+            <h:form id="TIntervenirViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tIntervenirController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invNumero}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invNumero}" title="#{bundle.ViewTIntervenirTitle_invNumero}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invNumProp}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invNumProp}" title="#{bundle.ViewTIntervenirTitle_invNumProp}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invDateDeb}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invDateDeb}" title="#{bundle.ViewTIntervenirTitle_invDateDeb}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invDateFin}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invDateFin}" title="#{bundle.ViewTIntervenirTitle_invDateFin}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invContreparti}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invContreparti}" title="#{bundle.ViewTIntervenirTitle_invContreparti}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invAutremodalite}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invAutremodalite}" title="#{bundle.ViewTIntervenirTitle_invAutremodalite}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invRattachement}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invRattachement}" title="#{bundle.ViewTIntervenirTitle_invRattachement}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invAutochtone}"/>
+                        <p:selectBooleanCheckbox value="#{tIntervenirController.selected.invAutochtone}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invObservation}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invObservation}" title="#{bundle.ViewTIntervenirTitle_invObservation}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invPrix}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invPrix}" title="#{bundle.ViewTIntervenirTitle_invPrix}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invAutreModPaie}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invAutreModPaie}" title="#{bundle.ViewTIntervenirTitle_invAutreModPaie}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invLimitation}"/>
+                        <p:selectBooleanCheckbox value="#{tIntervenirController.selected.invLimitation}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invLimitLeg}"/>
+                        <p:selectBooleanCheckbox value="#{tIntervenirController.selected.invLimitLeg}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invLimitVent}"/>
+                        <p:selectBooleanCheckbox value="#{tIntervenirController.selected.invLimitVent}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invLimitDon}"/>
+                        <p:selectBooleanCheckbox value="#{tIntervenirController.selected.invLimitDon}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invLimitPret}"/>
+                        <p:selectBooleanCheckbox value="#{tIntervenirController.selected.invLimitPret}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invLimiteAutre}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invLimiteAutre}" title="#{bundle.ViewTIntervenirTitle_invLimiteAutre}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invRefPapier}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invRefPapier}" title="#{bundle.ViewTIntervenirTitle_invRefPapier}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_intvDateEnquete}"/>
+                        <h:outputText value="#{tIntervenirController.selected.intvDateEnquete}" title="#{bundle.ViewTIntervenirTitle_intvDateEnquete}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invAnneeArrive}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invAnneeArrive}" title="#{bundle.ViewTIntervenirTitle_invAnneeArrive}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invCollectivite}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invCollectivite}" title="#{bundle.ViewTIntervenirTitle_invCollectivite}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invPv}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invPv}" title="#{bundle.ViewTIntervenirTitle_invPv}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invNomImg}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invNomImg}" title="#{bundle.ViewTIntervenirTitle_invNomImg}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invNomPhoto}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invNomPhoto}" title="#{bundle.ViewTIntervenirTitle_invNomPhoto}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invMacAutre}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invMacAutre}" title="#{bundle.ViewTIntervenirTitle_invMacAutre}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invCopAutre}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invCopAutre}" title="#{bundle.ViewTIntervenirTitle_invCopAutre}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invRolAutre}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invRolAutre}" title="#{bundle.ViewTIntervenirTitle_invRolAutre}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invObservationRegistre}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invObservationRegistre}" title="#{bundle.ViewTIntervenirTitle_invObservationRegistre}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invEtatLieu}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invEtatLieu}" title="#{bundle.ViewTIntervenirTitle_invEtatLieu}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invRattachementAutre}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invRattachementAutre}" title="#{bundle.ViewTIntervenirTitle_invRattachementAutre}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invFormalise}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invFormalise}" title="#{bundle.ViewTIntervenirTitle_invFormalise}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invCodeCommune}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invCodeCommune}" title="#{bundle.ViewTIntervenirTitle_invCodeCommune}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_intLigCode}"/>
+                        <h:outputText value="#{tIntervenirController.selected.intLigCode}" title="#{bundle.ViewTIntervenirTitle_intLigCode}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_intImageTemoin}"/>
+                        <h:outputText value="#{tIntervenirController.selected.intImageTemoin}" title="#{bundle.ViewTIntervenirTitle_intImageTemoin}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_intImagePapier1}"/>
+                        <h:outputText value="#{tIntervenirController.selected.intImagePapier1}" title="#{bundle.ViewTIntervenirTitle_intImagePapier1}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_intImagePapier2}"/>
+                        <h:outputText value="#{tIntervenirController.selected.intImagePapier2}" title="#{bundle.ViewTIntervenirTitle_intImagePapier2}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_intImagePapier3}"/>
+                        <h:outputText value="#{tIntervenirController.selected.intImagePapier3}" title="#{bundle.ViewTIntervenirTitle_intImagePapier3}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_intImagePapier4}"/>
+                        <h:outputText value="#{tIntervenirController.selected.intImagePapier4}" title="#{bundle.ViewTIntervenirTitle_intImagePapier4}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invIndetermine}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invIndetermine}" title="#{bundle.ViewTIntervenirTitle_invIndetermine}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invDuree}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invDuree}" title="#{bundle.ViewTIntervenirTitle_invDuree}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invLimitationOp}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invLimitationOp}" title="#{bundle.ViewTIntervenirTitle_invLimitationOp}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invLimitAliener}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invLimitAliener}" title="#{bundle.ViewTIntervenirTitle_invLimitAliener}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invLimitTransmission}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invLimitTransmission}" title="#{bundle.ViewTIntervenirTitle_invLimitTransmission}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invLimitPlanter}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invLimitPlanter}" title="#{bundle.ViewTIntervenirTitle_invLimitPlanter}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invLimitRecolterFruit}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invLimitRecolterFruit}" title="#{bundle.ViewTIntervenirTitle_invLimitRecolterFruit}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invLimitConstruireCase}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invLimitConstruireCase}" title="#{bundle.ViewTIntervenirTitle_invLimitConstruireCase}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invLimitHabiterTerrain}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invLimitHabiterTerrain}" title="#{bundle.ViewTIntervenirTitle_invLimitHabiterTerrain}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invLimitAutreOp}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invLimitAutreOp}" title="#{bundle.ViewTIntervenirTitle_invLimitAutreOp}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invRepresente}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invRepresente}" title="#{bundle.ViewTIntervenirTitle_invRepresente}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invDateChargement}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invDateChargement}" title="#{bundle.ViewTIntervenirTitle_invDateChargement}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invNomAudio}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invNomAudio}" title="#{bundle.ViewTIntervenirTitle_invNomAudio}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invIntervenantAudio}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invIntervenantAudio}" title="#{bundle.ViewTIntervenirTitle_invIntervenantAudio}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invNomVideo}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invNomVideo}" title="#{bundle.ViewTIntervenirTitle_invNomVideo}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invIntervenantVideo}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invIntervenantVideo}" title="#{bundle.ViewTIntervenirTitle_invIntervenantVideo}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invLimitAutreOpChaine}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invLimitAutreOpChaine}" title="#{bundle.ViewTIntervenirTitle_invLimitAutreOpChaine}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invType}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invType}" title="#{bundle.ViewTIntervenirTitle_invType}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invDeQui}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invDeQui}" title="#{bundle.ViewTIntervenirTitle_invDeQui}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invStatut}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invStatut}" title="#{bundle.ViewTIntervenirTitle_invStatut}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invStructure}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invStructure}" title="#{bundle.ViewTIntervenirTitle_invStructure}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invFonction}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invFonction}" title="#{bundle.ViewTIntervenirTitle_invFonction}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invDopRepresenter}"/>
+                        <p:selectBooleanCheckbox value="#{tIntervenirController.selected.invDopRepresenter}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invDopDetenteur}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invDopDetenteur}" title="#{bundle.ViewTIntervenirTitle_invDopDetenteur}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invCiPp}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invCiPp}" title="#{bundle.ViewTIntervenirTitle_invCiPp}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invDateExpCiPp}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invDateExpCiPp}" title="#{bundle.ViewTIntervenirTitle_invDateExpCiPp}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invEnqCode}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invEnqCode}" title="#{bundle.ViewTIntervenirTitle_invEnqCode}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invCopCode}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invCopCode}" title="#{bundle.ViewTIntervenirTitle_invCopCode}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invIntNumero}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invIntNumero}" title="#{bundle.ViewTIntervenirTitle_invIntNumero}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invMacCode}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invMacCode}" title="#{bundle.ViewTIntervenirTitle_invMacCode}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invMutNumero}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invMutNumero}" title="#{bundle.ViewTIntervenirTitle_invMutNumero}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invNatPapier}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invNatPapier}" title="#{bundle.ViewTIntervenirTitle_invNatPapier}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invOpvNumero}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invOpvNumero}" title="#{bundle.ViewTIntervenirTitle_invOpvNumero}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invOpvNumeroPreneur}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invOpvNumeroPreneur}" title="#{bundle.ViewTIntervenirTitle_invOpvNumeroPreneur}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invUtiCode}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invUtiCode}" title="#{bundle.ViewTIntervenirTitle_invUtiCode}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invPbaNumeroLim}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invPbaNumeroLim}" title="#{bundle.ViewTIntervenirTitle_invPbaNumeroLim}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invPbaNumero}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invPbaNumero}" title="#{bundle.ViewTIntervenirTitle_invPbaNumero}"/>
+                        <h:outputText value="#{bundle.ViewTIntervenirLabel_invRolCode}"/>
+                        <h:outputText value="#{tIntervenirController.selected.invRolCode}" title="#{bundle.ViewTIntervenirTitle_invRolCode}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TIntervenirViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

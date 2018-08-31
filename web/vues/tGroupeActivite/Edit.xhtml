@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TGroupeActiviteEditDlg" widgetVar="TGroupeActiviteEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTGroupeActiviteTitle}">
+            <h:form id="TGroupeActiviteEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tGroupeActiviteController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTGroupeActiviteLabel_gacCode}" for="gacCode" />
+                        <p:inputText id="gacCode" value="#{tGroupeActiviteController.selected.gacCode}" title="#{bundle.EditTGroupeActiviteTitle_gacCode}" required="true" requiredMessage="#{bundle.EditTGroupeActiviteRequiredMessage_gacCode}"/>
+                        <p:outputLabel value="#{bundle.EditTGroupeActiviteLabel_gacDesig}" for="gacDesig" />
+                        <p:inputText id="gacDesig" value="#{tGroupeActiviteController.selected.gacDesig}" title="#{bundle.EditTGroupeActiviteTitle_gacDesig}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tGroupeActiviteController.update}" value="#{bundle.Save}" update="display,:TGroupeActiviteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TGroupeActiviteEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TGroupeActiviteEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

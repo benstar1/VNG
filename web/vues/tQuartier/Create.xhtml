@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TQuartierCreateDlg" widgetVar="TQuartierCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTQuartierTitle}">
+            <h:form id="TQuartierCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tQuartierController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTQuartierLabel_quartCode}" for="quartCode" />
+                        <p:inputText id="quartCode" value="#{tQuartierController.selected.quartCode}" title="#{bundle.CreateTQuartierTitle_quartCode}" required="true" requiredMessage="#{bundle.CreateTQuartierRequiredMessage_quartCode}"/>
+                        <p:outputLabel value="#{bundle.CreateTQuartierLabel_quartLibelle}" for="quartLibelle" />
+                        <p:inputText id="quartLibelle" value="#{tQuartierController.selected.quartLibelle}" title="#{bundle.CreateTQuartierTitle_quartLibelle}" />
+                        <p:outputLabel value="#{bundle.CreateTQuartierLabel_quartArroCode}" for="quartArroCode" />
+                        <p:inputText id="quartArroCode" value="#{tQuartierController.selected.quartArroCode}" title="#{bundle.CreateTQuartierTitle_quartArroCode}" required="true" requiredMessage="#{bundle.CreateTQuartierRequiredMessage_quartArroCode}"/>
+                        <p:outputLabel value="#{bundle.CreateTQuartierLabel_quartActrCode}" for="quartActrCode" />
+                        <p:inputText id="quartActrCode" value="#{tQuartierController.selected.quartActrCode}" title="#{bundle.CreateTQuartierTitle_quartActrCode}" />
+                        <p:outputLabel value="#{bundle.CreateTQuartierLabel_quartDateModif}" for="quartDateModif" />
+                        <p:calendar id="quartDateModif" pattern="MM/dd/yyyy HH:mm:ss" value="#{tQuartierController.selected.quartDateModif}" title="#{bundle.EditTQuartierTitle_quartDateModif}"  showOn="button"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tQuartierController.create}" value="#{bundle.Save}" update="display,:TQuartierListForm:datalist,:growl" oncomplete="handleSubmit(args,'TQuartierCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TQuartierCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

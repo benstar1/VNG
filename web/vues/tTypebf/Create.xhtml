@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TTypebfCreateDlg" widgetVar="TTypebfCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTTypebfTitle}">
+            <h:form id="TTypebfCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tTypebfController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTTypebfLabel_tbfCode}" for="tbfCode" />
+                        <p:inputText id="tbfCode" value="#{tTypebfController.selected.tbfCode}" title="#{bundle.CreateTTypebfTitle_tbfCode}" required="true" requiredMessage="#{bundle.CreateTTypebfRequiredMessage_tbfCode}"/>
+                        <p:outputLabel value="#{bundle.CreateTTypebfLabel_tbfDesig}" for="tbfDesig" />
+                        <p:inputText id="tbfDesig" value="#{tTypebfController.selected.tbfDesig}" title="#{bundle.CreateTTypebfTitle_tbfDesig}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tTypebfController.create}" value="#{bundle.Save}" update="display,:TTypebfListForm:datalist,:growl" oncomplete="handleSubmit(args,'TTypebfCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TTypebfCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

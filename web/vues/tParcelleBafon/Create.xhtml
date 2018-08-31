@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TParcelleBafonCreateDlg" widgetVar="TParcelleBafonCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTParcelleBafonTitle}">
+            <h:form id="TParcelleBafonCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tParcelleBafonController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaNumero}" for="pbaNumero" />
+                        <p:inputText id="pbaNumero" value="#{tParcelleBafonController.selected.pbaNumero}" title="#{bundle.CreateTParcelleBafonTitle_pbaNumero}" required="true" requiredMessage="#{bundle.CreateTParcelleBafonRequiredMessage_pbaNumero}"/>
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaOthoImg}" for="pbaOthoImg" />
+                        <p:inputText id="pbaOthoImg" value="#{tParcelleBafonController.selected.pbaOthoImg}" title="#{bundle.CreateTParcelleBafonTitle_pbaOthoImg}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaNature}" for="pbaNature" />
+                        <p:inputText id="pbaNature" value="#{tParcelleBafonController.selected.pbaNature}" title="#{bundle.CreateTParcelleBafonTitle_pbaNature}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaSuperficie}" for="pbaSuperficie" />
+                        <p:inputText id="pbaSuperficie" value="#{tParcelleBafonController.selected.pbaSuperficie}" title="#{bundle.CreateTParcelleBafonTitle_pbaSuperficie}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaCodeGeo}" for="pbaCodeGeo" />
+                        <p:inputText id="pbaCodeGeo" value="#{tParcelleBafonController.selected.pbaCodeGeo}" title="#{bundle.CreateTParcelleBafonTitle_pbaCodeGeo}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaHistoire}" for="pbaHistoire" />
+                        <p:inputText id="pbaHistoire" value="#{tParcelleBafonController.selected.pbaHistoire}" title="#{bundle.CreateTParcelleBafonTitle_pbaHistoire}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaBati}" for="pbaBati" />
+                        <p:selectBooleanCheckbox id="pbaBati" value="#{tParcelleBafonController.selected.pbaBati}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaCloture}" for="pbaCloture" />
+                        <p:selectBooleanCheckbox id="pbaCloture" value="#{tParcelleBafonController.selected.pbaCloture}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaCloMacon}" for="pbaCloMacon" />
+                        <p:selectBooleanCheckbox id="pbaCloMacon" value="#{tParcelleBafonController.selected.pbaCloMacon}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaCloBanco}" for="pbaCloBanco" />
+                        <p:selectBooleanCheckbox id="pbaCloBanco" value="#{tParcelleBafonController.selected.pbaCloBanco}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaCloClaie}" for="pbaCloClaie" />
+                        <p:selectBooleanCheckbox id="pbaCloClaie" value="#{tParcelleBafonController.selected.pbaCloClaie}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaCloHaie}" for="pbaCloHaie" />
+                        <p:selectBooleanCheckbox id="pbaCloHaie" value="#{tParcelleBafonController.selected.pbaCloHaie}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaCloAutre}" for="pbaCloAutre" />
+                        <p:inputText id="pbaCloAutre" value="#{tParcelleBafonController.selected.pbaCloAutre}" title="#{bundle.CreateTParcelleBafonTitle_pbaCloAutre}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaNbeBat}" for="pbaNbeBat" />
+                        <p:inputText id="pbaNbeBat" value="#{tParcelleBafonController.selected.pbaNbeBat}" title="#{bundle.CreateTParcelleBafonTitle_pbaNbeBat}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaToitDalle}" for="pbaToitDalle" />
+                        <p:selectBooleanCheckbox id="pbaToitDalle" value="#{tParcelleBafonController.selected.pbaToitDalle}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaToitTuile}" for="pbaToitTuile" />
+                        <p:selectBooleanCheckbox id="pbaToitTuile" value="#{tParcelleBafonController.selected.pbaToitTuile}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaToitTole}" for="pbaToitTole" />
+                        <p:selectBooleanCheckbox id="pbaToitTole" value="#{tParcelleBafonController.selected.pbaToitTole}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaToitPaille}" for="pbaToitPaille" />
+                        <p:selectBooleanCheckbox id="pbaToitPaille" value="#{tParcelleBafonController.selected.pbaToitPaille}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaToitClaie}" for="pbaToitClaie" />
+                        <p:selectBooleanCheckbox id="pbaToitClaie" value="#{tParcelleBafonController.selected.pbaToitClaie}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaMaisOrdinare}" for="pbaMaisOrdinare" />
+                        <p:selectBooleanCheckbox id="pbaMaisOrdinare" value="#{tParcelleBafonController.selected.pbaMaisOrdinare}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaMaisRez}" for="pbaMaisRez" />
+                        <p:selectBooleanCheckbox id="pbaMaisRez" value="#{tParcelleBafonController.selected.pbaMaisRez}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaMaisEtage}" for="pbaMaisEtage" />
+                        <p:selectBooleanCheckbox id="pbaMaisEtage" value="#{tParcelleBafonController.selected.pbaMaisEtage}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaGarage}" for="pbaGarage" />
+                        <p:selectBooleanCheckbox id="pbaGarage" value="#{tParcelleBafonController.selected.pbaGarage}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaPuits}" for="pbaPuits" />
+                        <p:selectBooleanCheckbox id="pbaPuits" value="#{tParcelleBafonController.selected.pbaPuits}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaCiterne}" for="pbaCiterne" />
+                        <p:selectBooleanCheckbox id="pbaCiterne" value="#{tParcelleBafonController.selected.pbaCiterne}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaCuisine}" for="pbaCuisine" />
+                        <p:selectBooleanCheckbox id="pbaCuisine" value="#{tParcelleBafonController.selected.pbaCuisine}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaPuisard}" for="pbaPuisard" />
+                        <p:selectBooleanCheckbox id="pbaPuisard" value="#{tParcelleBafonController.selected.pbaPuisard}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaWc}" for="pbaWc" />
+                        <p:selectBooleanCheckbox id="pbaWc" value="#{tParcelleBafonController.selected.pbaWc}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaHameau}" for="pbaHameau" />
+                        <p:inputText id="pbaHameau" value="#{tParcelleBafonController.selected.pbaHameau}" title="#{bundle.CreateTParcelleBafonTitle_pbaHameau}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaNbEtage}" for="pbaNbEtage" />
+                        <p:inputText id="pbaNbEtage" value="#{tParcelleBafonController.selected.pbaNbEtage}" title="#{bundle.CreateTParcelleBafonTitle_pbaNbEtage}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaLieuDit}" for="pbaLieuDit" />
+                        <p:inputText id="pbaLieuDit" value="#{tParcelleBafonController.selected.pbaLieuDit}" title="#{bundle.CreateTParcelleBafonTitle_pbaLieuDit}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaNomPhoto}" for="pbaNomPhoto" />
+                        <p:inputText id="pbaNomPhoto" value="#{tParcelleBafonController.selected.pbaNomPhoto}" title="#{bundle.CreateTParcelleBafonTitle_pbaNomPhoto}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaNomPhoto1}" for="pbaNomPhoto1" />
+                        <p:inputText id="pbaNomPhoto1" value="#{tParcelleBafonController.selected.pbaNomPhoto1}" title="#{bundle.CreateTParcelleBafonTitle_pbaNomPhoto1}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaStaAutre}" for="pbaStaAutre" />
+                        <p:inputText id="pbaStaAutre" value="#{tParcelleBafonController.selected.pbaStaAutre}" title="#{bundle.CreateTParcelleBafonTitle_pbaStaAutre}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaTitreFoncier}" for="pbaTitreFoncier" />
+                        <p:inputText id="pbaTitreFoncier" value="#{tParcelleBafonController.selected.pbaTitreFoncier}" title="#{bundle.CreateTParcelleBafonTitle_pbaTitreFoncier}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaObservation}" for="pbaObservation" />
+                        <p:inputText id="pbaObservation" value="#{tParcelleBafonController.selected.pbaObservation}" title="#{bundle.CreateTParcelleBafonTitle_pbaObservation}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaNomLocal}" for="pbaNomLocal" />
+                        <p:inputText id="pbaNomLocal" value="#{tParcelleBafonController.selected.pbaNomLocal}" title="#{bundle.CreateTParcelleBafonTitle_pbaNomLocal}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaAncienNumero}" for="pbaAncienNumero" />
+                        <p:inputText id="pbaAncienNumero" value="#{tParcelleBafonController.selected.pbaAncienNumero}" title="#{bundle.CreateTParcelleBafonTitle_pbaAncienNumero}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaAppartenance}" for="pbaAppartenance" />
+                        <p:inputText id="pbaAppartenance" value="#{tParcelleBafonController.selected.pbaAppartenance}" title="#{bundle.CreateTParcelleBafonTitle_pbaAppartenance}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaDateFinalisation}" for="pbaDateFinalisation" />
+                        <p:calendar id="pbaDateFinalisation" pattern="MM/dd/yyyy" value="#{tParcelleBafonController.selected.pbaDateFinalisation}" title="#{bundle.EditTParcelleBafonTitle_pbaDateFinalisation}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaDateChargement}" for="pbaDateChargement" />
+                        <p:calendar id="pbaDateChargement" pattern="MM/dd/yyyy" value="#{tParcelleBafonController.selected.pbaDateChargement}" title="#{bundle.EditTParcelleBafonTitle_pbaDateChargement}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaForme}" for="pbaForme" />
+                        <p:inputText id="pbaForme" value="#{tParcelleBafonController.selected.pbaForme}" title="#{bundle.CreateTParcelleBafonTitle_pbaForme}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaEtatLieu}" for="pbaEtatLieu" />
+                        <p:inputText id="pbaEtatLieu" value="#{tParcelleBafonController.selected.pbaEtatLieu}" title="#{bundle.CreateTParcelleBafonTitle_pbaEtatLieu}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaTranche}" for="pbaTranche" />
+                        <p:inputText id="pbaTranche" value="#{tParcelleBafonController.selected.pbaTranche}" title="#{bundle.CreateTParcelleBafonTitle_pbaTranche}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaLot}" for="pbaLot" />
+                        <p:inputText id="pbaLot" value="#{tParcelleBafonController.selected.pbaLot}" title="#{bundle.CreateTParcelleBafonTitle_pbaLot}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaAdressage}" for="pbaAdressage" />
+                        <p:inputText id="pbaAdressage" value="#{tParcelleBafonController.selected.pbaAdressage}" title="#{bundle.CreateTParcelleBafonTitle_pbaAdressage}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaPfr}" for="pbaPfr" />
+                        <p:selectBooleanCheckbox id="pbaPfr" value="#{tParcelleBafonController.selected.pbaPfr}" />
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaProp}" for="pbaProp" />
+                        <p:selectOneMenu id="pbaProp" value="#{tParcelleBafonController.selected.pbaProp}" >
+                            <f:selectItems value="#{tIntervenantController.itemsAvailableSelectOne}"
+                                           var="pbaPropItem"
+                                           itemValue="#{pbaPropItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaPbaNumero}" for="pbaPbaNumero" />
+                        <p:selectOneMenu id="pbaPbaNumero" value="#{tParcelleBafonController.selected.pbaPbaNumero}" >
+                            <f:selectItems value="#{tParcelleBafonController.itemsAvailableSelectOne}"
+                                           var="pbaPbaNumeroItem"
+                                           itemValue="#{pbaPbaNumeroItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaStaCode}" for="pbaStaCode" />
+                        <p:selectOneMenu id="pbaStaCode" value="#{tParcelleBafonController.selected.pbaStaCode}" >
+                            <f:selectItems value="#{tStatutController.itemsAvailableSelectOne}"
+                                           var="pbaStaCodeItem"
+                                           itemValue="#{pbaStaCodeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaTbfCode}" for="pbaTbfCode" />
+                        <p:selectOneMenu id="pbaTbfCode" value="#{tParcelleBafonController.selected.pbaTbfCode}" >
+                            <f:selectItems value="#{tTypebfController.itemsAvailableSelectOne}"
+                                           var="pbaTbfCodeItem"
+                                           itemValue="#{pbaTbfCodeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTParcelleBafonLabel_pbaVilaCode}" for="pbaVilaCode" />
+                        <p:selectOneMenu id="pbaVilaCode" value="#{tParcelleBafonController.selected.pbaVilaCode}" >
+                            <f:selectItems value="#{tVillageController.itemsAvailableSelectOne}"
+                                           var="pbaVilaCodeItem"
+                                           itemValue="#{pbaVilaCodeItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tParcelleBafonController.create}" value="#{bundle.Save}" update="display,:TParcelleBafonListForm:datalist,:growl" oncomplete="handleSubmit(args,'TParcelleBafonCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TParcelleBafonCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

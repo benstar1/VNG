@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TParcelleBafonViewDlg" widgetVar="TParcelleBafonViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTParcelleBafonTitle}">
+            <h:form id="TParcelleBafonViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tParcelleBafonController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaNumero}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaNumero}" title="#{bundle.ViewTParcelleBafonTitle_pbaNumero}"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaOthoImg}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaOthoImg}" title="#{bundle.ViewTParcelleBafonTitle_pbaOthoImg}"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaNature}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaNature}" title="#{bundle.ViewTParcelleBafonTitle_pbaNature}"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaSuperficie}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaSuperficie}" title="#{bundle.ViewTParcelleBafonTitle_pbaSuperficie}"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaCodeGeo}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaCodeGeo}" title="#{bundle.ViewTParcelleBafonTitle_pbaCodeGeo}"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaHistoire}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaHistoire}" title="#{bundle.ViewTParcelleBafonTitle_pbaHistoire}"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaBati}"/>
+                        <p:selectBooleanCheckbox value="#{tParcelleBafonController.selected.pbaBati}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaCloture}"/>
+                        <p:selectBooleanCheckbox value="#{tParcelleBafonController.selected.pbaCloture}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaCloMacon}"/>
+                        <p:selectBooleanCheckbox value="#{tParcelleBafonController.selected.pbaCloMacon}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaCloBanco}"/>
+                        <p:selectBooleanCheckbox value="#{tParcelleBafonController.selected.pbaCloBanco}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaCloClaie}"/>
+                        <p:selectBooleanCheckbox value="#{tParcelleBafonController.selected.pbaCloClaie}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaCloHaie}"/>
+                        <p:selectBooleanCheckbox value="#{tParcelleBafonController.selected.pbaCloHaie}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaCloAutre}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaCloAutre}" title="#{bundle.ViewTParcelleBafonTitle_pbaCloAutre}"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaNbeBat}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaNbeBat}" title="#{bundle.ViewTParcelleBafonTitle_pbaNbeBat}"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaToitDalle}"/>
+                        <p:selectBooleanCheckbox value="#{tParcelleBafonController.selected.pbaToitDalle}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaToitTuile}"/>
+                        <p:selectBooleanCheckbox value="#{tParcelleBafonController.selected.pbaToitTuile}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaToitTole}"/>
+                        <p:selectBooleanCheckbox value="#{tParcelleBafonController.selected.pbaToitTole}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaToitPaille}"/>
+                        <p:selectBooleanCheckbox value="#{tParcelleBafonController.selected.pbaToitPaille}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaToitClaie}"/>
+                        <p:selectBooleanCheckbox value="#{tParcelleBafonController.selected.pbaToitClaie}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaMaisOrdinare}"/>
+                        <p:selectBooleanCheckbox value="#{tParcelleBafonController.selected.pbaMaisOrdinare}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaMaisRez}"/>
+                        <p:selectBooleanCheckbox value="#{tParcelleBafonController.selected.pbaMaisRez}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaMaisEtage}"/>
+                        <p:selectBooleanCheckbox value="#{tParcelleBafonController.selected.pbaMaisEtage}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaGarage}"/>
+                        <p:selectBooleanCheckbox value="#{tParcelleBafonController.selected.pbaGarage}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaPuits}"/>
+                        <p:selectBooleanCheckbox value="#{tParcelleBafonController.selected.pbaPuits}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaCiterne}"/>
+                        <p:selectBooleanCheckbox value="#{tParcelleBafonController.selected.pbaCiterne}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaCuisine}"/>
+                        <p:selectBooleanCheckbox value="#{tParcelleBafonController.selected.pbaCuisine}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaPuisard}"/>
+                        <p:selectBooleanCheckbox value="#{tParcelleBafonController.selected.pbaPuisard}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaWc}"/>
+                        <p:selectBooleanCheckbox value="#{tParcelleBafonController.selected.pbaWc}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaHameau}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaHameau}" title="#{bundle.ViewTParcelleBafonTitle_pbaHameau}"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaNbEtage}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaNbEtage}" title="#{bundle.ViewTParcelleBafonTitle_pbaNbEtage}"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaLieuDit}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaLieuDit}" title="#{bundle.ViewTParcelleBafonTitle_pbaLieuDit}"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaNomPhoto}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaNomPhoto}" title="#{bundle.ViewTParcelleBafonTitle_pbaNomPhoto}"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaNomPhoto1}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaNomPhoto1}" title="#{bundle.ViewTParcelleBafonTitle_pbaNomPhoto1}"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaStaAutre}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaStaAutre}" title="#{bundle.ViewTParcelleBafonTitle_pbaStaAutre}"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaTitreFoncier}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaTitreFoncier}" title="#{bundle.ViewTParcelleBafonTitle_pbaTitreFoncier}"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaObservation}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaObservation}" title="#{bundle.ViewTParcelleBafonTitle_pbaObservation}"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaNomLocal}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaNomLocal}" title="#{bundle.ViewTParcelleBafonTitle_pbaNomLocal}"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaAncienNumero}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaAncienNumero}" title="#{bundle.ViewTParcelleBafonTitle_pbaAncienNumero}"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaAppartenance}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaAppartenance}" title="#{bundle.ViewTParcelleBafonTitle_pbaAppartenance}"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaDateFinalisation}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaDateFinalisation}" title="#{bundle.ViewTParcelleBafonTitle_pbaDateFinalisation}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaDateChargement}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaDateChargement}" title="#{bundle.ViewTParcelleBafonTitle_pbaDateChargement}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaForme}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaForme}" title="#{bundle.ViewTParcelleBafonTitle_pbaForme}"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaEtatLieu}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaEtatLieu}" title="#{bundle.ViewTParcelleBafonTitle_pbaEtatLieu}"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaTranche}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaTranche}" title="#{bundle.ViewTParcelleBafonTitle_pbaTranche}"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaLot}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaLot}" title="#{bundle.ViewTParcelleBafonTitle_pbaLot}"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaAdressage}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaAdressage}" title="#{bundle.ViewTParcelleBafonTitle_pbaAdressage}"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaPfr}"/>
+                        <p:selectBooleanCheckbox value="#{tParcelleBafonController.selected.pbaPfr}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaProp}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaProp}" title="#{bundle.ViewTParcelleBafonTitle_pbaProp}"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaPbaNumero}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaPbaNumero}" title="#{bundle.ViewTParcelleBafonTitle_pbaPbaNumero}"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaStaCode}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaStaCode}" title="#{bundle.ViewTParcelleBafonTitle_pbaStaCode}"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaTbfCode}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaTbfCode}" title="#{bundle.ViewTParcelleBafonTitle_pbaTbfCode}"/>
+                        <h:outputText value="#{bundle.ViewTParcelleBafonLabel_pbaVilaCode}"/>
+                        <h:outputText value="#{tParcelleBafonController.selected.pbaVilaCode}" title="#{bundle.ViewTParcelleBafonTitle_pbaVilaCode}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TParcelleBafonViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

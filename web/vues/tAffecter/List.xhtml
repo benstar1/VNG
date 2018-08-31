@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTAffecterTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="TAffecterListForm">
+                <p:panel header="#{bundle.ListTAffecterTitle}">
+                    <p:dataTable id="datalist" value="#{tAffecterController.items}" var="item"
+                                 selectionMode="single" selection="#{tAffecterController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.affCode}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTAffecterTitle_affCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.affCode}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTAffecterTitle_affDateDebut}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.affDateDebut}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTAffecterTitle_affDateFin}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.affDateFin}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTAffecterTitle_affDateChargement}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.affDateChargement}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTAffecterTitle_affEnqCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.affEnqCode}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTAffecterTitle_affUtiCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.affUtiCode}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTAffecterTitle_affVilaCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.affVilaCode}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tAffecterController.prepareCreate}" update=":TAffecterCreateForm" oncomplete="PF('TAffecterCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TAffecterViewForm" oncomplete="PF('TAffecterViewDialog').show()" disabled="#{empty tAffecterController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TAffecterEditForm" oncomplete="PF('TAffecterEditDialog').show()" disabled="#{empty tAffecterController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{tAffecterController.destroy}" update=":growl,datalist" disabled="#{empty tAffecterController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,242 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+                xmlns:h="http://java.sun.com/jsf/html" 
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ph="http://primefaces.org/harmony">
+
+    <div class="layout-sidebar">
+        <div class="nano">
+            <div class="nano-content menu-scroll-content">
+                <h:form id="menuform">
+                    <ph:menu widgetVar="me">
+                        <p:menuitem id="om_dashboard" value="Dashboard" icon="fa fa-fw fa-dashboard" outcome="/dashboard" />
+                        <p:submenu id="om_customization" label="Layouts" icon="fa fa-fw fa-cog">
+                            <p:menuitem id="om_customization_1" value="Static" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuMode('layout-menu-static')}" ajax="false" />
+                            <p:menuitem id="om_customization_2" value="Overlay" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuMode('layout-menu-overlay')}" ajax="false" />
+                            <p:menuitem id="om_customization_3" value="Slim" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuMode('layout-menu-slim')}" ajax="false" />
+                            <p:menuitem id="om_customization_4" value="Horizontal" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuMode('layout-menu-horizontal')}" ajax="false" />
+                            <p:submenu id="om_orientation" label="Orientation" icon="fa fa-fw fa-align-right">
+                                <p:menuitem id="om_ltr" value="LTR" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
+                                <p:menuitem id="om_rtl" value="RTL" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
+                            </p:submenu>
+                        </p:submenu>
+                        <p:submenu id="om_themes" label="Themes" icon="fa fa-fw fa-paint-brush">
+                            <p:submenu id="om_themes_flat" label="Flat" icon="fa fa-fw fa-paint-brush">
+                                <p:submenu id="om_themes_flat_2" label="Absolution" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_flat_2_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('absolution')}" ajax="false" />
+                                    <p:menuitem id="om_themes_flat_2_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('absolution-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_flat_2_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('absolution-dark')}" ajax="false" />
+                                </p:submenu>
+                                <p:submenu id="om_themes_flat_1" label="Rebirth" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_flat_1_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('rebirth')}" ajax="false" />
+                                    <p:menuitem id="om_themes_flat_1_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('rebirth-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_flat_1_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('rebirth-dark')}" ajax="false" />
+                                </p:submenu>
+                                <p:submenu id="om_themes_flat_3" label="Hope" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_flat_3_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('hope')}" ajax="false" />
+                                    <p:menuitem id="om_themes_flat_3_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('hope-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_flat_3_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('hope-dark')}" ajax="false" />
+                                </p:submenu>
+                                <p:submenu id="om_themes_flat_4" label="Bliss" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_flat_4_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('bliss')}" ajax="false" />
+                                    <p:menuitem id="om_themes_flat_4_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('bliss-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_flat_4_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('bliss-dark')}" ajax="false" />
+                                </p:submenu>
+                                <p:submenu id="om_themes_flat_5" label="Grace" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_flat_5_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('grace')}" ajax="false" />
+                                    <p:menuitem id="om_themes_flat_5_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('grace-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_flat_5_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('grace-dark')}" ajax="false" />
+                                </p:submenu>
+                                <p:submenu id="om_themes_flat_6" label="Dusk" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_flat_6_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('dusk')}" ajax="false" />
+                                    <p:menuitem id="om_themes_flat_6_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('dusk-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_flat_6_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('dusk-dark')}" ajax="false" />
+                                </p:submenu>
+                                <p:submenu id="om_themes_flat_7" label="Navy" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_flat_7_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('navy')}" ajax="false" />
+                                    <p:menuitem id="om_themes_flat_7_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('navy-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_flat_7_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('navy-dark')}" ajax="false" />
+                                </p:submenu>
+                                <p:submenu id="om_themes_flat_8" label="Infinity" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_flat_8_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('infinity')}" ajax="false" />
+                                    <p:menuitem id="om_themes_flat_8_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('infinity-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_flat_8_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('infinity-dark')}" ajax="false" />
+                                </p:submenu>
+                                <p:submenu id="om_themes_flat_9" label="Fate" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_flat_9_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('fate')}" ajax="false" />
+                                    <p:menuitem id="om_themes_flat_9_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('fate-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_flat_9_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('fate-dark')}" ajax="false" />
+                                </p:submenu>
+                                <p:submenu id="om_themes_flat_10" label="Ruby" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_flat_10_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('ruby')}" ajax="false" />
+                                    <p:menuitem id="om_themes_flat_10_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('ruby-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_flat_10_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('ruby-dark')}" ajax="false" />
+                                </p:submenu>
+                                <p:submenu id="om_themes_flat_11" label="Comfort" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_flat_11_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('comfort')}" ajax="false" />
+                                    <p:menuitem id="om_themes_flat_11_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('comfort-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_flat_11_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('comfort-dark')}" ajax="false" />
+                                </p:submenu>
+                            </p:submenu>
+                            <p:submenu id="om_themes_gradient" label="Gradient" icon="fa fa-fw fa-paint-brush">
+                                <p:submenu id="om_themes_gradient_1" label="Faith" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_gradient_1_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('faith')}" ajax="false" />
+                                    <p:menuitem id="om_themes_gradient_1_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('faith-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_gradient_1_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('faith-dark')}" ajax="false" />
+                                </p:submenu>
+                                <p:submenu id="om_themes_gradient_2" label="Violet" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_gradient_2_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('violet')}" ajax="false" />
+                                    <p:menuitem id="om_themes_gradient_2_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('violet-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_gradient_2_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('violet-dark')}" ajax="false" />
+                                </p:submenu>
+                                <p:submenu id="om_themes_gradient_3" label="Honor" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_gradient_3_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('honor')}" ajax="false" />
+                                    <p:menuitem id="om_themes_gradient_3_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('honor-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_gradient_3_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('honor-dark')}" ajax="false" />
+                                </p:submenu>
+                                <p:submenu id="om_themes_gradient_4" label="Rebel" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_gradient_4_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('rebel')}" ajax="false" />
+                                    <p:menuitem id="om_themes_gradient_4_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('rebel-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_gradient_4_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('rebel-dark')}" ajax="false" />
+                                </p:submenu>   
+                                <p:submenu id="om_themes_gradient_5" label="Vanity" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_gradient_5_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('vanity')}" ajax="false" />
+                                    <p:menuitem id="om_themes_gradient_5_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('vanity-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_gradient_5_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('vanity-dark')}" ajax="false" />
+                                </p:submenu>   
+                                <p:submenu id="om_themes_gradient_6" label="Valor" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_gradient_6_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('valor')}" ajax="false" />
+                                    <p:menuitem id="om_themes_gradient_6_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('valor-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_gradient_6_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('valor-dark')}" ajax="false" />
+                                </p:submenu>  
+                                <p:submenu id="om_themes_gradient_7" label="Merit" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_gradient_7_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('merit')}" ajax="false" />
+                                    <p:menuitem id="om_themes_gradient_7_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('merit-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_gradient_7_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('merit-dark')}" ajax="false" />
+                                </p:submenu>
+                                <p:submenu id="om_themes_gradient_8" label="Esprit" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_gradient_8_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('esprit')}" ajax="false" />
+                                    <p:menuitem id="om_themes_gradient_8_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('esprit-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_gradient_8_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('esprit-dark')}" ajax="false" />
+                                </p:submenu>
+                                <p:submenu id="om_themes_gradient_9" label="Concord" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_gradient_9_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('concord')}" ajax="false" />
+                                    <p:menuitem id="om_themes_gradient_9_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('concord-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_gradient_9_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('concord-dark')}" ajax="false" />
+                                </p:submenu>
+                                <p:submenu id="om_themes_gradient_10" label="Dulce" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_gradient_10_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('dulce')}" ajax="false" />
+                                    <p:menuitem id="om_themes_gradient_10_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('dulce-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_gradient_10_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('dulce-dark')}" ajax="false" />
+                                </p:submenu>
+                                <p:submenu id="om_themes_gradient_11" label="Royal" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_gradient_11_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('royal')}" ajax="false" />
+                                    <p:menuitem id="om_themes_gradient_11_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('royal-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_gradient_11_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('royal-dark')}" ajax="false" />
+                                </p:submenu>
+                            </p:submenu>
+                            <p:submenu id="om_themes_image" label="Image" icon="fa fa-fw fa-paint-brush">
+                                <p:submenu id="om_themes_image_1" label="Hazel" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_image_1_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('hazel')}" ajax="false" />
+                                    <p:menuitem id="om_themes_image_1_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('hazel-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_image_1_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('hazel-dark')}" ajax="false" />
+                                </p:submenu>
+                                <p:submenu id="om_themes_image_2" label="Essence" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_image_2_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('essence')}" ajax="false" />
+                                    <p:menuitem id="om_themes_image_2_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('essence-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_image_2_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('essence-dark')}" ajax="false" />
+                                </p:submenu>
+                                <p:submenu id="om_themes_image_3" label="Eternity" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_image_3_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('eternity')}" ajax="false" />
+                                    <p:menuitem id="om_themes_image_3_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('eternity-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_image_3_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('eternity-dark')}" ajax="false" />
+                                </p:submenu>
+                                <p:submenu id="om_themes_image_4" label="Clarity" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_image_4_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('clarity')}" ajax="false" />
+                                    <p:menuitem id="om_themes_image_4_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('clarity-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_image_4_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('clarity-dark')}" ajax="false" />
+                                </p:submenu>
+                                <p:submenu id="om_themes_image_5" label="Solace" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_image_5_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('solace')}" ajax="false" />
+                                    <p:menuitem id="om_themes_image_5_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('solace-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_image_5_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('solace-dark')}" ajax="false" />
+                                </p:submenu>
+                                <p:submenu id="om_themes_image_6" label="Joy" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_image_6_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('joy')}" ajax="false" />
+                                    <p:menuitem id="om_themes_image_6_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('joy-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_image_6_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('joy-dark')}" ajax="false" />
+                                </p:submenu>
+                                <p:submenu id="om_themes_image_7" label="Purity" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_image_7_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('purity')}" ajax="false" />
+                                    <p:menuitem id="om_themes_image_7_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('purity-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_image_7_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('purity-dark')}" ajax="false" />
+                                </p:submenu>
+                                <p:submenu id="om_themes_image_8" label="Euclid" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_image_8_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('euclid')}" ajax="false" />
+                                    <p:menuitem id="om_themes_image_8_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('euclid-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_image_8_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('euclid-dark')}" ajax="false" />
+                                </p:submenu>
+                                <p:submenu id="om_themes_image_9" label="Elegance" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_image_9_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('elegance')}" ajax="false" />
+                                    <p:menuitem id="om_themes_image_9_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('elegance-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_image_9_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('elegance-dark')}" ajax="false" />
+                                </p:submenu>
+                                <p:submenu id="om_themes_image_10" label="Tranquil" icon="fa fa-fw fa-paint-brush">
+                                    <p:menuitem id="om_themes_image_10_1" value="Colored" icon="fa fa-fw fa-square-o" actionListener="#{guestPreferences.setTheme('tranquil')}" ajax="false" />
+                                    <p:menuitem id="om_themes_image_10_2" value="Light" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('tranquil-light')}" ajax="false" />
+                                    <p:menuitem id="om_themes_image_10_3" value="Dark" icon="fa fa-fw fa-square" actionListener="#{guestPreferences.setTheme('tranquil-dark')}" ajax="false" />
+                                </p:submenu>
+                            </p:submenu>
+                        </p:submenu>
+
+                        <p:submenu id="om_components" label="Components" icon="fa fa-fw fa-bars">
+                            <p:menuitem id="om_sample" value="Sample Page" icon="fa fa-fw fa-columns" outcome="/sample" />
+                            <p:menuitem id="om_forms" value="Forms" icon="fa fa-fw fa-code" outcome="/forms" />
+                            <p:menuitem id="om_data" value="Data" icon="fa fa-fw fa-table" outcome="/data" />
+                            <p:menuitem id="om_panels" value="Panels" icon="fa fa-fw fa-list-alt" outcome="/panel" />
+                            <p:menuitem id="om_overlays" value="Overlays" icon="fa fa-fw fa-square" outcome="/overlay" />
+                            <p:menuitem id="om_menus" value="Menus" icon="fa fa-fw fa-minus-square-o" outcome="/menu" />
+                            <p:menuitem id="om_messages" value="Messages" icon="fa fa-fw fa-circle-o-notch" outcome="/messages" />
+                            <p:menuitem id="om_charts" value="Charts" icon="fa fa-fw fa-area-chart" outcome="/charts" />
+                            <p:menuitem id="om_file" value="File" icon="fa fa-fw fa-arrow-circle-o-up" outcome="/file" />
+                            <p:menuitem id="om_misc" value="Misc" icon="fa fa-fw fa-user-secret" outcome="/misc" />
+                        </p:submenu>
+
+                        <p:submenu id="om_default" label="Pages" icon="fa fa-fw fa-cube">
+                            <p:menuitem id="om_empty" value="Empty" icon="fa fa-fw fa-square-o" outcome="/empty" />
+                            <p:menuitem id="om_login" value="Login" icon="fa fa-fw fa-sign-in" outcome="/login" />
+                            <p:menuitem id="om_db_landing" value="Landing" icon="fa fa-fw fa-certificate" outcome="/landing" />
+                            <p:menuitem id="om_error" value="Error" icon="fa fa-fw fa-exclamation-circle" outcome="/error" />
+                            <p:menuitem id="om_404" value="404" icon="fa fa-fw fa-times" outcome="/404" />
+                            <p:menuitem id="om_access" value="Access Denied" icon="fa fa-fw fa-exclamation-triangle" outcome="/access" />
+                        </p:submenu>
+                        <p:submenu id="om_hierarchy" label="Hierarchy" icon="fa fa-fw fa-sitemap">
+                            <p:submenu id="om_sm1" label="Submenu 1" icon="fa fa-fw fa-sign-in">
+                                <p:submenu id="om_sm11" label="Submenu 1.1" icon="fa fa-fw fa-sign-in">
+                                    <p:menuitem id="om_lnk111" value="Link 1.1.1" icon="fa fa-fw fa-sign-in" url="#" />
+                                    <p:menuitem id="om_lnk112" value="Link 1.1.2" icon="fa fa-fw fa-sign-in" url="#" />
+                                    <p:menuitem id="om_lnk113" value="Link 1.1.3" icon="fa fa-fw fa-sign-in" url="#" />
+                                </p:submenu>
+                                <p:submenu id="om_sm12" label="Submenu 1.2" icon="fa fa-fw fa-sign-in">
+                                    <p:menuitem id="om_lnk121" value="Link 1.2.1" icon="fa fa-fw fa-sign-in" url="#" />
+                                </p:submenu>
+                            </p:submenu>
+                            <p:submenu id="om_sm2" label="Submenu 2" icon="fa fa-fw fa-sign-in">
+                                <p:submenu id="om_sm21" label="Submenu 2.1" icon="fa fa-fw fa-sign-in">
+                                    <p:menuitem id="om_lnk211" value="Link 2.1.1" icon="fa fa-fw fa-sign-in" url="#" />
+                                    <p:menuitem id="om_lnk212" value="Link 2.1.2" icon="fa fa-fw fa-sign-in" url="#" />
+                                </p:submenu>
+                                <p:submenu id="om_sm22" label="Submenu 2.2" icon="fa fa-fw fa-sign-in">
+                                    <p:menuitem id="om_lnk221" value="Link 2.2.1" icon="fa fa-fw fa-sign-in" url="#" />
+                                </p:submenu>
+                            </p:submenu>
+                        </p:submenu>
+                        <p:menuitem id="om_doc" value="Docs" icon="fa fa-fw fa-file-code-o" outcome="/docs" />
+                        <p:menuitem id="om_buy" value="Buy Now" icon="fa fa-fw fa-credit-card-alt" url="https://www.primefaces.org/layouts/harmony"/>
+                    </ph:menu>
+                </h:form>
+            </div>
+        </div>
+    </div>
+</ui:composition>

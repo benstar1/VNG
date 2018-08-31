@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <title>PrimeFaces Harmony - 404</title>
+    </h:head>
+
+    <h:body styleClass="exception-body notfound">
+        <div class="logo">
+            <p:graphicImage name="images/harmony-logo.png" library="harmony-layout"/>
+            <span class="app-name">HARMONY</span>        
+        </div>
+
+        <div class="exception-panel">
+            <p:graphicImage name="images/template/image-404-mobile.jpg" library="harmony-layout" class="mobile"/>
+            <div class="left-part">
+                <span class="exception-panel-header">Page Not Found</span>
+                <span class="exception-panel-subheader">Requested resource is not available.</span>
+                
+                <p:commandButton type="button" value="Home" styleClass="raised-btn" icon="fa fa-home"/>
+            </div>
+            <div class="right-part">
+                <p:graphicImage name="images/template/image-404.png" library="harmony-layout"/>
+            </div>
+        </div>
+        
+        <h:outputStylesheet name="css/layout-#{guestPreferences.theme}.css" library="harmony-layout" />
+    </h:body>
+
+</html>

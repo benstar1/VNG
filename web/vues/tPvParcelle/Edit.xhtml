@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TPvParcelleEditDlg" widgetVar="TPvParcelleEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTPvParcelleTitle}">
+            <h:form id="TPvParcelleEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tPvParcelleController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTPvParcelleLabel_pvNumero}" for="pvNumero" />
+                        <p:inputText id="pvNumero" value="#{tPvParcelleController.selected.pvNumero}" title="#{bundle.EditTPvParcelleTitle_pvNumero}" required="true" requiredMessage="#{bundle.EditTPvParcelleRequiredMessage_pvNumero}"/>
+                        <p:outputLabel value="#{bundle.EditTPvParcelleLabel_pvNomImageDet}" for="pvNomImageDet" />
+                        <p:inputText id="pvNomImageDet" value="#{tPvParcelleController.selected.pvNomImageDet}" title="#{bundle.EditTPvParcelleTitle_pvNomImageDet}" />
+                        <p:outputLabel value="#{bundle.EditTPvParcelleLabel_pvDateDeb}" for="pvDateDeb" />
+                        <p:calendar id="pvDateDeb" pattern="MM/dd/yyyy" value="#{tPvParcelleController.selected.pvDateDeb}" title="#{bundle.EditTPvParcelleTitle_pvDateDeb}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTPvParcelleLabel_pvDateFin}" for="pvDateFin" />
+                        <p:calendar id="pvDateFin" pattern="MM/dd/yyyy" value="#{tPvParcelleController.selected.pvDateFin}" title="#{bundle.EditTPvParcelleTitle_pvDateFin}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTPvParcelleLabel_pvPv}" for="pvPv" />
+                        <p:inputText id="pvPv" value="#{tPvParcelleController.selected.pvPv}" title="#{bundle.EditTPvParcelleTitle_pvPv}" />
+                        <p:outputLabel value="#{bundle.EditTPvParcelleLabel_pvNomImageEnq}" for="pvNomImageEnq" />
+                        <p:inputText id="pvNomImageEnq" value="#{tPvParcelleController.selected.pvNomImageEnq}" title="#{bundle.EditTPvParcelleTitle_pvNomImageEnq}" />
+                        <p:outputLabel value="#{bundle.EditTPvParcelleLabel_pvNomImageGeo}" for="pvNomImageGeo" />
+                        <p:inputText id="pvNomImageGeo" value="#{tPvParcelleController.selected.pvNomImageGeo}" title="#{bundle.EditTPvParcelleTitle_pvNomImageGeo}" />
+                        <p:outputLabel value="#{bundle.EditTPvParcelleLabel_pvPvEntete}" for="pvPvEntete" />
+                        <p:inputText id="pvPvEntete" value="#{tPvParcelleController.selected.pvPvEntete}" title="#{bundle.EditTPvParcelleTitle_pvPvEntete}" />
+                        <p:outputLabel value="#{bundle.EditTPvParcelleLabel_pvEnqCode}" for="pvEnqCode" />
+                        <p:inputText id="pvEnqCode" value="#{tPvParcelleController.selected.pvEnqCode}" title="#{bundle.EditTPvParcelleTitle_pvEnqCode}" />
+                        <p:outputLabel value="#{bundle.EditTPvParcelleLabel_pvDateChargement}" for="pvDateChargement" />
+                        <p:calendar id="pvDateChargement" pattern="MM/dd/yyyy" value="#{tPvParcelleController.selected.pvDateChargement}" title="#{bundle.EditTPvParcelleTitle_pvDateChargement}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTPvParcelleLabel_pvIntNumero}" for="pvIntNumero" />
+                        <p:selectOneMenu id="pvIntNumero" value="#{tPvParcelleController.selected.pvIntNumero}" required="true" requiredMessage="#{bundle.EditTPvParcelleRequiredMessage_pvIntNumero}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tIntervenantController.itemsAvailableSelectOne}"
+                                           var="pvIntNumeroItem"
+                                           itemValue="#{pvIntNumeroItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTPvParcelleLabel_pvPbaNumero}" for="pvPbaNumero" />
+                        <p:selectOneMenu id="pvPbaNumero" value="#{tPvParcelleController.selected.pvPbaNumero}" required="true" requiredMessage="#{bundle.EditTPvParcelleRequiredMessage_pvPbaNumero}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tParcelleBafonController.itemsAvailableSelectOne}"
+                                           var="pvPbaNumeroItem"
+                                           itemValue="#{pvPbaNumeroItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTPvParcelleLabel_pvUtiCodeEnq}" for="pvUtiCodeEnq" />
+                        <p:selectOneMenu id="pvUtiCodeEnq" value="#{tPvParcelleController.selected.pvUtiCodeEnq}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tUtilisateurController.itemsAvailableSelectOne}"
+                                           var="pvUtiCodeEnqItem"
+                                           itemValue="#{pvUtiCodeEnqItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTPvParcelleLabel_pvUtiCodeGeo}" for="pvUtiCodeGeo" />
+                        <p:selectOneMenu id="pvUtiCodeGeo" value="#{tPvParcelleController.selected.pvUtiCodeGeo}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tUtilisateurController.itemsAvailableSelectOne}"
+                                           var="pvUtiCodeGeoItem"
+                                           itemValue="#{pvUtiCodeGeoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tPvParcelleController.update}" value="#{bundle.Save}" update="display,:TPvParcelleListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TPvParcelleEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TPvParcelleEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

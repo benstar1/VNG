@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TPointCardinoViewDlg" widgetVar="TPointCardinoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTPointCardinoTitle}">
+            <h:form id="TPointCardinoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tPointCardinoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTPointCardinoLabel_pocaCode}"/>
+                        <h:outputText value="#{tPointCardinoController.selected.pocaCode}" title="#{bundle.ViewTPointCardinoTitle_pocaCode}"/>
+                        <h:outputText value="#{bundle.ViewTPointCardinoLabel_pocaDesig}"/>
+                        <h:outputText value="#{tPointCardinoController.selected.pocaDesig}" title="#{bundle.ViewTPointCardinoTitle_pocaDesig}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TPointCardinoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

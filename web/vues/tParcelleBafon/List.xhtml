@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTParcelleBafonTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="TParcelleBafonListForm">
+                <p:panel header="#{bundle.ListTParcelleBafonTitle}">
+                    <p:dataTable id="datalist" value="#{tParcelleBafonController.items}" var="item"
+                                 selectionMode="single" selection="#{tParcelleBafonController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.pbaNumero}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaNumero}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaNumero}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaOthoImg}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaOthoImg}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaNature}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaNature}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaSuperficie}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaSuperficie}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaCodeGeo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaCodeGeo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaHistoire}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaHistoire}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaBati}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.pbaBati}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaCloture}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.pbaCloture}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaCloMacon}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.pbaCloMacon}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaCloBanco}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.pbaCloBanco}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaCloClaie}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.pbaCloClaie}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaCloHaie}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.pbaCloHaie}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaCloAutre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaCloAutre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaNbeBat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaNbeBat}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaToitDalle}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.pbaToitDalle}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaToitTuile}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.pbaToitTuile}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaToitTole}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.pbaToitTole}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaToitPaille}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.pbaToitPaille}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaToitClaie}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.pbaToitClaie}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaMaisOrdinare}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.pbaMaisOrdinare}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaMaisRez}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.pbaMaisRez}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaMaisEtage}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.pbaMaisEtage}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaGarage}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.pbaGarage}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaPuits}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.pbaPuits}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaCiterne}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.pbaCiterne}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaCuisine}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.pbaCuisine}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaPuisard}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.pbaPuisard}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaWc}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.pbaWc}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaHameau}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaHameau}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaNbEtage}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaNbEtage}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaLieuDit}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaLieuDit}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaNomPhoto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaNomPhoto}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaNomPhoto1}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaNomPhoto1}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaStaAutre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaStaAutre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaTitreFoncier}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaTitreFoncier}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaObservation}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaObservation}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaNomLocal}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaNomLocal}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaAncienNumero}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaAncienNumero}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaAppartenance}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaAppartenance}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaDateFinalisation}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaDateFinalisation}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaDateChargement}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaDateChargement}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaForme}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaForme}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaEtatLieu}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaEtatLieu}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaTranche}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaTranche}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaLot}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaLot}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaAdressage}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaAdressage}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaPfr}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.pbaPfr}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaProp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaProp}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaPbaNumero}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaPbaNumero}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaStaCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaStaCode}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaTbfCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaTbfCode}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTParcelleBafonTitle_pbaVilaCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pbaVilaCode}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tParcelleBafonController.prepareCreate}" update=":TParcelleBafonCreateForm" oncomplete="PF('TParcelleBafonCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TParcelleBafonViewForm" oncomplete="PF('TParcelleBafonViewDialog').show()" disabled="#{empty tParcelleBafonController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TParcelleBafonEditForm" oncomplete="PF('TParcelleBafonEditDialog').show()" disabled="#{empty tParcelleBafonController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{tParcelleBafonController.destroy}" update=":growl,datalist" disabled="#{empty tParcelleBafonController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTConflitTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="TConflitListForm">
+                <p:panel header="#{bundle.ListTConflitTitle}">
+                    <p:dataTable id="datalist" value="#{tConflitController.items}" var="item"
+                                 selectionMode="single" selection="#{tConflitController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.confNum}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTConflitTitle_confNum}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.confNum}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTConflitTitle_confNatCompromi}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.confNatCompromi}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTConflitTitle_confModeRegle}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.confModeRegle}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTConflitTitle_confDateRegl}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.confDateRegl}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTConflitTitle_confDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.confDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTConflitTitle_confActeurRegl}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.confActeurRegl}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTConflitTitle_confTemoinRegl}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.confTemoinRegl}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTConflitTitle_divTyreAutre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.divTyreAutre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTConflitTitle_divOriginDroitAutre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.divOriginDroitAutre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTConflitTitle_divNatureContestAutre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.divNatureContestAutre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTConflitTitle_confEncoursRegl}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.confEncoursRegl}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTConflitTitle_confObservation}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.confObservation}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTConflitTitle_confDateChargement}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.confDateChargement}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTConflitTitle_confPbaNumero}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.confPbaNumero}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tConflitController.prepareCreate}" update=":TConflitCreateForm" oncomplete="PF('TConflitCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TConflitViewForm" oncomplete="PF('TConflitViewDialog').show()" disabled="#{empty tConflitController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TConflitEditForm" oncomplete="PF('TConflitEditDialog').show()" disabled="#{empty tConflitController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{tConflitController.destroy}" update=":growl,datalist" disabled="#{empty tConflitController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

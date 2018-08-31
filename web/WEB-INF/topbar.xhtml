@@ -1,0 +1,171 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+    <div class="layout-topbar">
+        <h:link outcome="/dashboard" styleClass="logo-container">
+            <p:graphicImage name="images/harmony-logo.png" library="harmony-layout" />
+            <span class="app-name">HARMONY</span>
+        </h:link>
+
+        <div class="topbar-content">
+            <a href="#" id="topbar-sidebar-button">
+                <i class="fa fa-bars"></i>
+            </a>
+            <div class="search-input">
+                <i class="fa fa-search icon-search"></i>
+                <input type="text"></input>
+            </div>
+
+            <a href="#" id="topbar-quickmenu-button">
+                QUICK MENU
+            </a>
+
+            <div class="topbar-icons">
+                <ul>
+                    <li>
+                        <a>
+                            <i class="fa fa-paper-plane-o topbar-icon-plane"></i>
+                            <span class="icon-label">Send Mail</span>
+                        </a>
+                        <div class="layout-quickmenu-tooltip">
+                            <div class="layout-quickmenu-tooltip-arrow"></div>
+                            <div class="layout-quickmenu-tooltip-text">Send Mail</div>
+                        </div>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="fa fa-calendar topbar-icon-calendar"></i>
+                            <span class="icon-label">Add Event</span>
+                        </a>
+                        <div class="layout-quickmenu-tooltip">
+                            <div class="layout-quickmenu-tooltip-arrow"></div>
+                            <div class="layout-quickmenu-tooltip-text">Add Event</div>
+                        </div>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="fa fa-pencil-square-o topbar-icon-notes"></i>
+                            <span class="icon-label">New Post</span>
+                        </a>
+                        <div class="layout-quickmenu-tooltip">
+                            <div class="layout-quickmenu-tooltip-arrow"></div>
+                            <div class="layout-quickmenu-tooltip-text">New Post</div>
+                        </div>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="fa fa-sun-o topbar-icon-settings"></i>
+                            <span class="icon-label">Settings</span>
+                        </a>
+                        <div class="layout-quickmenu-tooltip">
+                            <div class="layout-quickmenu-tooltip-arrow"></div>
+                            <div class="layout-quickmenu-tooltip-text">Settings</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <a id="topbar-right-panel-button" href="#">
+                <i class="fa fa-ellipsis-v"></i>
+            </a>
+            <a id="topbar-profile-menu-button" href="#">
+                <p:graphicImage name="images/avatar.png" library="harmony-layout" styleClass="topbar-profile" />
+                <span>Kate Winston</span>
+            </a>
+
+            <ul id="topbar-profile-menu">
+                <li>
+                    <a href="#">
+                        <i class="topbar-icon fa fa-fw fa-paint-brush"></i>
+                        <span class="topbar-item-name">Change Theme</span>
+                    </a>
+                    <ul>
+                        <li role="menuitem">
+                            <a href="#">
+                                <i class="fa fa-fw fa-moon-o"></i>
+                                <span>Dark Topbar</span>
+                            </a>
+                        </li>
+                        <li role="menuitem">
+                            <a href="#">
+                                <i class="fa fa-fw fa-sun-o"></i>
+                                <span>Light Topbar</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="topbar-icon fa fa-fw fa-heart"></i>
+                        <span class="topbar-item-name">Favorites</span>
+                    </a>
+                    <ul>
+                        <li role="menuitem">
+                            <a href="#">
+                                <i class="fa fa-fw fa-paint-brush"></i>
+                                <span>Change Theme</span>
+                            </a>
+                        </li>
+                        <li role="menuitem">
+                            <a href="#">
+                                <i class="fa fa-fw fa-star-o"></i>
+                                <span>Favorites</span>
+                            </a>
+                        </li>
+                        <li role="menuitem">
+                            <a href="#">
+                                <i class="fa fa-fw fa-lock"></i>
+                                <span>Lock Screen</span>
+                            </a>
+                        </li>
+                        <li role="menuitem">
+                            <a href="#">
+                                <i class="fa fa-fw fa-picture-o"></i>
+                                <span>Wallpaper</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="topbar-icon material-icons animated swing fa fa-fw fa-lock"></i>
+                        <span class="topbar-item-name">Lock Screen</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="topbar-icon fa fa-fw fa-picture-o"></i>
+                        <span class="topbar-item-name">Wallpaper</span>
+                    </a>
+                    <ul>
+                        <li role="menuitem">
+                            <a href="#">
+                                <i class="fa fa-fw fa-tasks"></i>
+                                <span>Pending tasks</span>
+                            </a>
+                        </li>
+                        <li role="menuitem">
+                            <a href="#">
+                                <i class="fa fa-fw fa-calendar-check-o"></i>
+                                <span>Meeting today</span>
+                            </a>
+                        </li>
+                        <li role="menuitem">
+                            <a href="#">
+                                <i class="fa fa-fw fa-download"></i>
+                                <span>Download</span>
+                            </a>
+                        </li>
+                        <li role="menuitem">
+                            <a href="#">
+                                <i class="fa fa-fw fa-plane"></i>
+                                <span>Book flight</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+
+</ui:composition>

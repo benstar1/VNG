@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TDepartementCreateDlg" widgetVar="TDepartementCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTDepartementTitle}">
+            <h:form id="TDepartementCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tDepartementController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTDepartementLabel_depCode}" for="depCode" />
+                        <p:inputText id="depCode" value="#{tDepartementController.selected.depCode}" title="#{bundle.CreateTDepartementTitle_depCode}" required="true" requiredMessage="#{bundle.CreateTDepartementRequiredMessage_depCode}"/>
+                        <p:outputLabel value="#{bundle.CreateTDepartementLabel_depDesig}" for="depDesig" />
+                        <p:inputText id="depDesig" value="#{tDepartementController.selected.depDesig}" title="#{bundle.CreateTDepartementTitle_depDesig}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tDepartementController.create}" value="#{bundle.Save}" update="display,:TDepartementListForm:datalist,:growl" oncomplete="handleSubmit(args,'TDepartementCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TDepartementCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

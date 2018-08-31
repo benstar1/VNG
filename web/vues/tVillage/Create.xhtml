@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TVillageCreateDlg" widgetVar="TVillageCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTVillageTitle}">
+            <h:form id="TVillageCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tVillageController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTVillageLabel_vilaCode}" for="vilaCode" />
+                        <p:inputText id="vilaCode" value="#{tVillageController.selected.vilaCode}" title="#{bundle.CreateTVillageTitle_vilaCode}" required="true" requiredMessage="#{bundle.CreateTVillageRequiredMessage_vilaCode}"/>
+                        <p:outputLabel value="#{bundle.CreateTVillageLabel_vlaDesig}" for="vlaDesig" />
+                        <p:inputText id="vlaDesig" value="#{tVillageController.selected.vlaDesig}" title="#{bundle.CreateTVillageTitle_vlaDesig}" />
+                        <p:outputLabel value="#{bundle.CreateTVillageLabel_vilaArrCode}" for="vilaArrCode" />
+                        <p:selectOneMenu id="vilaArrCode" value="#{tVillageController.selected.vilaArrCode}" required="true" requiredMessage="#{bundle.EditTVillageRequiredMessage_vilaArrCode}">
+                            <f:selectItems value="#{tArrondissementController.itemsAvailableSelectOne}"
+                                           var="vilaArrCodeItem"
+                                           itemValue="#{vilaArrCodeItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tVillageController.create}" value="#{bundle.Save}" update="display,:TVillageListForm:datalist,:growl" oncomplete="handleSubmit(args,'TVillageCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TVillageCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

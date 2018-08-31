@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TEnqueterCreateDlg" widgetVar="TEnqueterCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTEnqueterTitle}">
+            <h:form id="TEnqueterCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tEnqueterController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTEnqueterLabel_TEnqueterPK_eqDateDebut}" for="TEnqueterPK_eqDateDebut" />
+                        <p:calendar id="TEnqueterPK_eqDateDebut" pattern="MM/dd/yyyy" value="#{tEnqueterController.selected.TEnqueterPK.eqDateDebut}" title="#{bundle.EditTEnqueterTitle_TEnqueterPK_eqDateDebut}" required="true" requiredMessage="#{bundle.EditTEnqueterRequiredMessage_TEnqueterPK_eqDateDebut}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTEnqueterLabel_eqDateFin}" for="eqDateFin" />
+                        <p:calendar id="eqDateFin" pattern="MM/dd/yyyy" value="#{tEnqueterController.selected.eqDateFin}" title="#{bundle.EditTEnqueterTitle_eqDateFin}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTEnqueterLabel_eqConCode}" for="eqConCode" />
+                        <p:inputText id="eqConCode" value="#{tEnqueterController.selected.eqConCode}" title="#{bundle.CreateTEnqueterTitle_eqConCode}" />
+                        <p:outputLabel value="#{bundle.CreateTEnqueterLabel_eqDateChargement}" for="eqDateChargement" />
+                        <p:calendar id="eqDateChargement" pattern="MM/dd/yyyy" value="#{tEnqueterController.selected.eqDateChargement}" title="#{bundle.EditTEnqueterTitle_eqDateChargement}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTEnqueterLabel_TEnquete}" for="TEnquete" />
+                        <p:selectOneMenu id="TEnquete" value="#{tEnqueterController.selected.TEnquete}" required="true" requiredMessage="#{bundle.EditTEnqueterRequiredMessage_TEnquete}">
+                            <f:selectItems value="#{tEnqueteController.itemsAvailableSelectOne}"
+                                           var="TEnqueteItem"
+                                           itemValue="#{TEnqueteItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTEnqueterLabel_TUtilisateur}" for="TUtilisateur" />
+                        <p:selectOneMenu id="TUtilisateur" value="#{tEnqueterController.selected.TUtilisateur}" required="true" requiredMessage="#{bundle.EditTEnqueterRequiredMessage_TUtilisateur}">
+                            <f:selectItems value="#{tUtilisateurController.itemsAvailableSelectOne}"
+                                           var="TUtilisateurItem"
+                                           itemValue="#{TUtilisateurItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tEnqueterController.create}" value="#{bundle.Save}" update="display,:TEnqueterListForm:datalist,:growl" oncomplete="handleSubmit(args,'TEnqueterCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TEnqueterCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TAffecterViewDlg" widgetVar="TAffecterViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTAffecterTitle}">
+            <h:form id="TAffecterViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tAffecterController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTAffecterLabel_affCode}"/>
+                        <h:outputText value="#{tAffecterController.selected.affCode}" title="#{bundle.ViewTAffecterTitle_affCode}"/>
+                        <h:outputText value="#{bundle.ViewTAffecterLabel_affDateDebut}"/>
+                        <h:outputText value="#{tAffecterController.selected.affDateDebut}" title="#{bundle.ViewTAffecterTitle_affDateDebut}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTAffecterLabel_affDateFin}"/>
+                        <h:outputText value="#{tAffecterController.selected.affDateFin}" title="#{bundle.ViewTAffecterTitle_affDateFin}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTAffecterLabel_affDateChargement}"/>
+                        <h:outputText value="#{tAffecterController.selected.affDateChargement}" title="#{bundle.ViewTAffecterTitle_affDateChargement}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTAffecterLabel_affEnqCode}"/>
+                        <h:outputText value="#{tAffecterController.selected.affEnqCode}" title="#{bundle.ViewTAffecterTitle_affEnqCode}"/>
+                        <h:outputText value="#{bundle.ViewTAffecterLabel_affUtiCode}"/>
+                        <h:outputText value="#{tAffecterController.selected.affUtiCode}" title="#{bundle.ViewTAffecterTitle_affUtiCode}"/>
+                        <h:outputText value="#{bundle.ViewTAffecterLabel_affVilaCode}"/>
+                        <h:outputText value="#{tAffecterController.selected.affVilaCode}" title="#{bundle.ViewTAffecterTitle_affVilaCode}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TAffecterViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

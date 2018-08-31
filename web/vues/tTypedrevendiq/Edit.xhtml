@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TTypedrevendiqEditDlg" widgetVar="TTypedrevendiqEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTTypedrevendiqTitle}">
+            <h:form id="TTypedrevendiqEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tTypedrevendiqController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTTypedrevendiqLabel_tyreCode}" for="tyreCode" />
+                        <p:inputText id="tyreCode" value="#{tTypedrevendiqController.selected.tyreCode}" title="#{bundle.EditTTypedrevendiqTitle_tyreCode}" required="true" requiredMessage="#{bundle.EditTTypedrevendiqRequiredMessage_tyreCode}"/>
+                        <p:outputLabel value="#{bundle.EditTTypedrevendiqLabel_tyreDesig}" for="tyreDesig" />
+                        <p:inputText id="tyreDesig" value="#{tTypedrevendiqController.selected.tyreDesig}" title="#{bundle.EditTTypedrevendiqTitle_tyreDesig}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tTypedrevendiqController.update}" value="#{bundle.Save}" update="display,:TTypedrevendiqListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TTypedrevendiqEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TTypedrevendiqEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

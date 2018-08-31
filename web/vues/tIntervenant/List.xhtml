@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTIntervenantTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="TIntervenantListForm">
+                <p:panel header="#{bundle.ListTIntervenantTitle}">
+                    <p:dataTable id="datalist" value="#{tIntervenantController.items}" var="item"
+                                 selectionMode="single" selection="#{tIntervenantController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.intNumero}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intNumero}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intNumero}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intNom}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intNom}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intPrenom}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intPrenom}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intCollectivite}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intCollectivite}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intLepi}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intLepi}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intCiPp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intCiPp}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intDateExpCi}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intDateExpCi}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intIfu}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intIfu}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intDomicile}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intDomicile}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intNomInsti}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intNomInsti}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intCheflieu}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intCheflieu}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intSexe}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intSexe}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intPreuveAdm}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intPreuveAdm}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intOrigine}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intOrigine}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intAnneArriv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intAnneArriv}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intProfession}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intProfession}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intNomPhoto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intNomPhoto}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intNumeroAssigne}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intNumeroAssigne}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intNomEmprunt}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intNomEmprunt}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intTelephone}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intTelephone}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intActAutre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intActAutre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intEthAutre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intEthAutre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intNationalite}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intNationalite}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intNationaliteAutre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intNationaliteAutre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intNumeroRavip}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intNumeroRavip}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intStatutSocial}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intStatutSocial}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intStructure}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intStructure}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intFonction}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intFonction}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intLigCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intLigCode}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intPhotoIdentit}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intPhotoIdentit}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intPhotoComplet}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intPhotoComplet}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intImage3}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intImage3}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intImage4}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intImage4}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intLigAutre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intLigAutre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intDateNais}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intDateNais}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intDateChargement}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intDateChargement}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intDateNaissCalcul}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intDateNaissCalcul}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intLieuNaiss}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intLieuNaiss}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intActCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intActCode}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intEthCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intEthCode}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intVilaCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intVilaCode}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tIntervenantController.prepareCreate}" update=":TIntervenantCreateForm" oncomplete="PF('TIntervenantCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TIntervenantViewForm" oncomplete="PF('TIntervenantViewDialog').show()" disabled="#{empty tIntervenantController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TIntervenantEditForm" oncomplete="PF('TIntervenantEditDialog').show()" disabled="#{empty tIntervenantController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{tIntervenantController.destroy}" update=":growl,datalist" disabled="#{empty tIntervenantController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

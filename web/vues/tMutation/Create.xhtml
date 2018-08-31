@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TMutationCreateDlg" widgetVar="TMutationCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTMutationTitle}">
+            <h:form id="TMutationCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tMutationController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTMutationLabel_mutNumero}" for="mutNumero" />
+                        <p:inputText id="mutNumero" value="#{tMutationController.selected.mutNumero}" title="#{bundle.CreateTMutationTitle_mutNumero}" required="true" requiredMessage="#{bundle.CreateTMutationRequiredMessage_mutNumero}"/>
+                        <p:outputLabel value="#{bundle.CreateTMutationLabel_mutObjet}" for="mutObjet" />
+                        <p:inputText id="mutObjet" value="#{tMutationController.selected.mutObjet}" title="#{bundle.CreateTMutationTitle_mutObjet}" />
+                        <p:outputLabel value="#{bundle.CreateTMutationLabel_mutDateMut}" for="mutDateMut" />
+                        <p:calendar id="mutDateMut" pattern="MM/dd/yyyy" value="#{tMutationController.selected.mutDateMut}" title="#{bundle.EditTMutationTitle_mutDateMut}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTMutationLabel_mutOpvNumero}" for="mutOpvNumero" />
+                        <p:selectOneMenu id="mutOpvNumero" value="#{tMutationController.selected.mutOpvNumero}" required="true" requiredMessage="#{bundle.EditTMutationRequiredMessage_mutOpvNumero}">
+                            <f:selectItems value="#{tOperationParcelController.itemsAvailableSelectOne}"
+                                           var="mutOpvNumeroItem"
+                                           itemValue="#{mutOpvNumeroItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tMutationController.create}" value="#{bundle.Save}" update="display,:TMutationListForm:datalist,:growl" oncomplete="handleSubmit(args,'TMutationCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TMutationCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

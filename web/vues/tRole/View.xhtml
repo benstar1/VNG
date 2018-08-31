@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TRoleViewDlg" widgetVar="TRoleViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTRoleTitle}">
+            <h:form id="TRoleViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tRoleController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTRoleLabel_rolCode}"/>
+                        <h:outputText value="#{tRoleController.selected.rolCode}" title="#{bundle.ViewTRoleTitle_rolCode}"/>
+                        <h:outputText value="#{bundle.ViewTRoleLabel_rolDesig}"/>
+                        <h:outputText value="#{tRoleController.selected.rolDesig}" title="#{bundle.ViewTRoleTitle_rolDesig}"/>
+                        <h:outputText value="#{bundle.ViewTRoleLabel_rolCat}"/>
+                        <h:outputText value="#{tRoleController.selected.rolCat}" title="#{bundle.ViewTRoleTitle_rolCat}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TRoleViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

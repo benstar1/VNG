@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTDivergenceTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="TDivergenceListForm">
+                <p:panel header="#{bundle.ListTDivergenceTitle}">
+                    <p:dataTable id="datalist" value="#{tDivergenceController.items}" var="item"
+                                 selectionMode="single" selection="#{tDivergenceController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.divCode}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDivergenceTitle_divCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.divCode}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDivergenceTitle_divOriginDroit}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.divOriginDroit}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDivergenceTitle_divDureeOccup}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.divDureeOccup}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDivergenceTitle_divNatureContest}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.divNatureContest}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDivergenceTitle_divRocAutre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.divRocAutre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDivergenceTitle_divOriginDroitAutre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.divOriginDroitAutre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDivergenceTitle_divNatureContestAutre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.divNatureContestAutre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDivergenceTitle_divPhotoSignature}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.divPhotoSignature}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDivergenceTitle_divNomPhoto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.divNomPhoto}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDivergenceTitle_divDateChargement}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.divDateChargement}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDivergenceTitle_divTyreAutre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.divTyreAutre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDivergenceTitle_divConfNum}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.divConfNum}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDivergenceTitle_divIntNumero}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.divIntNumero}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDivergenceTitle_divRocCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.divRocCode}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTDivergenceTitle_divTyreCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.divTyreCode}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tDivergenceController.prepareCreate}" update=":TDivergenceCreateForm" oncomplete="PF('TDivergenceCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TDivergenceViewForm" oncomplete="PF('TDivergenceViewDialog').show()" disabled="#{empty tDivergenceController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TDivergenceEditForm" oncomplete="PF('TDivergenceEditDialog').show()" disabled="#{empty tDivergenceController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{tDivergenceController.destroy}" update=":growl,datalist" disabled="#{empty tDivergenceController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TOperationParcelCreateDlg" widgetVar="TOperationParcelCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTOperationParcelTitle}">
+            <h:form id="TOperationParcelCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tOperationParcelController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvNumero}" for="opvNumero" />
+                        <p:inputText id="opvNumero" value="#{tOperationParcelController.selected.opvNumero}" title="#{bundle.CreateTOperationParcelTitle_opvNumero}" required="true" requiredMessage="#{bundle.CreateTOperationParcelRequiredMessage_opvNumero}"/>
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvDateOp}" for="opvDateOp" />
+                        <p:calendar id="opvDateOp" pattern="MM/dd/yyyy" value="#{tOperationParcelController.selected.opvDateOp}" title="#{bundle.EditTOperationParcelTitle_opvDateOp}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvPrix}" for="opvPrix" />
+                        <p:inputText id="opvPrix" value="#{tOperationParcelController.selected.opvPrix}" title="#{bundle.CreateTOperationParcelTitle_opvPrix}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvNumeroPv}" for="opvNumeroPv" />
+                        <p:inputText id="opvNumeroPv" value="#{tOperationParcelController.selected.opvNumeroPv}" title="#{bundle.CreateTOperationParcelTitle_opvNumeroPv}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvLimitPlanter}" for="opvLimitPlanter" />
+                        <p:inputText id="opvLimitPlanter" value="#{tOperationParcelController.selected.opvLimitPlanter}" title="#{bundle.CreateTOperationParcelTitle_opvLimitPlanter}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvLimitRecolterFruit}" for="opvLimitRecolterFruit" />
+                        <p:inputText id="opvLimitRecolterFruit" value="#{tOperationParcelController.selected.opvLimitRecolterFruit}" title="#{bundle.CreateTOperationParcelTitle_opvLimitRecolterFruit}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvLimitConstruireCase}" for="opvLimitConstruireCase" />
+                        <p:inputText id="opvLimitConstruireCase" value="#{tOperationParcelController.selected.opvLimitConstruireCase}" title="#{bundle.CreateTOperationParcelTitle_opvLimitConstruireCase}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvLimitHabiterTerrain}" for="opvLimitHabiterTerrain" />
+                        <p:inputText id="opvLimitHabiterTerrain" value="#{tOperationParcelController.selected.opvLimitHabiterTerrain}" title="#{bundle.CreateTOperationParcelTitle_opvLimitHabiterTerrain}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvLimitAutreOp}" for="opvLimitAutreOp" />
+                        <p:inputText id="opvLimitAutreOp" value="#{tOperationParcelController.selected.opvLimitAutreOp}" title="#{bundle.CreateTOperationParcelTitle_opvLimitAutreOp}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvLimitationOp}" for="opvLimitationOp" />
+                        <p:inputText id="opvLimitationOp" value="#{tOperationParcelController.selected.opvLimitationOp}" title="#{bundle.CreateTOperationParcelTitle_opvLimitationOp}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvLimitAliener}" for="opvLimitAliener" />
+                        <p:inputText id="opvLimitAliener" value="#{tOperationParcelController.selected.opvLimitAliener}" title="#{bundle.CreateTOperationParcelTitle_opvLimitAliener}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvLimitTransmission}" for="opvLimitTransmission" />
+                        <p:inputText id="opvLimitTransmission" value="#{tOperationParcelController.selected.opvLimitTransmission}" title="#{bundle.CreateTOperationParcelTitle_opvLimitTransmission}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvLimitation}" for="opvLimitation" />
+                        <p:selectBooleanCheckbox id="opvLimitation" value="#{tOperationParcelController.selected.opvLimitation}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvLimitLeg}" for="opvLimitLeg" />
+                        <p:selectBooleanCheckbox id="opvLimitLeg" value="#{tOperationParcelController.selected.opvLimitLeg}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvLimitVent}" for="opvLimitVent" />
+                        <p:selectBooleanCheckbox id="opvLimitVent" value="#{tOperationParcelController.selected.opvLimitVent}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvLimitDon}" for="opvLimitDon" />
+                        <p:selectBooleanCheckbox id="opvLimitDon" value="#{tOperationParcelController.selected.opvLimitDon}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvLimitPret}" for="opvLimitPret" />
+                        <p:selectBooleanCheckbox id="opvLimitPret" value="#{tOperationParcelController.selected.opvLimitPret}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvLimiteAutre}" for="opvLimiteAutre" />
+                        <p:inputText id="opvLimiteAutre" value="#{tOperationParcelController.selected.opvLimiteAutre}" title="#{bundle.CreateTOperationParcelTitle_opvLimiteAutre}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvDuree}" for="opvDuree" />
+                        <p:inputText id="opvDuree" value="#{tOperationParcelController.selected.opvDuree}" title="#{bundle.CreateTOperationParcelTitle_opvDuree}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvDateDeb}" for="opvDateDeb" />
+                        <p:calendar id="opvDateDeb" pattern="MM/dd/yyyy" value="#{tOperationParcelController.selected.opvDateDeb}" title="#{bundle.EditTOperationParcelTitle_opvDateDeb}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvDateFin}" for="opvDateFin" />
+                        <p:calendar id="opvDateFin" pattern="MM/dd/yyyy" value="#{tOperationParcelController.selected.opvDateFin}" title="#{bundle.EditTOperationParcelTitle_opvDateFin}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvMutObjet}" for="opvMutObjet" />
+                        <p:inputText id="opvMutObjet" value="#{tOperationParcelController.selected.opvMutObjet}" title="#{bundle.CreateTOperationParcelTitle_opvMutObjet}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvMutDateMut}" for="opvMutDateMut" />
+                        <p:inputText id="opvMutDateMut" value="#{tOperationParcelController.selected.opvMutDateMut}" title="#{bundle.CreateTOperationParcelTitle_opvMutDateMut}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvNatureCulture}" for="opvNatureCulture" />
+                        <p:inputText id="opvNatureCulture" value="#{tOperationParcelController.selected.opvNatureCulture}" title="#{bundle.CreateTOperationParcelTitle_opvNatureCulture}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvLieuPartage}" for="opvLieuPartage" />
+                        <p:inputText id="opvLieuPartage" value="#{tOperationParcelController.selected.opvLieuPartage}" title="#{bundle.CreateTOperationParcelTitle_opvLieuPartage}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvDesiReference}" for="opvDesiReference" />
+                        <p:inputText id="opvDesiReference" value="#{tOperationParcelController.selected.opvDesiReference}" title="#{bundle.CreateTOperationParcelTitle_opvDesiReference}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvDesiDate}" for="opvDesiDate" />
+                        <p:calendar id="opvDesiDate" pattern="MM/dd/yyyy" value="#{tOperationParcelController.selected.opvDesiDate}" title="#{bundle.EditTOperationParcelTitle_opvDesiDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvNumeroAffirmation}" for="opvNumeroAffirmation" />
+                        <p:inputText id="opvNumeroAffirmation" value="#{tOperationParcelController.selected.opvNumeroAffirmation}" title="#{bundle.CreateTOperationParcelTitle_opvNumeroAffirmation}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvNomMaire}" for="opvNomMaire" />
+                        <p:inputText id="opvNomMaire" value="#{tOperationParcelController.selected.opvNomMaire}" title="#{bundle.CreateTOperationParcelTitle_opvNomMaire}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvNomInterprete}" for="opvNomInterprete" />
+                        <p:inputText id="opvNomInterprete" value="#{tOperationParcelController.selected.opvNomInterprete}" title="#{bundle.CreateTOperationParcelTitle_opvNomInterprete}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvRattachement}" for="opvRattachement" />
+                        <p:inputText id="opvRattachement" value="#{tOperationParcelController.selected.opvRattachement}" title="#{bundle.CreateTOperationParcelTitle_opvRattachement}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvContreparti}" for="opvContreparti" />
+                        <p:inputText id="opvContreparti" value="#{tOperationParcelController.selected.opvContreparti}" title="#{bundle.CreateTOperationParcelTitle_opvContreparti}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvAutremodalite}" for="opvAutremodalite" />
+                        <p:inputText id="opvAutremodalite" value="#{tOperationParcelController.selected.opvAutremodalite}" title="#{bundle.CreateTOperationParcelTitle_opvAutremodalite}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvCopAutre}" for="opvCopAutre" />
+                        <p:inputText id="opvCopAutre" value="#{tOperationParcelController.selected.opvCopAutre}" title="#{bundle.CreateTOperationParcelTitle_opvCopAutre}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvRolAutre}" for="opvRolAutre" />
+                        <p:inputText id="opvRolAutre" value="#{tOperationParcelController.selected.opvRolAutre}" title="#{bundle.CreateTOperationParcelTitle_opvRolAutre}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvMacAutre}" for="opvMacAutre" />
+                        <p:inputText id="opvMacAutre" value="#{tOperationParcelController.selected.opvMacAutre}" title="#{bundle.CreateTOperationParcelTitle_opvMacAutre}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvLigCode}" for="opvLigCode" />
+                        <p:inputText id="opvLigCode" value="#{tOperationParcelController.selected.opvLigCode}" title="#{bundle.CreateTOperationParcelTitle_opvLigCode}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvCiPp}" for="opvCiPp" />
+                        <p:inputText id="opvCiPp" value="#{tOperationParcelController.selected.opvCiPp}" title="#{bundle.CreateTOperationParcelTitle_opvCiPp}" />
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvDateExpCiPp}" for="opvDateExpCiPp" />
+                        <p:calendar id="opvDateExpCiPp" pattern="MM/dd/yyyy" value="#{tOperationParcelController.selected.opvDateExpCiPp}" title="#{bundle.EditTOperationParcelTitle_opvDateExpCiPp}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvMopCode}" for="opvMopCode" />
+                        <p:selectOneMenu id="opvMopCode" value="#{tOperationParcelController.selected.opvMopCode}" >
+                            <f:selectItems value="#{tModePartageController.itemsAvailableSelectOne}"
+                                           var="opvMopCodeItem"
+                                           itemValue="#{opvMopCodeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvCopCode}" for="opvCopCode" />
+                        <p:selectOneMenu id="opvCopCode" value="#{tOperationParcelController.selected.opvCopCode}" >
+                            <f:selectItems value="#{tConditionpaieController.itemsAvailableSelectOne}"
+                                           var="opvCopCodeItem"
+                                           itemValue="#{opvCopCodeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvDesiCode}" for="opvDesiCode" />
+                        <p:selectOneMenu id="opvDesiCode" value="#{tOperationParcelController.selected.opvDesiCode}" >
+                            <f:selectItems value="#{tDepotSignatureController.itemsAvailableSelectOne}"
+                                           var="opvDesiCodeItem"
+                                           itemValue="#{opvDesiCodeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvIntNumeroBailleur}" for="opvIntNumeroBailleur" />
+                        <p:selectOneMenu id="opvIntNumeroBailleur" value="#{tOperationParcelController.selected.opvIntNumeroBailleur}" >
+                            <f:selectItems value="#{tIntervenantController.itemsAvailableSelectOne}"
+                                           var="opvIntNumeroBailleurItem"
+                                           itemValue="#{opvIntNumeroBailleurItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvIntNumeroPreneur}" for="opvIntNumeroPreneur" />
+                        <p:selectOneMenu id="opvIntNumeroPreneur" value="#{tOperationParcelController.selected.opvIntNumeroPreneur}" >
+                            <f:selectItems value="#{tIntervenantController.itemsAvailableSelectOne}"
+                                           var="opvIntNumeroPreneurItem"
+                                           itemValue="#{opvIntNumeroPreneurItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvMacCode}" for="opvMacCode" />
+                        <p:selectOneMenu id="opvMacCode" value="#{tOperationParcelController.selected.opvMacCode}" >
+                            <f:selectItems value="#{tModeacquisController.itemsAvailableSelectOne}"
+                                           var="opvMacCodeItem"
+                                           itemValue="#{opvMacCodeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvPbaNumero}" for="opvPbaNumero" />
+                        <p:selectOneMenu id="opvPbaNumero" value="#{tOperationParcelController.selected.opvPbaNumero}" >
+                            <f:selectItems value="#{tParcelleBafonController.itemsAvailableSelectOne}"
+                                           var="opvPbaNumeroItem"
+                                           itemValue="#{opvPbaNumeroItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvPerCode}" for="opvPerCode" />
+                        <p:selectOneMenu id="opvPerCode" value="#{tOperationParcelController.selected.opvPerCode}" >
+                            <f:selectItems value="#{tPeriodiciteController.itemsAvailableSelectOne}"
+                                           var="opvPerCodeItem"
+                                           itemValue="#{opvPerCodeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvRolCode}" for="opvRolCode" />
+                        <p:selectOneMenu id="opvRolCode" value="#{tOperationParcelController.selected.opvRolCode}" >
+                            <f:selectItems value="#{tRoleController.itemsAvailableSelectOne}"
+                                           var="opvRolCodeItem"
+                                           itemValue="#{opvRolCodeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvTyovCode}" for="opvTyovCode" />
+                        <p:selectOneMenu id="opvTyovCode" value="#{tOperationParcelController.selected.opvTyovCode}" >
+                            <f:selectItems value="#{tTypeOperationParcelController.itemsAvailableSelectOne}"
+                                           var="opvTyovCodeItem"
+                                           itemValue="#{opvTyovCodeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTOperationParcelLabel_opvUtiCode}" for="opvUtiCode" />
+                        <p:selectOneMenu id="opvUtiCode" value="#{tOperationParcelController.selected.opvUtiCode}" >
+                            <f:selectItems value="#{tUtilisateurController.itemsAvailableSelectOne}"
+                                           var="opvUtiCodeItem"
+                                           itemValue="#{opvUtiCodeItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tOperationParcelController.create}" value="#{bundle.Save}" update="display,:TOperationParcelListForm:datalist,:growl" oncomplete="handleSubmit(args,'TOperationParcelCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TOperationParcelCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

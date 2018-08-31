@@ -1,0 +1,41 @@
+//mainly used in forms
+$primaryColor:#aa58b1;
+$primaryColorText:#ffffff;
+$primaryDarkColor:#8c3493;
+$primaryDarkColorText:#ffffff;
+$primaryDarkAltColor:#9c47a3;
+$primaryDarkAltColorText:#ffffff;
+$primaryDarkerColor:#77217e;
+$primaryDarkerColorText:#ffffff;
+$primaryLightColor:#d199d6;
+$primaryLightColorText:#333333;
+
+//highlighted content
+$secondaryColor:#94cd8f;
+$secondaryColorText:#333333;
+$secondaryDarkColor:#7ec078;
+$secondaryDarkColorText:#333333;
+
+//headers
+$containerHeaderBgColor:#333333;
+$containerHeaderBorder:1px solid #333333;
+$containerHeaderTextColor:#ffffff;
+$containerHeaderIconColor:#d6d6d6;
+$containerHeaderIconHoverColor:#ffffff;
+
+$containerHeaderHoverBgColor:#282828;
+$containerHeaderHoverBorder:1px solid #282828;
+$containerHeaderHoverTextColor:#ffffff;
+$containerHeaderHoverIconColor:#ffffff;
+
+$containerHeaderActiveBgColor:$primaryColor;
+$containerHeaderActiveBorder:1px solid $primaryColor;
+$containerHeaderActiveTextColor:$primaryColorText;
+$containerHeaderActiveIconColor:$primaryColorText;
+
+$containerHeaderActiveHoverBgColor:$primaryDarkColor;
+$containerHeaderActiveHoverHoverBorder:1px solid $primaryDarkColor;
+$containerHeaderActiveHoverrTextColor:$primaryDarkColorText;
+$containerHeaderActiveHoverIconColor:$primaryDarkColorText;
+
+@import '../sass/theme/_theme';

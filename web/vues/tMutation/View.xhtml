@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TMutationViewDlg" widgetVar="TMutationViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTMutationTitle}">
+            <h:form id="TMutationViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tMutationController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTMutationLabel_mutNumero}"/>
+                        <h:outputText value="#{tMutationController.selected.mutNumero}" title="#{bundle.ViewTMutationTitle_mutNumero}"/>
+                        <h:outputText value="#{bundle.ViewTMutationLabel_mutObjet}"/>
+                        <h:outputText value="#{tMutationController.selected.mutObjet}" title="#{bundle.ViewTMutationTitle_mutObjet}"/>
+                        <h:outputText value="#{bundle.ViewTMutationLabel_mutDateMut}"/>
+                        <h:outputText value="#{tMutationController.selected.mutDateMut}" title="#{bundle.ViewTMutationTitle_mutDateMut}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTMutationLabel_mutOpvNumero}"/>
+                        <h:outputText value="#{tMutationController.selected.mutOpvNumero}" title="#{bundle.ViewTMutationTitle_mutOpvNumero}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TMutationViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

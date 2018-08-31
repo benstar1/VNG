@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TActiviteEditDlg" widgetVar="TActiviteEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTActiviteTitle}">
+            <h:form id="TActiviteEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tActiviteController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTActiviteLabel_actCode}" for="actCode" />
+                        <p:inputText id="actCode" value="#{tActiviteController.selected.actCode}" title="#{bundle.EditTActiviteTitle_actCode}" required="true" requiredMessage="#{bundle.EditTActiviteRequiredMessage_actCode}"/>
+                        <p:outputLabel value="#{bundle.EditTActiviteLabel_actDesig}" for="actDesig" />
+                        <p:inputText id="actDesig" value="#{tActiviteController.selected.actDesig}" title="#{bundle.EditTActiviteTitle_actDesig}" />
+                        <p:outputLabel value="#{bundle.EditTActiviteLabel_actGacCode}" for="actGacCode" />
+                        <p:selectOneMenu id="actGacCode" value="#{tActiviteController.selected.actGacCode}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tGroupeActiviteController.itemsAvailableSelectOne}"
+                                           var="actGacCodeItem"
+                                           itemValue="#{actGacCodeItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tActiviteController.update}" value="#{bundle.Save}" update="display,:TActiviteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TActiviteEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TActiviteEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TParticiperEditDlg" widgetVar="TParticiperEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTParticiperTitle}">
+            <h:form id="TParticiperEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tParticiperController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTParticiperLabel_parNumsignature}" for="parNumsignature" />
+                        <p:inputText id="parNumsignature" value="#{tParticiperController.selected.parNumsignature}" title="#{bundle.EditTParticiperTitle_parNumsignature}" />
+                        <p:outputLabel value="#{bundle.EditTParticiperLabel_parDatesignature}" for="parDatesignature" />
+                        <p:calendar id="parDatesignature" pattern="MM/dd/yyyy" value="#{tParticiperController.selected.parDatesignature}" title="#{bundle.EditTParticiperTitle_parDatesignature}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTParticiperLabel_TIntervenant}" for="TIntervenant" />
+                        <p:selectOneMenu id="TIntervenant" value="#{tParticiperController.selected.TIntervenant}" required="true" requiredMessage="#{bundle.EditTParticiperRequiredMessage_TIntervenant}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tIntervenantController.itemsAvailableSelectOne}"
+                                           var="TIntervenantItem"
+                                           itemValue="#{TIntervenantItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTParticiperLabel_TOperationParcel}" for="TOperationParcel" />
+                        <p:selectOneMenu id="TOperationParcel" value="#{tParticiperController.selected.TOperationParcel}" required="true" requiredMessage="#{bundle.EditTParticiperRequiredMessage_TOperationParcel}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tOperationParcelController.itemsAvailableSelectOne}"
+                                           var="TOperationParcelItem"
+                                           itemValue="#{TOperationParcelItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTParticiperLabel_TRolepart}" for="TRolepart" />
+                        <p:selectOneMenu id="TRolepart" value="#{tParticiperController.selected.TRolepart}" required="true" requiredMessage="#{bundle.EditTParticiperRequiredMessage_TRolepart}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tRolepartController.itemsAvailableSelectOne}"
+                                           var="TRolepartItem"
+                                           itemValue="#{TRolepartItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tParticiperController.update}" value="#{bundle.Save}" update="display,:TParticiperListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TParticiperEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TParticiperEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TDivergenceViewDlg" widgetVar="TDivergenceViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTDivergenceTitle}">
+            <h:form id="TDivergenceViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tDivergenceController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTDivergenceLabel_divCode}"/>
+                        <h:outputText value="#{tDivergenceController.selected.divCode}" title="#{bundle.ViewTDivergenceTitle_divCode}"/>
+                        <h:outputText value="#{bundle.ViewTDivergenceLabel_divOriginDroit}"/>
+                        <h:outputText value="#{tDivergenceController.selected.divOriginDroit}" title="#{bundle.ViewTDivergenceTitle_divOriginDroit}"/>
+                        <h:outputText value="#{bundle.ViewTDivergenceLabel_divDureeOccup}"/>
+                        <h:outputText value="#{tDivergenceController.selected.divDureeOccup}" title="#{bundle.ViewTDivergenceTitle_divDureeOccup}"/>
+                        <h:outputText value="#{bundle.ViewTDivergenceLabel_divNatureContest}"/>
+                        <h:outputText value="#{tDivergenceController.selected.divNatureContest}" title="#{bundle.ViewTDivergenceTitle_divNatureContest}"/>
+                        <h:outputText value="#{bundle.ViewTDivergenceLabel_divRocAutre}"/>
+                        <h:outputText value="#{tDivergenceController.selected.divRocAutre}" title="#{bundle.ViewTDivergenceTitle_divRocAutre}"/>
+                        <h:outputText value="#{bundle.ViewTDivergenceLabel_divOriginDroitAutre}"/>
+                        <h:outputText value="#{tDivergenceController.selected.divOriginDroitAutre}" title="#{bundle.ViewTDivergenceTitle_divOriginDroitAutre}"/>
+                        <h:outputText value="#{bundle.ViewTDivergenceLabel_divNatureContestAutre}"/>
+                        <h:outputText value="#{tDivergenceController.selected.divNatureContestAutre}" title="#{bundle.ViewTDivergenceTitle_divNatureContestAutre}"/>
+                        <h:outputText value="#{bundle.ViewTDivergenceLabel_divPhotoSignature}"/>
+                        <h:outputText value="#{tDivergenceController.selected.divPhotoSignature}" title="#{bundle.ViewTDivergenceTitle_divPhotoSignature}"/>
+                        <h:outputText value="#{bundle.ViewTDivergenceLabel_divNomPhoto}"/>
+                        <h:outputText value="#{tDivergenceController.selected.divNomPhoto}" title="#{bundle.ViewTDivergenceTitle_divNomPhoto}"/>
+                        <h:outputText value="#{bundle.ViewTDivergenceLabel_divDateChargement}"/>
+                        <h:outputText value="#{tDivergenceController.selected.divDateChargement}" title="#{bundle.ViewTDivergenceTitle_divDateChargement}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTDivergenceLabel_divTyreAutre}"/>
+                        <h:outputText value="#{tDivergenceController.selected.divTyreAutre}" title="#{bundle.ViewTDivergenceTitle_divTyreAutre}"/>
+                        <h:outputText value="#{bundle.ViewTDivergenceLabel_divConfNum}"/>
+                        <h:outputText value="#{tDivergenceController.selected.divConfNum}" title="#{bundle.ViewTDivergenceTitle_divConfNum}"/>
+                        <h:outputText value="#{bundle.ViewTDivergenceLabel_divIntNumero}"/>
+                        <h:outputText value="#{tDivergenceController.selected.divIntNumero}" title="#{bundle.ViewTDivergenceTitle_divIntNumero}"/>
+                        <h:outputText value="#{bundle.ViewTDivergenceLabel_divRocCode}"/>
+                        <h:outputText value="#{tDivergenceController.selected.divRocCode}" title="#{bundle.ViewTDivergenceTitle_divRocCode}"/>
+                        <h:outputText value="#{bundle.ViewTDivergenceLabel_divTyreCode}"/>
+                        <h:outputText value="#{tDivergenceController.selected.divTyreCode}" title="#{bundle.ViewTDivergenceTitle_divTyreCode}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TDivergenceViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

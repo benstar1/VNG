@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TConflitEditDlg" widgetVar="TConflitEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTConflitTitle}">
+            <h:form id="TConflitEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tConflitController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTConflitLabel_confNum}" for="confNum" />
+                        <p:inputText id="confNum" value="#{tConflitController.selected.confNum}" title="#{bundle.EditTConflitTitle_confNum}" required="true" requiredMessage="#{bundle.EditTConflitRequiredMessage_confNum}"/>
+                        <p:outputLabel value="#{bundle.EditTConflitLabel_confNatCompromi}" for="confNatCompromi" />
+                        <p:inputText id="confNatCompromi" value="#{tConflitController.selected.confNatCompromi}" title="#{bundle.EditTConflitTitle_confNatCompromi}" />
+                        <p:outputLabel value="#{bundle.EditTConflitLabel_confModeRegle}" for="confModeRegle" />
+                        <p:inputText id="confModeRegle" value="#{tConflitController.selected.confModeRegle}" title="#{bundle.EditTConflitTitle_confModeRegle}" />
+                        <p:outputLabel value="#{bundle.EditTConflitLabel_confDateRegl}" for="confDateRegl" />
+                        <p:calendar id="confDateRegl" pattern="MM/dd/yyyy" value="#{tConflitController.selected.confDateRegl}" title="#{bundle.EditTConflitTitle_confDateRegl}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTConflitLabel_confDate}" for="confDate" />
+                        <p:calendar id="confDate" pattern="MM/dd/yyyy" value="#{tConflitController.selected.confDate}" title="#{bundle.EditTConflitTitle_confDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTConflitLabel_confActeurRegl}" for="confActeurRegl" />
+                        <p:inputText id="confActeurRegl" value="#{tConflitController.selected.confActeurRegl}" title="#{bundle.EditTConflitTitle_confActeurRegl}" />
+                        <p:outputLabel value="#{bundle.EditTConflitLabel_confTemoinRegl}" for="confTemoinRegl" />
+                        <p:inputText id="confTemoinRegl" value="#{tConflitController.selected.confTemoinRegl}" title="#{bundle.EditTConflitTitle_confTemoinRegl}" />
+                        <p:outputLabel value="#{bundle.EditTConflitLabel_divTyreAutre}" for="divTyreAutre" />
+                        <p:inputText id="divTyreAutre" value="#{tConflitController.selected.divTyreAutre}" title="#{bundle.EditTConflitTitle_divTyreAutre}" />
+                        <p:outputLabel value="#{bundle.EditTConflitLabel_divOriginDroitAutre}" for="divOriginDroitAutre" />
+                        <p:inputText id="divOriginDroitAutre" value="#{tConflitController.selected.divOriginDroitAutre}" title="#{bundle.EditTConflitTitle_divOriginDroitAutre}" />
+                        <p:outputLabel value="#{bundle.EditTConflitLabel_divNatureContestAutre}" for="divNatureContestAutre" />
+                        <p:inputText id="divNatureContestAutre" value="#{tConflitController.selected.divNatureContestAutre}" title="#{bundle.EditTConflitTitle_divNatureContestAutre}" />
+                        <p:outputLabel value="#{bundle.EditTConflitLabel_confEncoursRegl}" for="confEncoursRegl" />
+                        <p:inputText id="confEncoursRegl" value="#{tConflitController.selected.confEncoursRegl}" title="#{bundle.EditTConflitTitle_confEncoursRegl}" />
+                        <p:outputLabel value="#{bundle.EditTConflitLabel_confObservation}" for="confObservation" />
+                        <p:inputText id="confObservation" value="#{tConflitController.selected.confObservation}" title="#{bundle.EditTConflitTitle_confObservation}" />
+                        <p:outputLabel value="#{bundle.EditTConflitLabel_confDateChargement}" for="confDateChargement" />
+                        <p:calendar id="confDateChargement" pattern="MM/dd/yyyy" value="#{tConflitController.selected.confDateChargement}" title="#{bundle.EditTConflitTitle_confDateChargement}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTConflitLabel_confPbaNumero}" for="confPbaNumero" />
+                        <p:selectOneMenu id="confPbaNumero" value="#{tConflitController.selected.confPbaNumero}" required="true" requiredMessage="#{bundle.EditTConflitRequiredMessage_confPbaNumero}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tParcelleBafonController.itemsAvailableSelectOne}"
+                                           var="confPbaNumeroItem"
+                                           itemValue="#{confPbaNumeroItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tConflitController.update}" value="#{bundle.Save}" update="display,:TConflitListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TConflitEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TConflitEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

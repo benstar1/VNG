@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TPointCardinoEditDlg" widgetVar="TPointCardinoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTPointCardinoTitle}">
+            <h:form id="TPointCardinoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tPointCardinoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTPointCardinoLabel_pocaCode}" for="pocaCode" />
+                        <p:inputText id="pocaCode" value="#{tPointCardinoController.selected.pocaCode}" title="#{bundle.EditTPointCardinoTitle_pocaCode}" required="true" requiredMessage="#{bundle.EditTPointCardinoRequiredMessage_pocaCode}"/>
+                        <p:outputLabel value="#{bundle.EditTPointCardinoLabel_pocaDesig}" for="pocaDesig" />
+                        <p:inputText id="pocaDesig" value="#{tPointCardinoController.selected.pocaDesig}" title="#{bundle.EditTPointCardinoTitle_pocaDesig}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tPointCardinoController.update}" value="#{bundle.Save}" update="display,:TPointCardinoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TPointCardinoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TPointCardinoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTIntervenirTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="TIntervenirListForm">
+                <p:panel header="#{bundle.ListTIntervenirTitle}">
+                    <p:dataTable id="datalist" value="#{tIntervenirController.items}" var="item"
+                                 selectionMode="single" selection="#{tIntervenirController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.invNumero}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invNumero}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invNumero}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invNumProp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invNumProp}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invDateDeb}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invDateDeb}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invDateFin}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invDateFin}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invContreparti}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invContreparti}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invAutremodalite}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invAutremodalite}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invRattachement}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invRattachement}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invAutochtone}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.invAutochtone}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invObservation}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invObservation}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invPrix}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invPrix}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invAutreModPaie}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invAutreModPaie}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invLimitation}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.invLimitation}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invLimitLeg}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.invLimitLeg}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invLimitVent}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.invLimitVent}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invLimitDon}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.invLimitDon}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invLimitPret}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.invLimitPret}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invLimiteAutre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invLimiteAutre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invRefPapier}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invRefPapier}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_intvDateEnquete}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intvDateEnquete}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invAnneeArrive}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invAnneeArrive}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invCollectivite}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invCollectivite}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invPv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invPv}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invNomImg}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invNomImg}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invNomPhoto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invNomPhoto}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invMacAutre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invMacAutre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invCopAutre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invCopAutre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invRolAutre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invRolAutre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invObservationRegistre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invObservationRegistre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invEtatLieu}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invEtatLieu}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invRattachementAutre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invRattachementAutre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invFormalise}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invFormalise}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invCodeCommune}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invCodeCommune}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_intLigCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intLigCode}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_intImageTemoin}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intImageTemoin}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_intImagePapier1}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intImagePapier1}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_intImagePapier2}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intImagePapier2}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_intImagePapier3}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intImagePapier3}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_intImagePapier4}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intImagePapier4}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invIndetermine}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invIndetermine}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invDuree}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invDuree}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invLimitationOp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invLimitationOp}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invLimitAliener}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invLimitAliener}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invLimitTransmission}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invLimitTransmission}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invLimitPlanter}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invLimitPlanter}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invLimitRecolterFruit}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invLimitRecolterFruit}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invLimitConstruireCase}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invLimitConstruireCase}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invLimitHabiterTerrain}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invLimitHabiterTerrain}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invLimitAutreOp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invLimitAutreOp}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invRepresente}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invRepresente}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invDateChargement}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invDateChargement}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invNomAudio}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invNomAudio}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invIntervenantAudio}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invIntervenantAudio}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invNomVideo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invNomVideo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invIntervenantVideo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invIntervenantVideo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invLimitAutreOpChaine}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invLimitAutreOpChaine}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invType}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invType}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invDeQui}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invDeQui}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invStatut}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invStatut}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invStructure}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invStructure}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invFonction}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invFonction}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invDopRepresenter}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.invDopRepresenter}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invDopDetenteur}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invDopDetenteur}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invCiPp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invCiPp}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invDateExpCiPp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invDateExpCiPp}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invEnqCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invEnqCode}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invCopCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invCopCode}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invIntNumero}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invIntNumero}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invMacCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invMacCode}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invMutNumero}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invMutNumero}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invNatPapier}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invNatPapier}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invOpvNumero}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invOpvNumero}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invOpvNumeroPreneur}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invOpvNumeroPreneur}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invUtiCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invUtiCode}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invPbaNumeroLim}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invPbaNumeroLim}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invPbaNumero}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invPbaNumero}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenirTitle_invRolCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invRolCode}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tIntervenirController.prepareCreate}" update=":TIntervenirCreateForm" oncomplete="PF('TIntervenirCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TIntervenirViewForm" oncomplete="PF('TIntervenirViewDialog').show()" disabled="#{empty tIntervenirController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TIntervenirEditForm" oncomplete="PF('TIntervenirEditDialog').show()" disabled="#{empty tIntervenirController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{tIntervenirController.destroy}" update=":growl,datalist" disabled="#{empty tIntervenirController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>
