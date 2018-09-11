@@ -5,75 +5,62 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ph="http://primefaces.org/harmony">
 
-    <div class="layout-sidebar">
+    <div class="layout-sidebar" >
         <div class="nano">
             <div class="nano-content menu-scroll-content">
                 <h:form id="menuform">
                     <ph:menu widgetVar="me">
-                        <p:menuitem id="om_dashboard" value="Dashboard" icon="fa fa-fw fa-dashboard" outcome="/dashboard" />
+                        <p:menuitem id="om_dashboard" value="Accueil" icon="fa fa-fw fa-dashboard" outcome="/dashboard" />
                         
-                        <p:submenu id="affaires_domaniales" label="Affaires Domaniales" icon="fa fa-fw fa-cog">
+                        <p:submenu id="affaires_domaniales" label="Affaires Domaniales" icon="fa fa-fw fa-columns">
                             <p:menuitem id="vente_parcelle" value="Vente de parcelle" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuMode('layout-menu-static')}" ajax="false" />
                             <p:menuitem id="heritage_arcelle" value="Héritage de parcelle" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuMode('layout-menu-overlay')}" ajax="false" />
                             <p:menuitem id="don_parcelle" value="Don de parcelle" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuMode('layout-menu-slim')}" ajax="false" />
                             <p:menuitem id="mutation" value="Mutation" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuMode('layout-menu-horizontal')}" ajax="false" />
                             <p:menuitem id="droits_operationnels" value="Droits opérationnels" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuMode('layout-menu-horizontal')}" ajax="false" />
-                            <p:menuitem id="reglement_conflits" value="Règlement de Conflits" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
+                            <p:menuitem id="reglement_conflits" value="Règlement de Litiges" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
                             <p:menuitem id="mise_jour_enquete" value="Mise à jour Enquête" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
-                                                        
-                        </p:submenu>
-                        
-                        <p:submenu id="menu_configuration" label="Configurations" icon="fa fa-fw fa-cog">
                             
-                            <p:submenu id="decoupage_administratif" label="Découpage Administratif" icon="fa fa-fw fa-align-right">
-                                <p:menuitem id="liste_departement" value="Départements" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
-                                <p:menuitem id="liste_commune" value="Communes" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
-                                <p:menuitem id="liste_arrondissement" value="Arrondissements" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
-                                <p:menuitem id="liste_quartier_village" value="Villages/Quartiers" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
-                                <p:menuitem id="liste_lignage" value="Lignages" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
-                            </p:submenu>
+                            <p:menuitem id="nav_scission_parcelle" value="Scission de Parcelle" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
+                            <p:menuitem id="nav_fusion_parcelle" value="Fusion de Parcelle" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
                             
-                            <p:submenu id="consortium_et_utilisateur" label="Consortiums/Cabinets et Utilisateurs" icon="fa fa-fw fa-align-right">
-                                <p:menuitem id="liste_consortium" value="Consortiums/Cabinets" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
-                                <p:menuitem id="liste_profils_utilisateur" value="Profils Utilisateurs" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
-                                <p:menuitem id="liste_utilisateurs" value="Utilisateurs" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
-                            </p:submenu>
+                            <p:menuitem id="nav_parcelle_agricole_conflit" value="Parcelle Agricole en &#160;&#160;&#160;&#160;&#160;&#160;&#160;Litige" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
+                            <p:menuitem id="nav_parcelle_agricole_noyau" value="Parcelle Agricole en &#160;&#160;&#160;&#160;&#160;&#160;&#160;Noyau Villageois" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
+                            <p:menuitem id="nav_parcelle_agricole_dpp" value="Parcelle Agricole en &#160;&#160;&#160;&#160;&#160;&#160;&#160;Domaine Public Privé" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
                             
-                            <p:submenu id="element_enquete" label="Elements d'enquêtes" icon="fa fa-fw fa-align-right">
-                                <p:menuitem id="liste_groupe_activite" value="Groupes d'activite" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
-                                <p:menuitem id="liste_activite" value="Activités" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
-                                <p:menuitem id="liste_lien_detenteur" value="Liens détenteur" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
-                                <p:menuitem id="liste_mode_acquisition" value="Modes d'acquisition" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
-                                <p:menuitem id="liste_type_droit_operationnel" value="Types de droit operationnel" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
-                                <p:menuitem id="liste_type_droit_administration" value="Types de droit d'administration" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
-                                <p:menuitem id="liste_qualites" value="Qualités" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
-                                <p:menuitem id="liste_type_domaine_pp" value="Types de domaines (public/privé)" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
+                            <p:menuitem id="nav_parcelle_litigieuse_agricole" value="Parcelle Litigieuse en &#160;&#160;&#160;&#160;&#160;&#160;&#160;Agricole" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
+                            <p:menuitem id="nav_parcelle_litigieuse_noyau" value="Parcelle Litigieuse en &#160;&#160;&#160;&#160;&#160;&#160;&#160;Noyau Villageois" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
+                            <p:menuitem id="nav_parcelle_litigieuse_dpp" value="Parcelle Litigieuse en &#160;&#160;&#160;&#160;&#160;&#160;&#160;DPP" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
                             
-                            </p:submenu>
+                            <p:menuitem id="nav_parcelle_dpp_agricole" value="DPP en Agricole" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
+                            <p:menuitem id="nav_parcelle_dpp_noyau" value="DPP en Noyau &#160;&#160;&#160;&#160;&#160;&#160;&#160;Villageois" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
+                            <p:menuitem id="nav_parcelle_dpp_litigieuse" value="DPP en Parcelle &#160;&#160;&#160;&#160;&#160;&#160;&#160;Litigieuse" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
+                               
                             
                         </p:submenu>
                         
                         
-                        <p:submenu id="consultation_edition" label="Consultation et Edition" icon="fa fa-fw fa-cog">
+                        
+                        
+                        <p:submenu id="consultation_edition" label="Consultation et Edition" icon="fa fa-fw fa-file-code-o">
                             
-                            <p:submenu id="consul_fiche_enquete" label="Fiches d'Enquêtes" icon="fa fa-fw fa-align-right">
+                            <p:submenu id="consul_fiche_enquete" label="Fiches d'Enquêtes" icon="fa fa-fw fa-sign-in">
                                 <p:menuitem id="consul_parcelle_agricol" value="Parcelles Agricoles" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
                                 <p:menuitem id="consul_noyau_villageaois" value="Noyaux Villageaois" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
                                 <p:menuitem id="consul_parcelle_litigieuse" value="Parcelles Litigieuses" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
-                                <p:menuitem id="consul_domaine_public_prive" value="Domaine Public ou Privé" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
+                                <p:menuitem id="consul_domaine_public_prive" value="Domaine Public &#160;&#160;&#160;&#160;&#160;&#160;&#160;Privé" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
                                 <p:menuitem id="consul_zone_urbaine" value="Zones Urbaines" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
                             
                             </p:submenu>
                             
-                             <p:submenu id="consul_acte_administratve" label="Actes Administratifs" icon="fa fa-fw fa-align-right">
-                                <p:menuitem id="consul_convention_vente" value="Contrat de Vente d'Immeuble" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
+                             <p:submenu id="consul_acte_administratve" label="Actes Administratifs" icon="fa fa-fw fa-sign-in">
+                                <p:menuitem id="consul_convention_vente" value="Contrat de Vente &#160;&#160;&#160;&#160;&#160;&#160;&#160;d'Immeuble" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
                                 <p:menuitem id="consul_contrat_affermage" value="Contrat d'Affermage" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
-                                <p:menuitem id="consul_contrat_bail_métayage" value="Contrat de bail à métayage" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
-                                <p:menuitem id="consul_Contrat_prêt_immeuble_titre_gratuit" value="Contrat de prêt d'immeuble à titre gratuit" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
-                                <p:menuitem id="consul_comptes_rendu_constat_terrain" value="Comptes Rendu de Constat de Terrain" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
-                                <p:menuitem id="consul_comptes_rendu_constat_terrain" value="Comptes Rendu de Constat de Terrain" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
-                                <p:menuitem id="consul_registre_affirmation" value="Registre d'Affirmation" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
-                                <p:menuitem id="consul_registre_ennreg_contrat_droit_usage" value="Registre d'Enregistrement des Contrats de Formalisation des Droits d'Usage" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
+                                <p:menuitem id="consul_contrat_bail_métayage" value="Contrat de bail à &#160;&#160;&#160;&#160;&#160;&#160;&#160;métayage" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
+                                <p:menuitem id="consul_Contrat_prêt_immeuble_titre_gratuit" value="Contrat de prêt &#160;&#160;&#160;&#160;&#160;&#160;&#160;d'immeuble à titre &#160;&#160;&#160;&#160;&#160;&#160;&#160;gratuit" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
+                                <p:menuitem id="consul_comptes_rendu_constat_terrain" value="Comptes Rendu de &#160;&#160;&#160;&#160;&#160;&#160;&#160;Constat de Terrain" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
+                                <p:menuitem id="consul_registre_affirmation" value="Registre &#160;&#160;&#160;&#160;&#160;&#160;&#160;d'Affirmation" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
+                                <p:menuitem id="consul_registre_ennreg_contrat_droit_usage" value="Registre &#160;&#160;&#160;&#160;&#160;&#160;&#160;d'Enregistrement &#160;&#160;&#160;&#160;&#160;&#160;&#160;des Contrats de &#160;&#160;&#160;&#160;&#160;&#160;&#160;Formalisation des &#160;&#160;&#160;&#160;&#160;&#160;&#160;Droits d'Usage" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
                             
                                 
                             </p:submenu>
@@ -81,6 +68,39 @@
                             
                         </p:submenu>
                         
+                        
+                        <p:submenu id="menu_configuration" label="Configurations" icon="fa fa-fw fa-cog">
+                            
+                            <p:submenu id="decoupage_administratif" label="Découpage &#160;&#160;&#160;&#160;&#160;&#160;&#160;Administratif" icon="fa fa-fw fa-sign-in">
+                                <p:menuitem id="liste_departement" value="Départements" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
+                                <p:menuitem id="liste_commune" value="Communes" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
+                                <p:menuitem id="liste_arrondissement" value="Arrondissements" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
+                                <p:menuitem id="liste_quartier_village" value="Villages/Quartiers" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
+                                <p:menuitem id="liste_lignage" value="Lignages" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
+                            </p:submenu>
+                            
+                            <p:submenu id="nav_consortium" label="Consortiums/Cabinets" icon="fa fa-fw fa-sign-in">
+                                <p:menuitem id="liste_consortium" value="Consortiums/ &#160;&#160;&#160;&#160;&#160;&#160;&#160;Cabinets" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
+                            </p:submenu>
+                            
+                           <p:submenu id="nav_utilisateur" label="Utilisateurs" icon="fa fa-fw fa-sign-in">
+                                <p:menuitem id="liste_profils_utilisateur" value="Profils Utilisateurs" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
+                                <p:menuitem id="liste_utilisateurs" value="Utilisateurs" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
+                            </p:submenu>
+                            
+                            <p:submenu id="element_enquete" label="Elements d'enquêtes" icon="fa fa-fw fa-sign-in">
+                                <p:menuitem id="liste_groupe_activite" value="Groupes &#160;&#160;&#160;&#160;&#160;&#160;&#160;d'Activite" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
+                                <p:menuitem id="liste_activite" value="Activités" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
+                                <p:menuitem id="liste_lien_detenteur" value="Liens étenteur" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
+                                <p:menuitem id="liste_mode_acquisition" value="Modes d'Acquisition" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
+                                <p:menuitem id="liste_type_droit_operationnel" value="Types de Droit &#160;&#160;&#160;&#160;&#160;&#160;&#160;Operationnel" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
+                                <p:menuitem id="liste_type_droit_administration" value="Types de Droit &#160;&#160;&#160;&#160;&#160;&#160;&#160;d'Administration" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
+                                <p:menuitem id="liste_qualites" value="Qualités" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
+                                <p:menuitem id="liste_type_domaine_pp" value="Types de domaines &#160;&#160;&#160;&#160;&#160;&#160;&#160;(public/privé)" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
+                            
+                            </p:submenu>
+                            
+                        </p:submenu>
                         
                         <p:submenu rendered='false'  id="om_customization" label="Layouts" icon="fa fa-fw fa-cog">
                             <p:menuitem id="om_customization_1" value="Static" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuMode('layout-menu-static')}" ajax="false" />
@@ -282,7 +302,7 @@
                             <p:menuitem id="om_404" value="404" icon="fa fa-fw fa-times" outcome="/404" />
                             <p:menuitem id="om_access" value="Access Denied" icon="fa fa-fw fa-exclamation-triangle" outcome="/access" />
                         </p:submenu>
-                        <p:submenu id="om_hierarchy" label="Hierarchy" icon="fa fa-fw fa-sitemap">
+                        <p:submenu rendered='false' id="om_hierarchy" label="Hierarchy" icon="fa fa-fw fa-sitemap">
                             <p:submenu id="om_sm1" label="Submenu 1" icon="fa fa-fw fa-sign-in">
                                 <p:submenu id="om_sm11" label="Submenu 1.1" icon="fa fa-fw fa-sign-in">
                                     <p:menuitem id="om_lnk111" value="Link 1.1.1" icon="fa fa-fw fa-sign-in" url="#" />
@@ -303,8 +323,8 @@
                                 </p:submenu>
                             </p:submenu>
                         </p:submenu>
-                        <p:menuitem id="om_doc" value="Docs" icon="fa fa-fw fa-file-code-o" outcome="/docs" />
-                        <p:menuitem id="om_buy" value="Buy Now" icon="fa fa-fw fa-credit-card-alt" url="https://www.primefaces.org/layouts/harmony"/>
+                        <p:menuitem rendered='false' id="om_doc" value="Docs" icon="fa fa-fw fa-file-code-o" outcome="/docs" />
+                        <p:menuitem rendered='false' id="om_buy" value="Buy Now" icon="fa fa-fw fa-credit-card-alt" url="https://www.primefaces.org/layouts/harmony"/>
                     </ph:menu>
                 </h:form>
             </div>
