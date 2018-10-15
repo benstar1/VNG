@@ -49,6 +49,13 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "TUtilisateur.findByUtiDateChargement", query = "SELECT t FROM TUtilisateur t WHERE t.utiDateChargement = :utiDateChargement")})
 public class TUtilisateur implements Serializable {
 
+    @OneToMany(mappedBy = "patyUtiCode")
+    private List<TParcelleTypeBf> tParcelleTypeBfList;
+    @OneToMany(mappedBy = "pbaCodeGeo")
+    private List<TParcelleBafon> tParcelleBafonList;
+    @OneToMany(mappedBy = "signUtiCode")
+    private List<TSignataire> tSignataireList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -315,6 +322,33 @@ public class TUtilisateur implements Serializable {
     @Override
     public String toString() {
         return "org.vng.entities.TUtilisateur[ utiCode=" + utiCode + " ]";
+    }
+
+    @XmlTransient
+    public List<TParcelleTypeBf> getTParcelleTypeBfList() {
+        return tParcelleTypeBfList;
+    }
+
+    public void setTParcelleTypeBfList(List<TParcelleTypeBf> tParcelleTypeBfList) {
+        this.tParcelleTypeBfList = tParcelleTypeBfList;
+    }
+
+    @XmlTransient
+    public List<TParcelleBafon> getTParcelleBafonList() {
+        return tParcelleBafonList;
+    }
+
+    public void setTParcelleBafonList(List<TParcelleBafon> tParcelleBafonList) {
+        this.tParcelleBafonList = tParcelleBafonList;
+    }
+
+    @XmlTransient
+    public List<TSignataire> getTSignataireList() {
+        return tSignataireList;
+    }
+
+    public void setTSignataireList(List<TSignataire> tSignataireList) {
+        this.tSignataireList = tSignataireList;
     }
     
 }

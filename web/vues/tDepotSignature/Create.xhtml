@@ -12,32 +12,27 @@
             <h:form id="TDepotSignatureCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{tDepotSignatureController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateTDepotSignatureLabel_desiCode}" for="desiCode" />
-                        <p:inputText id="desiCode" value="#{tDepotSignatureController.selected.desiCode}" title="#{bundle.CreateTDepotSignatureTitle_desiCode}" required="true" requiredMessage="#{bundle.CreateTDepotSignatureRequiredMessage_desiCode}"/>
-                        <p:outputLabel value="#{bundle.CreateTDepotSignatureLabel_desiReference}" for="desiReference" />
+                        <p:outputLabel value="Référence" for="desiReference" />
                         <p:inputText id="desiReference" value="#{tDepotSignatureController.selected.desiReference}" title="#{bundle.CreateTDepotSignatureTitle_desiReference}" />
-                        <p:outputLabel value="#{bundle.CreateTDepotSignatureLabel_desiDateDeb}" for="desiDateDeb" />
+                        <p:outputLabel value="Date début" for="desiDateDeb" />
                         <p:calendar id="desiDateDeb" pattern="MM/dd/yyyy" value="#{tDepotSignatureController.selected.desiDateDeb}" title="#{bundle.EditTDepotSignatureTitle_desiDateDeb}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateTDepotSignatureLabel_desiDateFin}" for="desiDateFin" />
+                        <p:outputLabel value="Date fin" for="desiDateFin" />
                         <p:calendar id="desiDateFin" pattern="MM/dd/yyyy" value="#{tDepotSignatureController.selected.desiDateFin}" title="#{bundle.EditTDepotSignatureTitle_desiDateFin}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateTDepotSignatureLabel_desiIntNumero}" for="desiIntNumero" />
-                        <p:selectOneMenu id="desiIntNumero" value="#{tDepotSignatureController.selected.desiIntNumero}" >
-                            <f:selectItems value="#{tIntervenantController.itemsAvailableSelectOne}"
-                                           var="desiIntNumeroItem"
-                                           itemValue="#{desiIntNumeroItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateTDepotSignatureLabel_desiUtiCode}" for="desiUtiCode" />
-                        <p:selectOneMenu id="desiUtiCode" value="#{tDepotSignatureController.selected.desiUtiCode}" >
-                            <f:selectItems value="#{tUtilisateurController.itemsAvailableSelectOne}"
-                                           var="desiUtiCodeItem"
-                                           itemValue="#{desiUtiCodeItem}"/>
-                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Intervenant" for="NumIntervenant" />
+                        <p:panelGrid columns="2">
+                            <p:inputText id="NumIntervenant" value="#{tDepotSignatureController.selected.desiIntNumero}" />
+                            <p:commandButton  title="selection Intervenant" icon="fa fa-folder-open" styleClass="green-btn" oncomplete="PF('TIntervenantListDlgNew').show()" ajax="true"/>
+
+                        </p:panelGrid>
+ 
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{tDepotSignatureController.create}" value="#{bundle.Save}" update="display,:TDepotSignatureListForm:datalist,:growl" oncomplete="handleSubmit(args,'TDepotSignatureCreateDialog');"/>
+                    <p:commandButton actionListener="#{tDepotSignatureController.create}" value="#{bundle.Save}" update="display,:TDepotSignatureListForm:datalist,:TDepotSignatureListForm:messages" oncomplete="handleSubmit(args,'TDepotSignatureCreateDialog');"/>
+                     <p:outputLabel value=" "/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="TDepotSignatureCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
-
+        
     </ui:composition>
 </html>

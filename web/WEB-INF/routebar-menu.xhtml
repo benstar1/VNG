@@ -5,23 +5,24 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui">
 
-    <ul class="route-bar-menu">
-        <li>
-            <a href="#">
-                <i class="fa fa-asterisk" />
-                <span>Overview</span>
-            </a>
+    <ul  class="route-bar-menu"  >
+         <li>
+             <h:form >
+             <p:commandLink    id="vente_parcelle" action="#{tOperationParcelController.operationParcelle('VENTE')}"  value="Vente de parcelle"  ajax="false" />
+             
+             </h:form>
         </li>
         <li>
-            <a href="#">
-                <i class="fa fa-paper-plane" />
-                <span>Demos</span>
+            <a href="/vng/vues/tDepotSignature/depotsignature.xhtml">
+                <i class="fa fa-pencil" />
+                <span>Depôt de Signature</span>
             </a>
-        </li>
+        </li>     
+                          
         <li>
             <a href="#">
                 <i class="fa fa-file-code-o" />
-                <span>Documentation</span>
+                <span>Mutation</span>
             </a>
         </li>
         <li>

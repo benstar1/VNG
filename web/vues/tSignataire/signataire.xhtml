@@ -1,0 +1,96 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="./../../WEB-INF/template.xhtml">
+
+    <ui:define name="title">Configurations</ui:define>
+    <ui:define name="viewname">
+
+        <li>Etat Civil</li>
+        <li>/</li>
+        <li><p:link outcome="signataire.xhtml">signataires</p:link></li>
+    </ui:define>
+
+    <ui:define name="content">
+        <style>
+            .arborescence{
+                overflow:scroll;
+            }
+            .carte{
+                overflow:scroll;
+            }
+        </style>
+        <div class="container">
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <div class="card card-w-title" >
+                        <h2>Signataire</h2>
+                        <h:form id="TSignataireListForm">
+                            <p:growl id="messages" showDetail="true" />
+                            <p:panel header="#{bundle.ListTSignataireTitle}">
+                                <p:dataTable id="datalist" value="#{tSignataireController.items}" var="item"
+                                             selectionMode="single" selection="#{tSignataireController.selected}"
+                                             paginator="true"
+                                             rowKey="#{item.signCode}"
+                                             rows="10"
+                                             rowsPerPageTemplate="10,20,30,40,50"
+                                             >
+
+                                    <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                                    <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListTSignataireTitle_signCode}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.signCode}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListTSignataireTitle_signNom}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.signNom}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListTSignataireTitle_signPrenom}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.signPrenom}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListTSignataireTitle_signActif}"/>
+                                        </f:facet>
+                                        <p:selectBooleanCheckbox value="#{item.signActif}" disabled="true"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListTSignataireTitle_signFonction}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.signFonction}"/>
+                                    </p:column>
+                                    
+                                    <f:facet name="footer">
+                                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tSignataireController.prepareCreate}" update=":TSignataireCreateForm" oncomplete="PF('TSignataireCreateDialog').show()"/>
+                                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TSignataireViewForm" oncomplete="PF('TSignataireViewDialog').show()" disabled="#{empty tSignataireController.selected}"/>
+                                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TSignataireEditForm" oncomplete="PF('TSignataireEditDialog').show()" disabled="#{empty tSignataireController.selected}"/>
+                                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{tSignataireController.destroy}" update=":TSignataireListForm:messages,datalist" disabled="#{empty tSignataireController.selected}"/>
+                                    </f:facet>
+                                </p:dataTable>
+                            </p:panel>
+                        </h:form>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ui:include src="Create.xhtml"/>
+        <ui:include src="Edit.xhtml"/>
+        <ui:include src="View.xhtml"/>
+    </ui:define>
+
+</ui:composition>

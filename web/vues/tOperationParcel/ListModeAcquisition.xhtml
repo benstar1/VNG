@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+  <ui:composition>
+      
+    <p:dialog id="TModeAcquisListDlg" widgetVar="TModeAcquisListDlg" modal="true"  header="Liste Droit">
+        <h:form id="TModeAcquisListForm">
+            
+                <p:dataTable id="datalist" value="#{tOperationParcelController.listmodeAcquisition}" var="item"
+                             selectionMode="single" selection="#{tOperationParcelController.modeAcquisition}"
+                             paginator="true"
+                             rowKey="#{item.macCode}"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             >      
+                    <p:column filterBy="#{item.macCode}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="Code"/>
+                        </f:facet>
+                       
+                        <p:commandLink value="#{item.macCode}"  action="#{tOperationParcelController.setModeAcquisition(item)}"  update=":formventeparcelle:ongletventeparcelle:modeacquisition:codemodeacquisition" oncomplete="PF('TModeAcquisListDlg').hide();"  process="@this" title="Selectionnez" style="color: blue;"/>
+                    </p:column>
+                    
+                    <p:column filterBy="#{item.macDesig}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="Désignation"/>
+                        </f:facet>
+                        <h:outputText value="#{item.macDesig}"/>
+                    </p:column>   
+                </p:dataTable>
+            
+        </h:form>
+    </p:dialog>
+
+</ui:composition>
+
+</html>

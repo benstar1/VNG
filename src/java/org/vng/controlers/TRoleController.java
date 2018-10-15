@@ -6,6 +6,7 @@ import org.vng.controlers.util.JsfUtil.PersistAction;
 import org.vng.sessions.TRoleFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -18,6 +19,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.model.SelectItem;
 
 @Named("tRoleController")
 @SessionScoped
@@ -80,6 +82,18 @@ public class TRoleController implements Serializable {
         }
         return items;
     }
+    
+     public List<SelectItem> getRoleItem() {
+        List<SelectItem> RoleItem = new ArrayList<>();
+
+        List<TRole> listrol = getFacade().findAll();
+
+        for (TRole rol : listrol) {
+            RoleItem.add(new SelectItem(rol, rol.getRolCode()+ " --> " + rol.getRolDesig()));
+        }
+        return RoleItem;
+    }
+    
 
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {

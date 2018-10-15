@@ -32,8 +32,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "TCommune.findAll", query = "SELECT t FROM TCommune t")
     , @NamedQuery(name = "TCommune.findByComCode", query = "SELECT t FROM TCommune t WHERE t.comCode = :comCode")
+    , @NamedQuery(name = "TCommune.findByComEncours", query = "SELECT t FROM TCommune t WHERE t.comEncours = true")
     , @NamedQuery(name = "TCommune.findByComDesig", query = "SELECT t FROM TCommune t WHERE t.comDesig = :comDesig")})
 public class TCommune implements Serializable {
+
+    @Column(name = "com_encours")
+    private Boolean comEncours;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -114,6 +118,14 @@ public class TCommune implements Serializable {
     @Override
     public String toString() {
         return "org.vng.entities.TCommune[ comCode=" + comCode + " ]";
+    }
+
+    public Boolean getComEncours() {
+        return comEncours;
+    }
+
+    public void setComEncours(Boolean comEncours) {
+        this.comEncours = comEncours;
     }
     
 }

@@ -5,9 +5,15 @@
  */
 package org.vng.sessions;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import org.vng.entities.TModeacquis;
 import org.vng.entities.TOperationParcel;
 
 /**
@@ -24,6 +30,46 @@ public class TOperationParcelFacade extends AbstractFacade<TOperationParcel> {
     protected EntityManager getEntityManager() {
         return em;
     }
+    
+     public String executeMaxOperation(String an){
+        
+         System.out.println("Annee "+an);
+         String numoperation =null;
+        try{
+            Query q=em.createNamedQuery("TOperationParcel.findMaxOperation").setParameter("annee",an+"%");
+            numoperation = (String) q.getSingleResult();
+        }catch(Exception e){
+            System.out.println("Probleme de selection de la plux recente operation "+e);
+        }
+        return numoperation;
+    }
+     
+     
+     public List<TOperationParcel> executeListeOperationMode(ArrayList<TModeacquis> mode){
+        int i=0;
+        List<TOperationParcel> listeOperation =null;
+        try{
+            Query q=em.createNamedQuery("TOperationParcel.findByMode").setParameter("mode",mode);
+            listeOperation=q.getResultList();
+        }catch(Exception e){
+            System.out.println("Probleme select operation parcelle par mode acquisition : "+e);
+        }
+        return listeOperation;
+    }
+     
+     public List<TOperationParcel> executeListeOperationCatMode(String CatMode){
+        int i=0;
+        List<TOperationParcel> listeOperation =null;
+        try{
+            Query q=em.createNamedQuery("TOperationParcel.findByCategorieMode").setParameter("categorieMode",CatMode);
+            listeOperation=q.getResultList();
+        }catch(Exception e){
+            System.out.println("Probleme select operation parcelle par categorie mode acquisition : "+e);
+        }
+        return listeOperation;
+    }
+
+    
 
     public TOperationParcelFacade() {
         super(TOperationParcel.class);

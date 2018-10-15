@@ -40,6 +40,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "TDepotSignature.findByDesiDateFin", query = "SELECT t FROM TDepotSignature t WHERE t.desiDateFin = :desiDateFin")})
 public class TDepotSignature implements Serializable {
 
+    @OneToMany(mappedBy = "invDesiCode")
+    private List<TIntervenir> tIntervenirList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -119,6 +122,7 @@ public class TDepotSignature implements Serializable {
 
     public void setDesiIntNumero(TIntervenant desiIntNumero) {
         this.desiIntNumero = desiIntNumero;
+        System.out.println(" Intervenant "+desiIntNumero.getIntNumero());
     }
 
     public TUtilisateur getDesiUtiCode() {
@@ -152,6 +156,15 @@ public class TDepotSignature implements Serializable {
     @Override
     public String toString() {
         return "org.vng.entities.TDepotSignature[ desiCode=" + desiCode + " ]";
+    }
+
+    @XmlTransient
+    public List<TIntervenir> getTIntervenirList() {
+        return tIntervenirList;
+    }
+
+    public void setTIntervenirList(List<TIntervenir> tIntervenirList) {
+        this.tIntervenirList = tIntervenirList;
     }
     
 }

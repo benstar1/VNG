@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TVenteParcelleListDlg" widgetVar="TVenteParcelleListDlg" resizable="false" appendTo="@(body)" header="Liste Operation Parcelle">
+            <h:form id="TVenteParcelleListForm">
+                
+                    <p:dataTable id="datalist" value="#{tOperationParcelController.items}" var="item"
+                                 selectionMode="single" selection="#{tOperationParcelController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.opvNumero}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+
+                        <p:column filterBy="#{item.opvNumero}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Numero Operation"/>
+                            </f:facet>
+
+                            <p:commandLink value="#{item.opvNumero}"  action="#{tOperationParcelController.afficheOperationParcelle(item)}"  update="formventeparcelle" oncomplete="PF('TVenteParcelleListDlg').hide();"  process="@this" title="Selectionnez" style="color: blue;"/>
+                        </p:column>
+
+                        <p:column filterBy="#{item.opvPbaNumero.pbaNumero}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Parcelle"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvPbaNumero.pbaNumero}"/>
+                        </p:column>
+
+                        <p:column filterBy="#{item.opvIntNumeroBailleur.intNom}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Nom Vendeur"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvIntNumeroBailleur.intNom}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Date Operation"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvDateOp}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column filterBy="#{item.opvIntNumeroBailleur.intPrenom}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Prenom Detenteur"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvIntNumeroBailleur.intPrenom}"/>
+                        </p:column>
+
+                        <p:column filterBy="#{item.opvIntNumeroPreneur.intNom}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Nom Acheteur"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvIntNumeroPreneur.intNom}"/>
+                        </p:column>
+
+                        <p:column filterBy="#{item.opvIntNumeroPreneur.intPrenom}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Prenom Acheteur"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opvIntNumeroPreneur.intPrenom}"/>
+                        </p:column>
+                    </p:dataTable>
+               
+
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TTypedexerce.findAll", query = "SELECT t FROM TTypedexerce t")
     , @NamedQuery(name = "TTypedexerce.findByTdeCode", query = "SELECT t FROM TTypedexerce t WHERE t.tdeCode = :tdeCode")
     , @NamedQuery(name = "TTypedexerce.findByTdeDesig", query = "SELECT t FROM TTypedexerce t WHERE t.tdeDesig = :tdeDesig")
-    , @NamedQuery(name = "TTypedexerce.findByTdeCat", query = "SELECT t FROM TTypedexerce t WHERE t.tdeCat = :tdeCat")
+    , @NamedQuery(name = "TTypedexerce.findByTdeCat", query = "SELECT t FROM TTypedexerce t WHERE t.tdeCat LIKE :tdeCat")
     , @NamedQuery(name = "TTypedexerce.findByTdeCodeParent", query = "SELECT t FROM TTypedexerce t WHERE t.tdeCodeParent = :tdeCodeParent")})
 public class TTypedexerce implements Serializable {
 

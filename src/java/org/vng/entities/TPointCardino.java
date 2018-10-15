@@ -8,6 +8,7 @@ package org.vng.entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,6 +17,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -34,6 +36,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "TPointCardino.findByPocaCode", query = "SELECT t FROM TPointCardino t WHERE t.pocaCode = :pocaCode")
     , @NamedQuery(name = "TPointCardino.findByPocaDesig", query = "SELECT t FROM TPointCardino t WHERE t.pocaDesig = :pocaDesig")})
 public class TPointCardino implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tPointCardino")
+    private List<TParcellePoca> tParcellePocaList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -106,6 +111,15 @@ public class TPointCardino implements Serializable {
     @Override
     public String toString() {
         return "org.vng.entities.TPointCardino[ pocaCode=" + pocaCode + " ]";
+    }
+
+    @XmlTransient
+    public List<TParcellePoca> getTParcellePocaList() {
+        return tParcellePocaList;
+    }
+
+    public void setTParcellePocaList(List<TParcellePoca> tParcellePocaList) {
+        this.tParcellePocaList = tParcellePocaList;
     }
     
 }

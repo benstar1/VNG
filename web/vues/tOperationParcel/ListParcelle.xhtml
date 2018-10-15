@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+  <ui:composition>
+      
+    <p:dialog id="TParcelleListDlg" widgetVar="TParcelleListDlg" resizable="false" appendTo="@(body)" header="Liste Parcelle">
+        <h:form id="TParcelleListForm">
+          
+                <p:dataTable id="datalist" value="#{tParcelleBafonController.listParcelleComEncours}" var="item"
+                             selectionMode="single" selection="#{tParcelleBafonController.selected}"
+                             paginator="true"
+                             rowKey="#{item.pbaNumero}"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             >
+
+               
+                    <p:column filterBy="#{item.pbaNumero}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="Numero"/>
+                        </f:facet>
+                           
+                        <p:commandLink value="#{item.pbaNumero}"  action="#{tOperationParcelController.initParcelleBafonNewOperation(item)}"  update=":formventeparcelle:ongletventeparcelle:parc,:formventeparcelle:ongletventeparcelle:detenteur,:formventeparcelle:ongletventeparcelle:vendeur,:formventeparcelle:ongletventeparcelle:modeacquisition" oncomplete="PF('TParcelleListDlg').hide();"  process="@this" title="Selectionnez" style="color: blue;"/>
+                    </p:column>
+                    
+                    <p:column filterBy="#{item.pbaProp.intNom}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="Nom Detenteur"/>
+                        </f:facet>
+                        <h:outputText value="#{item.pbaProp.intNom}"/>
+                    </p:column>
+                    
+                    <p:column filterBy="#{item.pbaProp.intPrenom}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="Prenom Detenteur"/>
+                        </f:facet>
+                        <h:outputText value="#{item.pbaProp.intPrenom}"/>
+                    </p:column>
+                    
+                    <p:column filterBy="#{item.pbaVilaCode.vlaDesig}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="Village"/>
+                        </f:facet>
+                        <h:outputText value="#{item.pbaVilaCode.vlaDesig}"/>
+                    </p:column>
+                    
+                </p:dataTable>
+           
+        </h:form>
+    </p:dialog>
+
+</ui:composition>
+
+</html>

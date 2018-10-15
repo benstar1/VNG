@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ParcelleEditDlg" widgetVar="ParcelleEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditParcelleTitle}">
+            <h:form id="ParcelleEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{parcelleController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_gid}" for="gid" />
+                        <p:inputText id="gid" value="#{parcelleController.selected.gid}" title="#{bundle.EditParcelleTitle_gid}" required="true" requiredMessage="#{bundle.EditParcelleRequiredMessage_gid}"/>
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_guid}" for="guid" />
+                        <p:inputText id="guid" value="#{parcelleController.selected.guid}" title="#{bundle.EditParcelleTitle_guid}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_districtname}" for="districtname" />
+                        <p:inputText id="districtname" value="#{parcelleController.selected.districtname}" title="#{bundle.EditParcelleTitle_districtname}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_districtnumber}" for="districtnumber" />
+                        <p:inputText id="districtnumber" value="#{parcelleController.selected.districtnumber}" title="#{bundle.EditParcelleTitle_districtnumber}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_countyname}" for="countyname" />
+                        <p:inputText id="countyname" value="#{parcelleController.selected.countyname}" title="#{bundle.EditParcelleTitle_countyname}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_countynumber}" for="countynumber" />
+                        <p:inputText id="countynumber" value="#{parcelleController.selected.countynumber}" title="#{bundle.EditParcelleTitle_countynumber}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_subcountyname}" for="subcountyname" />
+                        <p:inputText id="subcountyname" value="#{parcelleController.selected.subcountyname}" title="#{bundle.EditParcelleTitle_subcountyname}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_subcountynumber}" for="subcountynumber" />
+                        <p:inputText id="subcountynumber" value="#{parcelleController.selected.subcountynumber}" title="#{bundle.EditParcelleTitle_subcountynumber}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_parishname}" for="parishname" />
+                        <p:inputText id="parishname" value="#{parcelleController.selected.parishname}" title="#{bundle.EditParcelleTitle_parishname}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_parishnumber}" for="parishnumber" />
+                        <p:inputText id="parishnumber" value="#{parcelleController.selected.parishnumber}" title="#{bundle.EditParcelleTitle_parishnumber}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_villagename}" for="villagename" />
+                        <p:inputText id="villagename" value="#{parcelleController.selected.villagename}" title="#{bundle.EditParcelleTitle_villagename}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_villagenumber}" for="villagenumber" />
+                        <p:inputText id="villagenumber" value="#{parcelleController.selected.villagenumber}" title="#{bundle.EditParcelleTitle_villagenumber}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_clerk}" for="clerk" />
+                        <p:inputText id="clerk" value="#{parcelleController.selected.clerk}" title="#{bundle.EditParcelleTitle_clerk}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_date}" for="date" />
+                        <p:inputText id="date" value="#{parcelleController.selected.date}" title="#{bundle.EditParcelleTitle_date}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_lat}" for="lat" />
+                        <p:inputText id="lat" value="#{parcelleController.selected.lat}" title="#{bundle.EditParcelleTitle_lat}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_lon}" for="lon" />
+                        <p:inputText id="lon" value="#{parcelleController.selected.lon}" title="#{bundle.EditParcelleTitle_lon}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_east}" for="east" />
+                        <p:inputText id="east" value="#{parcelleController.selected.east}" title="#{bundle.EditParcelleTitle_east}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_north}" for="north" />
+                        <p:inputText id="north" value="#{parcelleController.selected.north}" title="#{bundle.EditParcelleTitle_north}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_datecreate}" for="datecreate" />
+                        <p:inputText id="datecreate" value="#{parcelleController.selected.datecreate}" title="#{bundle.EditParcelleTitle_datecreate}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_datelasted}" for="datelasted" />
+                        <p:inputText id="datelasted" value="#{parcelleController.selected.datelasted}" title="#{bundle.EditParcelleTitle_datelasted}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_parcelleno}" for="parcelleno" />
+                        <p:inputText id="parcelleno" value="#{parcelleController.selected.parcelleno}" title="#{bundle.EditParcelleTitle_parcelleno}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_geoid}" for="geoid" />
+                        <p:inputText id="geoid" value="#{parcelleController.selected.geoid}" title="#{bundle.EditParcelleTitle_geoid}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_hectares}" for="hectares" />
+                        <p:inputText id="hectares" value="#{parcelleController.selected.hectares}" title="#{bundle.EditParcelleTitle_hectares}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_utilizatio}" for="utilizatio" />
+                        <p:inputText id="utilizatio" value="#{parcelleController.selected.utilizatio}" title="#{bundle.EditParcelleTitle_utilizatio}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_users}" for="users" />
+                        <p:inputText id="users" value="#{parcelleController.selected.users}" title="#{bundle.EditParcelleTitle_users}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_neighbours}" for="neighbours" />
+                        <p:inputText id="neighbours" value="#{parcelleController.selected.neighbours}" title="#{bundle.EditParcelleTitle_neighbours}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_witnesses}" for="witnesses" />
+                        <p:inputText id="witnesses" value="#{parcelleController.selected.witnesses}" title="#{bundle.EditParcelleTitle_witnesses}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_use}" for="use" />
+                        <p:inputText id="use" value="#{parcelleController.selected.use}" title="#{bundle.EditParcelleTitle_use}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_landtype}" for="landtype" />
+                        <p:inputText id="landtype" value="#{parcelleController.selected.landtype}" title="#{bundle.EditParcelleTitle_landtype}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_photo1}" for="photo1" />
+                        <p:inputText id="photo1" value="#{parcelleController.selected.photo1}" title="#{bundle.EditParcelleTitle_photo1}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_photo2}" for="photo2" />
+                        <p:inputText id="photo2" value="#{parcelleController.selected.photo2}" title="#{bundle.EditParcelleTitle_photo2}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_photo3}" for="photo3" />
+                        <p:inputText id="photo3" value="#{parcelleController.selected.photo3}" title="#{bundle.EditParcelleTitle_photo3}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_sketch}" for="sketch" />
+                        <p:inputText id="sketch" value="#{parcelleController.selected.sketch}" title="#{bundle.EditParcelleTitle_sketch}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_grouppic}" for="grouppic" />
+                        <p:inputText id="grouppic" value="#{parcelleController.selected.grouppic}" title="#{bundle.EditParcelleTitle_grouppic}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_geom}" for="geom" />
+                        <p:inputText id="geom" value="#{parcelleController.selected.geom}" title="#{bundle.EditParcelleTitle_geom}" />
+                        <p:outputLabel value="#{bundle.EditParcelleLabel_parPbaNumero}" for="parPbaNumero" />
+                        <p:inputText id="parPbaNumero" value="#{parcelleController.selected.parPbaNumero}" title="#{bundle.EditParcelleTitle_parPbaNumero}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{parcelleController.update}" value="#{bundle.Save}" update="display,:ParcelleListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ParcelleEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ParcelleEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

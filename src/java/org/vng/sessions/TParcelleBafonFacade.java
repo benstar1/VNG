@@ -5,9 +5,11 @@
  */
 package org.vng.sessions;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import org.vng.entities.TParcelleBafon;
 
 /**
@@ -23,6 +25,17 @@ public class TParcelleBafonFacade extends AbstractFacade<TParcelleBafon> {
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+    public List<TParcelleBafon> executeListeParcelleEncours(){
+        int i=0;
+        List<TParcelleBafon> listeparcelles =null;
+        try{
+            Query q=em.createNamedQuery("TParcelleBafon.findByCommuneEncours");
+            listeparcelles=q.getResultList();
+        }catch(Exception e){
+            System.out.println("Probleme de consolidation de parcelle : insertion "+e);
+        }
+        return listeparcelles;
     }
 
     public TParcelleBafonFacade() {

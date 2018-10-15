@@ -6,10 +6,12 @@ import org.vng.controlers.util.JsfUtil.PersistAction;
 import org.vng.sessions.TDepartementFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
@@ -18,6 +20,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.model.SelectItem;
+import org.vng.entities.TVillage;
 
 @Named("tDepartementController")
 @SessionScoped
@@ -25,16 +29,23 @@ public class TDepartementController implements Serializable {
 
     @EJB
     private org.vng.sessions.TDepartementFacade ejbFacade;
+    @EJB
+    private org.vng.sessions.ParcelleFacade ejbparcelleFacade;
     private List<TDepartement> items = null;
     private TDepartement selected;
-
+    private List<String> listvillagetopo;
+    List<SelectItem> VillageTopoItem = new ArrayList<>();
     public TDepartementController() {
     }
-
+    
+    @PostConstruct
+    private void initDepartement(){
+     initListevillagetopo();
+    }
     public TDepartement getSelected() {
         return selected;
     }
-
+    
     public void setSelected(TDepartement selected) {
         this.selected = selected;
     }
@@ -120,7 +131,31 @@ public class TDepartementController implements Serializable {
     public List<TDepartement> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
+     public List<SelectItem> getDepartementItem() {
+        List<SelectItem> DepartItem = new ArrayList<>();
 
+        List<TDepartement> listdep = getFacade().findAll();
+
+        for (TDepartement dep : listdep) {
+            DepartItem.add(new SelectItem(dep, dep.getDepCode()+ " --> " + dep.getDepDesig()));
+        }
+        return DepartItem;
+    }
+
+    public void initListevillagetopo(){
+        System.out.println(" Village topo");
+         
+        listvillagetopo= ejbparcelleFacade.executeListevillagetopo();
+        if (listvillagetopo != null) {
+            for (String str : listvillagetopo) {
+                VillageTopoItem.add(new SelectItem(str,str));
+            }
+        }
+    }
+     public List<SelectItem> getVillageTopoItem() {
+       return VillageTopoItem;
+     }
+     
     @FacesConverter(forClass = TDepartement.class)
     public static class TDepartementControllerConverter implements Converter {
 

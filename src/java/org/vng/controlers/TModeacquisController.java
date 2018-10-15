@@ -6,6 +6,7 @@ import org.vng.controlers.util.JsfUtil.PersistAction;
 import org.vng.sessions.TModeacquisFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -27,7 +28,7 @@ public class TModeacquisController implements Serializable {
     private org.vng.sessions.TModeacquisFacade ejbFacade;
     private List<TModeacquis> items = null;
     private TModeacquis selected;
-
+    //private List<TModeacquis> ItemsModeAcquisition
     public TModeacquisController() {
     }
 
@@ -79,6 +80,18 @@ public class TModeacquisController implements Serializable {
             items = getFacade().findAll();
         }
         return items;
+    }
+    
+    public void ItemsModeAcquisition(String typeMode) {
+           // List<TModeacquis> listModeacquis=new ArrayList<>();
+            try {
+             if (typeMode.equals("HERITAGE")){
+                 items = getFacade().executeListeModeaquisHerit();
+             }    
+        } catch (Exception e) {
+                System.out.println("Probleme selection mode acquisition");
+        }
+          
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

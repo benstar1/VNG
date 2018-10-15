@@ -1,0 +1,443 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="./../../WEB-INF/template.xhtml">
+
+    <ui:define name="title">Générer numéro parcelle</ui:define>
+    <ui:define name="viewname">
+
+        <li>Affaires domaniale</li>
+        <li>/</li>
+        <li><p:link  outcome="operaDroitAdminparcelle.xhtml"><p:outputLabel value="#{tOperationParcelController.typeOperation}"/> de parcelles</p:link></li>
+    </ui:define>
+
+    <ui:define name="content">
+        <style>
+            .arborescence{
+                overflow:scroll;
+            }
+            .carte{
+                overflow:scroll;
+            }
+        </style>
+        <div class="container">
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <div class="card card-w-title" >
+                        <h2><p:outputLabel value="#{tOperationParcelController.typeOperation}"/> de parcelle</h2>
+
+                        <h:form id="formventeparcelle">
+                            <p:growl id="messages" showDetail="true" />
+                            <p:toolbar>
+                                <f:facet name="left">
+                                    <p:commandButton update="formventeparcelle" actionListener="#{tOperationParcelController.nouveau()}" value="Nouveau" icon="fa fa-plus" />
+
+                                    <p:commandButton update="formventeparcelle" oncomplete="PF('TVenteParcelleListDlg').show()"  value="Selectionner" icon="fa fa-folder-open" styleClass="pink-btn" />
+
+                                    <span class="ui-separator" style="padding-right: 5px;">
+                                        <span class="fa fa-ellipsis-v SoftGray" />
+                                    </span>
+
+                                    <p:commandButton disabled="#{tOperationParcelController.estvalider}" ajax="true" actionListener="#{tOperationParcelController.enregistrerVenteParcelle()}" title="enregistrer" update="messages" icon="fa fa-save" styleClass="green-btn"/>
+                                    <p:commandButton disabled="#{tOperationParcelController.estvalider}"  update="formventeparcelle" actionListener="#{tOperationParcelController.supprimerOperation()}" title="Supprimer" icon="fa fa-trash" styleClass="purple-btn">
+                                        <p:confirm header="Confirmation" icon="ui-icon-alert"   message="Veuillez confirmer la suppression" />
+                                    </p:commandButton>
+                                    <p:commandButton type="button" title="Imprimer" icon="fa fa-print" styleClass="orange-btn"/>
+                                </f:facet>
+
+                                <f:facet name="right">
+                                    <p:menuButton value="Options">
+                                        <p:menuitem  update="formventeparcelle"  actionListener="#{tOperationParcelController.validationOperation()}" value="Validation" icon="fa fa-gavel" >
+                                            <p:confirm header="Confirmation" icon="ui-icon-alert"   message="Veuillez confirmer la validation" />
+                                        </p:menuitem>
+
+                                    </p:menuButton>
+                                </f:facet>
+                            </p:toolbar>
+                            <p:separator/>
+                            <p:tabView id="ongletventeparcelle" scrollable="true" >
+                                <p:tab id="parcelle" title="La parcelle">
+                                    <p:panelGrid id="parcellegrid"  style=" width: 100%"  columns="2">
+                                        <p:panel id="parc"  header="Identification" toggleable="true">
+                                            <p:panelGrid columns="2">
+                                                <p:outputLabel value="Numero"/>
+                                                <p:panelGrid columns="2">
+                                                    <p:inputText disabled="true" id="numparcelle" value="#{tOperationParcelController.selected.opvPbaNumero}" />
+                                                    <p:commandButton disabled="#{tOperationParcelController.estvalider}" title="selection parcelle" icon="fa fa-folder-open" styleClass="green-btn" oncomplete="PF('TParcelleListDlg').show()" ajax="true"/>
+                                                </p:panelGrid>
+                                                <p:outputLabel value="Village"/>
+                                                <p:inputText id="villageparcelle" value="#{tOperationParcelController.villagelib}" />
+                                                <p:outputLabel value="Arrondissement"/>
+                                                <p:inputText value="#{tOperationParcelController.arrondissementlib}" />
+                                                <p:outputLabel value="Commune"/>
+                                                <p:inputText value="#{tOperationParcelController.communelib}" />
+                                                <p:outputLabel value="Departement"/>
+                                                <p:inputText value="#{tOperationParcelController.departementlib}" />
+                                            </p:panelGrid>
+                                        </p:panel>
+                                        <p:panel id="detenteur"  header="Detenteur" toggleable="true">
+                                            <p:panelGrid columns="2">
+                                                <p:outputLabel value="Collectivite"/>
+                                                <p:inputText value="#{tOperationParcelController.collectivite}" />
+                                                <p:outputLabel value="Nom"/>
+                                                <p:inputText value="#{tOperationParcelController.nom}" />
+                                                <p:outputLabel value="Prenom"/>
+                                                <p:inputText value="#{tOperationParcelController.prenom}" />
+                                                <p:outputLabel value="Domicile"/>
+                                                <p:inputText value="#{tOperationParcelController.domicile}" />
+                                                <p:outputLabel value="Age"/>
+                                                <p:inputText value="#{tOperationParcelController.age}" />                                               
+                                            </p:panelGrid>
+                                        </p:panel>
+                                    </p:panelGrid>
+                                </p:tab>
+                                <p:tab id="clause" title="Les clauses">
+                                    <p:panelGrid  style=" width: 100%" columns="2">
+                                        <p:accordionPanel id="modeacquisition" multiple="false">
+                                            <p:tab  title="Conditions I">
+                                                <p:panelGrid columns="2">
+                                                    <p:outputLabel value="Mode"/>
+                                                    <p:panelGrid id="codemodeacquisition" columns="2">
+                                                        <p:inputText  disabled="true" value="#{tOperationParcelController.selected.opvMacCode.macDesig}" />
+                                                        <p:commandButton disabled="#{tOperationParcelController.estvalider}" rendered="#{tOperationParcelController.selectModeAcquis}" title="selection parcelle" icon="fa fa-folder-open" styleClass="green-btn" oncomplete="PF('TModeAcquisListDlg').show()" ajax="true"/>
+                                                    </p:panelGrid>
+                                                    <p:outputLabel value="Montant"  />
+                                                    <p:inputText  disabled="#{tOperationParcelController.estDon}" value="#{tOperationParcelController.selected.opvPrix}" />
+                                                </p:panelGrid>
+                                            </p:tab> 
+                                            <p:tab rendered="#{tOperationParcelController.estdroitoperationnel}" title="Conditions II">
+                                                <p:panelGrid columns="2">
+                                                    <p:outputLabel value="Durée"  />
+                                                    <p:inputText  disabled="#{tOperationParcelController.estDon}" value="#{tOperationParcelController.selected.opvDuree}" />
+
+                                                    <p:outputLabel value="Date début"  />
+                                                    <p:calendar pattern="dd-MM-yyyy"  style="margin: 10px" value="#{tOperationParcelController.selected.opvDateDeb}">
+                                                    </p:calendar>
+
+                                                    <p:outputLabel value="Date fin"  />
+                                                    <p:calendar pattern="dd-MM-yyyy"  style="margin: 10px" value="#{tOperationParcelController.selected.opvDateFin}">
+                                                    </p:calendar>
+
+                                                    <p:outputLabel value="Condition de paie"/>
+                                                    <p:panelGrid id="conditionpaie" columns="2">
+                                                        <p:inputText  disabled="true" value="#{tOperationParcelController.selected.opvCopCode}" />
+                                                        <p:commandButton disabled="#{tOperationParcelController.estvalider}" title="selection condition paie" icon="fa fa-folder-open" styleClass="green-btn" oncomplete="PF('TConditionPaieListDlg').show()" ajax="true"/>
+                                                    </p:panelGrid>
+
+                                                    <p:outputLabel value="Autres conditions"/>
+                                                    <p:inputText  disabled="#{tOperationParcelController.estDon}" value="#{tOperationParcelController.selected.opvCopAutre}" />
+
+                                                    <p:outputLabel value="Modalité de paiement"  />
+                                                    <p:inputText  disabled="#{tOperationParcelController.estDon}" value="#{tOperationParcelController.selected.opvAutremodalite}" />
+
+                                                    <p:outputLabel value="Contrepartie"/>
+                                                    <p:inputText  disabled="#{tOperationParcelController.estDon}" value="#{tOperationParcelController.selected.opvContreparti}" />
+                                                </p:panelGrid>
+                                            </p:tab>
+                                            <p:tab rendered="#{tOperationParcelController.estdroitoperationnel}" title="Conditions III">
+                                                <p:panelGrid columns="2">
+                                                    <p:outputLabel value="Nature culture"  />
+                                                    <p:inputText  disabled="#{tOperationParcelController.estDon}" value="#{tOperationParcelController.selected.opvNatureCulture}" />
+
+                                                    <p:outputLabel value="Lieu de partage"/>
+                                                    <p:inputText  disabled="#{tOperationParcelController.estDon}" value="#{tOperationParcelController.selected.opvLieuPartage}" />
+
+                                                    <p:outputLabel value="Mode de partage"/>
+                                                    <p:panelGrid id="modepartage" columns="2">
+                                                        <p:inputText  disabled="true" value="#{tOperationParcelController.selected.opvMopCode}" />
+                                                        <p:commandButton disabled="#{tOperationParcelController.estvalider}" title="selection mode partage" icon="fa fa-folder-open" styleClass="green-btn" oncomplete="PF('TModePartageListDlg').show()" ajax="true"/>
+                                                    </p:panelGrid>
+                                                </p:panelGrid>
+                                            </p:tab>
+
+                                        </p:accordionPanel>
+
+
+                                        <p:accordionPanel id="droitLimite" multiple="false">
+                                            <p:tab title="Role et Droit Exercé par le preneur">
+                                                <p:panelGrid columns="2" >
+                                                    <p:outputLabel value="Role" for="role" />     
+                                                    <p:selectOneMenu  value="#{tOperationParcelController.roleOperation}" id="role" style="margin-bottom:10px;" >
+                                                        <f:selectItem itemLabel="Choisissez un role " itemValue="" />
+                                                        <f:selectItems value="#{tRoleController.roleItem}" />
+                                                        <p:ajax event="change" process="@this"  />
+                                                    </p:selectOneMenu>
+
+                                                    <p:commandButton disabled="#{tOperationParcelController.estvalider}"   update="listdroitexerce"  title="enregistrer" icon="fa fa-plus-circle" styleClass="green-btn" onclick="PF('TDroitListDlg').show()" ajax="true"/>
+                                                </p:panelGrid>
+                                                <p:dataTable id="listdroitexerce" value="#{tOperationParcelController.listDroitExerce}"
+                                                             var="item"
+                                                             editable="true" 
+                                                             editMode="cell" 
+                                                             widgetVar="items"
+                                                             selection="#"
+                                                             rowKey="#{item.dreCode}"
+                                                             style="margin-bottom:20px">
+                                                    <p:ajax event="cellEdit" listener="#{tOperationParcelController.onDroitExerceCellEdit}" />
+                                                    <p:column>
+                                                        <f:facet name="header">
+                                                            <h:outputText value="Code"/>
+                                                        </f:facet>
+                                                        <h:outputText value="#{item.dreTdeCode}"/>
+                                                    </p:column>
+
+                                                    <p:column>
+                                                        <f:facet name="header">
+                                                            <h:outputText value="Designation"/>
+                                                        </f:facet>
+                                                        <h:outputText value="#{item.dreTdeCode.tdeDesig}"/>
+                                                    </p:column>
+                                                    <p:column id="toto" style="padding: 5px; text-align:  left" width="200px" headerText="Date debut">
+
+                                                        <p:cellEditor   >
+                                                            <f:facet   name="output">
+                                                                <p:outputLabel value="#{item.dreDateDebut}"><f:convertDateTime pattern="dd-MM-yyyy"/></p:outputLabel>
+                                                            </f:facet>
+                                                            <f:facet name="input" >
+                                                                <p:calendar pattern="dd-MM-yyyy"  style="margin: 10px" id="modelInput" value="#{item.dreDateDebut}">
+                                                                    <p:ajax process="@this" event="select"/>
+                                                                </p:calendar>          
+                                                            </f:facet>
+                                                        </p:cellEditor>
+
+
+                                                    </p:column>
+                                                    <p:column>
+                                                        <f:facet name="header">
+                                                            <h:outputText value="Date fin"/>
+                                                        </f:facet>
+                                                        <h:outputText value="#{item.dreDateFin}">
+                                                            <f:convertDateTime pattern="dd-MM-yyyy" />
+                                                        </h:outputText>
+                                                    </p:column> 
+
+                                                    <p:column style="width:70px">
+                                                        <f:facet name="header">
+                                                            <h:outputText value="Action"/>
+                                                        </f:facet>
+                                                        <p:commandButton disabled="#{tOperationParcelController.estvalider}" ajax="true" update="listdroitexerce"  actionListener="#{tOperationParcelController.supprimeDex(item)}" title="supprimer"  icon="fa fa-trash" styleClass="purple-btn"/>
+                                                    </p:column> 
+                                                    <f:facet  name="footer">
+                                                    </f:facet>
+                                                </p:dataTable>
+                                            </p:tab>
+                                            <p:tab rendered="#{!tOperationParcelController.estdroitoperationnel}" title="Limitations droits d'administrations" closable="true">
+                                                <p:selectOneRadio   value="#{tOperationParcelController.limitationchaine}" layout="responsive" columns="2">
+                                                    <f:selectItem  itemLabel="OUI" itemValue="TRUE" />
+                                                    <f:selectItem itemLabel="NON" itemValue="FALSE"/>
+                                                    <p:ajax event="change" listener="#{tOperationParcelController.changeLimitationOuiNon()}" process="@this" update="lesLimites" />
+                                                </p:selectOneRadio>
+                                                <p:selectManyCheckbox id="lesLimites" value="#{tOperationParcelController.listeLimiteDroitAdmin}" disabled="#{!tOperationParcelController.intervenirPreneur.invLimitation}" columns="4">
+                                                    <f:selectItem itemLabel="Vente"  itemValue="VENTE" />
+                                                    <f:selectItem itemLabel="Don" itemValue="DON" />
+                                                    <f:selectItem itemLabel="Leg" itemValue="LEG" />
+                                                    <f:selectItem itemLabel="Pret" itemValue="PRET" />
+                                                </p:selectManyCheckbox>
+                                            </p:tab>
+        
+                                            <p:tab rendered="#{tOperationParcelController.estdroitoperationnel}" title="Limitations du droit Opérationnel" closable="true">
+                                                <p:selectOneRadio   value="#{tOperationParcelController.limitationchaineop}" layout="responsive" columns="2">
+                                                    <f:selectItem  itemLabel="OUI" itemValue="TRUE" />
+                                                    <f:selectItem itemLabel="NON" itemValue="FALSE"/>
+                                                    <p:ajax event="change" listener="#{tOperationParcelController.changeLimitationOpOuiNon()}" process="@this" update="lesLimitesop" />
+                                                </p:selectOneRadio>
+                                                <p:selectManyCheckbox id="lesLimitesop" value="#{tOperationParcelController.listeLimiteDroitOperat}" disabled="#{tOperationParcelController.intervenirPreneur.invLimitationOp!='1'}" columns="4">
+                                                    <f:selectItem itemLabel="Aliéner"  itemValue="ALIENER" />
+                                                    <f:selectItem itemLabel="Construire" itemValue="CONSTRUIRE" />
+                                                    <f:selectItem itemLabel="Habiter" itemValue="HABITER" />
+                                                    <f:selectItem itemLabel="Planter" itemValue="PLANTER" />
+                                                    <f:selectItem itemLabel="Recolter" itemValue="RECOLTER" />
+                                                    <f:selectItem itemLabel="Transmission" itemValue="TRANSMISSION" />
+                                                </p:selectManyCheckbox>
+                                            </p:tab>
+
+                                        </p:accordionPanel>
+                                    </p:panelGrid>
+                                </p:tab>
+                                <p:tab id="parties" title="Les parties"  >
+                                    <p:panelGrid  style=" width: 100%"  columns="2">
+                                        <p:panel id="vendeur"  header="#{tOperationParcelController.libBailleur}" toggleable="true">
+                                            <p:panelGrid columns="2">
+                                                <p:outputLabel value="Collectivité"/>
+                                                <p:inputText value="#{tOperationParcelController.collectivite}" />
+                                                <p:outputLabel value="Nom"/>
+                                                <p:inputText value="#{tOperationParcelController.nom}" />
+                                                <p:outputLabel value="Prénom"/>
+                                                <p:inputText value="#{tOperationParcelController.prenom}" />
+                                                <p:outputLabel value="Domicile"/>
+                                                <p:inputText value="#{tOperationParcelController.domicile}" />
+                                                <p:outputLabel value="Age"/>
+                                                <p:inputText value="#{tOperationParcelController.age}" />
+                                                <p:outputLabel value="Reférence signature"/>
+                                                <p:panelGrid columns="2">
+                                                    <p:inputText disabled="true" id="signatureBailleur" value="#{tOperationParcelController.signatureBail}" /> 
+                                                    <p:commandButton disabled="#{tOperationParcelController.estvalider}"  title="signature" icon="fa fa-folder-open" styleClass="green-btn" onclick="PF('TSignatureBailDlg').show()" ajax="true"/>
+                                                </p:panelGrid>
+                                            </p:panelGrid>
+                                        </p:panel>
+                                        <p:panel id="acheteur"  header="#{tOperationParcelController.libPreneur}" toggleable="true">
+                                            <p:panelGrid columns="2">
+                                                <p:outputLabel value="Reférence signature"/>
+                                                <p:panelGrid columns="2">
+                                                    <p:inputText disabled="true" value="#{tOperationParcelController.signaturePren}" id="signaturePreneur" /> 
+                                                    <p:commandButton disabled="#{tOperationParcelController.estvalider}"  title="enregistrer" icon="fa fa-folder-open" styleClass="green-btn" onclick="PF('TSignaturePrenDlg').show()" ajax="true"/>
+                                                </p:panelGrid>
+                                                <p:outputLabel value="Nom"/>
+                                                <p:inputText value="#{tOperationParcelController.intervenantPreneur.intNom}" />
+                                                <p:outputLabel value="Prénom"/>
+                                                <p:inputText value="#{tOperationParcelController.intervenantPreneur.intPrenom}" />
+                                                <p:outputLabel value="Domicile"/>
+                                                <p:inputText value="#{tOperationParcelController.intervenantPreneur.intDomicile}" />
+                                                <p:outputLabel value="Age"/>
+                                                <p:inputText value="#{tOperationParcelController.intervenantPreneur.intDateNais}" /> 
+
+                                            </p:panelGrid>
+                                        </p:panel>
+                                    </p:panelGrid>
+                                </p:tab>
+                                <p:tab id="temoins" title="Les Temoins">
+                                    <p:panelGrid style=" width: 100%" columns="2">
+                                        <p:panel  style=" margin: 20px"  header="Temoins Vendeur" toggleable="true">
+                                            <p:commandButton disabled="#{tOperationParcelController.estvalider}"   update="listTemoinVendeur"  title="Ajouter temoin vendeur" icon="fa fa-plus-circle" styleClass="green-btn" onclick="PF('TSignatureBailListDlg').show()" ajax="true"/>
+
+                                            <p:dataTable id="listTemoinVendeur" value="#{tOperationParcelController.listDepotSignTemBail}"
+                                                         var="item"
+                                                         editable="true" 
+                                                         editMode="cell" 
+                                                         widgetVar="items"
+                                                         selection="#"
+                                                         rowKey="#{item.desiCode}"
+                                                         style="margin-bottom:20px">
+                                                <p:ajax event="cellEdit"  />
+                                                <p:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Code"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{item.desiIntNumero.intNom}"/>
+                                                </p:column>
+
+                                                <p:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Nom"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{item.desiIntNumero.intPrenom}"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Reference"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{item.desiReference}"/>
+                                                </p:column>
+
+                                                <p:column style="width:70px">
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Action"/>
+                                                    </f:facet>
+                                                    <p:commandButton  disabled="#{tOperationParcelController.estvalider}" ajax="true" update="listTemoinVendeur"  actionListener="#{tOperationParcelController.supprimeSignatureBail(item)}" title="supprimer"  icon="fa fa-trash" styleClass="purple-btn"/>
+
+                                                </p:column> 
+
+                                                <f:facet  name="footer">
+
+
+                                                </f:facet>
+                                            </p:dataTable>
+                                        </p:panel>
+                                        <p:panel style=" margin: 20px" header="Temoins Acheteur" toggleable="true">
+                                            <p:commandButton disabled="#{tOperationParcelController.estvalider}"   update="listTemoinPreneur"  title="Ajouter temoin Preneur" icon="fa fa-plus-circle" styleClass="green-btn" onclick="PF('TSignaturePrenListDlg').show()" ajax="true"/>
+
+                                            <p:dataTable id="listTemoinPreneur" value="#{tOperationParcelController.listDepotSignTemPren}"
+                                                         var="item"
+                                                         editable="true" 
+                                                         editMode="cell" 
+                                                         widgetVar="items"
+                                                         selection="#"
+                                                         rowKey="#{item.desiCode}"
+                                                         style="margin-bottom:20px">
+                                                <p:ajax event="cellEdit"  />
+                                                <p:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Code"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{item.desiIntNumero.intNom}"/>
+                                                </p:column>
+
+                                                <p:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Nom"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{item.desiIntNumero.intPrenom}"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Reference"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{item.desiReference}"/>
+                                                </p:column>
+
+                                                <p:column style="width:70px">
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Action"/>
+                                                    </f:facet>
+                                                    <p:commandButton disabled="#{tOperationParcelController.estvalider}" ajax="true" update="listTemoinPreneur"  actionListener="#{tOperationParcelController.supprimeSignaturePren(item)}" title="supprimer"  icon="fa fa-trash" styleClass="purple-btn"/>
+
+                                                </p:column> 
+
+                                                <f:facet  name="footer">
+
+
+                                                </f:facet>
+                                            </p:dataTable>
+                                        </p:panel>
+                                    </p:panelGrid>
+                                </p:tab>
+                                <p:tab id="affirmation" title="Affirmation">
+                                    <p:panelGrid  style=" width: 100%" columns="2">
+                                        <p:panel id="affirme"   header="Affirmation">
+                                            <p:panelGrid columns="2">
+                                                <p:outputLabel value="Numero"/>
+                                                <p:inputText  value="#{tOperationParcelController.selected.opvNumeroAffirmation}" />
+
+                                                <p:outputLabel value="Numero Signataire"/>
+                                                <p:panelGrid columns="2">
+                                                    <p:inputText disabled="true" id="numsignataire" value="#{tOperationParcelController.selected.opvSignCode}" />
+                                                    <p:commandButton disabled="#{tOperationParcelController.estvalider}"  title="selection signataire" icon="fa fa-folder-open" styleClass="green-btn" oncomplete="PF('TSignataireListDlg').show()" ajax="true"/>
+
+                                                </p:panelGrid>
+
+                                                <p:outputLabel value="Nom Signataire"/>
+                                                <p:inputText id="nomsignataire" disabled="true" value="#{tOperationParcelController.selected.opvNomMaire}" />
+
+                                                <p:outputLabel value="Interprete"/>
+                                                <p:inputText value="#{tOperationParcelController.selected.opvNomInterprete}" />
+                                            </p:panelGrid>
+                                        </p:panel>
+
+                                    </p:panelGrid>
+                                </p:tab>
+                            </p:tabView>
+                            <p:confirmDialog global="true" showEffect="fade"  hideEffect="fade">
+                                <p:commandButton value="OUI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="NON" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ui:include src="ListParcelle.xhtml"/>
+        <ui:include src="ListDroit.xhtml"/>
+        <ui:include src="ListSignatureTemoinBail.xhtml"/>
+        <ui:include src="ListSignatureTemoinPren.xhtml"/>
+        <ui:include src="ListSignatureBail.xhtml"/>
+        <ui:include src="ListSignaturePren.xhtml"/>
+        <ui:include src="ListVenteParcelle.xhtml"/>
+        <ui:include src="ListSignataire.xhtml"/>
+        <ui:include src="ListModeAcquisition.xhtml"/>
+        <ui:include src="ListConditionPaie.xhtml"/>
+        <ui:include src="ListModePartage.xhtml"/>
+    </ui:define>
+
+</ui:composition>

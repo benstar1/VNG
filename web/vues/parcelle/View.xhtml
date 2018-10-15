@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ParcelleViewDlg" widgetVar="ParcelleViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewParcelleTitle}">
+            <h:form id="ParcelleViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{parcelleController.selected != null}">
+                        <h:outputText value="#{bundle.ViewParcelleLabel_gid}"/>
+                        <h:outputText value="#{parcelleController.selected.gid}" title="#{bundle.ViewParcelleTitle_gid}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_guid}"/>
+                        <h:outputText value="#{parcelleController.selected.guid}" title="#{bundle.ViewParcelleTitle_guid}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_districtname}"/>
+                        <h:outputText value="#{parcelleController.selected.districtname}" title="#{bundle.ViewParcelleTitle_districtname}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_districtnumber}"/>
+                        <h:outputText value="#{parcelleController.selected.districtnumber}" title="#{bundle.ViewParcelleTitle_districtnumber}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_countyname}"/>
+                        <h:outputText value="#{parcelleController.selected.countyname}" title="#{bundle.ViewParcelleTitle_countyname}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_countynumber}"/>
+                        <h:outputText value="#{parcelleController.selected.countynumber}" title="#{bundle.ViewParcelleTitle_countynumber}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_subcountyname}"/>
+                        <h:outputText value="#{parcelleController.selected.subcountyname}" title="#{bundle.ViewParcelleTitle_subcountyname}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_subcountynumber}"/>
+                        <h:outputText value="#{parcelleController.selected.subcountynumber}" title="#{bundle.ViewParcelleTitle_subcountynumber}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_parishname}"/>
+                        <h:outputText value="#{parcelleController.selected.parishname}" title="#{bundle.ViewParcelleTitle_parishname}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_parishnumber}"/>
+                        <h:outputText value="#{parcelleController.selected.parishnumber}" title="#{bundle.ViewParcelleTitle_parishnumber}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_villagename}"/>
+                        <h:outputText value="#{parcelleController.selected.villagename}" title="#{bundle.ViewParcelleTitle_villagename}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_villagenumber}"/>
+                        <h:outputText value="#{parcelleController.selected.villagenumber}" title="#{bundle.ViewParcelleTitle_villagenumber}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_clerk}"/>
+                        <h:outputText value="#{parcelleController.selected.clerk}" title="#{bundle.ViewParcelleTitle_clerk}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_date}"/>
+                        <h:outputText value="#{parcelleController.selected.date}" title="#{bundle.ViewParcelleTitle_date}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_lat}"/>
+                        <h:outputText value="#{parcelleController.selected.lat}" title="#{bundle.ViewParcelleTitle_lat}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_lon}"/>
+                        <h:outputText value="#{parcelleController.selected.lon}" title="#{bundle.ViewParcelleTitle_lon}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_east}"/>
+                        <h:outputText value="#{parcelleController.selected.east}" title="#{bundle.ViewParcelleTitle_east}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_north}"/>
+                        <h:outputText value="#{parcelleController.selected.north}" title="#{bundle.ViewParcelleTitle_north}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_datecreate}"/>
+                        <h:outputText value="#{parcelleController.selected.datecreate}" title="#{bundle.ViewParcelleTitle_datecreate}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_datelasted}"/>
+                        <h:outputText value="#{parcelleController.selected.datelasted}" title="#{bundle.ViewParcelleTitle_datelasted}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_parcelleno}"/>
+                        <h:outputText value="#{parcelleController.selected.parcelleno}" title="#{bundle.ViewParcelleTitle_parcelleno}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_geoid}"/>
+                        <h:outputText value="#{parcelleController.selected.geoid}" title="#{bundle.ViewParcelleTitle_geoid}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_hectares}"/>
+                        <h:outputText value="#{parcelleController.selected.hectares}" title="#{bundle.ViewParcelleTitle_hectares}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_utilizatio}"/>
+                        <h:outputText value="#{parcelleController.selected.utilizatio}" title="#{bundle.ViewParcelleTitle_utilizatio}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_users}"/>
+                        <h:outputText value="#{parcelleController.selected.users}" title="#{bundle.ViewParcelleTitle_users}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_neighbours}"/>
+                        <h:outputText value="#{parcelleController.selected.neighbours}" title="#{bundle.ViewParcelleTitle_neighbours}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_witnesses}"/>
+                        <h:outputText value="#{parcelleController.selected.witnesses}" title="#{bundle.ViewParcelleTitle_witnesses}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_use}"/>
+                        <h:outputText value="#{parcelleController.selected.use}" title="#{bundle.ViewParcelleTitle_use}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_landtype}"/>
+                        <h:outputText value="#{parcelleController.selected.landtype}" title="#{bundle.ViewParcelleTitle_landtype}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_photo1}"/>
+                        <h:outputText value="#{parcelleController.selected.photo1}" title="#{bundle.ViewParcelleTitle_photo1}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_photo2}"/>
+                        <h:outputText value="#{parcelleController.selected.photo2}" title="#{bundle.ViewParcelleTitle_photo2}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_photo3}"/>
+                        <h:outputText value="#{parcelleController.selected.photo3}" title="#{bundle.ViewParcelleTitle_photo3}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_sketch}"/>
+                        <h:outputText value="#{parcelleController.selected.sketch}" title="#{bundle.ViewParcelleTitle_sketch}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_grouppic}"/>
+                        <h:outputText value="#{parcelleController.selected.grouppic}" title="#{bundle.ViewParcelleTitle_grouppic}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_geom}"/>
+                        <h:outputText value="#{parcelleController.selected.geom}" title="#{bundle.ViewParcelleTitle_geom}"/>
+                        <h:outputText value="#{bundle.ViewParcelleLabel_parPbaNumero}"/>
+                        <h:outputText value="#{parcelleController.selected.parPbaNumero}" title="#{bundle.ViewParcelleTitle_parPbaNumero}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ParcelleViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

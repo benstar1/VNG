@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TSignataireViewDlg" widgetVar="TSignataireViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTSignataireTitle}">
+            <h:form id="TSignataireViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tSignataireController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTSignataireLabel_signCode}"/>
+                        <h:outputText value="#{tSignataireController.selected.signCode}" title="#{bundle.ViewTSignataireTitle_signCode}"/>
+                        <h:outputText value="#{bundle.ViewTSignataireLabel_signNom}"/>
+                        <h:outputText value="#{tSignataireController.selected.signNom}" title="#{bundle.ViewTSignataireTitle_signNom}"/>
+                        <h:outputText value="#{bundle.ViewTSignataireLabel_signPrenom}"/>
+                        <h:outputText value="#{tSignataireController.selected.signPrenom}" title="#{bundle.ViewTSignataireTitle_signPrenom}"/>
+                        <h:outputText value="#{bundle.ViewTSignataireLabel_signActif}"/>
+                        <p:selectBooleanCheckbox value="#{tSignataireController.selected.signActif}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTSignataireLabel_signFonction}"/>
+                        <h:outputText value="#{tSignataireController.selected.signFonction}" title="#{bundle.ViewTSignataireTitle_signFonction}"/>
+                        <h:outputText value="#{bundle.ViewTSignataireLabel_signUtiCode}"/>
+                        <h:outputText value="#{tSignataireController.selected.signUtiCode}" title="#{bundle.ViewTSignataireTitle_signUtiCode}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TSignataireViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

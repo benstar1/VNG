@@ -8,6 +8,7 @@ package org.vng.sessions;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import org.vng.entities.TCommune;
 
 /**
@@ -25,6 +26,18 @@ public class TCommuneFacade extends AbstractFacade<TCommune> {
         return em;
     }
 
+     public TCommune executeCommuneEncoours(){
+        int i=0;
+         TCommune commune =null;
+        try{
+            Query q=em.createNamedQuery("TCommune.findByComEncours");
+            commune = (TCommune) q.getSingleResult();
+        }catch(Exception e){
+            System.out.println("Probleme de selection de le commune de deploiement "+e);
+        }
+        return commune;
+    }
+    
     public TCommuneFacade() {
         super(TCommune.class);
     }

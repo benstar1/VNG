@@ -6,20 +6,25 @@ import org.vng.controlers.util.JsfUtil.PersistAction;
 import org.vng.sessions.TVillageFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.faces.bean.ManagedBean;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.inject.Named;
+//import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.model.SelectItem;
 
-@Named("tVillageController")
+//@Named("tVillageController")
+@ManagedBean
 @SessionScoped
 public class TVillageController implements Serializable {
 
@@ -119,6 +124,17 @@ public class TVillageController implements Serializable {
 
     public List<TVillage> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+    
+    public List<SelectItem> getVillageItem() {
+        List<SelectItem> villageItem = new ArrayList<>();
+
+        List<TVillage> listvi = getFacade().findAll();
+
+        for (TVillage vi : listvi) {
+            villageItem.add(new SelectItem(vi, vi.getVilaCode()+ " --> " + vi.getVlaDesig()));
+        }
+        return villageItem;
     }
 
     @FacesConverter(forClass = TVillage.class)

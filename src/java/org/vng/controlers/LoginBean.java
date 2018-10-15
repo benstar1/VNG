@@ -5,15 +5,17 @@
  */
 package org.vng.controlers;
 
-import javax.inject.Named;
+//import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import javax.faces.bean.ManagedBean;
 
 /**
  *
  * @author Ben
  */
-@Named(value = "loginBean")
+//@Named(value = "loginBean")
+@ManagedBean
 @SessionScoped
 public class LoginBean implements Serializable {
 

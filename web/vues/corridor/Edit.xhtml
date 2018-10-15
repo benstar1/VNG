@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CorridorEditDlg" widgetVar="CorridorEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCorridorTitle}">
+            <h:form id="CorridorEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{corridorController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditCorridorLabel_gid}" for="gid" />
+                        <p:inputText id="gid" value="#{corridorController.selected.gid}" title="#{bundle.EditCorridorTitle_gid}" required="true" requiredMessage="#{bundle.EditCorridorRequiredMessage_gid}"/>
+                        <p:outputLabel value="#{bundle.EditCorridorLabel_guid}" for="guid" />
+                        <p:inputText id="guid" value="#{corridorController.selected.guid}" title="#{bundle.EditCorridorTitle_guid}" />
+                        <p:outputLabel value="#{bundle.EditCorridorLabel_districtname}" for="districtname" />
+                        <p:inputText id="districtname" value="#{corridorController.selected.districtname}" title="#{bundle.EditCorridorTitle_districtname}" />
+                        <p:outputLabel value="#{bundle.EditCorridorLabel_districtnumber}" for="districtnumber" />
+                        <p:inputText id="districtnumber" value="#{corridorController.selected.districtnumber}" title="#{bundle.EditCorridorTitle_districtnumber}" />
+                        <p:outputLabel value="#{bundle.EditCorridorLabel_countyname}" for="countyname" />
+                        <p:inputText id="countyname" value="#{corridorController.selected.countyname}" title="#{bundle.EditCorridorTitle_countyname}" />
+                        <p:outputLabel value="#{bundle.EditCorridorLabel_countynumber}" for="countynumber" />
+                        <p:inputText id="countynumber" value="#{corridorController.selected.countynumber}" title="#{bundle.EditCorridorTitle_countynumber}" />
+                        <p:outputLabel value="#{bundle.EditCorridorLabel_subcountyname}" for="subcountyname" />
+                        <p:inputText id="subcountyname" value="#{corridorController.selected.subcountyname}" title="#{bundle.EditCorridorTitle_subcountyname}" />
+                        <p:outputLabel value="#{bundle.EditCorridorLabel_subcountynumber}" for="subcountynumber" />
+                        <p:inputText id="subcountynumber" value="#{corridorController.selected.subcountynumber}" title="#{bundle.EditCorridorTitle_subcountynumber}" />
+                        <p:outputLabel value="#{bundle.EditCorridorLabel_parishname}" for="parishname" />
+                        <p:inputText id="parishname" value="#{corridorController.selected.parishname}" title="#{bundle.EditCorridorTitle_parishname}" />
+                        <p:outputLabel value="#{bundle.EditCorridorLabel_parishnumber}" for="parishnumber" />
+                        <p:inputText id="parishnumber" value="#{corridorController.selected.parishnumber}" title="#{bundle.EditCorridorTitle_parishnumber}" />
+                        <p:outputLabel value="#{bundle.EditCorridorLabel_villagename}" for="villagename" />
+                        <p:inputText id="villagename" value="#{corridorController.selected.villagename}" title="#{bundle.EditCorridorTitle_villagename}" />
+                        <p:outputLabel value="#{bundle.EditCorridorLabel_villagenumber}" for="villagenumber" />
+                        <p:inputText id="villagenumber" value="#{corridorController.selected.villagenumber}" title="#{bundle.EditCorridorTitle_villagenumber}" />
+                        <p:outputLabel value="#{bundle.EditCorridorLabel_clerk}" for="clerk" />
+                        <p:inputText id="clerk" value="#{corridorController.selected.clerk}" title="#{bundle.EditCorridorTitle_clerk}" />
+                        <p:outputLabel value="#{bundle.EditCorridorLabel_date}" for="date" />
+                        <p:inputText id="date" value="#{corridorController.selected.date}" title="#{bundle.EditCorridorTitle_date}" />
+                        <p:outputLabel value="#{bundle.EditCorridorLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{corridorController.selected.type}" title="#{bundle.EditCorridorTitle_type}" />
+                        <p:outputLabel value="#{bundle.EditCorridorLabel_hoffset}" for="hoffset" />
+                        <p:inputText id="hoffset" value="#{corridorController.selected.hoffset}" title="#{bundle.EditCorridorTitle_hoffset}" />
+                        <p:outputLabel value="#{bundle.EditCorridorLabel_geom}" for="geom" />
+                        <p:inputText id="geom" value="#{corridorController.selected.geom}" title="#{bundle.EditCorridorTitle_geom}" />
+                        <p:outputLabel value="#{bundle.EditCorridorLabel_corPbaNumero}" for="corPbaNumero" />
+                        <p:inputText id="corPbaNumero" value="#{corridorController.selected.corPbaNumero}" title="#{bundle.EditCorridorTitle_corPbaNumero}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{corridorController.update}" value="#{bundle.Save}" update="display,:CorridorListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CorridorEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CorridorEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

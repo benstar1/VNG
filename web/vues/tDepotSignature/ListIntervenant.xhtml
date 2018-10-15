@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TIntervenantListDlgNew" widgetVar="TIntervenantListDlgNew" modal="true" resizable="false" appendTo="@(body)" header="Liste Intervenant">
+            <h:form id="TIntervenantListForm">
+                <p:panel header="#{bundle.ListTVillageTitle}">
+                    <p:dataTable id="datalist" value="#{tIntervenantController.items}" var="item"
+                                 selectionMode="single" selection="#{tDepotSignatureController.selected.desiIntNumero}"
+                                 paginator="true"
+                                 rowKey="#{item.intNumero}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                      
+                        <p:column filterBy="#{item.intNom}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intNom}"/>
+                            </f:facet>
+                           
+                            <p:commandLink value="#{item.intNom}"  action="#{tDepotSignatureController.selected.setDesiIntNumero(item)}"   oncomplete="PF('TIntervenantListDlgNew').hide();"  process="@this" update=":TDepotSignatureCreateForm:NumIntervenant"  title="Selectionnez" style="color: blue;"/>
+              
+                        </p:column>
+                        <p:column filterBy="#{item.intPrenom}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intPrenom}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intPrenom}"/>
+                        </p:column>
+                        <p:column filterBy="#{item.intCollectivite}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intCollectivite}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intCollectivite}"/>
+                        </p:column>
+                        <p:column filterBy="#{item.intDateNais}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Age"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intDateNais}"/>
+                        </p:column>
+                        <p:column filterBy="#{item.intCiPp}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTIntervenantTitle_intCiPp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intCiPp}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

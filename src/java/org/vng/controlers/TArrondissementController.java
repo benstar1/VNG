@@ -6,20 +6,26 @@ import org.vng.controlers.util.JsfUtil.PersistAction;
 import org.vng.sessions.TArrondissementFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.inject.Named;
+//import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.AjaxBehaviorListener;
+import javax.faces.model.SelectItem;
+import org.vng.entities.TCommune;
 
-@Named("tArrondissementController")
+//@Named("tArrondissementController")
+@ManagedBean
 @SessionScoped
 public class TArrondissementController implements Serializable {
 
@@ -27,10 +33,35 @@ public class TArrondissementController implements Serializable {
     private org.vng.sessions.TArrondissementFacade ejbFacade;
     private List<TArrondissement> items = null;
     private TArrondissement selected;
-
+    private TCommune commune;
+    String CodeCommune;
+    List<SelectItem> ArrondItem = new ArrayList<>();       
+    
     public TArrondissementController() {
+         commune=new TCommune();
     }
 
+    public TCommune getCommune() {
+        return commune;
+    }
+  
+
+    public void setCommune(TCommune commune) {
+        this.commune = commune;
+    }
+
+    public String getCodeCommune() {
+        return CodeCommune;
+    }
+
+    public void setCodeCommune(String CodeCommune) {
+        this.CodeCommune = CodeCommune;
+    }
+    
+    
+
+    
+    
     public TArrondissement getSelected() {
         return selected;
     }
@@ -119,6 +150,31 @@ public class TArrondissementController implements Serializable {
 
     public List<TArrondissement> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+    //AjaxBehaviorListener event
+    public void initListeArrondissement(){
+       
+        System.out.println(" Liste Arrondissement");
+        List<TArrondissement> listarr=null;
+//        if (commune != null) {
+//              System.out.println("Commune pas null");
+//            listarr = commune.getTArrondissementList();
+//            for (TArrondissement arr : listarr) {
+//                ArrondItem.add(new SelectItem(arr, arr.getArrCode()+ " --> " + arr.getArrDesig()));
+//            }
+//        }
+    }
+    
+    public List<SelectItem> getArrondissementItem() {   
+//        List<TArrondissement> listarr=null;
+//        if (commune != null) {
+//              System.out.println("Commune pas null");
+//            listarr = commune.getTArrondissementList();
+//            for (TArrondissement arr : listarr) {
+//                ArrondItem.add(new SelectItem(arr, arr.getArrCode()+ " --> " + arr.getArrDesig()));
+//            }
+//        }
+        return ArrondItem;
     }
 
     @FacesConverter(forClass = TArrondissement.class)
