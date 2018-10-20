@@ -5,7 +5,10 @@
  */
 package org.vng.sessions;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.vng.entities.TPointCardino;
@@ -27,6 +30,17 @@ public class TPointCardinoFacade extends AbstractFacade<TPointCardino> {
 
     public TPointCardinoFacade() {
         super(TPointCardino.class);
+    }
+    
+      public List<SelectItem> getListePointCardinauxItem(String categorie)
+    {
+        List<TPointCardino> list= findAll();
+        List<SelectItem> item = new ArrayList<>();
+        for (TPointCardino object : list)    
+        { 
+            item.add(new SelectItem(object, ""+object.getPocaDesig()));
+        }
+        return item;
     }
     
 }

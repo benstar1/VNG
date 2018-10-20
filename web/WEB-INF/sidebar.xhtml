@@ -13,7 +13,7 @@
                         <p:menuitem id="om_dashboard" value="Accueil" icon="fa fa-fw fa-dashboard" outcome="/dashboard" />
                         
                         <p:submenu id="affaires_domaniales" label="Affaires Domaniales" icon="fa fa-fw fa-columns">
-                            <p:menuitem id="vente_parcelle" value="Vente de parcelle" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuMode('layout-menu-static')}" ajax="false" />
+                            <p:menuitem id="vente_parcelle" value="Vente de parcelle" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuMode('layout-menu-static')}" ajax="false" />   
                             <p:menuitem id="heritage_arcelle" value="Héritage de parcelle" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuMode('layout-menu-overlay')}" ajax="false" />
                             <p:menuitem id="don_parcelle" value="Don de parcelle" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuMode('layout-menu-slim')}" ajax="false" />
                             <p:menuitem id="mutation" value="Mutation" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuMode('layout-menu-horizontal')}" ajax="false" />
@@ -22,10 +22,10 @@
                             <p:menuitem id="mise_jour_enquete" value="Mise à jour Enquête" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
                             
                             <p:menuitem id="nav_scission_parcelle" value="Scission de Parcelle" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
-                            <p:menuitem id="nav_fusion_parcelle" value="Fusion de Parcelle" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
+                            <p:menuitem id="nav_fusion_parcelle" value="Fusion de Parcelle" icon="fa fa-fw fa-align-right" outcome="/vues/tParcelleBafon/fusionparcelle" />
                             
                             <p:menuitem id="nav_parcelle_agricole_conflit" value="Parcelle Agricole en &#160;&#160;&#160;&#160;&#160;&#160;&#160;Litige" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
-                            <p:menuitem id="nav_parcelle_agricole_noyau" value="Parcelle Agricole en &#160;&#160;&#160;&#160;&#160;&#160;&#160;Noyau Villageois" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
+                            <p:menuitem id="nav_parcelle_agricole_noyau" value="Parcelle Agricole en &#160;&#160;&#160;&#160;&#160;&#160;&#160;Noyau Villageois" icon="fa fa-fw fa-align-right" outcome="/vues/tParcelleBafon/parcelleagricolenoyau" />                             
                             <p:menuitem id="nav_parcelle_agricole_dpp" value="Parcelle Agricole en &#160;&#160;&#160;&#160;&#160;&#160;&#160;Domaine Public Privé" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
                             
                             <p:menuitem id="nav_parcelle_litigieuse_agricole" value="Parcelle Litigieuse en &#160;&#160;&#160;&#160;&#160;&#160;&#160;Agricole" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />

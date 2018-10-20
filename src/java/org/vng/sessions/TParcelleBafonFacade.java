@@ -5,9 +5,12 @@
  */
 package org.vng.sessions;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import org.jboss.weld.logging.Category;
 import org.vng.entities.TParcelleBafon;
 
 /**
@@ -25,8 +28,22 @@ public class TParcelleBafonFacade extends AbstractFacade<TParcelleBafon> {
         return em;
     }
 
+    
     public TParcelleBafonFacade() {
+        
         super(TParcelleBafon.class);
     }
+    
+    /*
+        public  TParcelleBafon  findParcelleByNumeroBafon(String categorie){
+          Query query;
+          query=getEntityManager().createNamedQuery("TIntervenir.findAllByCategorieRole").setParameter("categorieRole",categorie);
+          return query.getResultList();
+        
+    }*/
+  
+     
+    
+    
     
 }

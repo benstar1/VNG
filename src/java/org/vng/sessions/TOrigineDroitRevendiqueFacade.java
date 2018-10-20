@@ -5,7 +5,10 @@
  */
 package org.vng.sessions;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.vng.entities.TOrigineDroitRevendique;
@@ -27,6 +30,18 @@ public class TOrigineDroitRevendiqueFacade extends AbstractFacade<TOrigineDroitR
 
     public TOrigineDroitRevendiqueFacade() {
         super(TOrigineDroitRevendique.class);
+    }
+    
+    
+    public List<SelectItem> getListeOrigineDroitRevendiqueItem(String categorie)
+    {
+        List<TOrigineDroitRevendique> list= findAll();
+        List<SelectItem> item = new ArrayList<>();
+        for (TOrigineDroitRevendique object : list)    
+        { 
+            item.add(new SelectItem(object, ""+object.getOriLib()));
+        }
+        return item;
     }
     
 }

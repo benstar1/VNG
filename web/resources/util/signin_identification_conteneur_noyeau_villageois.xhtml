@@ -1,0 +1,276 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>This is not displayed</title> 
+        <!-- h:outputStylesheet library="css" name="styles.css" / -->
+    </h:head>
+    
+    <h:body>
+        <composite:interface> 
+            <!-- Nom  -->
+            <composite:attribute name="idcloture" type="String" shortDescription="Id du champ clôturé"/> 
+            <composite:attribute name="cloture"  type="java.lang.Boolean" shortDescription="Clôturé Oui/Non"/> 
+            
+            <composite:attribute name="idBatie" type="String" shortDescription="Id du champ clôturé"/> 
+            <composite:attribute name="batie"  type="java.lang.Boolean" shortDescription="Clôturé Oui/Non"/> 
+            
+            <composite:attribute name="idmacon" type="String"   shortDescription="Id de maçonnérie"/> 
+            <composite:attribute name="maconnerie" type="java.lang.Boolean" shortDescription="Travaux de maconnerie"/>
+            
+            <composite:attribute name="idbanco" default="idDomicile" type="String" shortDescription="Id de banco"/> 
+            <composite:attribute name="banco" type="java.lang.Boolean" shortDescription="Travaux de banco"/>
+            
+            <composite:attribute name="idClaieCloture"  type="String" shortDescription="Id de clôture en claie"/> 
+            <composite:attribute name="claieCloture" type="java.lang.Boolean" shortDescription="Travaux de clôture en claie"/>
+            
+            <composite:attribute name="idhaie" type="String" shortDescription="Id de haie"/> 
+            <composite:attribute name="haie" type="java.lang.Boolean" shortDescription="Travaux de haie"/>
+            
+            <composite:attribute name="idAutreTravaux"  type="String" shortDescription="Id de autre travaux"/> 
+            <composite:attribute name="autreTravaux"  type="java.lang.Boolean" shortDescription="Autres travaux"/>
+            
+            <composite:attribute name="idAutreTravauxPreciser"  type="String" shortDescription="Id de autre travaux à préciser"/> 
+            <composite:attribute name="autreTravauxPreciser"  type="String" shortDescription="Autres travaux à préciser"/>
+            
+            <composite:attribute name="idNbBatimat"  type="String" shortDescription="Id de nombre de bâtimat"/> 
+            <composite:attribute name="nbBatimat"  type="String" shortDescription="Nombre de bâtimat"/>
+            
+            <composite:attribute name="idDalle" type="String" shortDescription="Id de dalle"/> 
+            <composite:attribute name="dalle"  type="java.lang.Boolean" shortDescription="dalle"/>
+            
+            <composite:attribute name="idTuile"  type="String" shortDescription="Id de Tuile"/> 
+            <composite:attribute name="tuile"  type="java.lang.Boolean" shortDescription="Construction en Tuile"/>
+            
+            <composite:attribute name="idTole"  type="String" shortDescription="Id de tôle"/> 
+            <composite:attribute name="tole"  type="java.lang.Boolean" shortDescription="Construction en tôle"/>
+            
+            <composite:attribute name="idPaille"  type="String" shortDescription="Id de paille"/> 
+            <composite:attribute name="paille"  type="java.lang.Boolean" shortDescription="Construction en paille"/>
+            
+            <composite:attribute name="idClaieConstruction"  type="String" shortDescription="Id de matériaux de construction en claie"/> 
+            <composite:attribute name="claieConstruction"  type="java.lang.Boolean" shortDescription="matériaux de construction en claie"/>
+            
+            <composite:attribute name="idOrdinaire" default="idRavip" type="String" shortDescription="Id de Construction ordinaire"/> 
+            <composite:attribute name="ordinaire"  type="java.lang.Boolean" shortDescription="Construction ordinaire"/>
+            
+            <composite:attribute name="idRDC"  type="String" shortDescription="Id de rez de chaussé"/> 
+            <composite:attribute name="rdc"  type="java.lang.Boolean" shortDescription="Rez de Chaussé"/>
+            
+            <composite:attribute name="idEtage"  type="String" shortDescription="Id d'étage"/> 
+            <composite:attribute name="etage"  type="java.lang.Boolean" shortDescription="Etage"/>
+            
+            <composite:attribute name="idNbreEtage"  type="String" shortDescription="Id Nombre d'étage"/> 
+            <composite:attribute name="nbreEtage"  type="String" shortDescription="Nombre d'étage" />
+            
+            <composite:attribute name="idGarage"  type="String" shortDescription="Id de garage "/> 
+            <composite:attribute name="garage"  type="java.lang.Boolean" shortDescription="IL y a t-il de garage dans la maison ?"/>
+            
+            
+            
+            <composite:attribute name="idPuitCiterne" type="String" shortDescription="Id de puits/citerne"/> 
+            <composite:attribute name="puitCiterne"  type="java.lang.Boolean" shortDescription="Il y a t-il de citerne dans la maison ?"/>
+            
+            <composite:attribute name="idCuisine" type="String" shortDescription="Id de la cuisine"/> 
+            <composite:attribute name="cuisine"  type="java.lang.Boolean" shortDescription="IL y a t-il de cuise dans la maison ?"/>
+            
+            <composite:attribute name="idpuisard"  type="String" shortDescription="Id la puisard"/> 
+            <composite:attribute name="puisard"  type="java.lang.Boolean" shortDescription="IL y a t-il de puisard dans la maison ?"/>
+            
+             <composite:attribute name="idWC"  type="String" shortDescription="Id du WC"/> 
+            <composite:attribute name="wc"  type="java.lang.Boolean" shortDescription="il y a t-il de WC dans la maison ?"/>
+            
+            <composite:attribute name="readOnly"  type="java.lang.Boolean" shortDescription="En lecture seul ?"/>
+            <composite:attribute name="autreTravauxActif"  type="java.lang.Boolean" shortDescription="En lecture seul ?"/>
+            <composite:attribute name="batiActif"  type="java.lang.Boolean" shortDescription="Le noyau Villageois est - il bâti ?"/>
+            <composite:attribute name="clotureActif"  type="java.lang.Boolean" shortDescription="Le noyau Villageois est - il clôturé ?"/>
+            
+            <composite:attribute name="autreTravauxAction" method-signature="java.lang.String action()"/>
+            
+        </composite:interface> 
+
+        
+        <composite:implementation> 
+                    
+            <div class="ui-g-12 ui-lg-6">                                
+                               <div class="card card-w-title" style="padding: 0px; margin-bottom: 0px;">
+                                   <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank form-group">                               
+                                       <p:selectOneRadio layout="responsive" disabled="#{cc.attrs.readOnly}" columns="2" value="#{cc.attrs.batie}">
+                                               <f:selectItem itemLabel="#{msg.hint_parcelle_bati}" itemValue="true" />
+                                               <f:selectItem itemLabel="#{msg.hint_parcelle_nu}" itemValue="false" />                                          
+                                        </p:selectOneRadio>                                 
+                                    </p:panelGrid> 
+                               </div> 
+                               
+                               <div class="card card-w-title" style="padding: 0px; margin-bottom: 0px;">                                   
+                                   
+                                   <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                       <p:outputLabel  value="#{msg.label_cloture}" for="#{cc.attrs.idcloture}" />
+                                   
+                                        <p:selectOneRadio layout="responsive" columns="2" disabled="#{cc.attrs.readOnly}" value="#{cc.attrs.cloture}">
+                                               <f:selectItem itemLabel="#{msg.label_oui}" itemValue="true" />
+                                               <f:selectItem itemLabel="#{msg.label_non}" itemValue="false" />                                          
+                                        </p:selectOneRadio>
+                                       
+                                   </p:panelGrid>
+                                   
+                               </div>
+                
+                               <div class="card card-w-title" style="padding: 0px; margin-bottom: 0px;">  
+                                   <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                     <p:outputLabel  value="#{msg.label_type_cloture}" />
+                                    </p:panelGrid>
+                                    
+                               </div>
+                               <div class="card card-w-title" style="padding: 0px; margin-bottom: 0px;">                                  
+                                   <p:panelGrid columns="11" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                       <h:outputText value="#{msg.hint_maconnerie}" />
+                                       <p:selectBooleanCheckbox value="#{cc.attrs.maconnerie}" disabled="#{cc.attrs.readOnly}"/>
+                                       
+                                       <h:outputText value="#{msg.hint_banco}" />
+                                       <p:selectBooleanCheckbox value="#{cc.attrs.banco}" disabled="#{cc.attrs.readOnly}" />
+                                       
+                                       <h:outputText value="#{msg.hint_claie}" />
+                                       <p:selectBooleanCheckbox value="#{cc.attrs.claieCloture}" disabled="#{cc.attrs.readOnly}" />
+                                       
+                                       <h:outputText value="#{msg.hint_haie}" />
+                                       <p:selectBooleanCheckbox value="#{cc.attrs.haie}" disabled="#{cc.attrs.readOnly}" />
+                                       
+                                       <h:outputText value="#{msg.hint_autre}" />                                       
+                                       <p:selectBooleanCheckbox value="#{cc.attrs.autreTravaux}" disabled="#{cc.attrs.readOnly}">
+                                            <p:ajax update="#{cc.attrs.idAutreTravauxPreciser}"  />
+                                        </p:selectBooleanCheckbox>
+                                      
+                                    </p:panelGrid> 
+                               </div>
+                              
+                               <div class="card card-w-title" style="padding: 0px; margin-bottom: 0px;" >                                 
+                                   <p:panelGrid columns="11" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                       
+                                       <p:outputLabel  value="#{msg.hint_autre_a_preciser}" for="#{cc.attrs.idAutreTravauxPreciser}" />                                         
+                                       <p:inputText id= "#{cc.attrs.idAutreTravauxPreciser}" value="#{cc.attrs.autreTravauxPreciser}"
+                                                    readonly="#{cc.attrs.autreTravauxActif and cc.attrs.readOnly and cc.attrs.clotureActif and cc.attrs.batiActif}"/>
+                                       
+                                 </p:panelGrid>
+                               
+                              </div>
+                               
+                                 
+                               <div class="card card-w-title" style="padding: 0px; margin-bottom: 0px;">                                 
+                                   <p:panelGrid columns="11" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                       
+                                       <p:outputLabel  value="#{msg.hint_nb_batimat}" for="#{cc.attrs.idNbBatimat}" />                                         
+                                       <p:inputText id= "#{cc.attrs.idNbBatimat}" type="number" value="#{cc.attrs.nbBatimat}"
+                                                    readonly="#{cc.attrs.readOnly and cc.attrs.clotureActif and cc.attrs.batiActif}"/>
+                                       
+                                 </p:panelGrid>
+                               
+                              </div>
+                               
+                           </div>
+                           <div class="ui-g-12 ui-lg-6">                        
+                                <div class="card card-w-title" style="padding: 0px; padding-top: 0px; margin-bottom: 0px;">
+                                    
+                                     <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                         <p:outputLabel  value="#{msg.label_type_construction}" />
+                                         <h:outputText value="#{msg.label_materiaux_definitif}" />
+                                    </p:panelGrid>
+                                    
+                                </div>
+                               
+                               <div class="card card-w-title" style="padding: 0px; margin-bottom: 0px;">                                  
+                                   <p:panelGrid columns="11" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                       
+                                       
+                                       <h:outputText value="#{msg.hint_dalle}" />
+                                       <p:selectBooleanCheckbox value="#{cc.attrs.dalle}" disabled="#{cc.attrs.readOnly}"/>
+                                       
+                                       <h:outputText value="#{msg.hint_tuile}" />
+                                       <p:selectBooleanCheckbox value="#{cc.attrs.tuile}" disabled="#{cc.attrs.readOnly}" />
+                                       
+                                       <h:outputText value="#{msg.hint_tole}" />
+                                       <p:selectBooleanCheckbox value="#{cc.attrs.tole}" disabled="#{cc.attrs.readOnly}" />
+                                       
+                                       <h:outputText value="#{msg.label_precaire}" />
+                                       <h:outputText value="#{msg.hint_paille}" />
+                                       <p:selectBooleanCheckbox value="#{cc.attrs.paille}" disabled="#{cc.attrs.readOnly}" />
+                                       
+                                       <h:outputText value="#{msg.hint_claie}" />
+                                       <p:selectBooleanCheckbox value="#{cc.attrs.claieConstruction}" disabled="#{cc.attrs.readOnly}" />
+                                      
+                                    </p:panelGrid> 
+                               </div>
+                               
+                               <div class="card card-w-title" style="padding: 0px; padding-top: 10px; margin-bottom: 0px;">                                    
+                                     <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                         <h:outputText value="#{msg.label_genre_construction}" />
+                                    </p:panelGrid>
+                                    
+                                </div>
+                               
+                               <div class="card card-w-title" style="padding: 0px; margin-bottom: 0px;">                                  
+                                   <p:panelGrid columns="11" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                       
+                                       
+                                       <h:outputText value="#{msg.hint_ordinaire}" />
+                                       <p:selectBooleanCheckbox value="#{cc.attrs.ordinaire}" disabled="#{cc.attrs.readOnly}"/>
+                                       
+                                       <h:outputText value="#{msg.hint_rdc}" />
+                                       <p:selectBooleanCheckbox value="#{cc.attrs.rdc}" disabled="#{cc.attrs.readOnly}" />
+                                       
+                                       <h:outputText value="#{msg.hint_etage}" />
+                                       <p:selectBooleanCheckbox value="#{cc.attrs.etage}" disabled="#{cc.attrs.readOnly}" />
+                                       
+                                       <p:outputLabel  value="#{msg.hint_pbaNbEtage}" for="#{cc.attrs.idNbreEtage}" />                                         
+                                       <p:inputText id= "#{cc.attrs.idNbreEtage}" style="max-width: 50px;" type="number" value="#{cc.attrs.nbreEtage}"
+                                                    readonly="#{cc.attrs.readOnly and cc.attrs.clotureActif and cc.attrs.batiActif}"/>
+                                      
+                                    </p:panelGrid> 
+                               </div>
+                               
+                               <div class="card card-w-title" style="padding: 0px;  margin-bottom: 0px;">                                    
+                                     <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                         <h:outputText value="#{msg.label_autre_contenant}" />
+                                    </p:panelGrid>
+                                    
+                                </div>
+                               
+                               <div class="card card-w-title" style="padding: 0px; margin-bottom: 0px;">                                  
+                                   <p:panelGrid columns="10" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                                                              
+                                       <h:outputText value="#{msg.hint_garage}" />
+                                       <p:selectBooleanCheckbox value="#{cc.attrs.garage}" disabled="#{cc.attrs.readOnly}"/>
+                                       
+                                       <h:outputText value="#{msg.hint_puit_citerne}" />
+                                       <p:selectBooleanCheckbox value="#{cc.attrs.puitCiterne}" disabled="#{cc.attrs.readOnly}" />
+                                       
+                                       <h:outputText value="#{msg.hint_cuisine}" />
+                                       <p:selectBooleanCheckbox value="#{cc.attrs.cuisine}" disabled="#{cc.attrs.readOnly}" />
+                                       
+                                       <h:outputText value="#{msg.hint_Puisard}" />
+                                       <p:selectBooleanCheckbox value="#{cc.attrs.puisard}" disabled="#{cc.attrs.readOnly}" />
+                                       
+                                       <h:outputText value="#{msg.hint_wc}" />
+                                       <p:selectBooleanCheckbox value="#{cc.attrs.wc}" disabled="#{cc.attrs.readOnly}" />
+                                      
+                                    </p:panelGrid> 
+                               </div>
+                               
+                           </div>
+            
+            
+                          
+                                   
+                 
+        </composite:implementation>
+
+     
+
+
+    </h:body>
+</html>
+

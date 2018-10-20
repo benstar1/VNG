@@ -1,0 +1,392 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:util="http://java.sun.com/jsf/composite/util"
+      >
+    
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/template.xhtml">
+
+            <ui:define name="title">                 
+                #{msg.appName_crochet} #{msg.titre_parcelle_agri_en_parcelle_villageois}
+            </ui:define>
+
+            <ui:define name="head">
+           
+             
+            </ui:define>
+
+            <ui:define name="viewname">
+                #{msg.titre_parcelle_agri_en_parcelle_villageois}
+            </ui:define> 
+
+            <ui:define name="content">
+               
+                <!-- h:form id="formglobal" -->  
+                
+                <h:form id="formglobal">
+                    <p:growl id="message" showDetail="true" />
+            <div class="ui-fluid">
+                <div class="ui-g" style="background-color: #FFF; padding: 0px;" >
+              
+                   
+                    <div class="ui-g-12">
+                         <util:signin_localisation_parcel   
+                                                numeroParcel="#{parcelleBaf.selectedParcelle.pbaNumero}"
+                                                ancienNumero="#{parcelleBaf.selectedParcelle.pbaAncienNumero}"
+                                                appartenance="#{parcelleBaf.selectedParcelle.pbaAppartenance}"
+                                                village="#{parcelleBaf.selectedParcelle.pbaVilaCode.vlaDesig}"
+                                                arrondissement="#{parcelleBaf.selectedParcelle.pbaVilaCode.vilaArrCode.arrDesig}"
+                                                commune="#{parcelleBaf.selectedParcelle.pbaVilaCode.vilaArrCode.arrComCode.comDesig}"
+                                                departement="#{parcelleBaf.selectedParcelle.pbaVilaCode.vilaArrCode.arrComCode.comDepCode.depDesig}"
+                                                hameau="#{parcelleBaf.selectedParcelle.pbaHameau}"
+                                                nomGeometre="#{parcelleBaf.selectedParcelle.pbaCodeGeo}"
+                                                numeroOtho="#{parcelleBaf.selectedParcelle.pbaOthoImg}"
+                                                observation="#{parcelleBaf.selectedParcelle.pbaObservation}"
+                                                superficie="#{parcelleBaf.selectedParcelle.pbaSuperficie}"
+                                                listeTypeBF="#{parcelleBaf.typebfFacade.listeTypeBFItem}"
+                                                typeParcel="#{parcelleBaf.selectedParcelle.pbaTbfCode}"                                    
+                                                lieuDit="#{parcelleBaf.selectedParcelle.pbaLieuDit}"
+                                                rechercheButtonText="#{msg.btn_parcourir}" 
+                                                rechercheAction="#{parcelleBaf.rechercheParcelle()}"                                    
+                                                listeStatut="#{parcelleBaf.listeStatutItem}"
+                                                statut="#{parcelleBaf.selectedParcelle.pbaStaCode}"                                     
+                                                typeDomaineParcel="#{parcelleBaf.typeDomaineParcel}"
+                                                listeTypeDomaine="#{parcelleBaf.typeDomaineFacade.listeTypeDomaineItem}"
+                                                statutAutre="#{parcelleBaf.selectedParcelle.pbaStaAutre}"
+                                                listeGeometre="#{parcelleBaf.utilisateurFacade.listeGeometreItem}"                                                
+                                                readOnly="true"  
+                                                parcelleDPP="false"
+                                                iddialog="dlgParcelle"                                                
+                                               />
+                    </div>
+                    <div class="ui-g-12"> 
+                       <p:accordionPanel>  
+                           
+                           
+
+                                <p:tab title="#{msg.titre_identification_contenus}" > 
+                                            <util:signin_identification_conteneur_noyeau_villageois   
+                                                batie="#{parcelleBaf.selectedParcelle.pbaBati}"
+                                                cloture="#{parcelleBaf.selectedParcelle.pbaCloture}"
+                                                maconnerie="#{parcelleBaf.selectedParcelle.pbaCloMacon}"
+                                                banco="#{parcelleBaf.selectedParcelle.pbaCloBanco}"
+                                                claieCloture="#{parcelleBaf.selectedParcelle.pbaCloClaie}"
+                                                haie="#{parcelleBaf.selectedParcelle.pbaCloHaie}"
+                                                autreTravaux="#{parcelleBaf.selectedParcelle.pbaCloHaie}"
+                                                autreTravauxActif="#{parcelleBaf.autreTravauxActif}"
+                                                idAutreTravauxPreciser="txt_autre_travaux"
+                                                readOnly="false"
+                                                idNbreEtage="txt_nbre_etage"
+                                                nbreEtage="#{parcelleBaf.selectedParcelle.pbaNbEtage}"
+                                                idNbBatimat="txt_nbre_batimat"
+                                                nbBatimat="#{parcelleBaf.selectedParcelle.pbaNbeBat}"
+                                                autreTravauxPreciser="#{parcelleBaf.selectedParcelle.pbaCloAutre}"
+                                                cuisine="#{parcelleBaf.selectedParcelle.pbaCuisine}"
+                                                dalle="#{parcelleBaf.selectedParcelle.pbaToitDalle}"
+                                                garage="#{parcelleBaf.selectedParcelle.pbaGarage}"
+                                                etage="#{parcelleBaf.selectedParcelle.pbaMaisEtage}"
+                                                ordinaire="#{parcelleBaf.selectedParcelle.pbaMaisOrdinare}"
+                                                claieConstruction="#{parcelleBaf.selectedParcelle.pbaToitClaie}"
+                                                paille="#{parcelleBaf.selectedParcelle.pbaToitPaille}"
+                                                puisard="#{parcelleBaf.selectedParcelle.pbaPuisard}"
+                                                puitCiterne="#{parcelleBaf.selectedParcelle.pbaPuits}"
+                                                rdc="#{parcelleBaf.selectedParcelle.pbaMaisRez}"
+                                                tole="#{parcelleBaf.selectedParcelle.pbaToitTole}"
+                                                tuile="#{parcelleBaf.selectedParcelle.pbaToitTuile}"
+                                                wc="#{parcelleBaf.selectedParcelle.pbaWc}"
+                                             />
+                                </p:tab>
+                                <p:tab title="#{msg.titre_ayant_droit}"> 
+                                            <util:signin_intervenant   
+                                                 idNom="txt_nom"
+                                                 nom="#{parcelleBaf.intervenantSelect.intNom}"                        
+                                                 idPrenom="txt_prenom"
+                                                 prenom="#{parcelleBaf.intervenantSelect.intPrenom}"
+                                                 idDomicile="txt_domicile"
+                                                 domicile="#{parcelleBaf.intervenantSelect.intDomicile}"
+                                                 idSexe="spin_sexe"
+                                                 sexe="#{parcelleBaf.intervenantSelect.intSexe}"
+                                                 idAge="txt_age"
+                                                 age="#{parcelleBaf.intervenantSelect.intDateNais}"
+                                                 idTelephone="txt_telephone"
+                                                 telephone="#{parcelleBaf.intervenantSelect.intTelephone}"
+                                                 idActivite="spin_activite"
+                                                 activite="#{parcelleBaf.intervenantSelect.intActCode}"
+                                                 listeActivite="#{parcelleBaf.activiteFacade.listeActiviteItem}"
+                                                 idActiviteAutre="txt_activite_autre"
+                                                 activiteAutre="#{parcelleBaf.intervenantSelect.intActAutre}"
+                                                 idCiPP="txt_ci_pp"
+                                                 ciPP="#{parcelleBaf.intervenantSelect.intCiPp}"
+                                                 idDateExpCiPP="txt_date_exp_ci_pp"
+                                                 dateExpCiPP="#{parcelleBaf.intervenantSelect.intDateExpCi}"
+                                                 idDateNaiss="txt_date_naiss"
+                                                 dateNaiss="#{parcelleBaf.intervenantSelect.intDateNaissCalcul}"
+                                                 idEthnie="txt_ethnie"
+                                                 ethnie="#{parcelleBaf.intervenantSelect.intEthCode}"
+                                                 idEthnieAutre="txt_ethnie_autre"
+                                                 ethnieAutre="#{parcelleBaf.intervenantSelect.intEthAutre}"
+                                                 listeEthinie="#{parcelleBaf.ethnieFacade.listeEthnieItem}"
+                                                 idIfu="txt_ifu"
+                                                 ifu="#{parcelleBaf.intervenantSelect.intIfu}"
+                                                 idPhotoIntervenant="img_photo_complet"
+                                                 idLepi="txt_lepi"
+                                                 lepi="#{parcelleBaf.intervenantSelect.intLepi}"
+                                                 idNationalite="spin_nationalite"
+                                                 nationalite="#{parcelleBaf.intervenantSelect.intNationalite}"
+                                                 idNationaliteAutre="txt_nationalite_autre"
+                                                 nationaliteAutre="#{parcelleBaf.intervenantSelect.intNationaliteAutre}"
+                                                 idRavip="txt_ravip"
+                                                 ravip="#{parcelleBaf.intervenantSelect.intNumeroRavip}"
+                                                 idLignageAutre="txt_lignage_autre"
+                                                 lignageAutre="#{parcelleBaf.intervenantSelect.intLigAutre}"
+                                                 rechercheButtonText="..."                               
+                                                 idphotoCompletIntervenant="img_photo_signature"
+                                                 photoIntervenant="#{parcelleBaf.cheminPhotoIdentite}"
+                                                 photoCompletIntervenant="#{parcelleBaf.cheminPhotoIdentite}"
+                                                 autreActiviteActif="#{parcelleBaf.autreActivite}"
+                                                 autreNationaliteActif="#{parcelleBaf.autreNationalite}"
+                                                 autreEthnieActif="#{parcelleBaf.autreEthnie}"
+                                                 iddialogActivite="dlgActivite"
+                                                 readOnly="true"  
+                                                 id="compo_intervenant"
+                                                            />
+                                </p:tab>
+                                <p:tab title="#{msg.titre_droit_administration}">
+                                            <util:signin_intervenir_droit_administration   
+                                                 idRole="spin_role"
+                                                 role="#{parcelleBaf.intervenirSelect.invRolCode}"
+                                                 listeRole="#{parcelleBaf.roleFacade.listeRoleByCategorieDEItem}"
+                                                 idAutreRole="txt_autre_role"
+                                                 autreRole="#{parcelleBaf.intervenirSelect.invRolAutre}"
+                                                 idRattachement="txt_rattachement"
+                                                 rattachement="#{parcelleBaf.intervenirSelect.invRattachementAutre}"
+                                                 idObservation="tt_observation"
+                                                 observation="#{parcelleBaf.intervenirSelect.invObservation}"
+                                                 idRepresente="chk_represente_par"
+                                                 represente="#{parcelleBaf.intervenirSelect.invRepresente}"
+                                                 idCollectivite="txt_collectivite"
+                                                 collectivite="#{parcelleBaf.intervenirSelect.invCollectivite}"
+                                                 idStructure="txt_structure"
+                                                 structure="#{parcelleBaf.intervenirSelect.invStructure}"
+                                                 idFonction="txt_fonction"
+                                                 fonction="#{parcelleBaf.intervenirSelect.invFonction}"
+                                                 idModeAcquisition="spin_mode_acquis"
+                                                 modeAcquisition="#{parcelleBaf.intervenirSelect.invMacCode}"
+                                                 listeModeAcquisition="#{parcelleBaf.modeacquisFacade.listeModeAcquisDEItem}"
+                                                 idAutreModeAcquisition="txt_autre_mode_acquis"
+                                                 autreModeAcquisition="#{parcelleBaf.intervenirSelect.invMacAutre}"
+                                                 autreConditionPaiementActif="true"
+                                                 idDeQui="txt_de_quis"
+                                                 deQui="#{parcelleBaf.intervenirSelect.invDeQui}"
+                                                 idDepuisQuand="txt_depuis_quand"
+                                                 depuisQuand="#{parcelleBaf.intervenirSelect.invDateDeb}"
+                                                 idPrix="txt_prix"
+                                                 prix="#{parcelleBaf.intervenirSelect.invPrix}"
+                                                 prixActif="true"
+                                                 idConditionPaiement="spin_condition_paie"
+                                                 conditionPaiement="#{parcelleBaf.intervenirSelect.invCopCode}"
+                                                 listeConditionPaiement="#{parcelleBaf.conditionpaieFacade.listeConditionPaiementItem}"
+                                                 conditionPaiementActif="true"
+                                                 idAutreConditionPaiement="txt_autre_condition_paiement"
+                                                 autreConditionPaiement="#{parcelleBaf.intervenirSelect.invCopAutre}"
+                                                 idContrePartie="spin_contrePartie"
+                                                 contrePartie="#{parcelleBaf.intervenirSelect.invContreparti}"
+                                                 listeContrePartie="#{parcelleBaf.listeContrePartie}"
+                                                 idAutreModalite="spin_autre_modalite"
+                                                 autreModalite="#{parcelleBaf.intervenirSelect.invAutreModPaie}"
+                                                 listeAutreModalite="#{parcelleBaf.listeAutreModalite}"
+                                                 idLimitationAdmin="radiog_limitrophe"
+                                                 limitationAdmin="#{parcelleBaf.intervenirSelect.invLimitation}"
+                                                 idAutreLimitationAdmin="radio_autre_limitation"
+                                                 autreLimitationAdmin="#{parcelleBaf.intervenirSelect.invLimiteAutre}"
+                                                 idAutreLimitationAdminChaine="txt_autre_limitation"
+                                                 autreLimitationAdminChaine="#{parcelleBaf.intervenirSelect.invLimiteAutre}"
+                                                 limitationLegue="#{parcelleBaf.intervenirSelect.invLimitLeg}"
+                                                 limitationVente="#{parcelleBaf.intervenirSelect.invLimitVent}"
+                                                 limitationPret="#{parcelleBaf.intervenirSelect.invLimitPret}"
+                                                 limitationDon="#{parcelleBaf.intervenirSelect.invLimitDon}" 
+                                                 idDuree="txt_duree"
+                                                 duree="#{parcelleBaf.intervenirSelect.invDuree}"
+                                                 idDureeIndeterminee="chk_indetermine"
+                                                 dureeIndeterminee="#{parcelleBaf.intervenirSelect.invIndetermine}"
+                                                 formalise="#{parcelleBaf.intervenirSelect.invFormalise}"
+                                                 de="true"
+                                                 droitExerceActif="false"
+                                                 listeTypeDroitExerce="#{parcelleBaf.typeDroitExerceFace.listeTypeDroitExerceDEItem}"
+                                                 listeTypeDroitExerceAdmin="#{parcelleBaf.listeTypedexercesAdminUneParcel}"
+                                                 typeDroitExerce="#{parcelleBaf.typeDroitExerce}"
+                                                 ajouterDroitExerceAction="#{parcelleBaf.ajouterDroitExerceListener}"
+                                                 readOnly="true"
+                                              />
+                                        
+                                            
+                                </p:tab>
+                                <p:tab title="#{msg.titre_droit_operationnel}"> 
+                                    <p:dataTable value="#{parcelleBaf.listeDroitOperationnel}"  var="item" id="table_limitrophe" widgetVar="item"
+                                            emptyMessage="Aucun droit d'usage disponible" filteredValue= "#{intervenirController.itemsFilter}" 
+                                            rows="12" rowsPerPageTemplate="6,12,16"                                 
+                                            paginator="true"  rowKey="#{item.invIntNumero.intNom}"
+                                            >
+
+
+                                         <p:column filterBy="#{item.invIntNumero.intNom}" filterMatchMode="contains">
+                                             <f:facet name="header">
+                                                 <h:outputText value="#{msg.hint_nom}"/>
+                                             </f:facet>
+                                             <h:outputText value="#{item.invIntNumero.intNom}"/>                        
+                                         </p:column>
+                                        
+                                         <p:column filterBy="#{item.invIntNumero.intPrenom}" filterMatchMode="contains">
+                                             <f:facet name="header">
+                                                 <h:outputText value="#{msg.hint_prenom}"/>
+                                             </f:facet>
+                                              <h:outputText value="#{item.invIntNumero.intPrenom}"/>
+                                         </p:column>
+
+                                        <p:column filterBy="#{item.invIntNumero.intSexe}" filterMatchMode="contains">
+                                             <f:facet name="header">
+                                                 <h:outputText value="#{msg.hint_sexe}"/>
+                                             </f:facet>
+                                              <h:outputText value="#{item.invIntNumero.intSexe}"/>
+                                         </p:column>
+
+                                        <p:column filterBy="#{item.invRolCode.rolDesig}" filterMatchMode="contains">
+                                             <f:facet name="header">
+                                                 <h:outputText value="#{msg.hint_role}"/>
+                                             </f:facet>
+                                             <h:outputText value="#{item.invRolCode.rolDesig}"/>
+                                         </p:column>                          
+
+                                        </p:dataTable> 
+                                </p:tab>
+                           
+                           <p:tab title="#{msg.titre_liste_limitrophe_et_temoin}"> 
+                               <p:dataTable value="#{parcelleBaf.listeLimitrophe}"  var="item" id="table_op" widgetVar="item"
+                                            emptyMessage="Aucun droit d'usage disponible" filteredValue= "#{intervenirController.itemsFilter}" 
+                                            rows="12" rowsPerPageTemplate="6,12,16"                                 
+                                            paginator="true"  rowKey="#{item.invIntNumero.intNom}"
+                                            >
+
+
+                                         <p:column filterBy="#{item.invIntNumero.intNom}" filterMatchMode="contains">
+                                             <f:facet name="header">
+                                                 <h:outputText value="#{msg.hint_nom}"/>
+                                             </f:facet>
+                                             <h:outputText value="#{item.invIntNumero.intNom}"/>                        
+                                         </p:column>
+                                        
+                                         <p:column filterBy="#{item.invIntNumero.intPrenom}" filterMatchMode="contains">
+                                             <f:facet name="header">
+                                                 <h:outputText value="#{msg.hint_prenom}"/>
+                                             </f:facet>
+                                              <h:outputText value="#{item.invIntNumero.intPrenom}"/>
+                                         </p:column>
+
+                                        <p:column filterBy="#{item.invIntNumero.intSexe}" filterMatchMode="contains">
+                                             <f:facet name="header">
+                                                 <h:outputText value="#{msg.hint_sexe}"/>
+                                             </f:facet>
+                                              <h:outputText value="#{item.invIntNumero.intSexe}"/>
+                                         </p:column>
+
+                                        <p:column filterBy="#{item.invRolCode.rolDesig}" filterMatchMode="contains">
+                                             <f:facet name="header">
+                                                 <h:outputText value="#{msg.hint_role}"/>
+                                             </f:facet>
+                                             <h:outputText value="#{item.invRolCode.rolDesig}"/>
+                                         </p:column>                          
+
+                                        </p:dataTable> 
+                                </p:tab>
+                            </p:accordionPanel>
+                       
+                    </div>
+                    
+                    <div class="ui-g-12 ui-lg-6" style="margin-top: 10px;">
+                                                                     
+                               <div class="card card-w-title" style="padding: 0px; margin-bottom: 0px;">
+                                   <div class="ui-g-12 ui-lg-6" style=" width: 150px;">                                        
+                                   
+                                       <p:commandButton  value="#{msg.btn_enregistrer}" title="#{msg.btn_enregistrer}" actionListener="#{parcelleBaf.majParcelleAgricolNoyeauVillageois()}" update="formglobal"  icon="fa fa-save" styleClass="green-btn" > 
+                                        <p:confirm header="Confirmation" message="Etes - vous sûre de changer cette parcelle argicole en noyau villageois ?" icon="fa fa-warning" />
+                                    </p:commandButton>
+
+                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" width="300">
+                                        <p:commandButton value="Oui"   styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+                                        <p:commandButton value="Non"  styleClass="ui-confirmdialog-no" icon="fa fa-close" />
+                                    </p:confirmDialog>
+                                   
+                                   
+                                   </div>
+                                    <div class="ui-g-12 ui-lg-6" style=" width: 300px;">
+                                        <p:commandButton  value="#{msg.btn_ajouter_intervenant}" title ="#{msg.btn_ajouter_intervenant_info}" icon="fa fa-plus" onclick="PF('dlgMajIntervenant').show();" styleClass="pink-btn"/>
+
+                                    </div>
+                                   <div class="ui-g-12 ui-lg-6" style=" width: 150px;">
+                                          <p:commandButton  value="#{msg.btn_imprimer}" title="#{msg.btn_imprimer_info_fiche_enquete}" icon="fa fa-print" styleClass="orange-btn"/>
+                                    </div> 
+                               </div>
+                    </div>
+                    
+                  
+                   
+                    
+                    
+                    
+                </div>
+            </div>
+        </h:form>
+                
+                
+                
+                
+                
+                 <util:signin_dialog_liste_parcelle
+                          id="dlgParcelle" 
+                          titre="Liste complète des Parcelles et les Ayants Droits"
+                          pieddialog="Les Parcelles..."
+                          idDataTable="idtableParcelle"
+                          listData="#{intervenirController.getlisteAyantDroitCategorieParcelAgricol()}"
+                          SelectEntity="#{parcelleBaf.intervenirSelect}"                          
+                          selectAction="#{parcelleBaf.onParcelleRowSelect(event)}" 
+                          listDatafiltre="#{intervenirController.itemsFilter}"                         
+                          updateeltm= "formglobal"
+                          />
+                
+                
+                  <!-- util:signin_dialog_liste_activite
+                          id="dlgActivite" 
+                          titre="Liste complète des activite"
+                          pieddialog="Les Activités..."
+                          idDataTable="idtableActivite"
+                          listData="#{activiteController.items}"
+                          SelectEntity="#{parcelleBaf.activiteSelect}"  
+                          selectAction="#{parcelleBaf.onActiviteRowSelect(event)}" 
+                          listDatafiltre="#{intervenirController.itemsFilterActivite}"                         
+                          updateeltm= ":formglobal:compo_intervenant:txt_activite :formglobal:compo_intervenant:txt_activite_autre"
+                          /-->
+                 
+                  
+                  
+                   <util:sign_maj_intervenant
+                          id="dlgMajIntervenant" 
+                          titre="Mise à jour des intervenants"                          
+                          pieddialog="Les Interénants..."                         
+                          />
+                  
+               
+            </ui:define>
+
+        </ui:composition>
+        
+         <!-- /h:form -->
+
+    </body>
+</html>

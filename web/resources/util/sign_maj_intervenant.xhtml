@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:util="http://xmlns.jcp.org/jsf/composite/util">
+    <h:head>
+        <title>This is not displayed</title> 
+        <h:outputStylesheet library="css" name="styles.css" />
+    </h:head>
+    <h:body>
+       
+        
+                 
+
+  <composite:interface>
+    
+          <composite:attribute name="titre" shortDescription="Titre du Dialog" />
+          <composite:attribute name="pieddialog" shortDescription="Pied du Dialog" />
+          <composite:attribute name="id" shortDescription="ID du composant Dialog" /> 
+         
+           
+  </composite:interface>
+   
+  <composite:implementation>
+        
+       <p:dialog id="#{cc.attrs.id}" header="#{cc.attrs.titre}" 
+               footer="#{cc.attrs.pieddialog}" widgetVar="#{cc.attrs.id}" modal="true"
+               showEffect="fade" hideEffect="fade" closeOnEscape="true" width="1280" height="600">
+           
+          <h:form id="forminterneIntervenant">
+                  <util:signin_intervenant   
+                                idNom="txt_nom"
+                                nom="#{intervenantController.selected.intNom}"                        
+                                idPrenom="txt_prenom"
+                                prenom="#{intervenantController.selected.intPrenom}"
+                                idDomicile="txt_domicile"
+                                domicile="#{intervenantController.selected.intDomicile}"
+                                idSexe="spin_sexe"
+                                sexe="#{intervenantController.selected.intSexe}"
+                                idAge="txt_age"
+                                age="#{intervenantController.selected.intDateNais}"
+                                idTelephone="txt_telephone"
+                                telephone="#{intervenantController.selected.intTelephone}"
+                                idActivite="txt_activite"
+                                activite="#{intervenantController.selected.intActCode}"
+                                idActiviteAutre="txt_activite_autre"
+                                activiteAutre="#{intervenantController.selected.intActAutre}"
+                                idCiPP="txt_ci_pp"
+                                ciPP="#{intervenantController.selected.intCiPp}"
+                                idDateExpCiPP="txt_date_exp_ci_pp"
+                                dateExpCiPP="#{intervenantController.selected.intDateExpCi}"
+                                idDateNaiss="txt_date_naiss"
+                                dateNaiss="#{intervenantController.selected.intDateNaissCalcul}"
+                                idEthnie="txt_ethnie"
+                                ethnie="#{intervenantController.selected.intEthCode}"
+                                idEthnieAutre="txt_ethnie_autre"
+                                ethnieAutre="#{intervenantController.selected.intEthAutre}"
+                                listeEthinie="#{intervenantController.ethnieFacade.listeEthnieItem}"
+                                listeActivite="#{intervenantController.activiteFacade.listeActiviteItem}"
+                                idIfu="txt_ifu"
+                                ifu="#{intervenantController.selected.intIfu}"
+                                idPhotoIntervenant="img_photo_complet"
+                                idLepi="txt_lepi"
+                                lepi="#{intervenantController.selected.intLepi}"
+                                idNationalite="spin_nationalite"
+                                nationalite="#{intervenantController.selected.intNationalite}"
+                                idNationaliteAutre="txt_nationalite_autre"
+                                nationaliteAutre="#{intervenantController.selected.intNationaliteAutre}"
+                                idRavip="txt_ravip"
+                                ravip="#{intervenantController.selected.intNumeroRavip}"
+                                idLignageAutre="txt_lignage_autre"
+                                lignageAutre="#{intervenantController.selected.intLigAutre}"
+                                rechercheButtonText="..."                               
+                                idphotoCompletIntervenant="img_photo_signature"
+                                photoIntervenant=""
+                                photoCompletIntervenant=""
+                                autreActiviteActif="#{intervenantController.selected.intActAutre}"
+                                autreNationaliteActif="#{intervenantController.selected.intNationaliteAutre}"
+                                autreEthnieActif="#{intervenantController.selected.intEthAutre}"
+                                iddialogActivite=""
+                                readOnly="false"  
+                                id="compo_intervenant"
+                                           />
+                  
+                  <div class="ui-g-12 ui-lg-6">
+                      <div class="card card-w-title" style="padding: 0px; margin-bottom: 0px;">
+                                  
+                          <p:commandButton  value= "#{msg.btn_enregistrer}" process="@form" update=":dlgMajIntervenant:forminterneIntervenant" actionListener="#{intervenantController.ajouterIntervenant()}" style="width:100px; text-align: center;"/>
+                             
+                          
+                           
+                            <p:commandButton  value= "#{msg.btn_cancel}" action="#{intervenantController.initialiser()}" style="width:100px; text-align: center;" />
+                          
+                          
+                       </div>
+                  </div>
+                  
+                  
+                  
+                  
+              </h:form>
+         </p:dialog> 
+
+  </composite:implementation>
+
+
+    </h:body>
+</html>
+
+

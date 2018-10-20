@@ -77,6 +77,23 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "TOperationParcel.findByOpvDateExpCiPp", query = "SELECT t FROM TOperationParcel t WHERE t.opvDateExpCiPp = :opvDateExpCiPp")})
 public class TOperationParcel implements Serializable {
 
+    @Size(max = 10)
+    @Column(name = "opv_statut")
+    private String opvStatut;
+    @Column(name = "opv_date_saisie")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date opvDateSaisie;
+    @Column(name = "opv_date_validation")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date opvDateValidation;
+    @JoinColumn(name = "opv_sign_code", referencedColumnName = "sign_code")
+    @ManyToOne
+    private TSignataire opvSignCode;
+    @OneToMany(mappedBy = "dreOpvNumeroPreneur")
+    private List<TDroitExerce> tDroitExerceList;
+    @OneToMany(mappedBy = "dreOpvNumero")
+    private List<TDroitExerce> tDroitExerceList1;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -700,6 +717,56 @@ public class TOperationParcel implements Serializable {
     @Override
     public String toString() {
         return "org.vng.entities.TOperationParcel[ opvNumero=" + opvNumero + " ]";
+    }
+
+    public String getOpvStatut() {
+        return opvStatut;
+    }
+
+    public void setOpvStatut(String opvStatut) {
+        this.opvStatut = opvStatut;
+    }
+
+    public Date getOpvDateSaisie() {
+        return opvDateSaisie;
+    }
+
+    public void setOpvDateSaisie(Date opvDateSaisie) {
+        this.opvDateSaisie = opvDateSaisie;
+    }
+
+    public Date getOpvDateValidation() {
+        return opvDateValidation;
+    }
+
+    public void setOpvDateValidation(Date opvDateValidation) {
+        this.opvDateValidation = opvDateValidation;
+    }
+
+    public TSignataire getOpvSignCode() {
+        return opvSignCode;
+    }
+
+    public void setOpvSignCode(TSignataire opvSignCode) {
+        this.opvSignCode = opvSignCode;
+    }
+
+    @XmlTransient
+    public List<TDroitExerce> getTDroitExerceList() {
+        return tDroitExerceList;
+    }
+
+    public void setTDroitExerceList(List<TDroitExerce> tDroitExerceList) {
+        this.tDroitExerceList = tDroitExerceList;
+    }
+
+    @XmlTransient
+    public List<TDroitExerce> getTDroitExerceList1() {
+        return tDroitExerceList1;
+    }
+
+    public void setTDroitExerceList1(List<TDroitExerce> tDroitExerceList1) {
+        this.tDroitExerceList1 = tDroitExerceList1;
     }
     
 }

@@ -18,8 +18,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-
-@Named("tActiviteController")
+import org.vng.entities.TConditionpaie;
+@Named("activiteController")
 @SessionScoped
 public class TActiviteController implements Serializable {
 
@@ -130,7 +130,7 @@ public class TActiviteController implements Serializable {
                 return null;
             }
             TActiviteController controller = (TActiviteController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "tActiviteController");
+                    getValue(facesContext.getELContext(), null, "activiteController");
             return controller.getTActivite(getKey(value));
         }
 

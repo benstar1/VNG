@@ -37,6 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TUtilisateur.findAll", query = "SELECT t FROM TUtilisateur t")
     , @NamedQuery(name = "TUtilisateur.findByUtiCode", query = "SELECT t FROM TUtilisateur t WHERE t.utiCode = :utiCode")
     , @NamedQuery(name = "TUtilisateur.findByUtiNom", query = "SELECT t FROM TUtilisateur t WHERE t.utiNom = :utiNom")
+    , @NamedQuery(name = "TUtilisateur.findByUtiTYpe", query = "SELECT t FROM TUtilisateur t WHERE t.utiTyuCode.tyuCode = :typeUtil")
     , @NamedQuery(name = "TUtilisateur.findByUtiPrenom", query = "SELECT t FROM TUtilisateur t WHERE t.utiPrenom = :utiPrenom")
     , @NamedQuery(name = "TUtilisateur.findByUtiLogin", query = "SELECT t FROM TUtilisateur t WHERE t.utiLogin = :utiLogin")
     , @NamedQuery(name = "TUtilisateur.findByUtiPassword", query = "SELECT t FROM TUtilisateur t WHERE t.utiPassword = :utiPassword")
@@ -48,6 +49,14 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "TUtilisateur.findByUtilNomImage", query = "SELECT t FROM TUtilisateur t WHERE t.utilNomImage = :utilNomImage")
     , @NamedQuery(name = "TUtilisateur.findByUtiDateChargement", query = "SELECT t FROM TUtilisateur t WHERE t.utiDateChargement = :utiDateChargement")})
 public class TUtilisateur implements Serializable {
+
+    @OneToMany(mappedBy = "patyUtiCode")
+    private List<TParcelleTypeBf> tParcelleTypeBfList;
+    @OneToMany(mappedBy = "signUtiCode")
+    private List<TSignataire> tSignataireList;
+
+    @OneToMany(mappedBy = "pbaCodeGeo")
+    private List<TParcelleBafon> tParcelleBafonList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -315,6 +324,33 @@ public class TUtilisateur implements Serializable {
     @Override
     public String toString() {
         return "org.vng.entities.TUtilisateur[ utiCode=" + utiCode + " ]";
+    }
+
+    @XmlTransient
+    public List<TParcelleBafon> getTParcelleBafonList() {
+        return tParcelleBafonList;
+    }
+
+    public void setTParcelleBafonList(List<TParcelleBafon> tParcelleBafonList) {
+        this.tParcelleBafonList = tParcelleBafonList;
+    }
+
+    @XmlTransient
+    public List<TParcelleTypeBf> getTParcelleTypeBfList() {
+        return tParcelleTypeBfList;
+    }
+
+    public void setTParcelleTypeBfList(List<TParcelleTypeBf> tParcelleTypeBfList) {
+        this.tParcelleTypeBfList = tParcelleTypeBfList;
+    }
+
+    @XmlTransient
+    public List<TSignataire> getTSignataireList() {
+        return tSignataireList;
+    }
+
+    public void setTSignataireList(List<TSignataire> tSignataireList) {
+        this.tSignataireList = tSignataireList;
     }
     
 }

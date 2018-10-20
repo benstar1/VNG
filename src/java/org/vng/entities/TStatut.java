@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -34,6 +36,10 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "TStatut.findByStaTydoCode", query = "SELECT t FROM TStatut t WHERE t.staTydoCode = :staTydoCode")})
 public class TStatut implements Serializable {
 
+    @JoinColumn(name = "sta_tydo_code", referencedColumnName = "tydo_code")
+    @ManyToOne
+    private TTypeDomaineParcel staTydoCode;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -44,9 +50,9 @@ public class TStatut implements Serializable {
     @Size(max = 100)
     @Column(name = "sta_desig")
     private String staDesig;
-    @Size(max = 5)
-    @Column(name = "sta_tydo_code")
-    private String staTydoCode;
+    //@Size(max = 5)
+   // @Column(name = "sta_tydo_code")
+    //private String staTydoCode;
     @OneToMany(mappedBy = "pbaStaCode")
     private List<TParcelleBafon> tParcelleBafonList;
 
@@ -72,7 +78,7 @@ public class TStatut implements Serializable {
     public void setStaDesig(String staDesig) {
         this.staDesig = staDesig;
     }
-
+/*
     public String getStaTydoCode() {
         return staTydoCode;
     }
@@ -80,7 +86,7 @@ public class TStatut implements Serializable {
     public void setStaTydoCode(String staTydoCode) {
         this.staTydoCode = staTydoCode;
     }
-
+*/
     @XmlTransient
     public List<TParcelleBafon> getTParcelleBafonList() {
         return tParcelleBafonList;
@@ -113,6 +119,14 @@ public class TStatut implements Serializable {
     @Override
     public String toString() {
         return "org.vng.entities.TStatut[ staCode=" + staCode + " ]";
+    }
+
+    public TTypeDomaineParcel getStaTydoCode() {
+        return staTydoCode;
+    }
+
+    public void setStaTydoCode(TTypeDomaineParcel staTydoCode) {
+        this.staTydoCode = staTydoCode;
     }
     
 }

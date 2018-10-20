@@ -5,10 +5,14 @@
  */
 package org.vng.sessions;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.vng.entities.TConditionpaie;
+import org.vng.entities.TModeacquis;
 
 /**
  *
@@ -28,5 +32,14 @@ public class TConditionpaieFacade extends AbstractFacade<TConditionpaie> {
     public TConditionpaieFacade() {
         super(TConditionpaie.class);
     }
-    
+
+    public List<SelectItem> getListeConditionPaiementItem() {
+        List<TConditionpaie> list = findAll();
+        List<SelectItem> item = new ArrayList<>();
+        for (TConditionpaie object : list) {
+            item.add(new SelectItem(object, "" + object.getCopDesig()));
+        }
+
+        return item;
+    }
 }

@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+         xmlns:ui="http://java.sun.com/jsf/facelets"
+         xmlns:h="http://java.sun.com/jsf/html"
+         xmlns:f="http://java.sun.com/jsf/core"
+         xmlns:p="http://primefaces.org/ui"
+         xmlns:composite="http://java.sun.com/jsf/composite">
+    
+    
+    
+    
+    <h:head>
+        <title>This is not displayed</title> 
+        <h:outputStylesheet library="css" name="styles.css" />
+    </h:head>
+    <h:body>
+     
+        
+         
+
+  <composite:interface>
+          <composite:attribute name="titre"
+               shortDescription="Titre du Dialog" />
+               <composite:attribute name="pieddialog"
+               shortDescription="Pied du Dialog" />
+         <composite:attribute name="id"
+               shortDescription="ID du composant Dialog" />
+          
+  </composite:interface>
+   
+  <composite:implementation>
+         
+      
+      <p:dialog id="#{cc.attrs.id}" header="#{cc.attrs.titre}" maximizable="true"
+               footer="#{cc.attrs.pieddialog}" widgetVar="var#{cc.attrs.id}" modal="true"
+               showEffect="fade" hideEffect="fade" closeOnEscape="true">
+              <composite:insertChildren /> 
+         </p:dialog> 
+  </composite:implementation>
+
+
+    </h:body>
+</html>
+

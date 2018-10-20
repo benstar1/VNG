@@ -5,7 +5,10 @@
  */
 package org.vng.sessions;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.vng.entities.TEthnie;
@@ -27,6 +30,18 @@ public class TEthnieFacade extends AbstractFacade<TEthnie> {
 
     public TEthnieFacade() {
         super(TEthnie.class);
+    }
+    
+     public List<SelectItem> getListeEthnieItem()
+    {
+        List<TEthnie> list= findAll();
+        List<SelectItem> item = new ArrayList<>();
+        for (TEthnie object : list)    
+        { 
+            item.add(new SelectItem(object, ""+object.getEthDesig()));
+        }
+    
+        return item;
     }
     
 }

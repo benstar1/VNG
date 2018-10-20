@@ -35,11 +35,19 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "TDroitExerce.findByDreDateDebut", query = "SELECT t FROM TDroitExerce t WHERE t.dreDateDebut = :dreDateDebut")
     , @NamedQuery(name = "TDroitExerce.findByDreDateFin", query = "SELECT t FROM TDroitExerce t WHERE t.dreDateFin = :dreDateFin")
     , @NamedQuery(name = "TDroitExerce.findByDreCat", query = "SELECT t FROM TDroitExerce t WHERE t.dreCat = :dreCat")
+    , @NamedQuery(name = "TDroitExerce.findByDreCatParcelle", query = "SELECT t FROM TDroitExerce t WHERE t.dreCat = :dreCat AND t.drePbaNumero.pbaNumero = :numParcelle")
     , @NamedQuery(name = "TDroitExerce.findByDreDateEnquete", query = "SELECT t FROM TDroitExerce t WHERE t.dreDateEnquete = :dreDateEnquete")
     , @NamedQuery(name = "TDroitExerce.findByDreRolAutre", query = "SELECT t FROM TDroitExerce t WHERE t.dreRolAutre = :dreRolAutre")
     , @NamedQuery(name = "TDroitExerce.findByDreTdeAutre", query = "SELECT t FROM TDroitExerce t WHERE t.dreTdeAutre = :dreTdeAutre")
     , @NamedQuery(name = "TDroitExerce.findByDreDateChargement", query = "SELECT t FROM TDroitExerce t WHERE t.dreDateChargement = :dreDateChargement")})
 public class TDroitExerce implements Serializable {
+
+    @JoinColumn(name = "dre_opv_numero_preneur", referencedColumnName = "opv_numero")
+    @ManyToOne
+    private TOperationParcel dreOpvNumeroPreneur;
+    @JoinColumn(name = "dre_opv_numero", referencedColumnName = "opv_numero")
+    @ManyToOne
+    private TOperationParcel dreOpvNumero;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -237,6 +245,22 @@ public class TDroitExerce implements Serializable {
     @Override
     public String toString() {
         return "org.vng.entities.TDroitExerce[ dreCode=" + dreCode + " ]";
+    }
+
+    public TOperationParcel getDreOpvNumeroPreneur() {
+        return dreOpvNumeroPreneur;
+    }
+
+    public void setDreOpvNumeroPreneur(TOperationParcel dreOpvNumeroPreneur) {
+        this.dreOpvNumeroPreneur = dreOpvNumeroPreneur;
+    }
+
+    public TOperationParcel getDreOpvNumero() {
+        return dreOpvNumero;
+    }
+
+    public void setDreOpvNumero(TOperationParcel dreOpvNumero) {
+        this.dreOpvNumero = dreOpvNumero;
     }
     
 }

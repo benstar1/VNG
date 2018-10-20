@@ -36,6 +36,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "TIntervenir.findByInvNumProp", query = "SELECT t FROM TIntervenir t WHERE t.invNumProp = :invNumProp")
     , @NamedQuery(name = "TIntervenir.findByInvDateDeb", query = "SELECT t FROM TIntervenir t WHERE t.invDateDeb = :invDateDeb")
     , @NamedQuery(name = "TIntervenir.findByInvDateFin", query = "SELECT t FROM TIntervenir t WHERE t.invDateFin = :invDateFin")
+    , @NamedQuery(name = "TIntervenir.findAllByCategorieRole", query = "SELECT t FROM TIntervenir t WHERE t.invDateFin IS NULL AND t.invRolCode.rolCat = :categorieRole")
+    , @NamedQuery(name = "TIntervenir.findAllByTypeParcelleRole", query = "SELECT t FROM TIntervenir t WHERE t.invDateFin IS NULL AND t.invRolCode.rolCat = :categorieRole AND t.invPbaNumero.pbaTbfCode.tbfCode= :typeParcelle")    
+    , @NamedQuery(name = "TIntervenir.findAllByCategorieRoleParcelle", query = "SELECT t FROM TIntervenir t WHERE t.invPbaNumero.pbaNumero= :numParcelle AND t.invDateFin IS NULL AND t.invRolCode.rolCat = :categorieRole")
     , @NamedQuery(name = "TIntervenir.findByInvContreparti", query = "SELECT t FROM TIntervenir t WHERE t.invContreparti = :invContreparti")
     , @NamedQuery(name = "TIntervenir.findByInvAutremodalite", query = "SELECT t FROM TIntervenir t WHERE t.invAutremodalite = :invAutremodalite")
     , @NamedQuery(name = "TIntervenir.findByInvRattachement", query = "SELECT t FROM TIntervenir t WHERE t.invRattachement = :invRattachement")
@@ -97,6 +100,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "TIntervenir.findByInvCiPp", query = "SELECT t FROM TIntervenir t WHERE t.invCiPp = :invCiPp")
     , @NamedQuery(name = "TIntervenir.findByInvDateExpCiPp", query = "SELECT t FROM TIntervenir t WHERE t.invDateExpCiPp = :invDateExpCiPp")})
 public class TIntervenir implements Serializable {
+
+    @JoinColumn(name = "inv_desi_code", referencedColumnName = "desi_code")
+    @ManyToOne
+    private TDepotSignature invDesiCode;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -961,6 +968,14 @@ public class TIntervenir implements Serializable {
     @Override
     public String toString() {
         return "org.vng.entities.TIntervenir[ invNumero=" + invNumero + " ]";
+    }
+
+    public TDepotSignature getInvDesiCode() {
+        return invDesiCode;
+    }
+
+    public void setInvDesiCode(TDepotSignature invDesiCode) {
+        this.invDesiCode = invDesiCode;
     }
     
 }

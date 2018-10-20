@@ -14,21 +14,37 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceUtil;
+import org.vng.sessions.TActiviteFacade;
+import org.vng.sessions.TEthnieFacade;
 
-@Named("tIntervenantController")
+@Named("intervenantController")
 @SessionScoped
 public class TIntervenantController implements Serializable {
 
     @EJB
     private org.vng.sessions.TIntervenantFacade ejbFacade;
+    
+     @Inject
+    TEthnieFacade ethnieFacade;
+    
+    @Inject
+    TActiviteFacade activiteFacade;
+    
     private List<TIntervenant> items = null;
     private TIntervenant selected;
 
     public TIntervenantController() {
+        selected = new TIntervenant();
+       // selected.setIntNumero("00001");
+        //System.out.println("selected  ----  "+selected);
     }
 
     public TIntervenant getSelected() {
@@ -47,6 +63,57 @@ public class TIntervenantController implements Serializable {
 
     private TIntervenantFacade getFacade() {
         return ejbFacade;
+    }
+
+    public TEthnieFacade getEthnieFacade() {
+        return ethnieFacade;
+    }
+
+    public void setEthnieFacade(TEthnieFacade ethnieFacade) {
+        this.ethnieFacade = ethnieFacade;
+    }
+
+    public TActiviteFacade getActiviteFacade() {
+        return activiteFacade;
+    }
+
+    public void setActiviteFacade(TActiviteFacade activiteFacade) {
+        this.activiteFacade = activiteFacade;
+    }
+    
+    
+    public String ajouterIntervenant()
+    {
+       // System.out.println(" selected iocicicic "+selected);
+        if(selected != null)
+        {
+            selected.setIntNumero("000011");
+            ejbFacade.create(selected);
+            //JsfUtil.addSuccessMessage(ResourceBundle.getBundle("msg").getString("confirmation_operation"));
+          //   JsfUtil.addSuccessMessage("Opération effectuée avec succès.");
+            selected = new TIntervenant();
+            
+             FacesContext facesContext = FacesContext.getCurrentInstance();
+            FacesMessage facesMessage = new FacesMessage("Opération effectuée avec succès.");
+            facesMessage.setSeverity(FacesMessage.SEVERITY_ERROR);
+            facesContext.addMessage(null, facesMessage);
+           /* System.out.println("selected ---1 "+selected.getIntNumero());
+            
+             PersistenceUtil util = Persistence.getPersistenceUtil();
+             boolean isObjectLoaded = util.isLoaded(selected);
+             boolean isFieldLoaded = util.isLoaded(selected, "int_numero");
+             
+             System.out.println("selected ---2 "+selected.getIntNumero());
+        */
+        // JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/").getString("MessageConfirmationMarche"));
+             
+        }System.out.println("oui on passe ");
+        return "parcelleagricolenoyau.xhtml";    
+    }
+    
+      public void initialiser()
+    {
+        selected = new TIntervenant();
     }
 
     public TIntervenant prepareCreate() {

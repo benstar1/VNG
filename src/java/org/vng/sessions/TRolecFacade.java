@@ -5,7 +5,10 @@
  */
 package org.vng.sessions;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.vng.entities.TRolec;
@@ -27,6 +30,18 @@ public class TRolecFacade extends AbstractFacade<TRolec> {
 
     public TRolecFacade() {
         super(TRolec.class);
+    }
+    
+    
+    public List<SelectItem> getListeRoleCItem()
+    {
+        List<TRolec> list= findAll();
+        List<SelectItem> item = new ArrayList<>();
+        for (TRolec object : list)    
+        { 
+            item.add(new SelectItem(object, ""+object.getRocDesig()));
+        }
+        return item;
     }
     
 }

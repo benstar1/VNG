@@ -1,0 +1,329 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>This is not displayed</title> 
+        <!-- h:outputStylesheet library="css" name="styles.css" / -->
+    </h:head>
+    
+    <h:body>
+        <composite:interface> 
+            <!-- Nom  -->
+            <composite:attribute name="idRole" type="String" shortDescription="Id rôle"/> 
+            <composite:attribute name="role" required="true" type="org.vng.entities.TRole" shortDescription="Rôle"/> 
+            <composite:attribute name="listeRole" type="java.util.List"/>
+            
+            <composite:attribute name="idAutreRole" type="String" shortDescription="Id autre rôle"/> 
+            <composite:attribute name="autreRole" type="String" shortDescription="Autre Rôle"/> 
+            
+            <composite:attribute name="idModeAcquisition" type="String" default="idPrenom"  shortDescription="Id du Prénom de l'intervenant"/> 
+            <composite:attribute name="modeAcquisition" type="org.vng.entities.TModeacquis" shortDescription="Le mode d'acquisition"/>
+            <composite:attribute name="listeModeAcquisition" type="java.util.List"/>
+            
+            <composite:attribute name="idAutreModeAcquisition" type="String" shortDescription="Id d'autre mode d'acqusition"/> 
+            <composite:attribute name="autreModeAcquisition"  type="String" shortDescription="Autre mode d'acquisition"/>
+            
+            <composite:attribute name="idDeQui"  type="String" shortDescription="Id du sexe de l'intervenant"/> 
+            <composite:attribute name="deQui" type="String" shortDescription="De qui a t-il eu le droit"/>
+            
+            <composite:attribute name="idPrix"  type="String" shortDescription="Id du prix de l'opération pour les cas d'achat"/> 
+            <composite:attribute name="prix" type="String" shortDescription="Prix de l'opération pour les cas d'achat"/>
+            <composite:attribute name="prixActif" default="false" type="java.lang.Boolean"/>
+            
+            <composite:attribute name="idDepuisQuand"  type="String" shortDescription="Id de la date à laquelle il a acquis le droit"/> 
+            <composite:attribute name="depuisQuand"  type="java.util.Date" shortDescription="Date à laquelle il a acquis le droit"/>
+                        
+            <composite:attribute name="idConditionPaiement" type="String" shortDescription="Id de la condition de paiement"/> 
+            <composite:attribute name="conditionPaiement" type="org.vng.entities.TConditionpaie" shortDescription="Condition de paiement du prix"/>
+            <composite:attribute name="conditionPaiementActif" default="false" type="java.lang.Boolean"/>
+            <composite:attribute name="listeConditionPaiement" type="java.util.List"/>
+            
+            <composite:attribute name="idAutreConditionPaiement" type="String" shortDescription="Id d'autre condition de paiement"/> 
+            <composite:attribute name="autreConditionPaiement" type="String" shortDescription="Autre Condition de paiement du prix"/>
+            <composite:attribute name="autreConditionPaiementActif" default="false" type="java.lang.Boolean"/>
+           
+            
+            <composite:attribute name="idContrePartie" type="String" shortDescription="Id contre partie"/> 
+            <composite:attribute name="contrePartie" type="String" shortDescription="Contrepartie"/>
+            <composite:attribute name="contrePartieActif" default="false" type="java.lang.Boolean"/>
+            <composite:attribute name="listeContrePartie" type="java.util.List"/>
+            
+            <composite:attribute name="idAutreModalite" type="String" shortDescription="Id autre modalité"/> 
+            <composite:attribute name="autreModalite" type="String" shortDescription="Autre modalité de paiement"/>
+            <composite:attribute name="autreModaliteActif" default="false" type="java.lang.Boolean"/>
+            <composite:attribute name="listeAutreModalite" type="java.util.List"/>
+            
+            
+            <composite:attribute name="idObservation" type="String" shortDescription="Id de 'observation relative à l'opération"/> 
+            <composite:attribute name="observation"  type="String" shortDescription="Observation relative à l'opération"/>
+            
+            <composite:attribute name="idNatureDroitOP" type="String" shortDescription="Id de la nature du droit opérationnel"/> 
+            <composite:attribute name="natureDroitOP"  type="String" shortDescription="Nature du droit opérationnel"/>
+            
+            <composite:attribute name="idDuree" type="String" shortDescription="Id durée du droit d'usage"/> 
+            <composite:attribute name="duree"  type="String" shortDescription="Durée du droit d'usage"/>
+            
+            <composite:attribute name="idDureeIndeterminee" type="String" shortDescription="Id durée indéterminée du droit d'usage"/> 
+            <composite:attribute name="dureeIndeterminee"  type="String" shortDescription="Durée indétermine droit d'usage"/>
+            
+            <composite:attribute name="idRattachement" type="String" shortDescription="Id de rattachement"/> 
+            <composite:attribute name="rattachement"  type="String" shortDescription="rattachement"/>
+            
+            <composite:attribute name="idFormalise" type="String" shortDescription="Id de formalise"/> 
+            <composite:attribute name="formalise"  type="String" shortDescription="Formalise"/>
+            
+            <composite:attribute name="idRepresente" type="String" shortDescription="Id l'ayant droit est - il réprésenté ?"/> 
+            <composite:attribute name="represente" type="String" shortDescription="Ls'ayant droit est - il réprésenté ?"/> 
+    
+             <composite:attribute name="idFonction" type="String" shortDescription="Id de la fonction"/> 
+            <composite:attribute name="fonction" type="String" shortDescription="fonction"/> 
+            
+            <composite:attribute name="idStructure" type="String" shortDescription="Id de la Structure"/> 
+            <composite:attribute name="structure" type="String" shortDescription="Structure"/> 
+    
+            <composite:attribute name="idCiPP" type="String" shortDescription="Id du numéro de la carte d'identité ou du passport"/> 
+            <composite:attribute name="ciPP" type="String" shortDescription="numéro de la carte d'identité ou du passport"/> 
+    
+            <composite:attribute name="idCollectivite" type="String" shortDescription="Id de la collectivité"/> 
+            <composite:attribute name="collectivite" type="String" shortDescription="Collectivté"/> 
+    
+            
+            <composite:attribute name="idDateExpCiCPP" default="idDateNaiss" type="String" shortDescription="Id de la date d'expiration de la CI PP"/> 
+            <composite:attribute name="dateExpCiCPP"  type="java.util.Date" shortDescription="Date d'expiration de la CI PP"/>
+            
+            <composite:attribute name="idNumeroOperationVente" type="String" shortDescription="Id du numéro de l'opération de vente"/> 
+            <composite:attribute name="numeroOperationVente" type="String" shortDescription="numéro de l'opération de vente"/> 
+    
+            <composite:attribute name="idNumeroOpVente" type="String" shortDescription="Id du numéro de l'opération de vente de celui qui cède"/> 
+            <composite:attribute name="numeroOpVente" type="String" shortDescription="numéro de l'opération de vente de celui qui cède"/> 
+            
+            <composite:attribute name="idNumeroOpVentePreneur" type="String" shortDescription="Id du numéro de l'opération de vente du bénéficiaire"/> 
+            <composite:attribute name="numeroOpVentePreneur" type="String" shortDescription="numéro de l'opération de vente du bénéficiaire"/> 
+            
+            <composite:attribute name="idLongeurLimitrophe" type="String" shortDescription="Id de la distance longeur du limitrophe avec la parcelle"/> 
+            <composite:attribute name="longeurLimitrophe" type="String" shortDescription="distance longeur du limitrophe avec la parcelle"/> 
+            
+            <composite:attribute name="idLimitationAdmin" type="String" shortDescription="Id de la limitation du droit d'administration"/> 
+            <composite:attribute name="limitationAdmin" type="java.lang.Boolean" shortDescription="Limitation du droit d'administration"/> 
+            
+            <composite:attribute name="idAutreLimitationAdmin" type="String" shortDescription="Id autre limitation du droit d'administration"/> 
+            <composite:attribute name="autreLimitationAdmin" type="java.lang.Boolean" shortDescription="Autre Limitation du droit d'administration"/> 
+            
+            <composite:attribute name="idAutreLimitationAdminChaine" type="String" shortDescription="Id autre limitation (chaine saisie) du droit d'administration"/> 
+            <composite:attribute name="autreLimitationAdminChaine" type="String" shortDescription="Autre limitation (chaine saisie) du droit d'administration"/> 
+            <composite:attribute name="autreLimitationAdminChaineActif" default="false" type="java.lang.Boolean"/> 
+            
+            <composite:attribute name="limitationLegue" default="false" type="java.lang.Boolean"/>
+            <composite:attribute name="limitationVente" default="false" type="java.lang.Boolean"/>
+            <composite:attribute name="limitationPret" default="false" type="java.lang.Boolean"/>
+            <composite:attribute name="limitationDon" default="false" type="java.lang.Boolean"/>
+            
+            
+            <composite:attribute name="readOnly" default="false" type="java.lang.Boolean"/>
+             <composite:attribute name="op" default="false" type="java.lang.Boolean"/>
+             <composite:attribute name="de" default="false" type="java.lang.Boolean"/>
+             <composite:attribute name="lim" default="false" type="java.lang.Boolean"/>
+            
+            <composite:attribute name="rechercheButtonText" type="String"/> 
+            <composite:attribute name="rechercheAction" method-signature="java.lang.String action()"/>
+            
+            <composite:attribute name="iddialogActivite" shortDescription="Id du Dialog des activités" />
+            
+            
+          <composite:attribute name="droitExerceActif" default="false" type="java.lang.Boolean"/>
+          <composite:attribute name="ajouterDroitExerceAction" method-signature="java.lang.String action()"/> 
+          <composite:attribute name="listeTypeDroitExerce" type="java.util.List"/>
+          <composite:attribute name="listeTypeDroitExerceAdmin" />
+          <composite:attribute name="typeDroitExerce" />
+          
+         <composite:attribute name="selectAction" method-signature="java.lang.String action()"/> 
+            
+        </composite:interface> 
+
+        
+        <composite:implementation> 
+                    
+                           <div class="ui-g-12 ui-lg-6">                                
+                                <div class="card card-w-title" style="padding: 0px; padding-top: 0px; margin-bottom: 0px;">
+                                  
+                                    
+                                   <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                       
+                                        <p:outputLabel  value="#{msg.hint_role}" for="#{cc.attrs.idRole}" />                                       
+                                        <p:selectOneMenu id="#{cc.attrs.idRole}" disabled="#{cc.attrs.readOnly}" filter="true" filterMatchMode="contains" style="max-width: 400px; min-width: 100px;" value="#{cc.attrs.role}">
+                                                <f:selectItem itemValue=""/>
+                                                <f:selectItems value="#{cc.attrs.listeRole}"/>
+                                       </p:selectOneMenu> 
+                                        
+                                       <p:outputLabel  value="#{msg.hint_autre_role}" for="#{cc.attrs.idAutreRole}" />                                         
+                                       <p:inputText id= "#{cc.attrs.idAutreRole}" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.autreRole}"/>
+                                                                              
+                                       <p:outputLabel value="#{msg.hint_rattachement}" for="#{cc.attrs.idRattachement}" />
+                                       <p:inputText id="#{cc.attrs.idRattachement}" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.rattachement}" /> 
+                                       
+                                      
+                                       <h:outputText value="#{msg.label_representer_par}" rendered="#{cc.attrs.de}" />
+                                        <p:selectBooleanCheckbox id= "#{cc.attrs.idRepresente}" value="#{cc.attrs.represente}" disabled="#{cc.attrs.readOnly}" rendered="#{cc.attrs.de}" />
+                                       
+                                        <p:outputLabel  value="#{msg.hint_collectivite}" for="#{cc.attrs.idCollectivite}" rendered="#{cc.attrs.de}" />                                         
+                                        <p:inputText id= "#{cc.attrs.idCollectivite}" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.collectivite}" rendered="#{cc.attrs.de}"/>
+                                         
+                                        <p:outputLabel  value="#{msg.hint_structure}" for="#{cc.attrs.idStructure}" />                                         
+                                        <p:inputText id= "#{cc.attrs.idStructure}" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.structure}"/>
+                                       
+                                        <p:outputLabel  value="#{msg.hint_fonction}" for="#{cc.attrs.idFonction}" />                                         
+                                        <p:inputText id= "#{cc.attrs.idFonction}" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.fonction}"/>
+                                       
+                                        <p:outputLabel  value="#{msg.hint_observation}" for="#{cc.attrs.idObservation}" />                                         
+                                        <p:inputTextarea autoResize="true" id= "#{cc.attrs.idObservation}" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.observation}"/>
+                                         
+                                        
+                                        <p:outputLabel  value="#{msg.hint_mode_acquisition}" for="#{cc.attrs.idModeAcquisition}" />                                       
+                                        <p:selectOneMenu  id="#{cc.attrs.idModeAcquisition}" disabled="#{cc.attrs.readOnly}" filter="true" filterMatchMode="contains" style="max-width: 400px; min-width: 100px;" value="#{cc.attrs.modeAcquisition}">
+                                                <f:selectItem itemValue=""/>
+                                                <f:selectItems value="#{cc.attrs.listeModeAcquisition}"/>
+                                       </p:selectOneMenu> 
+
+                                        <p:outputLabel  value="#{msg.hint_autre_mode_acquisition}" for="#{cc.attrs.idAutreModeAcquisition}" />                                         
+                                        <p:inputText id= "#{cc.attrs.idAutreModeAcquisition}" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.autreModeAcquisition}"/>
+                                                                              
+                                        <p:outputLabel value="#{msg.hint_deQui}" for="#{cc.attrs.idDeQui}" />
+                                        <p:inputText id="#{cc.attrs.idDeQui}" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.deQui}" /> 
+                                       
+                                        <p:outputLabel value="#{msg.hint_depuis_quand}" for="#{cc.attrs.idDepuisQuand}" />
+                                        <p:calendar id="#{cc.attrs.idDepuisQuand}" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.depuisQuand}" pattern="dd/MM/yyyy" effect="fold" />
+                                        
+                                       <p:outputLabel value="#{msg.hint_prix}" for="#{cc.attrs.idPrix}" />
+                                        <p:inputText id="#{cc.attrs.idPrix}" readonly="#{cc.attrs.readOnly and !cc.attrs.prixActif}" value="#{cc.attrs.prix}" />
+                                        
+                                        
+                                        <p:outputLabel  value="#{msg.hint_condition_paiement}" for="#{cc.attrs.idConditionPaiement}" />                                       
+                                        <p:selectOneMenu id="#{cc.attrs.idConditionPaiement}" disabled="#{cc.attrs.readOnly}"  filter="true" filterMatchMode="contains" style="max-width: 400px; min-width: 100px;" value="#{cc.attrs.conditionPaiement}">
+                                                <f:selectItem itemValue=""/>
+                                                <f:selectItems value="#{cc.attrs.listeConditionPaiement}"/>
+                                       </p:selectOneMenu> 
+                                       
+                                        <p:outputLabel  value="#{msg.hint_autre_condition_paiement}" for="#{cc.attrs.idAutreConditionPaiement}" />                                         
+                                        <p:inputText id= "#{cc.attrs.idAutreConditionPaiement}" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.autreConditionPaiement}"/>
+                                             
+                                 </p:panelGrid>
+                                   
+                               </div>
+                               
+                           </div>
+                           <div class="ui-g-12 ui-lg-6">                        
+                                <div class="card card-w-title" style="padding: 0px; margin-bottom: 0px;">
+                                   
+                                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                       
+                                        
+                                        
+                                        <p:outputLabel  value="#{msg.hint_contrepartie}" for="#{cc.attrs.idContrePartie}" />                                       
+                                        <p:selectOneMenu id="#{cc.attrs.idContrePartie}"  filter="true" filterMatchMode="contains" style="max-width: 400px; min-width: 100px;" value="#{cc.attrs.contrePartie}">
+                                                <f:selectItem itemValue=""/>
+                                                <f:selectItems value="#{cc.attrs.listeContrePartie}"/>
+                                       </p:selectOneMenu> 
+                                        
+                                        
+                                        <p:outputLabel  value="#{msg.hint_autre_modalite}" for="#{cc.attrs.idAutreModalite}" />                                       
+                                        <p:selectOneMenu id="#{cc.attrs.idAutreModalite}"  filter="true" filterMatchMode="contains" style="max-width: 400px; min-width: 100px;" value="#{cc.attrs.autreModalite}">
+                                                <f:selectItem itemValue=""/>
+                                                <f:selectItems value="#{cc.attrs.listeAutreModalite}"/>
+                                       </p:selectOneMenu> 
+                                        
+                                        <p:outputLabel  value="#{msg.hint_limitation}" for="#{cc.attrs.idLimitationAdmin}" />
+                                   
+                                        <p:selectOneRadio id="#{cc.attrs.idLimitationAdmin}" layout="responsive" columns="2" disabled="#{cc.attrs.readOnly}" value="#{cc.attrs.limitationAdmin}">
+                                               <f:selectItem itemLabel="#{msg.label_oui}" itemValue="true" />
+                                               <f:selectItem itemLabel="#{msg.label_non}" itemValue="false" />                                          
+                                        </p:selectOneRadio>
+                                       
+                                 </p:panelGrid>
+                                
+                                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                       
+                                         <p:selectManyMenu showCheckbox="true" style="max-width:350px;">
+                                             <f:selectItem itemLabel="#{msg.hint_limitation_leg}" itemValue="#{cc.attrs.limitationLegue}"/>
+                                             <f:selectItem itemLabel="#{msg.hint_limitation_vente}" itemValue="#{cc.attrs.limitationVente}" />
+                                             <f:selectItem itemLabel="#{msg.hint_limitation_pret}" itemValue="#{cc.attrs.limitationPret}" />
+                                             <f:selectItem itemLabel="#{msg.hint_limitation_don}" itemValue="#{cc.attrs.limitationDon}" />
+                                             <f:selectItem  itemLabel="#{msg.hint_limitation_autre_a_preciser}" itemValue="#{cc.attrs.autreLimitationAdmin}" />
+                                       </p:selectManyMenu>
+                                       
+                                 </p:panelGrid>
+                                    
+                                   
+                                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                       
+                                        <p:outputLabel  value="#{msg.hint_autre_limitation}" for="#{cc.attrs.idAutreLimitationAdminChaine}" />                                         
+                                        <p:inputText id= "#{cc.attrs.idAutreLimitationAdminChaine}" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.autreLimitationAdminChaine}"/>
+                                       
+                                     </p:panelGrid>
+                                    
+                                </div>
+                               
+                           </div>
+            
+            
+                          <div class="ui-g-12 ui-lg-6" style="padding: 0px; margin-bottom: 0px;">                                
+                                
+                                       <div class="card" style="padding: 10px;" >
+                                        <p:lightBox styleClass="imagebox" id="lighbox1">
+                                         <!-- #{cc.attrs.photoCompletIntervenant} -->
+                                         <!-- #{cc.attrs.photoIntervenant} -->
+                                            <h:outputLink value="demo/images/nature/nature1.jpg" title="Photo complet">  
+                                                <p:graphicImage name="demo/images/nature/nature1.jpg" style="height: 77px; width: auto; margin-right: 10px;" />  
+                                            </h:outputLink>
+                                         
+                                         
+                                         
+                                            <h:outputLink value="#demo/images/nature/nature1.jpg" title="Photo d'identité">  
+                                                <p:graphicImage name="demo/images/nature/nature1.jpg" style="height: 77px; width: auto; margin-right: 10px;" />  
+                                            </h:outputLink>
+                                          </p:lightBox>
+                                       </div>
+                              <div class="card"  >
+                                 
+                                  
+                                        <p:panel header="Droits d'administrations" >  
+                                              <h:panelGroup rendered="#{cc.attrs.droitExerceActif}" style="width: 100%; ">
+                                                    
+                                                    <p:outputLabel  value="#{msg.label_type_droit_exerce}" for="table_liste_droit" />                                       
+                                                    <p:selectOneMenu id="spin_droit_exercet_temp"  filter="true" filterMatchMode="contains" style="max-width: 400px; min-width: 100px;" value="#{cc.attrs.typeDroitExerce}">
+                                                            <f:selectItem itemValue=""/>
+                                                            <f:selectItems value="#{cc.attrs.listeTypeDroitExerce}"/>
+                                                   </p:selectOneMenu> 
+                                                    
+                                                    <h:commandButton value="Ajouter" >                                                       
+                                                        <f:ajax event="click" listener="#{cc.attrs.ajouterDroitExerceAction}" render="c" />
+                                                    </h:commandButton>
+                                              </h:panelGroup>
+
+
+                                                  <p:dataTable var="droitExo" value="#{cc.attrs.listeTypeDroitExerceAdmin}" emptyMessage="Aucun droit exercé..." id="table_liste_droit" >  
+                                                      
+                                                        <p:column >
+                                                            
+                                                            <h:outputText value="#{droitExo.dreTdeCode.tdeDesig}"/>
+                                                        </p:column> 
+                                                      
+                                                    </p:dataTable>  
+
+
+                                          </p:panel>
+                               </div>
+                           </div>
+                          
+                 
+        </composite:implementation>
+
+     
+
+
+    </h:body>
+</html>
+

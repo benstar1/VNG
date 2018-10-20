@@ -54,6 +54,9 @@ public class TParcelleBafonController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
+    
+    
+    
 
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TParcelleBafonCreated"));

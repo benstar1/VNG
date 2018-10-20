@@ -5,7 +5,10 @@
  */
 package org.vng.sessions;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.vng.entities.TPeriodicite;
@@ -27,6 +30,17 @@ public class TPeriodiciteFacade extends AbstractFacade<TPeriodicite> {
 
     public TPeriodiciteFacade() {
         super(TPeriodicite.class);
+    }
+    
+     public List<SelectItem> getListePeriodiciteItem(String categorie)
+    {
+        List<TPeriodicite> list= findAll();
+        List<SelectItem> item = new ArrayList<>();
+        for (TPeriodicite object : list)    
+        { 
+            item.add(new SelectItem(object, ""+object.getPerDesig()));
+        }
+        return item;
     }
     
 }

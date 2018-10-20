@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>This is not displayed</title> 
+        <h:outputStylesheet library="css" name="styles.css" />
+    </h:head>
+    <h:body>
+       
+        
+                 
+
+  <composite:interface>
+    
+          <composite:attribute name="titre" shortDescription="Titre du Dialog" />
+          <composite:attribute name="pieddialog" shortDescription="Pied du Dialog" />
+          <composite:attribute name="id" shortDescription="ID du composant Dialog" />         
+          <composite:attribute name="idDataTable" default="dataTableListagem" shortDescription="Id de la table" /> 
+          <composite:attribute name="SelectEntity" shortDescription="Nom de l'entité" />
+          <composite:attribute name="listData" shortDescription="Liste des parcelle" />
+          <composite:attribute name="listDatafiltre" shortDescription="Liste des parcelle filtré" />
+          <composite:attribute name="updateeltm" shortDescription="Composant de mise à jour" />
+          
+          
+         <composite:attribute name="selectAction" method-signature="java.lang.String action()"/> 
+    
+  </composite:interface>
+   
+  <composite:implementation>
+        
+       <p:dialog id="#{cc.attrs.id}" header="#{cc.attrs.titre}" 
+               footer="#{cc.attrs.pieddialog}" widgetVar="#{cc.attrs.id}" modal="true" 
+               showEffect="fade" hideEffect="fade" closeOnEscape="true" width="950" height="450">
+           
+          <h:form>
+              <p:dataTable value="#{cc.attrs.listData}"  var="item" id="#{cc.attrs.idDataTable}" widgetVar="parcelleInvTable"
+                                 emptyMessage="Aucun Ayant droit disponible" filteredValue= "#{cc.attrs.listDatafiltre}" 
+                                 rows="12" rowsPerPageTemplate="6,12,16"                                 
+                                 paginator="true" selectionMode="single" selection= "#{cc.attrs.SelectEntity}" rowKey="#{item.invPbaNumero.pbaNumero}"
+                                 >
+                            
+                             
+                         
+                           <p:ajax event="rowDblselect"  listener="#{cc.attrs.selectAction}" update= "#{cc.attrs.updateeltm}" oncomplete="PF('#{cc.attrs.id}').hide()" />
+                       
+                        <p:column filterBy="#{item.invPbaNumero.pbaNumero}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.hint_pbaNumero}" />
+                            </f:facet>
+                            <h:outputText value="#{item.invPbaNumero.pbaNumero}"/>
+                        </p:column>  
+                        
+                           
+                        <p:column filterBy="#{item.invPbaNumero.pbaTbfCode.tbfDesig}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.hint_pbaTypeParcelle}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invPbaNumero.pbaTbfCode.tbfDesig}"/>
+                        </p:column>
+                        
+                    
+                        <p:column filterBy="#{item.invIntNumero.intNom}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.hint_nom}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invIntNumero.intNom}"/>                        
+                        </p:column>
+                        <p:column filterBy="#{item.invIntNumero.intPrenom}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.hint_prenom}"/>
+                            </f:facet>
+                             <h:outputText value="#{item.invIntNumero.intPrenom}"/>
+                        </p:column>
+                        
+                        <p:column filterBy="#{item.invPbaNumero.pbaVilaCode.vlaDesig}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.hint_village}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invPbaNumero.pbaVilaCode.vlaDesig}"/>                            
+                        </p:column>
+                           
+                        <p:column filterBy="#{item.invPbaNumero.pbaVilaCode.vilaArrCode.arrDesig}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.hint_arrondissement}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invPbaNumero.pbaVilaCode.vilaArrCode.arrDesig}"/>
+                            
+                        </p:column>                          
+
+                       </p:dataTable>
+              </h:form>
+         </p:dialog> 
+
+  </composite:implementation>
+
+
+    </h:body>
+</html>
+

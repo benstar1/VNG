@@ -5,10 +5,14 @@
  */
 package org.vng.sessions;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.vng.entities.TLienDetenteur;
+import org.vng.entities.TLignage;
 
 /**
  *
@@ -27,6 +31,19 @@ public class TLienDetenteurFacade extends AbstractFacade<TLienDetenteur> {
 
     public TLienDetenteurFacade() {
         super(TLienDetenteur.class);
+    }
+    
+    
+     public List<SelectItem> getListeLienAvecDetenteurItem()
+    {
+        List<TLienDetenteur> list= findAll();
+        List<SelectItem> item = new ArrayList<>();
+        for (TLienDetenteur object : list)    
+        { 
+            item.add(new SelectItem(object, ""+object.getLienDesig()));
+        }
+    
+        return item;
     }
     
 }

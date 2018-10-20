@@ -5,9 +5,13 @@
  */
 package org.vng.sessions;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import org.vng.entities.TLienDetenteur;
 import org.vng.entities.TModePartage;
 
 /**
@@ -28,5 +32,18 @@ public class TModePartageFacade extends AbstractFacade<TModePartage> {
     public TModePartageFacade() {
         super(TModePartage.class);
     }
+    
+     public List<SelectItem> getListeModePartageItem()
+    {
+        List<TModePartage> list= findAll();
+        List<SelectItem> item = new ArrayList<>();
+        for (TModePartage object : list)    
+        { 
+            item.add(new SelectItem(object, ""+object.getMopLib()));
+        }
+    
+        return item;
+    }
+    
     
 }

@@ -1,0 +1,283 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>This is not displayed</title> 
+        <!-- h:outputStylesheet library="css" name="styles.css" / -->
+    </h:head>
+    
+    <h:body>
+        <composite:interface> 
+            <!-- Nom  -->
+            <composite:attribute name="idNom" default="idNom" type="String" shortDescription="Id du Nom de l'intervenant"/> 
+            <composite:attribute name="nom" required="true" type="String" shortDescription="Nom(s) de l'intervenant"/> 
+            
+            <composite:attribute name="idPrenom" type="String" default="idPrenom"  shortDescription="Id du Prénom de l'intervenant"/> 
+            <composite:attribute name="prenom" required="true" type="String" shortDescription="Prénom(s) de l'intervenant"/>
+            
+            <composite:attribute name="idDomicile" default="idDomicile" type="String" shortDescription="Id du domicile de l'intervenant"/> 
+            <composite:attribute name="domicile" required="true" type="String" shortDescription="Domicile de l'intervenant"/>
+            
+            <composite:attribute name="idSexe" default="idSexe" type="String" shortDescription="Id du sexe de l'intervenant"/> 
+            <composite:attribute name="sexe" required="true" type="String" shortDescription="Sexe de l'intervenant"/>
+            
+            <composite:attribute name="idAge" default="idAge" type="String" shortDescription="Id de l'age de l'intervenant"/> 
+            <composite:attribute name="age" required="true" type="String" shortDescription="Age de l'intervenant"/>
+            
+            <composite:attribute name="idDateNaiss" default="idDateNaiss" type="String" shortDescription="Id de la date de naissance"/> 
+            <composite:attribute name="dateNaiss"  type="java.util.Date" shortDescription="Date de naissance"/>
+            
+            
+            <composite:attribute name="idTelephone" default="idTelephone" type="String" shortDescription="Id de téléphone de l'intervenant"/> 
+            <composite:attribute name="telephone" required="true" type="String" shortDescription="téléphone de l'intervenant"/>
+            
+            <composite:attribute name="idCiPP" default="idCiPP" type="String" shortDescription="Id du numéro de la carte d'identité/ Passe port"/> 
+            <composite:attribute name="ciPP"  type="String" shortDescription="Numéro de la carte d'identité/ Passe port de l'intervenant"/>
+            
+            <composite:attribute name="idDateExpCiPP" default="iddateExpCiPP" type="String" shortDescription="Id de la date d'expiration de la CI/PP"/> 
+            <composite:attribute name="dateExpCiPP"  type="java.util.Date" shortDescription="Date d'expiration de la CI/PP de l'intervenant"/>
+            
+            <composite:attribute name="idLepi" default="idLepi" type="String" shortDescription="Id du numéro de la carte Lepi"/> 
+            <composite:attribute name="lepi"  type="String" shortDescription="Numéro de la carte Lepi"/>
+            
+            <composite:attribute name="idIfu" default="idIfu" type="String" shortDescription="Id du numéro IFU"/> 
+            <composite:attribute name="ifu"  type="String" shortDescription="Numéro IFU"/>
+            
+            <composite:attribute name="idRavip" default="idRavip" type="String" shortDescription="Id du numéro RAVIP"/> 
+            <composite:attribute name="ravip"  type="String" shortDescription="Numéro RAVIP"/>
+            
+            <composite:attribute name="idNationalite" default="idNationalite" type="String" shortDescription="Id de la nationalité"/> 
+            <composite:attribute name="nationalite"  type="String" shortDescription="Nationalité de l'intervenant"/>
+            
+            <composite:attribute name="idNationaliteAutre" default="idNationaliteAutre" type="String" shortDescription="Id de autre nationalité "/> 
+            <composite:attribute name="nationaliteAutre"  type="String" shortDescription="Autre nationalité de l'intervenant"/>
+            
+            
+            <composite:attribute name="listeEthinie" type="java.util.List"/>
+            <composite:attribute name="idEthnie" default="idEthnie" type="String" shortDescription="Id de l'ethnie de l'intervenant"/> 
+            <composite:attribute name="ethnie"  type="org.vng.entities.TEthnie" shortDescription="Ethnie de l'intervenant"/>
+            
+            
+            <composite:attribute name="idEthnieAutre" default="idEthnieAutre" type="String" shortDescription="Id d'autre ethnie de l'intervenant"/> 
+            <composite:attribute name="ethnieAutre"  type="String" shortDescription="Autre ethnie de l'intervenant"/>
+            
+            <composite:attribute name="idLignageAutre" default="idLignage" type="String" shortDescription="Id du lignage l'intervenant"/> 
+            <composite:attribute name="lignageAutre"  type="String" shortDescription="lignage de l'intervenant"/>
+            
+            <composite:attribute name="idphotoCompletIntervenant" default="idphotoCompletIntervenant" type="String" shortDescription="Id du lignage l'intervenant"/> 
+            <composite:attribute name="photoCompletIntervenant"  type="String" shortDescription="chemin de la photo complète"/>
+            
+             <composite:attribute name="idPhotoIntervenant" default="idPhotoIntervenant" type="String" shortDescription="Id de la photo de l'intervenant"/> 
+            <composite:attribute name="photoIntervenant"  type="String" shortDescription="Photo d'identité de l'intervenant"/>
+            
+            <composite:attribute name="readOnly" default="false" type="java.lang.Boolean"/>
+             <composite:attribute name="autreActiviteActif" default="false" type="java.lang.Boolean"/>
+             <composite:attribute name="autreEthnieActif" default="false" type="java.lang.Boolean"/>
+             <composite:attribute name="autreNationaliteActif" default="false" type="java.lang.Boolean"/>
+            
+            <composite:attribute name="rechercheButtonText" type="String"/> 
+            <composite:attribute name="rechercheAction" method-signature="java.lang.String action()"/>
+            
+            <composite:attribute name="iddialogActivite" shortDescription="Id du Dialog des activités" />
+            
+            <composite:attribute name="listeActivite" type="java.util.List"/>
+            <composite:attribute name="idActivite" default="idActivite" type="String" shortDescription="Id de l'activité de l'intervenant"/> 
+            <composite:attribute name="activite" type="org.vng.entities.TActivite" shortDescription="Activité de l'intervenant"/>
+            <composite:attribute name="idActiviteAutre" default="idActiviteAutre" type="String" shortDescription="Id de autre activité de l'intervenant"/> 
+            <composite:attribute name="activiteAutre"  type="String" shortDescription="AUtre activité de l'intervenant"/>
+            
+            
+            
+            
+        </composite:interface> 
+
+        
+        <composite:implementation> 
+                    
+            <div class="ui-g-12 ui-lg-6">                                
+                               <div class="card card-w-title" style="padding: 0px; padding-top: 0px; margin-bottom: 0px;">
+                                   
+                                   <p:panelGrid columns="6" rendered="#{cc.attrs.readOnly}" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                       <p:column>                                           
+                                       </p:column> 
+                                       <p:column>                                           
+                                       </p:column>  
+                                       <p:column>                                           
+                                       </p:column>  
+                                       <p:column>                                           
+                                       </p:column> 
+                                       <p:column>                                           
+                                       </p:column>
+                                       <p:column>
+                                           <p:commandButton value="#{cc.attrs.rechercheButtonText}"  type="button" onclick="PF('#{cc.attrs.iddialog}').show();"/>
+
+                                       </p:column>  
+                                     
+                                   </p:panelGrid>
+                                   
+                               </div>
+                               
+                               <div class="card card-w-title" style="padding: 0px; margin-bottom: 0px;">
+                                   
+                                   <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                       
+                                          <p:outputLabel  value="#{msg.hint_nom}" for="#{cc.attrs.idNom}" />                                       
+                                          <p:inputText id="#{cc.attrs.idNom}" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.nom}"/>                                       
+                                    
+                                         <p:outputLabel  value="#{msg.hint_prenom}" for="#{cc.attrs.idPrenom}" /> 
+                                         <p:inputText id="#{cc.attrs.idPrenom}" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.prenom}"/>
+                                      
+                                         <p:outputLabel value="#{msg.hint_dateNais}"  for="#{cc.attrs.idDateNaiss}" />
+                                         <p:calendar id="#{cc.attrs.idDateNaiss}" readonly="#{cc.attrs.readOnly}" pattern="MM/dd/yyyy" effect="fold" value="#{cc.attrs.dateNaiss}" />
+                                        
+                                         
+                                   </p:panelGrid>
+                                   
+                               </div>
+                           
+                
+                            <div class="card card-w-title" style="padding: 0px; margin-bottom: 0px;">                                 
+                                <div class="ui-g-12 ui-lg-6">
+                                    <p:selectOneRadio layout="responsive" columns="2" value="#{cc.attrs.sexe}" disabled="#{cc.attrs.readOnly}">
+                                            <f:selectItem itemLabel="#{msg.hint_sexe_masculin}" itemValue="#{msg.hint_sexe_masculin_VAL}" />
+                                            <f:selectItem itemLabel="#{msg.hint_sexe_feminin}" itemValue="#{msg.hint_sexe_feminin_VAL}" />                                          
+                                        </p:selectOneRadio>
+                                    
+                                </div> 
+                                
+                                <div class="ui-g-12 ui-lg-6">
+                                    
+                                    
+                                         <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                       
+                                                <p:outputLabel value="#{msg.hint_nationalité}"  for="spin_nationalite" />
+                                                <p:selectOneMenu id="spin_nationalite"  value="#{cc.attrs.nationalite}" disabled="#{cc.attrs.readOnly}" required="true" label=" ">
+                                                     <f:selectItem itemLabel="" itemValue="" noSelectionOption="true" />
+                                                     <f:selectItem itemLabel="#{msg.hint_nationalite_beninois}" itemValue="#{msg.hint_nationalite_beninois}" />
+                                                     <f:selectItem itemLabel="#{msg.hint_nationalite_autre}" itemValue="#{msg.hint_nationalite_autre}" />                                           
+                                                 </p:selectOneMenu>
+
+                                          </p:panelGrid>
+                                    
+                                </div> 
+                              </div>
+                
+                             <div class="card card-w-title" style="padding: 0px; margin-bottom: 0px;">                                 
+                                   <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                     
+                                        <p:outputLabel  value="#{msg.hint_autre_nationalité}" for="#{cc.attrs.idNationaliteAutre}" />                                         
+                                        <p:inputText id= "#{cc.attrs.idNationaliteAutre}" readonly="#{cc.attrs.autreNationaliteActif and !cc.attrs.readOnly}" value="#{cc.attrs.nationaliteAutre}"/>
+                                       
+                                        <p:outputLabel  value="#{msg.hint_activite}" for="#{cc.attrs.idActivite}" />                                       
+                                        <p:selectOneMenu id="#{cc.attrs.idActivite}" disabled="#{cc.attrs.readOnly}" filter="true" filterMatchMode="contains" style="max-width: 400px; min-width: 100px;" value="#{cc.attrs.activite}">
+                                                <f:selectItem itemValue=""/>
+                                                <f:selectItems value="#{cc.attrs.listeActivite}"/>
+                                       </p:selectOneMenu> 
+
+                                       <p:outputLabel  value="#{msg.hint_autre_activite}" for="#{cc.attrs.idActiviteAutre}" />                                         
+                                       <p:inputText id= "#{cc.attrs.idActiviteAutre}" readonly="#{!(cc.attrs.autreActiviteActif and cc.attrs.readOnly)}" value="#{cc.attrs.activiteAutre}"/>
+                                       
+                                       
+                                       <p:outputLabel value="#{msg.hint_domicile}" for="#{cc.attrs.idDomicile}" />
+                                       <p:inputText id="#{cc.attrs.idDomicile}" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.domicile}" /> 
+                                       
+                                       <p:outputLabel  value="#{msg.hint_telephone}" for="#{cc.attrs.idTelephone}" />                                         
+                                       <p:inputText id= "#{cc.attrs.idTelephone}" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.telephone}"/>
+                                      
+                                        
+                                 </p:panelGrid>
+                               
+                              </div>
+                              
+                           </div>
+                           <div class="ui-g-12 ui-lg-6">                        
+                                <div class="card card-w-title" style="padding: 0px; padding-top: 8px; margin-bottom: 0px;">
+                                    
+                                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                        
+                                       <p:outputLabel  value="#{msg.hint_ethnie}" for="#{cc.attrs.idEthnie}" />                                       
+                                       <p:selectOneMenu id="#{cc.attrs.idEthnie}" disabled="#{cc.attrs.readOnly}" filter="true" filterMatchMode="contains" style="max-width: 400px;" value="#{cc.attrs.ethnie}">
+                                                <f:selectItem itemValue=""/>
+                                                <f:selectItems value="#{cc.attrs.listeEthinie}"/>
+                                       </p:selectOneMenu> 
+
+                                       
+                                       <p:outputLabel  value="#{msg.hint_autre_ethnie}" for="#{cc.attrs.idEthnieAutre}" />                                         
+                                       <p:inputText id= "#{cc.attrs.idEthnieAutre}" readonly="#{cc.attrs.autreEthnieActif and cc.attrs.readOnly}" value="#{cc.attrs.ethnieAutre}"/>
+                                       
+                                       <p:outputLabel  value="#{msg.hint_lignage}" for="#{cc.attrs.idLignageAutre}" />                                         
+                                       <p:inputText id= "#{cc.attrs.idLignageAutre}" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.lignageAutre}"/>
+                                       
+                                       <p:outputLabel  value="#{msg.hint_CiPp}" for="#{cc.attrs.idCiPP}" />                                         
+                                       <p:inputText id= "#{cc.attrs.idCiPP}" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.ciPP}"/>
+                                       
+                                       <p:outputLabel  value="#{msg.hint_dateExpCiPP}" for="#{cc.attrs.idDateExpCiPP}" />   
+                                       <p:calendar id="#{cc.attrs.idDateExpCiPP}" readonly="#{cc.attrs.readOnly}" pattern="MM/dd/yyyy" effect="fold" value="#{cc.attrs.dateExpCiPP}" />
+                                       
+                                       <p:outputLabel  value="#{msg.hint_lepi}" for="#{cc.attrs.idLepi}" />                                         
+                                       <p:inputText id= "#{cc.attrs.idLepi}" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.lepi}"/>
+                                       
+                                       <p:outputLabel  value="#{msg.hint_Ifu}" for="#{cc.attrs.idIfu}" />                                         
+                                       <p:inputText id= "#{cc.attrs.idIfu}" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.ifu}"/>
+                                       
+                                       <p:outputLabel  value="#{msg.hint_ravip}" for="#{cc.attrs.idRavip}" />                                         
+                                       <p:inputText id= "#{cc.attrs.idRavip}" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.ravip}"/>
+                                       
+                                 </p:panelGrid>
+                                    
+                                </div>
+                               
+                           </div>
+            
+            
+                          <div class="ui-g-12 ui-lg-6" style="padding: 0px; margin-bottom: 0px;">                                
+                                                             
+                               
+                                   <div class="card" style="padding: 10px;" >
+                                     <p:lightBox styleClass="imagebox" id="lighbox1">
+                                         <!-- #{cc.attrs.photoCompletIntervenant} -->
+                                         <!-- #{cc.attrs.photoIntervenant} -->
+                                            <h:outputLink value="demo/images/nature/nature1.jpg" title="Photo complet">  
+                                                <p:graphicImage name="demo/images/nature/nature1.jpg" style="height: 77px; width: auto; margin-right: 10px;" />  
+                                            </h:outputLink>
+                                         
+                                         
+                                         
+                                            <h:outputLink value="#demo/images/nature/nature1.jpg" title="Photo d'identité">  
+                                                <p:graphicImage name="demo/images/nature/nature1.jpg" style="height: 77px; width: auto; margin-right: 10px;" />  
+                                            </h:outputLink>
+                                        </p:lightBox>
+                                       </div>
+                               
+                           </div>
+                           <!-- div class="ui-g-12 ui-lg-6">
+                                <div class="card card-w-title" style="padding: 0px; margin-bottom: 0px;">
+                                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                  
+                                    
+                                    </p:panelGrid>
+                                    
+                                </div>
+                               
+                               <div class="card card-w-title" style="padding: 0px; margin-bottom: 0px;">
+                                    
+                                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                       
+                                        
+                                    </p:panelGrid>
+                                    
+                                </div>
+                            </div  -->        
+                 
+        </composite:implementation>
+
+     
+
+
+    </h:body>
+</html>
+

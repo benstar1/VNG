@@ -18,14 +18,17 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.vng.entities.TActivite;
 
-@Named("tIntervenirController")
+@Named("intervenirController")
 @SessionScoped
 public class TIntervenirController implements Serializable {
 
     @EJB
     private org.vng.sessions.TIntervenirFacade ejbFacade;
     private List<TIntervenir> items = null;
+    private List<TIntervenir> itemsFilter = null;
+    private List<TActivite> itemsFilterActivite = null;
     private TIntervenir selected;
 
     public TIntervenirController() {
@@ -121,6 +124,38 @@ public class TIntervenirController implements Serializable {
         return getFacade().findAll();
     }
 
+    public List<TIntervenir> getItemsFilter() {
+        return itemsFilter;
+    }
+
+    public void setItemsFilter(List<TIntervenir> itemsFilter) {
+        this.itemsFilter = itemsFilter;
+    }
+
+    public List<TActivite> getItemsFilterActivite() {
+        return itemsFilterActivite;
+    }
+
+    public void setItemsFilterActivite(List<TActivite> itemsFilterActivite) {
+        this.itemsFilterActivite = itemsFilterActivite;
+    }
+    
+    
+
+    /**
+     * 
+     * @return Liste des ayant 
+     */
+   public List<TIntervenir> getlisteAyantDroit() {
+        return getFacade().findListParcelleByCategorie("DE");
+    }
+    
+    public List<TIntervenir> getlisteAyantDroitCategorieParcelAgricol() {
+        //return getFacade().findListParcelleByCategorie("DE");
+        return getFacade().findListParcelleByTypeParcelleCategorie("DE", "TBF01");
+  
+    }
+    
     @FacesConverter(forClass = TIntervenir.class)
     public static class TIntervenirControllerConverter implements Converter {
 

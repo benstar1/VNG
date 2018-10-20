@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+         xmlns:ui="http://java.sun.com/jsf/facelets"
+         xmlns:h="http://java.sun.com/jsf/html"
+         xmlns:f="http://java.sun.com/jsf/core"
+         xmlns:p="http://primefaces.org/ui"
+         xmlns:composite="http://java.sun.com/jsf/composite">
+    
+    
+    
+    
+    <h:head>
+        <title>This is not displayed</title> 
+        <h:outputStylesheet library="css" name="styles.css" />
+    </h:head>
+    <h:body>
+     
+        
+         
+
+  <composite:interface>
+         <composite:attribute name="idDataTable" default="dataTableListagem"
+               shortDescription="Id de la table" />
+         <composite:attribute name="managedBeanName" type="br.com.meuprojeto.mb.BasicCrudMBImpl" required="true"
+               shortDescription="Nom du managedBean" />         
+         <composite:attribute name="loginAction" method-signature="java.lang.String action()"/> 
+  </composite:interface>
+   
+  <composite:implementation>
+         
+      
+      <p:dialog id="#{cc.attrs.id}" header="#{cc.attrs.titulo}" maximizable="true"
+               footer="#{cc.attrs.pieddialog}" widgetVar="var#{cc.attrs.id}" modal="true"
+               showEffect="fade" hideEffect="fade" closeOnEscape="true">
+          <h:form styleClass="jsfcrud_list_form">
+                    <p:dataTable rowKey="#{bean.id}" var="item"
+                                 value="#{contribController.findListContrib}" paginator="true"
+                             emptyMessage="Aucun contribuable disponible" rows="10"
+                             id="#{cc.attrs.idDataTable}"
+                             selection="#{cc.attrs.managedBeanName.bean}" selectionMode="single">
+
+                             <p:ajax event="rowDblselect" listener="#{cc.attrs.loginAction}" update="@form" id="loginButton"  />
+                           
+                             <p:column filterBy="#{item.contImmatr}" filterMatchMode="contains">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.CreateContribTitle_contImmatr}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.contImmatr}"/>
+                             </p:column>                       
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.CreateContribTitle_contRais}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contRais}"/>
+                        </p:column>
+
+                       </p:dataTable>
+              </h:form>
+         </p:dialog> 
+  </composite:implementation>
+
+
+    </h:body>
+</html>
+

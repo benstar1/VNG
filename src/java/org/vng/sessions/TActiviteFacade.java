@@ -5,7 +5,10 @@
  */
 package org.vng.sessions;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.vng.entities.TActivite;
@@ -27,6 +30,19 @@ public class TActiviteFacade extends AbstractFacade<TActivite> {
 
     public TActiviteFacade() {
         super(TActivite.class);
+    }
+    
+    
+    public List<SelectItem> getListeActiviteItem()
+    {
+        List<TActivite> list= findAll();
+        List<SelectItem> item = new ArrayList<>();
+        for (TActivite object : list)    
+        { 
+            item.add(new SelectItem(object, ""+object.getActDesig()));
+        }
+    
+        return item;
     }
     
 }

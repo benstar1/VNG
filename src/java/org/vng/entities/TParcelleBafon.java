@@ -86,6 +86,41 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "TParcelleBafon.findByPbaPfr", query = "SELECT t FROM TParcelleBafon t WHERE t.pbaPfr = :pbaPfr")})
 public class TParcelleBafon implements Serializable {
 
+    @OneToMany(mappedBy = "patyPbaNumero")
+    private List<TParcelleTypeBf> tParcelleTypeBfList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tParcelleBafon")
+    private List<TParcellePoca> tParcellePocaList;
+    @OneToMany(mappedBy = "papoPbaNumeroLimit")
+    private List<TParcellePoca> tParcellePocaList1;
+
+    @Size(max = 30)
+    @Column(name = "pba_adc_reference")
+    private String pbaAdcReference;
+    @Column(name = "pba_adc_date")
+    @Temporal(TemporalType.DATE)
+    private Date pbaAdcDate;
+    @Size(max = 100)
+    @Column(name = "pba_adc_signataire")
+    private String pbaAdcSignataire;
+    @Size(max = 200)
+    @Column(name = "pba_adc_image")
+    private String pbaAdcImage;
+    @Size(max = 30)
+    @Column(name = "pba_foncier_reference")
+    private String pbaFoncierReference;
+    @Column(name = "pba_foncier_date")
+    @Temporal(TemporalType.DATE)
+    private Date pbaFoncierDate;
+    @Size(max = 100)
+    @Column(name = "pba_foncier_signataire")
+    private String pbaFoncierSignataire;
+    @Size(max = 200)
+    @Column(name = "pba_foncier_image")
+    private String pbaFoncierImage;
+    @JoinColumn(name = "pba_code_geo", referencedColumnName = "uti_code")
+    @ManyToOne
+    private TUtilisateur pbaCodeGeo;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -102,9 +137,9 @@ public class TParcelleBafon implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "pba_superficie")
     private BigDecimal pbaSuperficie;
-    @Size(max = 50)
-    @Column(name = "pba_code_geo")
-    private String pbaCodeGeo;
+   // @Size(max = 50)
+   // @Column(name = "pba_code_geo")
+//    private String pbaCodeGeo;
     @Size(max = 5000)
     @Column(name = "pba_histoire")
     private String pbaHistoire;
@@ -279,14 +314,14 @@ public class TParcelleBafon implements Serializable {
         this.pbaSuperficie = pbaSuperficie;
     }
 
-    public String getPbaCodeGeo() {
+ /*   public String getPbaCodeGeo() {
         return pbaCodeGeo;
     }
 
     public void setPbaCodeGeo(String pbaCodeGeo) {
         this.pbaCodeGeo = pbaCodeGeo;
     }
-
+*/
     public String getPbaHistoire() {
         return pbaHistoire;
     }
@@ -758,6 +793,105 @@ public class TParcelleBafon implements Serializable {
     @Override
     public String toString() {
         return "org.vng.entities.TParcelleBafon[ pbaNumero=" + pbaNumero + " ]";
+    }
+
+    public String getPbaAdcReference() {
+        return pbaAdcReference;
+    }
+
+    public void setPbaAdcReference(String pbaAdcReference) {
+        this.pbaAdcReference = pbaAdcReference;
+    }
+
+    public Date getPbaAdcDate() {
+        return pbaAdcDate;
+    }
+
+    public void setPbaAdcDate(Date pbaAdcDate) {
+        this.pbaAdcDate = pbaAdcDate;
+    }
+
+    public String getPbaAdcSignataire() {
+        return pbaAdcSignataire;
+    }
+
+    public void setPbaAdcSignataire(String pbaAdcSignataire) {
+        this.pbaAdcSignataire = pbaAdcSignataire;
+    }
+
+    public String getPbaAdcImage() {
+        return pbaAdcImage;
+    }
+
+    public void setPbaAdcImage(String pbaAdcImage) {
+        this.pbaAdcImage = pbaAdcImage;
+    }
+
+    public String getPbaFoncierReference() {
+        return pbaFoncierReference;
+    }
+
+    public void setPbaFoncierReference(String pbaFoncierReference) {
+        this.pbaFoncierReference = pbaFoncierReference;
+    }
+
+    public Date getPbaFoncierDate() {
+        return pbaFoncierDate;
+    }
+
+    public void setPbaFoncierDate(Date pbaFoncierDate) {
+        this.pbaFoncierDate = pbaFoncierDate;
+    }
+
+    public String getPbaFoncierSignataire() {
+        return pbaFoncierSignataire;
+    }
+
+    public void setPbaFoncierSignataire(String pbaFoncierSignataire) {
+        this.pbaFoncierSignataire = pbaFoncierSignataire;
+    }
+
+    public String getPbaFoncierImage() {
+        return pbaFoncierImage;
+    }
+
+    public void setPbaFoncierImage(String pbaFoncierImage) {
+        this.pbaFoncierImage = pbaFoncierImage;
+    }
+
+    public TUtilisateur getPbaCodeGeo() {
+        return pbaCodeGeo;
+    }
+
+    public void setPbaCodeGeo(TUtilisateur pbaCodeGeo) {
+        this.pbaCodeGeo = pbaCodeGeo;
+    }
+
+    @XmlTransient
+    public List<TParcelleTypeBf> getTParcelleTypeBfList() {
+        return tParcelleTypeBfList;
+    }
+
+    public void setTParcelleTypeBfList(List<TParcelleTypeBf> tParcelleTypeBfList) {
+        this.tParcelleTypeBfList = tParcelleTypeBfList;
+    }
+
+    @XmlTransient
+    public List<TParcellePoca> getTParcellePocaList() {
+        return tParcellePocaList;
+    }
+
+    public void setTParcellePocaList(List<TParcellePoca> tParcellePocaList) {
+        this.tParcellePocaList = tParcellePocaList;
+    }
+
+    @XmlTransient
+    public List<TParcellePoca> getTParcellePocaList1() {
+        return tParcellePocaList1;
+    }
+
+    public void setTParcellePocaList1(List<TParcellePoca> tParcellePocaList1) {
+        this.tParcellePocaList1 = tParcellePocaList1;
     }
     
 }

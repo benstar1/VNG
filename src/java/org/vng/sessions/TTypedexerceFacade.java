@@ -5,9 +5,13 @@
  */
 package org.vng.sessions;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import org.vng.entities.TTypedexerce;
 
 /**
@@ -27,6 +31,59 @@ public class TTypedexerceFacade extends AbstractFacade<TTypedexerce> {
 
     public TTypedexerceFacade() {
         super(TTypedexerce.class);
+    }
+    
+    
+    public  List<TTypedexerce>  findListTypeDroitExerceByCategorie(String categorie){
+          Query query;
+          query=getEntityManager().createNamedQuery("TTypedexerce.findByTdeCat").setParameter("tdeCat",categorie);
+          return query.getResultList();
+            }
+    
+    
+    public List<SelectItem> getListeTypeDroitExerceItem()
+    {
+        List<TTypedexerce> list= findAll();
+        List<SelectItem> item = new ArrayList<>();
+        for (TTypedexerce object : list)    
+        { 
+            item.add(new SelectItem(object, ""+object.getTdeDesig()));
+        }
+        return item;
+    }
+    
+    
+    public List<SelectItem> getListeTypeDroitExerceCategItem(String categorie)
+    {
+        List<TTypedexerce> list= findListTypeDroitExerceByCategorie(categorie);
+        List<SelectItem> item = new ArrayList<>();
+        for (TTypedexerce object : list)    
+        { 
+            item.add(new SelectItem(object, ""+object.getTdeDesig()));
+        }
+        return item;
+    }
+    
+    public List<SelectItem> getListeTypeDroitExerceDEItem()
+    {
+        List<TTypedexerce> list= findListTypeDroitExerceByCategorie("DE");
+        List<SelectItem> item = new ArrayList<>();
+        for (TTypedexerce object : list)    
+        { 
+            item.add(new SelectItem(object, ""+object.getTdeDesig()));
+        }
+        return item;
+    }
+    
+    public List<SelectItem> getListeTypeDroitExerceOPItem()
+    {
+        List<TTypedexerce> list= findListTypeDroitExerceByCategorie("OP");
+        List<SelectItem> item = new ArrayList<>();
+        for (TTypedexerce object : list)    
+        { 
+            item.add(new SelectItem(object, ""+object.getTdeDesig()));
+        }
+        return item;
     }
     
 }

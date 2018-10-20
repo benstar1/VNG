@@ -5,7 +5,10 @@
  */
 package org.vng.sessions;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.vng.entities.TTypedrevendiq;
@@ -27,6 +30,17 @@ public class TTypedrevendiqFacade extends AbstractFacade<TTypedrevendiq> {
 
     public TTypedrevendiqFacade() {
         super(TTypedrevendiq.class);
+    }
+    
+     public List<SelectItem> getListeTypeDroitRevendiqueItem()
+    {
+        List<TTypedrevendiq> list= findAll();
+        List<SelectItem> item = new ArrayList<>();
+        for (TTypedrevendiq object : list)    
+        { 
+            item.add(new SelectItem(object, ""+object.getTyreDesig()));
+        }
+        return item;
     }
     
 }

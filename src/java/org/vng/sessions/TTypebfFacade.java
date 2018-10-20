@@ -5,7 +5,10 @@
  */
 package org.vng.sessions;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.vng.entities.TTypebf;
@@ -27,6 +30,19 @@ public class TTypebfFacade extends AbstractFacade<TTypebf> {
 
     public TTypebfFacade() {
         super(TTypebf.class);
+    }
+    
+      
+    public List<SelectItem> getListeTypeBFItem()
+    {
+        List<TTypebf> list= findAll();
+        List<SelectItem> item = new ArrayList<>();
+        for (TTypebf object : list)    
+        { 
+            item.add(new SelectItem(object, ""+object.getTbfDesig()));
+        }
+    
+        return item;
     }
     
 }

@@ -74,6 +74,7 @@ public class TStatutController implements Serializable {
         }
     }
 
+   
     public List<TStatut> getItems() {
         if (items == null) {
             items = getFacade().findAll();

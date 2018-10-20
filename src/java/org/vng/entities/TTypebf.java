@@ -33,6 +33,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "TTypebf.findByTbfDesig", query = "SELECT t FROM TTypebf t WHERE t.tbfDesig = :tbfDesig")})
 public class TTypebf implements Serializable {
 
+    @OneToMany(mappedBy = "patyTbfCode")
+    private List<TParcelleTypeBf> tParcelleTypeBfList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -101,6 +104,15 @@ public class TTypebf implements Serializable {
     @Override
     public String toString() {
         return "org.vng.entities.TTypebf[ tbfCode=" + tbfCode + " ]";
+    }
+
+    @XmlTransient
+    public List<TParcelleTypeBf> getTParcelleTypeBfList() {
+        return tParcelleTypeBfList;
+    }
+
+    public void setTParcelleTypeBfList(List<TParcelleTypeBf> tParcelleTypeBfList) {
+        this.tParcelleTypeBfList = tParcelleTypeBfList;
     }
     
 }

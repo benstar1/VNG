@@ -5,7 +5,10 @@
  */
 package org.vng.sessions;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.vng.entities.TLignage;
@@ -27,6 +30,19 @@ public class TLignageFacade extends AbstractFacade<TLignage> {
 
     public TLignageFacade() {
         super(TLignage.class);
+    }
+    
+    
+    public List<SelectItem> getListeLignageItem()
+    {
+        List<TLignage> list= findAll();
+        List<SelectItem> item = new ArrayList<>();
+        for (TLignage object : list)    
+        { 
+            item.add(new SelectItem(object, ""+object.getLigDesig()));
+        }
+    
+        return item;
     }
     
 }

@@ -5,7 +5,10 @@
  */
 package org.vng.sessions;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.vng.entities.TTypeDomaineParcel;
@@ -27,6 +30,18 @@ public class TTypeDomaineParcelFacade extends AbstractFacade<TTypeDomaineParcel>
 
     public TTypeDomaineParcelFacade() {
         super(TTypeDomaineParcel.class);
+    }
+    
+    public List<SelectItem> getListeTypeDomaineItem()
+    {
+        List<TTypeDomaineParcel> list= findAll();
+        List<SelectItem> item = new ArrayList<>();
+        for (TTypeDomaineParcel object : list)    
+        { 
+            item.add(new SelectItem(object, ""+object.getTydoLib()));
+        }
+    
+        return item;
     }
     
 }
