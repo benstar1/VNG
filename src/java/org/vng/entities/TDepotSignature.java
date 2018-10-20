@@ -122,6 +122,7 @@ public class TDepotSignature implements Serializable {
 
     public void setDesiIntNumero(TIntervenant desiIntNumero) {
         this.desiIntNumero = desiIntNumero;
+        System.out.println(" Intervenant "+desiIntNumero.getIntNumero());
     }
 
     public TUtilisateur getDesiUtiCode() {

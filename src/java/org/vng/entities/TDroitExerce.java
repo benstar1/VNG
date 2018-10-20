@@ -10,11 +10,14 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -38,8 +41,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "TDroitExerce.findByDreCatParcelle", query = "SELECT t FROM TDroitExerce t WHERE t.dreCat = :dreCat AND t.drePbaNumero.pbaNumero = :numParcelle")
     , @NamedQuery(name = "TDroitExerce.findByDreDateEnquete", query = "SELECT t FROM TDroitExerce t WHERE t.dreDateEnquete = :dreDateEnquete")
     , @NamedQuery(name = "TDroitExerce.findByDreRolAutre", query = "SELECT t FROM TDroitExerce t WHERE t.dreRolAutre = :dreRolAutre")
+    , @NamedQuery(name = "TDroitExerce.findByParcelleCat", query = "SELECT t FROM TDroitExerce t WHERE t.dreDateFin is null AND t.drePbaNumero = :parcelle AND t.dreCat = :catDroit")
     , @NamedQuery(name = "TDroitExerce.findByDreTdeAutre", query = "SELECT t FROM TDroitExerce t WHERE t.dreTdeAutre = :dreTdeAutre")
     , @NamedQuery(name = "TDroitExerce.findByDreDateChargement", query = "SELECT t FROM TDroitExerce t WHERE t.dreDateChargement = :dreDateChargement")})
+@SequenceGenerator(name="tDroitExerceSequence", initialValue=1, allocationSize=1,sequenceName = "seq_id_droit_exerce")
+
 public class TDroitExerce implements Serializable {
 
     @JoinColumn(name = "dre_opv_numero_preneur", referencedColumnName = "opv_numero")
@@ -51,6 +57,7 @@ public class TDroitExerce implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue( strategy = GenerationType.IDENTITY,generator = "tDroitExerceSequence")
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)

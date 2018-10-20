@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Dev_DI
+ * @author AAKAKPO
  */
 @Entity
 @Table(name = "t_parcelle_poca")

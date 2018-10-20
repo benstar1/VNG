@@ -13,12 +13,15 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -74,7 +77,11 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "TOperationParcel.findByOpvMacAutre", query = "SELECT t FROM TOperationParcel t WHERE t.opvMacAutre = :opvMacAutre")
     , @NamedQuery(name = "TOperationParcel.findByOpvLigCode", query = "SELECT t FROM TOperationParcel t WHERE t.opvLigCode = :opvLigCode")
     , @NamedQuery(name = "TOperationParcel.findByOpvCiPp", query = "SELECT t FROM TOperationParcel t WHERE t.opvCiPp = :opvCiPp")
+    , @NamedQuery(name = "TOperationParcel.findMaxOperation", query = "SELECT Max(t.opvNumero) FROM TOperationParcel t WHERE t.opvNumero LIKE :annee")
+    , @NamedQuery(name = "TOperationParcel.findByMode", query = "SELECT t FROM TOperationParcel t WHERE t.opvMacCode in :mode")
+    , @NamedQuery(name = "TOperationParcel.findByCategorieMode", query = "SELECT t FROM TOperationParcel t WHERE t.opvMacCode.macCat = :categorieMode")
     , @NamedQuery(name = "TOperationParcel.findByOpvDateExpCiPp", query = "SELECT t FROM TOperationParcel t WHERE t.opvDateExpCiPp = :opvDateExpCiPp")})
+//@SequenceGenerator(name="tOperationParcelSequence", initialValue=1, allocationSize=1,sequenceName = "seq_id_operation_parcel")
 public class TOperationParcel implements Serializable {
 
     @Size(max = 10)
@@ -89,6 +96,7 @@ public class TOperationParcel implements Serializable {
     @JoinColumn(name = "opv_sign_code", referencedColumnName = "sign_code")
     @ManyToOne
     private TSignataire opvSignCode;
+
     @OneToMany(mappedBy = "dreOpvNumeroPreneur")
     private List<TDroitExerce> tDroitExerceList;
     @OneToMany(mappedBy = "dreOpvNumero")
@@ -96,6 +104,7 @@ public class TOperationParcel implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    //@GeneratedValue( strategy = GenerationType.IDENTITY,generator = "tOperationParcelSequence")
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 15)
@@ -719,6 +728,24 @@ public class TOperationParcel implements Serializable {
         return "org.vng.entities.TOperationParcel[ opvNumero=" + opvNumero + " ]";
     }
 
+    @XmlTransient
+    public List<TDroitExerce> getTDroitExerceList() {
+        return tDroitExerceList;
+    }
+
+    public void setTDroitExerceList(List<TDroitExerce> tDroitExerceList) {
+        this.tDroitExerceList = tDroitExerceList;
+    }
+
+    @XmlTransient
+    public List<TDroitExerce> getTDroitExerceList1() {
+        return tDroitExerceList1;
+    }
+
+    public void setTDroitExerceList1(List<TDroitExerce> tDroitExerceList1) {
+        this.tDroitExerceList1 = tDroitExerceList1;
+    }
+
     public String getOpvStatut() {
         return opvStatut;
     }
@@ -749,24 +776,22 @@ public class TOperationParcel implements Serializable {
 
     public void setOpvSignCode(TSignataire opvSignCode) {
         this.opvSignCode = opvSignCode;
+        this.setOpvNomMaire(opvSignCode.getSignNom()+" "+opvSignCode.getSignPrenom());
     }
 
-    @XmlTransient
-    public List<TDroitExerce> getTDroitExerceList() {
-        return tDroitExerceList;
-    }
+  
 
-    public void setTDroitExerceList(List<TDroitExerce> tDroitExerceList) {
-        this.tDroitExerceList = tDroitExerceList;
-    }
 
-    @XmlTransient
-    public List<TDroitExerce> getTDroitExerceList1() {
-        return tDroitExerceList1;
-    }
 
-    public void setTDroitExerceList1(List<TDroitExerce> tDroitExerceList1) {
-        this.tDroitExerceList1 = tDroitExerceList1;
-    }
+
+
+  
+
+  
+
+ 
+
+
+  
     
 }

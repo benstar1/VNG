@@ -58,6 +58,7 @@ public class TUtilisateur implements Serializable {
     @OneToMany(mappedBy = "pbaCodeGeo")
     private List<TParcelleBafon> tParcelleBafonList;
 
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)

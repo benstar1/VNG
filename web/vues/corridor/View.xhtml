@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CorridorViewDlg" widgetVar="CorridorViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewCorridorTitle}">
+            <h:form id="CorridorViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{corridorController.selected != null}">
+                        <h:outputText value="#{bundle.ViewCorridorLabel_gid}"/>
+                        <h:outputText value="#{corridorController.selected.gid}" title="#{bundle.ViewCorridorTitle_gid}"/>
+                        <h:outputText value="#{bundle.ViewCorridorLabel_guid}"/>
+                        <h:outputText value="#{corridorController.selected.guid}" title="#{bundle.ViewCorridorTitle_guid}"/>
+                        <h:outputText value="#{bundle.ViewCorridorLabel_districtname}"/>
+                        <h:outputText value="#{corridorController.selected.districtname}" title="#{bundle.ViewCorridorTitle_districtname}"/>
+                        <h:outputText value="#{bundle.ViewCorridorLabel_districtnumber}"/>
+                        <h:outputText value="#{corridorController.selected.districtnumber}" title="#{bundle.ViewCorridorTitle_districtnumber}"/>
+                        <h:outputText value="#{bundle.ViewCorridorLabel_countyname}"/>
+                        <h:outputText value="#{corridorController.selected.countyname}" title="#{bundle.ViewCorridorTitle_countyname}"/>
+                        <h:outputText value="#{bundle.ViewCorridorLabel_countynumber}"/>
+                        <h:outputText value="#{corridorController.selected.countynumber}" title="#{bundle.ViewCorridorTitle_countynumber}"/>
+                        <h:outputText value="#{bundle.ViewCorridorLabel_subcountyname}"/>
+                        <h:outputText value="#{corridorController.selected.subcountyname}" title="#{bundle.ViewCorridorTitle_subcountyname}"/>
+                        <h:outputText value="#{bundle.ViewCorridorLabel_subcountynumber}"/>
+                        <h:outputText value="#{corridorController.selected.subcountynumber}" title="#{bundle.ViewCorridorTitle_subcountynumber}"/>
+                        <h:outputText value="#{bundle.ViewCorridorLabel_parishname}"/>
+                        <h:outputText value="#{corridorController.selected.parishname}" title="#{bundle.ViewCorridorTitle_parishname}"/>
+                        <h:outputText value="#{bundle.ViewCorridorLabel_parishnumber}"/>
+                        <h:outputText value="#{corridorController.selected.parishnumber}" title="#{bundle.ViewCorridorTitle_parishnumber}"/>
+                        <h:outputText value="#{bundle.ViewCorridorLabel_villagename}"/>
+                        <h:outputText value="#{corridorController.selected.villagename}" title="#{bundle.ViewCorridorTitle_villagename}"/>
+                        <h:outputText value="#{bundle.ViewCorridorLabel_villagenumber}"/>
+                        <h:outputText value="#{corridorController.selected.villagenumber}" title="#{bundle.ViewCorridorTitle_villagenumber}"/>
+                        <h:outputText value="#{bundle.ViewCorridorLabel_clerk}"/>
+                        <h:outputText value="#{corridorController.selected.clerk}" title="#{bundle.ViewCorridorTitle_clerk}"/>
+                        <h:outputText value="#{bundle.ViewCorridorLabel_date}"/>
+                        <h:outputText value="#{corridorController.selected.date}" title="#{bundle.ViewCorridorTitle_date}"/>
+                        <h:outputText value="#{bundle.ViewCorridorLabel_type}"/>
+                        <h:outputText value="#{corridorController.selected.type}" title="#{bundle.ViewCorridorTitle_type}"/>
+                        <h:outputText value="#{bundle.ViewCorridorLabel_hoffset}"/>
+                        <h:outputText value="#{corridorController.selected.hoffset}" title="#{bundle.ViewCorridorTitle_hoffset}"/>
+                        <h:outputText value="#{bundle.ViewCorridorLabel_geom}"/>
+                        <h:outputText value="#{corridorController.selected.geom}" title="#{bundle.ViewCorridorTitle_geom}"/>
+                        <h:outputText value="#{bundle.ViewCorridorLabel_corPbaNumero}"/>
+                        <h:outputText value="#{corridorController.selected.corPbaNumero}" title="#{bundle.ViewCorridorTitle_corPbaNumero}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="CorridorViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

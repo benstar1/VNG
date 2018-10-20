@@ -6,20 +6,26 @@ import org.vng.controlers.util.JsfUtil.PersistAction;
 import org.vng.sessions.TTypedexerceFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.model.SelectItem;
 
-@Named("tTypedexerceController")
+
+//@Named("tTypedexerceController")
+@ManagedBean
 @SessionScoped
 public class TTypedexerceController implements Serializable {
 
@@ -27,10 +33,21 @@ public class TTypedexerceController implements Serializable {
     private org.vng.sessions.TTypedexerceFacade ejbFacade;
     private List<TTypedexerce> items = null;
     private TTypedexerce selected;
+    List<SelectItem> typeDroitItem = new ArrayList<>();     
 
     public TTypedexerceController() {
     }
 
+    public List<SelectItem> getTypeDroitItem() {
+        return typeDroitItem;
+    }
+
+    public void setTypeDroitItem(List<SelectItem> typeDroitItem) {
+        this.typeDroitItem = typeDroitItem;
+    }
+
+    
+    
     public TTypedexerce getSelected() {
         return selected;
     }
@@ -79,6 +96,16 @@ public class TTypedexerceController implements Serializable {
             items = getFacade().findAll();
         }
         return items;
+    }
+    
+    @PostConstruct
+    public void getItemsTypeDroitCat(){
+        List<TTypedexerce> listtd=null;   
+            listtd = ejbFacade.executeListeTypeDroit("DE");
+            for (TTypedexerce td : listtd) {
+                typeDroitItem.add(new SelectItem(td, td.getTdeCode()+ " --> " + td.getTdeDesig()));
+            }
+       
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

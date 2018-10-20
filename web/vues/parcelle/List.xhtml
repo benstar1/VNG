@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListParcelleTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="ParcelleListForm"  >
+                <p:panel header="#{bundle.ListParcelleTitle}">
+                    <p:dataTable id="datalist" value="#{parcelleController.items}" var="item"
+                                 selectionMode="single" selection="#{parcelleController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.gid}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_gid}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.gid}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_guid}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.guid}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_districtname}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.districtname}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_districtnumber}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.districtnumber}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_countyname}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.countyname}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_countynumber}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.countynumber}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_subcountyname}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.subcountyname}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_subcountynumber}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.subcountynumber}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_parishname}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.parishname}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_parishnumber}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.parishnumber}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_villagename}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.villagename}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_villagenumber}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.villagenumber}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_clerk}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.clerk}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_date}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.date}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_lat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lat}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_lon}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lon}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_east}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.east}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_north}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.north}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_datecreate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.datecreate}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_datelasted}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.datelasted}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_parcelleno}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.parcelleno}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_geoid}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.geoid}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_hectares}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.hectares}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_utilizatio}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.utilizatio}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_users}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.users}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_neighbours}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.neighbours}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_witnesses}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.witnesses}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_use}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.use}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_landtype}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.landtype}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_photo1}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.photo1}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_photo2}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.photo2}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_photo3}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.photo3}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_sketch}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.sketch}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_grouppic}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.grouppic}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_geom}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.geom}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListParcelleTitle_parPbaNumero}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.parPbaNumero}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{parcelleController.prepareCreate}" update=":ParcelleCreateForm" oncomplete="PF('ParcelleCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ParcelleViewForm" oncomplete="PF('ParcelleViewDialog').show()" disabled="#{empty parcelleController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ParcelleEditForm" oncomplete="PF('ParcelleEditDialog').show()" disabled="#{empty parcelleController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{parcelleController.destroy}" update=":growl,datalist" disabled="#{empty parcelleController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

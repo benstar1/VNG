@@ -30,6 +30,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "TModeacquis.findAll", query = "SELECT t FROM TModeacquis t")
     , @NamedQuery(name = "TModeacquis.findByMacCode", query = "SELECT t FROM TModeacquis t WHERE t.macCode = :macCode")
+    , @NamedQuery(name = "TModeacquis.findByHeritage", query = "SELECT t FROM TModeacquis t WHERE t.macCode ='MD009' OR t.macCode ='MD002' ")
+    , @NamedQuery(name = "TModeacquis.findByOperationnel", query = "SELECT t FROM TModeacquis t WHERE t.macCat ='OP' ")
     , @NamedQuery(name = "TModeacquis.findByMacDesig", query = "SELECT t FROM TModeacquis t WHERE t.macDesig = :macDesig")
     , @NamedQuery(name = "TModeacquis.findByMacCat", query = "SELECT t FROM TModeacquis t WHERE t.macCat = :macCat")})
 public class TModeacquis implements Serializable {

@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author Dev_DI
+ * @author AAKAKPO
  */
 @Embeddable
 public class TParcellePocaPK implements Serializable {

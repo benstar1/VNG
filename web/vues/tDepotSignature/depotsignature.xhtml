@@ -1,0 +1,106 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="./../../WEB-INF/template.xhtml">
+
+    <ui:define name="title">Générer numéro parcelle</ui:define>
+    <ui:define name="viewname">
+
+        <li>Etat Civil</li>
+        <li>/</li>
+        <li><p:link outcome="depotsignature.xhtml">Depot signature</p:link></li>
+    </ui:define>
+
+    <ui:define name="content">
+        <style>
+            .arborescence{
+                overflow:scroll;
+            }
+            .carte{
+                overflow:scroll;
+            }
+        </style>
+        <div class="container">
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <div class="card card-w-title" >
+                        <h2>Depot de signatures</h2>
+                        <h:form id="TDepotSignatureListForm">
+                            <p:growl id="messages" showDetail="true" />
+                            <p:panel header="#{bundle.ListTDepotSignatureTitle}">
+                                <p:dataTable id="datalist" value="#{tDepotSignatureController.items}" var="item"
+                                             selectionMode="single" selection="#{tDepotSignatureController.selected}"
+                                             paginator="true"
+                                             rowKey="#{item.desiCode}"
+                                             rows="10"
+                                             rowsPerPageTemplate="10,20,30,40,50"
+                                             >
+
+                                    <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                                    <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Numero"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.desiCode}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Reference"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.desiReference}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Date debut"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.desiDateDeb}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Date fin"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.desiDateFin}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Nom Intervenant"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.desiIntNumero.intNom}"/>
+                                    </p:column>
+                                    
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Prenom Intervenant"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.desiIntNumero.intPrenom}"/>
+                                    </p:column>
+                                   
+                                    <f:facet name="footer">
+                                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tDepotSignatureController.prepareCreate}" update=":TDepotSignatureCreateForm" oncomplete="PF('TDepotSignatureCreateDialog').show()"/>
+                                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TDepotSignatureViewForm" oncomplete="PF('TDepotSignatureViewDialog').show()" disabled="#{empty tDepotSignatureController.selected}"/>
+                                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TDepotSignatureEditForm" oncomplete="PF('TDepotSignatureEditDialog').show()" disabled="#{empty tDepotSignatureController.selected}"/>
+                                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{tDepotSignatureController.destroy}" update=":TDepotSignatureListForm:messages,datalist" disabled="#{empty tDepotSignatureController.selected}"/>
+                                    </f:facet>
+                                </p:dataTable>
+                            </p:panel>
+                        </h:form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ui:include src="Create.xhtml"/>
+        <ui:include src="Edit.xhtml"/>
+        <ui:include src="View.xhtml"/>
+        <ui:include src="ListIntervenant.xhtml"/>
+    </ui:define>
+
+</ui:composition>

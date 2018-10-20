@@ -27,6 +27,17 @@ public class TParcelleBafonFacade extends AbstractFacade<TParcelleBafon> {
     protected EntityManager getEntityManager() {
         return em;
     }
+    public List<TParcelleBafon> executeListeParcelleEncours(){
+        int i=0;
+        List<TParcelleBafon> listeparcelles =null;
+        try{
+            Query q=em.createNamedQuery("TParcelleBafon.findByCommuneEncours");
+            listeparcelles=q.getResultList();
+        }catch(Exception e){
+            System.out.println("Probleme de consolidation de parcelle : insertion "+e);
+        }
+        return listeparcelles;
+    }
 
     
     public TParcelleBafonFacade() {

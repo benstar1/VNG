@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
@@ -27,6 +28,7 @@ public class TDepotSignatureController implements Serializable {
     private org.vng.sessions.TDepotSignatureFacade ejbFacade;
     private List<TDepotSignature> items = null;
     private TDepotSignature selected;
+    int i=0;
 
     public TDepotSignatureController() {
     }
@@ -48,6 +50,11 @@ public class TDepotSignatureController implements Serializable {
     private TDepotSignatureFacade getFacade() {
         return ejbFacade;
     }
+    
+    @PostConstruct
+    private void initdepot(){
+            selected=new TDepotSignature();
+    }
 
     public TDepotSignature prepareCreate() {
         selected = new TDepotSignature();
@@ -56,6 +63,8 @@ public class TDepotSignatureController implements Serializable {
     }
 
     public void create() {
+        i++;
+        selected.setDesiCode(String.valueOf(i));
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TDepotSignatureCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.

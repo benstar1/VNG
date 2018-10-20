@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CorridorCreateDlg" widgetVar="CorridorCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCorridorTitle}">
+            <h:form id="CorridorCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{corridorController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateCorridorLabel_gid}" for="gid" />
+                        <p:inputText id="gid" value="#{corridorController.selected.gid}" title="#{bundle.CreateCorridorTitle_gid}" required="true" requiredMessage="#{bundle.CreateCorridorRequiredMessage_gid}"/>
+                        <p:outputLabel value="#{bundle.CreateCorridorLabel_guid}" for="guid" />
+                        <p:inputText id="guid" value="#{corridorController.selected.guid}" title="#{bundle.CreateCorridorTitle_guid}" />
+                        <p:outputLabel value="#{bundle.CreateCorridorLabel_districtname}" for="districtname" />
+                        <p:inputText id="districtname" value="#{corridorController.selected.districtname}" title="#{bundle.CreateCorridorTitle_districtname}" />
+                        <p:outputLabel value="#{bundle.CreateCorridorLabel_districtnumber}" for="districtnumber" />
+                        <p:inputText id="districtnumber" value="#{corridorController.selected.districtnumber}" title="#{bundle.CreateCorridorTitle_districtnumber}" />
+                        <p:outputLabel value="#{bundle.CreateCorridorLabel_countyname}" for="countyname" />
+                        <p:inputText id="countyname" value="#{corridorController.selected.countyname}" title="#{bundle.CreateCorridorTitle_countyname}" />
+                        <p:outputLabel value="#{bundle.CreateCorridorLabel_countynumber}" for="countynumber" />
+                        <p:inputText id="countynumber" value="#{corridorController.selected.countynumber}" title="#{bundle.CreateCorridorTitle_countynumber}" />
+                        <p:outputLabel value="#{bundle.CreateCorridorLabel_subcountyname}" for="subcountyname" />
+                        <p:inputText id="subcountyname" value="#{corridorController.selected.subcountyname}" title="#{bundle.CreateCorridorTitle_subcountyname}" />
+                        <p:outputLabel value="#{bundle.CreateCorridorLabel_subcountynumber}" for="subcountynumber" />
+                        <p:inputText id="subcountynumber" value="#{corridorController.selected.subcountynumber}" title="#{bundle.CreateCorridorTitle_subcountynumber}" />
+                        <p:outputLabel value="#{bundle.CreateCorridorLabel_parishname}" for="parishname" />
+                        <p:inputText id="parishname" value="#{corridorController.selected.parishname}" title="#{bundle.CreateCorridorTitle_parishname}" />
+                        <p:outputLabel value="#{bundle.CreateCorridorLabel_parishnumber}" for="parishnumber" />
+                        <p:inputText id="parishnumber" value="#{corridorController.selected.parishnumber}" title="#{bundle.CreateCorridorTitle_parishnumber}" />
+                        <p:outputLabel value="#{bundle.CreateCorridorLabel_villagename}" for="villagename" />
+                        <p:inputText id="villagename" value="#{corridorController.selected.villagename}" title="#{bundle.CreateCorridorTitle_villagename}" />
+                        <p:outputLabel value="#{bundle.CreateCorridorLabel_villagenumber}" for="villagenumber" />
+                        <p:inputText id="villagenumber" value="#{corridorController.selected.villagenumber}" title="#{bundle.CreateCorridorTitle_villagenumber}" />
+                        <p:outputLabel value="#{bundle.CreateCorridorLabel_clerk}" for="clerk" />
+                        <p:inputText id="clerk" value="#{corridorController.selected.clerk}" title="#{bundle.CreateCorridorTitle_clerk}" />
+                        <p:outputLabel value="#{bundle.CreateCorridorLabel_date}" for="date" />
+                        <p:inputText id="date" value="#{corridorController.selected.date}" title="#{bundle.CreateCorridorTitle_date}" />
+                        <p:outputLabel value="#{bundle.CreateCorridorLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{corridorController.selected.type}" title="#{bundle.CreateCorridorTitle_type}" />
+                        <p:outputLabel value="#{bundle.CreateCorridorLabel_hoffset}" for="hoffset" />
+                        <p:inputText id="hoffset" value="#{corridorController.selected.hoffset}" title="#{bundle.CreateCorridorTitle_hoffset}" />
+                        <p:outputLabel value="#{bundle.CreateCorridorLabel_geom}" for="geom" />
+                        <p:inputText id="geom" value="#{corridorController.selected.geom}" title="#{bundle.CreateCorridorTitle_geom}" />
+                        <p:outputLabel value="#{bundle.CreateCorridorLabel_corPbaNumero}" for="corPbaNumero" />
+                        <p:inputText id="corPbaNumero" value="#{corridorController.selected.corPbaNumero}" title="#{bundle.CreateCorridorTitle_corPbaNumero}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{corridorController.create}" value="#{bundle.Save}" update="display,:CorridorListForm:datalist,:growl" oncomplete="handleSubmit(args,'CorridorCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CorridorCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

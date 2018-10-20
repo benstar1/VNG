@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListCorridorTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="CorridorListForm">
+                <p:panel header="#{bundle.ListCorridorTitle}">
+                    <p:dataTable id="datalist" value="#{corridorController.items}" var="item"
+                                 selectionMode="single" selection="#{corridorController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.gid}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCorridorTitle_gid}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.gid}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCorridorTitle_guid}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.guid}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCorridorTitle_districtname}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.districtname}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCorridorTitle_districtnumber}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.districtnumber}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCorridorTitle_countyname}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.countyname}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCorridorTitle_countynumber}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.countynumber}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCorridorTitle_subcountyname}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.subcountyname}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCorridorTitle_subcountynumber}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.subcountynumber}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCorridorTitle_parishname}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.parishname}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCorridorTitle_parishnumber}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.parishnumber}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCorridorTitle_villagename}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.villagename}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCorridorTitle_villagenumber}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.villagenumber}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCorridorTitle_clerk}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.clerk}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCorridorTitle_date}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.date}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCorridorTitle_type}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.type}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCorridorTitle_hoffset}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.hoffset}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCorridorTitle_geom}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.geom}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCorridorTitle_corPbaNumero}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.corPbaNumero}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{corridorController.prepareCreate}" update=":CorridorCreateForm" oncomplete="PF('CorridorCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":CorridorViewForm" oncomplete="PF('CorridorViewDialog').show()" disabled="#{empty corridorController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":CorridorEditForm" oncomplete="PF('CorridorEditDialog').show()" disabled="#{empty corridorController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{corridorController.destroy}" update=":growl,datalist" disabled="#{empty corridorController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

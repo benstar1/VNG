@@ -83,15 +83,15 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "TParcelleBafon.findByPbaTranche", query = "SELECT t FROM TParcelleBafon t WHERE t.pbaTranche = :pbaTranche")
     , @NamedQuery(name = "TParcelleBafon.findByPbaLot", query = "SELECT t FROM TParcelleBafon t WHERE t.pbaLot = :pbaLot")
     , @NamedQuery(name = "TParcelleBafon.findByPbaAdressage", query = "SELECT t FROM TParcelleBafon t WHERE t.pbaAdressage = :pbaAdressage")
+    , @NamedQuery(name = "TParcelleBafon.findByCommuneEncours", query = "SELECT t FROM TParcelleBafon t WHERE t.pbaVilaCode.vilaArrCode.arrComCode.comEncours = true")
     , @NamedQuery(name = "TParcelleBafon.findByPbaPfr", query = "SELECT t FROM TParcelleBafon t WHERE t.pbaPfr = :pbaPfr")})
 public class TParcelleBafon implements Serializable {
 
     @OneToMany(mappedBy = "patyPbaNumero")
     private List<TParcelleTypeBf> tParcelleTypeBfList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tParcelleBafon")
-    private List<TParcellePoca> tParcellePocaList;
-    @OneToMany(mappedBy = "papoPbaNumeroLimit")
-    private List<TParcellePoca> tParcellePocaList1;
+    @JoinColumn(name = "pba_code_geo", referencedColumnName = "uti_code")
+    @ManyToOne
+    private TUtilisateur pbaCodeGeo;
 
     @Size(max = 30)
     @Column(name = "pba_adc_reference")
@@ -117,9 +117,12 @@ public class TParcelleBafon implements Serializable {
     @Size(max = 200)
     @Column(name = "pba_foncier_image")
     private String pbaFoncierImage;
-    @JoinColumn(name = "pba_code_geo", referencedColumnName = "uti_code")
-    @ManyToOne
-    private TUtilisateur pbaCodeGeo;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tParcelleBafon")
+    private List<TParcellePoca> tParcellePocaList;
+    @OneToMany(mappedBy = "papoPbaNumeroLimit")
+    private List<TParcellePoca> tParcellePocaList1;
+
+    
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -138,7 +141,7 @@ public class TParcelleBafon implements Serializable {
     @Column(name = "pba_superficie")
     private BigDecimal pbaSuperficie;
    // @Size(max = 50)
-   // @Column(name = "pba_code_geo")
+  //  @Column(name = "pba_code_geo")
 //    private String pbaCodeGeo;
     @Size(max = 5000)
     @Column(name = "pba_histoire")
@@ -314,14 +317,14 @@ public class TParcelleBafon implements Serializable {
         this.pbaSuperficie = pbaSuperficie;
     }
 
- /*   public String getPbaCodeGeo() {
-        return pbaCodeGeo;
-    }
+//    public String getPbaCodeGeo() {
+//        return pbaCodeGeo;
+//    }
+//
+//    public void setPbaCodeGeo(String pbaCodeGeo) {
+//        this.pbaCodeGeo = pbaCodeGeo;
+//    }
 
-    public void setPbaCodeGeo(String pbaCodeGeo) {
-        this.pbaCodeGeo = pbaCodeGeo;
-    }
-*/
     public String getPbaHistoire() {
         return pbaHistoire;
     }
@@ -889,6 +892,8 @@ public class TParcelleBafon implements Serializable {
     public List<TParcellePoca> getTParcellePocaList1() {
         return tParcellePocaList1;
     }
+        @XmlTransient
+ 
 
     public void setTParcellePocaList1(List<TParcellePoca> tParcellePocaList1) {
         this.tParcellePocaList1 = tParcellePocaList1;

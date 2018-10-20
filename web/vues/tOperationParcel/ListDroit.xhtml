@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+  <ui:composition>
+      
+    <p:dialog id="TDroitListDlg" widgetVar="TDroitListDlg" modal="true"  header="Liste Droit">
+        <h:form id="TDroitListForm">
+            
+                <p:dataTable id="datalist" value="#{tOperationParcelController.typeDroitItem}" var="item"
+                             selectionMode="single" selection="#{tOperationParcelController.typeDroitExerce}"
+                             paginator="true"
+                             rowKey="#{item.tdeCode}"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             >      
+                    <p:column filterBy="#{item.tdeCode}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="Code"/>
+                        </f:facet>
+                       
+                        <p:commandLink value="#{item.tdeCode}"  action="#{tOperationParcelController.nouvelDroitExerce(item)}"  update=":formventeparcelle:ongletventeparcelle:droitLimite:listdroitexerce" oncomplete="PF('TDroitListDlg').hide();"  process="@this" title="Selectionnez" style="color: blue;"/>
+                    </p:column>
+                    
+                    <p:column filterBy="#{item.tdeDesig}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="Nom Detenteur"/>
+                        </f:facet>
+                        <h:outputText value="#{item.tdeDesig}"/>
+                    </p:column>   
+                </p:dataTable>
+           
+
+        </h:form>
+    </p:dialog>
+
+</ui:composition>
+
+</html>

@@ -6,6 +6,7 @@ import org.vng.controlers.util.JsfUtil.PersistAction;
 import org.vng.sessions.TIntervenirFacade;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -30,8 +31,44 @@ public class TIntervenirController implements Serializable {
     private List<TIntervenir> itemsFilter = null;
     private List<TActivite> itemsFilterActivite = null;
     private TIntervenir selected;
+    private String newNumIntervenir;
 
     public TIntervenirController() {
+    }
+
+    public String getNewNumIntervenir() {
+        return newNumIntervenir;
+    }
+
+    public void setNewNumIntervenir(String newNumIntervenir) {
+        this.newNumIntervenir = newNumIntervenir;
+    }
+
+    public void GenererNumIntervenir() {
+        //Date d = new Date();
+        Calendar calendar = Calendar.getInstance();
+        int ann = calendar.get(Calendar.YEAR);//
+        String an = String.valueOf(ann);
+        String chainesuffixe = "";
+        long numsuivant;
+
+        String numinterv = null;
+        try {
+            numinterv = ejbFacade.executeMaxIntervenir(an);
+            if (numinterv == null) {
+                setNewNumIntervenir(an + "00000000001");
+            } else {
+                chainesuffixe = numinterv.substring(4);
+                System.out.println("chainesuffixe recuperer " + chainesuffixe);
+                numsuivant = Long.valueOf(chainesuffixe) + 1;
+                chainesuffixe = String.format("%020d", numsuivant);;
+                setNewNumIntervenir(an + chainesuffixe);
+                System.out.println("Prochaine numero intervenir " + getNewNumIntervenir());
+            }
+        } catch (Exception e) {
+
+        }
+
     }
 
     public TIntervenir getSelected() {

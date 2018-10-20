@@ -28,6 +28,17 @@ public class TTypedexerceFacade extends AbstractFacade<TTypedexerce> {
     protected EntityManager getEntityManager() {
         return em;
     }
+     public List<TTypedexerce> executeListeTypeDroit(String Cat){
+        int i=0;
+        List<TTypedexerce> listedroitExerce =null;
+        try{
+            Query q=em.createNamedQuery("TTypedexerce.findByTdeCat").setParameter("tdeCat",Cat+"%");
+            listedroitExerce=q.getResultList();
+        }catch(Exception e){
+            System.out.println("Probleme de selection type de droit exerce : type droit Exerce "+e);
+        }
+        return listedroitExerce;
+    }
 
     public TTypedexerceFacade() {
         super(TTypedexerce.class);

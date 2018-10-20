@@ -12,12 +12,16 @@
                     <ph:menu widgetVar="me">
                         <p:menuitem id="om_dashboard" value="Accueil" icon="fa fa-fw fa-dashboard" outcome="/dashboard" />
                         
-                        <p:submenu id="affaires_domaniales" label="Affaires Domaniales" icon="fa fa-fw fa-columns">
-                            <p:menuitem id="vente_parcelle" value="Vente de parcelle" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuMode('layout-menu-static')}" ajax="false" />   
-                            <p:menuitem id="heritage_arcelle" value="Héritage de parcelle" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuMode('layout-menu-overlay')}" ajax="false" />
-                            <p:menuitem id="don_parcelle" value="Don de parcelle" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuMode('layout-menu-slim')}" ajax="false" />
-                            <p:menuitem id="mutation" value="Mutation" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuMode('layout-menu-horizontal')}" ajax="false" />
-                            <p:menuitem id="droits_operationnels" value="Droits opérationnels" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuMode('layout-menu-horizontal')}" ajax="false" />
+                        <p:submenu id="etat_civile" label="Etat Civil" icon="fa fa-child">
+                            <p:menuitem id="depot_signature" outcome="/vues/tDepotSignature/depotsignature.xhtml"  value="Dépot de signatures" icon="fa fa-pencil" ajax="false" />                          
+                        </p:submenu>
+                        
+                        <p:submenu id="affaires_domaniales" label="Affaires Domaniales" icon="fa fa-life-buoy">
+                            <p:menuitem id="vente_parcelle" action="#{tOperationParcelController.operationParcelle('VENTE')}"  value="Vente de parcelle" icon="fa fa-cc-visa" ajax="false" />
+                            <p:menuitem id="heritage_arcelle" action="#{tOperationParcelController.operationParcelle('HERITAGE')}" value="Héritage de parcelle" icon="fa fa-sitemap" ajax="false" />
+                            <p:menuitem id="don_parcelle"  action="#{tOperationParcelController.operationParcelle('DON')}" value="Don de parcelle" icon="fa fa-trophy"   ajax="false" />
+                            <p:menuitem id="mutation" value="Mutation" icon="fa fa-retweet" actionListener="#{guestPreferences.setMenuMode('layout-menu-horizontal')}" ajax="false" />
+                            <p:menuitem id="droits_operationnels" action="#{tOperationParcelController.operationParcelle('OPERATIONNEL')}" value="Droits opérationnels" icon="fa fa-wechat" ajax="false" />
                             <p:menuitem id="reglement_conflits" value="Règlement de Litiges" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
                             <p:menuitem id="mise_jour_enquete" value="Mise à jour Enquête" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
                             
@@ -25,7 +29,7 @@
                             <p:menuitem id="nav_fusion_parcelle" value="Fusion de Parcelle" icon="fa fa-fw fa-align-right" outcome="/vues/tParcelleBafon/fusionparcelle" />
                             
                             <p:menuitem id="nav_parcelle_agricole_conflit" value="Parcelle Agricole en &#160;&#160;&#160;&#160;&#160;&#160;&#160;Litige" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
-                            <p:menuitem id="nav_parcelle_agricole_noyau" value="Parcelle Agricole en &#160;&#160;&#160;&#160;&#160;&#160;&#160;Noyau Villageois" icon="fa fa-fw fa-align-right" outcome="/vues/tParcelleBafon/parcelleagricolenoyau" />                             
+                            <p:menuitem id="nav_parcelle_agricole_noyau" value="Parcelle Agricole en &#160;&#160;&#160;&#160;&#160;&#160;&#160;Noyau Villageois" icon="fa fa-fw fa-align-right" outcome="/vues/tParcelleBafon/parcelleagricolenoyau" /> 
                             <p:menuitem id="nav_parcelle_agricole_dpp" value="Parcelle Agricole en &#160;&#160;&#160;&#160;&#160;&#160;&#160;Domaine Public Privé" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
                             
                             <p:menuitem id="nav_parcelle_litigieuse_agricole" value="Parcelle Litigieuse en &#160;&#160;&#160;&#160;&#160;&#160;&#160;Agricole" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
@@ -42,7 +46,7 @@
                         
                         
                         
-                        <p:submenu id="consultation_edition" label="Consultation et Edition" icon="fa fa-fw fa-file-code-o">
+                        <p:submenu id="consultation_edition" label="Consultation et Edition" icon="fa fa-search">
                             
                             <p:submenu id="consul_fiche_enquete" label="Fiches d'Enquêtes" icon="fa fa-fw fa-sign-in">
                                 <p:menuitem id="consul_parcelle_agricol" value="Parcelles Agricoles" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
@@ -63,6 +67,11 @@
                                 <p:menuitem id="consul_registre_ennreg_contrat_droit_usage" value="Registre &#160;&#160;&#160;&#160;&#160;&#160;&#160;d'Enregistrement &#160;&#160;&#160;&#160;&#160;&#160;&#160;des Contrats de &#160;&#160;&#160;&#160;&#160;&#160;&#160;Formalisation des &#160;&#160;&#160;&#160;&#160;&#160;&#160;Droits d'Usage" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
                             
                                 
+                            </p:submenu>
+                            
+                            <p:submenu id="cartographie" label="Cartographie" icon="fa fa-medium">
+                               <p:menuitem id="viso_parcelle" outcome="/vues/donneestopo/visionparcelle.xhtml"  value="cartographie des parcelles" icon="fa fa-th"  ajax="false" />
+                           
                             </p:submenu>
                             
                             
@@ -100,6 +109,13 @@
                             
                             </p:submenu>
                             
+                            <p:submenu id="donnee_topo" label="Données Topo" icon="fa fa-connectdevelop">
+                                <p:menuitem id="consolidation" outcome="/vues/donneestopo/consolidation.xhtml"   value="Consolidation" icon="fa fa-random"  ajax="false" />
+                                <p:menuitem id="harmo_num_parcelle" outcome="/vues/donneestopo/genernumparcelle.xhtml"  value="Génération des numéros parcelles" icon="fa fa-legal"  ajax="false" />
+                             
+                            </p:submenu>
+                            <p:menuitem id="signature" outcome="/vues/tSignataire/signataire.xhtml"  value="Signataires" icon="fa fa-user-secret"  ajax="false" />
+                           
                         </p:submenu>
                         
                         <p:submenu rendered='false'  id="om_customization" label="Layouts" icon="fa fa-fw fa-cog">

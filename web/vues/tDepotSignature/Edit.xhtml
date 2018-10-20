@@ -35,7 +35,7 @@
                                            itemValue="#{desiUtiCodeItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{tDepotSignatureController.update}" value="#{bundle.Save}" update="display,:TDepotSignatureListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TDepotSignatureEditDialog');"/>
+                    <p:commandButton actionListener="#{tDepotSignatureController.update}" value="#{bundle.Save}" update="display,:TDepotSignatureListForm:datalist,:TDepotSignatureListForm:messages" oncomplete="handleSubmit(args, 'TDepotSignatureEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="TDepotSignatureEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

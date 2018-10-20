@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+  <ui:composition>
+      
+    <p:dialog id="TConditionPaieListDlg" widgetVar="TConditionPaieListDlg" modal="true"  header="Liste conditions de paie">
+        <h:form id="TConditionPaieListForm">
+            
+                <p:dataTable id="datalist" value="#{tConditionpaieController.items}" var="item"
+                             selectionMode="single" selection="#{tOperationParcelController.selected.opvCopCode}"
+                             paginator="true"
+                             rowKey="#{item.copCode}"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             >      
+                    <p:column filterBy="#{item.copCode}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="Code"/>
+                        </f:facet>
+                       
+                        <p:commandLink value="#{item.copCode}"  action="#{tOperationParcelController.selected.setOpvCopCode(item)}"  update=":formventeparcelle:ongletventeparcelle:modeacquisition:conditionpaie" oncomplete="PF('TConditionPaieListDlg').hide();"  process="@this" title="Selectionnez" style="color: blue;"/>
+                    </p:column>
+                    
+                    <p:column filterBy="#{item.copDesig}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="Désignation"/>
+                        </f:facet>
+                        <h:outputText value="#{item.copDesig}"/>
+                    </p:column>   
+                </p:dataTable>
+            
+        </h:form>
+    </p:dialog>
+
+</ui:composition>
+
+</html>

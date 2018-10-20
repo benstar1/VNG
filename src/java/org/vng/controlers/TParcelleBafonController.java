@@ -18,6 +18,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.vng.entities.TCommune;
 
 @Named("tParcelleBafonController")
 @SessionScoped
@@ -27,6 +28,8 @@ public class TParcelleBafonController implements Serializable {
     private org.vng.sessions.TParcelleBafonFacade ejbFacade;
     private List<TParcelleBafon> items = null;
     private TParcelleBafon selected;
+    @EJB
+    private org.vng.sessions.TCommuneFacade ejbFacadeCommune; 
 
     public TParcelleBafonController() {
     }
@@ -76,6 +79,8 @@ public class TParcelleBafonController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
+    
+    
 
     public List<TParcelleBafon> getItems() {
         if (items == null) {
@@ -118,6 +123,10 @@ public class TParcelleBafonController implements Serializable {
 
     public List<TParcelleBafon> getItemsAvailableSelectMany() {
         return getFacade().findAll();
+    }
+    
+     public List<TParcelleBafon> getListParcelleComEncours() {
+         return ejbFacade.executeListeParcelleEncours();
     }
 
     public List<TParcelleBafon> getItemsAvailableSelectOne() {

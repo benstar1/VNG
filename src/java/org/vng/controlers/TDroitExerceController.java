@@ -18,6 +18,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.vng.entities.TParcelleBafon;
 
 @Named("tDroitExerceController")
 @SessionScoped
@@ -26,9 +27,27 @@ public class TDroitExerceController implements Serializable {
     @EJB
     private org.vng.sessions.TDroitExerceFacade ejbFacade;
     private List<TDroitExerce> items = null;
+    private List<TDroitExerce> listeUneCategorie = null;
     private TDroitExerce selected;
 
     public TDroitExerceController() {
+    }
+
+    
+    public void executeListDroitExerceCat(TParcelleBafon parcelle,String cat){
+        List<TDroitExerce> listdroit;
+        listdroit=ejbFacade.executeListeDroitExerceCat(parcelle,cat);
+        setListeUneCategorie(listdroit);
+    }
+    
+    
+    public List<TDroitExerce> getListeUneCategorie() {
+        
+        return listeUneCategorie;
+    }
+
+    public void setListeUneCategorie(List<TDroitExerce> listeUneCategorie) {
+        this.listeUneCategorie = listeUneCategorie;
     }
 
     public TDroitExerce getSelected() {

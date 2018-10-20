@@ -6,20 +6,26 @@ import org.vng.controlers.util.JsfUtil.PersistAction;
 import org.vng.sessions.TCommuneFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.inject.Named;
+//import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.event.Event;
+import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.model.SelectItem;
+import org.vng.entities.TDepartement;
 
-@Named("tCommuneController")
+//@Named("tCommuneController")
+@ManagedBean
 @SessionScoped
 public class TCommuneController implements Serializable {
 
@@ -27,8 +33,18 @@ public class TCommuneController implements Serializable {
     private org.vng.sessions.TCommuneFacade ejbFacade;
     private List<TCommune> items = null;
     private TCommune selected;
-
+    private TDepartement departement;
+    List<SelectItem> CommItem = new ArrayList<>();     
+      
     public TCommuneController() {
+    }
+
+    public TDepartement getDepartement() {
+        return departement;
+    }
+
+    public void setDepartement(TDepartement departement) {
+        this.departement = departement;
     }
 
     public TCommune getSelected() {
@@ -116,6 +132,24 @@ public class TCommuneController implements Serializable {
     public List<TCommune> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
+    
+    public void initListeCommune(){
+        System.out.println(" TOTOOTOTOT OUOUOUOU");
+        List<TCommune> listcom=null;
+        if (departement != null) {
+            listcom = departement.getTCommuneList();
+            for (TCommune com : listcom) {
+                CommItem.add(new SelectItem(com, com.getComCode() + " --> " + com.getComDesig()));
+            }
+        }
+    }
+
+    public List<SelectItem> getCommuneItem() { 
+        return CommItem;
+    }
+    
+
+
 
     public List<TCommune> getItemsAvailableSelectOne() {
         return getFacade().findAll();
