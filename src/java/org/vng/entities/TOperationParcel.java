@@ -80,6 +80,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "TOperationParcel.findMaxOperation", query = "SELECT Max(t.opvNumero) FROM TOperationParcel t WHERE t.opvNumero LIKE :annee")
     , @NamedQuery(name = "TOperationParcel.findByMode", query = "SELECT t FROM TOperationParcel t WHERE t.opvMacCode in :mode")
     , @NamedQuery(name = "TOperationParcel.findByCategorieMode", query = "SELECT t FROM TOperationParcel t WHERE t.opvMacCode.macCat = :categorieMode")
+    , @NamedQuery(name = "TOperationParcel.nombreOperation", query = "SELECT DISTINCT t.opvMacCode.macDesig,COUNT(t.opvNumero) FROM TOperationParcel t GROUP BY t.opvMacCode.macDesig")
     , @NamedQuery(name = "TOperationParcel.findByOpvDateExpCiPp", query = "SELECT t FROM TOperationParcel t WHERE t.opvDateExpCiPp = :opvDateExpCiPp")})
 //@SequenceGenerator(name="tOperationParcelSequence", initialValue=1, allocationSize=1,sequenceName = "seq_id_operation_parcel")
 public class TOperationParcel implements Serializable {

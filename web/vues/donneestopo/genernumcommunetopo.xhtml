@@ -1,0 +1,71 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="./../../WEB-INF/template.xhtml">
+
+    <ui:define name="title">Générer numéro Commune Corridor</ui:define>
+    <ui:define name="viewname">
+        <li>Configuration</li>
+        <li>/</li>
+        <li>Données topo</li>
+        <li>/</li>
+        <li><p:link outcome="genernumcommunetopo.xhtml">Générer numéro Commune Corridor</p:link></li>
+    </ui:define>
+
+    <ui:define name="content">
+        <div class="container">
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <div class="card">
+                        <h1>Génération des numéros communes des corridors</h1>
+
+                        <h:form id="formharmonise" >
+                            <h:panelGroup id="grillevillages">
+                                <p:panelGrid columns="4">
+                                    <p:outputLabel value="#{bundle.LabelChoixDepartementHarmonise}" for="departement" />     
+                                    <p:selectOneMenu  value="#{parcelleController.departement}" id="departement" style="margin-bottom:10px;" >
+                                        <f:selectItem itemLabel="Choisissez un Departement " itemValue="" />
+                                        <f:selectItems value="#{tDepartementController.departementItem}" />
+                                        <p:ajax event="change" process="@this" listener="#{parcelleController.initlisteCommune()}" update=":TCommuneListForm:datalist" />
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel value="#{bundle.LabelChoixCommuneHarmonise}" for="commune" />     
+                                    <p:panelGrid style="border-width: 0"  columns="3">
+                                        <p:inputText value="#{parcelleController.commune}" id="commune" />
+                                        <p:outputLabel id="libcommune" value="#{parcelleController.commune.comDesig}"/>
+                                        <p:commandButton id="choixcommune" value="..." oncomplete="PF('TCommuneListDlg').show()"  />
+                                    </p:panelGrid>
+
+                                    <p:outputLabel value="" />     
+
+                                    <p:outputLabel  value=""  />     
+
+                                    <p:outputLabel value="Choix Commune Corridor" for="communetopo" />     
+
+                                    <p:selectOneMenu value="#{parcelleController.communeTopo}" id="communetopo" style="margin-bottom:10px;">
+                                        <f:selectItem itemLabel="Choisissez une commune topo correspondante" itemValue="" />
+                                        <f:selectItems value="#{parcelleController.communeTopoItem}" />
+                                        <p:ajax event="change" process="@this"/>   
+                                    </p:selectOneMenu>
+
+                                    <p:commandButton id="traitecorridortopo" value="Valider" icon="fa fa-flash" >
+                                        <p:ajax update="communetopostat"  event="click" listener="#{parcelleController.traitCorridorCommuneTopo()}"  />
+                                    </p:commandButton>
+                                    <p:outputLabel value="Nombre de corridors traités" for="communetopostat" />
+                                    <p:outputLabel style="color: limegreen" id="communetopostat" value="#{parcelleController.nombreTraitement}"  />     
+
+                                </p:panelGrid>
+                            </h:panelGroup> 
+                            <p:growl id="messages" showDetail="true" />
+                        </h:form>    
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ui:include src="ListCommuneCorridor.xhtml"/>
+        
+    </ui:define>
+
+</ui:composition>

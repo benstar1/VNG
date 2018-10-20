@@ -1,0 +1,598 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">Dashboard</ui:define>
+
+    <ui:define name="head"></ui:define>
+    <ui:define name="viewname">
+        <li><p:link outcome="/dashboard">Dashboard</p:link></li>
+    </ui:define>
+
+    <ui:define name="content">
+        <div class="ui-g layout-dashboard">
+            <div class="ui-g-6 intro-text">
+                <p:graphicImage name="images/dashboard/shape.svg" library="harmony-layout" />
+                <span>Daily Summary</span>
+            </div>
+            <div class="ui-g-6 intro-calendar">
+                <p:calendar placeholder="Date" showOn="button"/>
+            </div>
+
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                <div class="stats-box sales">
+                    <span class="statistics-header">SALES</span>
+                    <i class="fa fa-angle-right"></i>
+                    <p:graphicImage name="images/dashboard/icon-sales.svg" library="harmony-layout" />
+                    <span class="statistics">$ 74,690</span>
+                    <div class="statistics-info-bg">
+                        <span class="statistics-info">16% more than previous month</span>
+                    </div>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                <div class="stats-box views">
+                    <span class="statistics-header">VIEWS</span>
+                    <i class="fa fa-angle-right"></i>
+                    <p:graphicImage name="images/dashboard/icon-views.svg" library="harmony-layout" />
+                    <span class="statistics">6215/Day</span>
+                    <div class="statistics-info-bg">
+                        <span class="statistics-info">2% less than previous month</span>                
+                    </div>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                <div class="stats-box users">
+                    <span class="statistics-header">USERS</span>
+                    <i class="fa fa-angle-right"></i>
+                    <p:graphicImage name="images/dashboard/icon-users.svg" library="harmony-layout" />
+                    <span class="statistics">52812</span>
+                    <div class="statistics-info-bg">
+                        <span class="statistics-info">19% more than previous month</span>     
+                    </div>           
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                <div class="stats-box checkins">
+                    <span class="statistics-header">CHECK-INS</span>
+                    <i class="fa fa-angle-right"></i>
+                    <p:graphicImage name="images/dashboard/icon-checkins.svg" library="harmony-layout" />
+                    <span class="statistics">77050</span>
+                    <div class="statistics-info-bg">
+                        <span class="statistics-info">43% more than previous month</span>                
+                    </div>
+                </div>
+            </div>  
+
+            <div class="ui-g-12 ui-xl-6">
+                <p:panel styleClass="knobs" header="Activity">
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-4 knob-container">
+                            <div class="knob issue">
+                                <span class="knob-number">77</span> 
+                            </div>
+                            <div class="knob-label" style="color:#00b395">
+                                <span>ISSUES</span>
+                                <i class="fa fa-bug issue"></i>
+                                <div class="seperator"></div>
+                                <span class="change">Last change: <strong>26 mins ago</strong></span>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-4 knob-container">
+                            <div class="knob commit">
+                                <span class="knob-number">39</span> 
+                            </div>
+                            <div class="knob-label" style="color:#ffba01">
+                                <span>COMMITS</span>
+                                <i class="fa fa-paper-plane commit"></i>
+                                <div class="seperator"></div>
+                                <span class="change">Last change: <strong>26 mins ago</strong></span>  
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-4 knob-container">
+                            <div class="knob comment">
+                                <span class="knob-number">128</span> 
+                            </div>
+                            <div class="knob-label" style="color:#e4018d">
+                                <span>COMMENTS</span>
+                                <i class="fa fa-comment comment"></i>
+                                <div class="seperator"></div>
+                                <span class="change">Last change: <strong>26 mins ago</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </p:panel>
+            </div>
+        
+            <div class="ui-g-12 ui-xl-6">
+                <p:panel header="Weekly Progress" styleClass="weekly-progress">
+                    <ul>
+                        <li>
+                            <div class="ui-g">
+                                <div class="ui-g-12 ui-md-4">
+                                    <p:graphicImage name="images/dashboard/avatar-brenda.png" library="harmony-layout" class="member-avatar" />
+                                    <div class="team-member">
+                                        <span class="member-name">Brenda Soto</span>
+                                        <span class="member-role">DEVELOPMENT</span>
+                                    </div>
+                                </div>
+                                <div class="ui-g-12 ui-md-8">
+                                    <div class="progressbar">
+                                        <div class="progress-status issue" style="width:32%">32%</div>
+                                        <div class="progress-status commit" style="width:24%">24%</div>
+                                        <div class="progress-status comment" style="width:44%">44%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="ui-g">
+                                <div class="ui-g-12 ui-md-4">
+                                    <p:graphicImage name="images/dashboard/avatar-john.png" library="harmony-layout" class="member-avatar" />
+                                    <div class="team-member">
+                                        <span class="member-name">John Swisher</span>
+                                        <span class="member-role">DESIGN</span>
+                                    </div>
+                                </div>
+                                <div class="ui-g-12 ui-md-8">
+                                    <div class="progressbar">
+                                        <div class="progress-status issue" style="width:26%">26%</div>
+                                        <div class="progress-status commit" style="width:40%">40%</div>
+                                        <div class="progress-status comment" style="width:34%">34%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="ui-g">
+                                <div class="ui-g-12 ui-md-4">
+                                    <p:graphicImage name="images/dashboard/avatar-arlene.png" library="harmony-layout" class="member-avatar" />
+                                    <div class="team-member">
+                                        <span class="member-name">Arlene Welch</span>
+                                        <span class="member-role">BUSINESS</span>
+                                    </div>
+                                </div>
+                                <div class="ui-g-12 ui-md-8">
+                                    <div class="progressbar">
+                                        <div class="progress-status issue" style="width:16%">16%</div>
+                                        <div class="progress-status commit" style="width:23%">23%</div>
+                                        <div class="progress-status comment" style="width:61%">61%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="ui-g">
+                                <div class="ui-g-12 ui-md-4">
+                                    <p:graphicImage name="images/dashboard/avatar-warren.png" library="harmony-layout" class="member-avatar" />
+                                    <div class="team-member">
+                                        <span class="member-name">Warren Shaw</span>
+                                        <span class="member-role">DEVELOPMENT</span>
+                                    </div>
+                                </div>
+                                <div class="ui-g-12 ui-md-8">
+                                    <div class="progressbar">
+                                        <div class="progress-status issue" style="width:20%">20%</div>
+                                        <div class="progress-status commit" style="width:54%">54%</div>
+                                        <div class="progress-status comment" style="width:26%">26%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </p:panel>
+            </div>
+            
+            <div class="ui-g-12 ui-lg-4">
+                <p:panel header="Tasks" styleClass="tasks">
+                    <ul>
+                        <li>
+                            <p:selectBooleanCheckbox />
+                            <span>Sales Reports</span>
+                            <i class="fa fa-shopping-cart" />
+                        </li>
+                        <li>
+                            <p:selectBooleanCheckbox />
+                            <span>Pay Invoices</span>
+                            <i class="fa fa-file" />
+                        </li>
+                        <li>
+                            <p:selectBooleanCheckbox />
+                            <span>Kate's Birthday</span>
+                            <i class="fa fa-birthday-cake" />
+                        </li>
+                        <li>
+                            <p:selectBooleanCheckbox />
+                            <span>Client Meeting</span>
+                            <i class="fa fa-users" />
+                        </li>
+                        <li>
+                            <p:selectBooleanCheckbox />
+                            <span>New Themes</span>
+                            <i class="fa fa-photo" />
+                        </li>
+                        <li>
+                            <p:selectBooleanCheckbox />
+                            <span>Flight Ticket</span>
+                            <i class="fa fa-plane" />
+                        </li>
+                    </ul>
+                </p:panel>
+            </div>
+            <div class="ui-g-12 ui-lg-4">
+                <p:panel header="Resolution Center" styleClass="resolution-center">
+                    <p:outputLabel value="Enter username" />
+                    <p:inputText placeholder="Username"/>
+
+                    <p:outputLabel value="Enter e-mail" />
+                    <p:inputText placeholder="Email"/>
+
+                    <p:outputLabel value="Enter message" />
+                    <p:inputTextarea rows="2" placeholder="Your Message" autoResize="false"/>
+
+                    <div class="ui-g button-container ui-fluid">
+                        <div class="ui-g-6">
+                            <p:commandButton type="button" value="Send" />
+                        </div>
+                        <div class="ui-g-6">
+                            <p:commandButton type="button" value="Save" styleClass="secondary-button" />
+                        </div>
+                    </div>    
+                </p:panel>
+            </div>
+            <div class="ui-g-12 ui-lg-4">
+                <p:panel header="My Contacts" styleClass="my-contacts">
+                    <ul>
+                        <li>
+                            <p:graphicImage name="images/dashboard/avatar-john.png" library="harmony-layout" />
+                            <div class="team-box">
+                                <span class="team-member">John Swisher</span>
+                                <span class="team-member-role">DESIGN</span>
+                            </div>
+                            <div style="float:right">
+                                <a href="#" class="google">
+                                    <i class="fa fa-google google"></i>
+                                </a>
+                                <a href="#" class="twitter">
+                                    <i class="fa fa-twitter twitter"></i>
+                                </a>
+                            </div>
+                        </li>
+                        <li>
+                            <p:graphicImage name="images/dashboard/avatar-warren.png" library="harmony-layout" />
+                            <div class="team-box">
+                                <span class="team-member">Warren Shaw</span>
+                                <span class="team-member-role">DEVELOPMENT</span>
+                            </div>
+                            <div style="float:right">
+                                <a href="#" class="google">
+                                    <i class="fa fa-google google"></i>
+                                </a>
+                                <a href="#" class="twitter">
+                                    <i class="fa fa-twitter twitter"></i>
+                                </a>
+                            </div>
+                        </li>
+                        <li>
+                            <p:graphicImage name="images/dashboard/avatar-brenda.png" library="harmony-layout" />
+                            <div class="team-box">
+                                <span class="team-member">Brenda Soto</span>
+                                <span class="team-member-role">DEVELOPMENT</span>
+                            </div>
+                            <div style="float:right">
+                                <a href="#" class="google">
+                                    <i class="fa fa-google google"></i>
+                                </a>
+                                <a href="#" class="twitter">
+                                    <i class="fa fa-twitter twitter"></i>
+                                </a>
+                            </div>
+                        </li>
+                        <li>
+                            <p:graphicImage name="images/dashboard/avatar-arlene.png" library="harmony-layout" />
+                            <div class="team-box">
+                                <span class="team-member">Arlene Welch</span>
+                                <span class="team-member-role">BUSINESS</span>
+                            </div>
+                            <div style="float:right">                            
+                                <a href="#" class="google">
+                                    <i class="fa fa-google google"></i>
+                                </a>
+                                <a href="#" class="twitter">
+                                    <i class="fa fa-twitter twitter"></i>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </p:panel>
+            </div>
+
+            <div class="ui-g-12 ui-lg-6">
+                <p:panel header="Global Sales" styleClass="global-sales">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>TOTAL</th>
+                                <th>CHANGE</th>
+                                <th>STATUS</th>
+                                <th>VIEW</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <p:graphicImage name="images/dashboard/flag-france.png" library="harmony-layout" />
+                                    <span>France</span>
+                                </td>
+                                <td>85681</td>
+                                <td>24%</td>
+                                <td>
+                                    <i class="fa fa-angle-up" />
+                                </td>
+                                <td>
+                                    <p:commandButton type="button" icon="fa fa-search" title="View"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p:graphicImage name="images/dashboard/flag-uk.png" library="harmony-layout" />
+                                    <span>UK</span>
+                                </td>
+                                <td>56123</td>
+                                <td>21%</td>
+                                <td>
+                                    <i class="fa fa-angle-up" />
+                                </td>
+                                <td>
+                                    <p:commandButton type="button" icon="fa fa-search" title="View"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p:graphicImage name="images/dashboard/flag-brazil.png" library="harmony-layout" />
+                                    <span>Brazil</span>
+                                </td>
+                                <td>1252</td>
+                                <td>2%</td>
+                                <td>
+                                    <i class="fa fa-angle-down" />
+                                </td>
+                                <td>
+                                    <p:commandButton type="button" icon="fa fa-search" title="View"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p:graphicImage name="images/dashboard/flag-usa.png" library="harmony-layout" />
+                                    <span>USA</span>
+                                </td>
+                                <td>236</td>
+                                <td>79%</td>
+                                <td>
+                                    <i class="fa fa-angle-up" />
+                                </td>
+                                <td>
+                                    <p:commandButton type="button" icon="fa fa-search" title="View"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p:graphicImage name="images/dashboard/flag-japan.png" library="harmony-layout" />
+                                    <span>Japan</span>
+                                </td>
+                                <td>73</td>
+                                <td>90%</td>
+                                <td>
+                                    <i class="fa fa-angle-down" />
+                                </td>
+                                <td>
+                                    <p:commandButton type="button" icon="fa fa-search" title="View"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="country-info">
+                        <span>24 more countries have total of 33412</span>
+                        <p:commandLink value="View All" class="" />
+                    </div>
+                </p:panel>
+            </div>
+            <div class="ui-g-12 ui-lg-6">
+                <p:panel header="Live Map" styleClass="live-map">
+                    <div class="weather">
+                        <p:graphicImage name="images/dashboard/icon-rain.svg" library="harmony-layout" class="indicator" />
+                        <p:commandLink value="Change Location" class="change" />
+                        <div class="degree"><span>51˚</span> Rain</div>
+                        <div class="degree-detail">Feels Like: <span>51˚</span> Low: <span>51˚</span> High: <span>58˚</span> </div>
+                    </div>
+                </p:panel>
+            </div>
+
+            <div class="ui-g-12 ui-lg-8">
+                <p:panel header="Chat" styleClass="chat">
+                    <span class="day-indicator">Today</span>
+                    <ul>
+                        <li class="messages">
+                            <div class="message-meta available">
+                                <p:graphicImage name="images/dashboard/avatar-jill.png" library="harmony-layout" class="" />
+                            </div>
+                            <div class="message">
+                                <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent commodo ex non mauris interdum, vel malesuada tortor varius. Duis cursus ac arcu ac cursus. Praesent vestibulum fringilla elementum. Nam ultrices justo quis erat pharetra consectetur. </span>
+                                <div class="time">
+                                    11:59
+                                    <i class="fa fa-check status"></i>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="messages">
+                            <div class="message-meta away">
+                                <p:graphicImage name="images/dashboard/avatar-warren.png" library="harmony-layout" class="" />
+                            </div>
+                            <div class="message">
+                                <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+                                <div class="time">
+                                    11:59
+                                    <i class="fa fa-check status"></i>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="messages">
+                            <div class="message-meta busy">
+                                <p:graphicImage name="images/dashboard/avatar-bob.png" library="harmony-layout" class="" />
+                            </div>
+                            <div class="message">
+                                <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent commodo ex non mauris interdum, vel malesuada tortor varius. </span>
+                                <div class="time">
+                                    11:59
+                                    <i class="fa fa-check status"></i>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="messages">
+                            <div class="message-meta available">
+                                <p:graphicImage name="images/dashboard/avatar-chen.png" library="harmony-layout" class="" />
+                            </div>
+                            <div class="message">
+                                <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+                                <div class="time">
+                                    11:59
+                                    <i class="fa fa-check status"></i>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="reply-box">
+                        <p:graphicImage name="images/dashboard/avatar-kate.png" library="harmony-layout" class="" />
+                        <p:inputText placeholder="Write a message..."/>
+                        <p:commandButton type="button" icon="fa fa-smile-o"/>
+                        <p:commandButton type="button" icon="fa fa-paperclip"/>
+                    </div>
+                </p:panel>
+            </div>
+            <div class="ui-g-12 ui-lg-4">
+                <p:panel class="profile">
+                    <div class="cover">
+                        <p:graphicImage name="images/dashboard/avatar-kate.png" library="harmony-layout" class="profile-avatar"/>
+                        <span class="profile-name">Kate Winston</span>
+                    </div>
+                    <div class="profile-info">
+                        Business Analyst
+                    </div>
+                    <ul>
+                        <li>
+                            <i class="fa fa-clock-o menu-item-icon" style="color:#ffba01"></i>
+                            <span>Action History</span>
+                            <i class="fa fa-arrow-right menu-arrow"></i>
+                        </li>
+                        <li>
+                            <i class="fa fa-comment menu-item-icon" style="color:#00b395"></i>
+                            <span>Messages</span>
+                            <i class="fa fa-arrow-right menu-arrow"></i>
+                        </li>
+                        <li>
+                            <i class="fa fa-list-ul menu-item-icon" style="color:#00b395"></i>
+                            <span>Assignments</span>
+                            <i class="fa fa-arrow-right menu-arrow"></i>
+                        </li>
+                        <li>
+                            <i class="fa fa-user menu-item-icon" style="color:#e4018d"></i>
+                            <span>Related Persons</span>
+                            <i class="fa fa-arrow-right menu-arrow"></i>
+                        </li>
+                    </ul>
+                </p:panel>
+            </div>
+
+            <div class="ui-g-12 ui-lg-8">
+                <p:panel header="Inventory" styleClass="inventory">
+                    <p:dataTable var="car" value="#{dtSelectionView.cars7}" selectionMode="single" reflow="true" selection="#{dtSelectionView.selectedCar}"
+                    rowKey="#{car.id}" paginator="true" rows="10">
+                        <p:column headerText="ID" sortBy="#{car.id}">
+                            <h:outputText value="#{car.id}" />
+                        </p:column>
+
+                        <p:column headerText="Year" sortBy="#{car.year}">
+                            <h:outputText value="#{car.year}" />
+                        </p:column>
+
+                        <p:column headerText="Brand" sortBy="#{car.brand}">
+                            <h:outputText value="#{car.brand}" />
+                        </p:column>
+
+                        <p:column headerText="Color" sortBy="#{car.color}">
+                            <h:outputText value="#{car.color}" />
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+            </div>
+            <div class="ui-g-12 ui-lg-4">
+                <p:panel header="Latest Activities" styleClass="latest-activities">
+                    <ul>
+                        <li>
+                            <div class="activity-link runway-link"></div>
+                            <a class="activity-logo runway">
+                                <i class="fa fa-plane runway"></i>
+                            </a>
+                            <div class="activity-detail">
+                                <span>U39310</span> has arrived to
+                                <span>LTAC</span>
+                                <span class="time">15.52</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="activity-link management-link"></div>
+                            <a class="activity-logo management">
+                                <i class="fa fa-sitemap management"></i>
+                            </a>
+                            <div class="activity-detail">
+                                <span>Gate 139</span> is ready for departure
+                                <span class="time">15.55</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="activity-link management-link"></div>
+                            <a class="activity-logo management">
+                                <i class="fa fa-sitemap management"></i>
+                            </a>
+                            <div class="activity-detail">Personal Change on 
+                                <span>TW312</span>
+                                <span class="time">16.21</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="activity-link runway-link"></div>
+                            <a class="activity-logo runway">
+                                <i class="fa fa-plane runway"></i>
+                            </a>
+                            <div class="activity-detail">
+                                <span>LH764</span> has arrived to
+                                <span>BOM/VABB</span>
+                                <span class="time">16.49</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="activity-link announcement-link"></div>
+                            <a class="activity-logo announcement">
+                                <i class="fa fa-globe announcement"></i>
+                            </a>
+                            <div class="activity-detail">Heavy rain approaching 
+                                <span>Runway 4</span>
+                                <span class="time">16.51</span>
+                            </div>
+                        </li>   
+                    </ul>
+                </p:panel>
+            </div>
+            <div class="ui-g-12">
+                <p:panel header="Upcoming Events" style="height:100%">
+                    <p:schedule value="#{scheduleView.eventModel}"/>
+                </p:panel>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

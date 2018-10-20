@@ -1,0 +1,93 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="./../../WEB-INF/template.xhtml">
+
+    <ui:define name="title">Opération parcelle</ui:define>
+    <ui:define name="viewname">
+
+        <li>Affaires domaniale</li>
+        <li>/</li>
+        <li><p:link outcome="mutation.xhtml">Mutation</p:link></li>
+    </ui:define>
+
+    <ui:define name="content">
+        <style>
+            .arborescence{
+                overflow:scroll;
+            }
+            .carte{
+                overflow:scroll;
+            }
+        </style>
+        <div class="container">
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <div class="card card-w-title" >
+                        <h2>Mutation</h2>
+                        <h:form id="TMutationListForm">
+                            <p:growl id="messages" showDetail="true" />
+                            <p:panel header="Liste des mutations">
+                                <p:dataTable id="datalist" value="#{tMutationController.items}" var="item"
+                                             selectionMode="single" selection="#{tMutationController.selected}"
+                                             paginator="true"
+                                             rowKey="#{item.mutNumero}"
+                                             rows="10"
+                                             rowsPerPageTemplate="10,20,30,40,50"
+                                             >
+
+                                    <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                                    <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Numero"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.mutNumero}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Objet"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.mutObjet}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Date"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.mutDateMut}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Operation"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.mutOpvNumero}"/>
+                                    </p:column>
+                                    <f:facet name="footer">
+                                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tMutationController.prepareCreate}" update=":TMutationCreateForm" oncomplete="PF('TMutationCreateDialog').show()"/>
+                                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TMutationViewForm" oncomplete="PF('TMutationViewDialog').show()" disabled="#{empty tMutationController.selected}"/>
+                                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TMutationEditForm" oncomplete="PF('TMutationEditDialog').show()" disabled="#{empty tMutationController.selected}"/>
+                                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{tMutationController.destroy}" update=":TMutationListForm:messages,:TMutationListForm:datalist" disabled="#{empty tMutationController.selected}"/>
+                                    </f:facet>
+                                </p:dataTable>
+                            </p:panel>
+                        </h:form>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ui:include src="ListVenteParcelle.xhtml"/>
+        <ui:include src="Create.xhtml"/>
+        <ui:include src="Edit.xhtml"/>
+        <ui:include src="View.xhtml"/>
+
+    </ui:define>
+
+</ui:composition>

@@ -13,6 +13,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import org.vng.controlers.util.StatOperation;
 import org.vng.entities.TModeacquis;
 import org.vng.entities.TOperationParcel;
 
@@ -42,6 +43,19 @@ public class TOperationParcelFacade extends AbstractFacade<TOperationParcel> {
             System.out.println("Probleme de selection de la plux recente operation "+e);
         }
         return numoperation;
+    }
+     
+    public List<StatOperation> executeNombreOperation(){
+        
+         //System.out.println("Annee "+an);
+         List<StatOperation> statOp=new ArrayList<>();
+        try{
+            Query q=em.createNamedQuery("TOperationParcel.nombreOperation");
+            statOp = (List<StatOperation>) q.getResultList();
+        }catch(Exception e){
+            System.out.println("Probleme de selection de la plux recente operation "+e);
+        }
+        return statOp;
     }
      
      

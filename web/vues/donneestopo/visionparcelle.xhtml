@@ -23,91 +23,77 @@
             .carte{
                 overflow:scroll;
             }
+
         </style>
-        <div class="container">
+        
+        <script>
+
+        </script>
+
+        
+         <div class="container">
             <div class="ui-g">
                 <div class="ui-g-12">
                     <div class="card" >
-                        <h1>Cartographie des parcelles</h1>
+                        <h3>Cartographie des parcelles</h3>
                         <h:form id="formCarte">
-
-                            <div  style="background-color: #3f7382; height: 50px;width: 100%"   id="element_affiches"> 
-                                <table style="  border: 0px" >
+                            <p:messages id="msg" showIcon="true" showDetail="true" closable="true"/>
+                            <div  style="background-color: #3f7382; height: 70px;width: 100%"   id="element_affiches"> 
+                                <table style="  border: 0px; width: 100% "  >
                                     <tr ><td>
-                                            <p:selectManyCheckbox style="color:  #ffffff"   columns="3">
+                                            <p:selectManyCheckbox value="#{parcelleController.listTypeAffichage}" style="color:  #ffffff"   columns="3">
                                                 <f:selectItem   itemLabel="Parcelle" itemValue="parcelle" />
-                                                <f:selectItem itemLabel="Corridor" itemValue="corridor" />
+                                                <!--f:selectItem itemLabel="Corridor" itemValue="corridor" /-->
                                                 <f:selectItem itemLabel="Objets Points" itemValue="point" />
                                             </p:selectManyCheckbox>
                                         </td>
                                         <td>
-                                            <p:commandButton ajax="false" action="#{parcelleController.affiche()}" style=" margin-right: 20px" value="Afficher" icon="fa fa-map-marker" />
+                                            <p:commandButton update="msg" ajax="false" action="#{parcelleController.affiche()}" style=" margin-right: 20px" value="Afficher" icon="fa fa-map-marker" />
                                         </td>
                                         <td><p:outputLabel style="color:  #ffffff" value="Departement"  /></td>
-                                        <td><p:inputText style="width: 150px; height: 25px" value="#{parcelleController.libDepart}"  /></td>
+                                        <td><p:inputText style="width: 130px; height: 25px" value="#{parcelleController.libDepart}"  /></td>
                                         <td><p:outputLabel style="color:  #ffffff" value="Commune"  /></td>
-                                        <td><p:inputText style="width: 150px; height: 25px" value="#{parcelleController.libCommune}"  /></td>
+                                        <td><p:inputText style="width: 130px; height: 25px" value="#{parcelleController.libCommune}"  /></td>
                                         <td><p:outputLabel style="color:  #ffffff" value="Arrondissement"  /></td>
-                                        <td><p:inputText style="width: 150px; height: 25px" value="#{parcelleController.libArr}"  /></td>
-                                       
+                                        <td><p:inputText style="width: 130px; height: 25px" value="#{parcelleController.libArr}"  /></td>
+                                         
                                     </tr>
+                                    <tr style="padding-bottom: 5px" > <td colspan="4">
+                                         </td>
+                                                <td><p:outputLabel style="color:  #ffffff" value="Village"  /></td>
+                                                <td><p:inputText style="width: 130px; height: 25px" value="#{parcelleController.libVillage}"  /></td>
+                                           
+                                            
+                                                <td><p:outputLabel style="color:  #ffffff" value="Nombre Parcelles"  /></td>
+                                                <td><p:inputText style="width: 130px; height: 25px" value="#{parcelleController.nombreParcelle}"  /></td>
+                                            </tr>
                                 </table>
                             </div>
-                            <div style="width: 100%;height: 500px" id="conteneur_centre" > 
+                            <div style="width: 100%;height: 580px" id="conteneur_centre" > 
                                 <div class="arborescence" style="width: 25%;height: 100%; float: left; border-color:#dd8400; border-width: 1px; "  id="arborescence"> 
-                                    <p:panel header="Découpage Territorial" styleClass="global-sales">
-                                    
-                                    <p:tree     style="width: 270px" id="tree1" value="#{parcelleController.root}" var="node" selectionMode="single" selection="#{parcelleController.noeudSelectionner}"
-                                                draggable="true" droppable="true" dragdropScope="demo">
-                                        <p:treeNode   expandedIcon="fa fa-folder-open" collapsedIcon="fa fa-folder" >
-                                            <h:outputText value="#{node}"  />
-                                        </p:treeNode>
-                                    </p:tree>
-                                    </p:panel> 
+                                    <p:panel id="arbre" header="Découpage Territorial" styleClass="global-sales">
+
+                                        <p:tree     style="width: 270px" id="tree1" value="#{parcelleController.root}" var="node" selectionMode="single" selection="#{parcelleController.noeudSelectionner}"
+                                                    draggable="true" droppable="true" dragdropScope="demo">
+                                            <p:treeNode   expandedIcon="fa fa-folder-open" collapsedIcon="fa fa-folder" >
+                                                <h:outputText value="#{node}"  />
+                                            </p:treeNode>
+                                        </p:tree>
+                                    </p:panel>
+                                                <p:commandButton update="arbre"  ajax="true" action="#{parcelleController.genererArbre()}"  icon="fa fa-refresh" />
+                               
                                 </div>
-                                
+
                                 <div  style="width: 75%;float: right;height: 100% ">
+
+                                    <div  style="width: 100%; height: 100%; background-color: cornsilk;float: left; align-content: center" id="carte">  
+
+                                        <iframe id="frameCarte" width="100%" height="100%" src="#{parcelleController.urlcarte}" >
+
+                                        </iframe>
+
+                                    </div>
                                     
-                                <div  style="width: 75%; height: 100%; background-color: cornsilk;float: left; align-content: center" id="carte">  
-                                    
-                                    <iframe id="frameCarte" width="100%" height="100%" src="#{parcelleController.urlcarte}" >
-                                            
-                                    </iframe>
-                                   
-                                </div>
-                                <div  style="width: 25%; height: 100%; background-color: cornsilk;float: right; align-content: center; background-color: #3f7382" id="droite">  
-                                   <table style="  border: 0px" >
-                                    <tr >
-                                        <td><p:outputLabel style="color:  #ffffff" value="Village"  /></td>
-                                        <td><p:inputText style="width: 150px; height: 25px" value="#{parcelleController.libVillage}"  /></td>
-                                    </tr>  
-                                    <tr >   
-                                        <td><p:outputLabel style="color:  #ffffff" value="Nombre Parcelle"  /></td>
-                                        <td><p:inputText style="width: 150px; height: 25px" value="#{parcelleController.nombreParcelle}"  /></td>
-                                    </tr>
-                                </table>
-                                  <table  style="  border: 0px; " >
-                                      <th  colspan="2">Legende</th>
-                                    <tr style=" height: 10px"  >
-                                        <td style=" background-color: #66FF66; width: 10px;"></td><td>Parcelle agricole</td>
-                                    </tr>  
-                                    <tr >   
-                                        <td style=" background-color:#AAAAAA "></td><td>Noyau villageois</td>
-                                    </tr>
-                                      <tr >   
-                                        <td style=" background-color: #f3b1a3 "></td><td>Parcelle litigeuse</td>
-                                    </tr>
-                                      <tr >   
-                                        <td style=" background-color:#b2eeea "></td><td>Zone urbaine</td>
-                                    </tr>
-                                    <tr >   
-                                        <td style=" background-color:#fcf698 "></td><td>Domaine public prive</td>
-                                    </tr>
-                                      <tr >   
-                                        <td style=" background-color:#ecdbe8 "></td><td>Occupant Domaine public prive</td>
-                                    </tr>
-                                </table>  
-                                </div>
                                 </div>
                             </div>
 

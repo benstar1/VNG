@@ -876,8 +876,46 @@ public class TOperationParcelController implements Serializable {
             List<TIntervenir> listIntervenir = null;
             listIntervenir = ejbFacadeIntervenir.executeListeIntervRole(pbf, "DE");
             System.out.println(" taill " + listIntervenir.size());
+            boolean interdi =false;
             if (listIntervenir != null) {
                 try {
+                    /////////////////Verifir l'operation est opossible///////////////////
+                    TIntervenir IntBail =listIntervenir.get(0);
+                    System.out.println(" Numero Inv "+IntBail.getInvNumero());
+                    boolean existeLimDroitDet=IntBail.getInvLimitation();
+                    if(existeLimDroitDet){
+                        if((getTypeOperation().equals("VENTE"))&&(IntBail.getInvLimitVent())){
+                            /////////////Impossible de vendre la parcelle
+                             interdi=true;
+                             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Interdition d'operation : ", "Operation de vente interdite sur cette parcelle");
+                             FacesContext.getCurrentInstance().addMessage(null, message);
+                        }
+                        
+                        if((getTypeOperation().equals("DON"))&&(IntBail.getInvLimitVent())){
+                            /////////////Impossible de vendre la parcelle
+                             interdi=true;
+                             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Interdition d'operation : ", "Operation de Don interdite sur cette parcelle");
+                             FacesContext.getCurrentInstance().addMessage(null, message);
+                        }
+                        
+                        if((getTypeOperation().equals("LEG"))&&(IntBail.getInvLimitVent())){
+                            /////////////Impossible de vendre la parcelle
+                             interdi=true;
+                             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Interdition d'operation : ", "Operation de Leg interdite sur cette parcelle");
+                             FacesContext.getCurrentInstance().addMessage(null, message);
+                        }
+                        
+                        if((getTypeOperation().equals("PRET"))&&(IntBail.getInvLimitVent())){
+                            /////////////Impossible de vendre la parcelle
+                             interdi=true;
+                             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Interdition d'operation : ", "Operation de pret interdite sur cette parcelle");
+                             FacesContext.getCurrentInstance().addMessage(null, message);
+                        }
+                        
+                    }
+                    /////////////////////////////////////////////////////////////////////
+                    
+                    if(!interdi){
                     intervenirbailleur = listIntervenir.get(0);
                     setIntervenantBailleur(intervenirbailleur.getInvIntNumero());
                     selected.setOpvIntNumeroBailleur(intervenirbailleur.getInvIntNumero());
@@ -887,8 +925,14 @@ public class TOperationParcelController implements Serializable {
                     setDomicile(intervenirbailleur.getInvIntNumero().getIntDomicile());
                     setAge(String.valueOf(intervenirbailleur.getInvIntNumero().getIntDateNais()));
                     System.out.println("Intervenante " + intervenirbailleur.getInvIntNumero().getIntNom());
+                    }else{
+                        nouveau();
+                    }
                 } catch (Exception e) {
                     System.out.println("Pas de detenteur de DE " + e);
+                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Droit de detention : ", "Default de detenteur du droit de detention");
+                    FacesContext.getCurrentInstance().addMessage(null, message);
+ 
                 }
 
             }
@@ -1175,7 +1219,9 @@ public class TOperationParcelController implements Serializable {
         }
 
         try {
+            if(getTypeOperation().equals("VENTE")||getTypeOperation().equals("LEG")||getTypeOperation().equals("DON")){
             finIntervenirBailleur();
+        }
         } catch (Exception e) {
             System.out.println(" Erreur fin intervenir bailleur" + e);
             FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Operation parcelle", "Echec fin ancien bailleur/vendeur");
@@ -1592,6 +1638,8 @@ public class TOperationParcelController implements Serializable {
 
         }
     }
+    
+    
 
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {

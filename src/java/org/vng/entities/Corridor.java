@@ -43,6 +43,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Corridor.findByDate", query = "SELECT c FROM Corridor c WHERE c.date = :date")
     , @NamedQuery(name = "Corridor.findByType", query = "SELECT c FROM Corridor c WHERE c.type = :type")
     , @NamedQuery(name = "Corridor.findByHoffset", query = "SELECT c FROM Corridor c WHERE c.hoffset = :hoffset")
+    , @NamedQuery(name = "Corridor.findListCommuneCorridor", query = "SELECT DISTINCT c.subcountyname FROM Corridor c")
     , @NamedQuery(name = "Corridor.findByCorPbaNumero", query = "SELECT c FROM Corridor c WHERE c.corPbaNumero = :corPbaNumero")})
 public class Corridor implements Serializable {
 

@@ -18,14 +18,20 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.vng.entities.TOperationParcel;
 
 @Named("tMutationController")
 @SessionScoped
 public class TMutationController implements Serializable {
-
+    int i=0;
     @EJB
     private org.vng.sessions.TMutationFacade ejbFacade;
+    
+    @EJB
+    private org.vng.sessions.TOperationParcelFacade ejbFacadeOperation;
+    
     private List<TMutation> items = null;
+     private List<TOperationParcel> itemsOperation = null;
     private TMutation selected;
 
     public TMutationController() {
@@ -54,8 +60,33 @@ public class TMutationController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
+    
+//     public void GenererItemsOperationCatMode() {
+//        try {
+//            itemsOperation = ejbFacadeOperation.executeListeOperationCatMode("OP");
+//            System.out.println(" nombre operation " + items.size());
+//        } catch (Exception e) {
+//        }
+//    }
+
+    public List<TOperationParcel> getItemsOperation() {
+        try {
+            itemsOperation = ejbFacadeOperation.executeListeOperationCatMode("DE");
+            System.out.println(" nombre operation " + items.size());
+        } catch (Exception e) {
+        }
+        return itemsOperation;
+    }
+
+    public void setItemsOperation(List<TOperationParcel> itemsOperation) {
+        this.itemsOperation = itemsOperation;
+    }
+     
+     
 
     public void create() {
+         i++;
+        selected.setMutNumero(String.valueOf(i));
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TMutationCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.

@@ -95,6 +95,7 @@ public class TMutation implements Serializable {
 
     public void setMutOpvNumero(TOperationParcel mutOpvNumero) {
         this.mutOpvNumero = mutOpvNumero;
+        this.setMutObjet(mutOpvNumero.getOpvMacCode().getMacDesig());
     }
 
     @XmlTransient
