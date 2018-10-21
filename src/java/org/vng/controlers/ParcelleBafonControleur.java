@@ -124,7 +124,8 @@ public class ParcelleBafonControleur implements Serializable {
     // Déclaration des objet
           
    private TParcelleBafon selectedParcelle;
-   private TParcelleBafon selectedParcelleFusionne;
+   private TParcelleBafon selectedParcelleFusionne; // C'est l'objet pour enregistrer une parcelle fusionnée
+   private TParcelleBafon selectedParcelleFusionneTemp; // C'est l'objet pour enregistrer une parcelle fusionnée 
    private TIntervenir intervenirSelect, intervenirSelectFusion ;
    private TIntervenant intervenantSelect ;
    private TActivite activiteSelect ;
@@ -558,7 +559,23 @@ public class ParcelleBafonControleur implements Serializable {
         //listeTypedexercesAdminUneParcel.get(0).getDreTdeCode().getTdeDesig()
        // activiteSelect = intervenantSelect.getIntActCode();
         
-      
+       /*if(listeParcelAFusionner.isEmpty())
+        {    superficieDeduite = BigDecimal.ZERO  ;                      
+             setSelectedParcelleFusionne(intervenirSelect.getInvPbaNumero());
+             selectedParcelleFusionne.setPbaSuperficie(superficieDeduite);
+             selectedParcelleFusionne.setPbaNumero(intervenirSelect.getInvPbaNumero().getPbaVilaCode().getVilaCode());
+        }*/
+       
+       
+          /*
+      if(listeParcelAFusionner.isEmpty())
+        {    superficieDeduite = BigDecimal.ZERO  ;                      
+             setSelectedParcelleFusionneTemp(intervenirSelect.getInvPbaNumero());
+             selectedParcelleFusionneTemp.setPbaSuperficie(superficieDeduite);
+             selectedParcelleFusionneTemp.setPbaNumero(intervenirSelect.getInvPbaNumero().getPbaVilaCode().getVilaCode());
+        }else selectedParcelleFusionneTemp = new TParcelleBafon();
+        */  
+    
         
     /*    String numParcelleImage = "";
         if(selectedParcelle != null && selectedParcelle.getPbaNumero() != null )
@@ -781,7 +798,7 @@ public class ParcelleBafonControleur implements Serializable {
 
         if(listeParcelAFusionner.isEmpty())
         {    superficieDeduite = BigDecimal.ZERO  ;
-             selectedParcelleFusionne  = new TParcelleBafon();
+             //selectedParcelleFusionne  = new TParcelleBafon();
              listeParcelAFusionner.add(intervenirSelect);
             // selectedParcelleFusionne = intervenirSelect.getInvPbaNumero();             
              setSelectedParcelleFusionne(intervenirSelect.getInvPbaNumero());

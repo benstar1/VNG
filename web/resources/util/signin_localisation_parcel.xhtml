@@ -79,7 +79,8 @@
             <composite:attribute name="listeTypeDomaine" type="java.util.List"/>
             
             <composite:attribute name="readOnly" default="false" type="java.lang.Boolean"/>
-            <composite:attribute name="activerRecherche" default="false" type="java.lang.Boolean"/>
+            <composite:attribute name="desactiverRecherche" default="false" type="java.lang.Boolean"/>
+            <composite:attribute name="fusionScission" default="false" type="java.lang.Boolean"/>
             <composite:attribute name="parcelleDPP" default="false" type="java.lang.Boolean"/>
             <composite:attribute name="restreint" default="false" type="java.lang.Boolean"/>
             
@@ -96,10 +97,10 @@
                                    <div class="ui-g-12 ui-lg-6" style=" width: 150px;">                                        
                                         <p:outputLabel  value="#{msg.hint_pbaNumero}" for="txt_numeroParcel" />                                    </div>
                                     <div class="ui-g-12 ui-lg-6">
-                                        <p:inputText id="txt_numeroParcel" readonly="true" value="#{cc.attrs.numeroParcel}"/>
+                                        <p:inputText id="txt_numeroParcel" readonly="#{!cc.attrs.fusionScission}"  value="#{cc.attrs.numeroParcel}"/>
                                     </div>
                                    <div class="ui-g-12 ui-lg-6" style="width: 50px;">                                      
-                                       <p:commandButton value="#{cc.attrs.rechercheButtonText}" disabled="#{cc.attrs.activerRecherche}" type="button" onclick="PF('#{cc.attrs.iddialog}').show();" icon="fa fa-folder-open" styleClass="green-btn"/>
+                                       <p:commandButton value="#{cc.attrs.rechercheButtonText}" disabled="#{cc.attrs.desactiverRecherche}" type="button" onclick="PF('#{cc.attrs.iddialog}').show();" icon="fa fa-folder-open" styleClass="green-btn"/>
                                    </div> 
                                </div>
                               
@@ -145,32 +146,32 @@
                                     <p:panelGrid columns="2" id="groupe_pac_2" layout="grid" styleClass="ui-panelgrid-blank form-group">
                                         
                                            <p:outputLabel style="margin-bottom: 0px; width: 150px;" value="#{msg.hint_pbaLieuDit}" for="txt_lieu_dit" />                                         
-                                           <p:inputText id= "txt_lieu_dit" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.lieuDit}"/>
+                                           <p:inputText id= "txt_lieu_dit" readonly="#{cc.attrs.readOnly and !cc.attrs.fusionScission}" value="#{cc.attrs.lieuDit} "/>
                                            
                                            <p:outputLabel rendered="#{!cc.attrs.restreint}" style="margin-bottom: 0px; width: 150px;" value="#{msg.hint_nom_local}" for="txt_nom_local" />                                         
-                                           <p:inputText rendered="#{!cc.attrs.restreint}" id= "txt_nom_local" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.nomLocal}"/>
+                                           <p:inputText rendered="#{!cc.attrs.restreint}" id= "txt_nom_local" readonly="#{cc.attrs.readOnly and !cc.attrs.fusionScission}" value="#{cc.attrs.nomLocal}"/>
                                         
                                         <p:outputLabel  value="#{msg.hint_pbaTypeParcelle}"  for="spin_typeParcelle" />                                        
                                         
-                                        <p:selectOneMenu  id="spin_typeParcelle" disabled="#{cc.attrs.readOnly}"  filter="true" filterMatchMode="contains" style="max-width: 400px;" value="#{cc.attrs.typeParcel}">                                                
+                                        <p:selectOneMenu  id="spin_typeParcelle" disabled="#{cc.attrs.readOnly and !cc.attrs.fusionScission}"  filter="true" filterMatchMode="contains" style="max-width: 400px;" value="#{cc.attrs.typeParcel}">                                                
                                                 <f:selectItem itemLabel="" itemValue="" />
                                                 <f:selectItems value="#{cc.attrs.listeTypeBF}" var="typeBF"  itemLabel="#{typeBF.tbfDesig}" itemValue="#{typeBF}"/> 
                                         </p:selectOneMenu> 
                                         
                                        <p:outputLabel rendered="#{!cc.attrs.restreint}" style="margin-bottom: 0px;"  value="#{msg.hint_pbaGeo}" for="spin_geometre" />                                        
-                                       <p:selectOneMenu rendered="#{!cc.attrs.restreint}"  id="spin_geometre"  disabled="#{cc.attrs.readOnly}" filter="true" filterMatchMode="contains" style="max-width: 400px;" value="#{cc.attrs.nomGeometre}">                                                
+                                       <p:selectOneMenu rendered="#{!cc.attrs.restreint}"  id="spin_geometre"  disabled="#{cc.attrs.readOnly and !cc.attrs.fusionScission}" filter="true" filterMatchMode="contains" style="max-width: 400px;" value="#{cc.attrs.nomGeometre}">                                                
                                                 <f:selectItem itemLabel="" itemValue="" />
                                                 <f:selectItems value="#{cc.attrs.listeGeometre}" /> 
                                         </p:selectOneMenu> 
                                        
                                         
                                        <p:outputLabel  style="margin-bottom: 0px; width: 150px;" value="#{msg.hint_pbaSuperficie}" for="txt_superficie" /> 
-                                       <p:inputText id= "txt_superficie" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.superficie}"/>
+                                       <p:inputText id= "txt_superficie" readonly="#{cc.attrs.readOnly and !cc.attrs.fusionScission}" value="#{cc.attrs.superficie}"/>
                                          
                                            
                                        <p:outputLabel rendered="#{!cc.attrs.restreint}" style="margin-bottom: 0px; width: 150px;" value="#{msg.hint_pbaObservation}"  for="txt_observation" />
                                             
-                                       <p:inputTextarea rendered="#{!cc.attrs.restreint}" id= "txt_observation" readonly="#{cc.attrs.readOnly}" autoResize="false" value="#{cc.attrs.observation}"/>
+                                       <p:inputTextarea rendered="#{!cc.attrs.restreint}" id= "txt_observation" readonly="#{cc.attrs.readOnly and !cc.attrs.fusionScission}" autoResize="false" value="#{cc.attrs.observation}"/>
                                             
                                        <p:outputLabel style="margin-bottom: 0px; width: 150px;"  value="#{msg.hint_pbaAppartenance}"  for="txt_appartenance" />                                           
                                        <p:inputText id= "txt_appartenance" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.appartenance}"/>
@@ -191,7 +192,7 @@
                                     
                                     
                                       <p:panelGrid columns="4" rendered="#{cc.attrs.restreint}" layout="grid" styleClass="ui-panelgrid-blank form-group" style="margin-top: 0pw; padding: 0px;">                                        
-                                          <p:commandButton  value="#{msg.btn_ajouter}" actionListener="#{cc.attrs.ajouterAction}" icon="fa fa-plus" styleClass="blue-btn rounded-btn" update="#{cc.attrs.elmupdate}"/>
+                                          <p:commandButton  value="#{msg.btn_ajouter}" actionListener="#{cc.attrs.ajouterAction}" icon="fa fa-plus" styleClass="blue-btn rounded-btn" update="#{cc.attrs.elmupdate}" />
                                     
                                     </p:panelGrid>
                                     
