@@ -7,6 +7,11 @@
  */
 package org.vng.controlers;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -61,6 +66,7 @@ import org.vng.entities.TTypebf;
 import org.vng.sessions.TDroitExerceFacade;
 import org.vng.sessions.TParcelleTypeBfFacade;
 import org.vng.sessions.TUtilisateurFacade;
+//import org.apache.commons.lang.SerializationUtils; 
 
 
 
@@ -138,6 +144,7 @@ public class ParcelleBafonControleur implements Serializable {
    private Boolean autreActivite = false;
    private Boolean autreNationalite = false;
    private Boolean autreEthnie = false;
+   private Boolean fusionEncours = false;
    
    private Boolean clotureActif = false;
    private Boolean autreTravauxActif = false;
@@ -152,7 +159,7 @@ public class ParcelleBafonControleur implements Serializable {
    
    private List<TDroitExerce> listeTypedexercesAdminUneParcel;
    
-    private List<TIntervenir> listeDroitOperationnel,  listeLimitrophe;
+    private List<TIntervenir> listeDroitOperationnel,  listeLimitrophe, listeTemp;
    
     //private List<TTypedexerce> listeTypeDroitExerce;
    
@@ -559,12 +566,14 @@ public class ParcelleBafonControleur implements Serializable {
         //listeTypedexercesAdminUneParcel.get(0).getDreTdeCode().getTdeDesig()
        // activiteSelect = intervenantSelect.getIntActCode();
         
-       /*if(listeParcelAFusionner.isEmpty())
-        {    superficieDeduite = BigDecimal.ZERO  ;                      
-             setSelectedParcelleFusionne(intervenirSelect.getInvPbaNumero());
-             selectedParcelleFusionne.setPbaSuperficie(superficieDeduite);
-             selectedParcelleFusionne.setPbaNumero(intervenirSelect.getInvPbaNumero().getPbaVilaCode().getVilaCode());
-        }*/
+       if(listeParcelAFusionner.isEmpty())
+        {    
+           // superficieDeduite = BigDecimal.ZERO  ;  
+            TIntervenir intervenirSelectCpy = (TIntervenir)copyObject(intervenirSelect);
+             setSelectedParcelleFusionne(intervenirSelectCpy.getInvPbaNumero());
+            // selectedParcelleFusionne.setPbaSuperficie(superficieDeduite);
+            // selectedParcelleFusionne.setPbaNumero(intervenirSelect.getInvPbaNumero().getPbaVilaCode().getVilaCode());
+        }
        
        
           /*
@@ -742,6 +751,7 @@ public class ParcelleBafonControleur implements Serializable {
          listeDroitOperationnel = new ArrayList<>();
          listeLimitrophe = new ArrayList<>();
          listeParcelAFusionner = new ArrayList<>();
+         listeTemp = new ArrayList<>();
          
         activiteSelect = new TActivite();
         typeDomaineParcel = new TTypeDomaineParcel();
@@ -788,6 +798,14 @@ public class ParcelleBafonControleur implements Serializable {
     public void setSelectedParcelleFusionne(TParcelleBafon selectedParcelleFusionne) {
         this.selectedParcelleFusionne = selectedParcelleFusionne;
     }
+
+    public Boolean getFusionEncours() {
+        return fusionEncours;
+    }
+
+    public void setFusionEncours(Boolean fusionEncours) {
+        this.fusionEncours = fusionEncours;
+    }
     
     
   
@@ -797,14 +815,16 @@ public class ParcelleBafonControleur implements Serializable {
         boolean trouver = false;
 
         if(listeParcelAFusionner.isEmpty())
-        {    superficieDeduite = BigDecimal.ZERO  ;
+        {   
+            setFusionEncours(true);
+            superficieDeduite = BigDecimal.ZERO  ;
              //selectedParcelleFusionne  = new TParcelleBafon();
              listeParcelAFusionner.add(intervenirSelect);
             // selectedParcelleFusionne = intervenirSelect.getInvPbaNumero();             
-             setSelectedParcelleFusionne(intervenirSelect.getInvPbaNumero());
+            // setSelectedParcelleFusionne(listeTemp.get(0).getInvPbaNumero());
              selectedParcelleFusionne.setPbaNumero(intervenirSelect.getInvPbaNumero().getPbaVilaCode().getVilaCode());
              superficieDeduite = superficieDeduite.add(intervenirSelect.getInvPbaNumero().getPbaSuperficie());
-             selectedParcelleFusionne.setPbaSuperficie(superficieDeduite);
+             selectedParcelleFusionne.setPbaSuperficie(superficieDeduite); 
              
              intervenirSelect = new TIntervenir();
              selectedParcelle = new TParcelleBafon();
@@ -826,7 +846,8 @@ public class ParcelleBafonControleur implements Serializable {
             {                
                  listeParcelAFusionner.add(intervenirSelect);
                  superficieDeduite = superficieDeduite.add(intervenirSelect.getInvPbaNumero().getPbaSuperficie());
-                 selectedParcelleFusionne.setPbaSuperficie(superficieDeduite);
+                 //selectedParcelleFusionne.setPbaSuperficie(superficieDeduite);
+                 System.out.println(" intervenirSelect "+intervenirSelect.getInvPbaNumero());
                  intervenirSelect = new TIntervenir();
                  selectedParcelle = new TParcelleBafon();
             }else{
@@ -879,6 +900,31 @@ public class ParcelleBafonControleur implements Serializable {
             
        
       
+    }
+    
+    
+    private Object copyObject(Object objSource) {
+        Object objDest= null;
+        try {
+           
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(bos);
+            oos.writeObject(objSource);
+            oos.flush();
+            oos.close();
+            bos.close();
+            byte[] byteData = bos.toByteArray();
+            ByteArrayInputStream bais = new ByteArrayInputStream(byteData);
+            try {
+                objDest = new ObjectInputStream(bais).readObject();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return objDest;
+
     }
     
     

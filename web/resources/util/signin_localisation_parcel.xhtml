@@ -146,7 +146,7 @@
                                     <p:panelGrid columns="2" id="groupe_pac_2" layout="grid" styleClass="ui-panelgrid-blank form-group">
                                         
                                            <p:outputLabel style="margin-bottom: 0px; width: 150px;" value="#{msg.hint_pbaLieuDit}" for="txt_lieu_dit" />                                         
-                                           <p:inputText id= "txt_lieu_dit" readonly="#{cc.attrs.readOnly and !cc.attrs.fusionScission}" value="#{cc.attrs.lieuDit} "/>
+                                           <p:inputText id= "txt_lieu_dit" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.lieuDit} "/>
                                            
                                            <p:outputLabel rendered="#{!cc.attrs.restreint}" style="margin-bottom: 0px; width: 150px;" value="#{msg.hint_nom_local}" for="txt_nom_local" />                                         
                                            <p:inputText rendered="#{!cc.attrs.restreint}" id= "txt_nom_local" readonly="#{cc.attrs.readOnly and !cc.attrs.fusionScission}" value="#{cc.attrs.nomLocal}"/>

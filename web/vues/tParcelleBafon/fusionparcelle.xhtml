@@ -67,7 +67,7 @@
                                                 iddialog="dlgParcelle"
                                                 restreint="true"
                                                 ajouterAction="#{parcelleBaf.ajouterParcellePourFusionListener}" 
-                                                elmupdate="formglobal:table_liste_parcelle_fusion"
+                                                elmupdate=":formglobal:table_liste_parcelle_fusion"
                                                />
                     </div>
                     
@@ -174,7 +174,7 @@
                                                 parcelleDPP="false"
                                                 iddialog="dlgParcelle"     
                                                 desactiverRecherche="true"
-                                                fusionScission="false"
+                                                fusionScission="#{parcelleBaf.fusionEncours}"
                                                />
                     </div>
                     
@@ -237,7 +237,8 @@
                                         :formglobal:composite_parcelle:txt_lieu_dit
                                         :formglobal:composite_parcelle:spin_typeParcelle
                                         :formglobal:composite_parcelle:txt_superficie
-                                        :formglobal:composite_parcelle:txt_appartenance"
+                                        :formglobal:composite_parcelle:txt_appartenance
+                                        :formglobal:composite_parcelle:txt_numeroParcel"
                           />
                 
                 
