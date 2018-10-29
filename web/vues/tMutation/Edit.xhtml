@@ -12,21 +12,20 @@
             <h:form id="TMutationEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{tMutationController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditTMutationLabel_mutNumero}" for="mutNumero" />
-                        <p:inputText id="mutNumero" value="#{tMutationController.selected.mutNumero}" title="#{bundle.EditTMutationTitle_mutNumero}" required="true" requiredMessage="#{bundle.EditTMutationRequiredMessage_mutNumero}"/>
-                        <p:outputLabel value="#{bundle.EditTMutationLabel_mutObjet}" for="mutObjet" />
+                       <p:outputLabel value="Operation parcelle" for="mutOpvNumero" />
+
+                        <p:panelGrid columns="2">
+                            <p:inputText required="true" id="mutOpvNumero" value="#{tMutationController.selected.mutOpvNumero}" title="Operation Parcelle" />
+                            <p:commandButton  title="selection Operation" icon="fa fa-folder-open" styleClass="green-btn" oncomplete="PF('TVenteParcelleListDlg').show()" ajax="true"/>
+                        </p:panelGrid>
+                       
+                        <p:outputLabel value="Objet" for="mutObjet" />
                         <p:inputText id="mutObjet" value="#{tMutationController.selected.mutObjet}" title="#{bundle.EditTMutationTitle_mutObjet}" />
-                        <p:outputLabel value="#{bundle.EditTMutationLabel_mutDateMut}" for="mutDateMut" />
+                        <p:outputLabel value="Date" for="mutDateMut" />
                         <p:calendar id="mutDateMut" pattern="MM/dd/yyyy" value="#{tMutationController.selected.mutDateMut}" title="#{bundle.EditTMutationTitle_mutDateMut}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.EditTMutationLabel_mutOpvNumero}" for="mutOpvNumero" />
-                        <p:selectOneMenu id="mutOpvNumero" value="#{tMutationController.selected.mutOpvNumero}" required="true" requiredMessage="#{bundle.EditTMutationRequiredMessage_mutOpvNumero}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{tOperationParcelController.itemsAvailableSelectOne}"
-                                           var="mutOpvNumeroItem"
-                                           itemValue="#{mutOpvNumeroItem}"/>
-                        </p:selectOneMenu>
+                        
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{tMutationController.update}" value="#{bundle.Save}" update="display,:TMutationListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TMutationEditDialog');"/>
+                    <p:commandButton actionListener="#{tMutationController.update}" value="#{bundle.Save}" update="display,:TMutationListForm:datalist,:TMutationListForm:messages" oncomplete="handleSubmit(args, 'TMutationEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="TMutationEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

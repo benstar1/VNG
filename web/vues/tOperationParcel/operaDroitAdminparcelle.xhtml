@@ -5,12 +5,12 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="./../../WEB-INF/template.xhtml">
 
-    <ui:define name="title">Générer numéro parcelle</ui:define>
+    <ui:define name="title">Opération parcelle</ui:define>
     <ui:define name="viewname">
 
         <li>Affaires domaniale</li>
         <li>/</li>
-        <li><p:link  outcome="operaDroitAdminparcelle.xhtml"><p:outputLabel value="#{tOperationParcelController.typeOperation}"/> de parcelles</p:link></li>
+        <li><p:commandLink  action="#{tOperationParcelController.operationParcelle(tOperationParcelController.typeOperation)}" ><p:outputLabel value="#{tOperationParcelController.typeOperation}"/> de parcelles</p:commandLink></li>
     </ui:define>
 
     <ui:define name="content">
@@ -30,6 +30,7 @@
 
                         <h:form id="formventeparcelle">
                             <p:growl id="messages" showDetail="true" />
+                            <p:messages id="msg" showIcon="true" showDetail="true" closable="true"/>
                             <p:toolbar>
                                 <f:facet name="left">
                                     <p:commandButton update="formventeparcelle" actionListener="#{tOperationParcelController.nouveau()}" value="Nouveau" icon="fa fa-plus" />
@@ -299,7 +300,7 @@
                                 </p:tab>
                                 <p:tab id="temoins" title="Les Temoins">
                                     <p:panelGrid style=" width: 100%" columns="2">
-                                        <p:panel  style=" margin: 20px"  header="Temoins Vendeur" toggleable="true">
+                                        <p:panel  style=" margin: 20px"  header="#{'Temoins '.concat(tOperationParcelController.libBailleur)}" toggleable="true">
                                             <p:commandButton disabled="#{tOperationParcelController.estvalider}"   update="listTemoinVendeur"  title="Ajouter temoin vendeur" icon="fa fa-plus-circle" styleClass="green-btn" onclick="PF('TSignatureBailListDlg').show()" ajax="true"/>
 
                                             <p:dataTable id="listTemoinVendeur" value="#{tOperationParcelController.listDepotSignTemBail}"
@@ -345,7 +346,7 @@
                                                 </f:facet>
                                             </p:dataTable>
                                         </p:panel>
-                                        <p:panel style=" margin: 20px" header="Temoins Acheteur" toggleable="true">
+                                        <p:panel style=" margin: 20px" header="#{'Temoins '.concat(tOperationParcelController.libPreneur)}" toggleable="true">
                                             <p:commandButton disabled="#{tOperationParcelController.estvalider}"   update="listTemoinPreneur"  title="Ajouter temoin Preneur" icon="fa fa-plus-circle" styleClass="green-btn" onclick="PF('TSignaturePrenListDlg').show()" ajax="true"/>
 
                                             <p:dataTable id="listTemoinPreneur" value="#{tOperationParcelController.listDepotSignTemPren}"

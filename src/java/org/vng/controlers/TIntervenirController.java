@@ -13,20 +13,27 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.el.ELContext;
+import javax.el.ELResolver;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
 import org.vng.entities.TActivite;
 
-@Named("intervenirController")
+
+@Named(value = "intervenirController")
 @SessionScoped
+
+
 public class TIntervenirController implements Serializable {
 
-    @EJB
+    @Inject
     private org.vng.sessions.TIntervenirFacade ejbFacade;
+    
     private List<TIntervenir> items = null;
     private List<TIntervenir> itemsFilter = null;
     private List<TActivite> itemsFilterActivite = null;
@@ -34,6 +41,7 @@ public class TIntervenirController implements Serializable {
     private String newNumIntervenir;
 
     public TIntervenirController() {
+       
     }
 
     public String getNewNumIntervenir() {
@@ -149,7 +157,8 @@ public class TIntervenirController implements Serializable {
         }
     }
 
-    public TIntervenir getTIntervenir(java.lang.String id) {
+    public TIntervenir getTIntervenir(java.lang.String id) {         
+//        System.err.println(" getFacade() "+getFacade());
         return getFacade().find(id);
     }
 
@@ -201,8 +210,22 @@ public class TIntervenirController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
+            
             TIntervenirController controller = (TIntervenirController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "tIntervenirController");
+                    getValue(facesContext.getELContext(), null, "tIntervenirController");  
+            
+            /*
+            FacesContext fc = FacesContext.getCurrentInstance();
+            ELResolver elr = fc.getApplication().getELResolver();
+            ELContext elc = fc.getELContext();
+            TIntervenirController controller = (TIntervenirController) elr.getValue(elc, null, "tIntervenirController");
+            
+            if(controller == null)
+                controller = new TIntervenirController();
+            
+            System.out.println(" controller "+controller);
+            */
+            
             return controller.getTIntervenir(getKey(value));
         }
 

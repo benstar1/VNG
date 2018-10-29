@@ -20,7 +20,7 @@
                             <p:menuitem id="vente_parcelle" action="#{tOperationParcelController.operationParcelle('VENTE')}"  value="Vente de parcelle" icon="fa fa-cc-visa" ajax="false" />
                             <p:menuitem id="heritage_arcelle" action="#{tOperationParcelController.operationParcelle('HERITAGE')}" value="Héritage de parcelle" icon="fa fa-sitemap" ajax="false" />
                             <p:menuitem id="don_parcelle"  action="#{tOperationParcelController.operationParcelle('DON')}" value="Don de parcelle" icon="fa fa-trophy"   ajax="false" />
-                            <p:menuitem id="mutation" value="Mutation" icon="fa fa-retweet" actionListener="#{guestPreferences.setMenuMode('layout-menu-horizontal')}" ajax="false" />
+                            <p:menuitem id="mutation" value="Mutation" icon="fa fa-retweet" outcome="/vues/tMutation/mutation.xhtml" ajax="false" />
                             <p:menuitem id="droits_operationnels" action="#{tOperationParcelController.operationParcelle('OPERATIONNEL')}" value="Droits opérationnels" icon="fa fa-wechat" ajax="false" />
                             <p:menuitem id="reglement_conflits" value="Règlement de Litiges" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
                             <p:menuitem id="mise_jour_enquete" value="Mise à jour Enquête" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
@@ -112,6 +112,7 @@
                             <p:submenu id="donnee_topo" label="Données Topo" icon="fa fa-connectdevelop">
                                 <p:menuitem id="consolidation" outcome="/vues/donneestopo/consolidation.xhtml"   value="Consolidation" icon="fa fa-random"  ajax="false" />
                                 <p:menuitem id="harmo_num_parcelle" outcome="/vues/donneestopo/genernumparcelle.xhtml"  value="Génération des numéros parcelles" icon="fa fa-legal"  ajax="false" />
+                                 <p:menuitem id="harmo_num_commune" outcome="/vues/donneestopo/genernumcommunetopo.xhtml"  value="Génération des numéros commune topo" icon="fa fa-legal"  ajax="false" />
                              
                             </p:submenu>
                             <p:menuitem id="signature" outcome="/vues/tSignataire/signataire.xhtml"  value="Signataires" icon="fa fa-user-secret"  ajax="false" />

@@ -87,6 +87,10 @@
             <composite:attribute name="ajouterAction" method-signature="void addAction(javax.faces.event.ActionEvent)"/> 
             <composite:attribute name="elmupdate" shortDescription="Element à mettre à jour quand on ajoute une parcelle à fusionner" />
             
+            
+            <composite:attribute name="onTBFChange" method-signature="void addAction(javax.faces.event.ActionEvent)"/> 
+            <composite:attribute name="elmTBFupdate" shortDescription="Element à mettre à jour quand on va sélectionner un type de parcelle. Ceci devrait nous permettre d'apprêter la page suivant chaque type de parcelle. " />
+            
         </composite:interface> 
 
         
@@ -156,6 +160,7 @@
                                         <p:selectOneMenu  id="spin_typeParcelle" disabled="#{cc.attrs.readOnly and !cc.attrs.fusionScission}"  filter="true" filterMatchMode="contains" style="max-width: 400px;" value="#{cc.attrs.typeParcel}">                                                
                                                 <f:selectItem itemLabel="" itemValue="" />
                                                 <f:selectItems value="#{cc.attrs.listeTypeBF}" var="typeBF"  itemLabel="#{typeBF.tbfDesig}" itemValue="#{typeBF}"/> 
+                                                <p:ajax listener="#{cc.attrs.onTBFChange}" update="#{cc.attrs.elmTBFupdate}" />
                                         </p:selectOneMenu> 
                                         
                                        <p:outputLabel rendered="#{!cc.attrs.restreint}" style="margin-bottom: 0px;"  value="#{msg.hint_pbaGeo}" for="spin_geometre" />                                        

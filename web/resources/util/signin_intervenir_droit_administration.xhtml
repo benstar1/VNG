@@ -244,15 +244,23 @@
                                        
                                  </p:panelGrid>
                                 
-                                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
                                        
-                                         <p:selectManyMenu showCheckbox="true" style="max-width:350px;">
-                                             <f:selectItem itemLabel="#{msg.hint_limitation_leg}" itemValue="#{cc.attrs.limitationLegue}"/>
-                                             <f:selectItem itemLabel="#{msg.hint_limitation_vente}" itemValue="#{cc.attrs.limitationVente}" />
-                                             <f:selectItem itemLabel="#{msg.hint_limitation_pret}" itemValue="#{cc.attrs.limitationPret}" />
-                                             <f:selectItem itemLabel="#{msg.hint_limitation_don}" itemValue="#{cc.attrs.limitationDon}" />
-                                             <f:selectItem  itemLabel="#{msg.hint_limitation_autre_a_preciser}" itemValue="#{cc.attrs.autreLimitationAdmin}" />
-                                       </p:selectManyMenu>
+                                         <h:outputText value="#{msg.hint_limitation_leg}" />
+                                         <p:selectBooleanCheckbox value="#{cc.attrs.limitationLegue}" />
+                                         
+                                         <h:outputText value="#{msg.hint_limitation_vente}" />
+                                         <p:selectBooleanCheckbox value="#{cc.attrs.limitationVente}"  />
+                                         
+                                         <h:outputText value="#{msg.hint_limitation_pret}" />
+                                         <p:selectBooleanCheckbox value="#{cc.attrs.limitationPret}"  />
+                                         
+                                         <h:outputText value="#{msg.hint_limitation_don}" />
+                                         <p:selectBooleanCheckbox value="#{cc.attrs.limitationDon}"  />
+                                         
+                                          <!-- h:outputText value="#{msg.hint_limitation_autre_a_preciser}" />
+                                         <p:selectBooleanCheckbox value="#{cc.attrs.autreLimitationAdmin}"  / -->
+                                  
                                        
                                  </p:panelGrid>
                                     

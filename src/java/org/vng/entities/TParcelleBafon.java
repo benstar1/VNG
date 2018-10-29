@@ -87,6 +87,12 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "TParcelleBafon.findByPbaPfr", query = "SELECT t FROM TParcelleBafon t WHERE t.pbaPfr = :pbaPfr")})
 public class TParcelleBafon implements Serializable {
 
+    @Column(name = "pba_actif")
+    private Boolean pbaActif;
+    @Size(max = 20)
+    @Column(name = "pba_statut")
+    private String pbaStatut;
+
     @OneToMany(mappedBy = "patyPbaNumero")
     private List<TParcelleTypeBf> tParcelleTypeBfList;
     @JoinColumn(name = "pba_code_geo", referencedColumnName = "uti_code")
@@ -897,6 +903,22 @@ public class TParcelleBafon implements Serializable {
 
     public void setTParcellePocaList1(List<TParcellePoca> tParcellePocaList1) {
         this.tParcellePocaList1 = tParcellePocaList1;
+    }
+
+    public Boolean getPbaActif() {
+        return pbaActif;
+    }
+
+    public void setPbaActif(Boolean pbaActif) {
+        this.pbaActif = pbaActif;
+    }
+
+    public String getPbaStatut() {
+        return pbaStatut;
+    }
+
+    public void setPbaStatut(String pbaStatut) {
+        this.pbaStatut = pbaStatut;
     }
     
 }

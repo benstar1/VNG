@@ -6,6 +6,7 @@ import org.vng.controlers.util.JsfUtil.PersistAction;
 import org.vng.sessions.ParcelleFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -24,36 +25,42 @@ import javax.faces.model.SelectItem;
 import org.primefaces.event.TreeDragDropEvent;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
+import org.vng.entities.Corridor;
 import org.vng.entities.TArrondissement;
 import org.vng.entities.TCommune;
 import org.vng.entities.TDepartement;
 import org.vng.entities.TParcelleBafon;
 import org.vng.entities.TVillage;
+import javax.ejb.Schedule;
 
 @Named("parcelleController")
 @SessionScoped
 public class ParcelleController implements Serializable {
 
-   // String urlcarte = "http://localhost:8090/geoserver/appligeo/wms?service=WMS&version=1.1.0&request=GetMap&layers=appligeo:parcelleParam&styles=&bbox=1.798,7.015,1.809,7.028&width=649&height=768&srs=EPSG:4326&format=application/openlayers";
-   String urlcarte ="http://localhost:8090/geoserver/appligeo/wms?service=WMS&version=1.1.0&request=GetMap&layers=appligeo:parcelleparamcorridor&styles=&bbox=1.77521627,7.00107533,1.83385575,7.07049001&width=648&height=768&srs=EPSG:4326&format=application/openlayers";
+    // String urlcarte = "http://localhost:8090/geoserver/appligeo/wms?service=WMS&version=1.1.0&request=GetMap&layers=appligeo:parcelleParam&styles=&bbox=1.798,7.015,1.809,7.028&width=649&height=768&srs=EPSG:4326&format=application/openlayers";
+    String urlcarte = "http://localhost:8090/geoserver/appligeo/wms?service=WMS&version=1.1.0&request=GetMap&layers=appligeo:parcelleParam,corridor&format_options=layout:legend&styles=&bbox=1.77521627,7.00107533,1.83385575,7.07049001&width=750&height=768&srs=EPSG:4326&format=application/openlayers";
     @EJB
     private org.vng.sessions.ParcelleFacade ejbFacade;
     @EJB
     private org.vng.sessions.TDepartementFacade ejbFacadeDepartement;
-    
+
     @EJB
     private org.vng.sessions.TVillageFacade ejbFacadeVillage;
-    
-    
+
+    @EJB
+    private org.vng.sessions.CorridorFacade ejbFacadeCorridor;
+
     private List<Parcelle> items = null;
     List<TCommune> listcom;
     List<TVillage> listVillage;
     List<TArrondissement> listArr;
     List<TParcelleBafon> listParcelleNormal;
+    private List<SelectItem> CommuneTopoItem = new ArrayList<>();
     private List<TDepartement> listDepartement;
     private Parcelle selected;
     private TVillage villageNormal;
     private String villageTopo;
+    private String communeTopo;
     private int nombreTraitement;
     private TDepartement departement;
     private TCommune commune;
@@ -70,16 +77,62 @@ public class ParcelleController implements Serializable {
     private String libCommune;
     private String libArr;
     private String libVillage;
-    
+    private String TypeAffichage;
+    private List<String> listTypeAffichage;
 
     private TreeNode noeudSelectionner;
+    
+    private boolean renderDone = false;
 
     public ParcelleController() {
     }
 
-    private void initurlcarte() {
-       // urlcarte = "http://localhost:8090/geoserver/appligeo/wms?service=WMS&version=1.1.0&request=GetMap&layers=appligeo:parcelleParam&styles=&bbox=1.798,7.015,1.809,7.028&width=600&height=600&srs=EPSG:4326&format=application/openlayers&viewparams=paramvillage";
-    urlcarte ="http://localhost:8090/geoserver/appligeo/wms?service=WMS&version=1.1.0&request=GetMap&layers=appligeo:parcelleparamcorridor&styles=&bbox=1.77521627,7.00107533,1.83385575,7.07049001&width=648&height=768&srs=EPSG:4326&format=application/openlayers&viewparams=paramvillage";
+    public boolean isRenderDone() {
+        return renderDone;
+    }
+
+    public void setRenderDone(boolean renderDone) {
+        this.renderDone = renderDone;
+    }
+
+    
+    public String getTypeAffichage() {
+        return TypeAffichage;
+    }
+
+    public void setTypeAffichage(String TypeAffichage) {
+        this.TypeAffichage = TypeAffichage;
+    }
+
+    public List<String> getListTypeAffichage() {
+        return listTypeAffichage;
+    }
+
+    public void setListTypeAffichage(List<String> listTypeAffichage) {
+        this.listTypeAffichage = listTypeAffichage;
+    }
+
+    private void initurlcarte(String typecarte) {
+        // urlcarte = "http://localhost:8090/geoserver/appligeo/wms?service=WMS&version=1.1.0&request=GetMap&layers=appligeo:parcelleParam&styles=&bbox=1.798,7.015,1.809,7.028&width=600&height=600&srs=EPSG:4326&format=application/openlayers&viewparams=paramvillage";
+        if (typecarte.equals("VILLAGE_PARCELLE_POINT") || typecarte.equals("VILLAGE_PARCELLE")) {
+            urlcarte = "http://localhost:8090/geoserver/appligeo/wms?service=WMS&version=1.1.0&request=GetMap&layers=appligeo:parcelleParam,corridor&format_options=layout:legend&styles=&bbox=1.77521627,7.00107533,1.83385575,7.07049001&width=750&height=768&srs=EPSG:4326&format=application/openlayers&viewparams=listparams";
+        }
+    }
+
+    public String getCommuneTopo() {
+        return communeTopo;
+    }
+
+    public void setCommuneTopo(String communeTopo) {
+        this.communeTopo = communeTopo;
+    }
+
+    public List<SelectItem> getCommuneTopoItem() {
+        return CommuneTopoItem;
+    }
+
+    public void setCommuneTopoItem(List<SelectItem> CommuneTopoItem) {
+        this.CommuneTopoItem = CommuneTopoItem;
     }
 
     public String getLibDepart() {
@@ -121,7 +174,6 @@ public class ParcelleController implements Serializable {
     public void setNombreParcelle(int nombreParcelle) {
         this.nombreParcelle = nombreParcelle;
     }
-    
 
     public Parcelle getSelected() {
         return selected;
@@ -321,8 +373,16 @@ public class ParcelleController implements Serializable {
         return items;
     }
 
-    @PostConstruct
+//    @Schedule()
+//    public void runOnceOnStartup() {
+//       
+//    }
+
+    //@PostConstruct
     public void genererArbre() {
+     //   renderDone = false;
+    // do something which takes a long time here
+    
         listDepartement = ejbFacadeDepartement.findAll();
         root = new DefaultTreeNode("Root", null);
         for (TDepartement dep : listDepartement) {
@@ -347,15 +407,37 @@ public class ParcelleController implements Serializable {
             }
 
         }
-
+        
+        //renderDone = true;
+    }
+    @PostConstruct
+    public void initialisation(){
+        initListeCommunetopo();
     }
 
     public void affiche() {
-        onSelected();
+        int n, i = 0;
+        n = getListTypeAffichage().size();
+        if(n!=0){
+        System.out.println("Nombre type affichage");
+        setTypeAffichage("");
+        for (i = 0; i < n; i++) {
+            if (i >= 1) {
+                TypeAffichage += "_";
+            }
+            TypeAffichage += getListTypeAffichage().get(i).toUpperCase();
+        }
+        System.out.println("Type affichage : " + TypeAffichage);
+        onSelected(TypeAffichage);
+    }else{
+               FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Affichage : ", "Veuillez choisir au moins un objet");
+              FacesContext.getCurrentInstance().addMessage(null, message);
+
+        }
         //return urlcarte;
     }
 
-    public void onSelected() {
+    public void onSelected(String typeAffiche) {
         String index = noeudSelectionner.getRowKey();
         String donnerecupee = "";
         donnerecupee = (String) noeudSelectionner.getData();
@@ -375,24 +457,27 @@ public class ParcelleController implements Serializable {
 
         }
         if (ln == 7) {//Selection de village
-            initurlcarte();
-            urlcarte = urlcarte.replace("paramvillage", "paramvillage:" + donnerecupee);
-            try{
-                villageNormal= ejbFacadeVillage.find(donnerecupee);
-                if(villageNormal!=null){
+            String comm = "";
+            comm = donnerecupee.substring(0, 3);
+            typeAffiche = "VILLAGE_" + typeAffiche; ///affichage des parcelles et points d'un village
+            initurlcarte(typeAffiche);
+            urlcarte = urlcarte.replace("listparams", "paramvillage:" + donnerecupee + ",paramcomcorridor:" + comm);
+            try {
+                villageNormal = ejbFacadeVillage.find(donnerecupee);
+                if (villageNormal != null) {
                     setLibVillage(villageNormal.getVlaDesig());
-                arrondissement=villageNormal.getVilaArrCode();
+                    arrondissement = villageNormal.getVilaArrCode();
                     setLibArr(arrondissement.getArrDesig());
-                commune=arrondissement.getArrComCode();
+                    commune = arrondissement.getArrComCode();
                     setLibCommune(commune.getComDesig());
-                departement=commune.getComDepCode();
+                    departement = commune.getComDepCode();
                     setLibDepart(departement.getDepDesig());
-                setNombreParcelle( villageNormal.getTParcelleBafonList().size());
+                    setNombreParcelle(villageNormal.getTParcelleBafonList().size());
                 }
-            }catch(Exception e){
-                    System.out.println("Village affiche non trouve"+e);
+            } catch (Exception e) {
+                System.out.println("Village affiche non trouve" + e);
             }
-            
+
             System.out.println(urlcarte);
         }
         if (ln == 9) {//Selection de parcelle
@@ -489,6 +574,40 @@ public class ParcelleController implements Serializable {
         } catch (Exception e) {
         }
 
+    }
+
+    public void traitCorridorCommuneTopo() {
+        List<Corridor> listCorrido = null;
+        String seqparcelle;
+        nombreTraitement = 0;
+//        System.out.println("Nous somme dans traitement de parcelles topo");
+        try {
+            listCorrido = ejbFacadeCorridor.executeListeCorridorVillagetopo(getCommuneTopo());
+            for (Corridor p : listCorrido) {
+                //System.out.println(" Parcelle " + p.());
+                ////seqparcelle = p.getParcelleno();
+                //seqparcelle = String.format("%04d", Integer.parseInt(seqparcelle));
+
+                p.setCorPbaNumero(getCommune().getComCode());
+                ejbFacadeCorridor.edit(p);
+                System.out.println(" Commune topo " + getCommuneTopo() + " Numero commune normal " + getCommune().getComCode());
+                nombreTraitement++;
+            }
+            FacesMessage message = new FacesMessage("Succesful", nombreTraitement + " Corridors traites avec succes  ");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        } catch (Exception e) {
+        }
+    }
+
+    public void initListeCommunetopo() {
+        System.out.println(" Commune topo");
+        List<String> listCommuneTopo;
+        listCommuneTopo = ejbFacadeCorridor.executeListeCommunetopo();
+        if (listCommuneTopo != null) {
+            for (String str : listCommuneTopo) {
+                CommuneTopoItem.add(new SelectItem(str, str));
+            }
+        }
     }
 
     public Parcelle getParcelle(java.lang.Integer id) {

@@ -305,6 +305,16 @@
 
                                         </p:dataTable> 
                                 </p:tab>
+                                <p:tab title="#{msg.titre_pv}">
+                                    <util:signin_pv   
+                                        id="composition_pv"
+                                               pvEntete="#{parcelleBaf.pvParcelle.pvPvEntete}"
+                                               pvContent="#{parcelleBaf.pvParcelle.pvPv}"
+                                                 readOnly="true"
+                                              />
+                                </p:tab>
+                           
+                           
                             </p:accordionPanel>
                        
                     </div>

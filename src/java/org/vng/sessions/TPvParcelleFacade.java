@@ -8,6 +8,7 @@ package org.vng.sessions;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import org.vng.entities.TPvParcelle;
 
 /**
@@ -24,6 +25,20 @@ public class TPvParcelleFacade extends AbstractFacade<TPvParcelle> {
     protected EntityManager getEntityManager() {
         return em;
     }
+    
+    
+            
+      public  TPvParcelle  findPVParcelleIntervenant(String numeroParcelle, String NumeroIntervenant){
+          Query query;
+          query=getEntityManager().createNamedQuery("TPvParcelle.findByPvParcelleIntervenant")
+                  .setParameter("parcelle",numeroParcelle)
+                  .setParameter("intervenant",NumeroIntervenant)
+                  ;
+          return (TPvParcelle)query.getSingleResult();
+        
+    }
+            
+  
 
     public TPvParcelleFacade() {
         super(TPvParcelle.class);

@@ -61,20 +61,22 @@
                                                 typeDomaineParcel="#{parcelleBaf.typeDomaineParcel}"
                                                 listeTypeDomaine="#{parcelleBaf.typeDomaineFacade.listeTypeDomaineItem}"
                                                 statutAutre="#{parcelleBaf.selectedParcelle.pbaStaAutre}"
-                                                listeGeometre="#{parcelleBaf.utilisateurFacade.listeGeometreItem}"                                                
+                                                listeGeometre="#{parcelleBaf.utilisateurFacade.listeGeometreItem}"  
                                                 readOnly="true"  
                                                 parcelleDPP="false"
                                                 iddialog="dlgParcelle"
                                                 restreint="true"
                                                 ajouterAction="#{parcelleBaf.ajouterParcellePourFusionListener}" 
-                                                elmupdate=":formglobal:table_liste_parcelle_fusion"
+                                                elmupdate=":formglobal"
                                                />
                     </div>
                     
                     <div class="ui-g-12">
                         
-                          <p:panel header="Liste des parcelles à fusionner" id="panel_list_parcelle" toggleable="true">
-                              <p:dataTable id="table_liste_parcelle_fusion" emptyMessage="Aucune parcelle ajoutée" var="item" value="#{parcelleBaf.listeParcelAFusionner}">                                   
+                          <p:panel header="Liste des parcelles à fusionner" toggleable="true">
+                              <p:dataTable id="table_liste_parcelle_fusion" 
+                                           emptyMessage="Aucune parcelle ajoutée" var="item" 
+                                           value="#{parcelleBaf.listeParcelAFusionner}">                                   
                                    
                                    <p:column >
                                         <f:facet name="header">
@@ -124,20 +126,20 @@
                                     </p:column> 
                                     <p:column style="width:50px;text-align: center">
                                          <p:commandButton oncomplete="PF('dialog_detail').show()" actionListener="#{parcelleBaf.detailParcellePourFusionListener}" icon="fa fa-search" title="Voir le détail de la parcelle">
-                                             <f:setPropertyActionListener value="#{item}" target="#{parcelleBaf.intervenirSelectFusion}" />
+                                             <f:setPropertyActionListener value="#{item}" target="#{parcelleBaf.intervenirSelectFusionTemp}" />
                                         </p:commandButton>                                 
                                     </p:column>
                                   
                                    <p:column style="width:50px;text-align: center">
                                        <p:commandButton  actionListener="#{parcelleBaf.retirerParcellePourFusionListener}" update=":formglobal:table_liste_parcelle_fusion"  icon="fa fa-trash" styleClass="red-btn rounded-btn" title="Retirer la parcelle de la liste">
-                                             <f:setPropertyActionListener value="#{item}" target="#{parcelleBaf.intervenirSelectFusion}" />
+                                           <f:setPropertyActionListener value="#{item}" target="#{parcelleBaf.intervenirSelectFusionTemp}" />
                                         </p:commandButton>                                 
                                     </p:column>
                                   
-                                    <f:facet name="footer" >
+                                    <!-- f:facet name="footer" >
                                         <h:outputText value="Superficie  "/>
                                         <h:outputText value="#{parcelleBaf.superficieDeduite}" style="width: 100%; text-align: right;"/>
-                                    </f:facet>
+                                    </f:facet -->
                                 </p:dataTable>
                              
                          </p:panel>
@@ -175,10 +177,317 @@
                                                 iddialog="dlgParcelle"     
                                                 desactiverRecherche="true"
                                                 fusionScission="#{parcelleBaf.fusionEncours}"
+                                                onTBFChange="#{parcelleBaf.onTBFSelect(event)}"
+                                                elmTBFupdate=":formglobal:onglet_fusion"
                                                />
                     </div>
                     
+                         <div class="ui-g-12">
+                                 <p:panel>
+                                        <p:outputLabel  value="#{msg.label_conserver_caracteristique_parcelle}" for="spin_Parcelle_final" />  
+                                        <p:selectOneMenu  id="spin_Parcelle_final"  filter="true"
+                                                          filterMatchMode="contains"  style="max-width: 400px;" value="#{parcelleBaf.selectedParcelleFusionneCaracteristik}">                                                
+                                             <f:selectItem itemLabel="" itemValue="" />
+                                             <f:selectItems value="#{parcelleBaf.listeParcelleAFusionnerItem}"  />                                            
+                                             <p:ajax listener="#{parcelleBaf.onParcelleFusionne(event)}" update=":formglobal:onglet_fusion" />
+                                        </p:selectOneMenu> 
+                                       
+                                 </p:panel>
+                         </div>
                     
+                    <div class="ui-g-12"> 
+                        
+                        <p:accordionPanel id="onglet_fusion">   
+                           
+                            
+                                <p:tab title="#{msg.titre_identification_contenus}" rendered="#{parcelleBaf.selectedParcelleFusionne.pbaTbfCode.tbfCode.equalsIgnoreCase('TBF02')}"> 
+                                            <util:signin_identification_conteneur_noyeau_villageois   
+                                                batie="#{parcelleBaf.selectedParcelleFusionne.pbaBati}"
+                                                cloture="#{parcelleBaf.selectedParcelleFusionne.pbaCloture}"
+                                                maconnerie="#{parcelleBaf.selectedParcelleFusionne.pbaCloMacon}"
+                                                banco="#{parcelleBaf.selectedParcelleFusionne.pbaCloBanco}"
+                                                claieCloture="#{parcelleBaf.selectedParcelleFusionne.pbaCloClaie}"
+                                                haie="#{parcelleBaf.selectedParcelleFusionne.pbaCloHaie}"
+                                                autreTravaux="#{parcelleBaf.selectedParcelleFusionne.pbaCloHaie}"
+                                                autreTravauxActif="#{parcelleBaf.autreTravauxActif}"
+                                                idAutreTravauxPreciser="txt_autre_travaux"
+                                                readOnly="false"
+                                                idNbreEtage="txt_nbre_etage"
+                                                nbreEtage="#{parcelleBaf.selectedParcelleFusionne.pbaNbEtage}"
+                                                idNbBatimat="txt_nbre_batimat"
+                                                nbBatimat="#{parcelleBaf.selectedParcelleFusionne.pbaNbeBat}"
+                                                autreTravauxPreciser="#{parcelleBaf.selectedParcelleFusionne.pbaCloAutre}"
+                                                cuisine="#{parcelleBaf.selectedParcelleFusionne.pbaCuisine}"
+                                                dalle="#{parcelleBaf.selectedParcelleFusionne.pbaToitDalle}"
+                                                garage="#{parcelleBaf.selectedParcelleFusionne.pbaGarage}"
+                                                etage="#{parcelleBaf.selectedParcelleFusionne.pbaMaisEtage}"
+                                                ordinaire="#{parcelleBaf.selectedParcelleFusionne.pbaMaisOrdinare}"
+                                                claieConstruction="#{parcelleBaf.selectedParcelleFusionne.pbaToitClaie}"
+                                                paille="#{parcelleBaf.selectedParcelleFusionne.pbaToitPaille}"
+                                                puisard="#{parcelleBaf.selectedParcelleFusionne.pbaPuisard}"
+                                                puitCiterne="#{parcelleBaf.selectedParcelleFusionne.pbaPuits}"
+                                                rdc="#{parcelleBaf.selectedParcelleFusionne.pbaMaisRez}"
+                                                tole="#{parcelleBaf.selectedParcelleFusionne.pbaToitTole}"
+                                                tuile="#{parcelleBaf.selectedParcelleFusionne.pbaToitTuile}"
+                                                wc="#{parcelleBaf.selectedParcelleFusionne.pbaWc}"
+                                             />
+                                </p:tab>
+                                <p:tab title="#{msg.titre_ayant_droit}"> 
+                                            <util:signin_intervenant   
+                                                 idNom="txt_nom"
+                                                 nom="#{parcelleBaf.intervenantSelectFusion.intNom}"                        
+                                                 idPrenom="txt_prenom"
+                                                 prenom="#{parcelleBaf.intervenantSelectFusion.intPrenom}"
+                                                 idDomicile="txt_domicile"
+                                                 domicile="#{parcelleBaf.intervenantSelectFusion.intDomicile}"
+                                                 idSexe="spin_sexe"
+                                                 sexe="#{parcelleBaf.intervenantSelectFusion.intSexe}"
+                                                 idAge="txt_age"
+                                                 age="#{parcelleBaf.intervenantSelectFusion.intDateNais}"
+                                                 idTelephone="txt_telephone"
+                                                 telephone="#{parcelleBaf.intervenantSelectFusion.intTelephone}"
+                                                 idActivite="spin_activite"
+                                                 activite="#{parcelleBaf.intervenantSelectFusion.intActCode}"
+                                                 listeActivite="#{parcelleBaf.activiteFacade.listeActiviteItem}"
+                                                 idActiviteAutre="txt_activite_autre"
+                                                 activiteAutre="#{parcelleBaf.intervenantSelectFusion.intActAutre}"
+                                                 idCiPP="txt_ci_pp"
+                                                 ciPP="#{parcelleBaf.intervenantSelectFusion.intCiPp}"
+                                                 idDateExpCiPP="txt_date_exp_ci_pp"
+                                                 dateExpCiPP="#{parcelleBaf.intervenantSelectFusion.intDateExpCi}"
+                                                 idDateNaiss="txt_date_naiss"
+                                                 dateNaiss="#{parcelleBaf.intervenantSelectFusion.intDateNaissCalcul}"
+                                                 idEthnie="txt_ethnie"
+                                                 ethnie="#{parcelleBaf.intervenantSelectFusion.intEthCode}"
+                                                 idEthnieAutre="txt_ethnie_autre"
+                                                 ethnieAutre="#{parcelleBaf.intervenantSelectFusion.intEthAutre}"
+                                                 listeEthinie="#{parcelleBaf.ethnieFacade.listeEthnieItem}"
+                                                 idIfu="txt_ifu"
+                                                 ifu="#{parcelleBaf.intervenantSelectFusion.intIfu}"
+                                                 idPhotoIntervenant="img_photo_complet"
+                                                 idLepi="txt_lepi"
+                                                 lepi="#{parcelleBaf.intervenantSelectFusion.intLepi}"
+                                                 idNationalite="spin_nationalite"
+                                                 nationalite="#{parcelleBaf.intervenantSelectFusion.intNationalite}"
+                                                 idNationaliteAutre="txt_nationalite_autre"
+                                                 nationaliteAutre="#{parcelleBaf.intervenantSelectFusion.intNationaliteAutre}"
+                                                 idRavip="txt_ravip"
+                                                 ravip="#{parcelleBaf.intervenantSelectFusion.intNumeroRavip}"
+                                                 idLignageAutre="txt_lignage_autre"
+                                                 lignageAutre="#{parcelleBaf.intervenantSelectFusion.intLigAutre}"
+                                                 rechercheButtonText="..."                               
+                                                 idphotoCompletIntervenant="img_photo_signature"
+                                                 photoIntervenant="#{parcelleBaf.cheminPhotoIdentite}"
+                                                 photoCompletIntervenant="#{parcelleBaf.cheminPhotoIdentite}"
+                                                 autreActiviteActif="#{parcelleBaf.autreActivite}"
+                                                 autreNationaliteActif="#{parcelleBaf.autreNationalite}"
+                                                 autreEthnieActif="#{parcelleBaf.autreEthnie}"
+                                                 iddialogActivite="dlgActivite"
+                                                 readOnly="true"  
+                                                 id="compo_intervenantFusion"
+                                                            />
+                                </p:tab>
+                                <p:tab title="#{msg.titre_droit_administration}" >
+                                            <util:signin_intervenir_droit_administration 
+                                                id="iddroitadminfusion"
+                                                 idRole="spin_role"
+                                                 role="#{parcelleBaf.intervenirSelectFusion.invRolCode}"
+                                                 listeRole="#{parcelleBaf.roleFacade.listeRoleByCategorieDEItem}"
+                                                 idAutreRole="txt_autre_role"
+                                                 autreRole="#{parcelleBaf.intervenirSelectFusion.invRolAutre}"
+                                                 idRattachement="txt_rattachement"
+                                                 rattachement="#{parcelleBaf.intervenirSelectFusion.invRattachementAutre}"
+                                                 idObservation="tt_observation"
+                                                 observation="#{parcelleBaf.intervenirSelectFusion.invObservation}"
+                                                 idRepresente="chk_represente_par"
+                                                 represente="#{parcelleBaf.intervenirSelectFusion.invRepresente}"
+                                                 idCollectivite="txt_collectivite"
+                                                 collectivite="#{parcelleBaf.intervenirSelectFusion.invCollectivite}"
+                                                 idStructure="txt_structure"
+                                                 structure="#{parcelleBaf.intervenirSelectFusion.invStructure}"
+                                                 idFonction="txt_fonction"
+                                                 fonction="#{parcelleBaf.intervenirSelectFusion.invFonction}"
+                                                 idModeAcquisition="spin_mode_acquis"
+                                                 modeAcquisition="#{parcelleBaf.intervenirSelectFusion.invMacCode}"
+                                                 listeModeAcquisition="#{parcelleBaf.modeacquisFacade.listeModeAcquisDEItem}"
+                                                 idAutreModeAcquisition="txt_autre_mode_acquis"
+                                                 autreModeAcquisition="#{parcelleBaf.intervenirSelectFusion.invMacAutre}"
+                                                 autreConditionPaiementActif="true"
+                                                 idDeQui="txt_de_quis"
+                                                 deQui="#{parcelleBaf.intervenirSelectFusion.invDeQui}"
+                                                 idDepuisQuand="txt_depuis_quand"
+                                                 depuisQuand="#{parcelleBaf.intervenirSelectFusion.invDateDeb}"
+                                                 idPrix="txt_prix"
+                                                 prix="#{parcelleBaf.intervenirSelectFusion.invPrix}"
+                                                 prixActif="true"
+                                                 idConditionPaiement="spin_condition_paie"
+                                                 conditionPaiement="#{parcelleBaf.intervenirSelectFusion.invCopCode}"
+                                                 listeConditionPaiement="#{parcelleBaf.conditionpaieFacade.listeConditionPaiementItem}"
+                                                 conditionPaiementActif="true"
+                                                 idAutreConditionPaiement="txt_autre_condition_paiement"
+                                                 autreConditionPaiement="#{parcelleBaf.intervenirSelectFusion.invCopAutre}"
+                                                 idContrePartie="spin_contrePartie"
+                                                 contrePartie="#{parcelleBaf.intervenirSelectFusion.invContreparti}"
+                                                 listeContrePartie="#{parcelleBaf.listeContrePartie}"
+                                                 idAutreModalite="spin_autre_modalite"
+                                                 autreModalite="#{parcelleBaf.intervenirSelectFusion.invAutreModPaie}"
+                                                 listeAutreModalite="#{parcelleBaf.listeAutreModalite}"
+                                                 idLimitationAdmin="radiog_limitrophe"
+                                                 limitationAdmin="#{parcelleBaf.intervenirSelectFusion.invLimitation}"
+                                                 idAutreLimitationAdmin="radio_autre_limitation"
+                                                 autreLimitationAdmin="#{parcelleBaf.intervenirSelectFusion.invLimiteAutre}"
+                                                 idAutreLimitationAdminChaine="txt_autre_limitation"
+                                                 autreLimitationAdminChaine="#{parcelleBaf.intervenirSelectFusion.invLimiteAutre}"
+                                                 limitationLegue="#{parcelleBaf.intervenirSelectFusion.invLimitLeg}"
+                                                 limitationVente="#{parcelleBaf.intervenirSelectFusion.invLimitVent}"
+                                                 limitationPret="#{parcelleBaf.intervenirSelectFusion.invLimitPret}"
+                                                 limitationDon="#{parcelleBaf.intervenirSelectFusion.invLimitDon}" 
+                                                 idDuree="txt_duree"
+                                                 duree="#{parcelleBaf.intervenirSelectFusion.invDuree}"
+                                                 idDureeIndeterminee="chk_indetermine"
+                                                 dureeIndeterminee="#{parcelleBaf.intervenirSelectFusion.invIndetermine}"
+                                                 formalise="#{parcelleBaf.intervenirSelectFusion.invFormalise}"
+                                                 de="true"
+                                                 droitExerceActif="false"
+                                                 listeTypeDroitExerce="#{parcelleBaf.typeDroitExerceFace.listeTypeDroitExerceDEItem}"
+                                                 listeTypeDroitExerceAdmin="#{parcelleBaf.listeTypedexercesAdminUneParcel}"
+                                                 typeDroitExerce="#{parcelleBaf.typeDroitExerce}"
+                                                 ajouterDroitExerceAction="#{parcelleBaf.ajouterDroitExerceListener}"
+                                                 readOnly="true"
+                                              />
+                                        
+                                            
+                                </p:tab>
+                                <p:tab title="#{msg.titre_droit_operationnel}" rendered="#{!parcelleBaf.selectedParcelleFusionne.pbaTbfCode.tbfCode.equalsIgnoreCase('TBF02')}"> 
+                                    <p:dataTable value="#{parcelleBaf.listeDroitOperationnel}"  var="item" id="table_limitrophe" widgetVar="item"
+                                            emptyMessage="Aucun droit d'usage disponible" filteredValue= "#{intervenirController.itemsFilter}" 
+                                            rows="12" rowsPerPageTemplate="6,12,16"                                 
+                                            paginator="true"  rowKey="#{item.invIntNumero.intNom}"
+                                            >
+
+
+                                         <p:column filterBy="#{item.invIntNumero.intNom}" filterMatchMode="contains">
+                                             <f:facet name="header">
+                                                 <h:outputText value="#{msg.hint_nom}"/>
+                                             </f:facet>
+                                             <h:outputText value="#{item.invIntNumero.intNom}"/>                        
+                                         </p:column>
+                                        
+                                         <p:column filterBy="#{item.invIntNumero.intPrenom}" filterMatchMode="contains">
+                                             <f:facet name="header">
+                                                 <h:outputText value="#{msg.hint_prenom}"/>
+                                             </f:facet>
+                                              <h:outputText value="#{item.invIntNumero.intPrenom}"/>
+                                         </p:column>
+
+                                        <p:column filterBy="#{item.invIntNumero.intSexe}" filterMatchMode="contains">
+                                             <f:facet name="header">
+                                                 <h:outputText value="#{msg.hint_sexe}"/>
+                                             </f:facet>
+                                              <h:outputText value="#{item.invIntNumero.intSexe}"/>
+                                         </p:column>
+
+                                        <p:column filterBy="#{item.invRolCode.rolDesig}" filterMatchMode="contains">
+                                             <f:facet name="header">
+                                                 <h:outputText value="#{msg.hint_role}"/>
+                                             </f:facet>
+                                             <h:outputText value="#{item.invRolCode.rolDesig}"/>
+                                         </p:column>   
+                                        
+                                        <p:column filterBy="#{item.invDateDeb}" filterMatchMode="contains">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{msg.hint_depuis_quand}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.invDateDeb}" >
+                                                <f:convertDateTime  pattern="dd/MM/yyyy" locale="fr"/>
+                                            </h:outputText>
+                                        </p:column>   
+                                       
+                                        </p:dataTable> 
+                                </p:tab>
+                           
+                           <p:tab title="#{msg.titre_liste_limitrophe_et_temoin}"> 
+                               <p:dataTable value="#{parcelleBaf.listeLimitrophe}"  var="item" id="table_op" widgetVar="item"
+                                            emptyMessage="Aucun droit d'usage disponible" 
+                                            editable="true" editMode="cell"                              
+                                            
+                                            >
+
+
+                                         <p:column filterBy="#{item.invIntNumero.intNom}" filterMatchMode="contains">
+                                             <f:facet name="header">
+                                                 <h:outputText value="#{msg.hint_nom}"/>
+                                             </f:facet>
+                                             <h:outputText value="#{item.invIntNumero.intNom}"/>                        
+                                         </p:column>
+                                        
+                                         <p:column filterBy="#{item.invIntNumero.intPrenom}" filterMatchMode="contains">
+                                             <f:facet name="header">
+                                                 <h:outputText value="#{msg.hint_prenom}"/>
+                                             </f:facet>
+                                              <h:outputText value="#{item.invIntNumero.intPrenom}"/>
+                                         </p:column>
+
+                                        <p:column filterBy="#{item.invIntNumero.intSexe}" filterMatchMode="contains">
+                                             <f:facet name="header">
+                                                 <h:outputText value="#{msg.hint_sexe}"/>
+                                             </f:facet>
+                                              <h:outputText value="#{item.invIntNumero.intSexe}"/>
+                                         </p:column>
+
+                                        <p:column filterBy="#{item.invRolCode.rolDesig}" filterMatchMode="contains">
+                                             <f:facet name="header">
+                                                 <h:outputText value="#{msg.hint_role}"/>
+                                             </f:facet>
+                                             <h:outputText value="#{item.invRolCode.rolDesig}"/>
+                                         </p:column>   
+                                   
+                                            <p:column filterBy="#{item.invDateDeb}" filterMatchMode="contains">
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.hint_depuis_quand}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.invDateDeb}" >
+                                                   <f:convertDateTime  pattern="dd/MM/yyyy" locale="fr"/>
+                                                </h:outputText>
+                                            </p:column>   
+                                                                   
+                                            <p:column headerText="#{msg.hint_pbaNumero}" style="width:150px; text-align: center;">  
+                                                  <p:cellEditor>  
+                                                      <f:facet name="output">  
+                                                          <h:outputText value="#{item.invPbaNumeroLim}">
+                                                              <f:convertNumber currencySymbol="" type="number" maxFractionDigits="0" />
+                                                          </h:outputText>
+                                                      </f:facet>  
+                                                      <f:facet name="input">  
+                                                          <p:inputText value="#{item.invPbaNumeroLim}"  label="#{msg.hint_pbaNumero}" maxlength="20" type="number"  >
+                                                               <f:convertNumber currencySymbol="" type="number" maxFractionDigits="0" /> 
+                                                          </p:inputText> 
+                                                          
+                                                            <!--h:selectOneMenu value="#{car.color}" style="width:100%">
+                                                                <f:selectItems value="#{dtEditView.colors}" var="color" itemLabel="#{color}" itemValue="#{color}" />
+                                                            </h:selectOneMenu -->
+
+                                                      </f:facet>  
+                                                  </p:cellEditor>  
+                                              </p:column>
+
+                                        </p:dataTable> 
+                                </p:tab>
+                            
+                            <p:tab title="#{msg.titre_pv}">
+                                        <util:signin_pv   
+                                               id="composition_pv"
+                                               pvEntete="#{parcelleBaf.pvParcelle.pvPvEntete}"
+                                               pvContent="#{parcelleBaf.pvParcelle.pvPv}"
+                                                 readOnly="false"
+                                              />
+                                        
+                                            
+                                </p:tab>
+                            
+                            </p:accordionPanel>
+                       
+                    </div>
                     
                     
                     
@@ -187,7 +496,7 @@
                                <div class="card card-w-title" style="padding: 0px; margin-bottom: 0px;">
                                    <div class="ui-g-12 ui-lg-6" style=" width: 150px;">                                        
                                    
-                                       <p:commandButton  value="#{msg.btn_enregistrer}" title="#{msg.btn_enregistrer}" actionListener="#{parcelleBaf.majParcelleAgricolNoyeauVillageois()}" update="formglobal"  icon="fa fa-save" styleClass="green-btn" > 
+                                       <p:commandButton  value="#{msg.btn_fusionner_parcelle}" title ="#{msg.btn_fusionner_parcelle_info}" actionListener="#{parcelleBaf.majFusionParcelle()}" update="formglobal"  icon="fa fa-save" styleClass="green-btn" > 
                                         <p:confirm header="Confirmation" message="Etes - vous sûre de changer cette parcelle argicole en noyau villageois ?" icon="fa fa-warning" />
                                     </p:commandButton>
 
@@ -228,18 +537,12 @@
                           idDataTable="idtableParcelle"
                           listData="#{intervenirController.getlisteAyantDroit()}"
                           SelectEntity="#{parcelleBaf.intervenirSelect}"                          
-                          selectAction="#{parcelleBaf.onParcelleRowSelect(event)}" 
+                          selectAction="#{parcelleBaf.onParcelleFusionRowSelect(event)}" 
                           listDatafiltre="#{intervenirController.itemsFilter}"                         
-                          updateeltm= ":formglobal:composite_parcelle:txt_nomarrondissement 
-                                        :formglobal:composite_parcelle:txt_nomvillage
-                                        :formglobal:composite_parcelle:txt_nomcommune
-                                        :formglobal:composite_parcelle:txt_nomhameau
-                                        :formglobal:composite_parcelle:txt_lieu_dit
-                                        :formglobal:composite_parcelle:spin_typeParcelle
-                                        :formglobal:composite_parcelle:txt_superficie
-                                        :formglobal:composite_parcelle:txt_appartenance
-                                        :formglobal:composite_parcelle:txt_numeroParcel"
+                          updateeltm= "formglobal"
                           />
+                 
+                
                 
                 
                   <!-- util:signin_dialog_liste_activite
@@ -267,40 +570,41 @@
 
 
 
-                                            <p:tab title="#{msg.titre_identification_contenus}" rendered="#{parcelleBaf.intervenirSelectFusion.invPbaNumero.pbaTbfCode.tbfCode.equalsIgnoreCase('TBF02')}" > 
-                                                             <util:signin_identification_conteneur_noyeau_villageois   
-                                                                 batie="#{parcelleBaf.selectedParcelle.pbaBati}"
-                                                                 cloture="#{parcelleBaf.selectedParcelle.pbaCloture}"
-                                                                 maconnerie="#{parcelleBaf.selectedParcelle.pbaCloMacon}"
-                                                                 banco="#{parcelleBaf.selectedParcelle.pbaCloBanco}"
-                                                                 claieCloture="#{parcelleBaf.selectedParcelle.pbaCloClaie}"
-                                                                 haie="#{parcelleBaf.selectedParcelle.pbaCloHaie}"
-                                                                 autreTravaux="#{parcelleBaf.selectedParcelle.pbaCloHaie}"
+                                            <p:tab title="#{msg.titre_identification_contenus}" rendered="#{parcelleBaf.intervenirSelectFusionTemp.invPbaNumero.pbaTbfCode.tbfCode.equalsIgnoreCase('TBF02')}" > 
+                                                             <util:signin_identification_conteneur_noyeau_villageois 
+                                                                 id="idnoyeauVillageoisDetail"
+                                                                 batie="#{parcelleBaf.intervenirSelectFusionTemp.invPbaNumero.pbaBati}"
+                                                                 cloture="#{parcelleBaf.intervenirSelectFusionTemp.invPbaNumero.pbaCloture}"
+                                                                 maconnerie="#{parcelleBaf.intervenirSelectFusionTemp.invPbaNumero.pbaCloMacon}"
+                                                                 banco="#{parcelleBaf.intervenirSelectFusionTemp.invPbaNumero.pbaCloBanco}"
+                                                                 claieCloture="#{parcelleBaf.intervenirSelectFusionTemp.invPbaNumero.pbaCloClaie}"
+                                                                 haie="#{parcelleBaf.intervenirSelectFusionTemp.invPbaNumero.pbaCloHaie}"
+                                                                 autreTravaux="#{parcelleBaf.intervenirSelectFusionTemp.invPbaNumero.pbaCloHaie}"
                                                                  autreTravauxActif="#{parcelleBaf.autreTravauxActif}"
                                                                  idAutreTravauxPreciser="txt_autre_travaux"
                                                                  readOnly="false"
                                                                  idNbreEtage="txt_nbre_etage"
-                                                                 nbreEtage="#{parcelleBaf.selectedParcelle.pbaNbEtage}"
+                                                                 nbreEtage="#{parcelleBaf.intervenirSelectFusionTemp.invPbaNumero.pbaNbEtage}"
                                                                  idNbBatimat="txt_nbre_batimat"
-                                                                 nbBatimat="#{parcelleBaf.selectedParcelle.pbaNbeBat}"
-                                                                 autreTravauxPreciser="#{parcelleBaf.selectedParcelle.pbaCloAutre}"
-                                                                 cuisine="#{parcelleBaf.selectedParcelle.pbaCuisine}"
-                                                                 dalle="#{parcelleBaf.selectedParcelle.pbaToitDalle}"
-                                                                 garage="#{parcelleBaf.selectedParcelle.pbaGarage}"
-                                                                 etage="#{parcelleBaf.selectedParcelle.pbaMaisEtage}"
-                                                                 ordinaire="#{parcelleBaf.selectedParcelle.pbaMaisOrdinare}"
-                                                                 claieConstruction="#{parcelleBaf.selectedParcelle.pbaToitClaie}"
-                                                                 paille="#{parcelleBaf.selectedParcelle.pbaToitPaille}"
-                                                                 puisard="#{parcelleBaf.selectedParcelle.pbaPuisard}"
-                                                                 puitCiterne="#{parcelleBaf.selectedParcelle.pbaPuits}"
-                                                                 rdc="#{parcelleBaf.selectedParcelle.pbaMaisRez}"
-                                                                 tole="#{parcelleBaf.selectedParcelle.pbaToitTole}"
-                                                                 tuile="#{parcelleBaf.selectedParcelle.pbaToitTuile}"
-                                                                 wc="#{parcelleBaf.selectedParcelle.pbaWc}"
+                                                                 nbBatimat="#{parcelleBaf.intervenirSelectFusionTemp.invPbaNumero.pbaNbeBat}"
+                                                                 autreTravauxPreciser="#{parcelleBaf.intervenirSelectFusionTemp.invPbaNumero.pbaCloAutre}"
+                                                                 cuisine="#{parcelleBaf.intervenirSelectFusionTemp.invPbaNumero.pbaCuisine}"
+                                                                 dalle="#{parcelleBaf.intervenirSelectFusionTemp.invPbaNumero.pbaToitDalle}"
+                                                                 garage="#{parcelleBaf.intervenirSelectFusionTemp.invPbaNumero.pbaGarage}"
+                                                                 etage="#{parcelleBaf.intervenirSelectFusionTemp.invPbaNumero.pbaMaisEtage}"
+                                                                 ordinaire="#{parcelleBaf.intervenirSelectFusionTemp.invPbaNumero.pbaMaisOrdinare}"
+                                                                 claieConstruction="#{parcelleBaf.intervenirSelectFusionTemp.invPbaNumero.pbaToitClaie}"
+                                                                 paille="#{parcelleBaf.intervenirSelectFusionTemp.invPbaNumero.pbaToitPaille}"
+                                                                 puisard="#{parcelleBaf.intervenirSelectFusionTemp.invPbaNumero.pbaPuisard}"
+                                                                 puitCiterne="#{parcelleBaf.intervenirSelectFusionTemp.invPbaNumero.pbaPuits}"
+                                                                 rdc="#{parcelleBaf.intervenirSelectFusionTemp.invPbaNumero.pbaMaisRez}"
+                                                                 tole="#{parcelleBaf.intervenirSelectFusionTemp.invPbaNumero.pbaToitTole}"
+                                                                 tuile="#{parcelleBaf.intervenirSelectFusionTemp.invPbaNumero.pbaToitTuile}"
+                                                                 wc="#{parcelleBaf.intervenirSelectFusionTemp.invPbaNumero.pbaWc}"
                                                               />
                                                  </p:tab>
                                                  <p:tab title="#{msg.titre_ayant_droit}"> 
-                                                             <util:signin_intervenant   
+                                                             <util:signin_intervenant 
                                                                 idNom="txt_nom"
                                                                 nom="#{parcelleBaf.intervenantSelect.intNom}"                        
                                                                 idPrenom="txt_prenom"
@@ -351,11 +655,12 @@
                                                                 autreEthnieActif="#{parcelleBaf.autreEthnie}"
                                                                 iddialogActivite="dlgActivite"
                                                                 readOnly="true"  
-                                                                id="compo_intervenant"
+                                                                id="compo_intervenantFusion"
                                                                            />
                                                  </p:tab>
                                                  <p:tab title="#{msg.titre_droit_administration}">
                                                              <util:signin_intervenir_droit_administration   
+                                                                  id="iddroitadminDetail"
                                                                   idRole="spin_role"
                                                                   role="#{parcelleBaf.intervenirSelect.invRolCode}"
                                                                   listeRole="#{parcelleBaf.roleFacade.listeRoleByCategorieDEItem}"
@@ -425,7 +730,7 @@
 
                                                  </p:tab>
                                                  <p:tab title="#{msg.titre_droit_operationnel}"> 
-                                                     <p:dataTable value="#{parcelleBaf.listeDroitOperationnel}"  var="item" id="table_limitrophe" widgetVar="item"
+                                                     <p:dataTable value="#{parcelleBaf.listeDroitOperationnel}"  var="item" id="table_limitropheDetail" widgetVar="item"
                                                              emptyMessage="Aucun droit d'usage disponible" filteredValue= "#{intervenirController.itemsFilter}" 
                                                              rows="12" rowsPerPageTemplate="6,12,16"                                 
                                                              paginator="true"  rowKey="#{item.invIntNumero.intNom}"
@@ -458,13 +763,21 @@
                                                                   <h:outputText value="#{msg.hint_role}"/>
                                                               </f:facet>
                                                               <h:outputText value="#{item.invRolCode.rolDesig}"/>
-                                                          </p:column>                          
+                                                          </p:column>    
+                                                         
+                                                         <p:column filterBy="#{item.invDateDeb}" filterMatchMode="contains">
+                                                              <f:facet name="header">
+                                                                  <h:outputText value="#{msg.hint_depuis_quand}"/>
+                                                              </f:facet>
+                                                              <h:outputText value="#{item.invDateDeb}"/>
+                                                          </p:column>   
+                                                        
 
                                                          </p:dataTable> 
                                                  </p:tab>
 
                                             <p:tab title="#{msg.titre_liste_limitrophe_et_temoin}"> 
-                                                <p:dataTable value="#{parcelleBaf.listeLimitrophe}"  var="item" id="table_op" widgetVar="item"
+                                                <p:dataTable value="#{parcelleBaf.listeLimitrophe}"  var="item" id="table_opDetail" widgetVar="item"
                                                              emptyMessage="Aucun droit d'usage disponible" filteredValue= "#{intervenirController.itemsFilter}" 
                                                              rows="12" rowsPerPageTemplate="6,12,16"                                 
                                                              paginator="true"  rowKey="#{item.invIntNumero.intNom}"
@@ -497,7 +810,21 @@
                                                                   <h:outputText value="#{msg.hint_role}"/>
                                                               </f:facet>
                                                               <h:outputText value="#{item.invRolCode.rolDesig}"/>
-                                                          </p:column>                          
+                                                          </p:column> 
+                                                    
+                                                         <p:column filterBy="#{item.invDateDeb}" filterMatchMode="contains">
+                                                              <f:facet name="header">
+                                                                  <h:outputText value="#{msg.hint_depuis_quand}"/>
+                                                              </f:facet>
+                                                              <h:outputText value="#{item.invDateDeb}"/>
+                                                          </p:column>   
+                                                         
+                                                         <p:column filterBy="#{item.invPbaNumeroLim}" filterMatchMode="contains">
+                                                              <f:facet name="header">
+                                                                  <h:outputText value="#{msg.hint_pbaNumero}"/>
+                                                              </f:facet>
+                                                              <h:outputText value="#{item.invPbaNumeroLim}"/>
+                                                          </p:column>   
 
                                                          </p:dataTable> 
                                                  </p:tab>

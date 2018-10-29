@@ -40,6 +40,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "TPvParcelle.findByPvNomImageGeo", query = "SELECT t FROM TPvParcelle t WHERE t.pvNomImageGeo = :pvNomImageGeo")
     , @NamedQuery(name = "TPvParcelle.findByPvPvEntete", query = "SELECT t FROM TPvParcelle t WHERE t.pvPvEntete = :pvPvEntete")
     , @NamedQuery(name = "TPvParcelle.findByPvEnqCode", query = "SELECT t FROM TPvParcelle t WHERE t.pvEnqCode = :pvEnqCode")
+    , @NamedQuery(name = "TPvParcelle.findByPvParcelleIntervenant", query = "SELECT t FROM TPvParcelle t WHERE t.pvPbaNumero.pbaNumero = :parcelle AND t.pvIntNumero.intNumero = :intervenant")
     , @NamedQuery(name = "TPvParcelle.findByPvDateChargement", query = "SELECT t FROM TPvParcelle t WHERE t.pvDateChargement = :pvDateChargement")})
 public class TPvParcelle implements Serializable {
 

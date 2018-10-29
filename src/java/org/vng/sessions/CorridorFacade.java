@@ -5,6 +5,7 @@
  */
 package org.vng.sessions;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -35,6 +36,31 @@ public class CorridorFacade extends AbstractFacade<Corridor> {
         }
         return i;
     }
+    
+     public List<String> executeListeCommunetopo(){
+        int i=0;
+        List<String> listeCorridor =null;
+        try{
+            Query q=em.createNamedQuery("Corridor.findListCommuneCorridor");
+            listeCorridor=q.getResultList();
+        }catch(Exception e){
+            System.out.println("Probleme de consolidation de parcelle : insertion "+e);
+        }
+        return listeCorridor;
+    }
+    
+    public List<Corridor> executeListeCorridorVillagetopo(String communeTopo){
+        int i=0;
+        List<Corridor> listeCorridor =null;
+        try{
+            Query q=em.createNamedQuery("Corridor.findBySubcountyname").setParameter("subcountyname",communeTopo);
+            listeCorridor=q.getResultList();
+        }catch(Exception e){
+            System.out.println("Probleme de consolidation de parcelle : insertion "+e);
+        }
+        return listeCorridor;
+    }
+    
     public CorridorFacade() {
         super(Corridor.class);
     }

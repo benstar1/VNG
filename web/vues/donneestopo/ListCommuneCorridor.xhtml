@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+  <ui:composition>
+      
+    <p:dialog id="TCommuneListDlg" widgetVar="TCommuneListDlg" modal="true" resizable="false" appendTo="@(body)" header="Liste Commune">
+        <h:form id="TCommuneListForm">
+            <p:panel header="#{bundle.ListTCommuneTitle}">
+                <p:dataTable id="datalist" value="#{parcelleController.listcom}" var="item"
+                             selectionMode="single" selection="#{parcelleController.commune}"
+                             paginator="true"
+                             rowKey="#{item.comCode}"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             >
+
+               
+                    <p:column filterBy="#{item.comCode}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="Code"/>
+                        </f:facet>
+                        <p:commandLink value="#{item.comCode}"  action="#{parcelleController.setCommune(item)}"  update=":formharmonise:commune,:formharmonise:libcommune" oncomplete="PF('TCommuneListDlg').hide();"  process="@this" title="Selectionnez" style="color: blue;"/>
+               
+                    </p:column>
+                    
+                    <p:column filterBy="#{item.comDesig}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="Designation"/>
+                        </f:facet>
+                        <h:outputText value="#{item.comDesig}"/>
+                    </p:column>
+                    
+                </p:dataTable>
+            </p:panel>
+
+        </h:form>
+    </p:dialog>
+
+</ui:composition>
+
+</html>
