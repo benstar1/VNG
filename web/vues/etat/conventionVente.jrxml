@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="83934539-c156-49fe-8c9a-1815e97b4a27">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="1181"/>
+	<parameter name="ParamOpvNum" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ParamNomPrenomVendeur" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ParamNomPrenomAcheteur" class="java.lang.String"/>
+	<parameter name="ParamDepartement" class="java.lang.String"/>
+	<parameter name="ParamCommune" class="java.lang.String"/>
+	<parameter name="ParamArticle11" class="java.lang.String"/>
+	<parameter name="ParamArticle12" class="java.lang.String"/>
+	<parameter name="ParamArticle21" class="java.lang.String"/>
+	<parameter name="ParamArticle22" class="java.lang.String"/>
+	<parameter name="ParamArticle23" class="java.lang.String"/>
+	<parameter name="ParamArticle24" class="java.lang.String"/>
+	<parameter name="ParamArticle31" class="java.lang.String"/>
+	<parameter name="ParamArticle32" class="java.lang.String"/>
+	<parameter name="ParamArticle41" class="java.lang.String"/>
+	<parameter name="ParamArticle42" class="java.lang.String"/>
+	<parameter name="ParamArticle43" class="java.lang.String"/>
+	<parameter name="ParamArticle51" class="java.lang.String"/>
+	<parameter name="ParamArticle52" class="java.lang.String"/>
+	<parameter name="signatureVendeur" class="java.lang.String"/>
+	<parameter name="signatureAcheteur" class="java.lang.String"/>
+	<parameter name="temoinVendeur1" class="java.lang.String"/>
+	<parameter name="temoinVendeur2" class="java.lang.String"/>
+	<parameter name="temoinVendeur3" class="java.lang.String"/>
+	<parameter name="affirmation" class="java.lang.String"/>
+	<parameter name="textaffirmation" class="java.lang.String"/>
+	<parameter name="signatureAffirmation" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     t_operation_parcel."opv_date_op" AS t_operation_parcel_opv_date_op,
+     t_operation_parcel."opv_prix" AS t_operation_parcel_opv_prix,
+     t_operation_parcel."opv_pba_numero" AS t_operation_parcel_opv_pba_numero,
+     t_operation_parcel."opv_mac_code" AS t_operation_parcel_opv_mac_code,
+     t_operation_parcel."opv_desi_code" AS t_operation_parcel_opv_desi_code,
+     t_operation_parcel."opv_desi_reference" AS t_operation_parcel_opv_desi_reference,
+     t_operation_parcel."opv_desi_date" AS t_operation_parcel_opv_desi_date,
+     t_operation_parcel."opv_nom_maire" AS t_operation_parcel_opv_nom_maire,
+     t_operation_parcel."opv_numero_affirmation" AS t_operation_parcel_opv_numero_affirmation,
+     t_operation_parcel."opv_nom_interprete" AS t_operation_parcel_opv_nom_interprete,
+     t_operation_parcel."opv_date_saisie" AS t_operation_parcel_opv_date_saisie,
+     t_operation_parcel."opv_date_validation" AS t_operation_parcel_opv_date_validation,
+     t_operation_parcel."opv_numero" AS t_operation_parcel_opv_numero
+FROM
+     "public"."t_operation_parcel" t_operation_parcel
+WHERE
+     t_operation_parcel."opv_numero" = $P{ParamOpvNum}]]>
+	</queryString>
+	<field name="t_operation_parcel_opv_date_op" class="java.sql.Date"/>
+	<field name="t_operation_parcel_opv_prix" class="java.math.BigDecimal"/>
+	<field name="t_operation_parcel_opv_pba_numero" class="java.lang.String"/>
+	<field name="t_operation_parcel_opv_mac_code" class="java.lang.String"/>
+	<field name="t_operation_parcel_opv_desi_code" class="java.lang.String"/>
+	<field name="t_operation_parcel_opv_desi_reference" class="java.lang.String"/>
+	<field name="t_operation_parcel_opv_desi_date" class="java.sql.Date"/>
+	<field name="t_operation_parcel_opv_nom_maire" class="java.lang.String"/>
+	<field name="t_operation_parcel_opv_numero_affirmation" class="java.lang.String"/>
+	<field name="t_operation_parcel_opv_nom_interprete" class="java.lang.String"/>
+	<field name="t_operation_parcel_opv_date_saisie" class="java.sql.Timestamp"/>
+	<field name="t_operation_parcel_opv_date_validation" class="java.sql.Timestamp"/>
+	<field name="t_operation_parcel_opv_numero" class="java.lang.String"/>
+	<variable name="Var_NomPrenomVendeur" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="795" splitType="Stretch">
+			<staticText>
+				<reportElement x="278" y="93" width="264" height="20" uuid="ef0fb5cd-fa02-4212-8cff-0fb863310d28"/>
+				<textElement>
+					<font size="13" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[ENTRE  LES  SOUSSIGNES]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="123" width="542" height="16" uuid="62ebafa7-8b6c-4a34-9036-e791a316879d"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ParamNomPrenomVendeur}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="157" width="542" height="16" uuid="7ced7d40-e9d1-4452-a2c5-e0688fb8934c"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ParamNomPrenomAcheteur}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="190" y="140" width="168" height="17" uuid="4153262e-3c0d-4315-a892-d05f03d7f940"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[D'UNE PART]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="174" width="168" height="17" uuid="a62f2c71-d0e9-45e3-90b6-bb2047c3d165"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[D'AUTRE PART]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="63" y="237" width="492" height="15" uuid="a0e48115-46e2-499b-a093-8d8911c1f804"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ParamArticle11}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="210" width="299" height="16" uuid="f364a12b-ff8d-457d-9b7c-8139dfad631f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="13" isBold="false"/>
+				</textElement>
+				<text><![CDATA[	Il a été convenu et arrêté ce qui suit : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="237" width="63" height="15" uuid="a4914b17-5f74-4868-9dca-ec9ff2b50870"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Article 1 :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="256" width="555" height="56" uuid="fb67eaae-41a0-447b-bdf1-c071e98c1232"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="13"/>
+					<paragraph lineSpacing="Double"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ParamArticle12}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="322" width="62" height="15" uuid="9159a963-c98c-4bb6-8c6e-536e36870043"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Article 2 :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="341" width="555" height="15" uuid="60223bc8-cd66-4e5c-be21-e973addb9dae"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ParamArticle21}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="63" y="322" width="492" height="15" uuid="447d8678-1825-461c-aad1-75198930fdde"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="13" isBold="false"/>
+				</textElement>
+				<text><![CDATA[L'immeuble vendu est limité : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="360" width="555" height="15" uuid="13d89b9e-f8f9-4671-83a2-b3e0622fce29"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ParamArticle22}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="379" width="555" height="15" uuid="e4ddfb70-ffb7-47f6-8fc5-9889409792c2"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ParamArticle23}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="398" width="555" height="15" uuid="04b48e1b-54f4-4115-9e2c-9b3e12ff2106"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ParamArticle24}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="424" width="62" height="15" uuid="f5d289f2-f62a-431e-a480-619cc49a0f77"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Article 3 :]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="63" y="424" width="492" height="15" uuid="01d16ff6-8d68-47d5-b51b-b76e32f998cc"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ParamArticle31}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="443" width="555" height="70" uuid="59dc2167-e8fc-485b-bb6a-8133400bf63b"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="13"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ParamArticle32}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="516" width="277" height="15" uuid="9d877ebb-c9cb-4fcb-81c7-a4b724277e70"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Article 4 : (Origine de la propriété) :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1" y="532" width="555" height="49" uuid="aae70a96-7472-465d-846c-f6f25483dc5a"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="13"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ParamArticle41}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="168" y="583" width="312" height="15" uuid="7cdf151e-a658-4808-8924-77a884f60868"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="13" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Fait en cinq exemplaires à]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="280" y="604" width="118" height="15" uuid="504980ee-a1af-4080-9640-d9f09d7837d3"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ParamArticle42}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="398" y="604" width="22" height="15" uuid="0b6d83c5-f5b1-4aa4-8463-b7c35a0957ce"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="13" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[, le]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="420" y="604" width="135" height="15" uuid="17d21fa2-a18f-4eb9-986b-a30090589550"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ParamArticle43}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="353" y="635" width="135" height="15" uuid="04b2e392-5bcd-49d8-9a9b-45214d228563"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ParamArticle52}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="59" y="635" width="118" height="15" uuid="aa70e178-ec8a-4bf9-a1eb-c6a2e1e41ad8"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ParamArticle51}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="299" y="656" width="243" height="15" uuid="b481c909-f23a-4187-881d-7639f1195563"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{signatureAcheteur}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="1" y="656" width="233" height="15" uuid="361f07cf-5ec1-44fe-9abf-742834e5ef83"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{signatureVendeur}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="679" width="555" height="15" uuid="69c856ac-9c96-41bc-a0c2-26789d68e1da"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="13" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[TEMOINS DU VENDEUR]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="1" y="699" width="176" height="15" uuid="455d58f9-dcca-4a9f-89aa-7c67b44a7338"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{temoinVendeur1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="181" y="699" width="181" height="15" uuid="9f53e6dd-ccae-4be0-9b03-477b7c0aa6db"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{temoinVendeur2}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="367" y="699" width="183" height="15" uuid="0d2537af-afdb-439e-a418-746355c0a82c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{temoinVendeur3}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="1" y="728" width="555" height="15" uuid="d45a754c-92da-44ac-8fd1-97405949b0c2"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="13" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{affirmation}]]></textFieldExpression>
+			</textField>
+			<break>
+				<reportElement x="0" y="720" width="100" height="1" uuid="b39f695d-23e9-4592-be2f-9064b46e5384"/>
+			</break>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="1" y="746" width="555" height="21" uuid="ec1b1f55-614e-4e55-a028-9321ae7dfe59"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="13"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{textaffirmation}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="336" y="3" width="206" height="45" uuid="2a2e4d8c-4548-4557-8b02-a0eef6126d4c"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONVENTION DE VENTE D'IMMEUBLE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="16" width="168" height="12" uuid="4dacd155-e9a1-43ae-bbc1-e71eaf5d6f86"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ParamDepartement}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="46" y="47" width="73" height="1" uuid="149a7c41-8ce1-4ed0-a67d-6b27c59c55e6"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="0" y="33" width="168" height="12" uuid="cf7c030c-0593-42dd-9b61-0106d8b6c16f"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ParamCommune}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="46" y="29" width="73" height="1" uuid="473ecdef-894b-419c-b8e0-3326a66727e9"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="46" y="12" width="73" height="1" uuid="526d24e2-de77-4a9a-9e0c-820de3a94215"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="0" y="0" width="168" height="12" uuid="555cbbd0-99f8-4750-b5dc-aa49e9f93e7c"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPUBLIQUE DU BENIN]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="260" y="769" width="296" height="17" uuid="567f0f9c-9a56-4eab-b15c-46058b3cc068"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="13"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{signatureAffirmation}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

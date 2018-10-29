@@ -1,0 +1,100 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="./../../WEB-INF/template.xhtml">
+
+    <ui:define name="title">Générer numéro parcelle</ui:define>
+    <ui:define name="viewname">
+
+        <li>Configuration</li>
+        <li>/</li>
+        <li>Donnees Topo</li>
+        <li>/</li>
+        <li><p:link outcome="limitrophes.xhtml">Limitrophes</p:link></li>
+    </ui:define>
+
+    <ui:define name="content">
+        <style>
+            .arborescence{
+                overflow:scroll;
+            }
+            .carte{
+                overflow:scroll;
+            }
+        </style>
+        <div class="container">
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <div class="card card-w-title" >
+                        <h2>Les points cardinaux/limitrophes</h2>                       
+                        <h:form id="TParcellePocaListForm">
+                            <p:outputLabel value="Parcelle"/>
+                            <p:panelGrid columns="2">
+                                <p:inputText disabled="true" id="numparcelle" value="#{tParcellePocaController.parcelbafond}" />
+                                <p:commandButton title="selection parcelle" icon="fa fa-folder-open" styleClass="green-btn" oncomplete="PF('TParcelleListDlg').show()" ajax="true"/>
+                            </p:panelGrid>
+                            <p:growl id="messages" showDetail="true" />
+                            <p:panel header="Les limitrophes">
+                                <p:dataTable id="datalist" value="#{tParcellePocaController.items}" var="item"
+                                             selectionMode="single" selection="#{tParcellePocaController.selected}"
+                                             paginator="true"
+                                             rowKey="#{item.TParcellePocaPK}"
+                                             rows="10"
+                                             rowsPerPageTemplate="10,20,30,40,50"
+                                             >
+
+                                    <p:ajax event="rowSelect"   update="createButton  editButton deleteButton :TParcellePocaListForm:numparcelle"/>
+                                    <p:ajax event="rowUnselect" update="createButton  editButton deleteButton"/>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Parcelle"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.TParcelleBafon}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Parcelle limitrophe"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.papoPbaNumeroLimit}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Point cardinal"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.TPointCardino}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Autre Objet"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.papoAutreLimite}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Longueur limite"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.papoLongLimitroph}"/>
+                                    </p:column>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tParcellePocaController.prepareCreate}" update=":TParcellePocaCreateForm" oncomplete="PF('TParcellePocaCreateDialog').show()"/>
+
+                                        <p:commandButton id="editButton"   icon="ui-icon-pencil" actionListener="#{tParcellePocaController.initparcelleLimitrophe()}" value="#{bundle.Edit}" update=":TParcellePocaEditForm" oncomplete="PF('TParcellePocaEditDialog').show()" disabled="#{empty tParcellePocaController.selected}"/>
+                                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{tParcellePocaController.destroy}" update=":TParcellePocaListForm:messages,datalist" disabled="#{empty tParcellePocaController.selected}"/>
+                                    </f:facet>
+                                </p:dataTable>
+                            </p:panel>
+                        </h:form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ui:include src="Create.xhtml"/>
+        <ui:include src="Edit.xhtml"/>
+        <ui:include src="ListParcelle.xhtml"/>
+    </ui:define>
+
+</ui:composition>

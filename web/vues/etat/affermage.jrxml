@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="aef78175-8585-4a29-a322-bdd716384eb0">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="1166"/>
+	<parameter name="ParamOpvNum" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Village" class="java.lang.String"/>
+	<parameter name="Arrondissement" class="java.lang.String"/>
+	<parameter name="Commune" class="java.lang.String"/>
+	<parameter name="Bailleur" class="java.lang.String"/>
+	<parameter name="Preneur" class="java.lang.String"/>
+	<parameter name="Immeuble" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Mes projets java\\vng\\web\\vues\\etat\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Condition" class="java.lang.String"/>
+	<parameter name="Obligations" class="java.lang.String"/>
+	<parameter name="Resolution" class="java.lang.String"/>
+	<parameter name="Litige" class="java.lang.String"/>
+	<parameter name="ParamArticle42" class="java.lang.String"/>
+	<parameter name="ParamArticle43" class="java.lang.String"/>
+	<parameter name="ParamArticle51" class="java.lang.String"/>
+	<parameter name="ParamArticle52" class="java.lang.String"/>
+	<parameter name="signatureVendeur" class="java.lang.String"/>
+	<parameter name="signatureAcheteur" class="java.lang.String"/>
+	<parameter name="temoinVendeur1" class="java.lang.String"/>
+	<parameter name="temoinVendeur2" class="java.lang.String"/>
+	<parameter name="temoinAcheteur1" class="java.lang.String"/>
+	<parameter name="temoinAcheteur2" class="java.lang.String"/>
+	<parameter name="signatureAffirmation" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     t_operation_parcel."opv_date_op" AS t_operation_parcel_opv_date_op,
+     t_operation_parcel."opv_prix" AS t_operation_parcel_opv_prix,
+     t_operation_parcel."opv_pba_numero" AS t_operation_parcel_opv_pba_numero,
+     t_operation_parcel."opv_mac_code" AS t_operation_parcel_opv_mac_code,
+     t_operation_parcel."opv_desi_code" AS t_operation_parcel_opv_desi_code,
+     t_operation_parcel."opv_desi_reference" AS t_operation_parcel_opv_desi_reference,
+     t_operation_parcel."opv_desi_date" AS t_operation_parcel_opv_desi_date,
+     t_operation_parcel."opv_nom_maire" AS t_operation_parcel_opv_nom_maire,
+     t_operation_parcel."opv_numero_affirmation" AS t_operation_parcel_opv_numero_affirmation,
+     t_operation_parcel."opv_nom_interprete" AS t_operation_parcel_opv_nom_interprete,
+     t_operation_parcel."opv_date_saisie" AS t_operation_parcel_opv_date_saisie,
+     t_operation_parcel."opv_date_validation" AS t_operation_parcel_opv_date_validation,
+     t_operation_parcel."opv_numero" AS t_operation_parcel_opv_numero
+FROM
+     "public"."t_operation_parcel" t_operation_parcel
+WHERE
+     t_operation_parcel."opv_numero" = $P{ParamOpvNum}]]>
+	</queryString>
+	<field name="t_operation_parcel_opv_date_op" class="java.sql.Date"/>
+	<field name="t_operation_parcel_opv_prix" class="java.math.BigDecimal"/>
+	<field name="t_operation_parcel_opv_pba_numero" class="java.lang.String"/>
+	<field name="t_operation_parcel_opv_mac_code" class="java.lang.String"/>
+	<field name="t_operation_parcel_opv_desi_code" class="java.lang.String"/>
+	<field name="t_operation_parcel_opv_desi_reference" class="java.lang.String"/>
+	<field name="t_operation_parcel_opv_desi_date" class="java.sql.Date"/>
+	<field name="t_operation_parcel_opv_nom_maire" class="java.lang.String"/>
+	<field name="t_operation_parcel_opv_numero_affirmation" class="java.lang.String"/>
+	<field name="t_operation_parcel_opv_nom_interprete" class="java.lang.String"/>
+	<field name="t_operation_parcel_opv_date_saisie" class="java.sql.Timestamp"/>
+	<field name="t_operation_parcel_opv_date_validation" class="java.sql.Timestamp"/>
+	<field name="t_operation_parcel_opv_numero" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="802" splitType="Stretch">
+			<rectangle radius="2">
+				<reportElement x="165" y="4" width="233" height="41" backcolor="#CCCCCC" uuid="c467abd9-db1a-4fe8-bde7-49924670e370"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="169" y="6" width="227" height="37" uuid="84a4b1bd-d0b8-46c5-b057-48a15d6e2a36"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONTRAT D'AFFERMAGE 
+(LOCATION D'IMMEUBLE) 
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="29" y="64" width="127" height="16" uuid="88bb1a82-9290-48a8-8db3-e4a2243cd5dc"/>
+				<textElement>
+					<font isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Village /Quartier de ville : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="29" y="80" width="127" height="16" uuid="bc3a05ae-c70e-43f0-9f0e-00cbe7ece92f"/>
+				<textElement>
+					<font isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Arrondissement : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="29" y="96" width="127" height="16" uuid="7b6f251c-4830-4434-aa50-0199de480a12"/>
+				<textElement>
+					<font isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Commune :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="156" y="64" width="297" height="16" uuid="9887f239-162b-4660-b493-33e8527d12d0"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Village}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="156" y="80" width="297" height="16" uuid="6beca9ab-bfe3-4f69-adac-c904bbf9e202"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Arrondissement}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="156" y="96" width="297" height="16" uuid="dd71789b-c960-4b51-843a-52d713a39c3e"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Commune}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="31" y="120" width="85" height="18" backcolor="#CCCCCC" uuid="3efe52ea-b810-47cd-9a03-da1cba8d602e"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="31" y="122" width="85" height="16" uuid="c68b8c1a-1aab-46d8-b8b7-d26eea224c3e"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Préambule]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="31" y="142" width="502" height="57" uuid="fcc0aff8-8b08-4a54-b1c0-596d20ec0861"/>
+				<textElement textAlignment="Justified">
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[L'affermage est un type de contrat dans lequel le propriétaire (bailleur)  d'un bien en confie l'exploitation à un fermier. Celui-ci tire sa rémunération du produit de la ferme et verse au propriétaire un fermage (le montant du loyer) dont le montant est convenu à l'avance et indépendant des résultats d'exploitation (le loyer est ferme).]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="31" y="199" width="134" height="18" backcolor="#CCCCCC" uuid="011f358b-d6e8-4269-ba47-034c5708a1f9"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="31" y="199" width="134" height="18" uuid="7b15deb0-0006-4c51-b87e-2aaa84cb366d"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[1. Identification des parties]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="233" width="85" height="16" uuid="559675a0-d54d-4078-b1dc-e251e55de051"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bailleur]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="368" y="233" width="85" height="16" uuid="6b35801b-ee53-4c6f-8924-17496aae382e"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Preneur]]></text>
+			</staticText>
+			<line>
+				<reportElement x="273" y="236" width="1" height="266" uuid="a3a95ca3-fad9-4b84-8eac-10addca12159"/>
+			</line>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="29" y="259" width="233" height="221" uuid="2d2f9ca1-6338-4338-ba39-d7da040017e9"/>
+				<textElement>
+					<font fontName="SansSerif" size="11"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Bailleur}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="284" y="259" width="233" height="221" uuid="8520fa9a-c1fc-492e-bfaa-2f49d8ed20b2"/>
+				<textElement>
+					<font fontName="SansSerif" size="11"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Preneur}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="29" y="520" width="488" height="27" uuid="0d22fdf4-2699-4183-9f70-71c187eb91c3"/>
+				<textElement textAlignment="Justified">
+					<font fontName="SansSerif" size="11"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Immeuble}]]></textFieldExpression>
+			</textField>
+			<break>
+				<reportElement x="0" y="559" width="100" height="1" uuid="98ff2ddd-9331-4a5a-a5a5-ee22657436d8"/>
+			</break>
+			<subreport>
+				<reportElement x="29" y="569" width="488" height="44" uuid="0d0c4bde-4bf0-4d79-a8a4-d8e3d967571f"/>
+				<subreportParameter name="ParamOpvNum">
+					<subreportParameterExpression><![CDATA[$P{ParamOpvNum}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Condition">
+					<subreportParameterExpression><![CDATA[$P{Condition}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Obligations">
+					<subreportParameterExpression><![CDATA[$P{Obligations}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Resolution">
+					<subreportParameterExpression><![CDATA[$P{Resolution}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Litige">
+					<subreportParameterExpression><![CDATA[$P{Litige}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ParamArticle42">
+					<subreportParameterExpression><![CDATA[$P{ParamArticle42}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ParamArticle43">
+					<subreportParameterExpression><![CDATA[$P{ParamArticle43}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="signatureVendeur">
+					<subreportParameterExpression><![CDATA[$P{signatureVendeur}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="signatureAcheteur">
+					<subreportParameterExpression><![CDATA[$P{signatureAcheteur}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="temoinVendeur1">
+					<subreportParameterExpression><![CDATA[$P{temoinVendeur1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="temoinVendeur2">
+					<subreportParameterExpression><![CDATA[$P{temoinVendeur2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="temoinAcheteur1">
+					<subreportParameterExpression><![CDATA[$P{temoinAcheteur1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="temoinAcheteur2">
+					<subreportParameterExpression><![CDATA[$P{temoinAcheteur2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="signatureAffirmation">
+					<subreportParameterExpression><![CDATA[$P{signatureAffirmation}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "conditionLocation.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

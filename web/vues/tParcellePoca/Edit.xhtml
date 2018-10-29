@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TParcellePocaEditDlg" widgetVar="TParcellePocaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTParcellePocaTitle}">
+            <h:form id="TParcellePocaEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tParcellePocaController.selected != null}">
+                        <p:outputLabel value="Parcelle limitrophe" for="papoPbaNumeroLimit" />
+                        <p:selectOneMenu required="true" id="papoPbaNumeroLimit" value="#{tParcellePocaController.selected.papoPbaNumeroLimit}" >
+                            <f:selectItem itemLabel="Choisissez une parcelle limitrophe" itemValue="" />
+                            <f:selectItems value="#{tParcellePocaController.parcelleLimitropheItem}" />    
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Autre objet" for="papoAutreLimite" />
+                        <p:inputText id="papoAutreLimite" value="#{tParcellePocaController.selected.papoAutreLimite}" title="#{bundle.CreateTParcellePocaTitle_papoAutreLimite}" />
+
+
+                        <p:outputLabel value="Point cardinal" for="TPointCardino" />                       
+                        <p:selectOneMenu  id="TPointCardino" value="#{tParcellePocaController.selected.TPointCardino}" required="true" requiredMessage="#{bundle.EditTParcellePocaRequiredMessage_TPointCardino}">
+                            <f:selectItem itemLabel="Choisissez un point cardinal " itemValue="" />
+                            <f:selectItems value="#{tPointCardinoController.pointCardiItem}" />                                                                
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel value="Longueur limite" for="papoLongLimitroph" />
+
+                        <p:panelGrid columns="2">
+                            <p:inputText id="papoLongLimitroph" value="#{tParcellePocaController.selected.papoLongLimitroph}" title="#{bundle.CreateTParcellePocaTitle_papoLongLimitroph}" />
+                            <p:commandButton update="papoLongLimitroph" icon="fa fa-calculator" actionListener="#{tParcellePocaController.calculeLongueurLimite()}" title="selection parcelle"  styleClass="green-btn"  ajax="true"/>
+                        </p:panelGrid>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tParcellePocaController.update}" value="#{bundle.Save}" update="display,:TParcellePocaListForm:datalist,:TParcellePocaListForm:messages" oncomplete="PF('TParcellePocaEditDialog').hide();"/>
+                   
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

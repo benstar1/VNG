@@ -6,6 +6,7 @@ import org.vng.controlers.util.JsfUtil.PersistAction;
 import org.vng.sessions.TPointCardinoFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -18,6 +19,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.model.SelectItem;
 
 @Named("tPointCardinoController")
 @SessionScoped
@@ -26,6 +28,7 @@ public class TPointCardinoController implements Serializable {
     @EJB
     private org.vng.sessions.TPointCardinoFacade ejbFacade;
     private List<TPointCardino> items = null;
+    List<SelectItem> pointCardiItem = new ArrayList<>();
     private TPointCardino selected;
 
     public TPointCardinoController() {
@@ -120,6 +123,23 @@ public class TPointCardinoController implements Serializable {
     public List<TPointCardino> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
+
+    public List<SelectItem> getPointCardiItem() {
+       pointCardiItem=new ArrayList<>();
+        List<TPointCardino> listPoint = getFacade().findAll();
+        if (listPoint != null) {
+            for (TPointCardino str : listPoint) {
+                pointCardiItem.add(new SelectItem(str,str.getPocaDesig()));
+            }
+        }
+        return pointCardiItem;
+    }
+
+    public void setPointCardiItem(List<SelectItem> pointCardiItem) {
+        this.pointCardiItem = pointCardiItem;
+    }
+    
+  
 
     @FacesConverter(forClass = TPointCardino.class)
     public static class TPointCardinoControllerConverter implements Converter {
