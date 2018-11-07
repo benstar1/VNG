@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AvanceDlg" widgetVar="AvanceDlg" modal="true" resizable="false" appendTo="@(body)" header="Recherche avancee">
+            <h:form id="AvanceForm">
+                <p:accordionPanel id="droitLimite" multiple="false">
+                    <p:tab title="Rechercher par nom et prénoms">
+                        <p:panelGrid columns="7">
+                        <p:outputLabel value="Collectivité"/>
+                        <p:inputText value="#{parcelleController.collectivite}" />
+                        <p:outputLabel value="Nom"/>
+                        <p:inputText value="#{parcelleController.nom}" />
+                        <p:outputLabel value="Prénom"/>
+                        <p:inputText value="#{parcelleController.prenom}" /> 
+                        <p:commandButton actionListener="#{parcelleController.initCarteNomPrenom}"  style=" height: 15px; margin-right: 20px" styleClass="green-btn" oncomplete="PF('AvanceDlg').hide();"  icon="fa fa-hand-o-right" />                                      
+                        </p:panelGrid>
+                    </p:tab>
+                    <p:tab rendered="false"  title="Limitations droits d'administrations" closable="true">
+
+                    </p:tab>
+
+                    <p:tab rendered="false" title="Limitations du droit Opérationnel" closable="true">
+
+                    </p:tab>
+
+                </p:accordionPanel>
+
+
+
+
+
+
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

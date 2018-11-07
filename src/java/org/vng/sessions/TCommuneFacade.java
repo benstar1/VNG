@@ -33,7 +33,7 @@ public class TCommuneFacade extends AbstractFacade<TCommune> {
             Query q=em.createNamedQuery("TCommune.findByComEncours");
             commune = (TCommune) q.getSingleResult();
         }catch(Exception e){
-            System.out.println("Probleme de selection de le commune de deploiement "+e);
+            System.out.println("Probleme de selection de la commune de deploiement "+e);
         }
         return commune;
     }

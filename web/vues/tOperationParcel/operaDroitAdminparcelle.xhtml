@@ -65,7 +65,7 @@
                                             <p:panelGrid columns="2">
                                                 <p:outputLabel value="Numero"/>
                                                 <p:panelGrid columns="2">
-                                                    <p:inputText disabled="true" id="numparcelle" value="#{tOperationParcelController.selected.opvPbaNumero}" />
+                                                    <p:inputText disabled="true" id="numparcelle" required="true" value="#{tOperationParcelController.selected.opvPbaNumero}" />
                                                     <p:commandButton disabled="#{tOperationParcelController.estvalider}" title="selection parcelle" icon="fa fa-folder-open" styleClass="green-btn" oncomplete="PF('TParcelleListDlg').show()" ajax="true"/>
                                                 </p:panelGrid>
                                                 <p:outputLabel value="Village"/>
@@ -101,7 +101,7 @@
                                                 <p:panelGrid columns="2">
                                                     <p:outputLabel value="Mode"/>
                                                     <p:panelGrid id="codemodeacquisition" columns="2">
-                                                        <p:inputText  disabled="true" value="#{tOperationParcelController.selected.opvMacCode.macDesig}" />
+                                                        <p:inputText required="true"  disabled="true" value="#{tOperationParcelController.selected.opvMacCode.macDesig}" />
                                                         <p:commandButton disabled="#{tOperationParcelController.estvalider}" rendered="#{tOperationParcelController.selectModeAcquis}" title="selection parcelle" icon="fa fa-folder-open" styleClass="green-btn" oncomplete="PF('TModeAcquisListDlg').show()" ajax="true"/>
                                                     </p:panelGrid>
                                                     <p:outputLabel value="Montant"  />
@@ -273,7 +273,7 @@
                                                 <p:inputText value="#{tOperationParcelController.age}" />
                                                 <p:outputLabel value="Reférence signature"/>
                                                 <p:panelGrid columns="2">
-                                                    <p:inputText disabled="true" id="signatureBailleur" value="#{tOperationParcelController.signatureBail}" /> 
+                                                    <p:inputText required="true" disabled="true" id="signatureBailleur" value="#{tOperationParcelController.signatureBail}" /> 
                                                     <p:commandButton disabled="#{tOperationParcelController.estvalider}"  title="signature" icon="fa fa-folder-open" styleClass="green-btn" onclick="PF('TSignatureBailDlg').show()" ajax="true"/>
                                                 </p:panelGrid>
                                             </p:panelGrid>
@@ -282,7 +282,7 @@
                                             <p:panelGrid columns="2">
                                                 <p:outputLabel value="Reférence signature"/>
                                                 <p:panelGrid columns="2">
-                                                    <p:inputText disabled="true" value="#{tOperationParcelController.signaturePren}" id="signaturePreneur" /> 
+                                                    <p:inputText required="true" disabled="true" value="#{tOperationParcelController.signaturePren}" id="signaturePreneur" /> 
                                                     <p:commandButton disabled="#{tOperationParcelController.estvalider}"  title="enregistrer" icon="fa fa-folder-open" styleClass="green-btn" onclick="PF('TSignaturePrenDlg').show()" ajax="true"/>
                                                 </p:panelGrid>
                                                 <p:outputLabel value="Nom"/>

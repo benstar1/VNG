@@ -37,7 +37,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "TDepotSignature.findByDesiCode", query = "SELECT t FROM TDepotSignature t WHERE t.desiCode = :desiCode")
     , @NamedQuery(name = "TDepotSignature.findByDesiReference", query = "SELECT t FROM TDepotSignature t WHERE t.desiReference = :desiReference")
     , @NamedQuery(name = "TDepotSignature.findByDesiDateDeb", query = "SELECT t FROM TDepotSignature t WHERE t.desiDateDeb = :desiDateDeb")
-    , @NamedQuery(name = "TDepotSignature.findByDesiDateFin", query = "SELECT t FROM TDepotSignature t WHERE t.desiDateFin = :desiDateFin")})
+    , @NamedQuery(name = "TDepotSignature.findByIntervenant", query = "SELECT t FROM TDepotSignature t WHERE t.desiIntNumero = :intervenant ORDER BY t.desiDateDeb DESC")
+        , @NamedQuery(name = "TDepotSignature.findByDesiDateFin", query = "SELECT t FROM TDepotSignature t WHERE t.desiDateFin = :desiDateFin")})
 public class TDepotSignature implements Serializable {
 
     @OneToMany(mappedBy = "invDesiCode")

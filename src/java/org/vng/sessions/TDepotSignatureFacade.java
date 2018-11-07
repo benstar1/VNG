@@ -5,10 +5,13 @@
  */
 package org.vng.sessions;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import org.vng.entities.TDepotSignature;
+import org.vng.entities.TIntervenant;
 
 /**
  *
@@ -24,7 +27,18 @@ public class TDepotSignatureFacade extends AbstractFacade<TDepotSignature> {
     protected EntityManager getEntityManager() {
         return em;
     }
-
+ public List<TDepotSignature> executeListeDepotIntervenant(TIntervenant intervenant){
+        int i=0;
+        List<TDepotSignature> listeDepot =null;
+        try{
+            Query q=em.createNamedQuery("TDepotSignature.findByIntervenant").setParameter("intervenant",intervenant)
+                  ;
+            listeDepot=q.getResultList();
+        }catch(Exception e){
+            System.out.println("Probleme select de droit exerce par categorie : "+e);
+        }
+        return listeDepot;
+    }
     public TDepotSignatureFacade() {
         super(TDepotSignature.class);
     }

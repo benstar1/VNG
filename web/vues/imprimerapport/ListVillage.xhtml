@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+  <ui:composition>
+      
+    <p:dialog id="TVillageListDlg" widgetVar="TVillageListDlg" modal="true" resizable="false" appendTo="@(body)" header="Liste Village">
+        <h:form id="TVillageListForm">
+            <p:panel header="#{bundle.ListTVillageTitle}">
+                <p:dataTable id="datalist" value="#{parcelleController.listVillage}" var="item"
+                             selectionMode="single" selection="#{parcelleController.villageNormal}"
+                             paginator="true"
+                             rowKey="#{item.vilaCode}"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             >
+
+               
+                    <p:column filterBy="#{item.vilaCode}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="Code"/>
+                        </f:facet>
+                        <p:commandLink value="#{item.vilaCode}"  action="#{parcelleController.setVillageNormal(item)}"  update=":formharmonise:village,:formharmonise:libvillage,TVillageListForm:datalist" oncomplete="PF('TVillageListDlg').hide();"  process="@this" title="Selectionnez" style="color: blue;"/>
+               
+                    </p:column>
+                    
+                    <p:column filterBy="#{item.vlaDesig}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="Designation"/>
+                        </f:facet>
+                        <h:outputText value="#{item.vlaDesig}"/>
+                    </p:column>
+                    
+                </p:dataTable>
+            </p:panel>
+
+        </h:form>
+    </p:dialog>
+
+</ui:composition>
+
+</html>

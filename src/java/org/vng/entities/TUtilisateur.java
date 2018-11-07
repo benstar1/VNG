@@ -49,6 +49,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "TUtilisateur.findByUtiDateChargement", query = "SELECT t FROM TUtilisateur t WHERE t.utiDateChargement = :utiDateChargement")})
 public class TUtilisateur implements Serializable {
 
+    @Column(name = "uti_actif")
+    private Boolean utiActif;
+
     @OneToMany(mappedBy = "patyUtiCode")
     private List<TParcelleTypeBf> tParcelleTypeBfList;
     @OneToMany(mappedBy = "pbaCodeGeo")
@@ -349,6 +352,14 @@ public class TUtilisateur implements Serializable {
 
     public void setTSignataireList(List<TSignataire> tSignataireList) {
         this.tSignataireList = tSignataireList;
+    }
+
+    public Boolean getUtiActif() {
+        return utiActif;
+    }
+
+    public void setUtiActif(Boolean utiActif) {
+        this.utiActif = utiActif;
     }
     
 }

@@ -12,35 +12,36 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
             <meta name="apple-mobile-web-app-capable" content="yes" />
         </f:facet>
-        <title>PrimeFaces harmony</title>
+        <title>Système Integrer de Gestion des Informations Foncières </title>
     </h:head>
 
     <h:body styleClass="login-body">     
         <div class="logo">
             <p:graphicImage name="images/harmony-logo.png" library="harmony-layout"/>
-            <span class="app-name">HARMONY</span>        
+            <span class="app-name">GesFonc</span>        
         </div>
 
         <div class="login-panel">
             <h:form>
-            <p:graphicImage name="images/template/image-login-mobile.jpg" library="harmony-layout" class="mobile"/>
-            <div class="left-part">
-                <span class="login-panel-header">Sign in To Harmony</span>
-                <span class="login-panel-subheader">Welcome, please use the form to sign-in Harmony network</span>
+            <p:graphicImage name="images/template/imageloginbismobile.jpg" library="harmony-layout" class="mobile"/>
+            <div class="left-part" style=" width: 40%" >
+                <span class="login-panel-header">Acceder à GesFonc</span>
+                <span class="login-panel-subheader">Bienvnue, SVP veuillez saisir vos identifiants</span>
                 
                 <div style="margin-top:32px">
-                    <p:outputLabel value="Enter e-mail address"/>
+                    <p:outputLabel value="Login"/>
                     <p:inputText/>
-                    <p:outputLabel value="Enter password" />
+                    <p:outputLabel value="Mot de passe" />
                     <p:inputText/>
                     <p:inputSwitch />
-                    <p:outputLabel value="Remember me" />
+                    <p:outputLabel value="Se rappeler" />
                 </div>
-                <p:commandButton id="login" value="Login" action="#{loginBean.login}" style="margin-bottom:10px" styleClass="raised-btn"/>
+                <p:commandButton id="login" value="Login" action="#{loginBean.login}" style="margin-bottom:10px" styleClass="green-btn"/>
                 
             </div>
-            <div class="right-part">
-                <p:graphicImage name="images/template/image-login.png" library="harmony-layout"/>
+            <div class="right-part" style="float: right; width: 55%;margin-top:32px">
+                <p:graphicImage name="images/template/imageloginbis.jpg" library="harmony-layout"/>
+                
             </div>
            </h:form> 
         </div>

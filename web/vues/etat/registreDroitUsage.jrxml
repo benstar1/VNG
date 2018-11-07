@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="95e0be82-9dbd-4c4a-b5a7-cdcda060467b">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="village" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="datedebut" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="datefin" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="libcommune" class="java.lang.String"/>
+	<parameter name="libarrondissement" class="java.lang.String"/>
+	<parameter name="libvillage" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+op.opv_date_op AS dateOperation, 
+inttba.int_nom||' '||inttba.int_prenom AS nomBailleur,
+inttba.int_domicile AS domicileBailleur,
+inttpren.int_nom||' '||inttpren.int_prenom AS nomPreneur,
+inttpren.int_domicile AS domicilePreneur,
+pba.pba_numero AS numeroImmeublePFR,
+'' AS numeroImmeubleRFU,
+pba.pba_superficie AS superficie,
+pba.pba_lieu_dit AS lieuDit,
+mode.mac_desig AS natureContrat,
+op.opv_duree AS duree,
+op.opv_date_deb AS date_debut,
+op.opv_date_fin AS date_fin
+FROM t_operation_parcel op
+INNER JOIN t_intervenant inttba ON inttba.int_numero=op.opv_int_numero_bailleur
+INNER JOIN t_intervenant inttpren ON inttpren.int_numero=op.opv_int_numero_preneur
+INNER JOIN t_modeacquis mode ON mode.mac_code=op.opv_mac_code
+INNER JOIN t_parcelle_bafon pba ON pba.pba_numero=op.opv_pba_numero
+WHERE mode.mac_cat='OP'
+AND left(pba.pba_numero,7)=$P{village}
+AND op.opv_date_op BETWEEN $P{datedebut} AND $P{datefin}]]>
+	</queryString>
+	<field name="dateoperation" class="java.sql.Date"/>
+	<field name="nombailleur" class="java.lang.String"/>
+	<field name="domicilebailleur" class="java.lang.String"/>
+	<field name="nompreneur" class="java.lang.String"/>
+	<field name="domicilepreneur" class="java.lang.String"/>
+	<field name="numeroimmeublepfr" class="java.lang.String"/>
+	<field name="numeroimmeublerfu" class="java.lang.String"/>
+	<field name="superficie" class="java.math.BigDecimal"/>
+	<field name="lieudit" class="java.lang.String"/>
+	<field name="naturecontrat" class="java.lang.String"/>
+	<field name="duree" class="java.math.BigDecimal"/>
+	<field name="date_debut" class="java.sql.Date"/>
+	<field name="date_fin" class="java.sql.Date"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="113" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="234" y="8" width="483" height="24" uuid="e5dd7b93-1b0e-40e4-8e0b-34d9026b4774"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Registre d'enregistrement des contrats de formalisation des droits d'usage]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="135" y="35" width="259" height="20" uuid="f936e8df-8700-40ff-9557-ac95614737ab"/>
+				<textFieldExpression><![CDATA[$P{libcommune}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="135" y="55" width="259" height="20" uuid="64954669-204e-4cd9-91c7-30667e6bcffe"/>
+				<textFieldExpression><![CDATA[$P{libarrondissement}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="21" y="55" width="111" height="20" uuid="094a0bf4-b8f6-45ad-af2f-77bffec615c6"/>
+				<textElement>
+					<font fontName="Arial Narrow"/>
+				</textElement>
+				<text><![CDATA[Arrondissement]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="75" width="111" height="20" uuid="bf5c9e32-b698-48e3-bb8a-5c542018782b"/>
+				<textElement>
+					<font fontName="Arial Narrow"/>
+				</textElement>
+				<text><![CDATA[Village /Quartier de ville : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="135" y="75" width="259" height="20" uuid="5af04bed-d0bc-4030-83ff-b75765842ddb"/>
+				<textFieldExpression><![CDATA[$P{libvillage}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="21" y="35" width="111" height="20" uuid="24cf88ef-eb9d-4adc-a971-c626b394ee0c"/>
+				<text><![CDATA[Commune]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="34" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="33" width="802" height="1" uuid="1c955f16-7121-4b4a-b20f-22b1fd58df18"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="82" y="1" width="134" height="15" forecolor="#000000" uuid="dfe88e44-38e5-4457-8bea-9eb2c8a63d76"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<text><![CDATA[Bailleur/Detenteur]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="216" y="1" width="140" height="15" forecolor="#000000" uuid="d8969018-c07b-4b52-937f-e518fa24efc2"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<text><![CDATA[Preneur]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="356" y="1" width="61" height="33" forecolor="#000000" uuid="a42bed0b-9a66-4f22-8629-dfe81342ef9b"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<text><![CDATA[Numéro de l'immeuble PFR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="417" y="1" width="64" height="33" forecolor="#000000" uuid="e474da9e-775f-4379-b5e1-1582f0a58253"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="7"/>
+				</textElement>
+				<text><![CDATA[Numéro de l'immeuble lotissement, RFU ou autres]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="481" y="1" width="44" height="33" forecolor="#000000" uuid="43a5c4bf-304f-4268-8bf8-441a9d80306c"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<text><![CDATA[Superficie de l'immeuble objet du contrat]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="525" y="1" width="60" height="33" forecolor="#000000" uuid="bce4482a-968b-4b42-ab86-0c269b787f13"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<text><![CDATA[Lieu-dit de l'immeuble]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="585" y="1" width="59" height="33" forecolor="#000000" uuid="3d2731fd-f3f9-481b-97a3-1b03d45e93eb"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<text><![CDATA[Nature du contrat]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="644" y="1" width="37" height="33" forecolor="#000000" uuid="985d4278-90e1-4c9f-894c-b6bf036df5f8"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<text><![CDATA[Durée du contrat]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="681" y="1" width="60" height="33" forecolor="#000000" uuid="06272b36-36e0-4727-a152-a0812271507d"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<text><![CDATA[Début du contrat]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="741" y="1" width="61" height="33" forecolor="#000000" uuid="7e3f1057-13f9-4947-8381-1ddd233241da"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<text><![CDATA[Fin  du contrat]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="82" y="16" width="72" height="17" forecolor="#000000" uuid="c2fb3815-daf6-4837-a263-26aed6c9036b"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<text><![CDATA[Nom et prénoms]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="154" y="16" width="62" height="17" forecolor="#000000" uuid="aad80441-8127-41be-994a-ba4d910845ec"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<text><![CDATA[Lieu de résidence]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="216" y="16" width="80" height="17" forecolor="#000000" uuid="257a6648-c851-4f8c-a967-05b9d26f5bb6"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<text><![CDATA[Nom et prénoms]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="296" y="16" width="60" height="17" forecolor="#000000" uuid="98f0f5f6-57a2-424e-8560-f6a77fdbad3e"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<text><![CDATA[Lieu de résidence]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="1" width="34" height="32" forecolor="#000000" uuid="6e4ebcbe-0b80-4106-b80f-b91371d8e5ae"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<text><![CDATA[Numéro d'ordre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="34" y="1" width="48" height="32" forecolor="#000000" uuid="065d1039-22d9-4ef2-b66c-9d0706e1a436"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<text><![CDATA[date]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="802" height="15" uuid="7cd77290-128c-48fe-b187-fc82da18a376"/>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+					<reportElement style="Detail" stretchType="RelativeToBandHeight" x="34" y="0" width="48" height="15" uuid="14fb3c25-cc17-4c99-93ac-610b56ef4a05"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font fontName="Arial Narrow" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{dateoperation}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" stretchType="RelativeToBandHeight" x="82" y="0" width="73" height="15" uuid="6a2fa3c1-0f96-4769-aae8-78102a9c4c59"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font fontName="Arial Narrow" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nombailleur}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" stretchType="RelativeToBandHeight" x="155" y="0" width="61" height="15" uuid="0bdb69d1-93f0-4dc6-8c6f-4d25bce8bcb6"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font fontName="Arial Narrow" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{domicilebailleur}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" stretchType="RelativeToBandHeight" x="216" y="0" width="80" height="15" uuid="126cfdd2-7e99-4128-8834-862b76043ea1"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font fontName="Arial Narrow" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nompreneur}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" stretchType="RelativeToBandHeight" x="296" y="0" width="60" height="15" uuid="dcd9b7cb-dd30-4b67-83ec-f384f86e166d"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font fontName="Arial Narrow" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{domicilepreneur}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" stretchType="RelativeToBandHeight" x="356" y="0" width="61" height="15" uuid="ad9a092c-2c99-4b91-8739-62b27f9fde56"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font fontName="Arial Narrow" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{numeroimmeublepfr}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" stretchType="RelativeToBandHeight" x="417" y="0" width="64" height="15" uuid="b000cdb5-c2ad-4c57-969b-9b7d39a0a42f"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font fontName="Arial Narrow" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{numeroimmeublerfu}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" stretchType="RelativeToBandHeight" x="481" y="0" width="44" height="15" uuid="202725d2-b5e2-4a55-9c72-340d6cac9adc"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font fontName="Arial Narrow" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{superficie}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" stretchType="RelativeToBandHeight" x="525" y="0" width="60" height="15" uuid="4b13d72d-3d97-4d4c-9823-ed52c883b971"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font fontName="Arial Narrow" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{lieudit}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" stretchType="RelativeToBandHeight" x="585" y="0" width="59" height="15" uuid="f4015b47-a3ba-45d3-b452-80a445dd45d9"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font fontName="Arial Narrow" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{naturecontrat}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" stretchType="RelativeToBandHeight" x="644" y="0" width="37" height="15" uuid="6f7751b1-c08c-409e-a9cc-8ff1ad8514c5"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font fontName="Arial Narrow" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{duree}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+					<reportElement style="Detail" stretchType="RelativeToBandHeight" x="681" y="0" width="60" height="15" uuid="24e8ce71-d474-49d2-9e54-451b771e53ba"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font fontName="Arial Narrow" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{date_debut}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+					<reportElement style="Detail" stretchType="RelativeToBandHeight" x="741" y="0" width="61" height="15" uuid="10644741-b4b0-4800-a54e-f14aefffce65"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font fontName="Arial Narrow" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{date_fin}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="9" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1" uuid="c626eb70-5eec-427d-9b8b-675678f2d204"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="1" y="1" width="801" height="24" forecolor="#FFFFFF" backcolor="#FFFFFF" uuid="de59e4fd-c333-4018-bf7d-7e32e4b8fe31"/>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="10" y="1" width="177" height="20" forecolor="#000000" uuid="a5eced79-a1a7-4fc6-9a71-30abaf6b3714"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

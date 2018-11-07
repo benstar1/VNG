@@ -9,14 +9,14 @@
         <div class="nano">
             <div class="nano-content menu-scroll-content">
                 <h:form id="menuform">
-                    <ph:menu widgetVar="me">
+                    <ph:menu  widgetVar="me">
                         <p:menuitem id="om_dashboard" value="Accueil" icon="fa fa-fw fa-dashboard" outcome="/dashboard" />
                         
-                        <p:submenu id="etat_civile" label="Etat Civil" icon="fa fa-child">
+                        <p:submenu style="border-color: #FFFFFF  " id="etat_civile" label="Etat Civil" icon="fa fa-child">
                             <p:menuitem id="depot_signature" outcome="/vues/tDepotSignature/depotsignature.xhtml"  value="Dépot de signatures" icon="fa fa-pencil" ajax="false" />                          
                         </p:submenu>
                         
-                        <p:submenu id="affaires_domaniales" label="Affaires Domaniales" icon="fa fa-life-buoy">
+                        <p:submenu id="affaires_domaniales" label="Gestion des immeubles" style="border-color: #FFFFFF  " icon="fa fa-life-buoy">
                             <p:menuitem id="vente_parcelle" action="#{tOperationParcelController.operationParcelle('VENTE')}"  value="Vente de parcelle" icon="fa fa-cc-visa" ajax="false" />
                             <p:menuitem id="heritage_arcelle" action="#{tOperationParcelController.operationParcelle('HERITAGE')}" value="Héritage de parcelle" icon="fa fa-sitemap" ajax="false" />
                             <p:menuitem id="don_parcelle"  action="#{tOperationParcelController.operationParcelle('DON')}" value="Don de parcelle" icon="fa fa-trophy"   ajax="false" />
@@ -46,7 +46,7 @@
                         
                         
                         
-                        <p:submenu id="consultation_edition" label="Consultation et Edition" icon="fa fa-search">
+                        <p:submenu style="border-color: #FFFFFF  " id="consultation_edition" label="Consultation et Edition" icon="fa fa-search">
                             
                             <p:submenu id="consul_fiche_enquete" label="Fiches d'Enquêtes" icon="fa fa-fw fa-sign-in">
                                 <p:menuitem id="consul_parcelle_agricol" value="Parcelles Agricoles" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
@@ -70,15 +70,18 @@
                             </p:submenu>
                             
                             <p:submenu id="cartographie" label="Cartographie" icon="fa fa-medium">
-                               <p:menuitem id="viso_parcelle" outcome="/vues/donneestopo/visionparcelle.xhtml"  value="cartographie des parcelles" icon="fa fa-th"  ajax="false" />
-                           
+                               <p:menuitem id="viso_parcelle" outcome="/vues/donneestopo/visionparcelle.xhtml"  value="cartographie des parcelles" icon="fa fa-th"  ajax="false" />                           
+                            </p:submenu>
+                            <p:submenu id="rapport" label="Les rapports" icon="fa fa-files-o">
+                                <p:menuitem id="registreDroitUsage" value="Registre des droits d'usage " icon="fa fa-list-ol" outcome="/vues/imprimerapport/imprimerRegistreDU.xhtml" ajax="false" />
+                                       
                             </p:submenu>
                             
                             
                         </p:submenu>
                         
                         
-                        <p:submenu id="menu_configuration" label="Configurations" icon="fa fa-fw fa-cog">
+                        <p:submenu style="border-color: #FFFFFF  " id="menu_configuration" label="Configurations" icon="fa fa-fw fa-cog">
                             
                             <p:submenu id="decoupage_administratif" label="Découpage &#160;&#160;&#160;&#160;&#160;&#160;&#160;Administratif" icon="fa fa-fw fa-sign-in">
                                 <p:menuitem id="liste_departement" value="Départements" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
@@ -121,7 +124,7 @@
                            
                         </p:submenu>
                         
-                        <p:submenu rendered='false'  id="om_customization" label="Layouts" icon="fa fa-fw fa-cog">
+                        <p:submenu style="border-color: #FFFFFF  " rendered='false'  id="om_customization" label="Layouts" icon="fa fa-fw fa-cog">
                             <p:menuitem id="om_customization_1" value="Static" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuMode('layout-menu-static')}" ajax="false" />
                             <p:menuitem id="om_customization_2" value="Overlay" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuMode('layout-menu-overlay')}" ajax="false" />
                             <p:menuitem id="om_customization_3" value="Slim" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuMode('layout-menu-slim')}" ajax="false" />
