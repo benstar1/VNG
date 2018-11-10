@@ -23,25 +23,28 @@
 
         <div class="login-panel">
             <h:form>
+            
+                <p:messages id="msg" showIcon="true" showDetail="true" closable="true"/>
+                       
             <p:graphicImage name="images/template/imageloginbismobile.jpg" library="harmony-layout" class="mobile"/>
-            <div class="left-part" style=" width: 40%" >
+            <div class="left-part" style=" width: 40%;" >
                 <span class="login-panel-header">Acceder à GesFonc</span>
                 <span class="login-panel-subheader">Bienvnue, SVP veuillez saisir vos identifiants</span>
                 
                 <div style="margin-top:32px">
                     <p:outputLabel value="Login"/>
-                    <p:inputText/>
+                    <p:inputText  required="true" id="login" value="#{loginMBean.uname}" placeholder="Login" />
                     <p:outputLabel value="Mot de passe" />
-                    <p:inputText/>
+                    <p:inputText type="password" value="#{loginMBean.password}" placeholder="Password" />
                     <p:inputSwitch />
                     <p:outputLabel value="Se rappeler" />
+                      <p:commandButton update="msg" id="loginbtn" value="Login" action="#{loginMBean.login}" style="margin-bottom:10px" styleClass="green-btn"/>
+             
                 </div>
-                <p:commandButton id="login" value="Login" action="#{loginBean.login}" style="margin-bottom:10px" styleClass="green-btn"/>
                 
             </div>
             <div class="right-part" style="float: right; width: 55%;margin-top:32px">
-                <p:graphicImage name="images/template/imageloginbis.jpg" library="harmony-layout"/>
-                
+                <p:graphicImage name="images/template/imageloginbis.jpg" library="harmony-layout"/>        
             </div>
            </h:form> 
         </div>

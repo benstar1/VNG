@@ -25,6 +25,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -36,21 +37,41 @@ import org.vng.sessions.TUtilisateurFacade;
  *
  * @author DELL
  */
-@ManagedBean(name = "loginMBean")
+
+
+//@Named("loginMBean")
+//@SessionScoped
+@ManagedBean
 @SessionScoped
 public class LoginMBean implements Serializable {
-
     @EJB
     private TUtilisateurFacade tUtilisateurFacade;
     private TUtilisateur utilisateurconnecte = new TUtilisateur();
     private boolean contribuable;
     private TUtilisateur utilisateur = new TUtilisateur();
-
-    @Inject
+    private String nomPrenom="Utilisateur Anonyme";
+    private boolean connecter=false;
+    //@Inject
     ConvertirMD5 md5;
 
     public TUtilisateur getUtilisateurconnecte() {
         return utilisateurconnecte;
+    }
+
+    public boolean isConnecter() {
+        return connecter;
+    }
+
+    public void setConnecter(boolean connecter) {
+        this.connecter = connecter;
+    }
+
+    public String getNomPrenom() {
+        return nomPrenom;
+    }
+
+    public void setNomPrenom(String nomPrenom) {
+        this.nomPrenom = nomPrenom;
     }
 
     public void setUtilisateurconnecte(TUtilisateur utilisateurconnecte) {
@@ -198,155 +219,123 @@ public class LoginMBean implements Serializable {
     }
 
     public String logout() {
-        // String page="/login?logout=true&faces-redirect=true";
         String page = "/login?logout=true&faces-redirect=true";
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        //HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
-
         try {
             FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
             request.logout();
-            connecte = false;
-
+            setUtilisateur(null);
+            setUtilisateurconnecte(null);
+            setNomPrenom("Utilisateur Anonyme");
+            //connecte = false;
+            setConnecter(false);
         } catch (ServletException e) {
             context.addMessage(null, new FacesMessage("Logout failed!"));
-            // page="/login?logout=false&faces-redirect=true";
             page = "/login?logout=true&faces-redirect=true";
         }
         return "/login?logout=true&faces-redirect=true";
     }
+    
 
-    public boolean isContribuable() {
+
+    public boolean isSaisie() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        contribuable = externalContext.isUserInRole("CONTRIBUABLE");
+        contribuable = externalContext.isUserInRole("SAISIE");
         return contribuable;
     }
 
-    public boolean isActivecc() {
+    public boolean isConsultation() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        return externalContext.isUserInRole("ACTIVECC");
+        return externalContext.isUserInRole("CONSULTATION");
 
     }
 
     public boolean isAdmin() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        return externalContext.isUserInRole("ADMIN");
+        return externalContext.isUserInRole("ADMINISTRATEUR");
     }
 
-    public boolean isInspectmaj() {
+    public boolean isChefService() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        return externalContext.isUserInRole("INSPECTMAJ");
-    }
-
-    public boolean isInformaticien() {
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        return externalContext.isUserInRole("INFORMATICIEN");
-    }
-
-    public boolean isInspecteur() {
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        return externalContext.isUserInRole("INSPECTEUR");
+        return externalContext.isUserInRole("CHEFSERVICE");
     }
 
     public boolean isConnected() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        //  if (externalContext.getContext()==null)
-        // ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
+       // System.out.println(request.getUserPrincipal());
         if (request.getUserPrincipal() == null) {
-            System.out.println("non");
             return false;
         } else {
-
+            System.out.println("Nous somme dans du vrai");
             setUtilisateurconnecte(tUtilisateurFacade.rechercheUtilconnecte(uname));
             nom = utilisateurconnecte.getUtiLogin();
-            //System.out.println("Utilisateur Connecté " + utilisateurconnecte + "Uname " + uname);
-            //System.out.println(" SERVICE +++++++ : " + utilisateurconnecte.getFonctCod().getLibelle()+ " test");
-
-            //rechercher le centre de l'utilisateur dans un truc public si c'est un inspecteur
             return true;
         }
     }
+    
+    
 
     public String login() {
         String chemin = "index.xhtml";
-        String statut = "D";
         boolean actif = false;
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         Map<String, Object> sessionMap = externalContext.getSessionMap();
         sessionMap.put("loginUser", uname);
-
         HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
-
-        if (isConnected()) {
-            chemin = "/vues/accueil/accueil.xhtml";
-            sessionMap.put("utilisateurConnecte", utilisateurconnecte);
-            if (externalContext.isUserInRole("CONTRIBUABLE") == true) {
-                //chemin = "/vues/tEntDeclaration/DeclarationFiscal.xhtml";
-            }
-            if (externalContext.isUserInRole("ADMIN") == true) {
-                //chemin = "/vues/tDeclarationDou/ConsulterDD.xhtml";
-            }
-            if (externalContext.isUserInRole("INSPECTEUR") == true) {
-                //chemin = "/vues/tDeclarationDou/ConsulterDD.xhtml";
-            }
-            if (externalContext.isUserInRole("INSPECTMAJ") == true) {
-                //chemin = "/vues/tRepUnique/MAJIndividuelle.xhtml";
-            }
-            if (externalContext.isUserInRole("ACTIVECC") == true) {
-                //chemin = "/vues/tUtilisateur/MAJUtilisateur.xhtml";
-            }
-        } else {
-
+        try {
+             request.login(uname, password);
+             System.out.println(isConnected()+" "+uname);       
+        if (isConnected()) {     
             try {
+                //////////Verifions si l'utilisateure est actif//////////////////////
                 if (!(tUtilisateurFacade.rechercheUtilconnecte(uname) == null)) {
                     setUtilisateur(tUtilisateurFacade.rechercheUtilconnecte(uname));
                     System.out.println("+++++++++++ UTILISATEUR CONNECTE ============ " + utilisateur.getUtiLogin());
-                    sessionMap.put("utilisateurConnecte", utilisateur);
+                    sessionMap.put("utilisateurConnecte", utilisateurconnecte);
                     actif = utilisateur.getUtiActif();
+                    System.out.println("Actif "+actif);
                 }
-
                 if (actif == false) {
-                    Logger.getLogger(LoginMBean.class.getName()).log(Level.INFO, "Utilisateur non actif", uname);
-                    FacesContext facesContext = FacesContext.getCurrentInstance();
-                    FacesMessage facesMessage = new FacesMessage("Votre compte n'est pas actif ");
-                    facesMessage.setSeverity(FacesMessage.SEVERITY_ERROR);
-                    facesContext.addMessage(null, facesMessage);
+                    Logger.getLogger(LoginMBean.class.getName()).log(Level.INFO, "Utilisateur non actif", uname);                 
+                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Connexion : ", "Utilisateur "+uname+" non actif");
+                    FacesContext.getCurrentInstance().addMessage(null, message);
+                    System.out.println(" Inactif");
                     return "login.xhtml";
                 } else {
-                    request.login(uname, password);
-                    System.out.println("connexion");
-                    if (isConnected()) {
-                        chemin = "login.xhtml";
-                        if (externalContext.isUserInRole("SAISIE") == true) {
-                            // chemin = "/vues/tEntDeclaration/DeclarationFiscal.xhtml";
-                        }
-                        if (externalContext.isUserInRole("ADMIN") == true) {
-                            // chemin = "/vues/tDeclarationDou/ConsulterDD.xhtml";
-                        }
-                        if (externalContext.isUserInRole("CONSULTATION") == true) {
-                            //chemin = "/vues/tDeclarationDou/ConsulterDD.xhtml";
-                        }
-                        if (externalContext.isUserInRole("CHEFSERVICE") == true) {
-                            //chemin = "/vues/tRepUnique/MAJIndividuelle.xhtml";
-                        }
-                    }
-
+                    
+                    //request.login(uname, password);
+                    setUtilisateurconnecte(getUtilisateur());
+                    setNomPrenom(getUtilisateurconnecte().getUtiNom()+" "+getUtilisateurconnecte().getUtiPrenom());
+                    setConnecter(true);
+                    System.out.println("Actif");
+                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Connexion : ", "Connexion reussie. Bienvenue "+uname);
+                    FacesContext.getCurrentInstance().addMessage(null, message);              
+                    return "dashboard.xhtml";                     
                 }
-
-                return chemin;
-            } catch (ServletException ex) {
-                Logger.getLogger(LoginMBean.class.getName()).log(Level.INFO, "Failed to log in {0}", uname);
+            } catch (Exception ex) {
+                Logger.getLogger(LoginMBean.class.getName()).log(Level.INFO, "Impossible de se connecter ", uname);
                 FacesContext facesContext = FacesContext.getCurrentInstance();
                 FacesMessage facesMessage = new FacesMessage("Login ou mot de passe incorrect. ");
                 facesMessage.setSeverity(FacesMessage.SEVERITY_ERROR);
                 facesContext.addMessage(null, facesMessage);
-
                 return "login.xhtml";
             }
-        }
-        return chemin;
 
+        } else {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Connexion : ", "Echec de Connexion; login ou mot de passe incorrecte");
+            FacesContext.getCurrentInstance().addMessage(null, message);  
+            return "login.xhtml";
+        } 
+        } catch (Exception e) {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Connexion : ", "Echec de Connexion; login ou mot de passe incorrecte");
+            FacesContext.getCurrentInstance().addMessage(null, message);  
+            System.out.println("Erreur login "+e);
+            return "login.xhtml";
+            
+        }
     }
+    
+    
 }

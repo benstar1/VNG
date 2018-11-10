@@ -6,6 +6,7 @@ import org.vng.controlers.util.JsfUtil.PersistAction;
 import org.vng.sessions.TTypeutilFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -18,6 +19,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.model.SelectItem;
 
 @Named("tTypeutilController")
 @SessionScoped
@@ -107,6 +109,17 @@ public class TTypeutilController implements Serializable {
                 JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             }
         }
+    }
+    
+    public List<SelectItem> getProfilItem() {
+        List<SelectItem> profilItem = new ArrayList<>();
+
+        List<TTypeutil> listtu = getFacade().findAll();
+
+        for (TTypeutil dep : listtu) {
+            profilItem.add(new SelectItem(dep, dep.getTyuDesig()));
+        }
+        return profilItem;
     }
 
     public TTypeutil getTTypeutil(java.lang.String id) {

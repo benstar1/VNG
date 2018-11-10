@@ -11,40 +11,38 @@
         <p:dialog id="TUtilisateurEditDlg" widgetVar="TUtilisateurEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTUtilisateurTitle}">
             <h:form id="TUtilisateurEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{tUtilisateurController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditTUtilisateurLabel_utiCode}" for="utiCode" />
-                        <p:inputText id="utiCode" value="#{tUtilisateurController.selected.utiCode}" title="#{bundle.EditTUtilisateurTitle_utiCode}" required="true" requiredMessage="#{bundle.EditTUtilisateurRequiredMessage_utiCode}"/>
-                        <p:outputLabel value="#{bundle.EditTUtilisateurLabel_utiNom}" for="utiNom" />
-                        <p:inputText id="utiNom" value="#{tUtilisateurController.selected.utiNom}" title="#{bundle.EditTUtilisateurTitle_utiNom}" />
-                        <p:outputLabel value="#{bundle.EditTUtilisateurLabel_utiPrenom}" for="utiPrenom" />
-                        <p:inputText id="utiPrenom" value="#{tUtilisateurController.selected.utiPrenom}" title="#{bundle.EditTUtilisateurTitle_utiPrenom}" />
-                        <p:outputLabel value="#{bundle.EditTUtilisateurLabel_utiLogin}" for="utiLogin" />
-                        <p:inputText id="utiLogin" value="#{tUtilisateurController.selected.utiLogin}" title="#{bundle.EditTUtilisateurTitle_utiLogin}" />
-                        <p:outputLabel value="#{bundle.EditTUtilisateurLabel_utiPassword}" for="utiPassword" />
-                        <p:inputText id="utiPassword" value="#{tUtilisateurController.selected.utiPassword}" title="#{bundle.EditTUtilisateurTitle_utiPassword}" />
-                        <p:outputLabel value="#{bundle.EditTUtilisateurLabel_utiDateNais}" for="utiDateNais" />
+                    <p:panelGrid columns="4" rendered="#{tUtilisateurController.selected != null}">
+                        <p:outputLabel value="NOm" for="utiNom" />
+                        <p:inputText id="utiNom" value="#{tUtilisateurController.selected.utiNom}" title="#{bundle.CreateTUtilisateurTitle_utiNom}" />
+
+                        <p:outputLabel value="Prénoms" for="utiPrenom" />
+                        <p:inputText id="utiPrenom" value="#{tUtilisateurController.selected.utiPrenom}" title="#{bundle.CreateTUtilisateurTitle_utiPrenom}" />
+              
+                        <p:outputLabel value="Date de naissance" for="utiDateNais" />
                         <p:calendar id="utiDateNais" pattern="MM/dd/yyyy" value="#{tUtilisateurController.selected.utiDateNais}" title="#{bundle.EditTUtilisateurTitle_utiDateNais}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.EditTUtilisateurLabel_utiMail}" for="utiMail" />
-                        <p:inputText id="utiMail" value="#{tUtilisateurController.selected.utiMail}" title="#{bundle.EditTUtilisateurTitle_utiMail}" />
-                        <p:outputLabel value="#{bundle.EditTUtilisateurLabel_utiAdresse}" for="utiAdresse" />
-                        <p:inputText id="utiAdresse" value="#{tUtilisateurController.selected.utiAdresse}" title="#{bundle.EditTUtilisateurTitle_utiAdresse}" />
-                        <p:outputLabel value="#{bundle.EditTUtilisateurLabel_utiTelephone}" for="utiTelephone" />
-                        <p:inputText id="utiTelephone" value="#{tUtilisateurController.selected.utiTelephone}" title="#{bundle.EditTUtilisateurTitle_utiTelephone}" />
-                        <p:outputLabel value="#{bundle.EditTUtilisateurLabel_utiAdressePhoto}" for="utiAdressePhoto" />
-                        <p:inputText id="utiAdressePhoto" value="#{tUtilisateurController.selected.utiAdressePhoto}" title="#{bundle.EditTUtilisateurTitle_utiAdressePhoto}" />
-                        <p:outputLabel value="#{bundle.EditTUtilisateurLabel_utilNomImage}" for="utilNomImage" />
-                        <p:inputText id="utilNomImage" value="#{tUtilisateurController.selected.utilNomImage}" title="#{bundle.EditTUtilisateurTitle_utilNomImage}" />
-                        <p:outputLabel value="#{bundle.EditTUtilisateurLabel_utiDateChargement}" for="utiDateChargement" />
-                        <p:calendar id="utiDateChargement" pattern="MM/dd/yyyy" value="#{tUtilisateurController.selected.utiDateChargement}" title="#{bundle.EditTUtilisateurTitle_utiDateChargement}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.EditTUtilisateurLabel_utiTyuCode}" for="utiTyuCode" />
+
+                        <p:outputLabel value="Email" for="utiMail" />
+                        <p:inputText id="utiMail" value="#{tUtilisateurController.selected.utiMail}" title="#{bundle.CreateTUtilisateurTitle_utiMail}" />
+
+                        <p:outputLabel value="Adresse" for="utiAdresse" />
+                        <p:inputText id="utiAdresse" value="#{tUtilisateurController.selected.utiAdresse}" title="#{bundle.CreateTUtilisateurTitle_utiAdresse}" />
+
+                        <p:outputLabel value="Téléphone" for="utiTelephone" />
+                        <p:inputText id="utiTelephone" value="#{tUtilisateurController.selected.utiTelephone}" title="#{bundle.CreateTUtilisateurTitle_utiTelephone}" />
+
+                        <p:outputLabel value="Actif" for="utilNomImage" />
+                        <p:selectOneRadio id="utilNomImage" value="#{tUtilisateurController.limitationchaine}">
+                            <f:selectItem  itemLabel="OUI" itemValue="OUI" />
+                            <f:selectItem itemLabel="NON" itemValue="NON" />
+                        </p:selectOneRadio>
+                        
+                        <p:outputLabel value="Profile" for="utiTyuCode" />
                         <p:selectOneMenu id="utiTyuCode" value="#{tUtilisateurController.selected.utiTyuCode}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{tTypeutilController.itemsAvailableSelectOne}"
-                                           var="utiTyuCodeItem"
-                                           itemValue="#{utiTyuCodeItem}"/>
+                                        <f:selectItem itemLabel="Choisissez un profil " itemValue="" />
+                                        <f:selectItems value="#{tTypeutilController.profilItem}" />
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{tUtilisateurController.update}" value="#{bundle.Save}" update="display,:TUtilisateurListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TUtilisateurEditDialog');"/>
+                    <p:commandButton actionListener="#{tUtilisateurController.update}" value="#{bundle.Save}" update="display,:TUtilisateurListForm:datalist,:TUtilisateurListForm:messages" oncomplete="handleSubmit(args, 'TUtilisateurEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="TUtilisateurEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

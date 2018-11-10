@@ -3,7 +3,8 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets" 
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:ph="http://primefaces.org/harmony">
+                xmlns:ph="http://primefaces.org/harmony"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <div class="layout-sidebar" >
         <div class="nano">
@@ -12,12 +13,16 @@
                     <ph:menu  widgetVar="me">
                         <p:menuitem id="om_dashboard" value="Accueil" icon="fa fa-fw fa-dashboard" outcome="/dashboard" />
                         
+                        <c:if test="#{loginMBean.admin || loginMBean.saisie||loginMBean.chefService}">
                         <p:submenu style="border-color: #FFFFFF  " id="etat_civile" label="Etat Civil" icon="fa fa-child">
                             <p:menuitem id="depot_signature" outcome="/vues/tDepotSignature/depotsignature.xhtml"  value="Dépot de signatures" icon="fa fa-pencil" ajax="false" />                          
                         </p:submenu>
+                        </c:if>
                         
+                        <c:if test="#{loginMBean.admin || loginMBean.saisie||loginMBean.chefService}">
                         <p:submenu id="affaires_domaniales" label="Gestion des immeubles" style="border-color: #FFFFFF  " icon="fa fa-life-buoy">
-                            <p:menuitem id="vente_parcelle" action="#{tOperationParcelController.operationParcelle('VENTE')}"  value="Vente de parcelle" icon="fa fa-cc-visa" ajax="false" />
+                             <p:menuitem id="harmo_point_cardino" outcome="/vues/tParcellePoca/limitrophes.xhtml"  value="Points cardinaux-Limitrophes" icon="fa fa-xing"  ajax="false" />
+                             <p:menuitem id="vente_parcelle" action="#{tOperationParcelController.operationParcelle('VENTE')}"  value="Vente de parcelle" icon="fa fa-cc-visa" ajax="false" />
                             <p:menuitem id="heritage_arcelle" action="#{tOperationParcelController.operationParcelle('HERITAGE')}" value="Héritage de parcelle" icon="fa fa-sitemap" ajax="false" />
                             <p:menuitem id="don_parcelle"  action="#{tOperationParcelController.operationParcelle('DON')}" value="Don de parcelle" icon="fa fa-trophy"   ajax="false" />
                             <p:menuitem id="mutation" value="Mutation" icon="fa fa-retweet" outcome="/vues/tMutation/mutation.xhtml" ajax="false" />
@@ -38,11 +43,9 @@
                             
                             <p:menuitem id="nav_parcelle_dpp_agricole" value="DPP en Agricole" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
                             <p:menuitem id="nav_parcelle_dpp_noyau" value="DPP en Noyau &#160;&#160;&#160;&#160;&#160;&#160;&#160;Villageois" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
-                            <p:menuitem id="nav_parcelle_dpp_litigieuse" value="DPP en Parcelle &#160;&#160;&#160;&#160;&#160;&#160;&#160;Litigieuse" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
-                               
-                            
+                            <p:menuitem id="nav_parcelle_dpp_litigieuse" value="DPP en Parcelle &#160;&#160;&#160;&#160;&#160;&#160;&#160;Litigieuse" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />    
                         </p:submenu>
-                        
+                        </c:if>
                         
                         
                         
@@ -80,7 +83,7 @@
                             
                         </p:submenu>
                         
-                        
+                        <c:if test="#{loginMBean.admin||loginMBean.chefService}">
                         <p:submenu style="border-color: #FFFFFF  " id="menu_configuration" label="Configurations" icon="fa fa-fw fa-cog">
                             
                             <p:submenu id="decoupage_administratif" label="Découpage &#160;&#160;&#160;&#160;&#160;&#160;&#160;Administratif" icon="fa fa-fw fa-sign-in">
@@ -118,11 +121,11 @@
                                  <p:menuitem id="harmo_num_commune" outcome="/vues/donneestopo/genernumcommunetopo.xhtml"  value="Génération des numéros commune topo" icon="fa fa-legal"  ajax="false" />
                                 
                             </p:submenu>
-                            <p:menuitem id="harmo_point_cardino" outcome="/vues/tParcellePoca/limitrophes.xhtml"  value="Points cardinaux-Limitrophes" icon="fa fa-xing"  ajax="false" />
-                                
+                               
                             <p:menuitem id="signature" outcome="/vues/tSignataire/signataire.xhtml"  value="Signataires" icon="fa fa-user-secret"  ajax="false" />
                            
                         </p:submenu>
+                       </c:if>
                         
                         <p:submenu style="border-color: #FFFFFF  " rendered='false'  id="om_customization" label="Layouts" icon="fa fa-fw fa-cog">
                             <p:menuitem id="om_customization_1" value="Static" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuMode('layout-menu-static')}" ajax="false" />

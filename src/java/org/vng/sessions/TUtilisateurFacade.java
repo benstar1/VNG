@@ -39,6 +39,19 @@ public class TUtilisateurFacade extends AbstractFacade<TUtilisateur> {
         }
         return Util;   
     }
+ 
+   public int insertUtilisateurGroupe(String login,String groupe){
+        int i=0;
+         String sql="INSERT INTO t_utilisateurgroupe (ugr_login,ugr_groupe) VALUES ('"+login+"','"+groupe+"') ";
+     try{
+            Query q=em.createNativeQuery(sql);
+            i= q.executeUpdate();
+        }catch(Exception e){
+            System.out.println("probleme insertion groupe utilisateur : "+e);
+        }  
+            return i;
+     }
+ 
      
         public List<TUtilisateur> findByGroupe(String groupe) {
         List<TUtilisateur> listeUtilisateurs = em.createNamedQuery("TUtilisateur.findByGroupe").setParameter("groupe", groupe).getResultList();

@@ -7,16 +7,15 @@ package org.vng.controlers;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import javax.faces.bean.ManagedBean;
-
 /**
  *
  * @author user
  */
 
-@ManagedBean(name = "MD5MBean")
+//@ManagedBean(name = "MD5MBean")
+//@Named("MD5MBean")
 public class ConvertirMD5 {
-    
+    public void ConvertirMD5(){}
     public String generateMD5(String passwordToHash) 
     {
         //String passwordToHash = "ben";
