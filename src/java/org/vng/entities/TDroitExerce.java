@@ -43,6 +43,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "TDroitExerce.findByDreRolAutre", query = "SELECT t FROM TDroitExerce t WHERE t.dreRolAutre = :dreRolAutre")
     , @NamedQuery(name = "TDroitExerce.findByParcelleCat", query = "SELECT t FROM TDroitExerce t WHERE t.dreDateFin is null AND t.drePbaNumero = :parcelle AND t.dreCat = :catDroit")
     , @NamedQuery(name = "TDroitExerce.findByDreTdeAutre", query = "SELECT t FROM TDroitExerce t WHERE t.dreTdeAutre = :dreTdeAutre")
+    , @NamedQuery(name = "TDroitExerce.findMaxDroitExerce", query = "SELECT Max(t.dreCode) FROM TDroitExerce t WHERE t.dreCode LIKE :annee")
     , @NamedQuery(name = "TDroitExerce.findByDreDateChargement", query = "SELECT t FROM TDroitExerce t WHERE t.dreDateChargement = :dreDateChargement")})
 @SequenceGenerator(name="tDroitExerceSequence", initialValue=1, allocationSize=1,sequenceName = "seq_id_droit_exerce")
 

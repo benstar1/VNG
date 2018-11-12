@@ -101,7 +101,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "TIntervenir.findDetentDroitAdmin", query = "SELECT t FROM TIntervenir t WHERE t.invDateFin is null AND t.invPbaNumero = :parcelle AND t.invRolCode.rolCat= :categorierole ") 
     , @NamedQuery(name = "TIntervenir.findMaxIntervenir", query = "SELECT Max(t.invNumero) FROM TIntervenir t WHERE t.invNumero LIKE :annee")
     , @NamedQuery(name = "TIntervenir.findByInvDateExpCiPp", query = "SELECT t FROM TIntervenir t WHERE t.invDateExpCiPp = :invDateExpCiPp")})
-public class TIntervenir implements Serializable {
+public class TIntervenir implements Serializable , Cloneable{
 
     @JoinColumn(name = "inv_desi_code", referencedColumnName = "desi_code")
     @ManyToOne
@@ -945,6 +945,21 @@ public class TIntervenir implements Serializable {
 
     public void setInvRolCode(TRole invRolCode) {
         this.invRolCode = invRolCode;
+    }
+    
+     @Override
+    public TIntervenir clone() {
+        try {
+ 
+            TIntervenir intervenir = (TIntervenir) super.clone();           
+            return intervenir;
+ 
+        } catch (CloneNotSupportedException e) {
+            //this should not happen since we implement Cloneable
+            e.printStackTrace();
+           // log.error(e);
+        }
+        return null;
     }
 
     @Override

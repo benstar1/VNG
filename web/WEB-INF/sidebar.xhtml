@@ -25,7 +25,7 @@
                             <p:menuitem id="reglement_conflits" value="Règlement de Litiges" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
                             <p:menuitem id="mise_jour_enquete" value="Mise à jour Enquête" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
                             
-                            <p:menuitem id="nav_scission_parcelle" value="Scission de Parcelle" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
+                            <p:menuitem id="nav_scission_parcelle" value="Scission de Parcelle" icon="fa fa-fw fa-align-right" outcome="/vues/tParcelleBafon/scissionparcelle"/> 
                             <p:menuitem id="nav_fusion_parcelle" value="Fusion de Parcelle" icon="fa fa-fw fa-align-right" outcome="/vues/tParcelleBafon/fusionparcelle" />
                             
                             <p:menuitem id="nav_parcelle_agricole_conflit" value="Parcelle Agricole en &#160;&#160;&#160;&#160;&#160;&#160;&#160;Litige" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
@@ -113,8 +113,10 @@
                                 <p:menuitem id="consolidation" outcome="/vues/donneestopo/consolidation.xhtml"   value="Consolidation" icon="fa fa-random"  ajax="false" />
                                 <p:menuitem id="harmo_num_parcelle" outcome="/vues/donneestopo/genernumparcelle.xhtml"  value="Génération des numéros parcelles" icon="fa fa-legal"  ajax="false" />
                                  <p:menuitem id="harmo_num_commune" outcome="/vues/donneestopo/genernumcommunetopo.xhtml"  value="Génération des numéros commune topo" icon="fa fa-legal"  ajax="false" />
-                             
+                                
                             </p:submenu>
+                            <p:menuitem id="harmo_point_cardino" outcome="/vues/tParcellePoca/limitrophes.xhtml"  value="Points cardinaux-Limitrophes" icon="fa fa-xing"  ajax="false" />
+                                
                             <p:menuitem id="signature" outcome="/vues/tSignataire/signataire.xhtml"  value="Signataires" icon="fa fa-user-secret"  ajax="false" />
                            
                         </p:submenu>

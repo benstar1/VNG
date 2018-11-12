@@ -64,12 +64,13 @@ public class TIntervenirController implements Serializable {
         try {
             numinterv = ejbFacade.executeMaxIntervenir(an);
             if (numinterv == null) {
-                setNewNumIntervenir(an + "00000000001");
+                setNewNumIntervenir(an + "00000000000000000001");  
             } else {
                 chainesuffixe = numinterv.substring(4);
                 System.out.println("chainesuffixe recuperer " + chainesuffixe);
+                
                 numsuivant = Long.valueOf(chainesuffixe) + 1;
-                chainesuffixe = String.format("%020d", numsuivant);;
+                chainesuffixe = String.format("%020d", numsuivant);
                 setNewNumIntervenir(an + chainesuffixe);
                 System.out.println("Prochaine numero intervenir " + getNewNumIntervenir());
             }
@@ -79,6 +80,74 @@ public class TIntervenirController implements Serializable {
 
     }
 
+    
+    
+    
+
+    public String genererNumIntervenir() {
+        //Date d = new Date();
+        String numero= "";
+        Calendar calendar = Calendar.getInstance();
+        int ann = calendar.get(Calendar.YEAR);//
+        String an = String.valueOf(ann);
+        String chainesuffixe = "";
+        long numsuivant;
+
+        String numinterv = null;
+        try {
+            numinterv = ejbFacade.executeMaxIntervenir(an);
+            if (numinterv == null) {
+                numero = an + "00000000000000000001";
+                setNewNumIntervenir(an + "00000000000000000001");  
+            } else {
+                chainesuffixe = numinterv.substring(4);
+             //   System.out.println("chainesuffixe recuperer " + chainesuffixe);                
+                 numsuivant = Long.valueOf(chainesuffixe) + 1;
+                chainesuffixe = String.format("%020d", numsuivant);
+                numero = an + chainesuffixe;
+                setNewNumIntervenir(an + chainesuffixe);
+                
+            }
+        } catch (Exception e) {
+
+        }
+
+        return numero;
+    }
+    
+    /*
+    public String genererNumIntervenir() {
+        //Date d = new Date();
+        String numero= "";
+        Calendar calendar = Calendar.getInstance();
+        int ann = calendar.get(Calendar.YEAR);//
+        String an = String.valueOf(ann);
+        String chainesuffixe = "";
+        long numsuivant;
+
+        String numinterv = null;
+        try {
+            numinterv = ejbFacade.executeMaxIntervenir(an);
+            if (numinterv == null) {
+                setNewNumIntervenir(an + "00000000001");
+            } else {
+                chainesuffixe = numinterv.substring(4);
+                System.out.println("chainesuffixe recuperer " + chainesuffixe);
+                numsuivant = Long.valueOf(chainesuffixe) + 1;
+                chainesuffixe = String.format("%020d", numsuivant);
+                numero = an + chainesuffixe;
+                setNewNumIntervenir(an + chainesuffixe);
+               // System.out.println("Prochaine numero intervenir " + getNewNumIntervenir());
+            }
+        } catch (Exception e) {
+
+        }
+
+        return numero;
+    }
+    
+    */
+    
     public TIntervenir getSelected() {
         return selected;
     }

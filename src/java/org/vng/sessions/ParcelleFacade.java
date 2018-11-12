@@ -60,6 +60,34 @@ public int executeInsertSQL(String sql){
         }
         return listeparcelles;
     }
+     
+     public List<Object[]> listeParcelleLimit(String numParcelle){
+     List<Object[]> listparcelle=null;
+         String sql="select p.par_pba_numero from parcelle p where ST_Touches((select p2.geom from parcelle p2 where p2.par_pba_numero ='"+numParcelle+"'),p.geom)=true";
+     try{
+            Query q=em.createNativeQuery(sql);
+            listparcelle= q.getResultList();
+            System.out.println("taille    "+listparcelle.size());
+        }catch(Exception e){
+            System.out.println("probleme de selection de limitrophes : "+e);
+        }
+     
+     return listparcelle;
+     }
+     
+      public Object executCalculDistanceLimite(String numParcelle,String numParcelleLimite){
+            Object mesure=null;
+         String sql="select ST_Length(ST_Intersection((select p.geom from parcelle p where p.par_pba_numero ='"+numParcelle+"'),(select p2.geom from parcelle p2 where p2.par_pba_numero ='"+numParcelleLimite+"'))::geography)";
+     try{
+            Query q=em.createNativeQuery(sql);
+            mesure= q.getSingleResult();
+            //System.out.println("taille    "+listparcelle.size());
+        }catch(Exception e){
+            System.out.println("probleme de selection de limitrophes : "+e);
+        }
+     
+     return mesure;
+     }
     
     public ParcelleFacade() {
         super(Parcelle.class);

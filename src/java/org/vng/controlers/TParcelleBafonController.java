@@ -18,17 +18,18 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
 import org.vng.entities.TCommune;
 
 @Named("tParcelleBafonController")
 @SessionScoped
 public class TParcelleBafonController implements Serializable {
 
-    @EJB
+    @Inject
     private org.vng.sessions.TParcelleBafonFacade ejbFacade;
     private List<TParcelleBafon> items = null;
     private TParcelleBafon selected;
-    @EJB
+    @Inject
     private org.vng.sessions.TCommuneFacade ejbFacadeCommune; 
 
     public TParcelleBafonController() {

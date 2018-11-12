@@ -45,7 +45,7 @@
                                     <p:commandButton disabled="#{tOperationParcelController.estvalider}"  update="formventeparcelle" actionListener="#{tOperationParcelController.supprimerOperation()}" title="Supprimer" icon="fa fa-trash" styleClass="purple-btn">
                                         <p:confirm header="Confirmation" icon="ui-icon-alert"   message="Veuillez confirmer la suppression" />
                                     </p:commandButton>
-                                    <p:commandButton type="button" title="Imprimer" icon="fa fa-print" styleClass="orange-btn"/>
+                                    <p:commandButton ajax="false" actionListener="#{tOperationParcelController.imprimeDoc()}" title="Imprimer" icon="fa fa-print" styleClass="orange-btn"/>
                                 </f:facet>
 
                                 <f:facet name="right">

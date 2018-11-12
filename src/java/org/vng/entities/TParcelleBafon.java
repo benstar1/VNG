@@ -13,6 +13,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -27,6 +28,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.eclipse.persistence.jpa.JpaEntityManager;
+import org.eclipse.persistence.sessions.CopyGroup;
 
 /**
  *
@@ -85,7 +88,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "TParcelleBafon.findByPbaAdressage", query = "SELECT t FROM TParcelleBafon t WHERE t.pbaAdressage = :pbaAdressage")
     , @NamedQuery(name = "TParcelleBafon.findByCommuneEncours", query = "SELECT t FROM TParcelleBafon t WHERE t.pbaVilaCode.vilaArrCode.arrComCode.comEncours = true")
     , @NamedQuery(name = "TParcelleBafon.findByPbaPfr", query = "SELECT t FROM TParcelleBafon t WHERE t.pbaPfr = :pbaPfr")})
-public class TParcelleBafon implements Serializable {
+public class TParcelleBafon implements Serializable, Cloneable {
 
     @Column(name = "pba_actif")
     private Boolean pbaActif;
@@ -920,5 +923,27 @@ public class TParcelleBafon implements Serializable {
     public void setPbaStatut(String pbaStatut) {
         this.pbaStatut = pbaStatut;
     }
+    
+    @Override
+    public TParcelleBafon clone() {
+        try {
+ 
+            TParcelleBafon parcelle = (TParcelleBafon) super.clone();           
+            return parcelle;
+ 
+        } catch (CloneNotSupportedException e) {
+            //this should not happen since we implement Cloneable
+            e.printStackTrace();
+           // log.error(e);
+        }
+        return null;
+    }
+    
+            public TParcelleBafon cloneEntity( EntityManager em) {
+   CopyGroup group = new CopyGroup();
+    TParcelleBafon copy = (TParcelleBafon)em.unwrap( JpaEntityManager.class ).copy( this, group );
+                
+    return copy;
+}
     
 }

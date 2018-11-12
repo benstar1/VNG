@@ -21,12 +21,37 @@
                     <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank form-group">
                         <p:inputText placeholder="Name"/>
                         <p:inputText placeholder="Email"/>
-                        <p:inputText placeholder="Phone"/>
+                        <p:inputText placeholder="Phone"  />
                         
                         <p:inputText placeholder="Disabled" disabled="true"/>
                         <p:inputText placeholder="Readonly" readonly="true"/>
                         <p:inputText placeholder="Invalid" styleClass="ui-state-error"/>
+                        <p:commandButton type="button" value="Primary" style="margin-bottom:10px;"/>
                     </p:panelGrid>
+                </div>
+                
+                <div class="card card-w-title">
+                    <h1>Rapports</h1>
+                    
+                    <h:form>
+                    <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank form-group">                      
+                          <p:outputLabel value="Numéro : " for="pba_numero" />
+                          <p:inputText placeholder="Numero Parcelle" value="#{print.pba_numero}" id="pba_numero"/>
+                          <p:commandButton ajax="false" value=" Parcelle Bafond " style="margin-bottom:10px;" action="#{print.printEnqPbaPDF()}"/>                      
+                    </p:panelGrid>
+                   </h:form>  
+                </div>
+                
+                <div class="card card-w-title">
+                    <h1>Rapports2</h1>
+                    
+                    <h:form>
+                    <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank form-group">                      
+                          <p:outputLabel value="Numéro : " for="pba_numero" />
+                          <p:inputText placeholder="Numero Parcelle" value="#{print.pba_numero}" id="pba_numero"/>
+                          <p:commandButton ajax="false" value=" Noyau villageois " style="margin-bottom:10px;" action="#{print.printEnqPbaNvPDF()}"/>                      
+                    </p:panelGrid>
+                   </h:form>  
                 </div>
                 
                 <div class="card card-w-title">
@@ -34,7 +59,7 @@
                     <p:inputTextarea rows="3" placeholder="Your Message" autoResize="false"/>
                 </div>
                 
-                <div class="card card-w-title">
+                <div  class="card card-w-title">
                     <h1>AutoComplete</h1>
                     <p:panelGrid columns="1" styleClass="form-group ui-panelgrid-blank" layout="grid">
                         <p:outputLabel value="Simple:" for="acSimple" />
@@ -254,7 +279,6 @@
                                 </p:selectOneButton>
 
                                 <h:outputText value="SelectManyButton:" />
-                                
                                 <p:selectManyButton>
                                     <f:selectItem itemLabel="b" itemValue="b"/>
                                     <f:selectItem itemLabel="u" itemValue="u" />
@@ -274,7 +298,7 @@
                                 <p:commandButton type="button" value="Bookmark" icon="fa fa-star" iconPos="right" />
 
                                 <h:outputText value="CommandLink" />
-                                <p:commandLink value="commandLink" />
+                                <p:commandLink value="Impression Rapports" ajax="false" actionListener="#{print.printEnqPbaPDF()}"/>
 
                                 <h:outputText value="Link" />
                                 <p:link value="Bookmark" />

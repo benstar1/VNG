@@ -124,22 +124,20 @@
                                        <h:outputText value="#{item.invPbaNumero.pbaSuperficie}"/>
 
                                     </p:column> 
-                                    <p:column style="width:50px;text-align: center">
-                                         <p:commandButton oncomplete="PF('dialog_detail').show()" actionListener="#{parcelleBaf.detailParcellePourFusionListener}" icon="fa fa-search" title="Voir le détail de la parcelle">
-                                             <f:setPropertyActionListener value="#{item}" target="#{parcelleBaf.intervenirSelectFusionTemp}" />
-                                        </p:commandButton>                                 
-                                    </p:column>
                                   
-                                   <p:column style="width:50px;text-align: center">
-                                       <p:commandButton  actionListener="#{parcelleBaf.retirerParcellePourFusionListener}" update=":formglobal:table_liste_parcelle_fusion"  icon="fa fa-trash" styleClass="red-btn rounded-btn" title="Retirer la parcelle de la liste">
-                                           <f:setPropertyActionListener value="#{item}" target="#{parcelleBaf.intervenirSelectFusionTemp}" />
-                                        </p:commandButton>                                 
-                                    </p:column>
+                                   <p:column style="width:50px;text-align: center">                                             
+                                         <p:commandButton ajax="true" oncomplete="PF('dialog_detail').show()"  actionListener="#{parcelleBaf.detailParcellePourFusionListener(item)}" icon="fa fa-search" title="Voir le détail de la parcelle" />                               
+                                 </p:column>
                                   
-                                    <!-- f:facet name="footer" >
+                                  <p:column style="width:50px;text-align: center">                                             
+                                         <p:commandButton ajax="true" update=":formglobal:table_liste_parcelle_fusion"  actionListener="#{parcelleBaf.retirerParcellePourFusionListener(item)}" icon="fa fa-trash" title="Retirer la parcelle de la liste"  styleClass="red-btn rounded-btn"/>                               
+                                 </p:column>
+                                  
+                                    <f:facet name="footer" >
                                         <h:outputText value="Superficie  "/>
                                         <h:outputText value="#{parcelleBaf.superficieDeduite}" style="width: 100%; text-align: right;"/>
-                                    </f:facet -->
+                                    </f:facet>
+                                  
                                 </p:dataTable>
                              
                          </p:panel>
@@ -606,46 +604,46 @@
                                                  <p:tab title="#{msg.titre_ayant_droit}"> 
                                                              <util:signin_intervenant 
                                                                 idNom="txt_nom"
-                                                                nom="#{parcelleBaf.intervenantSelect.intNom}"                        
+                                                                nom="#{parcelleBaf.intervenirSelectFusionTemp.invIntNumero.intNom}"                        
                                                                 idPrenom="txt_prenom"
-                                                                prenom="#{parcelleBaf.intervenantSelect.intPrenom}"
+                                                                prenom="#{parcelleBaf.intervenirSelectFusionTemp.invIntNumero.intPrenom}"
                                                                 idDomicile="txt_domicile"
-                                                                domicile="#{parcelleBaf.intervenantSelect.intDomicile}"
+                                                                domicile="#{parcelleBaf.intervenirSelectFusionTemp.invIntNumero.intDomicile}"
                                                                 idSexe="spin_sexe"
-                                                                sexe="#{parcelleBaf.intervenantSelect.intSexe}"
+                                                                sexe="#{parcelleBaf.intervenirSelectFusionTemp.invIntNumero.intSexe}"
                                                                 idAge="txt_age"
-                                                                age="#{parcelleBaf.intervenantSelect.intDateNais}"
+                                                                age="#{parcelleBaf.intervenirSelectFusionTemp.invIntNumero.intDateNais}"
                                                                 idTelephone="txt_telephone"
-                                                                telephone="#{parcelleBaf.intervenantSelect.intTelephone}"
+                                                                telephone="#{parcelleBaf.intervenirSelectFusionTemp.invIntNumero.intTelephone}"
                                                                 idActivite="spin_activite"
-                                                                activite="#{parcelleBaf.intervenantSelect.intActCode}"
+                                                                activite="#{parcelleBaf.intervenirSelectFusionTemp.invIntNumero.intActCode}"
                                                                 listeActivite="#{parcelleBaf.activiteFacade.listeActiviteItem}"
                                                                 idActiviteAutre="txt_activite_autre"
-                                                                activiteAutre="#{parcelleBaf.intervenantSelect.intActAutre}"
+                                                                activiteAutre="#{parcelleBaf.intervenirSelectFusionTemp.invIntNumero.intActAutre}"
                                                                 idCiPP="txt_ci_pp"
-                                                                ciPP="#{parcelleBaf.intervenantSelect.intCiPp}"
+                                                                ciPP="#{parcelleBaf.intervenirSelectFusionTemp.invIntNumero.intCiPp}"
                                                                 idDateExpCiPP="txt_date_exp_ci_pp"
-                                                                dateExpCiPP="#{parcelleBaf.intervenantSelect.intDateExpCi}"
+                                                                dateExpCiPP="#{parcelleBaf.intervenirSelectFusionTemp.invIntNumero.intDateExpCi}"
                                                                 idDateNaiss="txt_date_naiss"
-                                                                dateNaiss="#{parcelleBaf.intervenantSelect.intDateNaissCalcul}"
+                                                                dateNaiss="#{parcelleBaf.intervenirSelectFusionTemp.invIntNumero.intDateNaissCalcul}"
                                                                 idEthnie="txt_ethnie"
-                                                                ethnie="#{parcelleBaf.intervenantSelect.intEthCode}"
+                                                                ethnie="#{parcelleBaf.intervenirSelectFusionTemp.invIntNumero.intEthCode}"
                                                                 idEthnieAutre="txt_ethnie_autre"
-                                                                ethnieAutre="#{parcelleBaf.intervenantSelect.intEthAutre}"
+                                                                ethnieAutre="#{parcelleBaf.intervenirSelectFusionTemp.invIntNumero.intEthAutre}"
                                                                 listeEthinie="#{parcelleBaf.ethnieFacade.listeEthnieItem}"
                                                                 idIfu="txt_ifu"
-                                                                ifu="#{parcelleBaf.intervenantSelect.intIfu}"
+                                                                ifu="#{parcelleBaf.intervenirSelectFusionTemp.invIntNumero.intIfu}"
                                                                 idPhotoIntervenant="img_photo_complet"
                                                                 idLepi="txt_lepi"
-                                                                lepi="#{parcelleBaf.intervenantSelect.intLepi}"
+                                                                lepi="#{parcelleBaf.intervenirSelectFusionTemp.invIntNumero.intLepi}"
                                                                 idNationalite="spin_nationalite"
-                                                                nationalite="#{parcelleBaf.intervenantSelect.intNationalite}"
+                                                                nationalite="#{parcelleBaf.intervenirSelectFusionTemp.invIntNumero.intNationalite}"
                                                                 idNationaliteAutre="txt_nationalite_autre"
-                                                                nationaliteAutre="#{parcelleBaf.intervenantSelect.intNationaliteAutre}"
+                                                                nationaliteAutre="#{parcelleBaf.intervenirSelectFusionTemp.invIntNumero.intNationaliteAutre}"
                                                                 idRavip="txt_ravip"
-                                                                ravip="#{parcelleBaf.intervenantSelect.intNumeroRavip}"
+                                                                ravip="#{parcelleBaf.intervenirSelectFusionTemp.invIntNumero.intNumeroRavip}"
                                                                 idLignageAutre="txt_lignage_autre"
-                                                                lignageAutre="#{parcelleBaf.intervenantSelect.intLigAutre}"
+                                                                lignageAutre="#{parcelleBaf.intervenirSelectFusionTemp.invIntNumero.intLigAutre}"
                                                                 rechercheButtonText="..."                               
                                                                 idphotoCompletIntervenant="img_photo_signature"
                                                                 photoIntervenant="#{parcelleBaf.cheminPhotoIdentite}"
@@ -662,62 +660,62 @@
                                                              <util:signin_intervenir_droit_administration   
                                                                   id="iddroitadminDetail"
                                                                   idRole="spin_role"
-                                                                  role="#{parcelleBaf.intervenirSelect.invRolCode}"
+                                                                  role="#{parcelleBaf.intervenirSelectFusionTemp.invRolCode}"
                                                                   listeRole="#{parcelleBaf.roleFacade.listeRoleByCategorieDEItem}"
                                                                   idAutreRole="txt_autre_role"
-                                                                  autreRole="#{parcelleBaf.intervenirSelect.invRolAutre}"
+                                                                  autreRole="#{parcelleBaf.intervenirSelectFusionTemp.invRolAutre}"
                                                                   idRattachement="txt_rattachement"
-                                                                  rattachement="#{parcelleBaf.intervenirSelect.invRattachementAutre}"
+                                                                  rattachement="#{parcelleBaf.intervenirSelectFusionTemp.invRattachementAutre}"
                                                                   idObservation="tt_observation"
-                                                                  observation="#{parcelleBaf.intervenirSelect.invObservation}"
+                                                                  observation="#{parcelleBaf.intervenirSelectFusionTemp.invObservation}"
                                                                   idRepresente="chk_represente_par"
-                                                                  represente="#{parcelleBaf.intervenirSelect.invRepresente}"
+                                                                  represente="#{parcelleBaf.intervenirSelectFusionTemp.invRepresente}"
                                                                   idCollectivite="txt_collectivite"
-                                                                  collectivite="#{parcelleBaf.intervenirSelect.invCollectivite}"
+                                                                  collectivite="#{parcelleBaf.intervenirSelectFusionTemp.invCollectivite}"
                                                                   idStructure="txt_structure"
-                                                                  structure="#{parcelleBaf.intervenirSelect.invStructure}"
+                                                                  structure="#{parcelleBaf.intervenirSelectFusionTemp.invStructure}"
                                                                   idFonction="txt_fonction"
-                                                                  fonction="#{parcelleBaf.intervenirSelect.invFonction}"
+                                                                  fonction="#{parcelleBaf.intervenirSelectFusionTemp.invFonction}"
                                                                   idModeAcquisition="spin_mode_acquis"
-                                                                  modeAcquisition="#{parcelleBaf.intervenirSelect.invMacCode}"
+                                                                  modeAcquisition="#{parcelleBaf.intervenirSelectFusionTemp.invMacCode}"
                                                                   listeModeAcquisition="#{parcelleBaf.modeacquisFacade.listeModeAcquisDEItem}"
                                                                   idAutreModeAcquisition="txt_autre_mode_acquis"
-                                                                  autreModeAcquisition="#{parcelleBaf.intervenirSelect.invMacAutre}"
+                                                                  autreModeAcquisition="#{parcelleBaf.intervenirSelectFusionTemp.invMacAutre}"
                                                                   autreConditionPaiementActif="true"
                                                                   idDeQui="txt_de_quis"
-                                                                  deQui="#{parcelleBaf.intervenirSelect.invDeQui}"
+                                                                  deQui="#{parcelleBaf.intervenirSelectFusionTemp.invDeQui}"
                                                                   idDepuisQuand="txt_depuis_quand"
-                                                                  depuisQuand="#{parcelleBaf.intervenirSelect.invDateDeb}"
+                                                                  depuisQuand="#{parcelleBaf.intervenirSelectFusionTemp.invDateDeb}"
                                                                   idPrix="txt_prix"
-                                                                  prix="#{parcelleBaf.intervenirSelect.invPrix}"
+                                                                  prix="#{parcelleBaf.intervenirSelectFusionTemp.invPrix}"
                                                                   prixActif="true"
                                                                   idConditionPaiement="spin_condition_paie"
-                                                                  conditionPaiement="#{parcelleBaf.intervenirSelect.invCopCode}"
+                                                                  conditionPaiement="#{parcelleBaf.intervenirSelectFusionTemp.invCopCode}"
                                                                   listeConditionPaiement="#{parcelleBaf.conditionpaieFacade.listeConditionPaiementItem}"
                                                                   conditionPaiementActif="true"
                                                                   idAutreConditionPaiement="txt_autre_condition_paiement"
-                                                                  autreConditionPaiement="#{parcelleBaf.intervenirSelect.invCopAutre}"
+                                                                  autreConditionPaiement="#{parcelleBaf.intervenirSelectFusionTemp.invCopAutre}"
                                                                   idContrePartie="spin_contrePartie"
-                                                                  contrePartie="#{parcelleBaf.intervenirSelect.invContreparti}"
+                                                                  contrePartie="#{parcelleBaf.intervenirSelectFusionTemp.invContreparti}"
                                                                   listeContrePartie="#{parcelleBaf.listeContrePartie}"
                                                                   idAutreModalite="spin_autre_modalite"
-                                                                  autreModalite="#{parcelleBaf.intervenirSelect.invAutreModPaie}"
+                                                                  autreModalite="#{parcelleBaf.intervenirSelectFusionTemp.invAutreModPaie}"
                                                                   listeAutreModalite="#{parcelleBaf.listeAutreModalite}"
                                                                   idLimitationAdmin="radiog_limitrophe"
-                                                                  limitationAdmin="#{parcelleBaf.intervenirSelect.invLimitation}"
+                                                                  limitationAdmin="#{parcelleBaf.intervenirSelectFusionTemp.invLimitation}"
                                                                   idAutreLimitationAdmin="radio_autre_limitation"
-                                                                  autreLimitationAdmin="#{parcelleBaf.intervenirSelect.invLimiteAutre}"
+                                                                  autreLimitationAdmin="#{parcelleBaf.intervenirSelectFusionTemp.invLimiteAutre}"
                                                                   idAutreLimitationAdminChaine="txt_autre_limitation"
                                                                   autreLimitationAdminChaine="#{parcelleBaf.intervenirSelect.invLimiteAutre}"
-                                                                  limitationLegue="#{parcelleBaf.intervenirSelect.invLimitLeg}"
-                                                                  limitationVente="#{parcelleBaf.intervenirSelect.invLimitVent}"
-                                                                  limitationPret="#{parcelleBaf.intervenirSelect.invLimitPret}"
-                                                                  limitationDon="#{parcelleBaf.intervenirSelect.invLimitDon}" 
+                                                                  limitationLegue="#{parcelleBaf.intervenirSelectFusionTemp.invLimitLeg}"
+                                                                  limitationVente="#{parcelleBaf.intervenirSelectFusionTemp.invLimitVent}"
+                                                                  limitationPret="#{parcelleBaf.intervenirSelectFusionTemp.invLimitPret}"
+                                                                  limitationDon="#{parcelleBaf.intervenirSelectFusionTemp.invLimitDon}" 
                                                                   idDuree="txt_duree"
-                                                                  duree="#{parcelleBaf.intervenirSelect.invDuree}"
+                                                                  duree="#{parcelleBaf.intervenirSelectFusionTemp.invDuree}"
                                                                   idDureeIndeterminee="chk_indetermine"
-                                                                  dureeIndeterminee="#{parcelleBaf.intervenirSelect.invIndetermine}"
-                                                                  formalise="#{parcelleBaf.intervenirSelect.invFormalise}"
+                                                                  dureeIndeterminee="#{parcelleBaf.intervenirSelectFusionTemp.invIndetermine}"
+                                                                  formalise="#{parcelleBaf.intervenirSelectFusionTemp.invFormalise}"
                                                                   de="true"
                                                                   droitExerceActif="false"
                                                                   listeTypeDroitExerce="#{parcelleBaf.typeDroitExerceFace.listeTypeDroitExerceDEItem}"

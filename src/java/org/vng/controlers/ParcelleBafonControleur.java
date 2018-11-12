@@ -16,9 +16,11 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
@@ -57,6 +59,10 @@ import org.vng.sessions.TTypebfFacade;
 import org.vng.sessions.TTypedexerceFacade;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.event.ActionEvent;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import org.primefaces.model.DualListModel;
 import org.primefaces.harmony.domain.Theme;
@@ -66,6 +72,7 @@ import org.vng.entities.TParcelleTypeBf;
 import org.vng.entities.TPvParcelle;
 import org.vng.entities.TTypebf;
 import org.vng.sessions.TDroitExerceFacade;
+import org.vng.sessions.TIntervenantFacade;
 import org.vng.sessions.TParcelleTypeBfFacade;
 import org.vng.sessions.TPvParcelleFacade;
 import org.vng.sessions.TUtilisateurFacade;
@@ -102,6 +109,9 @@ public class ParcelleBafonControleur implements Serializable {
     TIntervenirFacade intervenirFacadeFacade;
     
     @Inject
+    TIntervenantFacade intervenantFacade ;
+    
+    @Inject
     TEthnieFacade ethnieFacade;
     
     @Inject
@@ -127,8 +137,11 @@ public class ParcelleBafonControleur implements Serializable {
      @Inject
      TUtilisateurFacade utilisateurFacade;
      
-        @Inject
-       TPvParcelleFacade pvParcelleFacade;
+     @Inject
+     TPvParcelleFacade pvParcelleFacade;
+     
+     @Inject
+     TDroitExerceFacade droitExerceFacade;
      
      /*
      @Resource 
@@ -170,7 +183,7 @@ public class ParcelleBafonControleur implements Serializable {
    
    private List<SelectItem> listeContrePartie, listeAutreModalite;
    
-   private List<TDroitExerce> listeTypedexercesAdminUneParcel;
+   private List<TDroitExerce> listeTypedexercesAdminUneParcel, listeTypedexercesOPUneParcel ;
    
     private List<TIntervenir> listeDroitOperationnel,  listeLimitrophe, listeTemp;
    
@@ -186,8 +199,10 @@ public class ParcelleBafonControleur implements Serializable {
    //private static ResourceBundle RES = ResourceBundle.getBundle(ParcelleBafonControleur.class.getCanonicalName());
    
    
-   // Fusion
-    private List<TIntervenir> listeParcelAFusionner;
+   // Fusion et scission
+    private List<TIntervenir> listeParcelAFusionner ;
+    
+    private List<TParcelleBafon> listeParcelScionnee ;
    
    
     /**
@@ -526,6 +541,16 @@ public class ParcelleBafonControleur implements Serializable {
         this.listeTypedexercesAdminUneParcel = listeTypedexercesAdminUneParcel;
     }
 
+    public List<TDroitExerce> getListeTypedexercesOPUneParcel() {
+        return listeTypedexercesOPUneParcel;
+    }
+
+    public void setListeTypedexercesOPUneParcel(List<TDroitExerce> listeTypedexercesOPUneParcel) {
+        this.listeTypedexercesOPUneParcel = listeTypedexercesOPUneParcel;
+    }
+    
+    
+
     public List<TIntervenir> getListeDroitOperationnel() {
         return listeDroitOperationnel;
     }
@@ -573,6 +598,9 @@ public class ParcelleBafonControleur implements Serializable {
     public void setPvParcelleFacade(TPvParcelleFacade pvParcelleFacade) {
         this.pvParcelleFacade = pvParcelleFacade;
     }
+    
+    
+    
 
     public TPvParcelle getPvParcelle() {
         return pvParcelle;
@@ -580,6 +608,14 @@ public class ParcelleBafonControleur implements Serializable {
 
     public void setPvParcelle(TPvParcelle pvParcelle) {
         this.pvParcelle = pvParcelle;
+    }
+
+    public List<TParcelleBafon> getListeParcelScionnee() {
+        return listeParcelScionnee;
+    }
+
+    public void setListeParcelScionnee(List<TParcelleBafon> listeParcelScionnee) {
+        this.listeParcelScionnee = listeParcelScionnee;
     }
 
     
@@ -605,62 +641,21 @@ public class ParcelleBafonControleur implements Serializable {
         intervenantSelect = intervenirSelect.getInvIntNumero();
         if(selectedParcelle.getPbaNumero()!=null){
            listeTypedexercesAdminUneParcel = tDroitExerceFacade.findListDroitExerceParcelleByCategorie(selectedParcelle.getPbaNumero(), "DEX");
-        
+           
+           setListeTypedexercesOPUneParcel(tDroitExerceFacade.findListDroitExerceParcelleByCategorie(selectedParcelle.getPbaNumero(), "OP"));
+           setListeTypedexercesOPUneParcel(tDroitExerceFacade.findListDroitExerceParcelleByCategorie(selectedParcelle.getPbaNumero(), "OP1"));
+           
            setListeDroitOperationnel(intervenirFacadeFacade.findListParcelleByCategorieParcelle(selectedParcelle.getPbaNumero(), "OP"));
         
            setListeLimitrophe(intervenirFacadeFacade.findListParcelleByCategorieParcelle(selectedParcelle.getPbaNumero(), "LIM"));
         }
         
-        if(selectedParcelle != null && intervenantSelect != null )
+        if(selectedParcelle != null && intervenantSelect != null ){
             pvParcelle= getPvParcelleFacade().findPVParcelleIntervenant(selectedParcelle.getPbaNumero(), intervenantSelect.getIntNumero());
-        
-        //listeTypedexercesAdminUneParcel.get(0).getDreTdeCode().getTdeDesig()
-       // activiteSelect = intervenantSelect.getIntActCode();
-        
-          /*
-      if(listeParcelAFusionner.isEmpty())
-        {    superficieDeduite = BigDecimal.ZERO  ;                      
-             setSelectedParcelleFusionneTemp(intervenirSelect.getInvPbaNumero());
-             selectedParcelleFusionneTemp.setPbaSuperficie(superficieDeduite);
-             selectedParcelleFusionneTemp.setPbaNumero(intervenirSelect.getInvPbaNumero().getPbaVilaCode().getVilaCode());
-        }else selectedParcelleFusionneTemp = new TParcelleBafon();
-        */  
-    
-        
-    /*    String numParcelleImage = "";
-        if(selectedParcelle != null && selectedParcelle.getPbaNumero() != null )
-        {
-           
-            if(intervenantSelect.getIntPhotoComplet() != null && !intervenantSelect.getIntPhotoComplet().equalsIgnoreCase(""))
-            {
-                 numParcelleImage = intervenantSelect.getIntPhotoComplet().substring(0,11);
-                 String numParcelle = numParcelleImage.substring(0,7)+"\\"+numParcelleImage;                 
-                 setCheminPhotoComplet(cheminAbsolutDossierImage+numParcelle+"\\"+intervenantSelect.getIntPhotoComplet());
-            }
+            pvParcelle.setPvNumero(null);            
+        } 
             
-            numParcelleImage = "";
         
-         if(intervenantSelect.getIntPhotoIdentit() != null && !intervenantSelect.getIntPhotoIdentit().equalsIgnoreCase(""))
-            {
-                 numParcelleImage = intervenantSelect.getIntPhotoIdentit().substring(0,11);
-                 String numParcelle = numParcelleImage.substring(0,7)+"\\"+numParcelleImage;                 
-                 setCheminPhotoIdentite(cheminAbsolutDossierImage+numParcelle+"\\"+intervenantSelect.getIntPhotoIdentit());
-            }
-         
-            System.out.println(" setCheminPhotoComplet "+getCheminPhotoComplet());
-            
-            System.out.println(" setCheminPhotoIdentite "+getCheminPhotoIdentite());
-            
-       //  setCheminPhotoIdentite(cheminAbsolutDossierImage+numParcelle+"\\"+intervenantSelect.getIntPhotoIdentit());
-        
-        } */
-    
-        
-      //  System.out.println("  on passe ");
-      // FacesMessage msg = new FacesMessage("Car Selected", ((LotMarche) event.getObject()).getRefMarche()); 
-      //  String refMarche = (((LotMarche) event.getObject()).getRefMarche());        
-        //detailLotMarcheByReference();
-
     }
     
     
@@ -696,7 +691,10 @@ public class ParcelleBafonControleur implements Serializable {
       
     }
      
-    
+    /**
+     * Cette methode permet de lancer l'enregistrement du changement de parcelle agricole en noyau villageois.
+     * @return 
+     */
     
     public String majParcelleAgricolNoyeauVillageois()
     {  
@@ -797,9 +795,11 @@ public class ParcelleBafonControleur implements Serializable {
          pvParcelle = new TPvParcelle();
         // System.err.println("tttttt  "+selectedParcelleFusionne.getPbaVilaCode().getVlaDesig());
          listeTypedexercesAdminUneParcel = new ArrayList<>();
+         listeTypedexercesOPUneParcel = new ArrayList<>();
          listeDroitOperationnel = new ArrayList<>();
          listeLimitrophe = new ArrayList<>();
          listeParcelAFusionner = new ArrayList<>();
+         listeParcelScionnee = new ArrayList<>();
          listeTemp = new ArrayList<>();
          
         activiteSelect = new TActivite();
@@ -917,19 +917,27 @@ public class ParcelleBafonControleur implements Serializable {
         {   
             setFusionEncours(true);
             superficieDeduite = BigDecimal.ZERO  ;
-             listeParcelAFusionner.add(intervenirSelect);             
-             selectedParcelleFusionne = (TParcelleBafon)copyObject(intervenirSelect.getInvPbaNumero()) ;                        
+             listeParcelAFusionner.add(intervenirSelect); 
+             
+        selectedParcelleFusionne = intervenirSelect.getInvPbaNumero().clone() ;
+        selectedParcelleFusionne.setPbaNumero(null);
+        selectedParcelleFusionne.setTConflitList(null);
+                selectedParcelleFusionne.setTDroitExerceList(null);
+                selectedParcelleFusionne.setTIntervenirList(null);
+                selectedParcelleFusionne.setTIntervenirList1(null);
+                selectedParcelleFusionne.setTOperationParcelList(null);
+                selectedParcelleFusionne.setTParcelleTypeBfList(null);
+                selectedParcelleFusionne.setTPointCardinoList(null);
+                selectedParcelleFusionne.setTPvParcelleList(null);
+                
              selectedParcelleFusionne.setPbaNumero(intervenirSelect.getInvPbaNumero().getPbaVilaCode().getVilaCode());
              superficieDeduite = superficieDeduite.add(intervenirSelect.getInvPbaNumero().getPbaSuperficie());
              selectedParcelleFusionne.setPbaSuperficie(superficieDeduite); 
-             
+             //parcelleBafonFacade.merger(selectedParcelleFusionne);
              intervenirSelect = new TIntervenir();             
              selectedParcelle = new TParcelleBafon(); 
-              
-        
         }else
         {
-           
             for (TIntervenir intervenir : listeParcelAFusionner)
             {
                if(intervenir.getInvPbaNumero().getPbaNumero().equalsIgnoreCase(intervenirSelect.getInvPbaNumero().getPbaNumero()) || 
@@ -939,23 +947,18 @@ public class ParcelleBafonControleur implements Serializable {
                   break;
                }   
             }
-            
             if(!trouver)
             {                
                  listeParcelAFusionner.add(intervenirSelect);
                  superficieDeduite = superficieDeduite.add(intervenirSelect.getInvPbaNumero().getPbaSuperficie());
-                 //selectedParcelleFusionne.setPbaSuperficie(superficieDeduite);                
+                 selectedParcelleFusionne.setPbaSuperficie(superficieDeduite);                
                  intervenirSelect = new TIntervenir();
                  selectedParcelle = new TParcelleBafon();
             }else{
                // JsfUtil.addSuccessMessage(ResourceBundle.getBundle("org.vng.ressources.messages_fr").getString("ConfirmationOperation"));
                 JsfUtil.addSuccessMessage("Cette parcelle a été déjà ajouté ou n'est pas dans le même village que le premier.");
-            }
-             
-            
-        }
-       
-      
+            }  
+        }      
     }
     
     
@@ -964,69 +967,74 @@ public class ParcelleBafonControleur implements Serializable {
          
     }
       
+      /**
+       * Quand on sélectionne la parcelle dont on veut appliquer ses caractéristiques à la parcelle fusionnée
+       * @param event 
+       */
       public void onParcelleFusionne(SelectEvent event)
     {
         long prix = 0 ;
         
                 listeTypedexercesAdminUneParcel = new ArrayList<>();
+                listeTypedexercesOPUneParcel = new ArrayList<>();
                 listeDroitOperationnel = new ArrayList<>();
                 listeLimitrophe = new ArrayList<>();  
             for (TIntervenir intervenir : listeParcelAFusionner)
             {  
                 if(selectedParcelleFusionneCaracteristik.getPbaNumero().equalsIgnoreCase(intervenir.getInvPbaNumero().getPbaNumero()))
                 {
-                    intervenirSelectFusion = (TIntervenir)copyObject(intervenir);
-                    intervenantSelectFusion = (TIntervenant)copyObject(intervenirSelectFusion.getInvIntNumero());
+                    if(intervenir!= null){
+                        intervenirSelectFusion = intervenir.clone();//TIntervenir)copyObject(intervenir);                        
+                    }
+                       
+                    
+                   if(intervenirSelectFusion.getInvIntNumero()!= null)
+                       intervenantSelectFusion = intervenirSelectFusion.getInvIntNumero().clone(); // (TIntervenant)copyObject(intervenirSelectFusion.getInvIntNumero());
+                    
+                    /*
+                   intervenirSelectFusion = intervenirFacadeFacade.find(intervenir.getInvNumero()); //copyObject(intervenir);
+                   intervenantSelectFusion = intervenantFacade.find(intervenirSelectFusion.getInvIntNumero());
+                   */
                 }
                 
                 prix = prix + intervenir.getInvPrix();                   
                 listeTypedexercesAdminUneParcel = tDroitExerceFacade.findListDroitExerceParcelleByCategorie(intervenir.getInvPbaNumero().getPbaNumero(), "DEX");        
+                
+                setListeTypedexercesOPUneParcel(tDroitExerceFacade.findListDroitExerceParcelleByCategorie(selectedParcelle.getPbaNumero(), "OP"));
+                setListeTypedexercesOPUneParcel(tDroitExerceFacade.findListDroitExerceParcelleByCategorie(selectedParcelle.getPbaNumero(), "OP1"));
+                
                 setListeDroitOperationnel(intervenirFacadeFacade.findListParcelleByCategorieParcelle(intervenir.getInvPbaNumero().getPbaNumero(), "OP"));        
                 setListeLimitrophe(intervenirFacadeFacade.findListParcelleByCategorieParcelle(intervenir.getInvPbaNumero().getPbaNumero(), "LIM"));
-               
-            } 
+               } 
             
             intervenirSelectFusion.setInvPrix(prix);
     }
     
     
-    public void detailParcellePourFusionListener(ActionEvent event)
+    public void detailParcellePourFusionListener(TIntervenir intervenirItem)
     {
-     
-       // System.out.println(" intervenirSelectFusion "+intervenirSelectFusion.getInvPbaNumero().getPbaNumero());
-        
+        intervenirSelectFusionTemp = intervenirItem;
         intervenantSelect = intervenirSelectFusionTemp.getInvIntNumero();     
-        /*for (TIntervenir intervenir : listeParcelAFusionner)
-            {
-               
-            }
-         */
-            
-       
-      
     }
     
-    public void retirerParcellePourFusionListener(ActionEvent event)
+    
+    
+    public void retirerParcellePourFusionListener(TIntervenir intervenirItem)
     {
-     
-//       System.out.println(" intervenirSelectFusion "+intervenirSelectFusion.getInvPbaNumero().getPbaNumero());        
-        //intervenantSelect = intervenirSelectFusion.getInvIntNumero(); 
-         //System.err.println(" intervenirSelectFusion "+intervenirSelectFusion);
+        intervenirSelectFusionTemp = intervenirItem;
         int i = 0;
            for (TIntervenir intervenir : listeParcelAFusionner)
             {
-                System.err.println(" intervenirSelectFusionTemp "+intervenirSelectFusionTemp);
                if(intervenirSelectFusionTemp.getInvPbaNumero().getPbaNumero().equalsIgnoreCase(intervenir.getInvPbaNumero().getPbaNumero()))
                {
                   listeParcelAFusionner.remove(i);
+                  intervenirSelectFusionTemp = new TIntervenir();
                   break;
-               }
-              
+               } 
                 i++;
             }
-   
-      
     }
+    
     
     /*
     Controle de nuillité pour parcelle agricole en noyau villageois
@@ -1043,6 +1051,14 @@ public class ParcelleBafonControleur implements Serializable {
         {
              JsfUtil.addSuccessMessage("La taille minimum d'un numéro de parcelle est de 11.");
              etat = false;
+        }else if(parcelleBafonFacade.find(selectedParcelleFusionne.getPbaNumero()) != null)
+        {
+             JsfUtil.addSuccessMessage("Ce numéro de parcelle existe déjà.");
+             etat = false;
+        }else if(intervenirSelectFusion == null)
+        {
+             JsfUtil.addSuccessMessage("Veuillez sélectionner la parcelle phagocytante.");
+             etat = false;
         }
         
         return etat;
@@ -1056,67 +1072,373 @@ public class ParcelleBafonControleur implements Serializable {
               {
                   
                   // On inserre la parcelle
-                  String statutParcelle = "FUSION";
+               //   System.out.println(" selectedParcelleFusionne "+selectedParcelleFusionne);
+               //   selectedParcelle=selectedParcelleFusionne;
+               /* ValidatorFactory factory = Validation.buildDefaultValidatorFactory(); 
+                Validator validator = factory.getValidator(); 
+                Set<ConstraintViolation<TParcelleBafon>> constraintViolations = validator.validate(selectedParcelleFusionne); 
+                if(constraintViolations.size() > 0)
+                { Iterator<ConstraintViolation<TParcelleBafon>> 
+                        iterator = constraintViolations.iterator(); 
+                         while(iterator.hasNext())
+                          { ConstraintViolation<TParcelleBafon>  cv = iterator.next(); 
+                          System.out.println(" ---------------------============"+cv.getMessage()); 
+                          System.out.println(" ---------------------============"+cv.getPropertyPath()); 
+                          } 
+                }*/ 
+
                   parcelleBafonFacade.create(selectedParcelleFusionne);
-                  
+
                   for (TIntervenir intervenir : listeParcelAFusionner)
                    {
                        TParcelleBafon parcelle = new TParcelleBafon();
                        parcelle = intervenir.getInvPbaNumero();
                        parcelle.setPbaPbaNumero(selectedParcelleFusionne);
-                       parcelle.setPbaStatut(statutParcelle);
+                       parcelle.setPbaStatut("FUSION");
                        parcelle.setPbaActif(false);
                        parcelleBafonFacade.edit(parcelle);    
                        
+                       // On ferme toutess les anciennes lignes de droit d'exercice
                        intervenir.setInvDateFin(new Date());
                        intervenirFacadeFacade.edit(intervenir);
                        
                    }
-                  // On inserre la ligne du droit 
-                  intervenirSelectFusion.setInvNumero("111");
+                  // On inserre la ligne du droit                  
+                  intervenirSelectFusion.setInvNumero(intervenirFacadeFacade.genererNumIntervenir());
                   intervenirSelectFusion.setInvPbaNumero(selectedParcelleFusionne);
                   intervenirFacadeFacade.create(intervenirSelectFusion);
                   
+                  /*
                   if(pvParcelle != null && pvParcelle.getPvPv() != null)
                       pvParcelleFacade.create(pvParcelle);
+                  */
                   
-                  
+                  // On ferme tous les droits opérationnels et on les réattribue à la nouvelle parcelle fusionnée.
                   for (TIntervenir intervenir : listeDroitOperationnel)
                    {
-                      intervenirFacadeFacade.create(intervenirSelectFusion);
-//                       parcelleBafonFacade.edit(parcelle);             
+                       
+                      intervenir.setInvDateFin(new Date());
+                      intervenirFacadeFacade.edit(intervenir);
+                      
+                      // On crée une nouvelle
+                      intervenir.setInvNumero(intervenirFacadeFacade.genererNumIntervenir());
+                      intervenir.setInvPbaNumero(selectedParcelleFusionne); 
+                      intervenir.setInvDateDeb(new Date());
+                      intervenirFacadeFacade.create(intervenir);
                    }
                   
+                  // On ferme tous les droits opérationnels et on les réattribue à la nouvelle parcelle fusionnée.
+                  for (TIntervenir intervenir : listeLimitrophe)
+                   {
+                      intervenir.setInvDateFin(new Date());
+                      intervenirFacadeFacade.edit(intervenir);
+                      
+                      intervenir.setInvNumero(intervenirFacadeFacade.genererNumIntervenir());
+                      intervenir.setInvPbaNumero(selectedParcelleFusionne);
+                      intervenir.setInvDateDeb(new Date());
+                      intervenirFacadeFacade.create(intervenir);
+                   }
                   
-               /*parcelleTypeBf = new TParcelleTypeBf();
-               parcelleTypeBf.setPatyCode("111");
-               parcelleTypeBf.setPatyDateDeb(new Date());
-               parcelleTypeBf.setPatyPbaNumero(selectedParcelle);
-               parcelleTypeBf.setPatyTbfCode(selectedParcelle.getPbaTbfCode());
-               */
-               
-               
-              
+                  // On ferme tous  Les droit exercés et on les réattribue à la nouvelle parcelle fusionnée.
+                  for (TDroitExerce tde : listeTypedexercesAdminUneParcel)
+                   {
+                      tde.setDreDateFin(new Date());
+                      droitExerceFacade.edit(tde);
+                      
+                      // On crée une nouvelle
+                      tde.setDreCode(droitExerceFacade.genererNumDroitExerce());
+                      tde.setDrePbaNumero(selectedParcelleFusionne);
+                      tde.setDreDateDebut(new Date());
+                      droitExerceFacade.create(tde);
+                   }
+                  
+                  for (TDroitExerce tde : listeTypedexercesOPUneParcel)
+                   {
+                      tde.setDreDateFin(new Date());
+                      droitExerceFacade.edit(tde);
+                      
+                      // On crée une nouvelle
+                      tde.setDreCode(droitExerceFacade.genererNumDroitExerce());
+                      tde.setDrePbaNumero(selectedParcelleFusionne);
+                      tde.setDreDateDebut(new Date());
+                      droitExerceFacade.create(tde);
+                   }
+
                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("org.vng.ressources.messages_fr").getString("ConfirmationOperation"));
-                 
                initialiser();
                
               }
-            
-              
-              
+   
         }catch(Exception ex)
          {
-           // showErrorMessage("Une erreur s'est produite : "+ex.getMessage());
-            // ex.printStackTrace();
-            JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("msg").getString("msg_erreur_enregistrement") );
-           // JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("MessageErreurMarche"));
+             System.out.println(" ex -------------------- "+ex);
+            JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("org.vng.ressources.messages_fr").getString("msg_erreur_enregistrement") );
          }
         return "fusionparcelle.xhtml";
     }
     
     
-    private Object copyObject(Object objSource) {
+    
+    
+    // =================================== SCISSION ========================================================================
+    
+     public void ajouterParcellePourScienListener(ActionEvent event)
+    {
+        boolean trouver = false;
+
+        if(!listeParcelScionnee.isEmpty())
+        {   
+            setFusionEncours(false);
+            TParcelleBafon parcelle = intervenirSelect.getInvPbaNumero().clone();
+            parcelle.setPbaNumero(null);
+            
+            parcelle.setPbaNumero(null);
+             
+            superficieDeduite = BigDecimal.ZERO  ;
+            parcelle.setPbaNumero( intervenirSelect.getInvPbaNumero().getPbaVilaCode().getVilaCode());
+             listeParcelScionnee.add(parcelle); 
+             
+        }else
+        {
+            JsfUtil.addSuccessMessage("Incohérence de données. Veuillez sélectionner à nouveau la parcelle.");
+           
+        }      
+    }
+    
+    
+    
+      public void retirerParcellePourScissionListener(TParcelleBafon parcelleBafon1)
+    {
+        int i = 0;
+           for (TParcelleBafon parcelleBafon : listeParcelScionnee)
+            {
+               if(parcelleBafon1.getPbaNumero().equalsIgnoreCase(parcelleBafon.getPbaNumero()))
+               {
+                  listeParcelScionnee.remove(i);
+                  parcelleBafon1 = new TParcelleBafon();
+                  break;
+               } 
+                i++;
+            }
+    }
+    
+    
+      
+      public void onParcelleScissionRowSelect(SelectEvent event)
+    {
+       
+        selectedParcelle = intervenirSelect.getInvPbaNumero();
+        setTypeParcelle(selectedParcelle.getPbaTbfCode());
+        setStatutParcelle(selectedParcelle.getPbaStaCode());
+        setTypeDomaineParcel(selectedParcelle.getPbaStaCode().getStaTydoCode());
+        intervenantSelect = intervenirSelect.getInvIntNumero();
+        
+        listeParcelScionnee = new ArrayList<>();
+        TParcelleBafon parcelle = intervenirSelect.getInvPbaNumero().clone();
+        
+       parcelle.setPbaNumero(null);
+
+        superficieDeduite = BigDecimal.ZERO  ;
+        parcelle.setPbaNumero( intervenirSelect.getInvPbaNumero().getPbaVilaCode().getVilaCode());
+        listeParcelScionnee.add(parcelle); 
+        
+        TParcelleBafon parcelle1 = intervenirSelect.getInvPbaNumero().clone();
+
+        parcelle1.setPbaNumero(null);
+       
+        superficieDeduite = BigDecimal.ZERO  ;
+        parcelle1.setPbaNumero( intervenirSelect.getInvPbaNumero().getPbaVilaCode().getVilaCode());
+        listeParcelScionnee.add(parcelle1); 
+        
+        listeTypedexercesAdminUneParcel = new ArrayList<>();
+        listeTypedexercesOPUneParcel = new ArrayList<>();
+        listeDroitOperationnel = new ArrayList<>();
+        listeLimitrophe = new ArrayList<>();                  
+        listeTypedexercesAdminUneParcel = tDroitExerceFacade.findListDroitExerceParcelleByCategorie(intervenirSelect.getInvPbaNumero().getPbaNumero(), "DEX");        
+       
+        setListeTypedexercesOPUneParcel(tDroitExerceFacade.findListDroitExerceParcelleByCategorie(selectedParcelle.getPbaNumero(), "OP"));
+        setListeTypedexercesOPUneParcel(tDroitExerceFacade.findListDroitExerceParcelleByCategorie(selectedParcelle.getPbaNumero(), "OP1"));
+        
+        setListeDroitOperationnel(intervenirFacadeFacade.findListParcelleByCategorieParcelle(intervenirSelect.getInvPbaNumero().getPbaNumero(), "OP"));        
+        setListeLimitrophe(intervenirFacadeFacade.findListParcelleByCategorieParcelle(intervenirSelect.getInvPbaNumero().getPbaNumero(), "LIM"));
+
+  
+    }
+      
+      
+      /*
+    Controle de nuillité pour parcelle agricole en noyau villageois
+    */
+    private boolean controleNulliteScission()
+    {
+        boolean etat = true;
+        
+        if(intervenirSelect == null )
+        {
+             JsfUtil.addSuccessMessage("Veuillez sélectionner la parcelle à scionner.");
+             etat = false;
+        }else if(listeParcelScionnee.size() <= 1)
+        {
+             JsfUtil.addSuccessMessage("Une parcelle est scionnée au moins en deux parcelles.");
+             etat = false;
+        }else 
+        {
+            BigDecimal superficieDeduiteSom = BigDecimal.ZERO;
+            for(TParcelleBafon parcelleBafon : listeParcelScionnee)
+            { 
+                if( parcelleBafon.getPbaNumero().isEmpty() || (parcelleBafon.getPbaNumero() != null && parcelleBafon.getPbaNumero().length() <11 ) )
+                {
+                    JsfUtil.addSuccessMessage("La taille de numéro de parcelle doit faire au moins 11 caractère.");
+                     etat = false;
+                    break;
+                }else if(!intervenirSelect.getInvPbaNumero().getPbaVilaCode().getVilaCode().equalsIgnoreCase(parcelleBafon.getPbaNumero().substring(0, 7)))
+                {
+                    JsfUtil.addSuccessMessage("La nomenclature du numéro de parcelle n'est pas respectée.");
+                    etat = false;
+                    break; 
+                }else if(parcelleBafonFacade.find(parcelleBafon.getPbaNumero()) != null)
+                {
+                    JsfUtil.addSuccessMessage("Le numéro de parcelle N° "+parcelleBafon.getPbaNumero()+" existe déjà.");
+                    etat = false;
+                    break; 
+                }
+                superficieDeduiteSom = superficieDeduiteSom.add(parcelleBafon.getPbaSuperficie());
+                
+               
+               
+            }
+            
+             if(superficieDeduiteSom.compareTo(intervenirSelect.getInvPbaNumero().getPbaSuperficie()) != 0)
+                {
+                   JsfUtil.addSuccessMessage("La somme de superficie des nouvelles parcelle doit égal à la superficie de la parcelle scissionnée.");
+                    etat = false;
+                }
+                       
+        }
+        
+        return etat;
+    }
+      
+      public String majScissionParcelle()
+    {  
+        try
+        {  
+              if(controleNulliteScission()) // si c'est vrai ca veut dire que tout les élements sont en place
+              {
+                  // On ferme la parcelle mère
+                 
+                TParcelleBafon parcelleMere = (TParcelleBafon) intervenirSelect.getInvPbaNumero();
+               // parcelleMere.setPbaPbaNumero(selectedParcelleFusionne);
+                parcelleMere.setPbaStatut("SCISSION");
+                parcelleMere.setPbaActif(false);
+                parcelleBafonFacade.edit(parcelleMere);
+                
+                // On ferme ses droits
+                intervenirSelect.setInvDateFin(new Date());
+                intervenirFacadeFacade.edit(intervenirSelect);
+                
+                for(TParcelleBafon parcelleBafon : listeParcelScionnee)
+                {
+                    parcelleBafon.setPbaPbaNumero(parcelleMere);
+                    parcelleBafon.setPbaActif(true);
+                    
+                    parcelleBafon.setTConflitList(null);
+                    parcelleBafon.setTDroitExerceList(null);
+                    parcelleBafon.setTIntervenirList(null);
+                    parcelleBafon.setTIntervenirList1(null);
+                    parcelleBafon.setTOperationParcelList(null);
+                    parcelleBafon.setTParcelleTypeBfList(null);
+                    parcelleBafon.setTPointCardinoList(null);
+                    parcelleBafon.setTPvParcelleList(null);
+                    
+                    parcelleBafonFacade.create(parcelleBafon);
+                    
+                    TIntervenir intervenir = intervenirSelect.clone();
+                    intervenir.setInvDateDeb(new Date());
+                    intervenir.setInvDateFin(null);
+                    intervenir.setInvPbaNumero(parcelleBafon);
+                    intervenir.setInvNumero(intervenirFacadeFacade.genererNumIntervenir());
+                    intervenirFacadeFacade.create(intervenir);
+                   
+                   
+                    // On ferme tous les droits opérationnels et on les réattribue à la nouvelle parcelle fusionnée.
+                  for (TIntervenir intervenirOP : listeDroitOperationnel)
+                   {
+                      intervenirOP.setInvDateFin(new Date());
+                      intervenirFacadeFacade.edit(intervenirOP);
+                      
+                      // On crée une nouvelle
+                      intervenirOP.setInvNumero(intervenirFacadeFacade.genererNumIntervenir());
+                      intervenirOP.setInvPbaNumero(parcelleBafon); 
+                      intervenirOP.setInvDateDeb(new Date());
+                      intervenirFacadeFacade.create(intervenirOP);
+                   }
+                  
+                  // On ferme tous les droits opérationnels et on les réattribue à la nouvelle parcelle fusionnée.
+                  for (TIntervenir intervenirLim : listeLimitrophe)
+                   {
+                      intervenirLim.setInvDateFin(new Date());
+                      intervenirFacadeFacade.edit(intervenirLim);
+                      
+                      intervenirLim.setInvNumero(intervenirFacadeFacade.genererNumIntervenir());
+                      intervenirLim.setInvPbaNumero(parcelleBafon);
+                      intervenirLim.setInvDateDeb(new Date());
+                      intervenirFacadeFacade.create(intervenirLim);
+                   }
+                  
+                  
+                   // On ferme tous  Les droit exercés et on les réattribue à la nouvelle parcelle fusionnée.
+                   // LES DROIT D'ADMINISTRATIONS
+                  for (TDroitExerce tde : listeTypedexercesAdminUneParcel)
+                   {
+                      tde.setDreDateFin(new Date());
+                      droitExerceFacade.edit(tde);
+                      
+                      
+                      // On crée une nouvelle
+                      tde.setDreCode(droitExerceFacade.genererNumDroitExerce());
+                      tde.setDrePbaNumero(parcelleBafon);
+                      tde.setDreDateDebut(new Date());
+                      droitExerceFacade.create(tde);
+                      //droitExerceFacade.rafraichissement(tde);
+                   }
+                  // LES DROITS D'USAGE
+                  for (TDroitExerce tde : listeTypedexercesOPUneParcel)
+                   {
+                      tde.setDreDateFin(new Date());
+                      droitExerceFacade.edit(tde);
+                      
+                      // On crée une nouvelle
+                      tde.setDreCode(droitExerceFacade.genererNumDroitExerce());
+                      tde.setDrePbaNumero(parcelleBafon);
+                      tde.setDreDateDebut(new Date());
+                      droitExerceFacade.create(tde);
+                   }
+                  
+                }
+               JsfUtil.addSuccessMessage(ResourceBundle.getBundle("org.vng.ressources.messages_fr").getString("ConfirmationOperation"));
+               initialiser();
+               
+              }
+   
+        }catch(Exception ex)
+         {
+             System.out.println(" ex -------------------- "+ex);
+            JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("org.vng.ressources.messages_fr").getString("msg_erreur_enregistrement") );
+         }
+        return "scissionparcelle.xhtml";
+    }
+      
+      
+      public void onParcelleScissionRowSelectLimit(SelectEvent event)
+    {
+       
+        System.out.println(" ------------------------gqggd "+selectedParcelleFusionne);
+  
+    }
+      
+   
+    public Object copyObject(Object objSource) {
         Object objDest= null;
         try {
            

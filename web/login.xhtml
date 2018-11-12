@@ -12,31 +12,31 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
             <meta name="apple-mobile-web-app-capable" content="yes" />
         </f:facet>
-        <title>PrimeFaces harmony</title>
+        <title>  #{msg.appName_crochet} Connectez - vous</title>
     </h:head>
 
     <h:body styleClass="login-body">     
         <div class="logo">
             <p:graphicImage name="images/harmony-logo.png" library="harmony-layout"/>
-            <span class="app-name">HARMONY</span>        
+            <span class="app-name">#{msg.appName}</span>        
         </div>
 
         <div class="login-panel">
             <h:form>
             <p:graphicImage name="images/template/image-login-mobile.jpg" library="harmony-layout" class="mobile"/>
             <div class="left-part">
-                <span class="login-panel-header">Sign in To Harmony</span>
-                <span class="login-panel-subheader">Welcome, please use the form to sign-in Harmony network</span>
+                <span class="login-panel-header">Connectez vous à #{msg.appName}</span>
+                <span class="login-panel-subheader">Bienvenue sur le Système de Gestion Foncière</span>
                 
                 <div style="margin-top:32px">
-                    <p:outputLabel value="Enter e-mail address"/>
+                    <p:outputLabel value="Entrez le Login"/>
                     <p:inputText/>
-                    <p:outputLabel value="Enter password" />
-                    <p:inputText/>
+                    <p:outputLabel value="Entrez le mot de passe" />
+                    <p:password/>
                     <p:inputSwitch />
-                    <p:outputLabel value="Remember me" />
+                    <p:outputLabel value="Mémoriser" />
                 </div>
-                <p:commandButton id="login" value="Login" action="#{loginBean.login}" style="margin-bottom:10px" styleClass="raised-btn"/>
+                <p:commandButton id="login" value="Connecter" action="#{loginBean.login}" style="margin-bottom:10px" styleClass="raised-btn"/>
                 
             </div>
             <div class="right-part">

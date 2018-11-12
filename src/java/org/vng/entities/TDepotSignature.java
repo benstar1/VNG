@@ -47,7 +47,7 @@ public class TDepotSignature implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 5)
+    @Size(min = 1, max = 50)
     @Column(name = "desi_code")
     private String desiCode;
     @Size(max = 100)
@@ -122,7 +122,7 @@ public class TDepotSignature implements Serializable {
 
     public void setDesiIntNumero(TIntervenant desiIntNumero) {
         this.desiIntNumero = desiIntNumero;
-        System.out.println(" Intervenant "+desiIntNumero.getIntNumero());
+//        System.out.println(" Intervenant "+desiIntNumero.getIntNumero());
     }
 
     public TUtilisateur getDesiUtiCode() {

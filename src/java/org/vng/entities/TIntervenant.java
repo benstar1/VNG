@@ -73,7 +73,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "TIntervenant.findByIntDateChargement", query = "SELECT t FROM TIntervenant t WHERE t.intDateChargement = :intDateChargement")
     , @NamedQuery(name = "TIntervenant.findByIntDateNaissCalcul", query = "SELECT t FROM TIntervenant t WHERE t.intDateNaissCalcul = :intDateNaissCalcul")
     , @NamedQuery(name = "TIntervenant.findByIntLieuNaiss", query = "SELECT t FROM TIntervenant t WHERE t.intLieuNaiss = :intLieuNaiss")})
-public class TIntervenant implements Serializable {
+public class TIntervenant implements Serializable, Cloneable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -636,6 +636,22 @@ public class TIntervenant implements Serializable {
         this.tDivergenceList = tDivergenceList;
     }
 
+    
+      @Override
+    public TIntervenant clone() {
+        try {
+ 
+            TIntervenant intervenant = (TIntervenant) super.clone();           
+            return intervenant;
+ 
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+           // log.error(e);
+        }
+        return null;
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 0;

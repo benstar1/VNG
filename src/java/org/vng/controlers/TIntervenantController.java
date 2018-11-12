@@ -197,7 +197,7 @@ public class TIntervenantController implements Serializable {
                 return null;
             }
             TIntervenantController controller = (TIntervenantController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "tIntervenantController");
+                    getValue(facesContext.getELContext(), null, "intervenantController");
             return controller.getTIntervenant(getKey(value));
         }
 

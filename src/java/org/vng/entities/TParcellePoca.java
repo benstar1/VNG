@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "TParcellePoca.findByPapoPocaCode", query = "SELECT t FROM TParcellePoca t WHERE t.tParcellePocaPK.papoPocaCode = :papoPocaCode")
     , @NamedQuery(name = "TParcellePoca.findByPapoPbaNumero", query = "SELECT t FROM TParcellePoca t WHERE t.tParcellePocaPK.papoPbaNumero = :papoPbaNumero")
     , @NamedQuery(name = "TParcellePoca.findByPapoAutreLimite", query = "SELECT t FROM TParcellePoca t WHERE t.papoAutreLimite = :papoAutreLimite")
+    , @NamedQuery(name = "TParcellePoca.findLimite", query = "SELECT t FROM TParcellePoca t WHERE t.tParcelleBafon.pbaNumero = :pba AND t.tPointCardino.pocaCode = :pointCardinaux")
     , @NamedQuery(name = "TParcellePoca.findByPapoLongLimitroph", query = "SELECT t FROM TParcellePoca t WHERE t.papoLongLimitroph = :papoLongLimitroph")})
 public class TParcellePoca implements Serializable {
 

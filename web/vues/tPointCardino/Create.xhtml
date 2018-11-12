@@ -17,7 +17,7 @@
                         <p:outputLabel value="#{bundle.CreateTPointCardinoLabel_pocaDesig}" for="pocaDesig" />
                         <p:inputText id="pocaDesig" value="#{tPointCardinoController.selected.pocaDesig}" title="#{bundle.CreateTPointCardinoTitle_pocaDesig}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{tPointCardinoController.create}" value="#{bundle.Save}" update="display,:TPointCardinoListForm:datalist,:growl" oncomplete="handleSubmit(args,'TPointCardinoCreateDialog');"/>
+                    <p:commandButton actionListener="#{tPointCardinoController.create}" value="#{bundle.Save}" update="display,:TPointCardinoListForm:datalist,:TPointCardinoListForm:messages" oncomplete="handleSubmit(args,'TPointCardinoCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="TPointCardinoCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

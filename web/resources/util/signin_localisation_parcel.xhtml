@@ -83,6 +83,7 @@
             <composite:attribute name="fusionScission" default="false" type="java.lang.Boolean"/>
             <composite:attribute name="parcelleDPP" default="false" type="java.lang.Boolean"/>
             <composite:attribute name="restreint" default="false" type="java.lang.Boolean"/>
+            <composite:attribute name="scission" default="false" type="java.lang.Boolean"/>
             
             <composite:attribute name="ajouterAction" method-signature="void addAction(javax.faces.event.ActionEvent)"/> 
             <composite:attribute name="elmupdate" shortDescription="Element à mettre à jour quand on ajoute une parcelle à fusionner" />
@@ -196,7 +197,7 @@
                                     </p:panelGrid>
                                     
                                     
-                                      <p:panelGrid columns="4" rendered="#{cc.attrs.restreint}" layout="grid" styleClass="ui-panelgrid-blank form-group" style="margin-top: 0pw; padding: 0px;">                                        
+                                      <p:panelGrid columns="4" rendered="#{cc.attrs.restreint or cc.attrs.scission}" layout="grid" styleClass="ui-panelgrid-blank form-group" style="margin-top: 0pw; padding: 0px;">                                        
                                           <p:commandButton  value="#{msg.btn_ajouter}" actionListener="#{cc.attrs.ajouterAction}" icon="fa fa-plus" styleClass="blue-btn rounded-btn" update="#{cc.attrs.elmupdate}" />
                                     
                                     </p:panelGrid>

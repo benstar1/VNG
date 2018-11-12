@@ -11,7 +11,7 @@
         <p:dialog id="TIntervenantListDlgNew" widgetVar="TIntervenantListDlgNew" modal="true" resizable="false" appendTo="@(body)" header="Liste Intervenant">
             <h:form id="TIntervenantListForm">
                 <p:panel header="#{bundle.ListTVillageTitle}">
-                    <p:dataTable id="datalist" value="#{tIntervenantController.items}" var="item"
+                    <p:dataTable id="datalist" value="#{intervenantController.items}" var="item"
                                  selectionMode="single" selection="#{tDepotSignatureController.selected.desiIntNumero}"
                                  paginator="true"
                                  rowKey="#{item.intNumero}"

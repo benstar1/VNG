@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="TDepotSignatureCreateDlg" widgetVar="TDepotSignatureCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTDepotSignatureTitle}">
+        <p:dialog id="TDepotSignatureCreateDlg" widgetVar="TDepotSignatureCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{msg.hint_ajout_depot}">
             <h:form id="TDepotSignatureCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{tDepotSignatureController.selected != null}">
@@ -27,9 +27,9 @@
                         </p:panelGrid>
  
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{tDepotSignatureController.create}" value="#{bundle.Save}" update="display,:TDepotSignatureListForm:datalist,:TDepotSignatureListForm:messages" oncomplete="handleSubmit(args,'TDepotSignatureCreateDialog');"/>
+                    <p:commandButton actionListener="#{tDepotSignatureController.create}" value="#{msg.btn_ajouter}" update="display,:TDepotSignatureListForm:datalist,:TDepotSignatureListForm:messages" oncomplete="handleSubmit(args,'TDepotSignatureCreateDialog');"/>
                      <p:outputLabel value=" "/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="TDepotSignatureCreateDialog.hide()"/>
+                    <p:commandButton value="#{msg.btn_fermer}" onclick="TDepotSignatureCreateDlg.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -40,6 +40,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "TDivergence.findByDivNatureContestAutre", query = "SELECT t FROM TDivergence t WHERE t.divNatureContestAutre = :divNatureContestAutre")
     , @NamedQuery(name = "TDivergence.findByDivPhotoSignature", query = "SELECT t FROM TDivergence t WHERE t.divPhotoSignature = :divPhotoSignature")
     , @NamedQuery(name = "TDivergence.findByDivNomPhoto", query = "SELECT t FROM TDivergence t WHERE t.divNomPhoto = :divNomPhoto")
+    , @NamedQuery(name = "TDivergence.findMaxDivergence", query = "SELECT Max(t.divCode) FROM TDivergence t WHERE t.divCode LIKE :annee")
     , @NamedQuery(name = "TDivergence.findByDivDateChargement", query = "SELECT t FROM TDivergence t WHERE t.divDateChargement = :divDateChargement")
     , @NamedQuery(name = "TDivergence.findByDivTyreAutre", query = "SELECT t FROM TDivergence t WHERE t.divTyreAutre = :divTyreAutre")})
 public class TDivergence implements Serializable {

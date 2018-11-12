@@ -43,8 +43,6 @@
                                  paginator="true" selectionMode="single" selection= "#{cc.attrs.SelectEntity}" rowKey="#{item.invPbaNumero.pbaNumero}"
                                  >
                             
-                             
-                         
                            <p:ajax event="rowDblselect"  listener="#{cc.attrs.selectAction}" update= "#{cc.attrs.updateeltm}" oncomplete="PF('#{cc.attrs.id}').hide()" />
                        
                         <p:column filterBy="#{item.invPbaNumero.pbaNumero}" filterMatchMode="contains">
