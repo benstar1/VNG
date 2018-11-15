@@ -649,11 +649,11 @@ public class ParcelleBafonControleur implements Serializable {
         
            setListeLimitrophe(intervenirFacadeFacade.findListParcelleByCategorieParcelle(selectedParcelle.getPbaNumero(), "LIM"));
         }
-        
-        if(selectedParcelle != null && intervenantSelect != null ){
-            pvParcelle= getPvParcelleFacade().findPVParcelleIntervenant(selectedParcelle.getPbaNumero(), intervenantSelect.getIntNumero());
+        /*
+        if(selectedParcelle != null && selectedParcelle.getPbaNumero() != null && intervenantSelect != null && intervenantSelect.getIntNumero() != null ){
+            pvParcelle= getPvParcelleFacade().findPVParcelleIntervenant(selectedParcelle.getPbaNumero(), intervenantSelect.getIntNumero().toString());
             pvParcelle.setPvNumero(null);            
-        } 
+        } */
             
         
     }
@@ -663,7 +663,7 @@ public class ParcelleBafonControleur implements Serializable {
     public void onActiviteRowSelect(SelectEvent event)
     {
         
-          System.out.println(" Ici "+selectedParcelle.getPbaNumero());
+          System.out.println(" Ici ------ "+selectedParcelle.getPbaNumero());
        // System.out.println("event  "+activiteSelect.getActDesig());
         /*
         if(activiteSelect.getActCode().equalsIgnoreCase("AUTRE"))
@@ -710,7 +710,7 @@ public class ParcelleBafonControleur implements Serializable {
                parcelleTypeBf.setPatyTbfCode(selectedParcelle.getPbaTbfCode());
                parcelleTypeBfFacade.create(parcelleTypeBf);
                
-               selectedParcelle.setPbaTbfCode(typebfFacade.find("TBF02")); // On fiche la parcelle noyau villageois ici
+               selectedParcelle.setPbaTbfCode(typebfFacade.find("TBF02")); // On fige la parcelle noyau villageois ici
                parcelleBafonFacade.edit(selectedParcelle);
                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("org.vng.ressources.messages_fr").getString("ConfirmationOperation"));
                  

@@ -27,6 +27,12 @@
 
                             <p:commandLink value="#{item.opvNumero}"  action="#{tOperationParcelController.afficheOperationParcelle(item)}"  update="formventeparcelle" oncomplete="PF('TVenteParcelleListDlg').hide();"  process="@this" title="Selectionnez" style="color: blue;"/>
                         </p:column>
+                          <p:column filterBy="#{item.opvMacCode.macDesig}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Mode operation"/>
+                            </f:facet>
+                              <h:outputText value="#{item.opvMacCode.macDesig}"/>
+                        </p:column>
 
                         <p:column filterBy="#{item.opvPbaNumero.pbaNumero}" filterMatchMode="contains">
                             <f:facet name="header">

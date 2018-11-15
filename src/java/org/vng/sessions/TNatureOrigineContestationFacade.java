@@ -5,10 +5,14 @@
  */
 package org.vng.sessions;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.vng.entities.TNatureOrigineContestation;
+import org.vng.entities.TTypebf;
 
 /**
  *
@@ -27,6 +31,19 @@ public class TNatureOrigineContestationFacade extends AbstractFacade<TNatureOrig
 
     public TNatureOrigineContestationFacade() {
         super(TNatureOrigineContestation.class);
+    }
+    
+    
+       public List<SelectItem> getListeNatureOriginConstItem()
+    {
+        List<TNatureOrigineContestation> list= findAll();
+        List<SelectItem> item = new ArrayList<>();
+        for (TNatureOrigineContestation object : list)    
+        { 
+            item.add(new SelectItem(object, ""+object.getNaoLib()));
+        }
+    
+        return item;
     }
     
 }

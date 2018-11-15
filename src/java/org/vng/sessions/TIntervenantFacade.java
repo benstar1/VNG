@@ -5,10 +5,14 @@
  */
 package org.vng.sessions;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.vng.entities.TIntervenant;
+import org.vng.entities.TOrigineDroitRevendique;
 
 /**
  *
@@ -28,5 +32,19 @@ public class TIntervenantFacade extends AbstractFacade<TIntervenant> {
     public TIntervenantFacade() {
         super(TIntervenant.class);
     }
+    
+    
+        public List<SelectItem> getListeIntervenantItem()
+    {
+        List<TIntervenant> list= findAll();
+        List<SelectItem> item = new ArrayList<>();
+        for (TIntervenant object : list)    
+        { 
+            item.add(new SelectItem(object, ""+object.getIntNom()+" "+object.getIntPrenom()));
+        }
+        return item;
+    }
+    
+    
     
 }

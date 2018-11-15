@@ -45,21 +45,22 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "TDivergence.findByDivTyreAutre", query = "SELECT t FROM TDivergence t WHERE t.divTyreAutre = :divTyreAutre")})
 public class TDivergence implements Serializable {
 
+    @JoinColumn(name = "div_nature_contest", referencedColumnName = "nao_code")
+    @ManyToOne
+    private TNatureOrigineContestation divNatureContest;
+    @JoinColumn(name = "div_origin_droit", referencedColumnName = "ori_code")
+    @ManyToOne
+    private TOrigineDroitRevendique divOriginDroit;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "div_code")
-    private String divCode;
-    @Size(max = 200)
-    @Column(name = "div_origin_droit")
-    private String divOriginDroit;
+    private String divCode;  
     @Column(name = "div_duree_occup")
     private Long divDureeOccup;
-    @Size(max = 2147483647)
-    @Column(name = "div_nature_contest")
-    private String divNatureContest;
     @Size(max = 200)
     @Column(name = "div_roc_autre")
     private String divRocAutre;
@@ -109,13 +110,7 @@ public class TDivergence implements Serializable {
         this.divCode = divCode;
     }
 
-    public String getDivOriginDroit() {
-        return divOriginDroit;
-    }
-
-    public void setDivOriginDroit(String divOriginDroit) {
-        this.divOriginDroit = divOriginDroit;
-    }
+ 
 
     public Long getDivDureeOccup() {
         return divDureeOccup;
@@ -125,13 +120,7 @@ public class TDivergence implements Serializable {
         this.divDureeOccup = divDureeOccup;
     }
 
-    public String getDivNatureContest() {
-        return divNatureContest;
-    }
 
-    public void setDivNatureContest(String divNatureContest) {
-        this.divNatureContest = divNatureContest;
-    }
 
     public String getDivRocAutre() {
         return divRocAutre;
@@ -244,6 +233,22 @@ public class TDivergence implements Serializable {
     @Override
     public String toString() {
         return "org.vng.entities.TDivergence[ divCode=" + divCode + " ]";
+    }
+
+    public TNatureOrigineContestation getDivNatureContest() {
+        return divNatureContest;
+    }
+
+    public void setDivNatureContest(TNatureOrigineContestation divNatureContest) {
+        this.divNatureContest = divNatureContest;
+    }
+
+    public TOrigineDroitRevendique getDivOriginDroit() {
+        return divOriginDroit;
+    }
+
+    public void setDivOriginDroit(TOrigineDroitRevendique divOriginDroit) {
+        this.divOriginDroit = divOriginDroit;
     }
     
 }

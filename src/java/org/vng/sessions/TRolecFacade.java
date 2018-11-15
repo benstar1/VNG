@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import org.vng.entities.TRole;
 import org.vng.entities.TRolec;
 
 /**
@@ -43,5 +44,7 @@ public class TRolecFacade extends AbstractFacade<TRolec> {
         }
         return item;
     }
+    
+   
     
 }

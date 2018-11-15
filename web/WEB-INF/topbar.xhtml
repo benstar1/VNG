@@ -1,5 +1,6 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <div class="layout-topbar">
         <h:link outcome="/dashboard" styleClass="logo-container">
@@ -69,11 +70,27 @@
                 <i class="fa fa-ellipsis-v"></i>
             </a>
             <a id="topbar-profile-menu-button" href="#">
-                <p:graphicImage name="images/avatar.png" library="harmony-layout" styleClass="topbar-profile" />
-                <span>Bentsi JOHNSON</span>
+                <!--p:graphicImage name="images/avatar.png" library="harmony-layout" styleClass="topbar-profile" /-->
+                <span><p:outputLabel value="#{loginMBean.nomPrenom}"/></span>
             </a>
 
             <ul id="topbar-profile-menu">
+                <c:if test="#{!loginMBean.connecter}">
+                 <li role="menuitem">
+                            <p:commandLink action="#{loginMBean.logout()}">
+                                <i class="fa fa-unlock"></i>
+                                <span>Se connecter</span>
+                            </p:commandLink>
+                </li>
+                    </c:if>
+                <c:if test="#{loginMBean.connecter}">
+                <li role="menuitem">
+                    <p:commandLink action="#{loginMBean.logout()}">
+                                <i class="fa fa-lock"></i>
+                                <span>Se déconnecter</span>
+                  </p:commandLink>
+                </li>
+               </c:if>
                 <li>
                     <a href="#">
                         <i class="topbar-icon fa fa-fw fa-paint-brush"></i>

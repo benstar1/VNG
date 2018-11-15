@@ -23,7 +23,7 @@ import javax.faces.convert.FacesConverter;
 @Named("tDepotSignatureController")
 @SessionScoped
 public class TDepotSignatureController implements Serializable {
-
+   
     @EJB
     private org.vng.sessions.TDepotSignatureFacade ejbFacade;
     private List<TDepotSignature> items = null;
@@ -136,7 +136,7 @@ public class TDepotSignatureController implements Serializable {
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
-                return null;
+                return null; 
             }
             TDepotSignatureController controller = (TDepotSignatureController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "tDepotSignatureController");

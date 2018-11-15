@@ -47,8 +47,7 @@ public class TDivergenceFacade extends AbstractFacade<TDivergence> {
         }
         return numintervenir;
     }
-       
-      
+          
           public String genererNumDivergence() {
         //Date d = new Date();
         String numero= "";

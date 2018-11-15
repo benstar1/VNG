@@ -10,7 +10,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
-import javax.persistence.NamedQuery;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import org.vng.entities.TRole;
@@ -26,12 +26,41 @@ public class TUtilisateurFacade extends AbstractFacade<TUtilisateur> {
 
     @PersistenceContext(unitName = "vngPU")
     private EntityManager em;
-
+    private TUtilisateur Util = null; 
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-
+ public TUtilisateur rechercheUtilconnecte(String login){
+   
+        Query query;
+       
+      query= em.createNamedQuery("TUtilisateur.findByUtiLogin").setParameter("utiLogin",login);
+         try {
+           Util = (TUtilisateur) query.getSingleResult();
+        } catch (NoResultException e) {
+            System.out.println("Aucun objet trouvé " + e.getMessage());
+        }
+        return Util;   
+    }
+ 
+   public int insertUtilisateurGroupe(String login,String groupe){
+        int i=0;
+         String sql="INSERT INTO t_utilisateurgroupe (ugr_login,ugr_groupe) VALUES ('"+login+"','"+groupe+"') ";
+     try{
+            Query q=em.createNativeQuery(sql);
+            i= q.executeUpdate();
+        }catch(Exception e){
+            System.out.println("probleme insertion groupe utilisateur : "+e);
+        }  
+            return i;
+     }
+ 
+     
+        public List<TUtilisateur> findByGroupe(String groupe) {
+        List<TUtilisateur> listeUtilisateurs = em.createNamedQuery("TUtilisateur.findByGroupe").setParameter("groupe", groupe).getResultList();
+                return listeUtilisateurs;
+    }
     public TUtilisateurFacade() {
         super(TUtilisateur.class);
     }

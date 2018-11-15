@@ -84,12 +84,16 @@
             
             <composite:attribute name="iddialogActivite" shortDescription="Id du Dialog des activités" />
             
+            <composite:attribute name="iddialogIntervenant" shortDescription="Id du Dialog" />
+            
             <composite:attribute name="listeActivite" type="java.util.List"/>
             <composite:attribute name="idActivite" default="idActivite" type="String" shortDescription="Id de l'activité de l'intervenant"/> 
             <composite:attribute name="activite" type="org.vng.entities.TActivite" shortDescription="Activité de l'intervenant"/>
             <composite:attribute name="idActiviteAutre" default="idActiviteAutre" type="String" shortDescription="Id de autre activité de l'intervenant"/> 
             <composite:attribute name="activiteAutre"  type="String" shortDescription="AUtre activité de l'intervenant"/>
             
+            <composite:attribute name="restreint" default="false" type="java.lang.Boolean"/>
+            <composite:attribute name="desactiverRecherche" default="false" type="java.lang.Boolean"/>
             
             
             
@@ -112,8 +116,8 @@
                                        </p:column> 
                                        <p:column>                                           
                                        </p:column>
-                                       <p:column>
-                                           <p:commandButton value="#{cc.attrs.rechercheButtonText}"  type="button" onclick="PF('#{cc.attrs.iddialog}').show();"/>
+                                       <p:column >                                         
+                                             <p:commandButton style="width: 50px;" value="#{cc.attrs.rechercheButtonText}" disabled="#{cc.attrs.desactiverRecherche}" type="button" onclick="PF('#{cc.attrs.iddialogIntervenant}').show();" icon="fa fa-folder-open" styleClass="green-btn"/>
 
                                        </p:column>  
                                      
@@ -125,8 +129,8 @@
                                    
                                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
                                        
-                                          <p:outputLabel  value="#{msg.hint_nom}" for="#{cc.attrs.idNom}" />                                       
-                                          <p:inputText id="#{cc.attrs.idNom}" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.nom}"/>                                       
+                                        <p:outputLabel  value="#{msg.hint_nom}" for="#{cc.attrs.idNom}" />                                       
+                                        <p:inputText id="#{cc.attrs.idNom}" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.nom}"/>                                       
                                     
                                          <p:outputLabel  value="#{msg.hint_prenom}" for="#{cc.attrs.idPrenom}" /> 
                                          <p:inputText id="#{cc.attrs.idPrenom}" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.prenom}"/>

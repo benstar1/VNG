@@ -28,11 +28,11 @@ public class TPvParcelleFacade extends AbstractFacade<TPvParcelle> {
     
     
             
-      public  TPvParcelle  findPVParcelleIntervenant(String numeroParcelle, String NumeroIntervenant){
+      public  TPvParcelle  findPVParcelleIntervenant(String numeroParcelle, String numeroIntervenant){
           Query query;
           query=getEntityManager().createNamedQuery("TPvParcelle.findByPvParcelleIntervenant")
                   .setParameter("parcelle",numeroParcelle)
-                  .setParameter("intervenant",NumeroIntervenant)
+                  .setParameter("intervenant",numeroIntervenant)
                   ;
           return (TPvParcelle)query.getSingleResult();
         

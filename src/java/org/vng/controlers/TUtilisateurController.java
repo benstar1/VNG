@@ -14,22 +14,46 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
+
 
 @Named("tUtilisateurController")
 @SessionScoped
 public class TUtilisateurController implements Serializable {
-
+    //@Inject
+    ConvertirMD5 md5=new ConvertirMD5();
+    
     @EJB
     private org.vng.sessions.TUtilisateurFacade ejbFacade;
     private List<TUtilisateur> items = null;
     private TUtilisateur selected;
-
+    int i=0;
+    String limitationchaine,confutiPassword;
     public TUtilisateurController() {
     }
+
+    public String getConfutiPassword() {
+        return confutiPassword;
+    }
+
+    public void setConfutiPassword(String confutiPassword) {
+        this.confutiPassword = confutiPassword;
+    }
+
+    public String getLimitationchaine() {
+        return limitationchaine;
+    }
+
+    public void setLimitationchaine(String limitationchaine) {
+        this.limitationchaine = limitationchaine;
+    }
+    
+    
 
     public TUtilisateur getSelected() {
         return selected;
@@ -37,6 +61,8 @@ public class TUtilisateurController implements Serializable {
 
     public void setSelected(TUtilisateur selected) {
         this.selected = selected;
+        initlimitation();
+       
     }
 
     protected void setEmbeddableKeys() {
@@ -54,15 +80,51 @@ public class TUtilisateurController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-
+     private void initActif(){
+         if(getLimitationchaine().equals("OUI")){
+             selected.setUtiActif(Boolean.TRUE);
+         }
+         if(getLimitationchaine().equals("NON")){
+         selected.setUtiActif(Boolean.FALSE);
+         }
+     }
+     
+      private void initlimitation(){
+        if(selected!=null){
+        if(selected.getUtiActif()){
+            setLimitationchaine("OUI");
+        }else{
+           setLimitationchaine("NON");
+        }  
+              System.out.println(limitationchaine);
+          }
+     }
+     
+     
     public void create() {
+        if(!selected.getUtiPassword().equals(getConfutiPassword())){
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Utilisateur : ", "Mot de passe non confirme");
+            FacesContext.getCurrentInstance().addMessage(null, message);                
+        }else{
+        
+        String pwdmd5 = md5.generateMD5(selected.getUtiPassword());
+        selected.setUtiPassword(pwdmd5);
+        initActif();
+        i++;
+        selected.setUtiCode(String.valueOf(i));
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TUtilisateurCreated"));
+        int n;
+        n=ejbFacade.insertUtilisateurGroupe(selected.getUtiLogin(),selected.getUtiTyuCode().getTyuDesig());
+            System.out.println("Groupe insere "+n);
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
+        }
+        
         }
     }
 
     public void update() {
+        initActif();
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("TUtilisateurUpdated"));
     }
 

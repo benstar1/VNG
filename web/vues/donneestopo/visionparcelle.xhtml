@@ -41,7 +41,7 @@
                             <div  style="background-color: #3f7382; height: 70px;width: 100%"   id="element_affiches"> 
                                 <table style="  border: 0px; width: 100% "  >
                                     <tr ><td>
-                                            <p:selectManyCheckbox value="#{parcelleController.listTypeAffichage}" style="color:  #ffffff"   columns="3">
+                                            <p:selectManyCheckbox id="listeobjet" value="#{parcelleController.listTypeAffichage}" style="color:  #ffffff"   columns="3">
                                                 <f:selectItem   itemLabel="Parcelle" itemValue="parcelle" />
                                                 <!--f:selectItem itemLabel="Corridor" itemValue="corridor" /-->
                                                 <f:selectItem itemLabel="Objets Points" itemValue="point" />
@@ -58,7 +58,11 @@
                                         <td><p:inputText style="width: 130px; height: 25px" value="#{parcelleController.libArr}"  /></td>
                                          
                                     </tr>
-                                    <tr style="padding-bottom: 5px" > <td colspan="4">
+                                    <tr style="padding-bottom: 5px" > 
+                                        <td colspan="4"> 
+                                            
+                                            <p:commandButton value="Plus de recherche" update="listeobjet" actionListener="#{parcelleController.setNullObjetAffichage}" style=" height:25px;" styleClass="green-btn" oncomplete="PF('AvanceDlg').show();"  icon="fa fa-ellipsis-h" />
+                                      
                                          </td>
                                                 <td><p:outputLabel style="color:  #ffffff" value="Village"  /></td>
                                                 <td><p:inputText style="width: 130px; height: 25px" value="#{parcelleController.libVillage}"  /></td>
@@ -104,7 +108,7 @@
                 </div>
             </div>
         </div>
-
+        <ui:include src="paramavance.xhtml"/>
     </ui:define>
 
 </ui:composition>

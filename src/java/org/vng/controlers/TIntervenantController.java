@@ -39,6 +39,7 @@ public class TIntervenantController implements Serializable {
     TActiviteFacade activiteFacade;
     
     private List<TIntervenant> items = null;
+    private List<TIntervenant> itemsFilter = null;
     private TIntervenant selected;
 
     public TIntervenantController() {
@@ -186,6 +187,14 @@ public class TIntervenantController implements Serializable {
 
     public List<TIntervenant> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    public List<TIntervenant> getItemsFilter() {
+        return itemsFilter;
+    }
+
+    public void setItemsFilter(List<TIntervenant> itemsFilter) {
+        this.itemsFilter = itemsFilter;
     }
 
     @FacesConverter(forClass = TIntervenant.class)

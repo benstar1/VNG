@@ -47,6 +47,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "TConflit.findByDivNatureContestAutre", query = "SELECT t FROM TConflit t WHERE t.divNatureContestAutre = :divNatureContestAutre")
     , @NamedQuery(name = "TConflit.findByConfEncoursRegl", query = "SELECT t FROM TConflit t WHERE t.confEncoursRegl = :confEncoursRegl")
     , @NamedQuery(name = "TConflit.findByConfObservation", query = "SELECT t FROM TConflit t WHERE t.confObservation = :confObservation")
+    , @NamedQuery(name = "TConflit.findMaxConflit", query = "SELECT Max(t.confNum) FROM TConflit t WHERE t.confNum LIKE :numeroParcel")
     , @NamedQuery(name = "TConflit.findByConfDateChargement", query = "SELECT t FROM TConflit t WHERE t.confDateChargement = :confDateChargement")})
 public class TConflit implements Serializable {
 

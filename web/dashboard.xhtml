@@ -292,29 +292,8 @@
     </ui:define>
 
     <ui:define name="content">
-        <div class="ui-g layout-dashboard">
-            <div class="ui-g-6 intro-text">
-                <p:graphicImage name="images/dashboard/shape.svg" library="harmony-layout" />
-                <span>Synthèse</span>
-            </div>
-            <div class="ui-g-6 intro-calendar">
-                <p:calendar placeholder="Date" showOn="button"/>
-            </div>
-
+        <div class="ui-g layout-dashboard" style="height: 600px">
             
-            <div class="ui-g-12 ui-lg-6" style="margin-bottom: 20px;">
-             
-                <p:panel style="height: 250px;width: 300px" header="opérations Parcelle">
-                    <p:chart style="height:200px;width: 100%" id="pie" type="pie" model="#{chartDemoView.pieModelOperation}" responsive="true" />                
-                </p:panel>
-            </div>
-            
-                                
-            <div class="ui-g-12">
-                <p:panel header="Upcoming Events" style="height:100%">
-                    <p:schedule value="#{scheduleView.eventModel}"/>
-                </p:panel>
-            </div>
         </div>
     </ui:define>
 

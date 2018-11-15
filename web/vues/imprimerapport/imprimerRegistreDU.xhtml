@@ -1,0 +1,77 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="./../../WEB-INF/template.xhtml">
+
+    <ui:define name="title">Générer numéro parcelle</ui:define>
+    <ui:define name="viewname">
+        <li>Consultation et Edition</li>
+        <li>/</li>
+        <li>Les rapports</li>
+        <li>/</li>
+        <li><p:link outcome="imprimerRegistreDU.xhtml">Impression du registre d'enregistrement des contrats de formalisation des droits d'usage</p:link></li>
+    </ui:define>
+
+    <ui:define name="content">
+        <div class="container">
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <div class="card">
+                        <h1>Impression du registre d'enregistrement des contrats de formalisation des droits d'usage</h1>
+
+                        <h:form id="formharmonise" >
+                            <h:panelGroup id="grillevillages">
+                                <p:panelGrid columns="4">
+                                    <p:outputLabel value="#{bundle.LabelChoixDepartementHarmonise}" for="departement" />     
+                                    <p:selectOneMenu  value="#{parcelleController.departement}" id="departement" style="margin-bottom:10px;" >
+                                        <f:selectItem itemLabel="Choisissez un Departement " itemValue="" />
+                                        <f:selectItems value="#{tDepartementController.departementItem}" />
+                                        <p:ajax event="change" process="@this" listener="#{parcelleController.initlisteCommune()}" update=":TCommuneListForm:datalist" />
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel value="#{bundle.LabelChoixCommuneHarmonise}" for="commune" />     
+                                    <p:panelGrid style="border-width: 0"  columns="3">
+                                        <p:inputText value="#{parcelleController.commune}" id="commune" />
+                                        <p:outputLabel id="libcommune" value="#{parcelleController.commune.comDesig}"/>
+                                        <p:commandButton id="choixcommune" value="..." oncomplete="PF('TCommuneListDlg').show()"  />
+                                    </p:panelGrid>
+
+                                    <p:outputLabel value="#{bundle.LabelChoixArrondissementHarmonise}" for="arrondissement" />     
+                                    <p:panelGrid style="border-width: 0" columns="3">
+                                        <p:inputText value="#{parcelleController.arrondissement}" id="arrondissement" />
+                                        <p:outputLabel id="libarrondissement" value="#{parcelleController.arrondissement.arrDesig}"/>
+                                        <p:commandButton id="choixarrondissement" value="..." oncomplete="PF('TArrondissementListDlg').show()"  />
+                                    </p:panelGrid>
+
+                                    <p:outputLabel value="#{bundle.LabelChoixVillageHarmonise}" for="village" />     
+                                    <p:panelGrid columns="3">
+                                        <p:inputText value="#{parcelleController.villageNormal}" id="village" />
+                                        <p:outputLabel id="libvillage" value="#{parcelleController.villageNormal.vlaDesig}"/>
+                                        <p:commandButton id="choixvillage" value="..." oncomplete="PF('TVillageListDlg').show()"  />
+                                    </p:panelGrid>
+                                    <p:outputLabel value="Date début"  />
+                                    <p:calendar pattern="dd-MM-yyyy" required="true"  style="margin: 10px" value="#{imprimerControleur.datedebut}">
+                                    </p:calendar>
+
+                                    <p:outputLabel value="Date fin"  />
+                                    <p:calendar pattern="dd-MM-yyyy" required="true"  style="margin: 10px" value="#{imprimerControleur.datefin}">
+                                    </p:calendar>
+                                    <p:commandButton ajax="false" value="Imprimer" actionListener="#{imprimerControleur.impressionRegistreDroitUsageXLS()}" title="Imprimer" icon="fa fa-file-excel-o" styleClass="green-btn"/>
+                                    <p:commandButton ajax="false" value="Imprimer" actionListener="#{imprimerControleur.impressionRegistreDroitUsagePDF()}" title="Imprimer" icon="fa fa-file-pdf-o" styleClass="orange-btn"/>
+
+                                </p:panelGrid>
+                            </h:panelGroup> 
+                            <p:growl id="messages" showDetail="true" />
+                        </h:form>    
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ui:include src="ListCommune.xhtml"/>
+        <ui:include src="ListArrondissement.xhtml"/>
+        <ui:include src="ListVillage.xhtml"/>
+    </ui:define>
+
+</ui:composition>

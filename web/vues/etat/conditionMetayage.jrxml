@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="7ea9b3fa-0224-4276-b88f-9ffac322ea51">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="1069"/>
+	<parameter name="ParamOpvNum" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Condition" class="java.lang.String"/>
+	<parameter name="Obligations" class="java.lang.String"/>
+	<parameter name="Resolution" class="java.lang.String"/>
+	<parameter name="Litige" class="java.lang.String"/>
+	<parameter name="ParamArticle42" class="java.lang.String"/>
+	<parameter name="ParamArticle43" class="java.lang.String"/>
+	<parameter name="signatureVendeur" class="java.lang.String"/>
+	<parameter name="signatureAcheteur" class="java.lang.String"/>
+	<parameter name="temoinVendeur1" class="java.lang.String"/>
+	<parameter name="temoinVendeur2" class="java.lang.String"/>
+	<parameter name="temoinAcheteur1" class="java.lang.String"/>
+	<parameter name="temoinAcheteur2" class="java.lang.String"/>
+	<parameter name="signatureAffirmation" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     t_operation_parcel."opv_date_op" AS t_operation_parcel_opv_date_op,
+     t_operation_parcel."opv_prix" AS t_operation_parcel_opv_prix,
+     t_operation_parcel."opv_pba_numero" AS t_operation_parcel_opv_pba_numero,
+     t_operation_parcel."opv_mac_code" AS t_operation_parcel_opv_mac_code,
+     t_operation_parcel."opv_desi_code" AS t_operation_parcel_opv_desi_code,
+     t_operation_parcel."opv_desi_reference" AS t_operation_parcel_opv_desi_reference,
+     t_operation_parcel."opv_desi_date" AS t_operation_parcel_opv_desi_date,
+     t_operation_parcel."opv_nom_maire" AS t_operation_parcel_opv_nom_maire,
+     t_operation_parcel."opv_numero_affirmation" AS t_operation_parcel_opv_numero_affirmation,
+     t_operation_parcel."opv_nom_interprete" AS t_operation_parcel_opv_nom_interprete,
+     t_operation_parcel."opv_date_saisie" AS t_operation_parcel_opv_date_saisie,
+     t_operation_parcel."opv_date_validation" AS t_operation_parcel_opv_date_validation,
+     t_operation_parcel."opv_numero" AS t_operation_parcel_opv_numero
+FROM
+     "public"."t_operation_parcel" t_operation_parcel
+WHERE
+     t_operation_parcel."opv_numero" = $P{ParamOpvNum}]]>
+	</queryString>
+	<field name="t_operation_parcel_opv_date_op" class="java.sql.Date"/>
+	<field name="t_operation_parcel_opv_prix" class="java.math.BigDecimal"/>
+	<field name="t_operation_parcel_opv_pba_numero" class="java.lang.String"/>
+	<field name="t_operation_parcel_opv_mac_code" class="java.lang.String"/>
+	<field name="t_operation_parcel_opv_desi_code" class="java.lang.String"/>
+	<field name="t_operation_parcel_opv_desi_reference" class="java.lang.String"/>
+	<field name="t_operation_parcel_opv_desi_date" class="java.sql.Date"/>
+	<field name="t_operation_parcel_opv_nom_maire" class="java.lang.String"/>
+	<field name="t_operation_parcel_opv_numero_affirmation" class="java.lang.String"/>
+	<field name="t_operation_parcel_opv_nom_interprete" class="java.lang.String"/>
+	<field name="t_operation_parcel_opv_date_saisie" class="java.sql.Timestamp"/>
+	<field name="t_operation_parcel_opv_date_validation" class="java.sql.Timestamp"/>
+	<field name="t_operation_parcel_opv_numero" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="783" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="13" y="38" width="570" height="45" uuid="be4bdab1-7e63-4aae-89bb-3f02a867f6e7"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="12"/>
+					<paragraph lineSpacing="Double"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Condition}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="13" y="289" width="570" height="28" uuid="d86f9bd6-6ec8-4466-98c5-fb3ace557a51"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="12"/>
+					<paragraph lineSpacing="Double"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Obligations}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="13" y="257" width="163" height="20" backcolor="#CCCCCC" uuid="80012f43-8579-477d-8eee-9b5e93c408c1"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="16" y="260" width="160" height="17" uuid="998e1d8c-57f5-43f4-9ee7-3ff7d797b53e"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="12"/>
+				</textElement>
+				<text><![CDATA[4. Obligations des parties]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="13" y="9" width="163" height="20" backcolor="#CCCCCC" uuid="ac5aeac9-b9d4-4635-9952-2e56e2361329"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="16" y="13" width="152" height="14" uuid="54dd8014-465d-402a-b650-d7792646f7ee"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="12"/>
+				</textElement>
+				<text><![CDATA[3. Conditions de métayage]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="13" y="322" width="163" height="20" backcolor="#CCCCCC" uuid="04ced62a-41ad-47fe-8caa-d5e2b60bd5ab"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="15" y="323" width="152" height="17" uuid="1dafc8da-9a8b-40d8-9a1f-7429a1729707"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="12"/>
+				</textElement>
+				<text><![CDATA[5. Résolution ]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="13" y="347" width="570" height="45" uuid="9cee2f8a-797c-48b1-8fb7-9c7a88a53af5"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="12"/>
+					<paragraph lineSpacing="Double"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Resolution}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="13" y="520" width="570" height="22" uuid="46909dde-57b3-42d2-b513-8db2a6ca166d"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="12"/>
+					<paragraph lineSpacing="Double" spacingAfter="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Litige}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="13" y="495" width="67" height="20" backcolor="#CCCCCC" uuid="ae6dce01-e96f-46e6-b199-7f1a237e773b"/>
+			</rectangle>
+			<break>
+				<reportElement x="0" y="319" width="100" height="1" uuid="15011e7f-b4d2-442b-a8af-1cac795bd1c6"/>
+			</break>
+			<staticText>
+				<reportElement x="17" y="497" width="52" height="18" uuid="08d9657d-3e08-4d15-a49e-a5375b281b49"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="12"/>
+				</textElement>
+				<text><![CDATA[6. Litige]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="238" y="546" width="40" height="15" uuid="c47054d0-2d93-4501-80bf-b61b5b58aca0"/>
+				<text><![CDATA[Fait à ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="11" y="591" width="175" height="16" uuid="73acd627-187b-41cb-8f64-16fb9025f622"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bailleur]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="FixRelativeToBottom" x="11" y="614" width="175" height="15" uuid="47d4cdbd-e9c5-4379-b609-247c042e4156"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{signatureVendeur}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="309" y="591" width="243" height="16" uuid="af5b4435-aba7-42cc-888a-53e1a599f59c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Preneur]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="396" y="546" width="22" height="15" uuid="c422014f-4b3b-4678-9342-1f5fe7fb1391"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="13" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[, le]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="FixRelativeToBottom" x="309" y="614" width="243" height="15" uuid="b98bb77f-4974-4686-bae5-2ae0d5e83083"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{signatureAcheteur}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="278" y="546" width="118" height="15" uuid="211308a6-5f35-4569-873a-a6587b260acb"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ParamArticle42}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="239" y="571" width="314" height="15" uuid="3cf5b6e8-f5ec-42b3-83cc-7cea30cb6490"/>
+				<text><![CDATA[En cinq (05) exemplaires originaux]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="418" y="546" width="135" height="15" uuid="349ef676-07b5-4413-b5b1-d3e3f15cd07d"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ParamArticle43}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="168" y="655" width="169" height="16" uuid="2da0cafc-7791-4735-9a83-2437373faa36"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Témoins]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="FixRelativeToBottom" x="11" y="706" width="175" height="15" uuid="410d4fde-87ae-4dc7-b557-102653be8703"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{temoinVendeur2}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="FixRelativeToBottom" x="11" y="671" width="175" height="15" uuid="53a06c7a-cac9-4b5f-90eb-502b39a5fb05"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{temoinVendeur1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="FixRelativeToBottom" x="309" y="671" width="243" height="15" uuid="31d0522b-c7ab-4cc9-91d2-8b0eb44ab143"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{temoinAcheteur1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="FixRelativeToBottom" x="309" y="706" width="243" height="15" uuid="521ae9a6-c617-4773-9be0-fda6e9c9a494"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{temoinAcheteur2}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="FixRelativeToBottom" isPrintRepeatedValues="false" x="100" y="741" width="318" height="17" uuid="d4322872-2e08-4c0b-8c15-5edf8d18b3ba"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="13"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{signatureAffirmation}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

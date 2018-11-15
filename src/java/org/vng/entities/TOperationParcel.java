@@ -85,6 +85,9 @@ import javax.xml.bind.annotation.XmlTransient;
 //@SequenceGenerator(name="tOperationParcelSequence", initialValue=1, allocationSize=1,sequenceName = "seq_id_operation_parcel")
 public class TOperationParcel implements Serializable {
 
+    @Column(name = "opv_nb_mois_preavi")
+    private Integer opvNbMoisPreavi;
+
     @Size(max = 10)
     @Column(name = "opv_statut")
     private String opvStatut;
@@ -778,6 +781,14 @@ public class TOperationParcel implements Serializable {
     public void setOpvSignCode(TSignataire opvSignCode) {
         this.opvSignCode = opvSignCode;
         this.setOpvNomMaire(opvSignCode.getSignNom()+" "+opvSignCode.getSignPrenom());
+    }
+
+    public Integer getOpvNbMoisPreavi() {
+        return opvNbMoisPreavi;
+    }
+
+    public void setOpvNbMoisPreavi(Integer opvNbMoisPreavi) {
+        this.opvNbMoisPreavi = opvNbMoisPreavi;
     }
 
   

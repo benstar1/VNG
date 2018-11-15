@@ -33,7 +33,7 @@ public class TOrigineDroitRevendiqueFacade extends AbstractFacade<TOrigineDroitR
     }
     
     
-    public List<SelectItem> getListeOrigineDroitRevendiqueItem(String categorie)
+    public List<SelectItem> getListeOrigineDroitRevendiqueItem()
     {
         List<TOrigineDroitRevendique> list= findAll();
         List<SelectItem> item = new ArrayList<>();
@@ -43,5 +43,9 @@ public class TOrigineDroitRevendiqueFacade extends AbstractFacade<TOrigineDroitR
         }
         return item;
     }
+    
+    
+    
+    
     
 }

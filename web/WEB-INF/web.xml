@@ -11,6 +11,10 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Production</param-value>
     </context-param>
+     <context-param>
+        <param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+        <param-value>true</param-value>
+    </context-param>
     <context-param>
         <param-name>primefaces.THEME</param-name>
         <param-value>harmony-#{guestPreferences.theme}</param-value>
@@ -90,4 +94,96 @@
         <extension>svg#fontawesomeregular</extension>
         <mime-type>image/svg+xml</mime-type>
     </mime-mapping>
+    <security-constraint>
+        <display-name>AccesOperationParcelle</display-name>
+        <web-resource-collection>
+            <web-resource-name>GestionImmeuble</web-resource-name>
+            <description/>
+            <url-pattern>/vues/tOperationParcel/*</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>GestionMutation</web-resource-name>
+            <description/>
+            <url-pattern>/vues/tMutation/*</url-pattern>
+        </web-resource-collection>      
+        <web-resource-collection>
+            <web-resource-name>DepotSignature</web-resource-name>
+            <description/>
+            <url-pattern>/vues/tDepotSignature/depotsignature.xhtml</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>GestionLimitrophe</web-resource-name>
+            <description/>
+            <url-pattern>/vues/tParcellePoca/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>SAISIE</role-name>
+            <role-name>ADMINISTRATEUR</role-name>
+            <role-name>CHEFSERVICE</role-name>
+        </auth-constraint>
+    </security-constraint>
+     
+    <security-constraint>
+        <display-name>AccesConsultationEdition</display-name>
+        <web-resource-collection>
+            <web-resource-name>ConsultationDonneTopo</web-resource-name>
+            <description/>
+            <url-pattern>/vues/donneestopo/*</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>ConsultationRapport</web-resource-name>
+            <description/>
+            <url-pattern>/vues/imprimerapport/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>CONSULTATION</role-name>
+            <role-name>SAISIE</role-name>
+            <role-name>ADMINISTRATEUR</role-name>
+            <role-name>CHEFSERVICE</role-name>
+        </auth-constraint>
+    </security-constraint> 
+    <security-constraint>
+        <display-name>AccesConfiguration</display-name>
+        <web-resource-collection>
+            <web-resource-name>ConfigurationDonneTopo</web-resource-name>
+            <description/>
+            <url-pattern>/vues/donneestopo/*</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>GestionSignataire</web-resource-name>
+            <description/>
+            <url-pattern>/vues/tSignataire/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>ADMINISTRATEUR</role-name>
+            <role-name>CHEFSERVICE</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>jdbcrealm</realm-name>
+        <form-login-config>
+            <form-login-page>/login.xhtml</form-login-page>
+            <form-error-page>/error.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-role>
+        <description>Profil pour les consultations et editions de rapport</description>
+        <role-name>CONSULTATION</role-name>
+    </security-role>
+    <security-role>
+        <description>Profil des agents de saisie</description>
+        <role-name>SAISIE</role-name>
+    </security-role>
+    <security-role>
+        <description>Profil du chef service</description>
+        <role-name>CHEFSERVICE</role-name>
+    </security-role>
+    <security-role>
+        <description>Administrateur</description>
+        <role-name>ADMINISTRATEUR</role-name>
+    </security-role>
 </web-app>
