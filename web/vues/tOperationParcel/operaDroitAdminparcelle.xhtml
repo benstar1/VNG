@@ -6,6 +6,7 @@
                 template="./../../WEB-INF/template.xhtml">
 
     <ui:define name="title">Opération parcelle</ui:define>
+
     <ui:define name="viewname">
 
         <li>Affaires domaniale</li>
@@ -21,6 +22,11 @@
             .carte{
                 overflow:scroll;
             }
+            .photo{
+                width: 150px;
+                height: 150px;
+
+            }
         </style>
         <div class="container">
             <div class="ui-g">
@@ -28,10 +34,10 @@
                     <div class="card card-w-title" >
                         <h2><p:outputLabel value="#{tOperationParcelController.typeOperation}"/> de parcelle</h2>
 
-                        <h:form id="formventeparcelle">
+                        <h:form id="formventeparcelle" enctype="multipart/form-data">
                             <p:growl id="messages" showDetail="true" />
                             <p:messages id="msg" showIcon="true" showDetail="true" closable="true"/>
-                            <p:toolbar>
+                            <p:toolbar id="bartache">
                                 <f:facet name="left">
                                     <p:commandButton update="formventeparcelle" actionListener="#{tOperationParcelController.nouveau()}" value="Nouveau" icon="fa fa-plus" />
 
@@ -41,13 +47,14 @@
                                         <span class="fa fa-ellipsis-v SoftGray" />
                                     </span>
 
-                                    <p:commandButton disabled="#{tOperationParcelController.estvalider}" ajax="true" actionListener="#{tOperationParcelController.enregistrerVenteParcelle()}" title="enregistrer" update="messages" icon="fa fa-save" styleClass="green-btn"/>
+                                    <p:commandButton disabled="#{tOperationParcelController.estvalider}" ajax="false" actionListener="#{tOperationParcelController.enregistrerVenteParcelle()}" title="enregistrer" update="messages" icon="fa fa-save" styleClass="green-btn"/>
+
+                         
                                     <p:commandButton disabled="#{tOperationParcelController.estvalider}"  update="formventeparcelle" actionListener="#{tOperationParcelController.supprimerOperation()}" title="Supprimer" icon="fa fa-trash" styleClass="purple-btn">
                                         <p:confirm header="Confirmation" icon="ui-icon-alert"   message="Veuillez confirmer la suppression" />
                                     </p:commandButton>
                                     <p:commandButton ajax="false" actionListener="#{tOperationParcelController.imprimeDoc()}" title="Imprimer" icon="fa fa-print" styleClass="orange-btn"/>
                                 </f:facet>
-
                                 <f:facet name="right">
                                     <p:menuButton value="Options">
                                         <p:menuitem  update="formventeparcelle"  actionListener="#{tOperationParcelController.validationOperation()}" value="Validation" icon="fa fa-gavel" >
@@ -56,8 +63,12 @@
 
                                     </p:menuButton>
                                 </f:facet>
+
+
                             </p:toolbar>
                             <p:separator/>
+                       
+                            
                             <p:tabView id="ongletventeparcelle" scrollable="true" >
                                 <p:tab id="parcelle" title="La parcelle">
                                     <p:panelGrid id="parcellegrid"  style=" width: 100%"  columns="2">
@@ -79,18 +90,27 @@
                                             </p:panelGrid>
                                         </p:panel>
                                         <p:panel id="detenteur"  header="Detenteur" toggleable="true">
-                                            <p:panelGrid columns="2">
-                                                <p:outputLabel value="Collectivite"/>
-                                                <p:inputText value="#{tOperationParcelController.collectivite}" />
-                                                <p:outputLabel value="Nom"/>
-                                                <p:inputText value="#{tOperationParcelController.nom}" />
-                                                <p:outputLabel value="Prenom"/>
-                                                <p:inputText value="#{tOperationParcelController.prenom}" />
-                                                <p:outputLabel value="Domicile"/>
-                                                <p:inputText value="#{tOperationParcelController.domicile}" />
-                                                <p:outputLabel value="Age"/>
-                                                <p:inputText value="#{tOperationParcelController.age}" />                                               
-                                            </p:panelGrid>
+                                            <table>
+                                                <tr>   
+                                                    <td >
+                                                        <p:panelGrid columns="2">
+                                                            <p:outputLabel value="Collectivite"/>
+                                                            <p:inputText value="#{tOperationParcelController.collectivite}" />
+                                                            <p:outputLabel value="Nom"/>
+                                                            <p:inputText value="#{tOperationParcelController.nom}" />
+                                                            <p:outputLabel value="Prenom"/>
+                                                            <p:inputText value="#{tOperationParcelController.prenom}" />
+                                                            <p:outputLabel value="Domicile"/>
+                                                            <p:inputText value="#{tOperationParcelController.domicile}" />
+                                                            <p:outputLabel value="Age"/>
+                                                            <p:inputText value="#{tOperationParcelController.age}" />                    
+                                                        </p:panelGrid>
+                                                    </td>
+                                                    <td>                                                     
+                                                        <img class="photo" src="ServletImage?imageName=#{tOperationParcelController.cheminphotodetenteur}"/>
+                                                    </td>
+                                                </tr>
+                                            </table>
                                         </p:panel>
                                     </p:panelGrid>
                                 </p:tab>
@@ -237,7 +257,7 @@
                                                     <f:selectItem itemLabel="Pret" itemValue="PRET" />
                                                 </p:selectManyCheckbox>
                                             </p:tab>
-        
+
                                             <p:tab rendered="#{tOperationParcelController.estdroitoperationnel}" title="Limitations du droit Opérationnel" closable="true">
                                                 <p:selectOneRadio   value="#{tOperationParcelController.limitationchaineop}" layout="responsive" columns="2">
                                                     <f:selectItem  itemLabel="OUI" itemValue="TRUE" />
@@ -253,7 +273,6 @@
                                                     <f:selectItem itemLabel="Transmission" itemValue="TRANSMISSION" />
                                                 </p:selectManyCheckbox>
                                             </p:tab>
-
                                         </p:accordionPanel>
                                     </p:panelGrid>
                                 </p:tab>
@@ -276,6 +295,11 @@
                                                     <p:inputText required="true" disabled="true" id="signatureBailleur" value="#{tOperationParcelController.signatureBail}" /> 
                                                     <p:commandButton disabled="#{tOperationParcelController.estvalider}"  title="signature" icon="fa fa-folder-open" styleClass="green-btn" onclick="PF('TSignatureBailDlg').show()" ajax="true"/>
                                                 </p:panelGrid>
+                                    
+                                                <p:outputLabel  id="civendeur" value="Numéro Pieces d'identité" /> 
+                                                <p:inputText value="#{tOperationParcelController.selected.opvCiPp}"  title="CI/PP" />
+
+
                                             </p:panelGrid>
                                         </p:panel>
                                         <p:panel id="acheteur"  header="#{tOperationParcelController.libPreneur}" toggleable="true">
@@ -419,6 +443,8 @@
                                     </p:panelGrid>
                                 </p:tab>
                             </p:tabView>
+                            <p:fileUpload update="messages" uploadLabel="Joindre" cancelLabel="Annuler" label="Ajouter les pieces à joindre" fileUploadListener="#{tOperationParcelController.handleFileUpload}"  allowTypes="/(\.|\/)(pdf|jpg|jpeg|png)$/" value="#{tOperationParcelController.filejustif}" mode="advanced" multiple="true" skinSimple="true"/>
+                       
                             <p:confirmDialog global="true" showEffect="fade"  hideEffect="fade">
                                 <p:commandButton value="OUI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                                 <p:commandButton value="NON" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />

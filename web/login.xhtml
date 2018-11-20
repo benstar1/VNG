@@ -3,7 +3,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
 
     <h:head>
         <f:facet name="first">
@@ -18,27 +19,26 @@
     <h:body styleClass="login-body">     
         <div class="logo">
             <p:graphicImage name="images/harmony-logo.png" library="harmony-layout"/>
-            <span class="app-name">#{msg.appName}</span>        
+            <span class="app-name">#{msg.appName} : #{msg.appFullName} </span>        
         </div>
 
         <div class="login-panel">
-            <h:form>
+            <h:form >
             
                 <p:messages id="msg" showIcon="true" showDetail="true" closable="true"/>
                        
             <p:graphicImage name="images/template/imageloginbismobile.jpg" library="harmony-layout" class="mobile"/>
             <div class="left-part" style=" width: 40%;" >
-                <span class="login-panel-header">Acceder à GesFonc</span>
-                <span class="login-panel-subheader">Bienvnue, SVP veuillez saisir vos identifiants</span>
+                <span class="login-panel-header"></span>
+                <span class="login-panel-subheader">Bienvenue, veuillez saisir vos identifiants</span>
                 
-                <div style="margin-top:32px">
+                <div style="margin-top:15px">
                     <p:outputLabel value="Login"/>
-                    <p:inputText  required="true" id="login" value="#{loginMBean.uname}" placeholder="Login" />
+                    <p:inputText  required="true" id="login" value="#{loginMBean.uname}" placeholder="Login" requiredMessage="Le Login obligatoire" />
                     <p:outputLabel value="Mot de passe" />
-                    <p:inputText type="password" value="#{loginMBean.password}" placeholder="Password" />
-                    <p:inputSwitch />
-                    <p:outputLabel value="Se rappeler" />
-                      <p:commandButton update="msg" id="loginbtn" value="Login" action="#{loginMBean.login}" style="margin-bottom:10px" styleClass="green-btn"/>
+                    <p:inputText type="password" value="#{loginMBean.password}" placeholder="Password"  />
+                    
+                    <p:commandButton update="msg" id="loginbtn" value="Se connecter" action="#{loginMBean.login}" style="margin-bottom:10px" styleClass="green-btn"/>
              
                 </div>
                 
