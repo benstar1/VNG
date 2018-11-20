@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TParamettreEditDlg" widgetVar="TParamettreEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTParamettreTitle}">
+            <h:form id="TParamettreEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tParamettreController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTParamettreLabel_TParamettrePK_paramDateeffet}" for="TParamettrePK_paramDateeffet" />
+                        <p:calendar id="TParamettrePK_paramDateeffet" pattern="MM/dd/yyyy" value="#{tParamettreController.selected.TParamettrePK.paramDateeffet}" title="#{bundle.EditTParamettreTitle_TParamettrePK_paramDateeffet}" required="true" requiredMessage="#{bundle.EditTParamettreRequiredMessage_TParamettrePK_paramDateeffet}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTParamettreLabel_TParamettrePK_paramCode}" for="TParamettrePK_paramCode" />
+                        <p:inputText id="TParamettrePK_paramCode" value="#{tParamettreController.selected.TParamettrePK.paramCode}" title="#{bundle.EditTParamettreTitle_TParamettrePK_paramCode}" required="true" requiredMessage="#{bundle.EditTParamettreRequiredMessage_TParamettrePK_paramCode}"/>
+                        <p:outputLabel value="#{bundle.EditTParamettreLabel_paramLibelle}" for="paramLibelle" />
+                        <p:inputText id="paramLibelle" value="#{tParamettreController.selected.paramLibelle}" title="#{bundle.EditTParamettreTitle_paramLibelle}" required="true" requiredMessage="#{bundle.EditTParamettreRequiredMessage_paramLibelle}"/>
+                        <p:outputLabel value="#{bundle.EditTParamettreLabel_paramValeur}" for="paramValeur" />
+                        <p:inputText id="paramValeur" value="#{tParamettreController.selected.paramValeur}" title="#{bundle.EditTParamettreTitle_paramValeur}" />
+                        <p:outputLabel value="#{bundle.EditTParamettreLabel_paramDateFin}" for="paramDateFin" />
+                        <p:calendar id="paramDateFin" pattern="MM/dd/yyyy" value="#{tParamettreController.selected.paramDateFin}" title="#{bundle.EditTParamettreTitle_paramDateFin}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTParamettreLabel_paramDateDebut}" for="paramDateDebut" />
+                        <p:calendar id="paramDateDebut" pattern="MM/dd/yyyy" value="#{tParamettreController.selected.paramDateDebut}" title="#{bundle.EditTParamettreTitle_paramDateDebut}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTParamettreLabel_adresseImage}" for="adresseImage" />
+                        <p:inputText id="adresseImage" value="#{tParamettreController.selected.adresseImage}" title="#{bundle.EditTParamettreTitle_adresseImage}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tParamettreController.update}" value="#{bundle.Save}" update="display,:TParamettreListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TParamettreEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TParamettreEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

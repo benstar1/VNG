@@ -11,7 +11,7 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Production</param-value>
     </context-param>
-     <context-param>
+    <context-param>
         <param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
         <param-value>true</param-value>
     </context-param>
@@ -42,6 +42,14 @@
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletImage</servlet-name>
+        <servlet-class>org.vng.controlers.ServletImage</servlet-class>
+        <init-param>
+            <param-name>cheminabsolu</param-name>
+            <param-value>C:/AppliGeo/</param-value>
+        </init-param>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.jsf</url-pattern>
@@ -49,6 +57,10 @@
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletImage</servlet-name>
+        <url-pattern>/ServletImage</url-pattern>
     </servlet-mapping>
     <mime-mapping>
         <extension>ttf</extension>
@@ -105,7 +117,7 @@
             <web-resource-name>GestionMutation</web-resource-name>
             <description/>
             <url-pattern>/vues/tMutation/*</url-pattern>
-        </web-resource-collection>      
+        </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>DepotSignature</web-resource-name>
             <description/>
@@ -123,7 +135,6 @@
             <role-name>CHEFSERVICE</role-name>
         </auth-constraint>
     </security-constraint>
-     
     <security-constraint>
         <display-name>AccesConsultationEdition</display-name>
         <web-resource-collection>
@@ -143,7 +154,7 @@
             <role-name>ADMINISTRATEUR</role-name>
             <role-name>CHEFSERVICE</role-name>
         </auth-constraint>
-    </security-constraint> 
+    </security-constraint>
     <security-constraint>
         <display-name>AccesConfiguration</display-name>
         <web-resource-collection>

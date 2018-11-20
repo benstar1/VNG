@@ -1,12 +1,17 @@
 package org.vng.controlers;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import org.vng.entities.TOperationParcel;
 import org.vng.controlers.util.JsfUtil;
 import org.vng.controlers.util.JsfUtil.PersistAction;
 import org.vng.sessions.TOperationParcelFacade;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -49,6 +54,8 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 //import javax.faces.model.SelectItem;
 import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 import org.vng.controlers.util.Convert;
 import org.vng.entities.Parcelle;
 import org.vng.entities.TCommune;
@@ -60,6 +67,7 @@ import org.vng.entities.TIntervenant;
 import org.vng.entities.TIntervenir;
 import org.vng.entities.TModePartage;
 import org.vng.entities.TModeacquis;
+import org.vng.entities.TParamettre;
 import org.vng.entities.TParcelleBafon;
 import org.vng.entities.TParcellePoca;
 import org.vng.entities.TPeriodicite;
@@ -75,11 +83,17 @@ import org.vng.entities.TUtilisateur;
 //@ManagedBean
 @SessionScoped
 public class TOperationParcelController implements Serializable {
+
     ///inection de tIntervenirControleur
     @Inject
     org.vng.controlers.TIntervenirController intervenirControleur;
     @Inject
     org.vng.controlers.TDroitExerceController droitExerceControleur;
+
+    private UploadedFile filejustif;
+//    private UploadedFile filecibailleur;
+//    private UploadedFile filepreneur;
+//    private UploadedFile[] filedocs;
 
     @EJB
     private org.vng.sessions.TOperationParcelFacade ejbFacade;
@@ -98,6 +112,9 @@ public class TOperationParcelController implements Serializable {
     @EJB
     private org.vng.sessions.TDroitExerceFacade ejbFacadeDroitExerce;
     
+     @EJB
+    private org.vng.sessions.TParamettreFacade ejbFacadeParametre;
+
     @EJB
     private org.vng.sessions.TParcellePocaFacade ejbFacadeParcellePoca;
 
@@ -105,8 +122,8 @@ public class TOperationParcelController implements Serializable {
     private org.vng.sessions.TRoleFacade ejbFacaderole;
     @EJB
     private org.vng.sessions.ParcelleFacade ejbFacadeParcelle;
-    
-     @EJB
+
+    @EJB
     private org.vng.sessions.TDepotSignatureFacade ejbFacadeDepotSignature;
 
     //@Resource(mappedName = "java:app/vng", type = DataSource.class)
@@ -114,7 +131,7 @@ public class TOperationParcelController implements Serializable {
     @Resource(lookup = "jdbc/DSappligeo")
     private DataSource dataSource;
     JasperPrint jasperPrint;
-    
+
     //////////////////////////////////
     Convert concertisseur;
     ////////////////////////////////////
@@ -150,6 +167,7 @@ public class TOperationParcelController implements Serializable {
     private List<TModeacquis> listmodeAcquisition;
     private List<Parcelle> parcelleLimites;
     int i = 0;
+    String cheminSauvDoc = "C:\\AppliGeo\\AppliDoc\\";
 
     // cat de droit exerce  DEX=droit d'administration ou DOP== droit operationel
     //////////////affichage des libelles/////////////
@@ -171,10 +189,12 @@ public class TOperationParcelController implements Serializable {
     private String agepreneur;
     String civbailsufixe = "";
     String civprensufixe = "";
-    String nomme ="la nommée ";
-    String pronom =" elle ";
-     String article =" La ";
-    SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
+    String nomme = "la nommée ";
+    String pronom = " elle ";
+    String article = " La ";
+    private String cheminphotodetenteur = "AppliGeo/AppliGeoImage/defaultuserimage.png";
+
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     /////////////////Les temoins//////////
     private TDepotSignature signatureBail = new TDepotSignature();
     private List<TDepotSignature> listDepotSignTemBail = new ArrayList<>();
@@ -210,7 +230,22 @@ public class TOperationParcelController implements Serializable {
     public List<Parcelle> getParcelleLimites() {
         return parcelleLimites;
     }
-
+    
+/////////////////////permet de recuperer le chemin racine des doc et photo////////////
+    public void recupCheminRacine(){
+        List<TParamettre> paramlist;
+        try {
+            paramlist=ejbFacadeParametre.findAll();
+        String chemin= paramlist.get(0).getAdresseImage();
+        ////////////prendre racines des chemins dans la table tparametre/////////////////////////       
+        cheminSauvDoc=chemin+"AppliDoc/";       
+        cheminphotodetenteur= chemin+"AppliGeoImage/";    
+        System.out.println("Chemin defini dans la base : "+chemin);
+        } catch (Exception e) {
+        }  
+    }
+    
+    
     public void setParcelleLimites(List<Parcelle> parcelleLimites) {
         this.parcelleLimites = parcelleLimites;
     }
@@ -231,6 +266,21 @@ public class TOperationParcelController implements Serializable {
         this.selectModeAcquis = selectModeAcquis;
     }
 
+    public String getCheminphotodetenteur() {
+        return cheminphotodetenteur;
+    }
+
+    public void setCheminphotodetenteur(String cheminphotodetenteur) {
+        this.cheminphotodetenteur = cheminphotodetenteur;
+    }
+
+    public UploadedFile getFilejustif() {
+        return filejustif;
+    }
+
+    public void setFilejustif(UploadedFile filejustif) {
+        this.filejustif = filejustif;
+    }
     public List<TModeacquis> getListmodeAcquisition() {
         return listmodeAcquisition;
     }
@@ -341,7 +391,7 @@ public class TOperationParcelController implements Serializable {
 
     public void setSignatureBail(TDepotSignature signatureBail) {
         this.signatureBail = signatureBail;
-       
+
     }
 
     public TDepotSignature getSignaturePren() {
@@ -652,7 +702,90 @@ public class TOperationParcelController implements Serializable {
         genererListTypeDroit("DE");
         setLimitationchaine("FALSE");
         setLimitationchaineop("FALSE");
+        recupCheminRacine();
         //intervenirPreneur.setInvLimitation(false);
+    }
+
+    /////////procedure d'initialisation des photo
+    public void initphoto(String typephoto, TIntervenir intervenirBail) {
+        String nomimage = "";
+        System.out.println(" photo1");
+        if (typephoto.equals("DETENTEUR")) {
+            if (intervenirBail != null) {
+                System.out.println(" photo2");
+                if (intervenirBail.getInvIntNumero() != null) {
+                    System.out.println(" photo3");
+                    nomimage = intervenirBail.getInvIntNumero().getIntPhotoIdentit();
+                }
+                if (!nomimage.equals("")) {
+                  //  nomimage = "AppliGeoImage/" + nomimage.substring(0, 7) + "/" + nomimage.substring(0, 11) + "/" + nomimage;
+                       recupCheminRacine();
+                      nomimage = cheminphotodetenteur + nomimage.substring(0, 7) + "/" + nomimage.substring(0, 11) + "/" + nomimage;
+                   
+                      
+                    setCheminphotodetenteur(nomimage);
+                    System.out.println("Le chemin de l'immmmmmmmmmage : " + nomimage);
+                }
+            }
+
+        }
+    }
+
+    ///////////////methode recuperation des docs/////////////////////////
+    public void handleFileUpload(FileUploadEvent event) {
+        filejustif = event.getFile();
+        if (filejustif != null) {
+            System.out.println("Le fichier " + filejustif.getFileName());
+            try {
+                
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(filejustif.getInputstream(), "UTF-8"));
+                copyFile(filejustif.getFileName(), filejustif.getInputstream());
+                
+            }catch(Exception e){
+                        
+                        }
+            }
+            
+        }
+    
+    //////////////////////enregistrement des docss sur le disque////////////////////////////////
+    public void copyFile(String fileName, InputStream in) throws FileNotFoundException {
+        
+        if(selected!=null){
+            
+        try {
+            // write the inputStream to a FileOutputStream
+            
+            String docoperation=selected.getOpvNumero();
+            System.out.println("Cemin sauvegarde : "+cheminSauvDoc+docoperation+"/" + fileName);
+            if(docoperation!=null){
+                File dir = new File (cheminSauvDoc+docoperation);
+                if(!dir.exists()){
+                    dir.mkdir();
+                }
+            System.out.println("Cemin sauvegarde : "+cheminSauvDoc+docoperation+"/" + fileName);
+            OutputStream out = new FileOutputStream(new File(cheminSauvDoc+docoperation+"/" + fileName));
+            int read = 0;
+            byte[] bytes = new byte[1024];
+            while ((read = in.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+            in.close();
+            out.flush();
+            out.close();
+            FacesMessage msg = new FacesMessage("Succesful",fileName + " Document joints avec succes.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }else{
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Documents joints : ", "Aucune operation encours");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        }else{
+              FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Documents joints : ", "Aucune operation encours");
+              FacesContext.getCurrentInstance().addMessage(null, message);
+        }
     }
 
     private void genererListTypeDroit(String catType) {
@@ -785,17 +918,17 @@ public class TOperationParcelController implements Serializable {
             intervenirPreneur.setInvLimitationOp("1");
         }
     }
-    
-    private void initSignatureBailleur(TIntervenant interv){
+
+    private void initSignatureBailleur(TIntervenant interv) {
         try {
             List<TDepotSignature> listeDepot;
-          listeDepot= ejbFacadeDepotSignature.executeListeDepotIntervenant(interv);
-          if(listeDepot!=null){
-             setSignatureBail(listeDepot.get(0));
-          }
-           
+            listeDepot = ejbFacadeDepotSignature.executeListeDepotIntervenant(interv);
+            if (listeDepot != null) {
+                setSignatureBail(listeDepot.get(0));
+            }
+
         } catch (Exception e) {
-            
+
         }
     }
 
@@ -914,12 +1047,17 @@ public class TOperationParcelController implements Serializable {
             afficheLimitDroit("ADMIN");
             setEstdroitoperationnel(false);
         }
-
         /////////////////////FIN Affichage des limitations
+        ////////////initialisation des images//////////
+        initphoto("DETENTEUR", intervenirbailleur);
+        ///////////////////////
     }
 
     public void initParcelleBafonNewOperation(TParcelleBafon pbf) {
         initParcelleBafonOperation(pbf, "NOUVELOPERATION");
+        ////////////initialisation des images//////////
+        initphoto("DETENTEUR", intervenirbailleur);
+        ///////////////////////
     }
 
     public void initParcelleBafonAfficheOperation(TParcelleBafon pbf) {
@@ -999,6 +1137,7 @@ public class TOperationParcelController implements Serializable {
                     }
                 } catch (Exception e) {
                     System.out.println("Pas de detenteur de DE " + e);
+                    nouveau();
                     FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Droit de detention : ", "Default de detenteur du droit de detention");
                     FacesContext.getCurrentInstance().addMessage(null, message);
 
@@ -1140,19 +1279,19 @@ public class TOperationParcelController implements Serializable {
         System.err.println(" Intervenir preneur " + intervenirPreneur.getInvNumero());
         try {
             TIntervenir inv;
-            if(intervenirPreneur.getInvNumero()!=null){
-            inv = ejbFacadeIntervenir.find(intervenirPreneur.getInvNumero());
-            try {
-                ejbFacadeIntervenir.edit(intervenirPreneur);
-                System.out.println(" Intervenir preneur Trouver ");
-            } catch (Exception e) {
-                System.out.println("Probleme modification intervenir preneur " + e);
-            }
-            }else{
-            System.out.println(" Intervenir preneur Non Trouver ");
-            intervenirControleur.GenererNumIntervenir();
-            intervenirPreneur.setInvNumero(intervenirControleur.getNewNumIntervenir());
-            ejbFacadeIntervenir.create(intervenirPreneur);
+            if (intervenirPreneur.getInvNumero() != null) {
+                inv = ejbFacadeIntervenir.find(intervenirPreneur.getInvNumero());
+                try {
+                    ejbFacadeIntervenir.edit(intervenirPreneur);
+                    System.out.println(" Intervenir preneur Trouver ");
+                } catch (Exception e) {
+                    System.out.println("Probleme modification intervenir preneur " + e);
+                }
+            } else {
+                System.out.println(" Intervenir preneur Non Trouver ");
+                intervenirControleur.GenererNumIntervenir();
+                intervenirPreneur.setInvNumero(intervenirControleur.getNewNumIntervenir());
+                ejbFacadeIntervenir.create(intervenirPreneur);
             }
         } catch (Exception e) {
             //jai deplacee le code d'ici vers le else; 
@@ -1188,7 +1327,7 @@ public class TOperationParcelController implements Serializable {
                 dex.setDreOpvNumero(selected);
                 dex.setDreIntNumero(intervenantPreneur);
                 try {
-                    System.out.println("Droit Exercer     ---------- "+dex.getDreCode());
+                    System.out.println("Droit Exercer     ---------- " + dex.getDreCode());
                     ejbFacadeDroitExerce.find(dex.getDreCode());
                     try {
                         ejbFacadeDroitExerce.edit(dex);
@@ -1205,15 +1344,15 @@ public class TOperationParcelController implements Serializable {
     private void creationTemoins() {
         ////persistance des temoins
         for (TIntervenir inv : listInvTemBail) {
-            
+
             try {
                 ejbFacadeIntervenir.remove(inv);
             } catch (Exception e) {
             }
-            
+
         }
         for (TIntervenir inv : listInvTemPren) {
-             try {
+            try {
                 ejbFacadeIntervenir.remove(inv);
             } catch (Exception e) {
             }
@@ -1225,7 +1364,7 @@ public class TOperationParcelController implements Serializable {
         roleTemoinPren = ejbFacaderole.find("R0018");
         //temoins bailleur
         for (TDepotSignature dep : listDepotSignTemBail) {
-            
+
             TIntervenir intervenir = new TIntervenir();
             intervenirControleur.GenererNumIntervenir();
             intervenir.setInvNumero(intervenirControleur.getNewNumIntervenir());
@@ -1236,7 +1375,7 @@ public class TOperationParcelController implements Serializable {
             intervenir.setInvRolCode(roleTemoinBail);
             intervenir.setInvIntNumero(dep.getDesiIntNumero());
             ejbFacadeIntervenir.create(intervenir);
-            System.out.println("Creation temoins "+intervenir.getInvNumero());
+            System.out.println("Creation temoins " + intervenir.getInvNumero());
         }
         //temoins preneur
         for (TDepotSignature dep : listDepotSignTemPren) {
@@ -1274,19 +1413,19 @@ public class TOperationParcelController implements Serializable {
         try {
             try {
                 TOperationParcel top;
-                if(selected.getOpvNumero()!=null){                  
-                top = ejbFacade.find(selected.getOpvNumero());
-                try {
-                    ejbFacade.edit(selected);
-                } catch (Exception e) {
-                    System.out.println("Probleme de modification de operation " + e);
+                if (selected.getOpvNumero() != null) {
+                    top = ejbFacade.find(selected.getOpvNumero());
+                    try {
+                        ejbFacade.edit(selected);
+                    } catch (Exception e) {
+                        System.out.println("Probleme de modification de operation " + e);
+                    }
+                } else {
+                    GenererNumOperation();
+                    selected.setOpvNumero(getNewNumeroOpParcelle());
+                    ejbFacade.create(selected);
                 }
-                }else{
-                 GenererNumOperation();
-                 selected.setOpvNumero(getNewNumeroOpParcelle());
-                 ejbFacade.create(selected);
-                }
-                
+//                ecrireDocumentJustif();
             } catch (EntityNotFoundException e) {
                 System.out.println("TOTOTOOT");
             }
@@ -1340,6 +1479,7 @@ public class TOperationParcelController implements Serializable {
 
         FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Enregistrement Operation parcelle", "Succès");
         FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
+        initphoto("DETENTEUR", intervenirbailleur);
     }
 
     public void supprimerOperation() {
@@ -1438,9 +1578,11 @@ public class TOperationParcelController implements Serializable {
     }
 
     public void nouveau() {
-        if(selected!=null){
-        modeAcquisition=selected.getOpvMacCode();
-        }      
+        if (selected != null) {
+            modeAcquisition = selected.getOpvMacCode();
+        }
+
+        cheminphotodetenteur = "AppliGeo/AppliGeoImage/defaultuserimage.png";
         selected = new TOperationParcel();
         selected.setOpvMacCode(modeAcquisition);
         intervenantBailleur = new TIntervenant();
@@ -1747,23 +1889,24 @@ public class TOperationParcelController implements Serializable {
             superficie = p.getHectares();
         } catch (Exception e) {
         }
-        
+
     }
 
-    private String parcelleLimitrophes(String pba,String pointcardino){
-        String limites="";
+    private String parcelleLimitrophes(String pba, String pointcardino) {
+        String limites = "";
         java.text.DecimalFormat df = new java.text.DecimalFormat("0.##");
         try {
-           List<TParcellePoca> listparcellepoca =ejbFacadeParcellePoca.executeLimite(pba, pointcardino);
-            for(TParcellePoca poca:listparcellepoca){              
-               limites+= df.format(poca.getPapoLongLimitroph().doubleValue())+" mètres par "+poca.getPapoPbaNumeroLimit().getPbaNumero()+" ; " ;
+            List<TParcellePoca> listparcellepoca = ejbFacadeParcellePoca.executeLimite(pba, pointcardino);
+            for (TParcellePoca poca : listparcellepoca) {
+                limites += df.format(poca.getPapoLongLimitroph().doubleValue()) + " mètres par " + poca.getPapoPbaNumeroLimit().getPbaNumero() + " ; ";
             }
         } catch (Exception e) {
-            System.out.println("Probeleme de selection de la limite "+e);
+            System.out.println("Probeleme de selection de la limite " + e);
         }
-         
-       return limites;
+
+        return limites;
     }
+
     /////////liste des operation selon la categorie de mode acquisition
     public void impressionOperationVente() throws JRException, ClassNotFoundException, SQLException, ParseException {
         String reportPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/vues/etat/conventionVente.jasper");
@@ -1771,24 +1914,24 @@ public class TOperationParcelController implements Serializable {
         File file = new File(reportPath);
         String civbail = "";
         String civpren = "";
-        
-        String Article11, Article12, Article21, Article22, Article23, Article24,Article31,Article32,Article41,Article42,Article43 = "";
-        String Article51,Article52="";
-        String signatureVendeur,signatureAcheteur,temoinVendeur1="",temoinVendeur2="",temoinVendeur3="";
-        String affirmation,textaffirmation,signatureAffirmation="";
-        String dateSignature="";
+
+        String Article11, Article12, Article21, Article22, Article23, Article24, Article31, Article32, Article41, Article42, Article43 = "";
+        String Article51, Article52 = "";
+        String signatureVendeur, signatureAcheteur, temoinVendeur1 = "", temoinVendeur2 = "", temoinVendeur3 = "";
+        String affirmation, textaffirmation, signatureAffirmation = "";
+        String dateSignature = "";
         try {
             Connection connection = dataSource.getConnection();
             System.out.println("Connexion " + connection.getCatalog());
             HashMap map = new HashMap();
             InitCivilite(intervenantBailleur);
             civbail = civilite;
-            civbailsufixe=civilitesuffixe;
+            civbailsufixe = civilitesuffixe;
             InitCivilite(intervenantPreneur);
-            
+
             civpren = civilite;
-            civprensufixe=civilitesuffixe;
-            
+            civprensufixe = civilitesuffixe;
+
             try {
                 initSuperficie(selected.getOpvPbaNumero());
             } catch (Exception e) {
@@ -1800,100 +1943,97 @@ public class TOperationParcelController implements Serializable {
                     + "     Zone lotie       Zone non lotie     [X] Village PFR       Village non PFR  "
                     + "N° d'état des lieux, ……………, Lot …………………… Numéro de l'immeuble " + selected.getOpvPbaNumero().getPbaNumero()
                     + " Village / Quartier de ville " + getVillagelib() + " Arrondissement " + selected.getOpvPbaNumero().getPbaVilaCode().getVilaArrCode().getArrDesig();
-            
+
             //////////////////recherche des limitrophes//////////////////////////////////////
-            Article21=parcelleLimitrophes(selected.getOpvPbaNumero().getPbaNumero(),"NORD");
-            Article21 = "- au Nord sur "+Article21+" \n";
-            Article22=parcelleLimitrophes(selected.getOpvPbaNumero().getPbaNumero(),"SUD");
-            Article22 = "- au Sud sur "+Article22+" \n";
-            Article23=parcelleLimitrophes(selected.getOpvPbaNumero().getPbaNumero(),"EST");
-            Article23 = "- à l’Est sur "+Article23+"\n";
-            Article24=parcelleLimitrophes(selected.getOpvPbaNumero().getPbaNumero(),"OUEST");
-            Article24 = "- à l’ouest sur "+Article24+"\n";
+            Article21 = parcelleLimitrophes(selected.getOpvPbaNumero().getPbaNumero(), "NORD");
+            Article21 = "- au Nord sur " + Article21 + " \n";
+            Article22 = parcelleLimitrophes(selected.getOpvPbaNumero().getPbaNumero(), "SUD");
+            Article22 = "- au Sud sur " + Article22 + " \n";
+            Article23 = parcelleLimitrophes(selected.getOpvPbaNumero().getPbaNumero(), "EST");
+            Article23 = "- à l’Est sur " + Article23 + "\n";
+            Article24 = parcelleLimitrophes(selected.getOpvPbaNumero().getPbaNumero(), "OUEST");
+            Article24 = "- à l’ouest sur " + Article24 + "\n";
             //////////////////FIN recherche des limitrophes//////////////////////////////////////
-            Article31="La présente vente est consentie moyennant la somme de : "+String.valueOf(selected.getOpvPrix())+" (en chiffres)";
-            
-            
-           // System.out.println("EN lettre "+Convert.FR(String.valueOf(selected.getOpvPrix())," FCFA",""));
-           
-            
-            if ( civbail.equals("M.")){
-                nomme ="le nommé ";
-                article="Le";
+            Article31 = "La présente vente est consentie moyennant la somme de : " + String.valueOf(selected.getOpvPrix()) + " (en chiffres)";
+
+            // System.out.println("EN lettre "+Convert.FR(String.valueOf(selected.getOpvPrix())," FCFA",""));
+            if (civbail.equals("M.")) {
+                nomme = "le nommé ";
+                article = "Le";
             }
-            
-            if ( civbail.equals("M.")){
-                pronom =" il ";
+
+            if (civbail.equals("M.")) {
+                pronom = " il ";
             }
-            
-            Article32=Convert.FR(String.valueOf(selected.getOpvPrix())," FCFA","")+" (en lettres)" +
-                      " que "+nomme + getCollectivite() + " " + getNom() + " " + getPrenom()+
-                      " déclare avoir intégralement perçue et dont"+pronom+"donne ici, bonne, valable et définitive quittance à " +
-                      civpren + " " + getNompreneur() + " " + getPrenompreneur();
-            
-            Article41="Le vendeur déclare être le présumé propriétaire de l'immeuble objet de la présente vente pour "
-                    + "l’avoir acquis auprès de "+intervenirbailleur.getInvDeQui()
+
+            Article32 = Convert.FR(String.valueOf(selected.getOpvPrix()), " FCFA", "") + " (en lettres)"
+                    + " que " + nomme + getCollectivite() + " " + getNom() + " " + getPrenom()
+                    + " déclare avoir intégralement perçue et dont" + pronom + "donne ici, bonne, valable et définitive quittance à "
+                    + civpren + " " + getNompreneur() + " " + getPrenompreneur();
+
+            Article41 = "Le vendeur déclare être le présumé propriétaire de l'immeuble objet de la présente vente pour "
+                    + "l’avoir acquis auprès de " + intervenirbailleur.getInvDeQui()
                     + " à titre onéreux ou par dévolution successorale.";
-             Article42=getCommunelib();
-             
-             Article43=sdf.format(selected.getOpvDateDeb());
-             dateSignature=sdf.format(selected.getOpvDateDeb());
-             if (selected.getOpvDateValidation()!=null){
-                 Article43=sdf.format(selected.getOpvDateValidation());
-                 dateSignature=sdf.format(selected.getOpvDateValidation());
-             }
-             ///////////////////////////////
-             Article51=article+ " VEND"+ civbailsufixe.toUpperCase() ;
-              Article52="L'ACHET"+civprensufixe.toUpperCase() ;
-             /////////Les signatures/////////////////////////////
-             signatureVendeur= getCollectivite() + " " + getNom() + " " + getPrenom();
-             signatureVendeur+="\n "+selected.getOpvDesiCode().getDesiReference();
-             signatureVendeur+=" du "+ sdf.format(selected.getOpvDesiCode().getDesiDateDeb());
-             signatureAcheteur=getNompreneur() + " " + getPrenompreneur();
-             signatureAcheteur+="\n "+intervenirPreneur.getInvDesiCode().getDesiReference();
-             signatureAcheteur+=" du "+ sdf.format(intervenirPreneur.getInvDesiCode().getDesiDateDeb());
-             //////////////////////les temoins du vendeur/////////////////////////////
-             int compt=0;
-             for(TDepotSignature depoSign:listDepotSignTemBail){
-                 compt++;
-                  if(compt==1){
-                      temoinVendeur1=depoSign.getDesiIntNumero().getIntNom()+" "+ depoSign.getDesiIntNumero().getIntPrenom();
-                      temoinVendeur1+="\n "+depoSign.getDesiReference();
-                      temoinVendeur1+=" du "+ sdf.format(depoSign.getDesiDateDeb());
-                  }   
-                  
-                  if(compt==2){
-                      temoinVendeur2=depoSign.getDesiIntNumero().getIntNom()+" "+ depoSign.getDesiIntNumero().getIntPrenom();
-                      temoinVendeur2+="\n "+depoSign.getDesiReference();
-                      temoinVendeur2+=" du "+ sdf.format(depoSign.getDesiDateDeb());
-                  }   
-                  
-                  if(compt==3){
-                      temoinVendeur3=depoSign.getDesiIntNumero().getIntNom()+" "+ depoSign.getDesiIntNumero().getIntPrenom();
-                      temoinVendeur3+="\n "+depoSign.getDesiReference();
-                      temoinVendeur3+=" du "+ sdf.format(depoSign.getDesiDateDeb());
-                  }   
-             }
-             
-             affirmation="AFFIRMATION N° "+selected.getOpvNumeroAffirmation();
-             
-             textaffirmation="Devant nous "+selected.getOpvSignCode().getSignNom()+" "+selected.getOpvSignCode().getSignPrenom()+" "+selected.getOpvSignCode().getSignFonction()
-                     +" de la Commune de "+getCommunelib()
-                     + ", se sont présentés, le présumé propriétaire "+ getCollectivite() + " " + getNom() + " " + getPrenom()
-                     + ", né le / vers ……………………………….……… à "+intervenantBailleur.getIntLieuNaiss()+", sexe "+intervenantBailleur.getIntSexe()
-                     + ", profession "+intervenantBailleur.getIntActCode().getActDesig()+", lieu de résidence "+intervenantBailleur.getIntDomicile()
-                     + " et ses trois (03) témoins dénommés à la présente convention.\n"
-                     + "Lesquels, après lecture à eux faite et traduction au besoin en leur propre langue de la "
-                     + "teneur de l’acte, en notre présence, "
-                     + "par le nommé "+selected.getOpvNomInterprete() 
-                     + ", interprète assermenté, ont formellement déclaré et affirmé en comprendre le sens.\n"
-                     +"Le présumé propriétaire a en outre déclaré et affirmé en accepter les termes et s’oblige"
-                     + " à les exécuter loyalement.\n"
-                     +"Les témoins ont également déclaré et affirmé en reconnaître la parfaite régularité.\n"
-                     +"Ce que nous certifions à toutes fins de droit.\n\n";
-                     signatureAffirmation="Fait à "+getCommunelib()+", le "+dateSignature+"\n\n"
-                     +"Le Maire, \n\n\n\n"+selected.getOpvSignCode().getSignNom()+" "+selected.getOpvSignCode().getSignPrenom();
-             
+            Article42 = getCommunelib();
+
+            Article43 = sdf.format(selected.getOpvDateDeb());
+            dateSignature = sdf.format(selected.getOpvDateDeb());
+            if (selected.getOpvDateValidation() != null) {
+                Article43 = sdf.format(selected.getOpvDateValidation());
+                dateSignature = sdf.format(selected.getOpvDateValidation());
+            }
+            ///////////////////////////////
+            Article51 = article + " VEND" + civbailsufixe.toUpperCase();
+            Article52 = "L'ACHET" + civprensufixe.toUpperCase();
+            /////////Les signatures/////////////////////////////
+            signatureVendeur = getCollectivite() + " " + getNom() + " " + getPrenom();
+            signatureVendeur += "\n " + selected.getOpvDesiCode().getDesiReference();
+            signatureVendeur += " du " + sdf.format(selected.getOpvDesiCode().getDesiDateDeb());
+            signatureAcheteur = getNompreneur() + " " + getPrenompreneur();
+            signatureAcheteur += "\n " + intervenirPreneur.getInvDesiCode().getDesiReference();
+            signatureAcheteur += " du " + sdf.format(intervenirPreneur.getInvDesiCode().getDesiDateDeb());
+            //////////////////////les temoins du vendeur/////////////////////////////
+            int compt = 0;
+            for (TDepotSignature depoSign : listDepotSignTemBail) {
+                compt++;
+                if (compt == 1) {
+                    temoinVendeur1 = depoSign.getDesiIntNumero().getIntNom() + " " + depoSign.getDesiIntNumero().getIntPrenom();
+                    temoinVendeur1 += "\n " + depoSign.getDesiReference();
+                    temoinVendeur1 += " du " + sdf.format(depoSign.getDesiDateDeb());
+                }
+
+                if (compt == 2) {
+                    temoinVendeur2 = depoSign.getDesiIntNumero().getIntNom() + " " + depoSign.getDesiIntNumero().getIntPrenom();
+                    temoinVendeur2 += "\n " + depoSign.getDesiReference();
+                    temoinVendeur2 += " du " + sdf.format(depoSign.getDesiDateDeb());
+                }
+
+                if (compt == 3) {
+                    temoinVendeur3 = depoSign.getDesiIntNumero().getIntNom() + " " + depoSign.getDesiIntNumero().getIntPrenom();
+                    temoinVendeur3 += "\n " + depoSign.getDesiReference();
+                    temoinVendeur3 += " du " + sdf.format(depoSign.getDesiDateDeb());
+                }
+            }
+
+            affirmation = "AFFIRMATION N° " + selected.getOpvNumeroAffirmation();
+
+            textaffirmation = "Devant nous " + selected.getOpvSignCode().getSignNom() + " " + selected.getOpvSignCode().getSignPrenom() + " " + selected.getOpvSignCode().getSignFonction()
+                    + " de la Commune de " + getCommunelib()
+                    + ", se sont présentés, le présumé propriétaire " + getCollectivite() + " " + getNom() + " " + getPrenom()
+                    + ", né le / vers ……………………………….……… à " + intervenantBailleur.getIntLieuNaiss() + ", sexe " + intervenantBailleur.getIntSexe()
+                    + ", profession " + intervenantBailleur.getIntActCode().getActDesig() + ", lieu de résidence " + intervenantBailleur.getIntDomicile()
+                    + " et ses trois (03) témoins dénommés à la présente convention.\n"
+                    + "Lesquels, après lecture à eux faite et traduction au besoin en leur propre langue de la "
+                    + "teneur de l’acte, en notre présence, "
+                    + "par le nommé " + selected.getOpvNomInterprete()
+                    + ", interprète assermenté, ont formellement déclaré et affirmé en comprendre le sens.\n"
+                    + "Le présumé propriétaire a en outre déclaré et affirmé en accepter les termes et s’oblige"
+                    + " à les exécuter loyalement.\n"
+                    + "Les témoins ont également déclaré et affirmé en reconnaître la parfaite régularité.\n"
+                    + "Ce que nous certifions à toutes fins de droit.\n\n";
+            signatureAffirmation = "Fait à " + getCommunelib() + ", le " + dateSignature + "\n\n"
+                    + "Le Maire, \n\n\n\n" + selected.getOpvSignCode().getSignNom() + " " + selected.getOpvSignCode().getSignPrenom();
+
             //////Initialisation des parametres///////////////
             map.put("ParamDepartement", "DEPARTEMENT DU " + getDepartementlib());
             map.put("ParamCommune", "COMMUNE DE " + getCommunelib());
@@ -1913,7 +2053,7 @@ public class TOperationParcelController implements Serializable {
             /////////////commune et date etablissement//////////
             map.put("ParamArticle42", Article42);
             map.put("ParamArticle43", Article43);
-           
+
             /////////bloc signatqire//////////////////////////
             map.put("ParamArticle51", Article51);
             map.put("ParamArticle52", Article52);
@@ -1923,9 +2063,9 @@ public class TOperationParcelController implements Serializable {
             map.put("temoinVendeur2", temoinVendeur2);
             map.put("temoinVendeur3", temoinVendeur3);
             ///////////affirmation//////////////////////
-            map.put("affirmation", affirmation);   
-            map.put("textaffirmation", textaffirmation);  
-            map.put("signatureAffirmation", signatureAffirmation);  
+            map.put("affirmation", affirmation);
+            map.put("textaffirmation", textaffirmation);
+            map.put("signatureAffirmation", signatureAffirmation);
 //            parcelleLimitrophes();
 
             jasperPrint = JasperFillManager.fillReport(file.getPath(), map, connection);
@@ -1946,215 +2086,212 @@ public class TOperationParcelController implements Serializable {
             System.out.println(e);
         }
     }
-    private String droitArbre(TIntervenir inter){
-        String droitarb="";
-        if (inter.getInvLimitPlanter().equals("0")){
-            droitarb="Droit de planter ; ";
-        }else{
-            droitarb="Interdiction de planter ; ";
+
+    private String droitArbre(TIntervenir inter) {
+        String droitarb = "";
+        if (inter.getInvLimitPlanter().equals("0")) {
+            droitarb = "Droit de planter ; ";
+        } else {
+            droitarb = "Interdiction de planter ; ";
         }
-        
-        if (inter.getInvLimitRecolterFruit().equals("0")){
-            droitarb+="Droit de recolter les fruits  ";
-        }else{
-            droitarb+="Interdiction de recolter les fruits  ";
+
+        if (inter.getInvLimitRecolterFruit().equals("0")) {
+            droitarb += "Droit de recolter les fruits  ";
+        } else {
+            droitarb += "Interdiction de recolter les fruits  ";
         }
         return droitarb;
     }
-    
-    private String amenagementAccordes(TIntervenir inter){
-        String droitamena="";
-        if (inter.getInvLimitConstruireCase().equals("0")){
-            droitamena="Construction ; ";
-        }else{
-            droitamena="";
+
+    private String amenagementAccordes(TIntervenir inter) {
+        String droitamena = "";
+        if (inter.getInvLimitConstruireCase().equals("0")) {
+            droitamena = "Construction ; ";
+        } else {
+            droitamena = "";
         }
-        
-        if (inter.getInvLimitHabiterTerrain().equals("0")){
-            droitamena+=" habitation ";
-        }else{
-            droitamena+=" ";
-        }  
+
+        if (inter.getInvLimitHabiterTerrain().equals("0")) {
+            droitamena += " habitation ";
+        } else {
+            droitamena += " ";
+        }
         return droitamena;
     }
+
     public void impressionOperationAffermage() throws JRException, ClassNotFoundException, SQLException, ParseException {
         String reportPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/vues/etat/affermage.jasper");
         File file = new File(reportPath);
         String civbail = "";
         String civpren = "";
-        
-        String Bailleur, Preneur, Immeuble, Condition, Obligations, Resolution,Litige,temoinAcheteur2,temoinAcheteur1,Article42,Article43 = "";
-        String Article51,Article52="";
-        String signatureVendeur,signatureAcheteur,temoinVendeur1="",temoinVendeur2="",temoinVendeur3="";
-        String affirmation,textaffirmation,signatureAffirmation="";
-        String dateSignature="";
+
+        String Bailleur, Preneur, Immeuble, Condition, Obligations, Resolution, Litige, temoinAcheteur2, temoinAcheteur1, Article42, Article43 = "";
+        String Article51, Article52 = "";
+        String signatureVendeur, signatureAcheteur, temoinVendeur1 = "", temoinVendeur2 = "", temoinVendeur3 = "";
+        String affirmation, textaffirmation, signatureAffirmation = "";
+        String dateSignature = "";
         try {
             Connection connection = dataSource.getConnection();
             System.out.println("Connexion " + connection.getCatalog());
             HashMap map = new HashMap();
             InitCivilite(intervenantBailleur);
             civbail = civilite;
-            civbailsufixe=civilitesuffixe;
+            civbailsufixe = civilitesuffixe;
             InitCivilite(intervenantPreneur);
             civpren = civilite;
-            civprensufixe=civilitesuffixe;
-            
+            civprensufixe = civilitesuffixe;
+
 //            try {
 //                initSuperficie(selected.getOpvPbaNumero());
 //            } catch (Exception e) {
 //            }
-            
-            
-           // Article11 = civbail + " " + getCollectivite() + " " + getNom() + " " + getPrenom() + ", dénommé(e), \n";
-                   
-            Bailleur="Nom : "+ getCollectivite() + " " + getNom() +"\n" +
-                     "Prénoms :	"+ getPrenom()+"	\n" +
-                     "Sexe : "+intervenantBailleur.getIntSexe()+"\n" +
-                     "Référence pièce d'identité : "+((intervenirbailleur.getInvCiPp()==null)? "":intervenirbailleur.getInvCiPp())+"\n" +
-                     "Profession : "+((intervenantBailleur.getIntActCode()==null)? "":intervenantBailleur.getIntActCode().getActDesig())+"\n" +
-                     "Village/Quartier d’origine :"+((intervenantBailleur.getIntVilaCode()==null)? "":intervenantBailleur.getIntVilaCode().getVlaDesig())+"\n" +
-                     "Arrondissement : "+((intervenantBailleur.getIntVilaCode()==null)? "":intervenantBailleur.getIntVilaCode().getVilaArrCode().getArrDesig())+"\n" +
-                     "Commune. : "+((intervenantBailleur.getIntVilaCode()==null)? "":intervenantBailleur.getIntVilaCode().getVilaArrCode().getArrComCode().getComDesig())+"\n" +
-                     "Qualité   : "+((intervenirbailleur.getInvRolCode()==null)? "":intervenirbailleur.getInvRolCode().getRolDesig())+"\n" +
-                     "Lieu de résidence :"+((intervenantBailleur.getIntDomicile()==null)? "":intervenantBailleur.getIntDomicile())+"\n" +
-                     "Téléphone : "+((intervenantBailleur.getIntTelephone()==null)? "":intervenantBailleur.getIntTelephone());
-            
-            Preneur="Nom : "+ getNompreneur()+"\n" +
-                     "Prénoms :	"+ getPrenompreneur()+"\n" +
-                     "Sexe : "+intervenantPreneur.getIntSexe()+"\n" +
-                     "Référence pièce d'identité : "+((intervenirPreneur.getInvCiPp()==null)? "":intervenirPreneur.getInvCiPp())+"\n" +
-                     "Profession : "+((intervenantPreneur.getIntActCode()==null)? "":intervenantPreneur.getIntActCode().getActDesig())+"\n" +
-                     "Village/Quartier d’origine : "+((intervenantPreneur.getIntVilaCode()==null)? "":intervenantPreneur.getIntVilaCode().getVlaDesig())+"\n" +
-                     "Arrondissement :"+((intervenantPreneur.getIntVilaCode()==null)? "":intervenantPreneur.getIntVilaCode().getVilaArrCode().getArrDesig())+"\n" +
-                     "Commune. :"+((intervenantPreneur.getIntVilaCode()==null)? "":intervenantPreneur.getIntVilaCode().getVilaArrCode().getArrComCode().getComDesig())+"\n" +
-                     "Agissant au nom et pour le compte de :"+((intervenirPreneur.getInvObservation()==null)? "":intervenirPreneur.getInvObservation())+"\n" +
-                     "Lieu de résidence : "+((intervenantPreneur.getIntDomicile()==null)? "":intervenantPreneur.getIntDomicile())+"\n" +
-                     "Téléphone : "+((intervenantPreneur.getIntTelephone()==null)? "":intervenantPreneur.getIntTelephone());
-            Immeuble="Il a été convenu et arrêté entre les soussignés ci-dessus ce qui suit : \n" +
-                    "Le détenteur loue au locataire qui accepte un immeuble ayant les caractéristiques ci-après :\n" +
-                    "Commune : "+getCommunelib()+" Arrondissement : "+getArrondissementlib()+" \n" +
-                    "Village/quartier de ville : "+getVillagelib()+" hameau/lieu dit : "+((selected.getOpvPbaNumero()==null)? "":selected.getOpvPbaNumero().getPbaLieuDit()) +"\n" +
-                    "Forme : "+((selected.getOpvPbaNumero().getPbaForme()==null)? "":selected.getOpvPbaNumero().getPbaForme())+" Superficie : " +((superficie==null)? "":superficie)  + "\n" +
-                    "En cas de Plan foncier rural (PFR) du village : numéro de l'immeuble "+((selected.getOpvPbaNumero()==null)? "":selected.getOpvPbaNumero().getPbaNumero())+"\n" +
-                    "En cas de lotissement, de RFU ou d’adresse de collecte des ordures : numéro de l'immeuble ";
-            String duree=selected.getOpvDuree().toString();
-            String d1=sdf.format(selected.getOpvDateDeb());
-            String d2=sdf.format(selected.getOpvDateFin());
-            Condition="3.1 - Durée du contrat : "+duree+" pour compter de : "+d1+" fin de la location : "+d2+"\n" +
-                    "3.2 - Montant de la location : "+selected.getOpvPrix()+"\n" +
-                    " par (spécifier la période) : "+selected.getOpvCopCode().getCopDesig()+"\n" +
-                    "3.3 - Modalités de paiement : "+selected.getOpvAutremodalite()+"\n" +
-                    "3.4 - Droits sur les arbres : "+droitArbre(intervenirPreneur)+"\n" +
-                    "3.5 - Aménagements autorisés : "+amenagementAccordes(intervenirPreneur)+"\n" +
-                    "3.6 - Autres conditions : "+selected.getOpvCopAutre()+" \n" ;
-            
-            Obligations="4.1 - Le preneur s’engage à :\n" +
-                        "- respecter les conditions de la location ;\n" +
-                        "- ne pas installer un tiers sur l'immeuble sans l’accord écrit du détenteur ;\n" +
-                        "- ne pas dépasser la superficie louée sans l’accord écrit du détenteur constaté par un \n avenant ;\n" +
-                        "- restituer l'immeuble loué à l’expiration du délai contractuel ou solliciter une prorogation par \n écrit ;\n" +
-                        "- en cas de décès du détenteur pendant la durée contractuelle, reconnaître à ses héritiers \n les droits acquis par le de cujus aux termes du présent contrat pour la période restant à courir.\n" +
-                        "\n" +
-                        "4.2 - Le bailleur s’engage à :\n" +
-                        "- respecter rigoureusement les clauses du contrat, notamment celles relatives à la durée et \n aux droits accordés ;\n" +
-                        "- ne pas créer des troubles de jouissance au preneur ;\n" +
-                        "- ne pas empêcher le preneur de tester ou d’utiliser des mesures d’amélioration de la \n productivité agricole sur la parcelle louée ;\n" +
-                        "- en cas de décès du preneur pendant la durée contractuelle, reconnaître à ses héritiers les \n droits acquis par le de cujus  aux termes du présent contrat pour la période restant à courir.";
-             
-            Resolution="Le contrat ne peut prendre fin qu’à la date prévue. Toutefois, le non respect par le preneur de l’une \n"
+            // Article11 = civbail + " " + getCollectivite() + " " + getNom() + " " + getPrenom() + ", dénommé(e), \n";
+            Bailleur = "Nom : " + getCollectivite() + " " + getNom() + "\n"
+                    + "Prénoms :	" + getPrenom() + "	\n"
+                    + "Sexe : " + intervenantBailleur.getIntSexe() + "\n"
+                    + "Référence pièce d'identité : " + ((intervenirbailleur.getInvCiPp() == null) ? "" : intervenirbailleur.getInvCiPp()) + "\n"
+                    + "Profession : " + ((intervenantBailleur.getIntActCode() == null) ? "" : intervenantBailleur.getIntActCode().getActDesig()) + "\n"
+                    + "Village/Quartier d’origine :" + ((intervenantBailleur.getIntVilaCode() == null) ? "" : intervenantBailleur.getIntVilaCode().getVlaDesig()) + "\n"
+                    + "Arrondissement : " + ((intervenantBailleur.getIntVilaCode() == null) ? "" : intervenantBailleur.getIntVilaCode().getVilaArrCode().getArrDesig()) + "\n"
+                    + "Commune. : " + ((intervenantBailleur.getIntVilaCode() == null) ? "" : intervenantBailleur.getIntVilaCode().getVilaArrCode().getArrComCode().getComDesig()) + "\n"
+                    + "Qualité   : " + ((intervenirbailleur.getInvRolCode() == null) ? "" : intervenirbailleur.getInvRolCode().getRolDesig()) + "\n"
+                    + "Lieu de résidence :" + ((intervenantBailleur.getIntDomicile() == null) ? "" : intervenantBailleur.getIntDomicile()) + "\n"
+                    + "Téléphone : " + ((intervenantBailleur.getIntTelephone() == null) ? "" : intervenantBailleur.getIntTelephone());
+
+            Preneur = "Nom : " + getNompreneur() + "\n"
+                    + "Prénoms :	" + getPrenompreneur() + "\n"
+                    + "Sexe : " + intervenantPreneur.getIntSexe() + "\n"
+                    + "Référence pièce d'identité : " + ((intervenirPreneur.getInvCiPp() == null) ? "" : intervenirPreneur.getInvCiPp()) + "\n"
+                    + "Profession : " + ((intervenantPreneur.getIntActCode() == null) ? "" : intervenantPreneur.getIntActCode().getActDesig()) + "\n"
+                    + "Village/Quartier d’origine : " + ((intervenantPreneur.getIntVilaCode() == null) ? "" : intervenantPreneur.getIntVilaCode().getVlaDesig()) + "\n"
+                    + "Arrondissement :" + ((intervenantPreneur.getIntVilaCode() == null) ? "" : intervenantPreneur.getIntVilaCode().getVilaArrCode().getArrDesig()) + "\n"
+                    + "Commune. :" + ((intervenantPreneur.getIntVilaCode() == null) ? "" : intervenantPreneur.getIntVilaCode().getVilaArrCode().getArrComCode().getComDesig()) + "\n"
+                    + "Agissant au nom et pour le compte de :" + ((intervenirPreneur.getInvObservation() == null) ? "" : intervenirPreneur.getInvObservation()) + "\n"
+                    + "Lieu de résidence : " + ((intervenantPreneur.getIntDomicile() == null) ? "" : intervenantPreneur.getIntDomicile()) + "\n"
+                    + "Téléphone : " + ((intervenantPreneur.getIntTelephone() == null) ? "" : intervenantPreneur.getIntTelephone());
+            Immeuble = "Il a été convenu et arrêté entre les soussignés ci-dessus ce qui suit : \n"
+                    + "Le détenteur loue au locataire qui accepte un immeuble ayant les caractéristiques ci-après :\n"
+                    + "Commune : " + getCommunelib() + " Arrondissement : " + getArrondissementlib() + " \n"
+                    + "Village/quartier de ville : " + getVillagelib() + " hameau/lieu dit : " + ((selected.getOpvPbaNumero() == null) ? "" : selected.getOpvPbaNumero().getPbaLieuDit()) + "\n"
+                    + "Forme : " + ((selected.getOpvPbaNumero().getPbaForme() == null) ? "" : selected.getOpvPbaNumero().getPbaForme()) + " Superficie : " + ((superficie == null) ? "" : superficie) + "\n"
+                    + "En cas de Plan foncier rural (PFR) du village : numéro de l'immeuble " + ((selected.getOpvPbaNumero() == null) ? "" : selected.getOpvPbaNumero().getPbaNumero()) + "\n"
+                    + "En cas de lotissement, de RFU ou d’adresse de collecte des ordures : numéro de l'immeuble ";
+            String duree = selected.getOpvDuree().toString();
+            String d1 = sdf.format(selected.getOpvDateDeb());
+            String d2 = sdf.format(selected.getOpvDateFin());
+            Condition = "3.1 - Durée du contrat : " + duree + " pour compter de : " + d1 + " fin de la location : " + d2 + "\n"
+                    + "3.2 - Montant de la location : " + selected.getOpvPrix() + "\n"
+                    + " par (spécifier la période) : " + selected.getOpvCopCode().getCopDesig() + "\n"
+                    + "3.3 - Modalités de paiement : " + selected.getOpvAutremodalite() + "\n"
+                    + "3.4 - Droits sur les arbres : " + droitArbre(intervenirPreneur) + "\n"
+                    + "3.5 - Aménagements autorisés : " + amenagementAccordes(intervenirPreneur) + "\n"
+                    + "3.6 - Autres conditions : " + selected.getOpvCopAutre() + " \n";
+
+            Obligations = "4.1 - Le preneur s’engage à :\n"
+                    + "- respecter les conditions de la location ;\n"
+                    + "- ne pas installer un tiers sur l'immeuble sans l’accord écrit du détenteur ;\n"
+                    + "- ne pas dépasser la superficie louée sans l’accord écrit du détenteur constaté par un \n avenant ;\n"
+                    + "- restituer l'immeuble loué à l’expiration du délai contractuel ou solliciter une prorogation par \n écrit ;\n"
+                    + "- en cas de décès du détenteur pendant la durée contractuelle, reconnaître à ses héritiers \n les droits acquis par le de cujus aux termes du présent contrat pour la période restant à courir.\n"
+                    + "\n"
+                    + "4.2 - Le bailleur s’engage à :\n"
+                    + "- respecter rigoureusement les clauses du contrat, notamment celles relatives à la durée et \n aux droits accordés ;\n"
+                    + "- ne pas créer des troubles de jouissance au preneur ;\n"
+                    + "- ne pas empêcher le preneur de tester ou d’utiliser des mesures d’amélioration de la \n productivité agricole sur la parcelle louée ;\n"
+                    + "- en cas de décès du preneur pendant la durée contractuelle, reconnaître à ses héritiers les \n droits acquis par le de cujus  aux termes du présent contrat pour la période restant à courir.";
+
+            Resolution = "Le contrat ne peut prendre fin qu’à la date prévue. Toutefois, le non respect par le preneur de l’une \n"
                     + "quelconque de ses obligations peut entraîner la rupture du contrat par le détenteur après un préavis \n"
                     + "écrit de .......... mois resté infructueux, constaté par la Section Villageoise de Gestion Foncière (SVGF)\n"
-                    + "ou le chef quartier le cas échéant.\n" +
-                    "Si le preneur décide avant l’échéance de résilier le contrat pour des raisons de convenance \n"
+                    + "ou le chef quartier le cas échéant.\n"
+                    + "Si le preneur décide avant l’échéance de résilier le contrat pour des raisons de convenance \n"
                     + "personnelle, il ne pourrait prétendre à la récupération des loyers versés, ni à des dommages-intérêts, \n"
                     + "sauf clause contraire expressément définie à l’avance.\n";
 
-            Litige="Pour tous litiges pouvant naître de l’interprétation ou de l’exécution du présent contrat, le bailleur et le \n"
+            Litige = "Pour tous litiges pouvant naître de l’interprétation ou de l’exécution du présent contrat, le bailleur et le \n"
                     + "preneur déclarent privilégier une tentative de règlement amiable par la médiation d’une instance locale \n"
                     + "ou d’une personne choisie d’un commun accord ou une conciliation par le tribunal de conciliation situé \n"
-                    + "dans la même commune que la parcelle. \n" +
-                       "\n" +
-                    "Dans tous les cas, le recours au témoignage ou à  la Section villageoise de gestion foncière (SVGF) ou, \n"
-                    + "à défaut, aux anciens du village/quartier est obligatoire.\n\n";         
-            if ( civbail.equals("M.")){
-                nomme ="le nommé ";
-                article="Le";
+                    + "dans la même commune que la parcelle. \n"
+                    + "\n"
+                    + "Dans tous les cas, le recours au témoignage ou à  la Section villageoise de gestion foncière (SVGF) ou, \n"
+                    + "à défaut, aux anciens du village/quartier est obligatoire.\n\n";
+            if (civbail.equals("M.")) {
+                nomme = "le nommé ";
+                article = "Le";
             }
-            
-            if ( civbail.equals("M.")){
-                pronom =" il ";
+
+            if (civbail.equals("M.")) {
+                pronom = " il ";
             }
-                Article42=getCommunelib();
+            Article42 = getCommunelib();
 //             
-                Article43=sdf.format(selected.getOpvDateDeb());
-                dateSignature=sdf.format(selected.getOpvDateDeb());
-             if (selected.getOpvDateValidation()!=null){
-                 Article43=sdf.format(selected.getOpvDateValidation());
-                 dateSignature=sdf.format(selected.getOpvDateValidation());
-             }
+            Article43 = sdf.format(selected.getOpvDateDeb());
+            dateSignature = sdf.format(selected.getOpvDateDeb());
+            if (selected.getOpvDateValidation() != null) {
+                Article43 = sdf.format(selected.getOpvDateValidation());
+                dateSignature = sdf.format(selected.getOpvDateValidation());
+            }
 //             ///////////////////////////////
 //             /////////Les signatures/////////////////////////////
-             signatureVendeur= getCollectivite() + " " + getNom() + " " + getPrenom();
-             signatureVendeur+="\n\n "+selected.getOpvDesiCode().getDesiReference();
-             signatureVendeur+=" du "+ sdf.format(selected.getOpvDesiCode().getDesiDateDeb());
-             
-             signatureAcheteur=getNompreneur() + " " + getPrenompreneur();
-             signatureAcheteur+="\n\n "+intervenirPreneur.getInvDesiCode().getDesiReference();
-             signatureAcheteur+=" du "+ sdf.format(intervenirPreneur.getInvDesiCode().getDesiDateDeb());
-             
-             
-             
-             //////////////////////les temoins du vendeur/////////////////////////////
-             int compt=0;
-             for(TDepotSignature depoSign:listDepotSignTemBail){
-                 compt++;
-                  if(compt==1){
-                      temoinVendeur1=depoSign.getDesiIntNumero().getIntNom()+" "+ depoSign.getDesiIntNumero().getIntPrenom();
-                      temoinVendeur1+="\n\n "+depoSign.getDesiReference();
-                      temoinVendeur1+=" du "+ sdf.format(depoSign.getDesiDateDeb());
-                  }   
-                  
-                  if(compt==2){
-                      temoinVendeur2=depoSign.getDesiIntNumero().getIntNom()+" "+ depoSign.getDesiIntNumero().getIntPrenom();
-                      temoinVendeur2+="\n\n "+depoSign.getDesiReference();
-                      temoinVendeur2+=" du "+ sdf.format(depoSign.getDesiDateDeb());
-                  }   
-                    
-             }
-             temoinAcheteur1="";
-             temoinAcheteur2="";
-              compt=0;
-             for(TDepotSignature depoSign:listDepotSignTemPren){
-                 compt++;
-                  if(compt==1){
-                      temoinAcheteur1=depoSign.getDesiIntNumero().getIntNom()+" "+ depoSign.getDesiIntNumero().getIntPrenom();
-                      temoinAcheteur1+="\n\n "+depoSign.getDesiReference();
-                      temoinAcheteur1+=" du "+ sdf.format(depoSign.getDesiDateDeb());
-                  }   
-                  
-                  if(compt==2){
-                      temoinAcheteur2=depoSign.getDesiIntNumero().getIntNom()+" "+ depoSign.getDesiIntNumero().getIntPrenom();
-                      temoinAcheteur2+="\n\n "+depoSign.getDesiReference();
-                      temoinAcheteur2+=" du "+ sdf.format(depoSign.getDesiDateDeb());
-                  }   
-                     
-             }
-           
-             affirmation="Enregistré sous le numéro : "+selected.getOpvNumeroAffirmation();
-             affirmation+="\n Le Président de la SVGF/Chef quartier de ville";
-           
+            signatureVendeur = getCollectivite() + " " + getNom() + " " + getPrenom();
+            signatureVendeur += "\n\n " + selected.getOpvDesiCode().getDesiReference();
+            signatureVendeur += " du " + sdf.format(selected.getOpvDesiCode().getDesiDateDeb());
+
+            signatureAcheteur = getNompreneur() + " " + getPrenompreneur();
+            signatureAcheteur += "\n\n " + intervenirPreneur.getInvDesiCode().getDesiReference();
+            signatureAcheteur += " du " + sdf.format(intervenirPreneur.getInvDesiCode().getDesiDateDeb());
+
+            //////////////////////les temoins du vendeur/////////////////////////////
+            int compt = 0;
+            for (TDepotSignature depoSign : listDepotSignTemBail) {
+                compt++;
+                if (compt == 1) {
+                    temoinVendeur1 = depoSign.getDesiIntNumero().getIntNom() + " " + depoSign.getDesiIntNumero().getIntPrenom();
+                    temoinVendeur1 += "\n\n " + depoSign.getDesiReference();
+                    temoinVendeur1 += " du " + sdf.format(depoSign.getDesiDateDeb());
+                }
+
+                if (compt == 2) {
+                    temoinVendeur2 = depoSign.getDesiIntNumero().getIntNom() + " " + depoSign.getDesiIntNumero().getIntPrenom();
+                    temoinVendeur2 += "\n\n " + depoSign.getDesiReference();
+                    temoinVendeur2 += " du " + sdf.format(depoSign.getDesiDateDeb());
+                }
+
+            }
+            temoinAcheteur1 = "";
+            temoinAcheteur2 = "";
+            compt = 0;
+            for (TDepotSignature depoSign : listDepotSignTemPren) {
+                compt++;
+                if (compt == 1) {
+                    temoinAcheteur1 = depoSign.getDesiIntNumero().getIntNom() + " " + depoSign.getDesiIntNumero().getIntPrenom();
+                    temoinAcheteur1 += "\n\n " + depoSign.getDesiReference();
+                    temoinAcheteur1 += " du " + sdf.format(depoSign.getDesiDateDeb());
+                }
+
+                if (compt == 2) {
+                    temoinAcheteur2 = depoSign.getDesiIntNumero().getIntNom() + " " + depoSign.getDesiIntNumero().getIntPrenom();
+                    temoinAcheteur2 += "\n\n " + depoSign.getDesiReference();
+                    temoinAcheteur2 += " du " + sdf.format(depoSign.getDesiDateDeb());
+                }
+
+            }
+
+            affirmation = "Enregistré sous le numéro : " + selected.getOpvNumeroAffirmation();
+            affirmation += "\n Le Président de la SVGF/Chef quartier de ville";
+
             //////Initialisation des parametres///////////////
             map.put("ParamOpvNum", selected.getOpvNumero());
-            map.put("Village",getVillagelib());
-            map.put("Commune",getCommunelib());
-            map.put("Arrondissement",getArrondissementlib());
-            map.put("Bailleur",Bailleur);
-            map.put("Preneur",Preneur);
-            map.put("Immeuble",Immeuble);
-            map.put("Condition",Condition);
-            map.put("Obligations",Obligations);
-            map.put("Litige",Litige);
-            map.put("Resolution",Resolution);
+            map.put("Village", getVillagelib());
+            map.put("Commune", getCommunelib());
+            map.put("Arrondissement", getArrondissementlib());
+            map.put("Bailleur", Bailleur);
+            map.put("Preneur", Preneur);
+            map.put("Immeuble", Immeuble);
+            map.put("Condition", Condition);
+            map.put("Obligations", Obligations);
+            map.put("Litige", Litige);
+            map.put("Resolution", Resolution);
 
             /////////////commune et date etablissement//////////
             map.put("ParamArticle42", Article42);
@@ -2168,7 +2305,7 @@ public class TOperationParcelController implements Serializable {
             map.put("temoinAcheteur1", temoinAcheteur1);
             map.put("temoinAcheteur2", temoinAcheteur2);
 //            ///////////affirmation//////////////////////
-            map.put("signatureAffirmation", affirmation);   
+            map.put("signatureAffirmation", affirmation);
 
             jasperPrint = JasperFillManager.fillReport(file.getPath(), map, connection);
             System.out.println("Taille liste classe --> " + jasperPrint.getPages().size());
@@ -2187,178 +2324,174 @@ public class TOperationParcelController implements Serializable {
             System.out.println(e);
         }
     }
-    
+
     public void impressionOperationMetayage() throws JRException, ClassNotFoundException, SQLException, ParseException {
         String reportPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/vues/etat/metayage.jasper");
         File file = new File(reportPath);
         String civbail = "";
         String civpren = "";
-        
-        String Bailleur, Preneur, Immeuble, Condition, Obligations, Resolution,Litige,temoinAcheteur2,temoinAcheteur1,Article42,Article43 = "";
-        String Article51,Article52="";
-        String signatureVendeur,signatureAcheteur,temoinVendeur1="",temoinVendeur2="",temoinVendeur3="";
-        String affirmation,textaffirmation,signatureAffirmation="";
-        String dateSignature="";
+
+        String Bailleur, Preneur, Immeuble, Condition, Obligations, Resolution, Litige, temoinAcheteur2, temoinAcheteur1, Article42, Article43 = "";
+        String Article51, Article52 = "";
+        String signatureVendeur, signatureAcheteur, temoinVendeur1 = "", temoinVendeur2 = "", temoinVendeur3 = "";
+        String affirmation, textaffirmation, signatureAffirmation = "";
+        String dateSignature = "";
         try {
             Connection connection = dataSource.getConnection();
             System.out.println("Connexion " + connection.getCatalog());
             HashMap map = new HashMap();
             InitCivilite(intervenantBailleur);
             civbail = civilite;
-            civbailsufixe=civilitesuffixe;
+            civbailsufixe = civilitesuffixe;
             InitCivilite(intervenantPreneur);
             civpren = civilite;
-            civprensufixe=civilitesuffixe;
-              
-            Bailleur="Nom : "+ getCollectivite() + " " + getNom() +"\n" +
-                     "Prénoms :	"+ getPrenom()+"	\n" +
-                     "Sexe : "+intervenantBailleur.getIntSexe()+"\n" +
-                     "Référence pièce d'identité : "+((intervenirbailleur.getInvCiPp()==null)? "":intervenirbailleur.getInvCiPp())+"\n" +
-                     "Profession : "+((intervenantBailleur.getIntActCode()==null)? "":intervenantBailleur.getIntActCode().getActDesig())+"\n" +
-                     "Village/Quartier d’origine :"+((intervenantBailleur.getIntVilaCode()==null)? "":intervenantBailleur.getIntVilaCode().getVlaDesig())+"\n" +
-                     "Arrondissement : "+((intervenantBailleur.getIntVilaCode()==null)? "":intervenantBailleur.getIntVilaCode().getVilaArrCode().getArrDesig())+"\n" +
-                     "Commune. : "+((intervenantBailleur.getIntVilaCode()==null)? "":intervenantBailleur.getIntVilaCode().getVilaArrCode().getArrComCode().getComDesig())+"\n" +
-                     "Qualité   : "+((intervenirbailleur.getInvRolCode()==null)? "":intervenirbailleur.getInvRolCode().getRolDesig())+"\n" +
-                     "Lieu de résidence :"+((intervenantBailleur.getIntDomicile()==null)? "":intervenantBailleur.getIntDomicile())+"\n" +
-                     "Téléphone : "+((intervenantBailleur.getIntTelephone()==null)? "":intervenantBailleur.getIntTelephone());
-            
-            Preneur="Nom : "+ getNompreneur()+"\n" +
-                     "Prénoms :	"+ getPrenompreneur()+"\n" +
-                     "Sexe : "+intervenantPreneur.getIntSexe()+"\n" +
-                     "Référence pièce d'identité : "+((intervenirPreneur.getInvCiPp()==null)? "":intervenirPreneur.getInvCiPp())+"\n" +
-                     "Profession : "+((intervenantPreneur.getIntActCode()==null)? "":intervenantPreneur.getIntActCode().getActDesig())+"\n" +
-                     "Village/Quartier d’origine : "+((intervenantPreneur.getIntVilaCode()==null)? "":intervenantPreneur.getIntVilaCode().getVlaDesig())+"\n" +
-                     "Arrondissement :"+((intervenantPreneur.getIntVilaCode()==null)? "":intervenantPreneur.getIntVilaCode().getVilaArrCode().getArrDesig())+"\n" +
-                     "Commune. :"+((intervenantPreneur.getIntVilaCode()==null)? "":intervenantPreneur.getIntVilaCode().getVilaArrCode().getArrComCode().getComDesig())+"\n" +
-                     "Agissant au nom et pour le compte de :"+((intervenirPreneur.getInvObservation()==null)? "":intervenirPreneur.getInvObservation())+"\n" +
-                     "Lieu de résidence : "+((intervenantPreneur.getIntDomicile()==null)? "":intervenantPreneur.getIntDomicile())+"\n" +
-                     "Téléphone : "+((intervenantPreneur.getIntTelephone()==null)? "":intervenantPreneur.getIntTelephone());
-            
-            Immeuble="Le Bailleur met à la disposition du preneur qui accepte un immeuble ayant les caracteristiques ci-après : \n"+      
-                    "Situation de la parcelle : "+((selected.getOpvPbaNumero()==null)? "":selected.getOpvPbaNumero().getPbaLieuDit()) +"\n" +
-                    "Forme : "+((selected.getOpvPbaNumero().getPbaForme()==null)? "":selected.getOpvPbaNumero().getPbaForme())+" Superficie : " +((superficie==null)? "":superficie)  + "\n" +
-                    "Enregistré au plan de terroir de :.......................\n"+
-                    "Arrondissement : "+getArrondissementlib()+" Commune : "+getCommunelib()+ " \n" +
-                //    "Village/quartier de ville : "+getVillagelib()+" hameau/lieu dit : "+((selected.getOpvPbaNumero()==null)? "":selected.getOpvPbaNumero().getPbaLieuDit()) +"\n" +
-                    "Sous le numéro : "+((selected.getOpvPbaNumero()==null)? "":selected.getOpvPbaNumero().getPbaNumero())+"\n";
-               //     "En cas de lotissement, de RFU ou d’adresse de collecte des ordures : numéro de l'immeuble ";
-            
-            String duree=selected.getOpvDuree().toString();
-            String d1=sdf.format(selected.getOpvDateDeb());
-            String d2=sdf.format(selected.getOpvDateFin());
-            Condition="3.1 - Durée du contrat : "+duree+"\n"
-                    + "      - pour compter de : "+d1+"\n"
-                    + "      - fin du métayage : "+d2+"\n" +
-                    "3.2 - Nature de la culture: "+selected.getOpvNatureCulture()+"\n" +
-                   // " Contrepartie : "+selected.getOpvContreparti()+"\n" +
-                    "3.3 - Contrepartie : "+selected.getOpvContreparti()+"\n" +
-                    "3.4 - Mode de partage des produits : "+selected.getOpvMopCode().getMopLib()+"\n" +
-                    "3.5 - Lieu de partage : "+selected.getOpvLieuPartage()+"\n" +
-                    "3.6 - Aménagements autorisés : "+amenagementAccordes(intervenirPreneur)+"\n" +
-                    "3.7 - Autres conditions : "+selected.getOpvCopAutre()+" \n" ;
-            
-            Obligations="4.1 - Le métayer s’engage à :\n" +
-                        "    - respecter les conditions du contrat ;\n" +
-                        "    - ne pas installer un tiers sur la parcelle sans l’accord écrit du propriétaire ;\n" +
-                        "    - ne pas dépasser la superficie louée sans l’accord du propriétaire constaté par un avenant ;\n" +
-                        "    - restituer la parcelle occupée à l’expiration du délai contractuel ou solliciter une prorogation.\n" +
-                        "\n" +
-                        "4.2 - Le cédant s’engage à :\n" +
-                        "    - respecter rigoureusement les clauses du contrat, notamment celles relatives à la durée\net aux droits accordés ;\n" +
-                        "    - ne pas créer des troubles de jouissance au métayer ;\n" +
-                        "    - ne pas empêcher le métayer de tester ou d’utiliser des mesures d’amélioration de la fertilité\ndu sol ;\n" +
-                        "    - en cas de décès du métayer pendant la durée contractuelle, reconnaître à ses héritiers\nles droits \n"
+            civprensufixe = civilitesuffixe;
+
+            Bailleur = "Nom : " + getCollectivite() + " " + getNom() + "\n"
+                    + "Prénoms :	" + getPrenom() + "	\n"
+                    + "Sexe : " + intervenantBailleur.getIntSexe() + "\n"
+                    + "Référence pièce d'identité : " + ((intervenirbailleur.getInvCiPp() == null) ? "" : intervenirbailleur.getInvCiPp()) + "\n"
+                    + "Profession : " + ((intervenantBailleur.getIntActCode() == null) ? "" : intervenantBailleur.getIntActCode().getActDesig()) + "\n"
+                    + "Village/Quartier d’origine :" + ((intervenantBailleur.getIntVilaCode() == null) ? "" : intervenantBailleur.getIntVilaCode().getVlaDesig()) + "\n"
+                    + "Arrondissement : " + ((intervenantBailleur.getIntVilaCode() == null) ? "" : intervenantBailleur.getIntVilaCode().getVilaArrCode().getArrDesig()) + "\n"
+                    + "Commune. : " + ((intervenantBailleur.getIntVilaCode() == null) ? "" : intervenantBailleur.getIntVilaCode().getVilaArrCode().getArrComCode().getComDesig()) + "\n"
+                    + "Qualité   : " + ((intervenirbailleur.getInvRolCode() == null) ? "" : intervenirbailleur.getInvRolCode().getRolDesig()) + "\n"
+                    + "Lieu de résidence :" + ((intervenantBailleur.getIntDomicile() == null) ? "" : intervenantBailleur.getIntDomicile()) + "\n"
+                    + "Téléphone : " + ((intervenantBailleur.getIntTelephone() == null) ? "" : intervenantBailleur.getIntTelephone());
+
+            Preneur = "Nom : " + getNompreneur() + "\n"
+                    + "Prénoms :	" + getPrenompreneur() + "\n"
+                    + "Sexe : " + intervenantPreneur.getIntSexe() + "\n"
+                    + "Référence pièce d'identité : " + ((intervenirPreneur.getInvCiPp() == null) ? "" : intervenirPreneur.getInvCiPp()) + "\n"
+                    + "Profession : " + ((intervenantPreneur.getIntActCode() == null) ? "" : intervenantPreneur.getIntActCode().getActDesig()) + "\n"
+                    + "Village/Quartier d’origine : " + ((intervenantPreneur.getIntVilaCode() == null) ? "" : intervenantPreneur.getIntVilaCode().getVlaDesig()) + "\n"
+                    + "Arrondissement :" + ((intervenantPreneur.getIntVilaCode() == null) ? "" : intervenantPreneur.getIntVilaCode().getVilaArrCode().getArrDesig()) + "\n"
+                    + "Commune. :" + ((intervenantPreneur.getIntVilaCode() == null) ? "" : intervenantPreneur.getIntVilaCode().getVilaArrCode().getArrComCode().getComDesig()) + "\n"
+                    + "Agissant au nom et pour le compte de :" + ((intervenirPreneur.getInvObservation() == null) ? "" : intervenirPreneur.getInvObservation()) + "\n"
+                    + "Lieu de résidence : " + ((intervenantPreneur.getIntDomicile() == null) ? "" : intervenantPreneur.getIntDomicile()) + "\n"
+                    + "Téléphone : " + ((intervenantPreneur.getIntTelephone() == null) ? "" : intervenantPreneur.getIntTelephone());
+
+            Immeuble = "Le Bailleur met à la disposition du preneur qui accepte un immeuble ayant les caracteristiques ci-après : \n"
+                    + "Situation de la parcelle : " + ((selected.getOpvPbaNumero() == null) ? "" : selected.getOpvPbaNumero().getPbaLieuDit()) + "\n"
+                    + "Forme : " + ((selected.getOpvPbaNumero().getPbaForme() == null) ? "" : selected.getOpvPbaNumero().getPbaForme()) + " Superficie : " + ((superficie == null) ? "" : superficie) + "\n"
+                    + "Enregistré au plan de terroir de :.......................\n"
+                    + "Arrondissement : " + getArrondissementlib() + " Commune : " + getCommunelib() + " \n"
+                    + //    "Village/quartier de ville : "+getVillagelib()+" hameau/lieu dit : "+((selected.getOpvPbaNumero()==null)? "":selected.getOpvPbaNumero().getPbaLieuDit()) +"\n" +
+                    "Sous le numéro : " + ((selected.getOpvPbaNumero() == null) ? "" : selected.getOpvPbaNumero().getPbaNumero()) + "\n";
+            //     "En cas de lotissement, de RFU ou d’adresse de collecte des ordures : numéro de l'immeuble ";
+
+            String duree = selected.getOpvDuree().toString();
+            String d1 = sdf.format(selected.getOpvDateDeb());
+            String d2 = sdf.format(selected.getOpvDateFin());
+            Condition = "3.1 - Durée du contrat : " + duree + "\n"
+                    + "      - pour compter de : " + d1 + "\n"
+                    + "      - fin du métayage : " + d2 + "\n"
+                    + "3.2 - Nature de la culture: " + selected.getOpvNatureCulture() + "\n"
+                    + // " Contrepartie : "+selected.getOpvContreparti()+"\n" +
+                    "3.3 - Contrepartie : " + selected.getOpvContreparti() + "\n"
+                    + "3.4 - Mode de partage des produits : " + selected.getOpvMopCode().getMopLib() + "\n"
+                    + "3.5 - Lieu de partage : " + selected.getOpvLieuPartage() + "\n"
+                    + "3.6 - Aménagements autorisés : " + amenagementAccordes(intervenirPreneur) + "\n"
+                    + "3.7 - Autres conditions : " + selected.getOpvCopAutre() + " \n";
+
+            Obligations = "4.1 - Le métayer s’engage à :\n"
+                    + "    - respecter les conditions du contrat ;\n"
+                    + "    - ne pas installer un tiers sur la parcelle sans l’accord écrit du propriétaire ;\n"
+                    + "    - ne pas dépasser la superficie louée sans l’accord du propriétaire constaté par un avenant ;\n"
+                    + "    - restituer la parcelle occupée à l’expiration du délai contractuel ou solliciter une prorogation.\n"
+                    + "\n"
+                    + "4.2 - Le cédant s’engage à :\n"
+                    + "    - respecter rigoureusement les clauses du contrat, notamment celles relatives à la durée\net aux droits accordés ;\n"
+                    + "    - ne pas créer des troubles de jouissance au métayer ;\n"
+                    + "    - ne pas empêcher le métayer de tester ou d’utiliser des mesures d’amélioration de la fertilité\ndu sol ;\n"
+                    + "    - en cas de décès du métayer pendant la durée contractuelle, reconnaître à ses héritiers\nles droits \n"
                     + "acquis par leur père aux termes du présent contrat pour la\npériode restant à courir.";
-                    
-            Resolution="Le contrat ne peut être résilié qu’à la fin du bail. Toutefois, le non respect par le métayer\nde l’une quelconque "
-                    + "de ses obligations peut entraîner la rupture du contrat après un préavis\nécrit.......mois resté infructueux.\n" +
-                  
-                    "Si le métayer décide avant l’échéance de résilier le contrat pour des raisons de convenance\npersonnelle, il ne "
+
+            Resolution = "Le contrat ne peut être résilié qu’à la fin du bail. Toutefois, le non respect par le métayer\nde l’une quelconque "
+                    + "de ses obligations peut entraîner la rupture du contrat après un préavis\nécrit.......mois resté infructueux.\n"
+                    + "Si le métayer décide avant l’échéance de résilier le contrat pour des raisons de convenance\npersonnelle, il ne "
                     + "pourrait prétendre à la récupération des loyers versés, ni à des dommages-\nintérêts, sauf clause contraire "
                     + "expressément définie à l’avance.";
 
-            Litige="Pour tous litiges pouvant naître de l’interprétation ou de l’exécution du présent contrat,\nle cédant et le métayer "
+            Litige = "Pour tous litiges pouvant naître de l’interprétation ou de l’exécution du présent contrat,\nle cédant et le métayer "
                     + "déclarent privilégier le règlement à l’amiable par la médiation du Comité\nVillageois de Gestion du Plan Foncier "
-                    + "Rural ou du chef de village.\n" +
-                
-                    "Dans tous les cas, le recours au témoignage ou à l’éclairage de la Commission Foncière du\nVillage est "
+                    + "Rural ou du chef de village.\n"
+                    + "Dans tous les cas, le recours au témoignage ou à l’éclairage de la Commission Foncière du\nVillage est "
                     + "obligatoire.\n\n";
-   
-            if ( civbail.equals("M.")){
-                nomme ="le nommé ";
-                article="Le";
+
+            if (civbail.equals("M.")) {
+                nomme = "le nommé ";
+                article = "Le";
             }
-            
-            if ( civbail.equals("M.")){
-                pronom =" il ";
+
+            if (civbail.equals("M.")) {
+                pronom = " il ";
             }
-                Article42=getCommunelib();
+            Article42 = getCommunelib();
 //             
-                Article43=sdf.format(selected.getOpvDateDeb());
-                dateSignature=sdf.format(selected.getOpvDateDeb());
-             if (selected.getOpvDateValidation()!=null){
-                 Article43=sdf.format(selected.getOpvDateValidation());
-                 dateSignature=sdf.format(selected.getOpvDateValidation());
-             }
+            Article43 = sdf.format(selected.getOpvDateDeb());
+            dateSignature = sdf.format(selected.getOpvDateDeb());
+            if (selected.getOpvDateValidation() != null) {
+                Article43 = sdf.format(selected.getOpvDateValidation());
+                dateSignature = sdf.format(selected.getOpvDateValidation());
+            }
 //             /////////Les signatures/////////////////////////////
-             signatureVendeur= getCollectivite() + " " + getNom() + " " + getPrenom();
-             signatureVendeur+="\n\n "+selected.getOpvDesiCode().getDesiReference();
-             signatureVendeur+=" du "+ sdf.format(selected.getOpvDesiCode().getDesiDateDeb());
-             
-             signatureAcheteur=getNompreneur() + " " + getPrenompreneur();
-             signatureAcheteur+="\n\n "+intervenirPreneur.getInvDesiCode().getDesiReference();
-             signatureAcheteur+=" du "+ sdf.format(intervenirPreneur.getInvDesiCode().getDesiDateDeb());
-             
-             
-             
-             //////////////////////les temoins du vendeur/////////////////////////////
-             int compt=0;
-             for(TDepotSignature depoSign:listDepotSignTemBail){
-                 compt++;
-                  if(compt==1){
-                      temoinVendeur1=depoSign.getDesiIntNumero().getIntNom()+" "+ depoSign.getDesiIntNumero().getIntPrenom();
-                      temoinVendeur1+="\n\n "+depoSign.getDesiReference();
-                      temoinVendeur1+=" du "+ sdf.format(depoSign.getDesiDateDeb());
-                  }   
-                  
-                  if(compt==2){
-                      temoinVendeur2=depoSign.getDesiIntNumero().getIntNom()+" "+ depoSign.getDesiIntNumero().getIntPrenom();
-                      temoinVendeur2+="\n\n "+depoSign.getDesiReference();
-                      temoinVendeur2+=" du "+ sdf.format(depoSign.getDesiDateDeb());
-                  }     
-             }
-             temoinAcheteur1="";
-             temoinAcheteur2="";
-              compt=0;
-             for(TDepotSignature depoSign:listDepotSignTemPren){
-                 compt++;
-                  if(compt==1){
-                      temoinAcheteur1=depoSign.getDesiIntNumero().getIntNom()+" "+ depoSign.getDesiIntNumero().getIntPrenom();
-                      temoinAcheteur1+="\n\n "+depoSign.getDesiReference();
-                      temoinAcheteur1+=" du "+ sdf.format(depoSign.getDesiDateDeb());
-                  }   
-                  
-                  if(compt==2){
-                      temoinAcheteur2=depoSign.getDesiIntNumero().getIntNom()+" "+ depoSign.getDesiIntNumero().getIntPrenom();
-                      temoinAcheteur2+="\n\n "+depoSign.getDesiReference();
-                      temoinAcheteur2+=" du "+ sdf.format(depoSign.getDesiDateDeb());
-                  }     
-             }
-           
-             affirmation="Enregistré sous le numéro : "+selected.getOpvNumeroAffirmation();
-             affirmation+="\n Le Président de la SVGF/Chef quartier de ville";           
+            signatureVendeur = getCollectivite() + " " + getNom() + " " + getPrenom();
+            signatureVendeur += "\n\n " + selected.getOpvDesiCode().getDesiReference();
+            signatureVendeur += " du " + sdf.format(selected.getOpvDesiCode().getDesiDateDeb());
+
+            signatureAcheteur = getNompreneur() + " " + getPrenompreneur();
+            signatureAcheteur += "\n\n " + intervenirPreneur.getInvDesiCode().getDesiReference();
+            signatureAcheteur += " du " + sdf.format(intervenirPreneur.getInvDesiCode().getDesiDateDeb());
+
+            //////////////////////les temoins du vendeur/////////////////////////////
+            int compt = 0;
+            for (TDepotSignature depoSign : listDepotSignTemBail) {
+                compt++;
+                if (compt == 1) {
+                    temoinVendeur1 = depoSign.getDesiIntNumero().getIntNom() + " " + depoSign.getDesiIntNumero().getIntPrenom();
+                    temoinVendeur1 += "\n\n " + depoSign.getDesiReference();
+                    temoinVendeur1 += " du " + sdf.format(depoSign.getDesiDateDeb());
+                }
+
+                if (compt == 2) {
+                    temoinVendeur2 = depoSign.getDesiIntNumero().getIntNom() + " " + depoSign.getDesiIntNumero().getIntPrenom();
+                    temoinVendeur2 += "\n\n " + depoSign.getDesiReference();
+                    temoinVendeur2 += " du " + sdf.format(depoSign.getDesiDateDeb());
+                }
+            }
+            temoinAcheteur1 = "";
+            temoinAcheteur2 = "";
+            compt = 0;
+            for (TDepotSignature depoSign : listDepotSignTemPren) {
+                compt++;
+                if (compt == 1) {
+                    temoinAcheteur1 = depoSign.getDesiIntNumero().getIntNom() + " " + depoSign.getDesiIntNumero().getIntPrenom();
+                    temoinAcheteur1 += "\n\n " + depoSign.getDesiReference();
+                    temoinAcheteur1 += " du " + sdf.format(depoSign.getDesiDateDeb());
+                }
+
+                if (compt == 2) {
+                    temoinAcheteur2 = depoSign.getDesiIntNumero().getIntNom() + " " + depoSign.getDesiIntNumero().getIntPrenom();
+                    temoinAcheteur2 += "\n\n " + depoSign.getDesiReference();
+                    temoinAcheteur2 += " du " + sdf.format(depoSign.getDesiDateDeb());
+                }
+            }
+
+            affirmation = "Enregistré sous le numéro : " + selected.getOpvNumeroAffirmation();
+            affirmation += "\n Le Président de la SVGF/Chef quartier de ville";
             //////Initialisation des parametres///////////////
             map.put("ParamOpvNum", selected.getOpvNumero());
-            map.put("Village",getVillagelib());
-            map.put("Commune",getCommunelib());
-            map.put("Arrondissement",getArrondissementlib());
-            map.put("Bailleur",Bailleur);
-            map.put("Preneur",Preneur);
-            map.put("Immeuble",Immeuble);
-            map.put("Condition",Condition);
-            map.put("Obligations",Obligations);
-            map.put("Litige",Litige);
-            map.put("Resolution",Resolution);
+            map.put("Village", getVillagelib());
+            map.put("Commune", getCommunelib());
+            map.put("Arrondissement", getArrondissementlib());
+            map.put("Bailleur", Bailleur);
+            map.put("Preneur", Preneur);
+            map.put("Immeuble", Immeuble);
+            map.put("Condition", Condition);
+            map.put("Obligations", Obligations);
+            map.put("Litige", Litige);
+            map.put("Resolution", Resolution);
             /////////////commune et date etablissement//////////
             map.put("ParamArticle42", Article42);
             map.put("ParamArticle43", Article43);
@@ -2371,7 +2504,7 @@ public class TOperationParcelController implements Serializable {
             map.put("temoinAcheteur1", temoinAcheteur1);
             map.put("temoinAcheteur2", temoinAcheteur2);
 //            ///////////affirmation//////////////////////
-            map.put("signatureAffirmation", affirmation);   
+            map.put("signatureAffirmation", affirmation);
 
             jasperPrint = JasperFillManager.fillReport(file.getPath(), map, connection);
             System.out.println("Taille liste classe --> " + jasperPrint.getPages().size());
@@ -2395,14 +2528,60 @@ public class TOperationParcelController implements Serializable {
         if (typeOperation.equals("VENTE")) {
             impressionOperationVente();
         }
-         if (typeOperation.equals("OPERATIONNEL")) {
-             if(selected.getOpvMacCode().getMacCode().equals("MD013")||selected.getOpvMacCode().getMacCode().equals("MD014")){
-             impressionOperationAffermage();
-             }
-             if(selected.getOpvMacCode().getMacCode().equals("MD015")||selected.getOpvMacCode().getMacCode().equals("MD016")){
-             impressionOperationMetayage();
-             }
-         }
+        if (typeOperation.equals("OPERATIONNEL")) {
+            if (selected.getOpvMacCode().getMacCode().equals("MD013") || selected.getOpvMacCode().getMacCode().equals("MD014")) {
+                impressionOperationAffermage();
+            }
+            if (selected.getOpvMacCode().getMacCode().equals("MD015") || selected.getOpvMacCode().getMacCode().equals("MD016")) {
+                impressionOperationMetayage();
+            }
+        }
+    }
+
+    public void uploadpiecejustif(FileUploadEvent event) {
+        int p = 0, c = 0, i = 0;
+        filejustif = event.getFile();
+        if (filejustif != null) {
+            //System.out.println("OKOKOKOK "+file.getFileName());      
+            try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(filejustif.getInputstream(), "UTF-8"))) {
+                String line;
+//                while ((line = bufferedReader.readLine()) != null) {
+//
+//                    line = line.replace("public.", "");
+//
+//                    if (line.toUpperCase().startsWith("INSERT INTO CORRIDOR")) {
+//                        //System.out.println(line);
+//                        i=0;
+//                         i = ejbcorridor.executeInsertSQL(line);
+//                        if (i != 0) {
+//                            c++;
+//                        }
+//                    }
+//                   
+//                    if (line.toUpperCase().startsWith("INSERT INTO PARCELLE")) {
+//                        //System.out.println(line);
+//                        i=0;
+//                         i = ejbparcelle.executeInsertSQL(line);
+//                        if (i != 0) {
+//                            p++;
+//                        }
+//                    }
+//                   
+//                }
+
+            } catch (Exception ex) {
+                //  LOG.error("Error uploading the file", ex);
+                System.err.println("Probleme de lecture");
+            }
+            System.out.println("Nombre de parcelle Consolidees : " + p);
+            System.out.println("Nombre de corridors Consolidees : " + c);
+
+            FacesMessage message = new FacesMessage("Succesful", filejustif.getFileName() + " est bien charge. " + p + " Parcelles, " + c + " Corridor");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        } else {
+            System.out.println("NONONON ");
+
+        }
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

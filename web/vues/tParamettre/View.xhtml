@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TParamettreViewDlg" widgetVar="TParamettreViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTParamettreTitle}">
+            <h:form id="TParamettreViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tParamettreController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTParamettreLabel_TParamettrePK_paramDateeffet}"/>
+                        <h:outputText value="#{tParamettreController.selected.TParamettrePK.paramDateeffet}" title="#{bundle.ViewTParamettreTitle_TParamettrePK_paramDateeffet}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTParamettreLabel_TParamettrePK_paramCode}"/>
+                        <h:outputText value="#{tParamettreController.selected.TParamettrePK.paramCode}" title="#{bundle.ViewTParamettreTitle_TParamettrePK_paramCode}"/>
+                        <h:outputText value="#{bundle.ViewTParamettreLabel_paramLibelle}"/>
+                        <h:outputText value="#{tParamettreController.selected.paramLibelle}" title="#{bundle.ViewTParamettreTitle_paramLibelle}"/>
+                        <h:outputText value="#{bundle.ViewTParamettreLabel_paramValeur}"/>
+                        <h:outputText value="#{tParamettreController.selected.paramValeur}" title="#{bundle.ViewTParamettreTitle_paramValeur}"/>
+                        <h:outputText value="#{bundle.ViewTParamettreLabel_paramDateFin}"/>
+                        <h:outputText value="#{tParamettreController.selected.paramDateFin}" title="#{bundle.ViewTParamettreTitle_paramDateFin}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTParamettreLabel_paramDateDebut}"/>
+                        <h:outputText value="#{tParamettreController.selected.paramDateDebut}" title="#{bundle.ViewTParamettreTitle_paramDateDebut}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTParamettreLabel_adresseImage}"/>
+                        <h:outputText value="#{tParamettreController.selected.adresseImage}" title="#{bundle.ViewTParamettreTitle_adresseImage}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TParamettreViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
