@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TCommune.findAll", query = "SELECT t FROM TCommune t")
     , @NamedQuery(name = "TCommune.findByComCode", query = "SELECT t FROM TCommune t WHERE t.comCode = :comCode")
     , @NamedQuery(name = "TCommune.findByComEncours", query = "SELECT t FROM TCommune t WHERE t.comEncours = true")
+    , @NamedQuery(name = "TCommune.findByDepartement", query = "SELECT t FROM TCommune t WHERE t.comDepCode.depCode = :departCode")
     , @NamedQuery(name = "TCommune.findByComDesig", query = "SELECT t FROM TCommune t WHERE t.comDesig = :comDesig")})
 public class TCommune implements Serializable {
 

@@ -5,7 +5,10 @@
  */
 package org.vng.sessions;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.vng.entities.TDepartement;
@@ -28,5 +31,19 @@ public class TDepartementFacade extends AbstractFacade<TDepartement> {
     public TDepartementFacade() {
         super(TDepartement.class);
     }
+    
+    
+    
+        public List<SelectItem> getListeDepartementItem()
+    {
+        List<TDepartement> list= findAll();
+        List<SelectItem> item = new ArrayList<>();
+        for (TDepartement object : list)    
+        { 
+            item.add(new SelectItem(object, ""+object.getDepDesig()));
+        }
+        return item;
+    }
+    
     
 }

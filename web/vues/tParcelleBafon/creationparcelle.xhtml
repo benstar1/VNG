@@ -1,0 +1,309 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:util="http://java.sun.com/jsf/composite/util"
+      >
+    
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/template.xhtml">
+
+            <ui:define name="title">                 
+                #{msg.appName_crochet} #{msg.titre_parcelle_agri_en_parcelle_villageois}
+            </ui:define>
+
+            <ui:define name="head">
+           
+             
+            </ui:define>
+
+            <ui:define name="viewname">
+                #{msg.titre_parcelle_agri_en_parcelle_villageois}
+            </ui:define> 
+
+            <ui:define name="content">
+               
+                <!-- h:form id="formglobal" -->  
+                
+                <h:form id="formglobal">
+                    <p:growl id="message" showDetail="true" />
+            <div class="ui-fluid">
+                <div class="ui-g" style="background-color: #FFF; padding: 0px;" >
+              
+                   
+                    <div class="ui-g-12">
+                        <util:signin_localisation_parcel_nouveau  
+                                                id="compo_parcelle"
+                                                numeroParcel="#{parcelleCreation.selectedParcelle.pbaNumero}"
+                                                ancienNumero="#{parcelleCreation.selectedParcelle.pbaAncienNumero}"
+                                                appartenance="#{parcelleCreation.selectedParcelle.pbaAppartenance}"                                                
+                                                village="#{parcelleCreation.selectedParcelle.pbaVilaCode}"
+                                                listeVillagee="#{parcelleCreation.listeVillage}"
+                                                arrondissement="#{parcelleCreation.arrondissmeentSelect}"
+                                                listeArrondissement="#{parcelleCreation.arrondissementFacade.listeArrondissementCommuneEncoursItem}"                                                
+                                                onArrondissementChange="#{parcelleCreation.onArrondissementSelect(event)}"
+                                                onVillageChange="#{parcelleCreation.onVillageSelect(event)}"
+                                                elmArrondissementupdate="formglobal:compo_parcelle:spin_nomvillage"
+                                                elmVillageupdate="formglobal:compo_parcelle:txt_numeroParcel"
+                                                commune="#{parcelleCreation.communeFacade.executeCommuneEncoours()}"
+                                                listeCommune="#{parcelleCreation.communeFacade.listeCompletCommuneItem}"                                                
+                                                departement="#{parcelleCreation.communeFacade.executeCommuneEncoours().comDepCode.depDesig}"
+                                                hameau="#{parcelleCreation.selectedParcelle.pbaHameau}"
+                                                nomGeometre="#{parcelleCreation.selectedParcelle.pbaCodeGeo}"
+                                                numeroOtho="#{parcelleCreation.selectedParcelle.pbaOthoImg}"
+                                                observation="#{parcelleCreation.selectedParcelle.pbaObservation}"
+                                                superficie="#{parcelleCreation.selectedParcelle.pbaSuperficie}"
+                                                listeTypeBF="#{parcelleCreation.typebfFacade.listeTypeBFItem}"
+                                                elmTBFupdate=":formglobal"
+                                                typeParcel="#{parcelleCreation.selectedParcelle.pbaTbfCode}" 
+                                                onTBFChange="#{parcelleCreation.onTBFSelect(event)}"                                                
+                                                lieuDit="#{parcelleCreation.selectedParcelle.pbaLieuDit}"
+                                                nomLocal="#{parcelleCreation.selectedParcelle.pbaNomLocal}"
+                                                rechercheButtonText="#{msg.btn_parcourir}" 
+                                                rechercheAction="#{parcelleCreation.rechercheParcelle()}"                                    
+                                                listeStatut="#{parcelleCreation.listeStatutItem}"
+                                                statut="#{parcelleCreation.selectedParcelle.pbaStaCode}"                                     
+                                                typeDomaineParcel="#{parcelleCreation.typeDomaineParcel}"
+                                                listeTypeDomaine="#{parcelleCreation.typeDomaineFacade.listeTypeDomaineItem}"
+                                                statutAutre="#{parcelleCreation.selectedParcelle.pbaStaAutre}"
+                                                listeGeometre="#{parcelleCreation.utilisateurFacade.listeGeometreItem}" 
+                                                nouvelleParcelle="true"
+                                                readOnly="false"  
+                                                parcelleDPP="#{parcelleCreation.typeParcelle.tbfCode.equalsIgnoreCase('TBF05')}"
+                                                
+                                                iddialog="dlgParcelle"                                                
+                                               />
+                    </div>
+                    
+                    <div class="ui-g-12">
+                        <p:panel id="panel_noyau" header="#{msg.titre_identification_contenus}" rendered="#{parcelleCreation.typeParcelle.tbfCode.equalsIgnoreCase('TBF02')}" toggleable="true"  >
+                            
+                                    <util:signin_identification_conteneur_noyeau_villageois   
+                                                            batie="#{parcelleCreation.selectedParcelle.pbaBati}"
+                                                            cloture="#{parcelleCreation.selectedParcelle.pbaCloture}"
+                                                            maconnerie="#{parcelleCreation.selectedParcelle.pbaCloMacon}"
+                                                            banco="#{parcelleCreation.selectedParcelle.pbaCloBanco}"
+                                                            claieCloture="#{parcelleCreation.selectedParcelle.pbaCloClaie}"
+                                                            haie="#{parcelleCreation.selectedParcelle.pbaCloHaie}"
+                                                            autreTravaux="#{parcelleCreation.selectedParcelle.pbaCloHaie}"
+                                                            autreTravauxActif="#{parcelleCreation.autreTravauxActif}"
+                                                            idAutreTravauxPreciser="txt_autre_travaux"
+                                                            readOnly="false"
+                                                            idNbreEtage="txt_nbre_etage"
+                                                            nbreEtage="#{parcelleCreation.selectedParcelle.pbaNbEtage}"
+                                                            idNbBatimat="txt_nbre_batimat"
+                                                            nbBatimat="#{parcelleCreation.selectedParcelle.pbaNbeBat}"
+                                                            autreTravauxPreciser="#{parcelleCreation.selectedParcelle.pbaCloAutre}"
+                                                            cuisine="#{parcelleCreation.selectedParcelle.pbaCuisine}"
+                                                            dalle="#{parcelleCreation.selectedParcelle.pbaToitDalle}"
+                                                            garage="#{parcelleCreation.selectedParcelle.pbaGarage}"
+                                                            etage="#{parcelleCreation.selectedParcelle.pbaMaisEtage}"
+                                                            ordinaire="#{parcelleCreation.selectedParcelle.pbaMaisOrdinare}"
+                                                            claieConstruction="#{parcelleCreation.selectedParcelle.pbaToitClaie}"
+                                                            paille="#{parcelleCreation.selectedParcelle.pbaToitPaille}"
+                                                            puisard="#{parcelleCreation.selectedParcelle.pbaPuisard}"
+                                                            puitCiterne="#{parcelleCreation.selectedParcelle.pbaPuits}"
+                                                            rdc="#{parcelleCreation.selectedParcelle.pbaMaisRez}"
+                                                            tole="#{parcelleCreation.selectedParcelle.pbaToitTole}"
+                                                            tuile="#{parcelleCreation.selectedParcelle.pbaToitTuile}"
+                                                            wc="#{parcelleCreation.selectedParcelle.pbaWc}"
+                                                         />
+                        
+                        </p:panel>
+                    </div>
+                    
+                    
+                    <div class="ui-g-12">
+
+                        <util:signin_intervenant_restreint   
+                                                     idNom="txt_nom"
+                                                     nom="#{parcelleCreation.intervenantSelect.intNom}"                        
+                                                     idPrenom="txt_prenom"
+                                                     prenom="#{parcelleCreation.intervenantSelect.intPrenom}"
+                                                     idDomicile="txt_domicile"
+                                                     domicile="#{parcelleCreation.intervenantSelect.intDomicile}"
+                                                     idSexe="spin_sexe"
+                                                     sexe="#{parcelleCreation.intervenantSelect.intSexe}"
+                                                     idAge="txt_age"
+                                                     age="#{parcelleCreation.intervenantSelect.intDateNais}"
+                                                     idTelephone="txt_telephone"
+                                                     telephone="#{parcelleCreation.intervenantSelect.intTelephone}"
+                                                     idActivite="spin_activite"
+                                                     activite="#{parcelleCreation.intervenantSelect.intActCode}"
+                                                     listeActivite="#{parcelleCreation.activiteFacade.listeActiviteItem}"
+                                                     idActiviteAutre="txt_activite_autre"
+                                                     activiteAutre="#{parcelleCreation.intervenantSelect.intActAutre}"
+                                                     idCiPP="txt_ci_pp"
+                                                     ciPP="#{parcelleCreation.intervenantSelect.intCiPp}"
+                                                     idDateExpCiPP="txt_date_exp_ci_pp"
+                                                     dateExpCiPP="#{parcelleCreation.intervenantSelect.intDateExpCi}"
+                                                     idDateNaiss="txt_date_naiss"
+                                                     dateNaiss="#{parcelleCreation.intervenantSelect.intDateNaissCalcul}"
+                                                     idEthnie="txt_ethnie"
+                                                     ethnie="#{parcelleCreation.intervenantSelect.intEthCode}"
+                                                     idEthnieAutre="txt_ethnie_autre"
+                                                     ethnieAutre="#{parcelleCreation.intervenantSelect.intEthAutre}"
+                                                     listeEthinie="#{parcelleCreation.ethnieFacade.listeEthnieItem}"
+                                                     idIfu="txt_ifu"
+                                                     ifu="#{parcelleCreation.intervenantSelect.intIfu}"
+                                                     idPhotoIntervenant="img_photo_complet"
+                                                     idLepi="txt_lepi"
+                                                     lepi="#{parcelleCreation.intervenantSelect.intLepi}"
+                                                     idNationalite="spin_nationalite"
+                                                     nationalite="#{parcelleCreation.intervenantSelect.intNationalite}"
+                                                     idNationaliteAutre="txt_nationalite_autre"
+                                                     nationaliteAutre="#{parcelleCreation.intervenantSelect.intNationaliteAutre}"
+                                                     idRavip="txt_ravip"
+                                                     ravip="#{parcelleCreation.intervenantSelect.intNumeroRavip}"
+                                                     idLignageAutre="txt_lignage_autre"
+                                                     lignageAutre="#{parcelleCreation.intervenantSelect.intLigAutre}"
+                                                     rechercheButtonText="..."                               
+                                                     idphotoCompletIntervenant="img_photo_signature"
+                                                     photoIntervenant="#{parcelleCreation.cheminPhotoIdentite}"
+                                                     photoCompletIntervenant="#{parcelleCreation.cheminPhotoIdentite}"
+                                                     autreActiviteActif="#{parcelleCreation.autreActivite}"
+                                                     autreNationaliteActif="#{parcelleCreation.autreNationalite}"
+                                                     autreEthnieActif="#{parcelleCreation.autreEthnie}"
+                                                     iddialogActivite="dlgActivite"
+                                                     readOnly="true"  
+                                                     restreint="false"
+                                                     iddialogIntervenant="dlgIntervenant1"
+                                                     id="compo_intervenant" 
+                                                     />
+                </div >
+                
+                <div class="ui-g-12">
+                    <util:signin_intervenir_droit_administration_saisi   
+                                                                 id="composant_roit_admin"
+                                                                 idRole="spin_role"
+                                                                 role="#{parcelleCreation.intervenirSelect.invRolCode}"
+                                                                 listeRole="#{parcelleCreation.roleFacade.listeRoleByCategorieDEItem}"
+                                                                 idAutreRole="txt_autre_role"
+                                                                 autreRole="#{parcelleCreation.intervenirSelect.invRolAutre}"
+                                                                 idRattachement="txt_rattachement"
+                                                                 rattachement="#{parcelleCreation.intervenirSelect.invRattachementAutre}"
+                                                                 idObservation="tt_observation"
+                                                                 observation="#{parcelleCreation.intervenirSelect.invObservation}"
+                                                                 idRepresente="chk_represente_par"
+                                                                 represente="#{parcelleCreation.represente}"
+                                                                 idCollectivite="txt_collectivite"
+                                                                 collectivite="#{parcelleCreation.intervenirSelect.invCollectivite}"
+                                                                 idStructure="txt_structure"
+                                                                 structure="#{parcelleCreation.intervenirSelect.invStructure}"
+                                                                 idFonction="txt_fonction"
+                                                                 fonction="#{parcelleCreation.intervenirSelect.invFonction}"
+                                                                 idModeAcquisition="spin_mode_acquis"
+                                                                 modeAcquisition="#{parcelleCreation.intervenirSelect.invMacCode}"
+                                                                 listeModeAcquisition="#{parcelleCreation.modeacquisFacade.listeModeAcquisDEItem}"
+                                                                 idAutreModeAcquisition="txt_autre_mode_acquis"
+                                                                 autreModeAcquisition="#{parcelleCreation.intervenirSelect.invMacAutre}"
+                                                                 autreConditionPaiementActif="true"
+                                                                 idDeQui="txt_de_quis"
+                                                                 deQui="#{parcelleCreation.intervenirSelect.invDeQui}"
+                                                                 idDepuisQuand="txt_depuis_quand"
+                                                                 depuisQuand="#{parcelleCreation.intervenirSelect.invDateDeb}"
+                                                                 idPrix="txt_prix"
+                                                                 prix="#{parcelleCreation.intervenirSelect.invPrix}"
+                                                                 prixActif="true"
+                                                                 idConditionPaiement="spin_condition_paie"
+                                                                 conditionPaiement="#{parcelleCreation.intervenirSelect.invCopCode}"
+                                                                 listeConditionPaiement="#{parcelleCreation.conditionpaieFacade.listeConditionPaiementItem}"
+                                                                 conditionPaiementActif="true"
+                                                                 idAutreConditionPaiement="txt_autre_condition_paiement"
+                                                                 autreConditionPaiement="#{parcelleCreation.intervenirSelect.invCopAutre}"
+                                                                 idContrePartie="spin_contrePartie"
+                                                                 contrePartie="#{parcelleCreation.intervenirSelect.invContreparti}"
+                                                                 listeContrePartie="#{parcelleCreation.listeContrePartie}"
+                                                                 idAutreModalite="spin_autre_modalite"
+                                                                 autreModalite="#{parcelleCreation.intervenirSelect.invAutreModPaie}"
+                                                                 listeAutreModalite="#{parcelleCreation.listeAutreModalite}"
+                                                                 idLimitationAdmin="radiog_limitrophe"
+                                                                 limitationAdmin="#{parcelleCreation.intervenirSelect.invLimitation}"
+                                                                 idAutreLimitationAdmin="radio_autre_limitation"
+                                                                 autreLimitationAdmin="#{parcelleCreation.intervenirSelect.invLimiteAutre}"
+                                                                 idAutreLimitationAdminChaine="txt_autre_limitation"
+                                                                 autreLimitationAdminChaine="#{parcelleCreation.intervenirSelect.invLimiteAutre}"
+                                                                 limitationLegue="#{parcelleCreation.intervenirSelect.invLimitLeg}"
+                                                                 limitationVente="#{parcelleCreation.intervenirSelect.invLimitVent}"
+                                                                 limitationPret="#{parcelleCreation.intervenirSelect.invLimitPret}"
+                                                                 limitationDon="#{parcelleCreation.intervenirSelect.invLimitDon}" 
+                                                                 idDuree="txt_duree"
+                                                                 duree="#{parcelleCreation.intervenirSelect.invDuree}"
+                                                                 idDureeIndeterminee="chk_indetermine"
+                                                                 dureeIndeterminee="#{parcelleCreation.intervenirSelect.invIndetermine}"
+                                                                 formalise="#{parcelleCreation.intervenirSelect.invFormalise}"
+                                                                 de="true"
+                                                                 droitExerceActif="true"
+                                                                 listeTypeDroitExerce="#{parcelleCreation.typeDroitExerceFace.listeTypeDroitExerceDEItem}"
+                                                                 listeTypeDroitExerceAdmin="#{parcelleCreation.listeTypedexercesAdminUneParcel}"
+                                                                 typeDroitExerce="#{parcelleCreation.typeDroitExerce}"
+                                                                 ajouterDroitExerceAction="#{parcelleCreation.ajouterDroitExerceListener()}"
+                                                                 eltupdateTableDroit="formglobal:composant_roit_admin:table_liste_droit"
+                                                                 readOnly="true"
+                                                              />
+                    </div>
+                    
+                    
+                    <div class="ui-g-12 ui-lg-6" style="margin-top: 10px;">
+                                                                     
+                               <div class="card card-w-title" style="padding: 0px; margin-bottom: 0px;">
+                                   <div class="ui-g-12 ui-lg-6" style=" width: 150px;">                                        
+                                   
+                                       <p:commandButton  value="#{msg.btn_enregistrer}" title="#{msg.btn_enregistrer}" actionListener="#{parcelleCreation.creationParcelle()}" update="formglobal"  icon="fa fa-save" styleClass="green-btn" > 
+                                        <p:confirm header="Confirmation" message="Etes - vous sûre de vouloir enregistrer cette parcelle ?" icon="fa fa-warning" />
+                                    </p:commandButton>
+
+                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" width="300">
+                                        <p:commandButton value="Oui"   styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+                                        <p:commandButton value="Non"  styleClass="ui-confirmdialog-no" icon="fa fa-close" />
+                                    </p:confirmDialog>
+                                   
+                                   
+                                   </div>
+                                    <div class="ui-g-12 ui-lg-6" style=" width: 300px;">
+                                        <p:commandButton  value="#{msg.btn_ajouter_intervenant}" title ="#{msg.btn_ajouter_intervenant_info}" icon="fa fa-plus" onclick="PF('dlgMajIntervenant').show();" styleClass="pink-btn"/>
+
+                                    </div>
+                                   <div class="ui-g-12 ui-lg-6" style=" width: 150px;">
+                                          <p:commandButton  value="#{msg.btn_imprimer}" title="#{msg.btn_imprimer_info_fiche_enquete}" icon="fa fa-print" styleClass="orange-btn"/>
+                                    </div> 
+                               </div>
+                    </div>
+                    
+                  
+                   
+                    
+                    
+                    
+                </div>
+            </div>
+        </h:form>
+                
+                
+                
+                <util:sign_dialog_liste_intervenant
+                          idInt="dlgIntervenant1" 
+                          titreInt="Liste complète des intervenants"
+                          pieddialogInt="Les Intervénants..."
+                          idDataTableInt="idtableIntervenant"
+                          listDataInt="#{intervenantController.items}"                          
+                          selectActionInt="#{parcelleCreation.onIntervenantRowSelect(event)}" 
+                          SelectEntityInt="#{parcelleCreation.intervenantSelect}"                          
+                          listDatafiltreInt="#{intervenantController.itemsFilter}"                         
+                          updateeltmInt= ":formglobal"
+                          />
+                  
+               
+            </ui:define>
+
+        </ui:composition>
+        
+         <!-- /h:form -->
+
+    </body>
+</html>

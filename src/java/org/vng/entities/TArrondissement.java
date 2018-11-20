@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "TArrondissement.findAll", query = "SELECT t FROM TArrondissement t")
     , @NamedQuery(name = "TArrondissement.findByArrCode", query = "SELECT t FROM TArrondissement t WHERE t.arrCode = :arrCode")
+    , @NamedQuery(name = "TArrondissement.findByarrComCode", query = "SELECT t FROM TArrondissement t WHERE t.arrComCode = :comCom")
     , @NamedQuery(name = "TArrondissement.findByArrDesig", query = "SELECT t FROM TArrondissement t WHERE t.arrDesig = :arrDesig")})
 public class TArrondissement implements Serializable {
 

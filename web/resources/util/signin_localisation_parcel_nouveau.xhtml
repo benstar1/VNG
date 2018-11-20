@@ -1,0 +1,247 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>This is not displayed</title> 
+        <!-- h:outputStylesheet library="css" name="styles.css" / -->
+    </h:head>
+    
+    <h:body>
+        <composite:interface> 
+            <!-- Numéro de la parcelle -->
+            <composite:attribute name="numeroParcelPrompt" type="String"/> 
+            <composite:attribute name="numeroParcel" required="true" type="String"/> 
+            <!-- Bouton de recherche de la parcelle -->
+            <composite:attribute name="rechercheButtonText" type="String"/> 
+            <composite:attribute name="rechercheAction" method-signature="java.lang.String action()"/>
+            <!-- Ancien numéro de la parcelle (Numéro MCA) -->
+            <composite:attribute name="ancienNumeroPrompt" type="String"/> 
+            <composite:attribute name="ancienNumero" type="String"/> 
+             <!-- Ancien numéro otho image de la parcelle  -->
+            <composite:attribute name="numeroOthoPrompt" type="String"/> 
+            <composite:attribute name="numeroOtho" type="String"/> 
+             <!--Nom du géomètre ayant travaillé sur la parcelle  -->
+            <composite:attribute name="nomGeometrePrompt" type="String"/> 
+             <composite:attribute name="nomGeometre" type="org.vng.entities.TUtilisateur" shortDescription="Géomètre" />            
+            <composite:attribute name="listeGeometre" type="java.util.List"/>
+            <!-- Département  -->
+            <composite:attribute name="departementPrompt" type="String"/> 
+            <composite:attribute name="departement" type="String"/> 
+            <!-- commune  -->
+            <composite:attribute name="communePrompt" type="String"/> 
+            <!-- composite:attribute name="commune" type="String"/ --> 
+            <!-- arrondissement  -->
+            <composite:attribute name="arrondissementPrompt" type="String"/> 
+            <!-- composite:attribute name="arrondissement" type="String"/ --> 
+            <!-- village/quartier  -->
+            <composite:attribute name="villagePrompt" type="String"/> 
+            <!-- composite:attribute name="village" type="String"/ -->
+             <!-- Hameau  -->
+            <composite:attribute name="hameauPrompt" type="String"/> 
+            <composite:attribute name="hameau" type="String"/>           
+             <!-- Superficie  -->
+            <composite:attribute name="superficiePrompt" type="String"/> 
+            <composite:attribute name="superficie" type="String"/>
+            <!-- Superficie  -->
+            <composite:attribute name="observationPrompt" type="String"/> 
+            <composite:attribute name="observation" type="String"/>
+            <!-- Appartenance  -->
+            <composite:attribute name="appartenancePrompt" type="String"/> 
+            <composite:attribute name="appartenance" type="String"/>
+            
+            <composite:attribute name="lieuDitPrompt" type="String"/> 
+            <composite:attribute name="lieuDit" type="String"/>
+           
+            <!--  statut des domaine public privé   type="org.vng.entities.TStatut" -->
+            
+            <composite:attribute name="statut" type="org.vng.entities.TStatut" shortDescription="statut" />            
+            <composite:attribute name="listeStatut" type="java.util.List"/>
+            <composite:attribute name="statutAutre" shortDescription="Autre statut" /> 
+            
+            <composite:attribute name="iddialog" shortDescription="Id du Dialog" />
+             <!-- type Parcelle  -->            
+            <composite:attribute name="typeParcelPrompt" type="String"/>           
+            <composite:attribute name="typeParcel" type="org.vng.entities.TTypebf"
+               shortDescription="Type parcelle" />
+            <composite:attribute name="listeTypeBF" type="java.util.List"/>
+            
+            
+             <composite:attribute name="commune" type="org.vng.entities.TCommune"
+               shortDescription="Commune sélectionnée" />
+            <composite:attribute name="listeCommune" type="java.util.List"/>
+                        
+             <composite:attribute name="arrondissement" type="org.vng.entities.TArrondissement"
+               shortDescription="Arrondissement sélectionnée" />
+            <composite:attribute name="listeArrondissement" type="java.util.List"/>
+            
+             <composite:attribute name="village" type="org.vng.entities.TVillage"
+               shortDescription="Village sélectionnée" />
+            <composite:attribute name="listeVillagee" type="java.util.List"/>
+            
+             <!--Nom Local de la parcelle  --> 
+            <composite:attribute name="nomLocal" type="String"/> 
+             
+            <!-- type Parcelle  -->
+            <composite:attribute name="idTypeDomaineParcelle" type="String"/>           
+            <composite:attribute name="typeDomaineParcel" type="org.vng.entities.TTypeDomaineParcel"
+               shortDescription="type de domaine public privé" />
+            <composite:attribute name="listeTypeDomaine" type="java.util.List"/>
+            
+            <composite:attribute name="readOnly" default="false" type="java.lang.Boolean"/>
+            <composite:attribute name="desactiverRecherche" default="false" type="java.lang.Boolean"/>
+            <composite:attribute name="nouvelleParcelle" default="false" type="java.lang.Boolean"/>
+            <composite:attribute name="parcelleDPP" default="false" type="java.lang.Boolean"/>
+            <composite:attribute name="restreint" default="false" type="java.lang.Boolean"/>
+            <composite:attribute name="scission" default="false" type="java.lang.Boolean"/>
+          
+            
+            <composite:attribute name="ajouterAction" method-signature="void addAction(javax.faces.event.ActionEvent)"/> 
+            <composite:attribute name="elmupdate" shortDescription="Element à mettre à jour quand on ajoute une parcelle à fusionner" />
+            
+            
+            <composite:attribute name="onTBFChange" method-signature="void addAction(javax.faces.event.ActionEvent)"/> 
+            <composite:attribute name="elmTBFupdate" shortDescription="Element à mettre à jour quand on va sélectionner un type de parcelle. Ceci devrait nous permettre d'apprêter la page suivant chaque type de parcelle. " />
+            
+            
+            <composite:attribute name="onArrondissementChange" method-signature="void addAction(javax.faces.event.ActionEvent)"/> 
+             <composite:attribute name="onVillageChange" method-signature="void addAction(javax.faces.event.ActionEvent)"/>
+            
+            <composite:attribute name="elmArrondissementupdate" shortDescription="Element à mettre à jour quand on va sélectionner une commune." />
+            <composite:attribute name="elmVillageupdate" shortDescription="Element à mettre à jour quand on va sélectionner un village." />
+            
+        </composite:interface> 
+
+        
+        <composite:implementation> 
+                    
+                           <div class="ui-g-12 ui-lg-6">                                
+                               <div class="card card-w-title" style="padding: 0px; margin-bottom: 0px;">
+                                   <div class="ui-g-12 ui-lg-6" style=" width: 150px;">                                        
+                                        <p:outputLabel  value="#{msg.hint_pbaNumero}" for="txt_numeroParcel" />                                    
+                                   </div>
+                                    <div class="ui-g-12 ui-lg-6">
+                                        <p:inputText id="txt_numeroParcel" readonly="#{!cc.attrs.nouvelleParcelle}"  value="#{cc.attrs.numeroParcel}"/>
+                                    </div>
+                                   <div class="ui-g-12 ui-lg-6" style="width: 50px;">                                      
+                                       <p:commandButton value="#{cc.attrs.rechercheButtonText}" disabled="#{cc.attrs.desactiverRecherche}" rendered="#{!cc.attrs.nouvelleParcelle}" type="button" onclick="PF('#{cc.attrs.iddialog}').show();" icon="fa fa-folder-open" styleClass="green-btn"/>
+                                   </div> 
+                               </div>
+                              
+                               <div class="card card-w-title" style="padding: 0px; margin-bottom: 0px;">
+                                 
+                                   <p:panelGrid columns="2" id="groupe_pac_1" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                       
+                                       <p:outputLabel rendered="#{!cc.attrs.restreint}" style=" width: 150px;"  value="#{msg.hint_pbaAncienNumero}"  for="txt_ancienNumero" />
+                                         <p:inputText rendered="#{!cc.attrs.restreint}" id="txt_ancienNumero" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.ancienNumero}" />
+                                         <p:outputLabel rendered="#{!cc.attrs.restreint}" style="width: 150px;"  value="#{msg.hint_pbaOthoImg}" for="txt_numeroOtho" />
+                                         <p:inputText rendered="#{!cc.attrs.restreint}" id="txt_numeroOtho" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.numeroOtho}" /> 
+                                       
+                                         <p:outputLabel rendered="#{!cc.attrs.restreint}" style="margin-bottom: 0px; width: 150px;"  value="#{msg.hint_departement}" for="txt_nomdepartement" />                                         
+                                         <p:inputText rendered="#{!cc.attrs.restreint}" id= "txt_nomdepartement" readonly="true" value="#{cc.attrs.departement}"/>
+                                         
+                                           
+                                           <p:outputLabel style="margin-bottom: 0px; width: 150px;"  value="#{msg.hint_commune}" for="spin_nomcommune" />                                                                                    
+                                         <p:selectOneMenu  id="spin_nomcommune" disabled="true"  filter="true" filterMatchMode="contains" style="max-width: 400px;" value="#{cc.attrs.commune}">                                                
+                                                <f:selectItem itemLabel="" itemValue="" />
+                                                <f:selectItems value="#{cc.attrs.listeCommune}"/> 
+                                        </p:selectOneMenu> 
+                                           
+                                        <p:outputLabel style="margin-bottom: 0px; width: 150px;"  value="#{msg.hint_arrondissement}" for="spin_nomarrondissement" />                                         
+                                        <p:selectOneMenu  id="spin_nomarrondissement" disabled="#{cc.attrs.readOnly and (!cc.attrs.nouvelleParcelle )}"  filter="true" filterMatchMode="contains" style="max-width: 400px;" value="#{cc.attrs.arrondissement}">                                                
+                                                <f:selectItem itemLabel="" itemValue="" />
+                                                <f:selectItems value="#{cc.attrs.listeArrondissement}" /> 
+                                                <p:ajax listener="#{cc.attrs.onArrondissementChange}" update="#{cc.attrs.elmArrondissementupdate}" />
+                                        </p:selectOneMenu> 
+                                           
+                                                                               
+                                           <p:outputLabel style="margin-bottom: 0px; width: 150px;" value="#{msg.hint_village}" for="spin_nomvillage" />                                          
+                                           <p:selectOneMenu  id="spin_nomvillage" disabled="#{cc.attrs.readOnly and (!cc.attrs.nouvelleParcelle )}"  filter="true" filterMatchMode="contains" style="max-width: 400px;" value="#{cc.attrs.village}">                                                
+                                                <f:selectItem itemLabel="" itemValue="" />
+                                                <f:selectItems value="#{cc.attrs.listeVillagee}" /> 
+                                                <p:ajax listener="#{cc.attrs.onVillageChange}" update="#{cc.attrs.elmVillageupdate}"/> 
+                                        </p:selectOneMenu> 
+                                           
+                                        <p:outputLabel style="margin-bottom: 0px; width: 150px;"  value="#{msg.hint_pbaHameau}" for="txt_nomhameau" />                                         
+                                        <p:inputText id= "txt_nomhameau" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.hameau}"/>
+                                          
+                                 </p:panelGrid>
+                                   
+                                   <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                        <p:selectOneRadio rendered="#{cc.attrs.parcelleDPP}" disabled="#{cc.attrs.readOnly}" layout="responsive" columns="2" value="#{cc.attrs.typeDomaineParcel}"  >                                        
+                                                <f:selectItems value="#{cc.attrs.listeTypeDomaine}" /> 
+                                           </p:selectOneRadio>
+                                   </p:panelGrid>
+                               
+                              </div>
+                           </div>
+                           <div class="ui-g-12 ui-lg-6">                        
+                                <div class="card card-w-title" style="padding: 0px; padding-top: 0px; margin-bottom: 0px;">
+                                    
+                                    <p:panelGrid columns="2" id="groupe_pac_2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                        
+                                           <p:outputLabel style="margin-bottom: 0px; width: 150px;" value="#{msg.hint_pbaLieuDit}" for="txt_lieu_dit" />                                       
+   
+                                           <p:inputText rendered="#{!cc.attrs.restreint}" id= "txt_lieu_dit" readonly="#{cc.attrs.readOnly and !cc.attrs.nouvelleParcelle}" value="#{cc.attrs.lieuDit}"/>
+
+                                           
+                                           <p:outputLabel rendered="#{!cc.attrs.restreint}" style="margin-bottom: 0px; width: 150px;" value="#{msg.hint_nom_local}" for="txt_nom_local" />                                         
+                                           <p:inputText rendered="#{!cc.attrs.restreint}" id= "txt_nom_local" readonly="#{cc.attrs.readOnly and !cc.attrs.nouvelleParcelle}" value="#{cc.attrs.nomLocal}"/>
+                                        
+                                           
+                                        <p:outputLabel  value="#{msg.hint_pbaTypeParcelle}"  for="spin_typeParcelle" />
+                                        <p:selectOneMenu  id="spin_typeParcelle" disabled="#{cc.attrs.readOnly and !cc.attrs.nouvelleParcelle }"  filter="true" filterMatchMode="contains" style="max-width: 400px;" value="#{cc.attrs.typeParcel}">                                                
+                                                <f:selectItem itemLabel="" itemValue="" />
+                                                <f:selectItems value="#{cc.attrs.listeTypeBF}" var="typeBF"  itemLabel="#{typeBF.tbfDesig}" itemValue="#{typeBF}"/> 
+                                                <p:ajax listener="#{cc.attrs.onTBFChange}" update="#{cc.attrs.elmTBFupdate}" />
+                                        </p:selectOneMenu> 
+                                        
+                                       <p:outputLabel rendered="#{!cc.attrs.restreint}" style="margin-bottom: 0px;"  value="#{msg.hint_pbaGeo}" for="spin_geometre" />                                        
+                                       <p:selectOneMenu rendered="#{!cc.attrs.restreint}"  id="spin_geometre"  disabled="#{cc.attrs.readOnly and  !cc.attrs.nouvelleParcelle}" filter="true" filterMatchMode="contains" style="max-width: 400px;" value="#{cc.attrs.nomGeometre}">                                                
+                                                <f:selectItem itemLabel="" itemValue="" />
+                                                <f:selectItems value="#{cc.attrs.listeGeometre}" /> 
+                                        </p:selectOneMenu> 
+                                       
+                                        
+                                       <p:outputLabel  style="margin-bottom: 0px; width: 150px;" value="#{msg.hint_pbaSuperficie}" for="txt_superficie" /> 
+                                       <p:inputText id= "txt_superficie" readonly="#{cc.attrs.readOnly and  !cc.attrs.nouvelleParcelle }" value="#{cc.attrs.superficie}"/>
+                                         
+                                           
+                                       <p:outputLabel rendered="#{!cc.attrs.restreint}" style="margin-bottom: 0px; width: 150px;" value="#{msg.hint_pbaObservation}"  for="txt_observation" />
+                                            
+                                       <p:inputTextarea rendered="#{!cc.attrs.restreint}" id= "txt_observation" readonly="#{cc.attrs.readOnly and !cc.attrs.nouvelleParcelle}" autoResize="false" value="#{cc.attrs.observation}"/>
+                                            
+                                       <p:outputLabel style="margin-bottom: 0px; width: 150px;"  value="#{msg.hint_pbaAppartenance}"  for="txt_appartenance" />                                           
+                                       <p:inputText id= "txt_appartenance" readonly="#{cc.attrs.readOnly}" value="#{cc.attrs.appartenance}"/>
+                                       
+                                       
+                                       <p:outputLabel value="#{msg.hint_statut}" for="spin_statut" rendered="#{cc.attrs.parcelleDPP}"/>
+                                        <p:selectOneMenu id="spin_statut" disabled="#{cc.attrs.readOnly}" rendered="#{cc.attrs.parcelleDPP}" value="#{cc.attrs.statut}" filter="true" filterMatchMode="contains" style="max-width: 400px;" >
+                                                <f:selectItem itemValue=""/>
+                                                <f:selectItems value="#{cc.attrs.listeStatut}" itemLabel="#{cc.attrs.statut}"/>
+                                       </p:selectOneMenu> 
+                                       
+                                        <p:outputLabel style="margin-bottom: 0px; width: 150px;" rendered="#{cc.attrs.parcelleDPP}"  value="#{msg.hint_statut_autre}"  for="txt_autre_statut" />                                           
+                                        <p:inputText id= "txt_autre_statut" readonly="#{cc.attrs.readOnly}" rendered="#{cc.attrs.parcelleDPP}" value="#{cc.attrs.statutAutre}"/>
+                                       
+                                    </p:panelGrid>
+                                    
+                                    
+                                </div>
+                               
+                           </div>
+            
+            
+                                  
+                 
+        </composite:implementation>
+
+     
+
+
+    </h:body>
+</html>
+

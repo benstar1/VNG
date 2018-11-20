@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "TVillage.findAll", query = "SELECT t FROM TVillage t")
     , @NamedQuery(name = "TVillage.findByVilaCode", query = "SELECT t FROM TVillage t WHERE t.vilaCode = :vilaCode")
+    , @NamedQuery(name = "TVillage.findByVilaArro", query = "SELECT t FROM TVillage t WHERE t.vilaArrCode.arrCode = :arroCode")
     , @NamedQuery(name = "TVillage.findByVlaDesig", query = "SELECT t FROM TVillage t WHERE t.vlaDesig = :vlaDesig")})
 public class TVillage implements Serializable {
 

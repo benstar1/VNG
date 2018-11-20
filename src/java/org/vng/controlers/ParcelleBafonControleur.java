@@ -67,15 +67,20 @@ import javax.validation.ValidatorFactory;
 import org.primefaces.model.DualListModel;
 import org.primefaces.harmony.domain.Theme;
 import org.primefaces.harmony.service.ThemeService;
+import org.vng.entities.TArrondissement;
+import org.vng.entities.TCommune;
 import org.vng.entities.TDroitExerce;
 import org.vng.entities.TParcelleTypeBf;
 import org.vng.entities.TPvParcelle;
 import org.vng.entities.TTypebf;
+import org.vng.sessions.TArrondissementFacade;
+import org.vng.sessions.TCommuneFacade;
 import org.vng.sessions.TDroitExerceFacade;
 import org.vng.sessions.TIntervenantFacade;
 import org.vng.sessions.TParcelleTypeBfFacade;
 import org.vng.sessions.TPvParcelleFacade;
 import org.vng.sessions.TUtilisateurFacade;
+import org.vng.sessions.TVillageFacade;
 //import org.apache.commons.lang.SerializationUtils; 
 
 
@@ -165,6 +170,9 @@ public class ParcelleBafonControleur implements Serializable {
    private TStatut statutParcelle;
    private TTypebf typeParcelle ;
    private TPvParcelle pvParcelle ;
+   
+   private TCommune laCommune;
+   private TArrondissement arrondissement;
    
    private TTypedexerce typeDroitExerce;   
    private Boolean autreActivite = false;
@@ -343,9 +351,7 @@ public class ParcelleBafonControleur implements Serializable {
     public void setEthnieFacade(TEthnieFacade ethnieFacade) {
         this.ethnieFacade = ethnieFacade;
     }
-    
-    
-    
+
 
     public TTypeDomaineParcelFacade getTypeDomaineFacade() {
         return typeDomaineFacade;
@@ -616,6 +622,22 @@ public class ParcelleBafonControleur implements Serializable {
 
     public void setListeParcelScionnee(List<TParcelleBafon> listeParcelScionnee) {
         this.listeParcelScionnee = listeParcelScionnee;
+    }
+
+    public TCommune getLaCommune() {
+        return laCommune;
+    }
+
+    public void setLaCommune(TCommune laCommune) {
+        this.laCommune = laCommune;
+    }
+
+    public TArrondissement getArrondissement() {
+        return arrondissement;
+    }
+
+    public void setArrondissement(TArrondissement arrondissement) {
+        this.arrondissement = arrondissement;
     }
 
     
