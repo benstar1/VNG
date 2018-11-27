@@ -2,6 +2,7 @@ package org.vng.controlers;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,6 +20,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -55,6 +57,8 @@ import net.sf.jasperreports.engine.JasperPrint;
 //import javax.faces.model.SelectItem;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 import org.vng.controlers.util.Convert;
 import org.vng.entities.Parcelle;
@@ -111,8 +115,8 @@ public class TOperationParcelController implements Serializable {
 
     @EJB
     private org.vng.sessions.TDroitExerceFacade ejbFacadeDroitExerce;
-    
-     @EJB
+
+    @EJB
     private org.vng.sessions.TParamettreFacade ejbFacadeParametre;
 
     @EJB
@@ -203,6 +207,9 @@ public class TOperationParcelController implements Serializable {
     private List<TDepotSignature> listDepotSignTemPren = new ArrayList<>();
     private List<TIntervenir> listInvTemPren = new ArrayList<>();
     private TDepotSignature signaturePren = new TDepotSignature();
+    private StreamedContent fichierAfficher;
+    private List<File> listfichierAfficher;
+    private List<StreamedContent> downloadFiles;
     ////////////////Tableau des limitations///////////
     //////Limitation droit administration
     private String[] listeLimiteDroitAdmin;
@@ -230,22 +237,88 @@ public class TOperationParcelController implements Serializable {
     public List<Parcelle> getParcelleLimites() {
         return parcelleLimites;
     }
-    
-/////////////////////permet de recuperer le chemin racine des doc et photo////////////
-    public void recupCheminRacine(){
-        List<TParamettre> paramlist;
-        try {
-            paramlist=ejbFacadeParametre.findAll();
-        String chemin= paramlist.get(0).getAdresseImage();
-        ////////////prendre racines des chemins dans la table tparametre/////////////////////////       
-        cheminSauvDoc=chemin+"AppliDoc/";       
-        cheminphotodetenteur= chemin+"AppliGeoImage/";    
-        System.out.println("Chemin defini dans la base : "+chemin);
-        } catch (Exception e) {
-        }  
+
+    public StreamedContent getFichierAfficher() {
+        if(fichierAfficher!=null){
+             System.out.println("Fichier courant "+fichierAfficher.getName());
+        }
+       
+        return fichierAfficher;
+    }
+
+    public List<StreamedContent> getDownloadFiles() {
+        if(downloadFiles!=null){
+        System.out.println("Tqil "+downloadFiles.size());}
+        return downloadFiles;
+    }
+
+    public void setDownloadFiles(List<StreamedContent> downloadFiles) {
+        this.downloadFiles = downloadFiles;
     }
     
     
+
+    public void setFichierAfficher(StreamedContent fichierAfficher) {
+        this.fichierAfficher = fichierAfficher;      
+    }
+
+    public List<File> getListfichierAfficher() {
+        return listfichierAfficher;
+    }
+
+    public void setListfichierAfficher(List<File> listfichierAfficher) {
+        this.listfichierAfficher = listfichierAfficher;
+    }
+
+/////////////////////////affichage image/////////////////////////
+    public void recupelisteDocJoint() {
+        File[] listfic = null;
+        listfichierAfficher=new ArrayList();
+        downloadFiles=new ArrayList<>();
+        if (selected != null) {
+            if (selected.getOpvNumero() != null) {
+                File file = new File(cheminSauvDoc + selected.getOpvNumero());
+                if (file.exists()) {
+                    listfic = file.listFiles();
+                }
+
+                if (listfic != null) {
+                    listfichierAfficher=new ArrayList(Arrays.asList(listfic));
+                   for(File f:listfichierAfficher){
+                       System.out.println(" Suivant "+f.getAbsolutePath());
+                        //FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream(f.getAbsolutePath());
+                       
+                       
+                       try {
+                           InputStream stream =new FileInputStream(f);                           
+                           downloadFiles.add(new DefaultStreamedContent(stream, "application/pdf",f.getName()));
+                       } catch (Exception e) {
+                           System.out.println(" erreur "+e);
+                       }
+                       
+                   }
+                    setDownloadFiles(downloadFiles);
+                }
+            }
+        }
+
+    }
+
+/////////////////////permet de recuperer le chemin racine des doc et photo////////////
+    public void recupCheminRacine() {
+        List<TParamettre> paramlist;
+        try {
+            paramlist = ejbFacadeParametre.findAll();
+            String chemin = paramlist.get(0).getAdresseImage();
+            ////////////prendre racines des chemins dans la table tparametre/////////////////////////       
+            cheminSauvDoc = chemin + "AppliDoc/";
+            cheminphotodetenteur = chemin + "AppliGeoImage/";
+            System.out.println("Chemin defini dans la base : " + chemin);
+            recupelisteDocJoint();
+        } catch (Exception e) {
+        }
+    }
+
     public void setParcelleLimites(List<Parcelle> parcelleLimites) {
         this.parcelleLimites = parcelleLimites;
     }
@@ -281,6 +354,7 @@ public class TOperationParcelController implements Serializable {
     public void setFilejustif(UploadedFile filejustif) {
         this.filejustif = filejustif;
     }
+
     public List<TModeacquis> getListmodeAcquisition() {
         return listmodeAcquisition;
     }
@@ -702,7 +776,7 @@ public class TOperationParcelController implements Serializable {
         genererListTypeDroit("DE");
         setLimitationchaine("FALSE");
         setLimitationchaineop("FALSE");
-        recupCheminRacine();
+        //recupCheminRacine();
         //intervenirPreneur.setInvLimitation(false);
     }
 
@@ -718,11 +792,10 @@ public class TOperationParcelController implements Serializable {
                     nomimage = intervenirBail.getInvIntNumero().getIntPhotoIdentit();
                 }
                 if (!nomimage.equals("")) {
-                  //  nomimage = "AppliGeoImage/" + nomimage.substring(0, 7) + "/" + nomimage.substring(0, 11) + "/" + nomimage;
-                       recupCheminRacine();
-                      nomimage = cheminphotodetenteur + nomimage.substring(0, 7) + "/" + nomimage.substring(0, 11) + "/" + nomimage;
-                   
-                      
+                    //  nomimage = "AppliGeoImage/" + nomimage.substring(0, 7) + "/" + nomimage.substring(0, 11) + "/" + nomimage;
+                    recupCheminRacine();
+                    nomimage = cheminphotodetenteur + nomimage.substring(0, 7) + "/" + nomimage.substring(0, 11) + "/" + nomimage;
+
                     setCheminphotodetenteur(nomimage);
                     System.out.println("Le chemin de l'immmmmmmmmmage : " + nomimage);
                 }
@@ -737,54 +810,54 @@ public class TOperationParcelController implements Serializable {
         if (filejustif != null) {
             System.out.println("Le fichier " + filejustif.getFileName());
             try {
-                
+
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(filejustif.getInputstream(), "UTF-8"));
                 copyFile(filejustif.getFileName(), filejustif.getInputstream());
-                
-            }catch(Exception e){
-                        
-                        }
+
+            } catch (Exception e) {
+
             }
-            
         }
-    
+
+    }
+
     //////////////////////enregistrement des docss sur le disque////////////////////////////////
     public void copyFile(String fileName, InputStream in) throws FileNotFoundException {
-        
-        if(selected!=null){
-            
-        try {
-            // write the inputStream to a FileOutputStream
-            
-            String docoperation=selected.getOpvNumero();
-            System.out.println("Cemin sauvegarde : "+cheminSauvDoc+docoperation+"/" + fileName);
-            if(docoperation!=null){
-                File dir = new File (cheminSauvDoc+docoperation);
-                if(!dir.exists()){
-                    dir.mkdir();
+
+        if (selected != null) {
+
+            try {
+                // write the inputStream to a FileOutputStream
+
+                String docoperation = selected.getOpvNumero();
+                System.out.println("Cemin sauvegarde : " + cheminSauvDoc + docoperation + "/" + fileName);
+                if (docoperation != null) {
+                    File dir = new File(cheminSauvDoc + docoperation);
+                    if (!dir.exists()) {
+                        dir.mkdir();
+                    }
+                    System.out.println("Cemin sauvegarde : " + cheminSauvDoc + docoperation + "/" + fileName);
+                    OutputStream out = new FileOutputStream(new File(cheminSauvDoc + docoperation + "/" + fileName));
+                    int read = 0;
+                    byte[] bytes = new byte[1024];
+                    while ((read = in.read(bytes)) != -1) {
+                        out.write(bytes, 0, read);
+                    }
+                    in.close();
+                    out.flush();
+                    out.close();
+                    FacesMessage msg = new FacesMessage("Succesful", fileName + " Document joints avec succes.");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                } else {
+                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Documents joints : ", "Aucune operation encours");
+                    FacesContext.getCurrentInstance().addMessage(null, message);
                 }
-            System.out.println("Cemin sauvegarde : "+cheminSauvDoc+docoperation+"/" + fileName);
-            OutputStream out = new FileOutputStream(new File(cheminSauvDoc+docoperation+"/" + fileName));
-            int read = 0;
-            byte[] bytes = new byte[1024];
-            while ((read = in.read(bytes)) != -1) {
-                out.write(bytes, 0, read);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
             }
-            in.close();
-            out.flush();
-            out.close();
-            FacesMessage msg = new FacesMessage("Succesful",fileName + " Document joints avec succes.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        }else{
+        } else {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Documents joints : ", "Aucune operation encours");
             FacesContext.getCurrentInstance().addMessage(null, message);
-            }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-        }else{
-              FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Documents joints : ", "Aucune operation encours");
-              FacesContext.getCurrentInstance().addMessage(null, message);
         }
     }
 

@@ -41,19 +41,27 @@
                                 <f:facet name="left">
                                     <p:commandButton update="formventeparcelle" actionListener="#{tOperationParcelController.nouveau()}" value="Nouveau" icon="fa fa-plus" />
 
-                                    <p:commandButton update="formventeparcelle" oncomplete="PF('TVenteParcelleListDlg').show()"  value="Selectionner" icon="fa fa-folder-open" styleClass="pink-btn" />
+                                    <p:commandButton update="formventeparcelle,:listfichierForm:datalist" oncomplete="PF('TVenteParcelleListDlg').show()"  value="Selectionner" icon="fa fa-folder-open" styleClass="pink-btn" />
 
                                     <span class="ui-separator" style="padding-right: 5px;">
                                         <span class="fa fa-ellipsis-v SoftGray" />
                                     </span>
 
                                     <p:commandButton disabled="#{tOperationParcelController.estvalider}" ajax="false" actionListener="#{tOperationParcelController.enregistrerVenteParcelle()}" title="enregistrer" update="messages" icon="fa fa-save" styleClass="green-btn"/>
-
+                                        
+                                    
                          
                                     <p:commandButton disabled="#{tOperationParcelController.estvalider}"  update="formventeparcelle" actionListener="#{tOperationParcelController.supprimerOperation()}" title="Supprimer" icon="fa fa-trash" styleClass="purple-btn">
                                         <p:confirm header="Confirmation" icon="ui-icon-alert"   message="Veuillez confirmer la suppression" />
                                     </p:commandButton>
                                     <p:commandButton ajax="false" actionListener="#{tOperationParcelController.imprimeDoc()}" title="Imprimer" icon="fa fa-print" styleClass="orange-btn"/>
+                                    <span class="ui-separator" style="padding-right: 5px;">
+                                        <span class="fa fa-ellipsis-v SoftGray" />
+                                    </span>
+                                        
+                                        <p:commandButton actionListener="#{tOperationParcelController.recupelisteDocJoint()}"  oncomplete="PF('TAfficheDocDlglist').show()"  value="Afficher Les Documents" icon="fa fa-download" styleClass="pink-btn" />
+
+                                        
                                 </f:facet>
                                 <f:facet name="right">
                                     <p:menuButton value="Options">
@@ -465,6 +473,8 @@
         <ui:include src="ListModeAcquisition.xhtml"/>
         <ui:include src="ListConditionPaie.xhtml"/>
         <ui:include src="ListModePartage.xhtml"/>
+        <ui:include src="AfficheListdocument.xhtml"/>
+        
     </ui:define>
 
 </ui:composition>

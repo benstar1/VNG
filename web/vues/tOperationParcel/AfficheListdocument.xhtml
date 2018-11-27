@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <style>
+            .arborescence{
+                overflow:scroll;
+            }
+            .carte{
+                overflow:scroll;
+            }
+            .photo{
+                width: 150px;
+                height: 150px;
+
+            }
+            .global{
+                position: relative;
+
+                width: 800px;
+                height:500px;
+            }
+            .gauche{
+                background-color: azure ;
+                position:  absolute;
+                width: 30%;
+                height: 100%;
+                overflow:scroll;
+            }
+            .droit{
+                background-color: lightgray  ;
+                position: absolute;
+                width: 70%;
+                height: 100%;
+                right: 0px;
+                overflow:scroll;
+                top: 0px
+
+            }
+
+        </style>
+        <script type="text/javascript">
+            //<![CDATA[
+            function start() {
+                PF('statusDialog').show();
+            }
+
+            function stop() {
+                PF('statusDialog').hide();
+            }
+            //]]>
+        </script>
+
+        <p:dialog modal="true"   appendTo="@(body)" id="TAfficheDocDlglist" widgetVar="TAfficheDocDlglist" resizable="true"  header="Les documents joints">
+            <div class="global">
+                <h:form id="listfichierForm">
+                    <p:dataTable id="datalist" value="#{tOperationParcelController.downloadFiles}" var="item"
+                                 selectionMode="single" selection="#{tOperationParcelController.fichierAfficher}"
+                                 paginator="true"
+                                 rowKey="#{item.stream}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+
+                        <p:column filterBy="#{item.name}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Numero"/>
+                            </f:facet>
+                            <h:outputText value="#{item.name}"/>
+                        </p:column>
+
+                        <p:column filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Afficher"/>
+                            </f:facet>
+
+                            <p:commandButton  ajax="false" value="TELECHARGER" onclick="PrimeFace.monitorDownloard(start, stop)"   icon="fa fa-download" styleClass="green-btn">
+                                <p:fileDownload value="#{item}" />
+                            </p:commandButton>                                 
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+
+            </div>   
+        </p:dialog>
+       
+    </ui:composition>
+
+</html>
