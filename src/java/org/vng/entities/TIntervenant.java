@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,6 +26,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -74,6 +76,12 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "TIntervenant.findByIntDateNaissCalcul", query = "SELECT t FROM TIntervenant t WHERE t.intDateNaissCalcul = :intDateNaissCalcul")
     , @NamedQuery(name = "TIntervenant.findByIntLieuNaiss", query = "SELECT t FROM TIntervenant t WHERE t.intLieuNaiss = :intLieuNaiss")})
 public class TIntervenant implements Serializable {
+
+    @OneToMany(mappedBy = "adcIntBailleur")
+    private List<TAdc> tAdcList;
+
+    @OneToOne(mappedBy = "adcIntNumero")
+    private TAdc tAdc;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -659,6 +667,24 @@ public class TIntervenant implements Serializable {
     @Override
     public String toString() {
         return "org.vng.entities.TIntervenant[ intNumero=" + intNumero + " ]";
+    }
+
+    public TAdc getTAdc() {
+        return tAdc;
+    }
+
+    public void setTAdc(TAdc tAdc) {
+        this.tAdc = tAdc;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public List<TAdc> getTAdcList() {
+        return tAdcList;
+    }
+
+    public void setTAdcList(List<TAdc> tAdcList) {
+        this.tAdcList = tAdcList;
     }
     
 }

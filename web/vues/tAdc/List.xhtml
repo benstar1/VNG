@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTAdcTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="TAdcListForm">
+                <p:panel header="#{bundle.ListTAdcTitle}">
+                    <p:dataTable id="datalist" value="#{tAdcController.items}" var="item"
+                                 selectionMode="single" selection="#{tAdcController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.adcCode}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTAdcTitle_adcCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.adcCode}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTAdcTitle_adcNumOrdre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.adcNumOrdre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTAdcTitle_adcDateDemande}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.adcDateDemande}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTAdcTitle_adcNumEnquete}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.adcNumEnquete}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTAdcTitle_adcDateEnquete}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.adcDateEnquete}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTAdcTitle_adcDateRetrait}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.adcDateRetrait}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTAdcTitle_adcReference}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.adcReference}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTAdcTitle_adcImage1}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.adcImage1}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTAdcTitle_adcImage2}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.adcImage2}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTAdcTitle_adcFonction}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.adcFonction}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTAdcTitle_adcIntNumero}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.adcIntNumero}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTAdcTitle_adcPbaNumero}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.adcPbaNumero}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTAdcTitle_adcSignCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.adcSignCode}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTAdcTitle_adcUtiCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.adcUtiCode}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tAdcController.prepareCreate}" update=":TAdcCreateForm" oncomplete="PF('TAdcCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TAdcViewForm" oncomplete="PF('TAdcViewDialog').show()" disabled="#{empty tAdcController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TAdcEditForm" oncomplete="PF('TAdcEditDialog').show()" disabled="#{empty tAdcController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{tAdcController.destroy}" update=":growl,datalist" disabled="#{empty tAdcController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

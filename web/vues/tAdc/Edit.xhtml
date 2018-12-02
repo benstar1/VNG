@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TAdcEditDlg" widgetVar="TAdcEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTAdcTitle}">
+            <h:form id="TAdcEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tAdcController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTAdcLabel_adcCode}" for="adcCode" />
+                        <p:inputText id="adcCode" value="#{tAdcController.selected.adcCode}" title="#{bundle.EditTAdcTitle_adcCode}" required="true" requiredMessage="#{bundle.EditTAdcRequiredMessage_adcCode}"/>
+                        <p:outputLabel value="#{bundle.EditTAdcLabel_adcNumOrdre}" for="adcNumOrdre" />
+                        <p:inputText id="adcNumOrdre" value="#{tAdcController.selected.adcNumOrdre}" title="#{bundle.EditTAdcTitle_adcNumOrdre}" />
+                        <p:outputLabel value="#{bundle.EditTAdcLabel_adcDateDemande}" for="adcDateDemande" />
+                        <p:calendar id="adcDateDemande" pattern="MM/dd/yyyy" value="#{tAdcController.selected.adcDateDemande}" title="#{bundle.EditTAdcTitle_adcDateDemande}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTAdcLabel_adcNumEnquete}" for="adcNumEnquete" />
+                        <p:inputText id="adcNumEnquete" value="#{tAdcController.selected.adcNumEnquete}" title="#{bundle.EditTAdcTitle_adcNumEnquete}" />
+                        <p:outputLabel value="#{bundle.EditTAdcLabel_adcDateEnquete}" for="adcDateEnquete" />
+                        <p:calendar id="adcDateEnquete" pattern="MM/dd/yyyy" value="#{tAdcController.selected.adcDateEnquete}" title="#{bundle.EditTAdcTitle_adcDateEnquete}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTAdcLabel_adcDateRetrait}" for="adcDateRetrait" />
+                        <p:calendar id="adcDateRetrait" pattern="MM/dd/yyyy" value="#{tAdcController.selected.adcDateRetrait}" title="#{bundle.EditTAdcTitle_adcDateRetrait}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTAdcLabel_adcReference}" for="adcReference" />
+                        <p:inputText id="adcReference" value="#{tAdcController.selected.adcReference}" title="#{bundle.EditTAdcTitle_adcReference}" />
+                        <p:outputLabel value="#{bundle.EditTAdcLabel_adcImage1}" for="adcImage1" />
+                        <p:inputText id="adcImage1" value="#{tAdcController.selected.adcImage1}" title="#{bundle.EditTAdcTitle_adcImage1}" />
+                        <p:outputLabel value="#{bundle.EditTAdcLabel_adcImage2}" for="adcImage2" />
+                        <p:inputText id="adcImage2" value="#{tAdcController.selected.adcImage2}" title="#{bundle.EditTAdcTitle_adcImage2}" />
+                        <p:outputLabel value="#{bundle.EditTAdcLabel_adcFonction}" for="adcFonction" />
+                        <p:inputText id="adcFonction" value="#{tAdcController.selected.adcFonction}" title="#{bundle.EditTAdcTitle_adcFonction}" />
+                        <p:outputLabel value="#{bundle.EditTAdcLabel_adcIntNumero}" for="adcIntNumero" />
+                        <p:selectOneMenu id="adcIntNumero" value="#{tAdcController.selected.adcIntNumero}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tIntervenantController.itemsAvailableSelectOne}"
+                                           var="adcIntNumeroItem"
+                                           itemValue="#{adcIntNumeroItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTAdcLabel_adcPbaNumero}" for="adcPbaNumero" />
+                        <p:selectOneMenu id="adcPbaNumero" value="#{tAdcController.selected.adcPbaNumero}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tParcelleBafonController.itemsAvailableSelectOne}"
+                                           var="adcPbaNumeroItem"
+                                           itemValue="#{adcPbaNumeroItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTAdcLabel_adcSignCode}" for="adcSignCode" />
+                        <p:selectOneMenu id="adcSignCode" value="#{tAdcController.selected.adcSignCode}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tSignataireController.itemsAvailableSelectOne}"
+                                           var="adcSignCodeItem"
+                                           itemValue="#{adcSignCodeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTAdcLabel_adcUtiCode}" for="adcUtiCode" />
+                        <p:selectOneMenu id="adcUtiCode" value="#{tAdcController.selected.adcUtiCode}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tUtilisateurController.itemsAvailableSelectOne}"
+                                           var="adcUtiCodeItem"
+                                           itemValue="#{adcUtiCodeItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tAdcController.update}" value="#{bundle.Save}" update="display,:TAdcListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TAdcEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TAdcEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -25,6 +25,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -48,6 +49,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "TUtilisateur.findByUtilNomImage", query = "SELECT t FROM TUtilisateur t WHERE t.utilNomImage = :utilNomImage")
     , @NamedQuery(name = "TUtilisateur.findByUtiDateChargement", query = "SELECT t FROM TUtilisateur t WHERE t.utiDateChargement = :utiDateChargement")})
 public class TUtilisateur implements Serializable {
+
+    @OneToMany(mappedBy = "adcUtiCode")
+    private List<TAdc> tAdcList;
 
     @Column(name = "uti_actif")
     private Boolean utiActif;
@@ -360,6 +364,16 @@ public class TUtilisateur implements Serializable {
 
     public void setUtiActif(Boolean utiActif) {
         this.utiActif = utiActif;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public List<TAdc> getTAdcList() {
+        return tAdcList;
+    }
+
+    public void setTAdcList(List<TAdc> tAdcList) {
+        this.tAdcList = tAdcList;
     }
     
 }

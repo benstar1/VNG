@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="a6d15b3a-5039-4d8a-8f3e-ab173a7f1e3f">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="981"/>
+	<parameter name="ParamDepartement" class="java.lang.String"/>
+	<parameter name="ParamCommune" class="java.lang.String"/>
+	<parameter name="ParamNumAdc" class="java.lang.String"/>
+	<parameter name="ParamSoussigne" class="java.lang.String"/>
+	<parameter name="ParamDescription" class="java.lang.String"/>
+	<parameter name="signatureAffirmation" class="java.lang.String"/>
+	<parameter name="dateLieuSignature" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT adc_code, 
+adc_pba_numero, 
+adc_int_numero, 
+adc_num_ordre, 
+adc_date_demande, 
+adc_num_enquete, 
+adc_date_enquete, 
+adc_date_retrait, 
+adc_reference, 
+adc_image1, 
+adc_image2, 
+adc_uti_code, 
+adc_sign_code, 
+adc_fonction
+FROM public.t_adc
+WHERE adc_code=$P{ParamNumAdc}]]>
+	</queryString>
+	<field name="adc_code" class="java.lang.String"/>
+	<field name="adc_pba_numero" class="java.lang.String"/>
+	<field name="adc_int_numero" class="java.lang.String"/>
+	<field name="adc_num_ordre" class="java.lang.String"/>
+	<field name="adc_date_demande" class="java.sql.Date"/>
+	<field name="adc_num_enquete" class="java.lang.String"/>
+	<field name="adc_date_enquete" class="java.sql.Date"/>
+	<field name="adc_date_retrait" class="java.sql.Date"/>
+	<field name="adc_reference" class="java.lang.String"/>
+	<field name="adc_image1" class="java.lang.String"/>
+	<field name="adc_image2" class="java.lang.String"/>
+	<field name="adc_uti_code" class="java.lang.String"/>
+	<field name="adc_sign_code" class="java.lang.String"/>
+	<field name="adc_fonction" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="76" splitType="Stretch">
+			<textField>
+				<reportElement x="10" y="34" width="168" height="12" uuid="ea6f2b4a-c60c-4963-a3d6-c90e800bd643"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ParamCommune}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="56" y="30" width="73" height="1" uuid="b1f56de1-61a6-4b88-97fc-ad460bcc5a1a"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="56" y="13" width="73" height="1" uuid="5a14ba94-5f6d-473e-bb63-c4f8a1132834"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="10" y="1" width="168" height="12" uuid="68005918-cca7-4146-b02d-369927419137"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPUBLIQUE DU BENIN]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="10" y="17" width="168" height="12" uuid="e1acec92-f6bf-4e84-877d-545e22ba9993"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ParamDepartement}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="56" y="48" width="73" height="1" uuid="fca3013e-b276-4914-8409-5ba00214fc93"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="42" splitType="Stretch">
+			<line>
+				<reportElement x="56" y="1" width="463" height="1" uuid="18c2df6a-1034-4155-ad1a-f87ea275a142"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="56" y="40" width="463" height="1" uuid="b9de3d71-afc8-4a94-a16b-6741c609d42d"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="93" y="7" width="375" height="20" uuid="69cd3f11-15df-407d-94e3-6590da181ad5"/>
+				<textElement textAlignment="Center">
+					<font fontName="Cambria" size="16" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[ATTESTATION DE DETENTION COUTUMIERE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="174" y="22" width="211" height="15" uuid="2a1a7ce4-2679-4f2b-b362-d01a79ed4342"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[(Art 352 Loi 2017-15 du 10 août 2017)]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="575">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="1" y="15" width="534" height="213" isPrintWhenDetailOverflows="true" uuid="1d2fb60c-1019-4005-bd58-7b73a55ae482"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ParamSoussigne}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="241" width="121" height="20" uuid="3489e886-2b14-430c-bfca-aa872b944edc"/>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Description :]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="1" y="260" width="534" height="149" isPrintWhenDetailOverflows="true" uuid="f5679ff1-54a3-4e6b-9260-433841df79ab"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ParamDescription}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="4" y="440" width="531" height="87" uuid="b0d22f97-a6d8-4d4a-ac6b-e0f839d6bf09"/>
+				<textElement>
+					<font size="12"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[A notre connaissance, aucune prescription administrative ne grève l’immeuble. 
+En foi de quoi, sous réserve d’éventuels droits non révélés susceptibles de modifier par la suite l’étendue des droits du requérant, la présente Attestation de Détention Coutumière lui est délivrée pour servir et valoir ce que de droit.
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="163" y="531" width="188" height="20" uuid="61aefb0e-bb95-44ad-b8e3-ca399a155587"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dateLieuSignature}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="331" y="555" width="204" height="20" uuid="75ff2c54-60d9-4221-b2c9-47647cf4a76c"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{signatureAffirmation}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="41" splitType="Stretch">
+			<line>
+				<reportElement x="4" y="1" width="121" height="1" uuid="fdc6fa88-23fa-4cb1-ae76-f963d297fdce"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="4" y="4" width="515" height="11" uuid="d4a1200a-54cd-456b-a594-374206083a6e"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<text><![CDATA[1 Mr/Mme, Collectivité, Succession, Nom de la Personne Morale etc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="16" width="515" height="11" uuid="46060bdd-2e75-4dea-bc8d-730ab7abc60e"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<text><![CDATA[2 IFU pour les personnes morales]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="27" width="515" height="11" uuid="b00d66db-6408-4ee1-85da-7abf8134b811"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<text><![CDATA[3 Mettre l’information disponible (QIP : Quartier Ilôt Parcelle REP : Rue Entrée de Parcelle ZIP : Zone Ilot Parcelle EL : Etat des Lieux)]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

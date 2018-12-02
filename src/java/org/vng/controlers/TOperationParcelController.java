@@ -286,16 +286,13 @@ public class TOperationParcelController implements Serializable {
                     listfichierAfficher=new ArrayList(Arrays.asList(listfic));
                    for(File f:listfichierAfficher){
                        System.out.println(" Suivant "+f.getAbsolutePath());
-                        //FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream(f.getAbsolutePath());
-                       
-                       
+                        //FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream(f.getAbsolutePath());                      
                        try {
                            InputStream stream =new FileInputStream(f);                           
                            downloadFiles.add(new DefaultStreamedContent(stream, "application/pdf",f.getName()));
                        } catch (Exception e) {
                            System.out.println(" erreur "+e);
-                       }
-                       
+                       }                      
                    }
                     setDownloadFiles(downloadFiles);
                 }
@@ -834,7 +831,7 @@ public class TOperationParcelController implements Serializable {
                 if (docoperation != null) {
                     File dir = new File(cheminSauvDoc + docoperation);
                     if (!dir.exists()) {
-                        dir.mkdir();
+                        dir.mkdirs();
                     }
                     System.out.println("Cemin sauvegarde : " + cheminSauvDoc + docoperation + "/" + fileName);
                     OutputStream out = new FileOutputStream(new File(cheminSauvDoc + docoperation + "/" + fileName));

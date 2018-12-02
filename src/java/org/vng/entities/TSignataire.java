@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -37,6 +38,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "TSignataire.findBySignActif", query = "SELECT t FROM TSignataire t WHERE t.signActif = :signActif")
     , @NamedQuery(name = "TSignataire.findBySignFonction", query = "SELECT t FROM TSignataire t WHERE t.signFonction = :signFonction")})
 public class TSignataire implements Serializable {
+
+    @OneToOne(mappedBy = "adcSignCode")
+    private TAdc tAdc;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -149,6 +153,14 @@ public class TSignataire implements Serializable {
     @Override
     public String toString() {
         return "org.vng.entities.TSignataire[ signCode=" + signCode + " ]";
+    }
+
+    public TAdc getTAdc() {
+        return tAdc;
+    }
+
+    public void setTAdc(TAdc tAdc) {
+        this.tAdc = tAdc;
     }
     
 }

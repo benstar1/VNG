@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -86,6 +87,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "TParcelleBafon.findByCommuneEncours", query = "SELECT t FROM TParcelleBafon t WHERE t.pbaVilaCode.vilaArrCode.arrComCode.comEncours = true")
     , @NamedQuery(name = "TParcelleBafon.findByPbaPfr", query = "SELECT t FROM TParcelleBafon t WHERE t.pbaPfr = :pbaPfr")})
 public class TParcelleBafon implements Serializable {
+
+    @OneToOne(mappedBy = "adcPbaNumero")
+    private TAdc tAdc;
 
     @OneToMany(mappedBy = "patyPbaNumero")
     private List<TParcelleTypeBf> tParcelleTypeBfList;
@@ -893,6 +897,14 @@ public class TParcelleBafon implements Serializable {
 
     public void setPbaCodeGeo(TUtilisateur pbaCodeGeo) {
         this.pbaCodeGeo = pbaCodeGeo;
+    }
+
+    public TAdc getTAdc() {
+        return tAdc;
+    }
+
+    public void setTAdc(TAdc tAdc) {
+        this.tAdc = tAdc;
     }
     
 }

@@ -1,0 +1,121 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="./../../WEB-INF/template.xhtml">
+
+    <ui:define name="title">Opération parcelle</ui:define>
+    <ui:define name="viewname">
+
+        <li>Impression Attestation de Detention Coutumiere</li>
+    </ui:define>
+
+    <ui:define name="content">
+        <style>
+            .arborescence{
+                overflow:scroll;
+            }
+            .carte{
+                overflow:scroll;
+            }
+        </style>
+        <div class="container">
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <div class="card card-w-title" >
+                        <h2>Impression Attestation de Detention Coutumiere</h2>
+                        <h:form id="TAdcListForm">
+                <p:panel header="Liste">
+                    <p:dataTable id="datalist" value="#{tAdcController.items}" var="item"
+                                 selectionMode="single" selection="#{tAdcController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.adcCode}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:column filterBy="#{item.adcCode}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Numero"/>
+                            </f:facet>
+                            <h:outputText value="#{item.adcCode}"/>
+                        </p:column>
+                       <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="La Parcelle"/>
+                            </f:facet>
+                            <h:outputText value="#{item.adcPbaNumero}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Date Demande"/>
+                            </f:facet>
+                            <h:outputText value="#{item.adcDateDemande}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Numero Enquete"/>
+                            </f:facet>
+                            <h:outputText value="#{item.adcNumEnquete}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Date Enquete"/>
+                            </f:facet>
+                            <h:outputText value="#{item.adcDateEnquete}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Date retrait"/>
+                            </f:facet>
+                            <h:outputText value="#{item.adcDateRetrait}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Reference"/>
+                            </f:facet>
+                            <h:outputText value="#{item.adcReference}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nom detenteur"/>
+                            </f:facet>
+                            <h:outputText value="#{item.adcIntNumero.intNom}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Prenom detenteur"/>
+                            </f:facet>
+                            <h:outputText value="#{item.adcIntNumero.intPrenom}"/>
+                        </p:column>
+                        
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Imprimer"/>
+                            </f:facet>
+                            <p:commandButton ajax="false" id="impression" icon="fa fa-print" styleClass="orange-btn"   value="Imprimer" actionListener="#{tAdcController.imprimeAdc(item.adcCode)}" />                          
+                        </p:column>
+                        
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+
+    </ui:define>
+
+</ui:composition>

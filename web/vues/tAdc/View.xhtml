@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TAdcViewDlg" widgetVar="TAdcViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTAdcTitle}">
+            <h:form id="TAdcViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tAdcController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTAdcLabel_adcCode}"/>
+                        <h:outputText value="#{tAdcController.selected.adcCode}" title="#{bundle.ViewTAdcTitle_adcCode}"/>
+                        <h:outputText value="#{bundle.ViewTAdcLabel_adcNumOrdre}"/>
+                        <h:outputText value="#{tAdcController.selected.adcNumOrdre}" title="#{bundle.ViewTAdcTitle_adcNumOrdre}"/>
+                        <h:outputText value="#{bundle.ViewTAdcLabel_adcDateDemande}"/>
+                        <h:outputText value="#{tAdcController.selected.adcDateDemande}" title="#{bundle.ViewTAdcTitle_adcDateDemande}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTAdcLabel_adcNumEnquete}"/>
+                        <h:outputText value="#{tAdcController.selected.adcNumEnquete}" title="#{bundle.ViewTAdcTitle_adcNumEnquete}"/>
+                        <h:outputText value="#{bundle.ViewTAdcLabel_adcDateEnquete}"/>
+                        <h:outputText value="#{tAdcController.selected.adcDateEnquete}" title="#{bundle.ViewTAdcTitle_adcDateEnquete}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTAdcLabel_adcDateRetrait}"/>
+                        <h:outputText value="#{tAdcController.selected.adcDateRetrait}" title="#{bundle.ViewTAdcTitle_adcDateRetrait}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTAdcLabel_adcReference}"/>
+                        <h:outputText value="#{tAdcController.selected.adcReference}" title="#{bundle.ViewTAdcTitle_adcReference}"/>
+                        <h:outputText value="#{bundle.ViewTAdcLabel_adcImage1}"/>
+                        <h:outputText value="#{tAdcController.selected.adcImage1}" title="#{bundle.ViewTAdcTitle_adcImage1}"/>
+                        <h:outputText value="#{bundle.ViewTAdcLabel_adcImage2}"/>
+                        <h:outputText value="#{tAdcController.selected.adcImage2}" title="#{bundle.ViewTAdcTitle_adcImage2}"/>
+                        <h:outputText value="#{bundle.ViewTAdcLabel_adcFonction}"/>
+                        <h:outputText value="#{tAdcController.selected.adcFonction}" title="#{bundle.ViewTAdcTitle_adcFonction}"/>
+                        <h:outputText value="#{bundle.ViewTAdcLabel_adcIntNumero}"/>
+                        <h:outputText value="#{tAdcController.selected.adcIntNumero}" title="#{bundle.ViewTAdcTitle_adcIntNumero}"/>
+                        <h:outputText value="#{bundle.ViewTAdcLabel_adcPbaNumero}"/>
+                        <h:outputText value="#{tAdcController.selected.adcPbaNumero}" title="#{bundle.ViewTAdcTitle_adcPbaNumero}"/>
+                        <h:outputText value="#{bundle.ViewTAdcLabel_adcSignCode}"/>
+                        <h:outputText value="#{tAdcController.selected.adcSignCode}" title="#{bundle.ViewTAdcTitle_adcSignCode}"/>
+                        <h:outputText value="#{bundle.ViewTAdcLabel_adcUtiCode}"/>
+                        <h:outputText value="#{tAdcController.selected.adcUtiCode}" title="#{bundle.ViewTAdcTitle_adcUtiCode}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TAdcViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

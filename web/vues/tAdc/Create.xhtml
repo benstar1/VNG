@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TAdcCreateDlg" widgetVar="TAdcCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTAdcTitle}">
+            <h:form id="TAdcCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tAdcController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTAdcLabel_adcCode}" for="adcCode" />
+                        <p:inputText id="adcCode" value="#{tAdcController.selected.adcCode}" title="#{bundle.CreateTAdcTitle_adcCode}" required="true" requiredMessage="#{bundle.CreateTAdcRequiredMessage_adcCode}"/>
+                        <p:outputLabel value="#{bundle.CreateTAdcLabel_adcNumOrdre}" for="adcNumOrdre" />
+                        <p:inputText id="adcNumOrdre" value="#{tAdcController.selected.adcNumOrdre}" title="#{bundle.CreateTAdcTitle_adcNumOrdre}" />
+                        <p:outputLabel value="#{bundle.CreateTAdcLabel_adcDateDemande}" for="adcDateDemande" />
+                        <p:calendar id="adcDateDemande" pattern="MM/dd/yyyy" value="#{tAdcController.selected.adcDateDemande}" title="#{bundle.EditTAdcTitle_adcDateDemande}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTAdcLabel_adcNumEnquete}" for="adcNumEnquete" />
+                        <p:inputText id="adcNumEnquete" value="#{tAdcController.selected.adcNumEnquete}" title="#{bundle.CreateTAdcTitle_adcNumEnquete}" />
+                        <p:outputLabel value="#{bundle.CreateTAdcLabel_adcDateEnquete}" for="adcDateEnquete" />
+                        <p:calendar id="adcDateEnquete" pattern="MM/dd/yyyy" value="#{tAdcController.selected.adcDateEnquete}" title="#{bundle.EditTAdcTitle_adcDateEnquete}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTAdcLabel_adcDateRetrait}" for="adcDateRetrait" />
+                        <p:calendar id="adcDateRetrait" pattern="MM/dd/yyyy" value="#{tAdcController.selected.adcDateRetrait}" title="#{bundle.EditTAdcTitle_adcDateRetrait}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTAdcLabel_adcReference}" for="adcReference" />
+                        <p:inputText id="adcReference" value="#{tAdcController.selected.adcReference}" title="#{bundle.CreateTAdcTitle_adcReference}" />
+                        <p:outputLabel value="#{bundle.CreateTAdcLabel_adcImage1}" for="adcImage1" />
+                        <p:inputText id="adcImage1" value="#{tAdcController.selected.adcImage1}" title="#{bundle.CreateTAdcTitle_adcImage1}" />
+                        <p:outputLabel value="#{bundle.CreateTAdcLabel_adcImage2}" for="adcImage2" />
+                        <p:inputText id="adcImage2" value="#{tAdcController.selected.adcImage2}" title="#{bundle.CreateTAdcTitle_adcImage2}" />
+                        <p:outputLabel value="#{bundle.CreateTAdcLabel_adcFonction}" for="adcFonction" />
+                        <p:inputText id="adcFonction" value="#{tAdcController.selected.adcFonction}" title="#{bundle.CreateTAdcTitle_adcFonction}" />
+                        <p:outputLabel value="#{bundle.CreateTAdcLabel_adcIntNumero}" for="adcIntNumero" />
+                        <p:selectOneMenu id="adcIntNumero" value="#{tAdcController.selected.adcIntNumero}" >
+                            <f:selectItems value="#{tIntervenantController.itemsAvailableSelectOne}"
+                                           var="adcIntNumeroItem"
+                                           itemValue="#{adcIntNumeroItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTAdcLabel_adcPbaNumero}" for="adcPbaNumero" />
+                        <p:selectOneMenu id="adcPbaNumero" value="#{tAdcController.selected.adcPbaNumero}" >
+                            <f:selectItems value="#{tParcelleBafonController.itemsAvailableSelectOne}"
+                                           var="adcPbaNumeroItem"
+                                           itemValue="#{adcPbaNumeroItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTAdcLabel_adcSignCode}" for="adcSignCode" />
+                        <p:selectOneMenu id="adcSignCode" value="#{tAdcController.selected.adcSignCode}" >
+                            <f:selectItems value="#{tSignataireController.itemsAvailableSelectOne}"
+                                           var="adcSignCodeItem"
+                                           itemValue="#{adcSignCodeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTAdcLabel_adcUtiCode}" for="adcUtiCode" />
+                        <p:selectOneMenu id="adcUtiCode" value="#{tAdcController.selected.adcUtiCode}" >
+                            <f:selectItems value="#{tUtilisateurController.itemsAvailableSelectOne}"
+                                           var="adcUtiCodeItem"
+                                           itemValue="#{adcUtiCodeItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tAdcController.create}" value="#{bundle.Save}" update="display,:TAdcListForm:datalist,:growl" oncomplete="handleSubmit(args,'TAdcCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TAdcCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

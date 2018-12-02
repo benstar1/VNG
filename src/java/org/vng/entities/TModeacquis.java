@@ -19,6 +19,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -35,6 +36,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "TModeacquis.findByMacDesig", query = "SELECT t FROM TModeacquis t WHERE t.macDesig = :macDesig")
     , @NamedQuery(name = "TModeacquis.findByMacCat", query = "SELECT t FROM TModeacquis t WHERE t.macCat = :macCat")})
 public class TModeacquis implements Serializable {
+
+    @OneToMany(mappedBy = "adcMacCode")
+    private List<TAdc> tAdcList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -126,6 +130,16 @@ public class TModeacquis implements Serializable {
     @Override
     public String toString() {
         return "org.vng.entities.TModeacquis[ macCode=" + macCode + " ]";
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public List<TAdc> getTAdcList() {
+        return tAdcList;
+    }
+
+    public void setTAdcList(List<TAdc> tAdcList) {
+        this.tAdcList = tAdcList;
     }
     
 }
