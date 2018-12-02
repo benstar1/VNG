@@ -239,27 +239,26 @@ public class TOperationParcelController implements Serializable {
     }
 
     public StreamedContent getFichierAfficher() {
-        if(fichierAfficher!=null){
-             System.out.println("Fichier courant "+fichierAfficher.getName());
+        if (fichierAfficher != null) {
+            System.out.println("Fichier courant " + fichierAfficher.getName());
         }
-       
+
         return fichierAfficher;
     }
 
     public List<StreamedContent> getDownloadFiles() {
-        if(downloadFiles!=null){
-        System.out.println("Tqil "+downloadFiles.size());}
+        if (downloadFiles != null) {
+            System.out.println("Tqil " + downloadFiles.size());
+        }
         return downloadFiles;
     }
 
     public void setDownloadFiles(List<StreamedContent> downloadFiles) {
         this.downloadFiles = downloadFiles;
     }
-    
-    
 
     public void setFichierAfficher(StreamedContent fichierAfficher) {
-        this.fichierAfficher = fichierAfficher;      
+        this.fichierAfficher = fichierAfficher;
     }
 
     public List<File> getListfichierAfficher() {
@@ -273,8 +272,8 @@ public class TOperationParcelController implements Serializable {
 /////////////////////////affichage image/////////////////////////
     public void recupelisteDocJoint() {
         File[] listfic = null;
-        listfichierAfficher=new ArrayList();
-        downloadFiles=new ArrayList<>();
+        listfichierAfficher = new ArrayList();
+        downloadFiles = new ArrayList<>();
         if (selected != null) {
             if (selected.getOpvNumero() != null) {
                 File file = new File(cheminSauvDoc + selected.getOpvNumero());
@@ -283,17 +282,17 @@ public class TOperationParcelController implements Serializable {
                 }
 
                 if (listfic != null) {
-                    listfichierAfficher=new ArrayList(Arrays.asList(listfic));
-                   for(File f:listfichierAfficher){
-                       System.out.println(" Suivant "+f.getAbsolutePath());
+                    listfichierAfficher = new ArrayList(Arrays.asList(listfic));
+                    for (File f : listfichierAfficher) {
+                        System.out.println(" Suivant " + f.getAbsolutePath());
                         //FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream(f.getAbsolutePath());                      
-                       try {
-                           InputStream stream =new FileInputStream(f);                           
-                           downloadFiles.add(new DefaultStreamedContent(stream, "application/pdf",f.getName()));
-                       } catch (Exception e) {
-                           System.out.println(" erreur "+e);
-                       }                      
-                   }
+                        try {
+                            InputStream stream = new FileInputStream(f);
+                            downloadFiles.add(new DefaultStreamedContent(stream, "application/pdf", f.getName()));
+                        } catch (Exception e) {
+                            System.out.println(" erreur " + e);
+                        }
+                    }
                     setDownloadFiles(downloadFiles);
                 }
             }
@@ -1153,68 +1152,76 @@ public class TOperationParcelController implements Serializable {
             listIntervenir = ejbFacadeIntervenir.executeListeIntervRole(pbf, "DE");
             System.out.println(" taill " + listIntervenir.size());
             boolean interdi = false;
-            if (listIntervenir != null) {
-                try {
-                    /////////////////Verifir l'operation est opossible///////////////////
-                    TIntervenir IntBail = listIntervenir.get(0);
-                    System.out.println(" Numero Inv " + IntBail.getInvNumero());
-                    boolean existeLimDroitDet = IntBail.getInvLimitation();
-                    if (existeLimDroitDet) {
-                        if ((getTypeOperation().equals("VENTE")) && (IntBail.getInvLimitVent())) {
-                            /////////////Impossible de vendre la parcelle
-                            interdi = true;
-                            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Interdition d'operation : ", "Operation de vente interdite sur cette parcelle");
-                            FacesContext.getCurrentInstance().addMessage(null, message);
+
+            if (pbf.getPbaTbfCode().getTbfCode().equals("TBF03")) {
+                 interdi = true;
+                 nouveau();
+                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Interdition de l'operation : ", "Parcelle litigieuse");
+                 FacesContext.getCurrentInstance().addMessage(null, message);
+            } else {
+                if (listIntervenir != null) {
+                    try {
+                        /////////////////Verifir l'operation est opossible///////////////////
+                        TIntervenir IntBail = listIntervenir.get(0);
+                        System.out.println(" Numero Inv " + IntBail.getInvNumero());
+                        boolean existeLimDroitDet = IntBail.getInvLimitation();
+                        if (existeLimDroitDet) {
+
+                            if ((getTypeOperation().equals("VENTE")) && (IntBail.getInvLimitVent())) {
+                                /////////////Impossible de vendre la parcelle
+                                interdi = true;
+                                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Interdition d'operation : ", "Operation de vente interdite sur cette parcelle");
+                                FacesContext.getCurrentInstance().addMessage(null, message);
+                            }
+
+                            if ((getTypeOperation().equals("DON")) && (IntBail.getInvLimitVent())) {
+                                /////////////Impossible de vendre la parcelle
+                                interdi = true;
+                                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Interdition d'operation : ", "Operation de Don interdite sur cette parcelle");
+                                FacesContext.getCurrentInstance().addMessage(null, message);
+                            }
+
+                            if ((getTypeOperation().equals("LEG")) && (IntBail.getInvLimitVent())) {
+                                /////////////Impossible de vendre la parcelle
+                                interdi = true;
+                                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Interdition d'operation : ", "Operation de Leg interdite sur cette parcelle");
+                                FacesContext.getCurrentInstance().addMessage(null, message);
+                            }
+
+                            if ((getTypeOperation().equals("PRET")) && (IntBail.getInvLimitVent())) {
+                                /////////////Impossible de vendre la parcelle
+                                interdi = true;
+                                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Interdition d'operation : ", "Operation de pret interdite sur cette parcelle");
+                                FacesContext.getCurrentInstance().addMessage(null, message);
+                            }
+
                         }
+                        /////////////////////////////////////////////////////////////////////
 
-                        if ((getTypeOperation().equals("DON")) && (IntBail.getInvLimitVent())) {
-                            /////////////Impossible de vendre la parcelle
-                            interdi = true;
-                            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Interdition d'operation : ", "Operation de Don interdite sur cette parcelle");
-                            FacesContext.getCurrentInstance().addMessage(null, message);
+                        if (!interdi) {
+                            intervenirbailleur = listIntervenir.get(0);
+                            setIntervenantBailleur(intervenirbailleur.getInvIntNumero());
+                            selected.setOpvIntNumeroBailleur(intervenirbailleur.getInvIntNumero());
+                            setCollectivite(intervenirbailleur.getInvIntNumero().getIntCollectivite());
+                            setNom(intervenirbailleur.getInvIntNumero().getIntNom());
+                            setPrenom(intervenirbailleur.getInvIntNumero().getIntPrenom());
+                            setDomicile(intervenirbailleur.getInvIntNumero().getIntDomicile());
+                            setAge(String.valueOf(intervenirbailleur.getInvIntNumero().getIntDateNais()));
+                            System.out.println("Intervenante " + intervenirbailleur.getInvIntNumero().getIntNom());
+                            initSignatureBailleur(intervenirbailleur.getInvIntNumero());
+                        } else {
+                            nouveau();
                         }
-
-                        if ((getTypeOperation().equals("LEG")) && (IntBail.getInvLimitVent())) {
-                            /////////////Impossible de vendre la parcelle
-                            interdi = true;
-                            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Interdition d'operation : ", "Operation de Leg interdite sur cette parcelle");
-                            FacesContext.getCurrentInstance().addMessage(null, message);
-                        }
-
-                        if ((getTypeOperation().equals("PRET")) && (IntBail.getInvLimitVent())) {
-                            /////////////Impossible de vendre la parcelle
-                            interdi = true;
-                            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Interdition d'operation : ", "Operation de pret interdite sur cette parcelle");
-                            FacesContext.getCurrentInstance().addMessage(null, message);
-                        }
-
-                    }
-                    /////////////////////////////////////////////////////////////////////
-
-                    if (!interdi) {
-                        intervenirbailleur = listIntervenir.get(0);
-                        setIntervenantBailleur(intervenirbailleur.getInvIntNumero());
-                        selected.setOpvIntNumeroBailleur(intervenirbailleur.getInvIntNumero());
-                        setCollectivite(intervenirbailleur.getInvIntNumero().getIntCollectivite());
-                        setNom(intervenirbailleur.getInvIntNumero().getIntNom());
-                        setPrenom(intervenirbailleur.getInvIntNumero().getIntPrenom());
-                        setDomicile(intervenirbailleur.getInvIntNumero().getIntDomicile());
-                        setAge(String.valueOf(intervenirbailleur.getInvIntNumero().getIntDateNais()));
-                        System.out.println("Intervenante " + intervenirbailleur.getInvIntNumero().getIntNom());
-                        initSignatureBailleur(intervenirbailleur.getInvIntNumero());
-                    } else {
+                    } catch (Exception e) {
+                        System.out.println("Pas de detenteur de DE " + e);
                         nouveau();
+                        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Droit de detention : ", "Default de detenteur du droit de detention");
+                        FacesContext.getCurrentInstance().addMessage(null, message);
+
                     }
-                } catch (Exception e) {
-                    System.out.println("Pas de detenteur de DE " + e);
-                    nouveau();
-                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Droit de detention : ", "Default de detenteur du droit de detention");
-                    FacesContext.getCurrentInstance().addMessage(null, message);
 
                 }
-
             }
-
         }
 
     }
