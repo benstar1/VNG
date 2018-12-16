@@ -37,19 +37,19 @@
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
                        
-                        <p:column>
+                        <p:column filterBy="#{item.utiNom}" filterMatchMode="contains">
                             <f:facet name="header">
-                                <h:outputText value="NOm"/>
+                                <h:outputText value="Nom"/>
                             </f:facet>
                             <h:outputText value="#{item.utiNom}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.utiPrenom}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="Prénoms"/>
                             </f:facet>
                             <h:outputText value="#{item.utiPrenom}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.utiLogin}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="Login"/>
                             </f:facet>

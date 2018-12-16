@@ -95,7 +95,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "TIntervenir.findByInvDopRepresenter", query = "SELECT t FROM TIntervenir t WHERE t.invDopRepresenter = :invDopRepresenter")
     , @NamedQuery(name = "TIntervenir.findByInvDopDetenteur", query = "SELECT t FROM TIntervenir t WHERE t.invDopDetenteur = :invDopDetenteur")
     , @NamedQuery(name = "TIntervenir.findByInvCiPp", query = "SELECT t FROM TIntervenir t WHERE t.invCiPp = :invCiPp")
-    , @NamedQuery(name = "TIntervenir.findDetentDroitAdmin", query = "SELECT t FROM TIntervenir t WHERE t.invDateFin is null AND t.invPbaNumero = :parcelle AND t.invRolCode.rolCat= :categorierole ") 
+    , @NamedQuery(name = "TIntervenir.findDetentDroitAdmin", query = "SELECT t FROM TIntervenir t WHERE t.invDateFin is null AND t.invPbaNumero = :parcelle AND t.invRolCode.rolCat= :categorierole ORDER BY t.invDateDeb DESC") 
     , @NamedQuery(name = "TIntervenir.findMaxIntervenir", query = "SELECT Max(t.invNumero) FROM TIntervenir t WHERE t.invNumero LIKE :annee")
     , @NamedQuery(name = "TIntervenir.findByInvDateExpCiPp", query = "SELECT t FROM TIntervenir t WHERE t.invDateExpCiPp = :invDateExpCiPp")})
 public class TIntervenir implements Serializable {

@@ -7,6 +7,7 @@ import org.vng.sessions.TUtilisateurFacade;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,10 +17,12 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 
 @Named("tUtilisateurController")
@@ -28,14 +31,35 @@ public class TUtilisateurController implements Serializable {
     //@Inject
     ConvertirMD5 md5=new ConvertirMD5();
     
+    //@Inject
+    org.vng.controlers.LoginMBean loginMbean;
+    
     @EJB
     private org.vng.sessions.TUtilisateurFacade ejbFacade;
     private List<TUtilisateur> items = null;
     private TUtilisateur selected;
     int i=0;
-    String limitationchaine,confutiPassword;
+    String limitationchaine,confutiPassword,nouveauMotDePasse,ancienMotDePasse;
+
+    public String getAncienMotDePasse() {
+        return ancienMotDePasse;
+    }
+
+    public void setAncienMotDePasse(String ancienMotDePasse) {
+        this.ancienMotDePasse = ancienMotDePasse;
+    }
     public TUtilisateurController() {
     }
+
+    public String getNouveauMotDePasse() {
+        return nouveauMotDePasse;
+    }
+
+    public void setNouveauMotDePasse(String nouveauMotDePasse) {
+        this.nouveauMotDePasse = nouveauMotDePasse;
+    }
+    
+    
 
     public String getConfutiPassword() {
         return confutiPassword;
@@ -99,11 +123,48 @@ public class TUtilisateurController implements Serializable {
               System.out.println(limitationchaine);
           }
      }
+      
+
+      
+      
+      
      
+    public void changeMotDePasse(){
+        boolean correct=false;
+        ///////recuperation du login de l'utilisateur encours
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        Map<String, Object> sessionMap = externalContext.getSessionMap();
+        String login= (String) sessionMap.get("loginUser");
+        TUtilisateur utilisateur= (TUtilisateur) sessionMap.get("utilisateurConnecte");
+        System.out.println(" login "+login);
+        System.out.println(" password vrai "+utilisateur.getUtiPassword());
+        System.out.println(" password saisi en clair "+getAncienMotDePasse());
+        System.out.println(" password saisi en MD5 "+md5.generateMD5(getAncienMotDePasse()));
+              
+        if(!utilisateur.getUtiPassword().equals(md5.generateMD5(getAncienMotDePasse()))){//verification de l'ancien mot de passe
+            System.out.println("cest pas bon");
+           FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Utilisateur : ", "Mot de passe incorrecte");
+           FacesContext.getCurrentInstance().addMessage(null, message); 
+       }else{
+            System.out.println("cest bon");
+        if(!getNouveauMotDePasse().equals(getConfutiPassword())){//verification de la confirmation
+           FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Utilisateur : ", "Mot de passe non confirmé");
+           FacesContext.getCurrentInstance().addMessage(null, message);   
+        }else{////////alors on peut modifier
+           utilisateur.setUtiPassword(md5.generateMD5(getNouveauMotDePasse()));
+           ejbFacade.edit(utilisateur);
+            setAncienMotDePasse("");
+            setConfutiPassword("");
+            setNouveauMotDePasse("");
+           FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Utilisateur : ", "Mot de passe changé avec succes");
+           FacesContext.getCurrentInstance().addMessage(null, message);   
+        }
+        }        
+    }
      
     public void create() {
         if(!selected.getUtiPassword().equals(getConfutiPassword())){
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Utilisateur : ", "Mot de passe non confirme");
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Utilisateur : ", "Mot de passe non confirmé");
             FacesContext.getCurrentInstance().addMessage(null, message);                
         }else{
         
@@ -115,7 +176,10 @@ public class TUtilisateurController implements Serializable {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TUtilisateurCreated"));
         int n;
         n=ejbFacade.insertUtilisateurGroupe(selected.getUtiLogin(),selected.getUtiTyuCode().getTyuDesig());
-            System.out.println("Groupe insere "+n);
+           System.out.println("Groupe insere "+n);
+           FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Utilisateur : ", "Utilisateur créé avec succes");
+           FacesContext.getCurrentInstance().addMessage(null, message);
+           prepareCreate();
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }

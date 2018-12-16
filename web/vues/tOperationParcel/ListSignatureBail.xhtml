@@ -23,7 +23,7 @@
                             <h:outputText value="Code"/>
                         </f:facet>
                        
-                        <p:commandLink value="#{item.desiCode}"  action="#{tOperationParcelController.setSignatureBail(item)}"  update=":formventeparcelle:ongletventeparcelle:signatureBailleur" oncomplete="PF('TSignatureBailDlg').hide();"  process="@this" title="Selectionnez" style="color: blue;"/>
+                        <p:commandLink value="#{item.desiCode}"  action="#{tOperationParcelController.setSignatureBail(item)}"  update=":formventeparcelle:ongletventeparcelle:signatureBailleur,:formventeparcelle:ongletventeparcelle:refSignatureBailleur" oncomplete="PF('TSignatureBailDlg').hide();"  process="@this" title="Selectionnez" style="color: blue;"/>
                     </p:column>
                     
                     <p:column filterBy="#{item.desiReference}" filterMatchMode="contains">

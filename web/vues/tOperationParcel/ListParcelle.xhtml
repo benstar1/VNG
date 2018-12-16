@@ -18,7 +18,7 @@
                              rows="10"
                              rowsPerPageTemplate="10,20,30,40,50"
                              >
-
+                    
                
                     <p:column filterBy="#{item.pbaNumero}" filterMatchMode="contains">
                         <f:facet name="header">
@@ -27,19 +27,12 @@
                            
                         <p:commandLink  value="#{item.pbaNumero}"  action="#{tOperationParcelController.initParcelleBafonNewOperation(item)}"  update=":formventeparcelle,:formventeparcelle:ongletventeparcelle:parc,:formventeparcelle:ongletventeparcelle:detenteur,:formventeparcelle:ongletventeparcelle:vendeur,:formventeparcelle:ongletventeparcelle:modeacquisition,:formventeparcelle:msg" oncomplete="PF('TParcelleListDlg').hide();"  process="@this" title="Selectionnez" style="color: blue;"/>
                     </p:column>
-                    
-                    <p:column filterBy="#{item.pbaProp.intNom}" filterMatchMode="contains">
+              
+                    <p:column filterBy="#{tOperationParcelController.detenteurDe(item)}" filterMatchMode="contains">
                         <f:facet name="header">
-                            <h:outputText value="Nom Detenteur"/>
+                            <h:outputText value="Nom Prenom Detenteur"/>
                         </f:facet>
-                        <h:outputText value="#{item.pbaProp.intNom}"/>
-                    </p:column>
-                    
-                    <p:column filterBy="#{item.pbaProp.intPrenom}" filterMatchMode="contains">
-                        <f:facet name="header">
-                            <h:outputText value="Prenom Detenteur"/>
-                        </f:facet>
-                        <h:outputText value="#{item.pbaProp.intPrenom}"/>
+                        <h:outputText value="#{tOperationParcelController.detenteurDe(item)}"/>
                     </p:column>
                     
                     <p:column filterBy="#{item.pbaVilaCode.vlaDesig}" filterMatchMode="contains">

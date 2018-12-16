@@ -1,0 +1,71 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="./../../WEB-INF/template.xhtml">
+
+    <ui:define name="title">Créer un utilisateur</ui:define>
+    <ui:define name="viewname">
+    </ui:define>
+    <ui:define name="content">
+        <style>
+            .arborescence{
+                overflow:scroll;
+            }
+            .carte{
+                overflow:scroll;
+            }
+        </style>
+        <div class="container">
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <div class="card card-w-title" >
+                        <h2>Changer de mot de passe</h2>
+                        <h:form id="TUtilisateurEditForm">
+                            <p:growl id="messages" showDetail="true" />
+                            <p:messages id="msg" showIcon="true" showDetail="true" closable="true"/>
+                            <h:panelGroup id="display">
+                                <p:panelGrid columns="4" >
+                                    <p:outputLabel value="Nom" for="utiNom" />
+                                    <p:inputText id="utiNom" value="#{loginMBean.utilisateurconnecte.utiNom}" title="#{bundle.CreateTUtilisateurTitle_utiNom}" />
+
+                                    <p:outputLabel value="Prénoms" for="utiPrenom" />
+                                    <p:inputText id="utiPrenom" value="#{loginMBean.utilisateurconnecte.utiPrenom}" title="#{bundle.CreateTUtilisateurTitle_utiPrenom}" />
+
+                                    <p:outputLabel value="Date de naissance" for="utiDateNais" />
+                                    <p:calendar id="utiDateNais" pattern="MM/dd/yyyy" value="#{loginMBean.utilisateurconnecte.utiDateNais}" title="#{bundle.EditTUtilisateurTitle_utiDateNais}"  showOn="button"/>
+
+                                    <p:outputLabel value="Email" for="utiMail" />
+                                    <p:inputText id="utiMail" value="#{loginMBean.utilisateurconnecte.utiMail}" title="#{bundle.CreateTUtilisateurTitle_utiMail}" />
+
+                                    <p:outputLabel value="Adresse" for="utiAdresse" />
+                                    <p:inputText id="utiAdresse" value="#{loginMBean.utilisateurconnecte.utiAdresse}" title="#{bundle.CreateTUtilisateurTitle_utiAdresse}" />
+
+                                    <p:outputLabel value="Téléphone" for="utiTelephone" />
+                                    <p:inputText id="utiTelephone" value="#{loginMBean.utilisateurconnecte.utiTelephone}" title="#{bundle.CreateTUtilisateurTitle_utiTelephone}" />
+
+                                    <p:outputLabel value="Ancien Mot de passe" for="utiPassword" />
+                                    <p:inputText required="true" type="password" id="utiPassword" value="#{tUtilisateurController.ancienMotDePasse}" title="Ancien mot de passe" />
+
+                                    <p:outputLabel value="Nouveau mot de passe" for="NouveauMotDePasse" />
+                                    <p:inputText required="true"  type="password" id="NouveauMotDePasse" value="#{tUtilisateurController.nouveauMotDePasse}" title="confirmation" />
+
+                                    <p:outputLabel value="Confirmer Mot de passe" for="ConfutiPassword" />
+                                    <p:inputText required="true"  type="password" id="ConfutiPassword" value="#{tUtilisateurController.confutiPassword}" title="confirmation" />
+
+
+                                </p:panelGrid>
+                                <p:commandButton  actionListener="#{tUtilisateurController.changeMotDePasse}" value="Changer" update="messages,msg,TUtilisateurEditForm" />
+                              
+                            </h:panelGroup>
+                        </h:form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

@@ -12,7 +12,7 @@
             <h:form id="TUtilisateurCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="4" rendered="#{tUtilisateurController.selected != null}">
-                        <p:outputLabel value="NOm" for="utiNom" />
+                        <p:outputLabel value="Nom" for="utiNom" />
                         <p:inputText id="utiNom" value="#{tUtilisateurController.selected.utiNom}" title="#{bundle.CreateTUtilisateurTitle_utiNom}" />
 
                         <p:outputLabel value="Prénoms" for="utiPrenom" />
@@ -51,7 +51,7 @@
                                         <f:selectItems value="#{tTypeutilController.profilItem}" />
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{tUtilisateurController.create}" value="#{bundle.Save}" update="display,:TUtilisateurListForm:datalist,:TUtilisateurListForm:messages" oncomplete="handleSubmit(args,'TUtilisateurCreateDialog');"/>
+                    <p:commandButton actionListener="#{tUtilisateurController.create}" value="#{bundle.Save}" update="display,:TUtilisateurListForm:datalist,:TUtilisateurListForm:messages,:TUtilisateurCreateForm" oncomplete="handleSubmit(args,'TUtilisateurCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="TUtilisateurCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

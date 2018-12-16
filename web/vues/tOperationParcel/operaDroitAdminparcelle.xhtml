@@ -15,6 +15,7 @@
     </ui:define>
 
     <ui:define name="content">
+
         <style>
             .arborescence{
                 overflow:scroll;
@@ -28,6 +29,9 @@
 
             }
         </style>
+        <script type="text/javascript">
+            PrimeFaces.locales ['fr'] = {closeText: 'Fermer', prevText: 'Précédent', nextText: 'Suivant', monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'], monthNamesShort: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'], dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'], dayNamesShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'], dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'], weekHeader: 'Semaine', firstDay: 1, isRTL: false, showMonthAfterYear: false, yearSuffix: '', timeOnlyTitle: 'Choisir l\'heure', timeText: 'Heure', hourText: 'Heures', minuteText: 'Minutes', secondText: 'Secondes', currentText: 'Maintenant', ampm: false, month: 'Mois', week: 'Semaine', day: 'Jour', allDayText: 'Toute la journée'};
+        </script>
         <div class="container">
             <div class="ui-g">
                 <div class="ui-g-12">
@@ -48,9 +52,9 @@
                                     </span>
 
                                     <p:commandButton disabled="#{tOperationParcelController.estvalider}" ajax="false" actionListener="#{tOperationParcelController.enregistrerVenteParcelle()}" title="enregistrer" update="messages" icon="fa fa-save" styleClass="green-btn"/>
-                                        
-                                    
-                         
+
+
+
                                     <p:commandButton disabled="#{tOperationParcelController.estvalider}"  update="formventeparcelle" actionListener="#{tOperationParcelController.supprimerOperation()}" title="Supprimer" icon="fa fa-trash" styleClass="purple-btn">
                                         <p:confirm header="Confirmation" icon="ui-icon-alert"   message="Veuillez confirmer la suppression" />
                                     </p:commandButton>
@@ -58,7 +62,7 @@
                                     <span class="ui-separator" style="padding-right: 5px;">
                                         <span class="fa fa-ellipsis-v SoftGray" />
                                     </span>                                       
-                                        <p:commandButton actionListener="#{tOperationParcelController.recupelisteDocJoint()}"  oncomplete="PF('TAfficheDocDlglist').show()"  value="Afficher Les Documents" icon="fa fa-download" styleClass="pink-btn" />                                        
+                                    <p:commandButton actionListener="#{tOperationParcelController.recupelisteDocJoint()}"  oncomplete="PF('TAfficheDocDlglist').show()"  value="Afficher Les Documents" icon="fa fa-download" styleClass="pink-btn" />                                        
                                 </f:facet>
                                 <f:facet name="right">
                                     <p:menuButton value="Options">
@@ -72,12 +76,12 @@
 
                             </p:toolbar>
                             <p:separator/>
-                       
-                            
+
+
                             <p:tabView id="ongletventeparcelle" scrollable="true" >
-                                <p:tab id="parcelle" title="La parcelle">
+                                <p:tab id="parcelle" title="L'immeuble">
                                     <p:panelGrid id="parcellegrid"  style=" width: 100%"  columns="2">
-                                        <p:panel id="parc"  header="Identification" toggleable="true">
+                                        <p:panel id="parc"  header="Localisation" toggleable="true">
                                             <p:panelGrid columns="2">
                                                 <p:outputLabel value="Numero"/>
                                                 <p:panelGrid columns="2">
@@ -85,13 +89,13 @@
                                                     <p:commandButton disabled="#{tOperationParcelController.estvalider}" title="selection parcelle" icon="fa fa-folder-open" styleClass="green-btn" oncomplete="PF('TParcelleListDlg').show()" ajax="true"/>
                                                 </p:panelGrid>
                                                 <p:outputLabel value="Village"/>
-                                                <p:inputText id="villageparcelle" value="#{tOperationParcelController.villagelib}" />
+                                                <p:inputText disabled="true" id="villageparcelle" value="#{tOperationParcelController.villagelib}" />
                                                 <p:outputLabel value="Arrondissement"/>
-                                                <p:inputText value="#{tOperationParcelController.arrondissementlib}" />
+                                                <p:inputText disabled="true" value="#{tOperationParcelController.arrondissementlib}" />
                                                 <p:outputLabel value="Commune"/>
-                                                <p:inputText value="#{tOperationParcelController.communelib}" />
+                                                <p:inputText disabled="true" value="#{tOperationParcelController.communelib}" />
                                                 <p:outputLabel value="Departement"/>
-                                                <p:inputText value="#{tOperationParcelController.departementlib}" />
+                                                <p:inputText disabled="true" value="#{tOperationParcelController.departementlib}" />
                                             </p:panelGrid>
                                         </p:panel>
                                         <p:panel id="detenteur"  header="Detenteur" toggleable="true">
@@ -100,15 +104,23 @@
                                                     <td >
                                                         <p:panelGrid columns="2">
                                                             <p:outputLabel value="Collectivite"/>
-                                                            <p:inputText value="#{tOperationParcelController.collectivite}" />
+                                                            <p:inputText disabled="true" value="#{tOperationParcelController.collectivite}" />
                                                             <p:outputLabel value="Nom"/>
-                                                            <p:inputText value="#{tOperationParcelController.nom}" />
+                                                            <p:inputText disabled="true" value="#{tOperationParcelController.nom}" />
                                                             <p:outputLabel value="Prenom"/>
-                                                            <p:inputText value="#{tOperationParcelController.prenom}" />
+                                                            <p:inputText disabled="true" value="#{tOperationParcelController.prenom}" />
                                                             <p:outputLabel value="Domicile"/>
-                                                            <p:inputText value="#{tOperationParcelController.domicile}" />
+                                                            <p:inputText disabled="true" value="#{tOperationParcelController.domicile}" />
                                                             <p:outputLabel value="Age"/>
-                                                            <p:inputText value="#{tOperationParcelController.age}" />                    
+                                                            <p:inputText disabled="true" value="#{tOperationParcelController.age}" />   
+                                                            <p:outputLabel value="Mode acquisition"/>
+                                                            <p:inputText disabled="true" value="#{tOperationParcelController.intervenirbailleur.invMacCode.macDesig}" /> 
+                                                            <p:outputLabel value="De Qui ?"/>
+                                                            <p:inputText disabled="true" value="#{tOperationParcelController.intervenirbailleur.invDeQui}" /> 
+                                                            <p:outputLabel value="Depuis quand ?"/>
+                                                            <p:calendar disabled="true" pattern="dd-MM-yyyy" locale="fr" value="#{tOperationParcelController.intervenirbailleur.invDateDeb}" /> 
+
+
                                                         </p:panelGrid>
                                                     </td>
                                                     <td>                                                     
@@ -130,21 +142,28 @@
                                                         <p:commandButton disabled="#{tOperationParcelController.estvalider}" rendered="#{tOperationParcelController.selectModeAcquis}" title="selection parcelle" icon="fa fa-folder-open" styleClass="green-btn" oncomplete="PF('TModeAcquisListDlg').show()" ajax="true"/>
                                                     </p:panelGrid>
                                                     <p:outputLabel value="Montant"  />
-                                                    <p:inputText  disabled="#{tOperationParcelController.estDon}" value="#{tOperationParcelController.selected.opvPrix}" />
+                                                    <p:inputNumber  thousandSeparator=" "  decimalPlaces="0"  disabled="#{tOperationParcelController.estDon}" value="#{tOperationParcelController.selected.opvPrix}" />
                                                 </p:panelGrid>
                                             </p:tab> 
                                             <p:tab rendered="#{tOperationParcelController.estdroitoperationnel}" title="Conditions II">
                                                 <p:panelGrid columns="2">
-                                                    <p:outputLabel value="Durée"  />
-                                                    <p:inputText  disabled="#{tOperationParcelController.estDon}" value="#{tOperationParcelController.selected.opvDuree}" />
-
+                                                  
                                                     <p:outputLabel value="Date début"  />
-                                                    <p:calendar pattern="dd-MM-yyyy"  style="margin: 10px" value="#{tOperationParcelController.selected.opvDateDeb}">
+                                                    <p:calendar pattern="dd-MM-yyyy" locale="fr"  style="margin: 10px" value="#{tOperationParcelController.selected.opvDateDeb}">
                                                     </p:calendar>
 
                                                     <p:outputLabel value="Date fin"  />
-                                                    <p:calendar pattern="dd-MM-yyyy"  style="margin: 10px" value="#{tOperationParcelController.selected.opvDateFin}">
+                                                    <p:calendar pattern="dd-MM-yyyy" locale="fr" style="margin: 10px" value="#{tOperationParcelController.selected.opvDateFin}">
                                                     </p:calendar>
+                                                    
+                                                    <p:outputLabel value="Durée"  />
+                                                    <p:inputText  disabled="#{tOperationParcelController.estDon}" value="#{tOperationParcelController.selected.opvDuree}" />
+
+                                                    <p:outputLabel value="Contrepartie"/>
+                                                    <p:selectOneMenu disabled="#{tOperationParcelController.estDon}"  value="#{tOperationParcelController.selected.opvContreparti}" id="Contrepartie"  >
+                                                        <f:selectItem itemLabel="Choisissez une contrepartie " itemValue="" />
+                                                        <f:selectItems value="#{tOperationParcelController.listeContrePartie}" />
+                                                    </p:selectOneMenu>
 
                                                     <p:outputLabel value="Condition de paie"/>
                                                     <p:panelGrid id="conditionpaie" columns="2">
@@ -153,13 +172,15 @@
                                                     </p:panelGrid>
 
                                                     <p:outputLabel value="Autres conditions"/>
-                                                    <p:inputText  disabled="#{tOperationParcelController.estDon}" value="#{tOperationParcelController.selected.opvCopAutre}" />
-
+                                                    <p:selectOneMenu disabled="#{tOperationParcelController.estDon}"  value="#{tOperationParcelController.selected.opvCopAutre}" id="AutreCondition"  >
+                                                        <f:selectItem itemLabel="Choisissez une modalité " itemValue="" />
+                                                        <f:selectItems value="#{tOperationParcelController.listeAutreModalite}" />
+                                                    </p:selectOneMenu>
+                                               
                                                     <p:outputLabel value="Modalité de paiement"  />
                                                     <p:inputText  disabled="#{tOperationParcelController.estDon}" value="#{tOperationParcelController.selected.opvAutremodalite}" />
 
-                                                    <p:outputLabel value="Contrepartie"/>
-                                                    <p:inputText  disabled="#{tOperationParcelController.estDon}" value="#{tOperationParcelController.selected.opvContreparti}" />
+
                                                 </p:panelGrid>
                                             </p:tab>
                                             <p:tab rendered="#{tOperationParcelController.estdroitoperationnel}" title="Conditions III">
@@ -182,7 +203,7 @@
 
 
                                         <p:accordionPanel id="droitLimite" multiple="false">
-                                            <p:tab title="Role et Droit Exercé par le preneur">
+                                            <p:tab title="#{'Role et Droit Exercé par '.concat(tOperationParcelController.libPreneur)}">
                                                 <p:panelGrid columns="2" >
                                                     <p:outputLabel value="Role" for="role" />     
                                                     <p:selectOneMenu  value="#{tOperationParcelController.roleOperation}" id="role" style="margin-bottom:10px;" >
@@ -250,7 +271,7 @@
                                                 </p:dataTable>
                                             </p:tab>
                                             <p:tab rendered="#{!tOperationParcelController.estdroitoperationnel}" title="Limitations droits d'administrations" closable="true">
-                                                <p:selectOneRadio   value="#{tOperationParcelController.limitationchaine}" layout="responsive" columns="2">
+                                                <p:selectOneRadio disabled="#{!tOperationParcelController.intervenirPreneur.invLimitation}"   value="#{tOperationParcelController.limitationchaine}" layout="responsive" columns="2">
                                                     <f:selectItem  itemLabel="OUI" itemValue="TRUE" />
                                                     <f:selectItem itemLabel="NON" itemValue="FALSE"/>
                                                     <p:ajax event="change" listener="#{tOperationParcelController.changeLimitationOuiNon()}" process="@this" update="lesLimites" />
@@ -286,21 +307,21 @@
                                         <p:panel id="vendeur"  header="#{tOperationParcelController.libBailleur}" toggleable="true">
                                             <p:panelGrid columns="2">
                                                 <p:outputLabel value="Collectivité"/>
-                                                <p:inputText value="#{tOperationParcelController.collectivite}" />
+                                                <p:inputText readonly="true" value="#{tOperationParcelController.collectivite}" />
                                                 <p:outputLabel value="Nom"/>
-                                                <p:inputText value="#{tOperationParcelController.nom}" />
+                                                <p:inputText readonly="true" value="#{tOperationParcelController.nom}" />
                                                 <p:outputLabel value="Prénom"/>
-                                                <p:inputText value="#{tOperationParcelController.prenom}" />
+                                                <p:inputText readonly="true" value="#{tOperationParcelController.prenom}" />
                                                 <p:outputLabel value="Domicile"/>
-                                                <p:inputText value="#{tOperationParcelController.domicile}" />
+                                                <p:inputText readonly="true" value="#{tOperationParcelController.domicile}" />
                                                 <p:outputLabel value="Age"/>
-                                                <p:inputText value="#{tOperationParcelController.age}" />
+                                                <p:inputText readonly="true" value="#{tOperationParcelController.age}" />
                                                 <p:outputLabel value="Reférence signature"/>
                                                 <p:panelGrid columns="2">
-                                                    <p:inputText required="true" disabled="true" id="signatureBailleur" value="#{tOperationParcelController.signatureBail}" /> 
+                                                    <p:inputText required="true" disabled="true" id="refSignatureBailleur" value="#{tOperationParcelController.signatureBail.desiReference}" /> 
                                                     <p:commandButton disabled="#{tOperationParcelController.estvalider}"  title="signature" icon="fa fa-folder-open" styleClass="green-btn" onclick="PF('TSignatureBailDlg').show()" ajax="true"/>
+                                                    <p:inputText rendered="false" required="true" disabled="true" id="signatureBailleur" value="#{tOperationParcelController.signatureBail}" /> 
                                                 </p:panelGrid>
-                                    
                                                 <p:outputLabel  id="civendeur" value="Numéro Pieces d'identité" /> 
                                                 <p:inputText value="#{tOperationParcelController.selected.opvCiPp}"  title="CI/PP" />
 
@@ -320,8 +341,9 @@
                                                 <p:inputText value="#{tOperationParcelController.intervenantPreneur.intPrenom}" />
                                                 <p:outputLabel value="Domicile"/>
                                                 <p:inputText value="#{tOperationParcelController.intervenantPreneur.intDomicile}" />
-                                                <p:outputLabel value="Age"/>
-                                                <p:inputText value="#{tOperationParcelController.intervenantPreneur.intDateNais}" /> 
+                                                <p:outputLabel value="Date de naissance"/>
+                                                <p:calendar locale="fr" pattern="dd-MM-yyyy" value="#{tOperationParcelController.intervenantPreneur.intDateNaissCalcul}" >
+                                                </p:calendar> 
 
                                             </p:panelGrid>
                                         </p:panel>
@@ -329,7 +351,7 @@
                                 </p:tab>
                                 <p:tab id="temoins" title="Les Temoins">
                                     <p:panelGrid style=" width: 100%" columns="2">
-                                        <p:panel  style=" margin: 20px"  header="#{'Temoins '.concat(tOperationParcelController.libBailleur)}" toggleable="true">
+                                        <p:panel rendered="#{tOperationParcelController.visibleTemoinVendeur}"  style=" margin: 20px"  header="#{'Temoins '.concat(tOperationParcelController.libBailleur)}" toggleable="true">
                                             <p:commandButton disabled="#{tOperationParcelController.estvalider}"   update="listTemoinVendeur"  title="Ajouter temoin vendeur" icon="fa fa-plus-circle" styleClass="green-btn" onclick="PF('TSignatureBailListDlg').show()" ajax="true"/>
 
                                             <p:dataTable id="listTemoinVendeur" value="#{tOperationParcelController.listDepotSignTemBail}"
@@ -423,9 +445,9 @@
                                         </p:panel>
                                     </p:panelGrid>
                                 </p:tab>
-                                <p:tab id="affirmation" title="Affirmation">
+                                <p:tab rendered="#{tOperationParcelController.visibleAffirmation}" id="affirmation" title="Affirmation">
                                     <p:panelGrid  style=" width: 100%" columns="2">
-                                        <p:panel id="affirme"   header="Affirmation">
+                                        <p:panel  id="affirme"   header="Affirmation">
                                             <p:panelGrid columns="2">
                                                 <p:outputLabel value="Numero"/>
                                                 <p:inputText  value="#{tOperationParcelController.selected.opvNumeroAffirmation}" />
@@ -449,7 +471,7 @@
                                 </p:tab>
                             </p:tabView>
                             <p:fileUpload update="messages" uploadLabel="Joindre" cancelLabel="Annuler" label="Ajouter les pieces à joindre" fileUploadListener="#{tOperationParcelController.handleFileUpload}"  allowTypes="/(\.|\/)(pdf|jpg|jpeg|png)$/" value="#{tOperationParcelController.filejustif}" mode="advanced" multiple="true" skinSimple="true"/>
-                       
+
                             <p:confirmDialog global="true" showEffect="fade"  hideEffect="fade">
                                 <p:commandButton value="OUI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                                 <p:commandButton value="NON" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
@@ -459,6 +481,7 @@
                 </div>
             </div>
         </div>
+
         <ui:include src="ListParcelle.xhtml"/>
         <ui:include src="ListDroit.xhtml"/>
         <ui:include src="ListSignatureTemoinBail.xhtml"/>
@@ -471,7 +494,7 @@
         <ui:include src="ListConditionPaie.xhtml"/>
         <ui:include src="ListModePartage.xhtml"/>
         <ui:include src="AfficheListdocument.xhtml"/>
-        
+
     </ui:define>
 
 </ui:composition>

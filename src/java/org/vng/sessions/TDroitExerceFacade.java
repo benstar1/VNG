@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import org.vng.entities.TDroitExerce;
+import org.vng.entities.TIntervenant;
 import org.vng.entities.TParcelleBafon;
 
 /**
@@ -34,6 +35,20 @@ public class TDroitExerceFacade extends AbstractFacade<TDroitExerce> {
         try{
             Query q=em.createNamedQuery("TDroitExerce.findByParcelleCat").setParameter("parcelle",paramparcelle)
                     .setParameter("catDroit", catDroit);
+            listeDroitExerce=q.getResultList();
+        }catch(Exception e){
+            System.out.println("Probleme select de droit exerce par categorie : "+e);
+        }
+        return listeDroitExerce;
+    }
+    
+    public List<TDroitExerce> executeListeDroitExerceDetenteur(TParcelleBafon paramparcelle,TIntervenant intervenant,String catDroit){
+        int i=0;
+        List<TDroitExerce> listeDroitExerce =null;
+        try{
+            Query q=em.createNamedQuery("TDroitExerce.findByParcelleIntCat").setParameter("parcelle",paramparcelle)
+                    .setParameter("catDroit", catDroit)
+                    .setParameter("detenteur", intervenant);
             listeDroitExerce=q.getResultList();
         }catch(Exception e){
             System.out.println("Probleme select de droit exerce par categorie : "+e);

@@ -42,6 +42,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.naming.InitialContext;
@@ -170,6 +171,7 @@ public class TOperationParcelController implements Serializable {
     List<TTypedexerce> typeDroitItem = new ArrayList<>();
     private List<TModeacquis> listmodeAcquisition;
     private List<Parcelle> parcelleLimites;
+    private List<SelectItem> listeContrePartie, listeAutreModalite;
     int i = 0;
     String cheminSauvDoc = "C:\\AppliGeo\\AppliDoc\\";
 
@@ -196,6 +198,10 @@ public class TOperationParcelController implements Serializable {
     String nomme = "la nommée ";
     String pronom = " elle ";
     String article = " La ";
+
+    boolean visibleTemoinVendeur = true;
+    boolean visibleAffirmation = true;
+
     private String cheminphotodetenteur = "AppliGeo/AppliGeoImage/defaultuserimage.png";
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -238,6 +244,38 @@ public class TOperationParcelController implements Serializable {
         return parcelleLimites;
     }
 
+    public List<SelectItem> getListeContrePartie() {
+        return listeContrePartie;
+    }
+
+    public void setListeContrePartie(List<SelectItem> listeContrePartie) {
+        this.listeContrePartie = listeContrePartie;
+    }
+
+    public List<SelectItem> getListeAutreModalite() {
+        return listeAutreModalite;
+    }
+
+    public void setListeAutreModalite(List<SelectItem> listeAutreModalite) {
+        this.listeAutreModalite = listeAutreModalite;
+    }
+
+    public boolean isVisibleTemoinVendeur() {
+        return visibleTemoinVendeur;
+    }
+
+    public void setVisibleTemoinVendeur(boolean visibleTemoinVendeur) {
+        this.visibleTemoinVendeur = visibleTemoinVendeur;
+    }
+
+    public boolean isVisibleAffirmation() {
+        return visibleAffirmation;
+    }
+
+    public void setVisibleAffirmation(boolean visibleAffirmation) {
+        this.visibleAffirmation = visibleAffirmation;
+    }
+
     public StreamedContent getFichierAfficher() {
         if (fichierAfficher != null) {
             System.out.println("Fichier courant " + fichierAfficher.getName());
@@ -268,6 +306,33 @@ public class TOperationParcelController implements Serializable {
     public void setListfichierAfficher(List<File> listfichierAfficher) {
         this.listfichierAfficher = listfichierAfficher;
     }
+    
+    ///////////initialise contrepartie et modalite
+    private void initContrePartieModalite(){
+    	    listeContrePartie= new ArrayList<SelectItem>();
+            
+            //listeContrePartie.add(new SelectItem(" ------- " ) );
+            listeContrePartie.add(new SelectItem("CADEAUX SYMBOLIQUES", "CADEAUX SYMBOLIQUES" ) );
+            listeContrePartie.add(new SelectItem("REDEVANCES", "REDEVANCES" ) );            
+            listeContrePartie.add(new SelectItem("REDEVANCES", "REDEVANCES" ) );
+            listeContrePartie.add(new SelectItem("RECOLTE", "ARGENT" ) );
+            listeContrePartie.add(new SelectItem("REDEVANCES EN PARTS DE RECOLTES ET PARFOIS EN ARGENT", "REDEVANCES EN PARTS DE RECOLTES ET PARFOIS EN ARGENT" ) );
+            listeContrePartie.add(new SelectItem("PRESTATIONS EN JOURS DE TRAVAIL", "PRESTATIONS EN JOURS DE TRAVAIL" ) );
+            listeContrePartie.add(new SelectItem("TROC", "TROC" ) );
+            listeContrePartie.add(new SelectItem("AUTRES( A PRECISER)", "AUTRES( A PRECISER)" ) );
+            setListeContrePartie(listeContrePartie);
+            
+            listeAutreModalite= new ArrayList<SelectItem>();
+            listeAutreModalite.add(new SelectItem("SANS PAPIER(S)", "SANS PAPIER(S)" ) );
+            listeAutreModalite.add(new SelectItem("CONVENTION DE VENTE", "CONVENTION DE VENTE" ) );            
+            listeAutreModalite.add(new SelectItem("TITRE FONCTIER", "TITRE FONCTIER" ) );
+            listeAutreModalite.add(new SelectItem("ACTE SOUS SEING PRIVE", "ACTE SOUS SEING PRIVE" ) );
+            listeAutreModalite.add(new SelectItem("EN PRESENCE DE TEMOIN", "EN PRESENCE DE TEMOIN" ) );
+            listeAutreModalite.add(new SelectItem("SANS TEMOIN(S)", "SANS TEMOIN(S)" ) );
+            listeAutreModalite.add(new SelectItem("AUTRES( A PRECISER)", "AUTRES( A PRECISER)" ) );
+            setListeAutreModalite(listeAutreModalite);
+    }
+    ////////////
 
 /////////////////////////affichage image/////////////////////////
     public void recupelisteDocJoint() {
@@ -765,13 +830,14 @@ public class TOperationParcelController implements Serializable {
     /////////////////////////////////////////
     @PostConstruct
     public void getItemsTypeDroitCat() {
+        initContrePartieModalite();
         selected = new TOperationParcel();
         intervenantPreneur = new TIntervenant();
         listDroitExerce = new ArrayList<>();
         //typeDroitItem = ejbFacadeTypedroit.executeListeTypeDroit("DE");
         genererListTypeDroit("DE");
         setLimitationchaine("FALSE");
-        setLimitationchaineop("FALSE");
+        setLimitationchaineop("FALSE");     
         //recupCheminRacine();
         //intervenirPreneur.setInvLimitation(false);
     }
@@ -875,7 +941,7 @@ public class TOperationParcelController implements Serializable {
         }
     }
 
-    /////////////type operation vente
+    /////////////initialisatino des variables selon les types d'operations 
     public String operationParcelle(String operation) {
         nouveau();
         //setTypeOperation(operation);
@@ -886,17 +952,31 @@ public class TOperationParcelController implements Serializable {
         if (operation.equals("VENTE")) {
             setLibPreneur("Acheteur");
             setLibBailleur("Vendeur");
+            /////////////pas de limitation/////////////////////
+            intervenirPreneur.setInvLimitation(false);
+            /////////////////
+            //////////affirmation
+            setVisibleAffirmation(true);
+            ////////////////////pas de temoins vendeur
+            setVisibleTemoinVendeur(false);
+            ///////////////
             modeAcquisition = ejbFacadeModeAcquisition.find("MD004");
             selected.setOpvMacCode(modeAcquisition);
             setSelectModeAcquis(false);
             setEstdroitoperationnel(false);
             genererListTypeDroit("DE");
-            System.out.println(operation);
             ArrayList<TModeacquis> maqs = new ArrayList<>();
             maqs.add(modeAcquisition);
             GenererItemsOperationMode(maqs);
             setEstDon(false);
             page = "/vues/tOperationParcel/operaDroitAdminparcelle.xhtml";
+        } else {  /////pour toutes autres operations rendre visible
+            /////////////limitation/////////////////////
+            intervenirPreneur.setInvLimitation(true);
+            /////////////////
+            ////////////////////temoins vendeur
+            setVisibleTemoinVendeur(true);
+            ///////////////
         }
         ///////////////////////////////////////////////////////////
         if (operation.equals("DON")) {
@@ -912,6 +992,9 @@ public class TOperationParcelController implements Serializable {
             selected.setOpvPrix(0l);
             setEstdroitoperationnel(false);
             System.out.println(operation);
+            //////////pas d'affirmation
+            setVisibleAffirmation(false);
+            ///////////////////
             page = "/vues/tOperationParcel/operaDroitAdminparcelle.xhtml";
             setEstDon(true);
         }
@@ -926,10 +1009,15 @@ public class TOperationParcelController implements Serializable {
             maqs.add(modeAcquisition);
             modeAcquisition = ejbFacadeModeAcquisition.find("MD009");
             maqs.add(modeAcquisition);
+            modeAcquisition = new TModeacquis();
+            setModeAcquisition(modeAcquisition);
+            selected.setOpvMacCode(modeAcquisition);
             genererListTypeDroit("DE");
             GenererItemsOperationMode(maqs);
             System.out.println(operation);
             setEstDon(true);
+            //////////pas d'affirmation
+            setVisibleAffirmation(false);
             selected.setOpvPrix(0l);
             page = "/vues/tOperationParcel/operaDroitAdminparcelle.xhtml";
         }
@@ -943,6 +1031,8 @@ public class TOperationParcelController implements Serializable {
             GenererItemsOperationCatMode("OP");
             genererListTypeDroit("OP");
             setEstDon(false);
+            //////////affirmation
+            setVisibleAffirmation(true);
             page = "/vues/tOperationParcel/operaDroitAdminparcelle.xhtml";
         }
 
@@ -1133,6 +1223,24 @@ public class TOperationParcelController implements Serializable {
         initParcelleBafonOperation(pbf, "AFFICHEOPERATION");
     }
 
+    //////////////recuperation des nom et prenom du detenteur
+    public String detenteurDe(TParcelleBafon pbf) {
+        TIntervenir intervenir = new TIntervenir();
+        String nomPrenom = "";
+        List<TIntervenir> listIntervnir;
+        listIntervnir = ejbFacadeIntervenir.executeListeIntervRole(pbf, "DE");
+        if (listIntervnir != null) {
+            // System.out.println("Taille : " + listIntervnir.size());
+            if (listIntervnir.size() != 0) {
+                intervenir = listIntervnir.get(0);
+                if (intervenir.getInvIntNumero() != null) {
+                    nomPrenom = intervenir.getInvIntNumero().getIntNom() + " " + intervenir.getInvIntNumero().getIntPrenom();
+                }
+            }
+        }
+        return nomPrenom;
+    }
+
     //////declaration pour les cle etrangeres
     private void initParcelleBafonOperation(TParcelleBafon pbf, String seloncas) {
         System.out.println("Parcelle " + pbf.getPbaNumero());
@@ -1154,10 +1262,10 @@ public class TOperationParcelController implements Serializable {
             boolean interdi = false;
 
             if (pbf.getPbaTbfCode().getTbfCode().equals("TBF03")) {
-                 interdi = true;
-                 nouveau();
-                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Interdition de l'operation : ", "Parcelle litigieuse");
-                 FacesContext.getCurrentInstance().addMessage(null, message);
+                interdi = true;
+                nouveau();
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Interdition de l'operation : ", "Parcelle litigieuse");
+                FacesContext.getCurrentInstance().addMessage(null, message);
             } else {
                 if (listIntervenir != null) {
                     try {
@@ -1208,7 +1316,22 @@ public class TOperationParcelController implements Serializable {
                             setDomicile(intervenirbailleur.getInvIntNumero().getIntDomicile());
                             setAge(String.valueOf(intervenirbailleur.getInvIntNumero().getIntDateNais()));
                             System.out.println("Intervenante " + intervenirbailleur.getInvIntNumero().getIntNom());
+                            ////////initialise la signature du bailleur
                             initSignatureBailleur(intervenirbailleur.getInvIntNumero());
+                            ////////initialise les droits du preneur par celle du bailleur
+                            initDroitPreneur();
+                            //////
+
+                            if (getTypeOperation().equals("VENTE")) {
+                                /////////////pas de limitation/////////////////////
+                                setLimitationchaine("FALSE");
+                                intervenirPreneur.setInvLimitation(false);
+
+                            } else {
+                                //setLimitationchaine("TRUE");
+                                intervenirPreneur.setInvLimitation(true);
+                            }
+
                         } else {
                             nouveau();
                         }
@@ -1314,7 +1437,7 @@ public class TOperationParcelController implements Serializable {
     }
 
     private void enregistreIntervenirPreneur() {  /// Etape 1
-
+        intervenirPreneur.setInvMacCode(selected.getOpvMacCode());
         intervenirPreneur.setInvDateDeb(new Date());
         intervenirPreneur.setInvRolCode(roleOperation);
         intervenirPreneur.setInvIntNumero(intervenantPreneur);
@@ -1394,6 +1517,18 @@ public class TOperationParcelController implements Serializable {
                 }
             }
         }
+    }
+
+    ///////////recuperation des droit du detenteur////////
+    public List<TDroitExerce> droitExercerDetenteur(TParcelleBafon parcelle, TIntervenant detenteur, String catDroit) {
+        List<TDroitExerce> listeDroit = new ArrayList<>();
+        listeDroit = ejbFacadeDroitExerce.executeListeDroitExerceDetenteur(parcelle, detenteur, catDroit);
+        return listeDroit;
+    }
+
+    //////////////initialisation de la liste des droits du preneur avec ceux du detenteur
+    private void initDroitPreneur() {
+        setListDroitExerce(droitExercerDetenteur(parcelleBafonOperation, intervenantBailleur, "DE"));
     }
 
     private void creationDroitsExerce() { //Etape 3

@@ -37,20 +37,19 @@ import org.vng.sessions.TUtilisateurFacade;
  *
  * @author DELL
  */
-
-
 //@Named("loginMBean")
 //@SessionScoped
 @ManagedBean
 @SessionScoped
 public class LoginMBean implements Serializable {
+
     @EJB
     private TUtilisateurFacade tUtilisateurFacade;
     private TUtilisateur utilisateurconnecte = new TUtilisateur();
     private boolean contribuable;
     private TUtilisateur utilisateur = new TUtilisateur();
-    private String nomPrenom="Utilisateur Anonyme";
-    private boolean connecter=false;
+    private String nomPrenom = "Utilisateur Anonyme";
+    private boolean connecter = false;
     //@Inject
     ConvertirMD5 md5;
 
@@ -236,8 +235,6 @@ public class LoginMBean implements Serializable {
         }
         return "/login?logout=true&faces-redirect=true";
     }
-    
-
 
     public boolean isSaisie() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
@@ -264,18 +261,31 @@ public class LoginMBean implements Serializable {
     public boolean isConnected() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
-       // System.out.println(request.getUserPrincipal());
         if (request.getUserPrincipal() == null) {
             return false;
         } else {
             System.out.println("Nous somme dans du vrai");
-            setUtilisateurconnecte(tUtilisateurFacade.rechercheUtilconnecte(uname));
-            nom = utilisateurconnecte.getUtiLogin();
+            try {
+                setUtilisateurconnecte(tUtilisateurFacade.rechercheUtilconnecte(uname));
+               nom = utilisateurconnecte.getUtiLogin();
+            } catch (Exception e) {
+                System.err.println("Probleme : "+e);
+            }
+            
             return true;
         }
     }
-    
-    
+
+    public boolean verifiUtilisateurConnexter(String login, String motDePasse) {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
+        try {
+            request.login(login, motDePasse);
+        } catch (Exception e) {
+            return false;
+        }
+        return isConnected();
+    }
 
     public String login() {
         String chemin = "index.xhtml";
@@ -285,57 +295,56 @@ public class LoginMBean implements Serializable {
         sessionMap.put("loginUser", uname);
         HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
         try {
-             request.login(uname, password);
+            request.login(uname, password);
              System.out.println(isConnected()+" "+uname);       
-        if (isConnected()) {     
-            try {
-                //////////Verifions si l'utilisateure est actif//////////////////////
-                if (!(tUtilisateurFacade.rechercheUtilconnecte(uname) == null)) {
-                    setUtilisateur(tUtilisateurFacade.rechercheUtilconnecte(uname));
-                    System.out.println("+++++++++++ UTILISATEUR CONNECTE ============ " + utilisateur.getUtiLogin());
-                    sessionMap.put("utilisateurConnecte", utilisateurconnecte);
-                    actif = utilisateur.getUtiActif();
-                    System.out.println("Actif "+actif);
-                }
-                if (actif == false) {
-                    Logger.getLogger(LoginMBean.class.getName()).log(Level.INFO, "Utilisateur non actif", uname);                 
-                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Connexion : ", "Utilisateur "+uname+" non actif");
-                    FacesContext.getCurrentInstance().addMessage(null, message);
-                    System.out.println(" Inactif");
+            if (isConnected()) {
+                try {
+                    //////////Verifions si l'utilisateure est actif//////////////////////
+                    if (!(tUtilisateurFacade.rechercheUtilconnecte(uname) == null)) {
+                        setUtilisateur(tUtilisateurFacade.rechercheUtilconnecte(uname));
+                        System.out.println("+++++++++++ UTILISATEUR CONNECTE ============ " + utilisateur.getUtiLogin());
+                        sessionMap.put("utilisateurConnecte", utilisateurconnecte);
+                        actif = utilisateur.getUtiActif();
+                        System.out.println("Actif " + actif);
+                    }
+                    if (actif == false) {
+                        Logger.getLogger(LoginMBean.class.getName()).log(Level.INFO, "Utilisateur non actif", uname);
+                        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Connexion : ", "Utilisateur " + uname + " non actif");
+                        FacesContext.getCurrentInstance().addMessage(null, message);
+                        System.out.println(" Inactif");
+                        return "login.xhtml";
+                    } else {
+
+                        //request.login(uname, password);
+                        setUtilisateurconnecte(getUtilisateur());
+                        setNomPrenom(getUtilisateurconnecte().getUtiNom() + " " + getUtilisateurconnecte().getUtiPrenom());
+                        setConnecter(true);
+                        System.out.println("Actif");
+                        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Connexion : ", "Connexion reussie. Bienvenue " + uname);
+                        FacesContext.getCurrentInstance().addMessage(null, message);
+                        return "dashboard.xhtml";
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(LoginMBean.class.getName()).log(Level.INFO, "Impossible de se connecter ", uname);
+                    FacesContext facesContext = FacesContext.getCurrentInstance();
+                    FacesMessage facesMessage = new FacesMessage("Login ou mot de passe incorrect. ");
+                    facesMessage.setSeverity(FacesMessage.SEVERITY_ERROR);
+                    facesContext.addMessage(null, facesMessage);
                     return "login.xhtml";
-                } else {
-                    
-                    //request.login(uname, password);
-                    setUtilisateurconnecte(getUtilisateur());
-                    setNomPrenom(getUtilisateurconnecte().getUtiNom()+" "+getUtilisateurconnecte().getUtiPrenom());
-                    setConnecter(true);
-                    System.out.println("Actif");
-                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Connexion : ", "Connexion reussie. Bienvenue "+uname);
-                    FacesContext.getCurrentInstance().addMessage(null, message);              
-                    return "dashboard.xhtml";                     
                 }
-            } catch (Exception ex) {
-                Logger.getLogger(LoginMBean.class.getName()).log(Level.INFO, "Impossible de se connecter ", uname);
-                FacesContext facesContext = FacesContext.getCurrentInstance();
-                FacesMessage facesMessage = new FacesMessage("Login ou mot de passe incorrect. ");
-                facesMessage.setSeverity(FacesMessage.SEVERITY_ERROR);
-                facesContext.addMessage(null, facesMessage);
+
+            } else {
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Connexion : ", "Echec de Connexion; login ou mot de passe incorrecte");
+                FacesContext.getCurrentInstance().addMessage(null, message);
                 return "login.xhtml";
             }
-
-        } else {
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Connexion : ", "Echec de Connexion; login ou mot de passe incorrecte");
-            FacesContext.getCurrentInstance().addMessage(null, message);  
-            return "login.xhtml";
-        } 
         } catch (Exception e) {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Connexion : ", "Echec de Connexion; login ou mot de passe incorrecte");
-            FacesContext.getCurrentInstance().addMessage(null, message);  
-            System.out.println("Erreur login "+e);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            System.out.println("Erreur login " + e);
             return "login.xhtml";
-            
+
         }
     }
-    
-    
+
 }
