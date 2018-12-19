@@ -100,6 +100,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "TIntervenir.findByInvDateExpCiPp", query = "SELECT t FROM TIntervenir t WHERE t.invDateExpCiPp = :invDateExpCiPp")})
 public class TIntervenir implements Serializable {
 
+    @JoinColumn(name = "inv_roc_code", referencedColumnName = "roc_code")
+    @ManyToOne
+    private TRolec invRocCode;
+
     @JoinColumn(name = "inv_desi_code", referencedColumnName = "desi_code")
     @ManyToOne
     private TDepotSignature invDesiCode;
@@ -975,6 +979,14 @@ public class TIntervenir implements Serializable {
 
     public void setInvDesiCode(TDepotSignature invDesiCode) {
         this.invDesiCode = invDesiCode;
+    }
+
+    public TRolec getInvRocCode() {
+        return invRocCode;
+    }
+
+    public void setInvRocCode(TRolec invRocCode) {
+        this.invRocCode = invRocCode;
     }
     
 }

@@ -68,6 +68,7 @@ import org.vng.entities.TConditionpaie;
 import org.vng.entities.TDepotSignature;
 //import org.vng.entities.TDepotSignature;
 import org.vng.entities.TDroitExerce;
+import org.vng.entities.TInterprete;
 import org.vng.entities.TIntervenant;
 import org.vng.entities.TIntervenir;
 import org.vng.entities.TModePartage;
@@ -121,6 +122,9 @@ public class TOperationParcelController implements Serializable {
     private org.vng.sessions.TParamettreFacade ejbFacadeParametre;
 
     @EJB
+    private org.vng.sessions.TRoleFacade ejbFacadeRole;
+
+    @EJB
     private org.vng.sessions.TParcellePocaFacade ejbFacadeParcellePoca;
 
     @EJB
@@ -131,8 +135,6 @@ public class TOperationParcelController implements Serializable {
     @EJB
     private org.vng.sessions.TDepotSignatureFacade ejbFacadeDepotSignature;
 
-    //@Resource(mappedName = "java:app/vng", type = DataSource.class)
-    //private DataSource myDB;
     @Resource(lookup = "jdbc/DSappligeo")
     private DataSource dataSource;
     JasperPrint jasperPrint;
@@ -162,9 +164,6 @@ public class TOperationParcelController implements Serializable {
     private TCommune commune;
     private TOperationParcel OperationPreneurIntervenir;
     private TRole roleOperation;
-    //parcelleBafonOperation
-//    private TParcelleBafon parcelleBafonLimitIntervenir;
-    //pour droit exerce
     private TDroitExerce droitExerce;
     private List<TDroitExerce> listDroitExerce;
     private TTypedexerce typeDroitExerce;
@@ -227,10 +226,17 @@ public class TOperationParcelController implements Serializable {
     /////
     private String libBailleur;
     private String libPreneur;
+    private String categorieRole;
+    private List<SelectItem> roletItem;
 
     private boolean estDon = false;
+    
+    private boolean visibleMontant = true;
+     private boolean visibleDateConseilFam = false;
 
     private boolean estvalider = false;
+
+    private boolean visibleSignatureBailleur = true;
 
     private boolean selectModeAcquis = false;
 
@@ -242,6 +248,30 @@ public class TOperationParcelController implements Serializable {
 
     public List<Parcelle> getParcelleLimites() {
         return parcelleLimites;
+    }
+
+    public boolean isVisibleMontant() {
+        return visibleMontant;
+    }
+
+    public void setVisibleMontant(boolean visibleMontant) {
+        this.visibleMontant = visibleMontant;
+    }
+
+    public boolean isVisibleDateConseilFam() {
+        return visibleDateConseilFam;
+    }
+
+    public void setVisibleDateConseilFam(boolean visibleDateConseilFam) {
+        this.visibleDateConseilFam = visibleDateConseilFam;
+    }
+
+    public boolean isVisibleSignatureBailleur() {
+        return visibleSignatureBailleur;
+    }
+
+    public void setVisibleSignatureBailleur(boolean visibleSignatureBailleur) {
+        this.visibleSignatureBailleur = visibleSignatureBailleur;
     }
 
     public List<SelectItem> getListeContrePartie() {
@@ -306,33 +336,56 @@ public class TOperationParcelController implements Serializable {
     public void setListfichierAfficher(List<File> listfichierAfficher) {
         this.listfichierAfficher = listfichierAfficher;
     }
-    
+        public void setInterprete(TInterprete interprete){
+                if(selected!=null){
+                    selected.setOpvIntpCode(interprete);
+                    selected.setOpvNomInterprete(interprete.getIntpNom()+" "+interprete.getIntpPrenom());
+                }
+        }
     ///////////initialise contrepartie et modalite
-    private void initContrePartieModalite(){
-    	    listeContrePartie= new ArrayList<SelectItem>();
-            
-            //listeContrePartie.add(new SelectItem(" ------- " ) );
-            listeContrePartie.add(new SelectItem("CADEAUX SYMBOLIQUES", "CADEAUX SYMBOLIQUES" ) );
-            listeContrePartie.add(new SelectItem("REDEVANCES", "REDEVANCES" ) );            
-            listeContrePartie.add(new SelectItem("REDEVANCES", "REDEVANCES" ) );
-            listeContrePartie.add(new SelectItem("RECOLTE", "ARGENT" ) );
-            listeContrePartie.add(new SelectItem("REDEVANCES EN PARTS DE RECOLTES ET PARFOIS EN ARGENT", "REDEVANCES EN PARTS DE RECOLTES ET PARFOIS EN ARGENT" ) );
-            listeContrePartie.add(new SelectItem("PRESTATIONS EN JOURS DE TRAVAIL", "PRESTATIONS EN JOURS DE TRAVAIL" ) );
-            listeContrePartie.add(new SelectItem("TROC", "TROC" ) );
-            listeContrePartie.add(new SelectItem("AUTRES( A PRECISER)", "AUTRES( A PRECISER)" ) );
-            setListeContrePartie(listeContrePartie);
-            
-            listeAutreModalite= new ArrayList<SelectItem>();
-            listeAutreModalite.add(new SelectItem("SANS PAPIER(S)", "SANS PAPIER(S)" ) );
-            listeAutreModalite.add(new SelectItem("CONVENTION DE VENTE", "CONVENTION DE VENTE" ) );            
-            listeAutreModalite.add(new SelectItem("TITRE FONCTIER", "TITRE FONCTIER" ) );
-            listeAutreModalite.add(new SelectItem("ACTE SOUS SEING PRIVE", "ACTE SOUS SEING PRIVE" ) );
-            listeAutreModalite.add(new SelectItem("EN PRESENCE DE TEMOIN", "EN PRESENCE DE TEMOIN" ) );
-            listeAutreModalite.add(new SelectItem("SANS TEMOIN(S)", "SANS TEMOIN(S)" ) );
-            listeAutreModalite.add(new SelectItem("AUTRES( A PRECISER)", "AUTRES( A PRECISER)" ) );
-            setListeAutreModalite(listeAutreModalite);
+    private void initContrePartieModalite() {
+        listeContrePartie = new ArrayList<SelectItem>();
+
+        //listeContrePartie.add(new SelectItem(" ------- " ) );
+        listeContrePartie.add(new SelectItem("CADEAUX SYMBOLIQUES", "CADEAUX SYMBOLIQUES"));
+        listeContrePartie.add(new SelectItem("REDEVANCES", "REDEVANCES"));
+        listeContrePartie.add(new SelectItem("REDEVANCES", "REDEVANCES"));
+        listeContrePartie.add(new SelectItem("RECOLTE", "ARGENT"));
+        listeContrePartie.add(new SelectItem("REDEVANCES EN PARTS DE RECOLTES ET PARFOIS EN ARGENT", "REDEVANCES EN PARTS DE RECOLTES ET PARFOIS EN ARGENT"));
+        listeContrePartie.add(new SelectItem("PRESTATIONS EN JOURS DE TRAVAIL", "PRESTATIONS EN JOURS DE TRAVAIL"));
+        listeContrePartie.add(new SelectItem("TROC", "TROC"));
+        listeContrePartie.add(new SelectItem("AUTRES( A PRECISER)", "AUTRES( A PRECISER)"));
+        setListeContrePartie(listeContrePartie);
+
+        listeAutreModalite = new ArrayList<SelectItem>();
+        listeAutreModalite.add(new SelectItem("SANS PAPIER(S)", "SANS PAPIER(S)"));
+        listeAutreModalite.add(new SelectItem("CONVENTION DE VENTE", "CONVENTION DE VENTE"));
+        listeAutreModalite.add(new SelectItem("TITRE FONCTIER", "TITRE FONCTIER"));
+        listeAutreModalite.add(new SelectItem("ACTE SOUS SEING PRIVE", "ACTE SOUS SEING PRIVE"));
+        listeAutreModalite.add(new SelectItem("EN PRESENCE DE TEMOIN", "EN PRESENCE DE TEMOIN"));
+        listeAutreModalite.add(new SelectItem("SANS TEMOIN(S)", "SANS TEMOIN(S)"));
+        listeAutreModalite.add(new SelectItem("AUTRES( A PRECISER)", "AUTRES( A PRECISER)"));
+        setListeAutreModalite(listeAutreModalite);
     }
     ////////////
+
+    public List<SelectItem> getRoletItem() {
+        return roletItem;
+    }
+
+    public void setRoletItem(List<SelectItem> roletItem) {
+        this.roletItem = roletItem;
+    }
+
+    ///////////////////select des roles
+    public void initRoleItem(String categorie) {
+        List<SelectItem> RoleItem = new ArrayList<>();
+        List<TRole> listrol = ejbFacadeRole.executeListRoleCat(categorie);
+        for (TRole rol : listrol) {
+            RoleItem.add(new SelectItem(rol, rol.getRolCode() + " --> " + rol.getRolDesig()));
+        }
+        setRoletItem(RoleItem);
+    }
 
 /////////////////////////affichage image/////////////////////////
     public void recupelisteDocJoint() {
@@ -837,7 +890,7 @@ public class TOperationParcelController implements Serializable {
         //typeDroitItem = ejbFacadeTypedroit.executeListeTypeDroit("DE");
         genererListTypeDroit("DE");
         setLimitationchaine("FALSE");
-        setLimitationchaineop("FALSE");     
+        setLimitationchaineop("FALSE");
         //recupCheminRacine();
         //intervenirPreneur.setInvLimitation(false);
     }
@@ -950,6 +1003,7 @@ public class TOperationParcelController implements Serializable {
         String page = "";
         setTypeOperation(operation);
         if (operation.equals("VENTE")) {
+            setVisibleSignatureBailleur(true);
             setLibPreneur("Acheteur");
             setLibBailleur("Vendeur");
             /////////////pas de limitation/////////////////////
@@ -969,17 +1023,20 @@ public class TOperationParcelController implements Serializable {
             maqs.add(modeAcquisition);
             GenererItemsOperationMode(maqs);
             setEstDon(false);
+            setVisibleDateConseilFam(false);
+            setVisibleMontant(true);
+            ////init role
+            initRoleItem("DE");
             page = "/vues/tOperationParcel/operaDroitAdminparcelle.xhtml";
         } else {  /////pour toutes autres operations rendre visible
             /////////////limitation/////////////////////
             intervenirPreneur.setInvLimitation(true);
-            /////////////////
             ////////////////////temoins vendeur
             setVisibleTemoinVendeur(true);
-            ///////////////
         }
         ///////////////////////////////////////////////////////////
         if (operation.equals("DON")) {
+            setVisibleSignatureBailleur(true);
             setLibPreneur("Bénéficiaire");
             setLibBailleur("Donateur");
             setSelectModeAcquis(false);
@@ -992,16 +1049,20 @@ public class TOperationParcelController implements Serializable {
             selected.setOpvPrix(0l);
             setEstdroitoperationnel(false);
             System.out.println(operation);
+            setVisibleDateConseilFam(false);
+            setVisibleMontant(false);
             //////////pas d'affirmation
             setVisibleAffirmation(false);
+            initRoleItem("DE");
             ///////////////////
             page = "/vues/tOperationParcel/operaDroitAdminparcelle.xhtml";
             setEstDon(true);
         }
 
         if (operation.equals("HERITAGE")) {
+            setVisibleSignatureBailleur(false);
             setLibPreneur("Héritier");
-            setLibBailleur("Parent");
+            setLibBailleur("Défunt");
             setSelectModeAcquis(true);
             setEstdroitoperationnel(false);
             ArrayList<TModeacquis> maqs = new ArrayList<>();
@@ -1016,13 +1077,20 @@ public class TOperationParcelController implements Serializable {
             GenererItemsOperationMode(maqs);
             System.out.println(operation);
             setEstDon(true);
+            setVisibleDateConseilFam(true);
+            setVisibleMontant(false);
             //////////pas d'affirmation
             setVisibleAffirmation(false);
             selected.setOpvPrix(0l);
+            initRoleItem("DE");
             page = "/vues/tOperationParcel/operaDroitAdminparcelle.xhtml";
         }
 
         if (operation.equals("OPERATIONNEL")) {
+            modeAcquisition = new TModeacquis();
+            setModeAcquisition(modeAcquisition);
+            selected.setOpvMacCode(modeAcquisition);
+            setVisibleSignatureBailleur(true);
             setLibPreneur("Preneur");
             setLibBailleur("Bailleur");
             setSelectModeAcquis(true);
@@ -1030,7 +1098,10 @@ public class TOperationParcelController implements Serializable {
             System.out.println(operation);
             GenererItemsOperationCatMode("OP");
             genererListTypeDroit("OP");
+            initRoleItem("OP");
             setEstDon(false);
+            setVisibleDateConseilFam(false);
+            setVisibleMontant(true);
             //////////affirmation
             setVisibleAffirmation(true);
             page = "/vues/tOperationParcel/operaDroitAdminparcelle.xhtml";
@@ -1052,6 +1123,8 @@ public class TOperationParcelController implements Serializable {
             selected.setOpvDateValidation(new Date());
             ejbFacade.edit(selected);
             setEstvalider(true);
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Validation de l'operation : ", "Operation validee avec succes");
+            FacesContext.getCurrentInstance().addMessage(null, message);
         } catch (Exception e) {
         }
     }

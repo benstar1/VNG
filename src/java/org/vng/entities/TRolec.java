@@ -19,6 +19,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -32,6 +33,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "TRolec.findByRocCode", query = "SELECT t FROM TRolec t WHERE t.rocCode = :rocCode")
     , @NamedQuery(name = "TRolec.findByRocDesig", query = "SELECT t FROM TRolec t WHERE t.rocDesig = :rocDesig")})
 public class TRolec implements Serializable {
+
+    @OneToMany(mappedBy = "invRocCode")
+    private List<TIntervenir> tIntervenirList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -101,6 +105,16 @@ public class TRolec implements Serializable {
     @Override
     public String toString() {
         return "org.vng.entities.TRolec[ rocCode=" + rocCode + " ]";
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public List<TIntervenir> getTIntervenirList() {
+        return tIntervenirList;
+    }
+
+    public void setTIntervenirList(List<TIntervenir> tIntervenirList) {
+        this.tIntervenirList = tIntervenirList;
     }
     
 }

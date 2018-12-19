@@ -1,12 +1,11 @@
 package org.vng.controlers;
 
-import org.vng.entities.TRole;
+import org.vng.entities.TInterprete;
 import org.vng.controlers.util.JsfUtil;
 import org.vng.controlers.util.JsfUtil.PersistAction;
-import org.vng.sessions.TRoleFacade;
+import org.vng.sessions.TInterpreteFacade;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -19,25 +18,24 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.faces.model.SelectItem;
 
-@Named("tRoleController")
+@Named("tInterpreteController")
 @SessionScoped
-public class TRoleController implements Serializable {
+public class TInterpreteController implements Serializable {
 
     @EJB
-    private org.vng.sessions.TRoleFacade ejbFacade;
-    private List<TRole> items = null;
-    private TRole selected;
+    private org.vng.sessions.TInterpreteFacade ejbFacade;
+    private List<TInterprete> items = null;
+    private TInterprete selected;
 
-    public TRoleController() {
+    public TInterpreteController() {
     }
 
-    public TRole getSelected() {
+    public TInterprete getSelected() {
         return selected;
     }
 
-    public void setSelected(TRole selected) {
+    public void setSelected(TInterprete selected) {
         this.selected = selected;
     }
 
@@ -47,54 +45,41 @@ public class TRoleController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private TRoleFacade getFacade() {
+    private TInterpreteFacade getFacade() {
         return ejbFacade;
     }
 
-    public TRole prepareCreate() {
-        selected = new TRole();
+    public TInterprete prepareCreate() {
+        selected = new TInterprete();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TRoleCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TInterpreteCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("TRoleUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("TInterpreteUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("TRoleDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("TInterpreteDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<TRole> getItems() {
+    public List<TInterprete> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
         return items;
     }
-    
-     public List<SelectItem> getRoleItem() {
-        List<SelectItem> RoleItem = new ArrayList<>();
-        List<TRole> listrol = getFacade().findAll();
-         
-        for (TRole rol : listrol) {
-            RoleItem.add(new SelectItem(rol, rol.getRolCode()+ " --> " + rol.getRolDesig()));
-        }
-        return RoleItem;
-    }
-     
-    
-    
 
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
@@ -124,29 +109,29 @@ public class TRoleController implements Serializable {
         }
     }
 
-    public TRole getTRole(java.lang.String id) {
+    public TInterprete getTInterprete(java.lang.String id) {
         return getFacade().find(id);
     }
 
-    public List<TRole> getItemsAvailableSelectMany() {
+    public List<TInterprete> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<TRole> getItemsAvailableSelectOne() {
+    public List<TInterprete> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = TRole.class)
-    public static class TRoleControllerConverter implements Converter {
+    @FacesConverter(forClass = TInterprete.class)
+    public static class TInterpreteControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            TRoleController controller = (TRoleController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "tRoleController");
-            return controller.getTRole(getKey(value));
+            TInterpreteController controller = (TInterpreteController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "tInterpreteController");
+            return controller.getTInterprete(getKey(value));
         }
 
         java.lang.String getKey(String value) {
@@ -166,11 +151,11 @@ public class TRoleController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof TRole) {
-                TRole o = (TRole) object;
-                return getStringKey(o.getRolCode());
+            if (object instanceof TInterprete) {
+                TInterprete o = (TInterprete) object;
+                return getStringKey(o.getIntpCode());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), TRole.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), TInterprete.class.getName()});
                 return null;
             }
         }

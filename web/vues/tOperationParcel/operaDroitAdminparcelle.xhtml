@@ -141,13 +141,17 @@
                                                         <p:inputText required="true"  disabled="true" value="#{tOperationParcelController.selected.opvMacCode.macDesig}" />
                                                         <p:commandButton disabled="#{tOperationParcelController.estvalider}" rendered="#{tOperationParcelController.selectModeAcquis}" title="selection parcelle" icon="fa fa-folder-open" styleClass="green-btn" oncomplete="PF('TModeAcquisListDlg').show()" ajax="true"/>
                                                     </p:panelGrid>
-                                                    <p:outputLabel value="Montant"  />
-                                                    <p:inputNumber  thousandSeparator=" "  decimalPlaces="0"  disabled="#{tOperationParcelController.estDon}" value="#{tOperationParcelController.selected.opvPrix}" />
+                                                    <p:outputLabel value="Montant" rendered="#{tOperationParcelController.visibleMontant}"  />
+                                                    <p:inputNumber rendered="#{tOperationParcelController.visibleMontant}"  thousandSeparator=" "  decimalPlaces="0"  disabled="#{tOperationParcelController.estDon}" value="#{tOperationParcelController.selected.opvPrix}" />
+
+                                                    <p:outputLabel value="Date conseil de famille" rendered="#{tOperationParcelController.visibleDateConseilFam}"  />
+                                                    <p:calendar pattern="dd-MM-yyyy" locale="fr"   rendered="#{tOperationParcelController.visibleDateConseilFam}" value="#{tOperationParcelController.selected.opvDateConseilFam}" />
+
                                                 </p:panelGrid>
                                             </p:tab> 
                                             <p:tab rendered="#{tOperationParcelController.estdroitoperationnel}" title="Conditions II">
                                                 <p:panelGrid columns="2">
-                                                  
+
                                                     <p:outputLabel value="Date début"  />
                                                     <p:calendar pattern="dd-MM-yyyy" locale="fr"  style="margin: 10px" value="#{tOperationParcelController.selected.opvDateDeb}">
                                                     </p:calendar>
@@ -155,7 +159,7 @@
                                                     <p:outputLabel value="Date fin"  />
                                                     <p:calendar pattern="dd-MM-yyyy" locale="fr" style="margin: 10px" value="#{tOperationParcelController.selected.opvDateFin}">
                                                     </p:calendar>
-                                                    
+
                                                     <p:outputLabel value="Durée"  />
                                                     <p:inputText  disabled="#{tOperationParcelController.estDon}" value="#{tOperationParcelController.selected.opvDuree}" />
 
@@ -176,7 +180,7 @@
                                                         <f:selectItem itemLabel="Choisissez une modalité " itemValue="" />
                                                         <f:selectItems value="#{tOperationParcelController.listeAutreModalite}" />
                                                     </p:selectOneMenu>
-                                               
+
                                                     <p:outputLabel value="Modalité de paiement"  />
                                                     <p:inputText  disabled="#{tOperationParcelController.estDon}" value="#{tOperationParcelController.selected.opvAutremodalite}" />
 
@@ -208,7 +212,7 @@
                                                     <p:outputLabel value="Role" for="role" />     
                                                     <p:selectOneMenu  value="#{tOperationParcelController.roleOperation}" id="role" style="margin-bottom:10px;" >
                                                         <f:selectItem itemLabel="Choisissez un role " itemValue="" />
-                                                        <f:selectItems value="#{tRoleController.roleItem}" />
+                                                        <f:selectItems value="#{tOperationParcelController.roletItem}" />setRoletItem
                                                         <p:ajax event="change" process="@this"  />
                                                     </p:selectOneMenu>
 
@@ -316,8 +320,8 @@
                                                 <p:inputText readonly="true" value="#{tOperationParcelController.domicile}" />
                                                 <p:outputLabel value="Age"/>
                                                 <p:inputText readonly="true" value="#{tOperationParcelController.age}" />
-                                                <p:outputLabel value="Reférence signature"/>
-                                                <p:panelGrid columns="2">
+                                                <p:outputLabel value="Reférence signature" rendered="#{tOperationParcelController.visibleSignatureBailleur}"/>
+                                                <p:panelGrid columns="2" rendered="#{tOperationParcelController.visibleSignatureBailleur}">
                                                     <p:inputText required="true" disabled="true" id="refSignatureBailleur" value="#{tOperationParcelController.signatureBail.desiReference}" /> 
                                                     <p:commandButton disabled="#{tOperationParcelController.estvalider}"  title="signature" icon="fa fa-folder-open" styleClass="green-btn" onclick="PF('TSignatureBailDlg').show()" ajax="true"/>
                                                     <p:inputText rendered="false" required="true" disabled="true" id="signatureBailleur" value="#{tOperationParcelController.signatureBail}" /> 
@@ -332,8 +336,9 @@
                                             <p:panelGrid columns="2">
                                                 <p:outputLabel value="Reférence signature"/>
                                                 <p:panelGrid columns="2">
-                                                    <p:inputText required="true" disabled="true" value="#{tOperationParcelController.signaturePren}" id="signaturePreneur" /> 
-                                                    <p:commandButton disabled="#{tOperationParcelController.estvalider}"  title="enregistrer" icon="fa fa-folder-open" styleClass="green-btn" onclick="PF('TSignaturePrenDlg').show()" ajax="true"/>
+                                                    <p:inputText required="true" disabled="true" id="refSignaturePreneur" value="#{tOperationParcelController.signaturePren.desiReference}" /> 
+                                                    <p:commandButton disabled="#{tOperationParcelController.estvalider}"  title="enregistrer" icon="fa fa-folder-open" styleClass="green-btn" onclick="PF('TSignaturePrenDlg').show()" ajax="true"/>               
+                                                    <p:inputText rendered="false" required="true" disabled="true" value="#{tOperationParcelController.signaturePren}" id="signaturePreneur" />                             
                                                 </p:panelGrid>
                                                 <p:outputLabel value="Nom"/>
                                                 <p:inputText value="#{tOperationParcelController.intervenantPreneur.intNom}" />
@@ -451,19 +456,24 @@
                                             <p:panelGrid columns="2">
                                                 <p:outputLabel value="Numero"/>
                                                 <p:inputText  value="#{tOperationParcelController.selected.opvNumeroAffirmation}" />
+                                                <p:outputLabel value="Date Enregistrement"/>
+                                                <p:calendar pattern="dd-MM-yyyy" locale="fr"  value="#{tOperationParcelController.selected.opvDateAffirmation}" />
 
                                                 <p:outputLabel value="Numero Signataire"/>
                                                 <p:panelGrid columns="2">
-                                                    <p:inputText disabled="true" id="numsignataire" value="#{tOperationParcelController.selected.opvSignCode}" />
+                                                    <p:inputText id="nomsignataire" disabled="true" value="#{tOperationParcelController.selected.opvNomMaire}" />
                                                     <p:commandButton disabled="#{tOperationParcelController.estvalider}"  title="selection signataire" icon="fa fa-folder-open" styleClass="green-btn" oncomplete="PF('TSignataireListDlg').show()" ajax="true"/>
+                                                    <p:inputText rendered="false" disabled="true" id="numsignataire" value="#{tOperationParcelController.selected.opvSignCode}" />
 
                                                 </p:panelGrid>
 
-                                                <p:outputLabel value="Nom Signataire"/>
-                                                <p:inputText id="nomsignataire" disabled="true" value="#{tOperationParcelController.selected.opvNomMaire}" />
 
                                                 <p:outputLabel value="Interprete"/>
-                                                <p:inputText value="#{tOperationParcelController.selected.opvNomInterprete}" />
+                                                <p:panelGrid columns="2">
+                                                    <p:inputText disabled="true" value="#{tOperationParcelController.selected.opvNomInterprete}" />
+                                                    <p:commandButton disabled="#{tOperationParcelController.estvalider}"  title="selection interprete" icon="fa fa-folder-open" styleClass="green-btn" oncomplete="PF('TInterpreteDlg').show()" ajax="true"/>
+                                                    <p:inputText rendered="false" value="#{tOperationParcelController.selected.opvIntpCode}" />
+                                                </p:panelGrid>
                                             </p:panelGrid>
                                         </p:panel>
 
@@ -494,6 +504,7 @@
         <ui:include src="ListConditionPaie.xhtml"/>
         <ui:include src="ListModePartage.xhtml"/>
         <ui:include src="AfficheListdocument.xhtml"/>
+        <ui:include src="ListInterprete.xhtml"/>
 
     </ui:define>
 

@@ -85,6 +85,17 @@ import javax.xml.bind.annotation.XmlTransient;
 //@SequenceGenerator(name="tOperationParcelSequence", initialValue=1, allocationSize=1,sequenceName = "seq_id_operation_parcel")
 public class TOperationParcel implements Serializable {
 
+    @Column(name = "opv_date_affirmation")
+    @Temporal(TemporalType.DATE)
+    private Date opvDateAffirmation;
+
+    @Column(name = "opv_date_conseil_fam")
+    @Temporal(TemporalType.DATE)
+    private Date opvDateConseilFam;
+    @JoinColumn(name = "opv_intp_code", referencedColumnName = "intp_code")
+    @ManyToOne
+    private TInterprete opvIntpCode;
+
     @Size(max = 10)
     @Column(name = "opv_statut")
     private String opvStatut;
@@ -778,6 +789,30 @@ public class TOperationParcel implements Serializable {
     public void setOpvSignCode(TSignataire opvSignCode) {
         this.opvSignCode = opvSignCode;
         this.setOpvNomMaire(opvSignCode.getSignNom()+" "+opvSignCode.getSignPrenom());
+    }
+
+    public Date getOpvDateConseilFam() {
+        return opvDateConseilFam;
+    }
+
+    public void setOpvDateConseilFam(Date opvDateConseilFam) {
+        this.opvDateConseilFam = opvDateConseilFam;
+    }
+
+    public TInterprete getOpvIntpCode() {
+        return opvIntpCode;
+    }
+
+    public void setOpvIntpCode(TInterprete opvIntpCode) {
+        this.opvIntpCode = opvIntpCode;
+    }
+
+    public Date getOpvDateAffirmation() {
+        return opvDateAffirmation;
+    }
+
+    public void setOpvDateAffirmation(Date opvDateAffirmation) {
+        this.opvDateAffirmation = opvDateAffirmation;
     }
     
 }

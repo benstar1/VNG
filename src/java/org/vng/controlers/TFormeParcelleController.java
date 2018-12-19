@@ -1,12 +1,11 @@
 package org.vng.controlers;
 
-import org.vng.entities.TRole;
+import org.vng.entities.TFormeParcelle;
 import org.vng.controlers.util.JsfUtil;
 import org.vng.controlers.util.JsfUtil.PersistAction;
-import org.vng.sessions.TRoleFacade;
+import org.vng.sessions.TFormeParcelleFacade;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -19,25 +18,24 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.faces.model.SelectItem;
 
-@Named("tRoleController")
+@Named("tFormeParcelleController")
 @SessionScoped
-public class TRoleController implements Serializable {
+public class TFormeParcelleController implements Serializable {
 
     @EJB
-    private org.vng.sessions.TRoleFacade ejbFacade;
-    private List<TRole> items = null;
-    private TRole selected;
+    private org.vng.sessions.TFormeParcelleFacade ejbFacade;
+    private List<TFormeParcelle> items = null;
+    private TFormeParcelle selected;
 
-    public TRoleController() {
+    public TFormeParcelleController() {
     }
 
-    public TRole getSelected() {
+    public TFormeParcelle getSelected() {
         return selected;
     }
 
-    public void setSelected(TRole selected) {
+    public void setSelected(TFormeParcelle selected) {
         this.selected = selected;
     }
 
@@ -47,54 +45,41 @@ public class TRoleController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private TRoleFacade getFacade() {
+    private TFormeParcelleFacade getFacade() {
         return ejbFacade;
     }
 
-    public TRole prepareCreate() {
-        selected = new TRole();
+    public TFormeParcelle prepareCreate() {
+        selected = new TFormeParcelle();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TRoleCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TFormeParcelleCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("TRoleUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("TFormeParcelleUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("TRoleDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("TFormeParcelleDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<TRole> getItems() {
+    public List<TFormeParcelle> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
         return items;
     }
-    
-     public List<SelectItem> getRoleItem() {
-        List<SelectItem> RoleItem = new ArrayList<>();
-        List<TRole> listrol = getFacade().findAll();
-         
-        for (TRole rol : listrol) {
-            RoleItem.add(new SelectItem(rol, rol.getRolCode()+ " --> " + rol.getRolDesig()));
-        }
-        return RoleItem;
-    }
-     
-    
-    
 
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
@@ -124,29 +109,29 @@ public class TRoleController implements Serializable {
         }
     }
 
-    public TRole getTRole(java.lang.String id) {
+    public TFormeParcelle getTFormeParcelle(java.lang.String id) {
         return getFacade().find(id);
     }
 
-    public List<TRole> getItemsAvailableSelectMany() {
+    public List<TFormeParcelle> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<TRole> getItemsAvailableSelectOne() {
+    public List<TFormeParcelle> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = TRole.class)
-    public static class TRoleControllerConverter implements Converter {
+    @FacesConverter(forClass = TFormeParcelle.class)
+    public static class TFormeParcelleControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            TRoleController controller = (TRoleController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "tRoleController");
-            return controller.getTRole(getKey(value));
+            TFormeParcelleController controller = (TFormeParcelleController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "tFormeParcelleController");
+            return controller.getTFormeParcelle(getKey(value));
         }
 
         java.lang.String getKey(String value) {
@@ -166,11 +151,11 @@ public class TRoleController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof TRole) {
-                TRole o = (TRole) object;
-                return getStringKey(o.getRolCode());
+            if (object instanceof TFormeParcelle) {
+                TFormeParcelle o = (TFormeParcelle) object;
+                return getStringKey(o.getFopaCode());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), TRole.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), TFormeParcelle.class.getName()});
                 return null;
             }
         }

@@ -5,9 +5,11 @@
  */
 package org.vng.sessions;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import org.vng.entities.TRole;
 
 /**
@@ -23,6 +25,18 @@ public class TRoleFacade extends AbstractFacade<TRole> {
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+    
+        public List<TRole> executeListRoleCat(String categorie){
+        int i=0;
+         List<TRole> listRole =null;
+        try{
+            Query q=em.createNamedQuery("TRole.findByRolCat").setParameter("rolCat",categorie);
+            listRole =  q.getResultList();
+        }catch(Exception e){
+            System.out.println("Probleme de selection des roles "+e);
+        }
+        return listRole;
     }
 
     public TRoleFacade() {

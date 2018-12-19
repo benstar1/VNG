@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TInterpreteViewDlg" widgetVar="TInterpreteViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTInterpreteTitle}">
+            <h:form id="TInterpreteViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tInterpreteController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTInterpreteLabel_intpCode}"/>
+                        <h:outputText value="#{tInterpreteController.selected.intpCode}" title="#{bundle.ViewTInterpreteTitle_intpCode}"/>
+                        <h:outputText value="#{bundle.ViewTInterpreteLabel_intpNom}"/>
+                        <h:outputText value="#{tInterpreteController.selected.intpNom}" title="#{bundle.ViewTInterpreteTitle_intpNom}"/>
+                        <h:outputText value="#{bundle.ViewTInterpreteLabel_intpPrenom}"/>
+                        <h:outputText value="#{tInterpreteController.selected.intpPrenom}" title="#{bundle.ViewTInterpreteTitle_intpPrenom}"/>
+                        <h:outputText value="#{bundle.ViewTInterpreteLabel_intpActif}"/>
+                        <p:selectBooleanCheckbox value="#{tInterpreteController.selected.intpActif}" disabled="true"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TInterpreteViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

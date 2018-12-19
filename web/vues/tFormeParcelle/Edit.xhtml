@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TFormeParcelleEditDlg" widgetVar="TFormeParcelleEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTFormeParcelleTitle}">
+            <h:form id="TFormeParcelleEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tFormeParcelleController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTFormeParcelleLabel_fopaCode}" for="fopaCode" />
+                        <p:inputText id="fopaCode" value="#{tFormeParcelleController.selected.fopaCode}" title="#{bundle.EditTFormeParcelleTitle_fopaCode}" required="true" requiredMessage="#{bundle.EditTFormeParcelleRequiredMessage_fopaCode}"/>
+                        <p:outputLabel value="#{bundle.EditTFormeParcelleLabel_fopaDesig}" for="fopaDesig" />
+                        <p:inputText id="fopaDesig" value="#{tFormeParcelleController.selected.fopaDesig}" title="#{bundle.EditTFormeParcelleTitle_fopaDesig}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tFormeParcelleController.update}" value="#{bundle.Save}" update="display,:TFormeParcelleListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TFormeParcelleEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TFormeParcelleEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
