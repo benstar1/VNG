@@ -748,7 +748,7 @@ public class TOperationParcel implements Serializable {
     public void setTDroitExerceList(List<TDroitExerce> tDroitExerceList) {
         this.tDroitExerceList = tDroitExerceList;
     }
-
+//
     @XmlTransient
     public List<TDroitExerce> getTDroitExerceList1() {
         return tDroitExerceList1;
